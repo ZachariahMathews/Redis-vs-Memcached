@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2650348398">
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;debugmsg&apos; is always false" verbose="Condition &apos;debugmsg&apos; is always false" cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="345" info="Condition &apos;debugmsg&apos; is always false"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="329" info="Assignment &apos;debugmsg=0&apos;, assigned value is 0"/>
+        </error>
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;debugmsg&apos; is always false" verbose="Condition &apos;debugmsg&apos; is always false" cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="350" info="Condition &apos;debugmsg&apos; is always false"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="329" info="Assignment &apos;debugmsg=0&apos;, assigned value is 0"/>
+        </error>
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;debugmsg&apos; is always false" verbose="Condition &apos;debugmsg&apos; is always false" cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="373" info="Condition &apos;debugmsg&apos; is always false"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="329" info="Assignment &apos;debugmsg=0&apos;, assigned value is 0"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="345"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="357"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="374"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;member&apos; can be reduced." verbose="The scope of the variable &apos;member&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="230"/>
+            <symbol>member</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="238"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;option_length&apos; can be reduced." verbose="The scope of the variable &apos;option_length&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="577"/>
+            <symbol>option_length</symbol>
+        </error>
+        <error id="shiftNegative" severity="error" msg="Shifting by a negative value is undefined behaviour" verbose="Shifting by a negative value is undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="740"/>
+        </error>
+        <error id="signConversion" severity="warning" msg="Suspicious code: sign conversion of - in calculation, even though - can have a negative value" verbose="Suspicious code: sign conversion of - in calculation, even though - can have a negative value" cwe="195">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" file="C:\Users\bharm\Downloads\redis-unstable\src\geo.c" line="740"/>
+            <symbol>-</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="geoArrayCreate" lineNumber="53"/>
+    <functiondecl functionName="geoArrayAppend" lineNumber="64"/>
+    <functiondecl functionName="geoArrayFree" lineNumber="75"/>
+    <functiondecl functionName="decodeGeohash" lineNumber="85"/>
+    <functiondecl functionName="extractLongLatOrReply" lineNumber="93"/>
+    <functiondecl functionName="longLatFromMember" lineNumber="113"/>
+    <functiondecl functionName="extractUnitOrReply" lineNumber="127"/>
+    <functiondecl functionName="extractDistanceOrReply" lineNumber="152"/>
+    <functiondecl functionName="addReplyDoubleDistance" lineNumber="179"/>
+    <functiondecl functionName="geoAppendIfWithinRadius" lineNumber="191"/>
+    <functiondecl functionName="geoGetPointsInRange" lineNumber="225"/>
+    <functiondecl functionName="scoresOfGeoHashBox" lineNumber="289"/>
+    <functiondecl functionName="membersOfGeoHashBox" lineNumber="318"/>
+    <functiondecl functionName="membersOfAllNeighbors" lineNumber="326"/>
+    <functiondecl functionName="sort_gp_asc" lineNumber="384"/>
+    <functiondecl functionName="sort_gp_desc" lineNumber="396"/>
+    <functiondecl functionName="geoaddCommand" lineNumber="405"/>
+    <functiondecl functionName="georadiusGeneric" lineNumber="462"/>
+    <functiondecl functionName="georadiusCommand" lineNumber="676"/>
+    <functiondecl functionName="georadiusbymemberCommand" lineNumber="681"/>
+    <functiondecl functionName="georadiusroCommand" lineNumber="686"/>
+    <functiondecl functionName="georadiusbymemberroCommand" lineNumber="691"/>
+    <functiondecl functionName="geohashCommand" lineNumber="699"/>
+    <functiondecl functionName="geoposCommand" lineNumber="753"/>
+    <functiondecl functionName="geodistCommand" lineNumber="786"/>
+    <functioncall functionName="GEOHASH_EAST"/>
+    <functioncall functionName="GEOHASH_NORT_EAST"/>
+    <functioncall functionName="GEOHASH_NORT_WEST"/>
+    <functioncall functionName="GEOHASH_SOUTH"/>
+    <functioncall functionName="GEOHASH_SOUTH_EAST"/>
+    <functioncall functionName="GEOHASH_SOUTH_WEST"/>
+    <functioncall functionName="GEOHASH_WEST"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="__func__"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="addReplyDoubleDistance"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyHumanLongDouble"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="array"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="base_args"/>
+    <functioncall functionName="bits"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buckets"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="conversion"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="createZsetObject"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="dbuf"/>
+    <functioncall functionName="debugmsg"/>
+    <functioncall functionName="decodeGeohash"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dist"/>
+    <functioncall functionName="distance"/>
+    <functioncall functionName="dlen"/>
+    <functioncall functionName="east"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="elelen"/>
+    <functioncall functionName="emptymultibulk"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="extractDistanceOrReply"/>
+    <functioncall functionName="extractLongLatOrReply"/>
+    <functioncall functionName="extractUnitOrReply"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="ga"/>
+    <functioncall functionName="geoAppendIfWithinRadius"/>
+    <functioncall functionName="geoArrayAppend"/>
+    <functioncall functionName="geoArrayCreate"/>
+    <functioncall functionName="geoArrayFree"/>
+    <functioncall functionName="geoGetPointsInRange"/>
+    <functioncall functionName="geohashAlign52Bits"/>
+    <functioncall functionName="geohashDecode"/>
+    <functioncall functionName="geohashDecodeToLongLatWGS84"/>
+    <functioncall functionName="geohashEncode"/>
+    <functioncall functionName="geohashEncodeWGS84"/>
+    <functioncall functionName="geohashGetAreasByRadiusWGS84"/>
+    <functioncall functionName="geohashGetCoordRange"/>
+    <functioncall functionName="geohashGetDistance"/>
+    <functioncall functionName="geohashGetDistanceIfInRadiusWGS84"/>
+    <functioncall functionName="georadius"/>
+    <functioncall functionName="georadiusGeneric"/>
+    <functioncall functionName="getDoubleFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="last_processed"/>
+    <functioncall functionName="lat"/>
+    <functioncall functionName="lat_range"/>
+    <functioncall functionName="latitude"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="lon"/>
+    <functioncall functionName="longLatFromMember"/>
+    <functioncall functionName="long_range"/>
+    <functioncall functionName="longitude"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxelelen"/>
+    <functioncall functionName="member"/>
+    <functioncall functionName="membersOfAllNeighbors"/>
+    <functioncall functionName="membersOfGeoHashBox"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="myarea"/>
+    <functioncall functionName="neighbors"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="north"/>
+    <functioncall functionName="north_east"/>
+    <functioncall functionName="north_west"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="nullmultibulk"/>
+    <functioncall functionName="option_length"/>
+    <functioncall functionName="origincount"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="radius"/>
+    <functioncall functionName="radius_meters"/>
+    <functioncall functionName="range"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="replaceClientCommandVector"/>
+    <functioncall functionName="result_length"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="returned_items"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="score1"/>
+    <functioncall functionName="score2"/>
+    <functioncall functionName="scoresOfGeoHashBox"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="setKey"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sort_gp_asc"/>
+    <functioncall functionName="sort_gp_desc"/>
+    <functioncall functionName="south"/>
+    <functioncall functionName="south_east"/>
+    <functioncall functionName="south_west"/>
+    <functioncall functionName="sptr"/>
+    <functioncall functionName="step"/>
+    <functioncall functionName="storekey"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="to_meter"/>
+    <functioncall functionName="to_meters"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vlong"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="west"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="withcoords"/>
+    <functioncall functionName="withdist"/>
+    <functioncall functionName="withhash"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="xy"/>
+    <functioncall functionName="xyxy"/>
+    <functioncall functionName="zaddCommand"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zobj"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zsetConvertToZiplistIfNeeded"/>
+    <functioncall functionName="zsetScore"/>
+    <functioncall functionName="zsl"/>
+    <functioncall functionName="zslFirstInRange"/>
+    <functioncall functionName="zslInsert"/>
+    <functioncall functionName="zslValueLteMax"/>
+    <functioncall functionName="zzlFirstInRange"/>
+    <functioncall functionName="zzlGetScore"/>
+    <functioncall functionName="zzlNext"/>
+  </FileInfo>
+</analyzerinfo>

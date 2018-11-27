@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2747795229">
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;v[0]==&apos;5&apos;&apos; is always false" verbose="Condition &apos;v[0]==&apos;5&apos;&apos; is always false" cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\lolwut.c" file="C:\Users\bharm\Downloads\redis-unstable\src\lolwut.c" line="51" info="Condition &apos;v[0]==&apos;5&apos;&apos; is always false"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="lolwutUnstableCommand" lineNumber="42"/>
+    <functiondecl functionName="lolwutCommand" lineNumber="49"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lolwut5Command"/>
+    <functioncall functionName="lolwutUnstableCommand"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="rendered"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

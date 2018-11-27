@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1490054203">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="thd_start" lineNumber="12"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="102"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="107"/>
+    <functiondecl functionName="main" lineNumber="116"/>
+    <functiondecl functionName="thd_start" lineNumber="12"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="102"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="107"/>
+    <functiondecl functionName="main" lineNumber="116"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="__func__"/>
+    <functioncall functionName="a0"/>
+    <functioncall functionName="a1"/>
+    <functioncall functionName="ap0"/>
+    <functioncall functionName="ap1"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="assert_u64_le"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="d0"/>
+    <functioncall functionName="d1"/>
+    <functioncall functionName="dp0"/>
+    <functioncall functionName="dp1"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="label_ENOENT"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="malloc_usable_size"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_main_thread"/>
+    <functioncall functionName="test_skip"/>
+    <functioncall functionName="test_subthread"/>
+    <functioncall functionName="thd"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="usize"/>
+  </FileInfo>
+</analyzerinfo>

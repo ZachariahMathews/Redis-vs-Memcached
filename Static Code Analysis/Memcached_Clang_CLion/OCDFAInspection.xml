@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/hash.c</file>
+    <line>7</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/hash.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/sizes.c</file>
+    <line>5</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/sizes.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/extstore.c</file>
+    <line>44</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/extstore.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/slabs.c</file>
+    <line>91</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/slabs.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/items.c</file>
+    <line>69</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/items.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/crawler.c</file>
+    <line>33</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/crawler.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/thread.c</file>
+    <line>27</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/thread.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/itoa_ljust.c</file>
+    <line>73</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/itoa_ljust.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/stats.c</file>
+    <line>21</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/stats.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/sasl_defs.c</file>
+    <line>112</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/sasl_defs.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/cache.c</file>
+    <line>19</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/cache.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/testapp.c</file>
+    <line>35</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/testapp.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/assoc.c</file>
+    <line>59</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/assoc.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/memcached.c</file>
+    <line>74</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/memcached.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/util.c</file>
+    <line>14</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/util.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/timedrun.c</file>
+    <line>12</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/timedrun.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bipbuffer.c</file>
+    <line>18</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bipbuffer.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/slab_automove_extstore.h</file>
+    <line>4</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/slab_automove_extstore.h" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/murmur3_hash.c</file>
+    <line>33</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/murmur3_hash.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/slab_automove.c</file>
+    <line>16</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/slab_automove.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/crc32c.c</file>
+    <line>57</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/crc32c.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/logger.c</file>
+    <line>43</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/logger.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/logger.c</file>
+    <line>778</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/logger.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/logger.c</file>
+    <line>779</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/logger.c" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>Unreachable code</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/slab_automove_extstore.c</file>
+    <line>234</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/slab_automove_extstore.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>Condition is always true</description>
+  </problem>
+</problems>
+

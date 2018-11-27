@@ -1,0 +1,628 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3812964851">
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: node" verbose="Possible null pointer dereference: node" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="581" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="716" info="Calling function &apos;__quicklistDelNode&apos;, 2nd argument &apos;node&apos; value is 0"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;nokeep=NULL&apos;, assigned value is 0"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: node" verbose="Possible null pointer dereference: node" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="583" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="716" info="Calling function &apos;__quicklistDelNode&apos;, 2nd argument &apos;node&apos; value is 0"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;nokeep=NULL&apos;, assigned value is 0"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: node" verbose="Possible null pointer dereference: node" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="598" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="716" info="Calling function &apos;__quicklistDelNode&apos;, 2nd argument &apos;node&apos; value is 0"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;nokeep=NULL&apos;, assigned value is 0"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: node" verbose="Possible null pointer dereference: node" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="600" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="716" info="Calling function &apos;__quicklistDelNode&apos;, 2nd argument &apos;node&apos; value is 0"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;nokeep=NULL&apos;, assigned value is 0"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: keep" verbose="Possible null pointer dereference: keep" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="712" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;keep=NULL&apos;, assigned value is 0"/>
+            <symbol>keep</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: keep" verbose="Possible null pointer dereference: keep" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="713" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;keep=NULL&apos;, assigned value is 0"/>
+            <symbol>keep</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: nokeep" verbose="Possible null pointer dereference: nokeep" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="715" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;nokeep=NULL&apos;, assigned value is 0"/>
+            <symbol>nokeep</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: keep" verbose="Possible null pointer dereference: keep" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="717" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="704" info="Assignment &apos;keep=NULL&apos;, assigned value is 0"/>
+            <symbol>keep</symbol>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: nextFn" verbose="Possible null pointer dereference: nextFn" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1149" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1133" info="Assignment &apos;nextFn=NULL&apos;, assigned value is 0"/>
+            <symbol>nextFn</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;offset_update&apos; can be reduced." verbose="The scope of the variable &apos;offset_update&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1134"/>
+            <symbol>offset_update</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;longstr&apos; can be reduced." verbose="The scope of the variable &apos;longstr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1291"/>
+            <symbol>longstr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;vstr&apos; can be reduced." verbose="The scope of the variable &apos;vstr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1373"/>
+            <symbol>vstr</symbol>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1524"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 2) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." verbose="%u in format string (no. 2) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1524"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1529"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1556"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1556"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 3) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 3) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1556"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1564"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 3) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 3) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1564"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1578"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1578"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." verbose="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1578"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1578"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1588"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1588"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." verbose="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1588"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1588"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 8) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 8) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1588"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 1) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2012"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2614"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." verbose="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2614"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2622"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." verbose="%u in format string (no. 5) requires &apos;unsigned int&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2622"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2622"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="2647"/>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;node&apos; is redundant or there is possible null pointer dereference: node." verbose="Either the condition &apos;node&apos; is redundant or there is possible null pointer dereference: node." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1586" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1576" info="Assuming that condition &apos;node&apos; is not redundant"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;node&apos; is redundant or there is possible null pointer dereference: node." verbose="Either the condition &apos;node&apos; is redundant or there is possible null pointer dereference: node." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1587" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1576" info="Assuming that condition &apos;node&apos; is not redundant"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;node&apos; is redundant or there is possible null pointer dereference: node." verbose="Either the condition &apos;node&apos; is redundant or there is possible null pointer dereference: node." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1588" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1576" info="Assuming that condition &apos;node&apos; is not redundant"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="824"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 2) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="824"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="852"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;signed int&apos;." verbose="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;signed int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="852"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="977"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 1) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1015"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 2) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 2) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1015"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%lld in format string (no. 3) requires &apos;long long&apos; but the argument type is &apos;unsigned long long&apos;." verbose="%lld in format string (no. 3) requires &apos;long long&apos; but the argument type is &apos;unsigned long long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\quicklist.c" line="1250"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="quicklistCreate" lineNumber="94"/>
+    <functiondecl functionName="quicklistSetCompressDepth" lineNumber="107"/>
+    <functiondecl functionName="quicklistSetFill" lineNumber="117"/>
+    <functiondecl functionName="quicklistSetOptions" lineNumber="126"/>
+    <functiondecl functionName="quicklistNew" lineNumber="132"/>
+    <functiondecl functionName="quicklistCreateNode" lineNumber="138"/>
+    <functiondecl functionName="quicklistCount" lineNumber="152"/>
+    <functiondecl functionName="quicklistRelease" lineNumber="155"/>
+    <functiondecl functionName="__quicklistCompressNode" lineNumber="178"/>
+    <functiondecl functionName="__quicklistDecompressNode" lineNumber="215"/>
+    <functiondecl functionName="quicklistGetLzf" lineNumber="253"/>
+    <functiondecl functionName="__quicklistCompress" lineNumber="265"/>
+    <functiondecl functionName="__quicklistInsertNode" lineNumber="352"/>
+    <functiondecl functionName="_quicklistInsertNodeBefore" lineNumber="388"/>
+    <functiondecl functionName="_quicklistInsertNodeAfter" lineNumber="394"/>
+    <functiondecl functionName="_quicklistNodeSizeMeetsOptimizationRequirement" lineNumber="401"/>
+    <functiondecl functionName="_quicklistNodeAllowInsert" lineNumber="420"/>
+    <functiondecl functionName="_quicklistNodeAllowMerge" lineNumber="452"/>
+    <functiondecl functionName="quicklistPushHead" lineNumber="480"/>
+    <functiondecl functionName="quicklistPushTail" lineNumber="503"/>
+    <functiondecl functionName="quicklistAppendZiplist" lineNumber="525"/>
+    <functiondecl functionName="quicklistAppendValuesFromZiplist" lineNumber="542"/>
+    <functiondecl functionName="quicklistCreateFromZiplist" lineNumber="566"/>
+    <functiondecl functionName="__quicklistDelNode" lineNumber="579"/>
+    <functiondecl functionName="quicklistDelIndex" lineNumber="613"/>
+    <functiondecl functionName="quicklistDelEntry" lineNumber="634"/>
+    <functiondecl functionName="quicklistReplaceAtIndex" lineNumber="667"/>
+    <functiondecl functionName="_quicklistZiplistMerge" lineNumber="695"/>
+    <functiondecl functionName="_quicklistMergeNodes" lineNumber="733"/>
+    <functiondecl functionName="_quicklistSplitNode" lineNumber="797"/>
+    <functiondecl functionName="_quicklistInsert" lineNumber="832"/>
+    <functiondecl functionName="quicklistInsertBefore" lineNumber="942"/>
+    <functiondecl functionName="quicklistInsertAfter" lineNumber="947"/>
+    <functiondecl functionName="quicklistDelRange" lineNumber="958"/>
+    <functiondecl functionName="quicklistCompare" lineNumber="1042"/>
+    <functiondecl functionName="quicklistGetIterator" lineNumber="1048"/>
+    <functiondecl functionName="quicklistGetIteratorAtIdx" lineNumber="1071"/>
+    <functiondecl functionName="quicklistReleaseIterator" lineNumber="1089"/>
+    <functiondecl functionName="quicklistNext" lineNumber="1117"/>
+    <functiondecl functionName="quicklistDup" lineNumber="1186"/>
+    <functiondecl functionName="quicklistIndex" lineNumber="1225"/>
+    <functiondecl functionName="quicklistRotate" lineNumber="1282"/>
+    <functiondecl functionName="quicklistPopCustom" lineNumber="1324"/>
+    <functiondecl functionName="_quicklistSaver" lineNumber="1372"/>
+    <functiondecl functionName="quicklistPop" lineNumber="1385"/>
+    <functiondecl functionName="quicklistPush" lineNumber="1404"/>
+    <functiondecl functionName="quicklistCreate" lineNumber="94"/>
+    <functiondecl functionName="quicklistSetCompressDepth" lineNumber="107"/>
+    <functiondecl functionName="quicklistSetFill" lineNumber="117"/>
+    <functiondecl functionName="quicklistSetOptions" lineNumber="126"/>
+    <functiondecl functionName="quicklistNew" lineNumber="132"/>
+    <functiondecl functionName="quicklistCreateNode" lineNumber="138"/>
+    <functiondecl functionName="quicklistCount" lineNumber="152"/>
+    <functiondecl functionName="quicklistRelease" lineNumber="155"/>
+    <functiondecl functionName="__quicklistCompressNode" lineNumber="178"/>
+    <functiondecl functionName="__quicklistDecompressNode" lineNumber="215"/>
+    <functiondecl functionName="quicklistGetLzf" lineNumber="253"/>
+    <functiondecl functionName="__quicklistCompress" lineNumber="265"/>
+    <functiondecl functionName="__quicklistInsertNode" lineNumber="352"/>
+    <functiondecl functionName="_quicklistInsertNodeBefore" lineNumber="388"/>
+    <functiondecl functionName="_quicklistInsertNodeAfter" lineNumber="394"/>
+    <functiondecl functionName="_quicklistNodeSizeMeetsOptimizationRequirement" lineNumber="401"/>
+    <functiondecl functionName="_quicklistNodeAllowInsert" lineNumber="420"/>
+    <functiondecl functionName="_quicklistNodeAllowMerge" lineNumber="452"/>
+    <functiondecl functionName="quicklistPushHead" lineNumber="480"/>
+    <functiondecl functionName="quicklistPushTail" lineNumber="503"/>
+    <functiondecl functionName="quicklistAppendZiplist" lineNumber="525"/>
+    <functiondecl functionName="quicklistAppendValuesFromZiplist" lineNumber="542"/>
+    <functiondecl functionName="quicklistCreateFromZiplist" lineNumber="566"/>
+    <functiondecl functionName="__quicklistDelNode" lineNumber="579"/>
+    <functiondecl functionName="quicklistDelIndex" lineNumber="613"/>
+    <functiondecl functionName="quicklistDelEntry" lineNumber="634"/>
+    <functiondecl functionName="quicklistReplaceAtIndex" lineNumber="667"/>
+    <functiondecl functionName="_quicklistZiplistMerge" lineNumber="695"/>
+    <functiondecl functionName="_quicklistMergeNodes" lineNumber="733"/>
+    <functiondecl functionName="_quicklistSplitNode" lineNumber="797"/>
+    <functiondecl functionName="_quicklistInsert" lineNumber="832"/>
+    <functiondecl functionName="quicklistInsertBefore" lineNumber="942"/>
+    <functiondecl functionName="quicklistInsertAfter" lineNumber="947"/>
+    <functiondecl functionName="quicklistDelRange" lineNumber="958"/>
+    <functiondecl functionName="quicklistCompare" lineNumber="1042"/>
+    <functiondecl functionName="quicklistGetIterator" lineNumber="1048"/>
+    <functiondecl functionName="quicklistGetIteratorAtIdx" lineNumber="1071"/>
+    <functiondecl functionName="quicklistReleaseIterator" lineNumber="1089"/>
+    <functiondecl functionName="quicklistNext" lineNumber="1117"/>
+    <functiondecl functionName="quicklistDup" lineNumber="1186"/>
+    <functiondecl functionName="quicklistIndex" lineNumber="1225"/>
+    <functiondecl functionName="quicklistRotate" lineNumber="1282"/>
+    <functiondecl functionName="quicklistPopCustom" lineNumber="1324"/>
+    <functiondecl functionName="_quicklistSaver" lineNumber="1372"/>
+    <functiondecl functionName="quicklistPop" lineNumber="1385"/>
+    <functiondecl functionName="quicklistPush" lineNumber="1404"/>
+    <functiondecl functionName="ql_info" lineNumber="1450"/>
+    <functiondecl functionName="ustime" lineNumber="1465"/>
+    <functiondecl functionName="mstime" lineNumber="1476"/>
+    <functiondecl functionName="_itrprintr" lineNumber="1482"/>
+    <functiondecl functionName="itrprintr" lineNumber="1504"/>
+    <functiondecl functionName="itrprintr_rev" lineNumber="1508"/>
+    <functiondecl functionName="_ql_verify" lineNumber="1518"/>
+    <functiondecl functionName="genstr" lineNumber="1605"/>
+    <functiondecl functionName="quicklistTest" lineNumber="1612"/>
+    <functiondecl functionName="quicklistCreate" lineNumber="94"/>
+    <functiondecl functionName="quicklistSetCompressDepth" lineNumber="107"/>
+    <functiondecl functionName="quicklistSetFill" lineNumber="117"/>
+    <functiondecl functionName="quicklistSetOptions" lineNumber="126"/>
+    <functiondecl functionName="quicklistNew" lineNumber="132"/>
+    <functiondecl functionName="quicklistCreateNode" lineNumber="138"/>
+    <functiondecl functionName="quicklistCount" lineNumber="152"/>
+    <functiondecl functionName="quicklistRelease" lineNumber="155"/>
+    <functiondecl functionName="__quicklistCompressNode" lineNumber="178"/>
+    <functiondecl functionName="__quicklistDecompressNode" lineNumber="215"/>
+    <functiondecl functionName="quicklistGetLzf" lineNumber="253"/>
+    <functiondecl functionName="__quicklistCompress" lineNumber="265"/>
+    <functiondecl functionName="__quicklistInsertNode" lineNumber="352"/>
+    <functiondecl functionName="_quicklistInsertNodeBefore" lineNumber="388"/>
+    <functiondecl functionName="_quicklistInsertNodeAfter" lineNumber="394"/>
+    <functiondecl functionName="_quicklistNodeSizeMeetsOptimizationRequirement" lineNumber="401"/>
+    <functiondecl functionName="_quicklistNodeAllowInsert" lineNumber="420"/>
+    <functiondecl functionName="_quicklistNodeAllowMerge" lineNumber="452"/>
+    <functiondecl functionName="quicklistPushHead" lineNumber="480"/>
+    <functiondecl functionName="quicklistPushTail" lineNumber="503"/>
+    <functiondecl functionName="quicklistAppendZiplist" lineNumber="525"/>
+    <functiondecl functionName="quicklistAppendValuesFromZiplist" lineNumber="542"/>
+    <functiondecl functionName="quicklistCreateFromZiplist" lineNumber="566"/>
+    <functiondecl functionName="__quicklistDelNode" lineNumber="579"/>
+    <functiondecl functionName="quicklistDelIndex" lineNumber="613"/>
+    <functiondecl functionName="quicklistDelEntry" lineNumber="634"/>
+    <functiondecl functionName="quicklistReplaceAtIndex" lineNumber="667"/>
+    <functiondecl functionName="_quicklistZiplistMerge" lineNumber="695"/>
+    <functiondecl functionName="_quicklistMergeNodes" lineNumber="733"/>
+    <functiondecl functionName="_quicklistSplitNode" lineNumber="797"/>
+    <functiondecl functionName="_quicklistInsert" lineNumber="832"/>
+    <functiondecl functionName="quicklistInsertBefore" lineNumber="942"/>
+    <functiondecl functionName="quicklistInsertAfter" lineNumber="947"/>
+    <functiondecl functionName="quicklistDelRange" lineNumber="958"/>
+    <functiondecl functionName="quicklistCompare" lineNumber="1042"/>
+    <functiondecl functionName="quicklistGetIterator" lineNumber="1048"/>
+    <functiondecl functionName="quicklistGetIteratorAtIdx" lineNumber="1071"/>
+    <functiondecl functionName="quicklistReleaseIterator" lineNumber="1089"/>
+    <functiondecl functionName="quicklistNext" lineNumber="1117"/>
+    <functiondecl functionName="quicklistDup" lineNumber="1186"/>
+    <functiondecl functionName="quicklistIndex" lineNumber="1225"/>
+    <functiondecl functionName="quicklistRotate" lineNumber="1282"/>
+    <functiondecl functionName="quicklistPopCustom" lineNumber="1324"/>
+    <functiondecl functionName="_quicklistSaver" lineNumber="1372"/>
+    <functiondecl functionName="quicklistPop" lineNumber="1385"/>
+    <functiondecl functionName="quicklistPush" lineNumber="1404"/>
+    <functiondecl functionName="ql_info" lineNumber="1450"/>
+    <functiondecl functionName="ustime" lineNumber="1465"/>
+    <functiondecl functionName="mstime" lineNumber="1476"/>
+    <functiondecl functionName="_itrprintr" lineNumber="1482"/>
+    <functiondecl functionName="itrprintr" lineNumber="1504"/>
+    <functiondecl functionName="itrprintr_rev" lineNumber="1508"/>
+    <functiondecl functionName="_ql_verify" lineNumber="1518"/>
+    <functiondecl functionName="genstr" lineNumber="1605"/>
+    <functiondecl functionName="quicklistTest" lineNumber="1612"/>
+    <functiondecl functionName="quicklistCreate" lineNumber="94"/>
+    <functiondecl functionName="quicklistSetCompressDepth" lineNumber="107"/>
+    <functiondecl functionName="quicklistSetFill" lineNumber="117"/>
+    <functiondecl functionName="quicklistSetOptions" lineNumber="126"/>
+    <functiondecl functionName="quicklistNew" lineNumber="132"/>
+    <functiondecl functionName="quicklistCreateNode" lineNumber="138"/>
+    <functiondecl functionName="quicklistCount" lineNumber="152"/>
+    <functiondecl functionName="quicklistRelease" lineNumber="155"/>
+    <functiondecl functionName="__quicklistCompressNode" lineNumber="178"/>
+    <functiondecl functionName="__quicklistDecompressNode" lineNumber="215"/>
+    <functiondecl functionName="quicklistGetLzf" lineNumber="253"/>
+    <functiondecl functionName="__quicklistCompress" lineNumber="265"/>
+    <functiondecl functionName="__quicklistInsertNode" lineNumber="352"/>
+    <functiondecl functionName="_quicklistInsertNodeBefore" lineNumber="388"/>
+    <functiondecl functionName="_quicklistInsertNodeAfter" lineNumber="394"/>
+    <functiondecl functionName="_quicklistNodeSizeMeetsOptimizationRequirement" lineNumber="401"/>
+    <functiondecl functionName="_quicklistNodeAllowInsert" lineNumber="420"/>
+    <functiondecl functionName="_quicklistNodeAllowMerge" lineNumber="452"/>
+    <functiondecl functionName="quicklistPushHead" lineNumber="480"/>
+    <functiondecl functionName="quicklistPushTail" lineNumber="503"/>
+    <functiondecl functionName="quicklistAppendZiplist" lineNumber="525"/>
+    <functiondecl functionName="quicklistAppendValuesFromZiplist" lineNumber="542"/>
+    <functiondecl functionName="quicklistCreateFromZiplist" lineNumber="566"/>
+    <functiondecl functionName="__quicklistDelNode" lineNumber="579"/>
+    <functiondecl functionName="quicklistDelIndex" lineNumber="613"/>
+    <functiondecl functionName="quicklistDelEntry" lineNumber="634"/>
+    <functiondecl functionName="quicklistReplaceAtIndex" lineNumber="667"/>
+    <functiondecl functionName="_quicklistZiplistMerge" lineNumber="695"/>
+    <functiondecl functionName="_quicklistMergeNodes" lineNumber="733"/>
+    <functiondecl functionName="_quicklistSplitNode" lineNumber="797"/>
+    <functiondecl functionName="_quicklistInsert" lineNumber="832"/>
+    <functiondecl functionName="quicklistInsertBefore" lineNumber="942"/>
+    <functiondecl functionName="quicklistInsertAfter" lineNumber="947"/>
+    <functiondecl functionName="quicklistDelRange" lineNumber="958"/>
+    <functiondecl functionName="quicklistCompare" lineNumber="1042"/>
+    <functiondecl functionName="quicklistGetIterator" lineNumber="1048"/>
+    <functiondecl functionName="quicklistGetIteratorAtIdx" lineNumber="1071"/>
+    <functiondecl functionName="quicklistReleaseIterator" lineNumber="1089"/>
+    <functiondecl functionName="quicklistNext" lineNumber="1117"/>
+    <functiondecl functionName="quicklistDup" lineNumber="1186"/>
+    <functiondecl functionName="quicklistIndex" lineNumber="1225"/>
+    <functiondecl functionName="quicklistRotate" lineNumber="1282"/>
+    <functiondecl functionName="quicklistPopCustom" lineNumber="1324"/>
+    <functiondecl functionName="_quicklistSaver" lineNumber="1372"/>
+    <functiondecl functionName="quicklistPop" lineNumber="1385"/>
+    <functiondecl functionName="quicklistPush" lineNumber="1404"/>
+    <functiondecl functionName="quicklistCreate" lineNumber="94"/>
+    <functiondecl functionName="quicklistSetCompressDepth" lineNumber="107"/>
+    <functiondecl functionName="quicklistSetFill" lineNumber="117"/>
+    <functiondecl functionName="quicklistSetOptions" lineNumber="126"/>
+    <functiondecl functionName="quicklistNew" lineNumber="132"/>
+    <functiondecl functionName="quicklistCreateNode" lineNumber="138"/>
+    <functiondecl functionName="quicklistCount" lineNumber="152"/>
+    <functiondecl functionName="quicklistRelease" lineNumber="155"/>
+    <functiondecl functionName="__quicklistCompressNode" lineNumber="178"/>
+    <functiondecl functionName="__quicklistDecompressNode" lineNumber="215"/>
+    <functiondecl functionName="quicklistGetLzf" lineNumber="253"/>
+    <functiondecl functionName="__quicklistCompress" lineNumber="265"/>
+    <functiondecl functionName="__quicklistInsertNode" lineNumber="352"/>
+    <functiondecl functionName="_quicklistInsertNodeBefore" lineNumber="388"/>
+    <functiondecl functionName="_quicklistInsertNodeAfter" lineNumber="394"/>
+    <functiondecl functionName="_quicklistNodeSizeMeetsOptimizationRequirement" lineNumber="401"/>
+    <functiondecl functionName="_quicklistNodeAllowInsert" lineNumber="420"/>
+    <functiondecl functionName="_quicklistNodeAllowMerge" lineNumber="452"/>
+    <functiondecl functionName="quicklistPushHead" lineNumber="480"/>
+    <functiondecl functionName="quicklistPushTail" lineNumber="503"/>
+    <functiondecl functionName="quicklistAppendZiplist" lineNumber="525"/>
+    <functiondecl functionName="quicklistAppendValuesFromZiplist" lineNumber="542"/>
+    <functiondecl functionName="quicklistCreateFromZiplist" lineNumber="566"/>
+    <functiondecl functionName="__quicklistDelNode" lineNumber="579"/>
+    <functiondecl functionName="quicklistDelIndex" lineNumber="613"/>
+    <functiondecl functionName="quicklistDelEntry" lineNumber="634"/>
+    <functiondecl functionName="quicklistReplaceAtIndex" lineNumber="667"/>
+    <functiondecl functionName="_quicklistZiplistMerge" lineNumber="695"/>
+    <functiondecl functionName="_quicklistMergeNodes" lineNumber="733"/>
+    <functiondecl functionName="_quicklistSplitNode" lineNumber="797"/>
+    <functiondecl functionName="_quicklistInsert" lineNumber="832"/>
+    <functiondecl functionName="quicklistInsertBefore" lineNumber="942"/>
+    <functiondecl functionName="quicklistInsertAfter" lineNumber="947"/>
+    <functiondecl functionName="quicklistDelRange" lineNumber="958"/>
+    <functiondecl functionName="quicklistCompare" lineNumber="1042"/>
+    <functiondecl functionName="quicklistGetIterator" lineNumber="1048"/>
+    <functiondecl functionName="quicklistGetIteratorAtIdx" lineNumber="1071"/>
+    <functiondecl functionName="quicklistReleaseIterator" lineNumber="1089"/>
+    <functiondecl functionName="quicklistNext" lineNumber="1117"/>
+    <functiondecl functionName="quicklistDup" lineNumber="1186"/>
+    <functiondecl functionName="quicklistIndex" lineNumber="1225"/>
+    <functiondecl functionName="quicklistRotate" lineNumber="1282"/>
+    <functiondecl functionName="quicklistPopCustom" lineNumber="1324"/>
+    <functiondecl functionName="_quicklistSaver" lineNumber="1372"/>
+    <functiondecl functionName="quicklistPop" lineNumber="1385"/>
+    <functiondecl functionName="quicklistPush" lineNumber="1404"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="__FUNCTION__"/>
+    <functioncall functionName="__quicklistCompress"/>
+    <functioncall functionName="__quicklistCompressNode"/>
+    <functioncall functionName="__quicklistDecompressNode"/>
+    <functioncall functionName="__quicklistDelNode"/>
+    <functioncall functionName="__quicklistInsertNode"/>
+    <functioncall functionName="_i"/>
+    <functioncall functionName="_itrprintr"/>
+    <functioncall functionName="_ql_verify"/>
+    <functioncall functionName="_quicklistInsert"/>
+    <functioncall functionName="_quicklistInsertNodeAfter"/>
+    <functioncall functionName="_quicklistInsertNodeBefore"/>
+    <functioncall functionName="_quicklistMergeNodes"/>
+    <functioncall functionName="_quicklistNodeAllowInsert"/>
+    <functioncall functionName="_quicklistNodeAllowMerge"/>
+    <functioncall functionName="_quicklistNodeSizeMeetsOptimizationRequirement"/>
+    <functioncall functionName="_quicklistSaver"/>
+    <functioncall functionName="_quicklistSplitNode"/>
+    <functioncall functionName="_quicklistZiplistMerge"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="accum"/>
+    <functioncall functionName="after"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="at"/>
+    <functioncall functionName="attempted_compress"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="center"/>
+    <functioncall functionName="compress"/>
+    <functioncall functionName="compressed"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="current"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="decompressed"/>
+    <functioncall functionName="del"/>
+    <functioncall functionName="delete_entire_node"/>
+    <functioncall functionName="deleted_node"/>
+    <functioncall functionName="depth"/>
+    <functioncall functionName="direction"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errors"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="fill"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="full"/>
+    <functioncall functionName="genstr"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="head_count"/>
+    <functioncall functionName="high_raw"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in_depth"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="itrprintr"/>
+    <functioncall functionName="itrprintr_rev"/>
+    <functioncall functionName="keep"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="list"/>
+    <functioncall functionName="list_sizes"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="longstr"/>
+    <functioncall functionName="longval"/>
+    <functioncall functionName="loopr"/>
+    <functioncall functionName="low_raw"/>
+    <functioncall functionName="lv"/>
+    <functioncall functionName="lzf"/>
+    <functioncall functionName="lzf_compress"/>
+    <functioncall functionName="lzf_decompress"/>
+    <functioncall functionName="lzf_sz"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="merge_sz"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="new_extent"/>
+    <functioncall functionName="new_node"/>
+    <functioncall functionName="new_start"/>
+    <functioncall functionName="new_sz"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextFn"/>
+    <functioncall functionName="next_next"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nokeep"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="old_node"/>
+    <functioncall functionName="optimization_level"/>
+    <functioncall functionName="optimize_start"/>
+    <functioncall functionName="option_count"/>
+    <functioncall functionName="options"/>
+    <functioncall functionName="orig_extent"/>
+    <functioncall functionName="orig_start"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="p1"/>
+    <functioncall functionName="p2"/>
+    <functioncall functionName="p2_len"/>
+    <functioncall functionName="populate"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="prev_prev"/>
+    <functioncall functionName="print"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="ql"/>
+    <functioncall functionName="ql_info"/>
+    <functioncall functionName="quicklist"/>
+    <functioncall functionName="quicklistAppendValuesFromZiplist"/>
+    <functioncall functionName="quicklistCompare"/>
+    <functioncall functionName="quicklistCreate"/>
+    <functioncall functionName="quicklistCreateFromZiplist"/>
+    <functioncall functionName="quicklistCreateNode"/>
+    <functioncall functionName="quicklistDelEntry"/>
+    <functioncall functionName="quicklistDelIndex"/>
+    <functioncall functionName="quicklistDelRange"/>
+    <functioncall functionName="quicklistDup"/>
+    <functioncall functionName="quicklistGetIterator"/>
+    <functioncall functionName="quicklistGetIteratorAtIdx"/>
+    <functioncall functionName="quicklistIndex"/>
+    <functioncall functionName="quicklistInsertAfter"/>
+    <functioncall functionName="quicklistInsertBefore"/>
+    <functioncall functionName="quicklistNew"/>
+    <functioncall functionName="quicklistNext"/>
+    <functioncall functionName="quicklistPop"/>
+    <functioncall functionName="quicklistPopCustom"/>
+    <functioncall functionName="quicklistPushHead"/>
+    <functioncall functionName="quicklistPushTail"/>
+    <functioncall functionName="quicklistRelease"/>
+    <functioncall functionName="quicklistReleaseIterator"/>
+    <functioncall functionName="quicklistReplaceAtIndex"/>
+    <functioncall functionName="quicklistRotate"/>
+    <functioncall functionName="quicklistSetCompressDepth"/>
+    <functioncall functionName="quicklistSetFill"/>
+    <functioncall functionName="quicklistSetOptions"/>
+    <functioncall functionName="recompress"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="resultB"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="reverse"/>
+    <functioncall functionName="rloopr"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="saver"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slong"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="sval"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tail_count"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vlong"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="where"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zi"/>
+    <functioncall functionName="ziplistBlobLen"/>
+    <functioncall functionName="ziplistCompare"/>
+    <functioncall functionName="ziplistDelete"/>
+    <functioncall functionName="ziplistDeleteRange"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistInsert"/>
+    <functioncall functionName="ziplistLen"/>
+    <functioncall functionName="ziplistMerge"/>
+    <functioncall functionName="ziplistNew"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="ziplistPrev"/>
+    <functioncall functionName="ziplistPush"/>
+    <functioncall functionName="ziplist_overhead"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zl_sz"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

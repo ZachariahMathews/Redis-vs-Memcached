@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="953682200">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;si&apos; can be reduced." verbose="The scope of the variable &apos;si&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_set.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_set.c" line="236"/>
+            <symbol>si</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="setTypeCreate" lineNumber="42"/>
+    <functiondecl functionName="setTypeAdd" lineNumber="52"/>
+    <functiondecl functionName="setTypeRemove" lineNumber="88"/>
+    <functiondecl functionName="setTypeIsMember" lineNumber="107"/>
+    <functiondecl functionName="setTypeInitIterator" lineNumber="121"/>
+    <functiondecl functionName="setTypeReleaseIterator" lineNumber="135"/>
+    <functiondecl functionName="setTypeNext" lineNumber="154"/>
+    <functiondecl functionName="setTypeNextObject" lineNumber="177"/>
+    <functiondecl functionName="setTypeRandomElement" lineNumber="208"/>
+    <functiondecl functionName="setTypeSize" lineNumber="222"/>
+    <functiondecl functionName="setTypeConvert" lineNumber="235"/>
+    <functiondecl functionName="saddCommand" lineNumber="264"/>
+    <functiondecl functionName="sremCommand" lineNumber="290"/>
+    <functiondecl functionName="smoveCommand" lineNumber="318"/>
+    <functiondecl functionName="sismemberCommand" lineNumber="373"/>
+    <functiondecl functionName="scardCommand" lineNumber="385"/>
+    <functiondecl functionName="spopWithCountCommand" lineNumber="402"/>
+    <functiondecl functionName="spopCommand" lineNumber="553"/>
+    <functiondecl functionName="srandmemberWithCountCommand" lineNumber="614"/>
+    <functiondecl functionName="srandmemberCommand" lineNumber="749"/>
+    <functiondecl functionName="qsortCompareSetsByCardinality" lineNumber="774"/>
+    <functiondecl functionName="qsortCompareSetsByRevCardinality" lineNumber="782"/>
+    <functiondecl functionName="sinterGenericCommand" lineNumber="792"/>
+    <functiondecl functionName="sinterCommand" lineNumber="919"/>
+    <functiondecl functionName="sinterstoreCommand" lineNumber="923"/>
+    <functiondecl functionName="sunionDiffGenericCommand" lineNumber="931"/>
+    <functiondecl functionName="sunionCommand" lineNumber="1091"/>
+    <functiondecl functionName="sunionstoreCommand" lineNumber="1095"/>
+    <functiondecl functionName="sdiffCommand" lineNumber="1099"/>
+    <functiondecl functionName="sdiffstoreCommand" lineNumber="1103"/>
+    <functiondecl functionName="sscanCommand" lineNumber="1107"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="added"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alsoPropagate"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cardinality"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="createIntsetObject"/>
+    <functioncall functionName="createSetObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLong"/>
+    <functioncall functionName="cursor"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="dbOverwrite"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="del"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictAddRaw"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetRandomKey"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictResize"/>
+    <functioncall functionName="dstkey"/>
+    <functioncall functionName="dstset"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="element"/>
+    <functioncall functionName="elesds"/>
+    <functioncall functionName="emptymultibulk"/>
+    <functioncall functionName="emptyscan"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="htNeedsResize"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="intele"/>
+    <functioncall functionName="intobj"/>
+    <functioncall functionName="intsetAdd"/>
+    <functioncall functionName="intsetFind"/>
+    <functioncall functionName="intsetGet"/>
+    <functioncall functionName="intsetLen"/>
+    <functioncall functionName="intsetRandom"/>
+    <functioncall functionName="intsetRemove"/>
+    <functioncall functionName="isSdsRepresentableAsLongLong"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyDup"/>
+    <functioncall functionName="keyremoved"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="llele"/>
+    <functioncall functionName="llval"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupKeyWriteOrReply"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newset"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="o1"/>
+    <functioncall functionName="o2"/>
+    <functioncall functionName="objectKeyPointerValueDictType"/>
+    <functioncall functionName="objele"/>
+    <functioncall functionName="outofrangeerr"/>
+    <functioncall functionName="parseScanCursorOrReply"/>
+    <functioncall functionName="preventCommandPropagation"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="propargv"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="qsortCompareSetsByCardinality"/>
+    <functioncall functionName="qsortCompareSetsByRevCardinality"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="replylen"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteClientCommandVector"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s1"/>
+    <functioncall functionName="s2"/>
+    <functioncall functionName="scanGenericCommand"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsele"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="set"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setDictType"/>
+    <functioncall functionName="setTypeAdd"/>
+    <functioncall functionName="setTypeConvert"/>
+    <functioncall functionName="setTypeCreate"/>
+    <functioncall functionName="setTypeInitIterator"/>
+    <functioncall functionName="setTypeIsMember"/>
+    <functioncall functionName="setTypeNext"/>
+    <functioncall functionName="setTypeNextObject"/>
+    <functioncall functionName="setTypeRandomElement"/>
+    <functioncall functionName="setTypeReleaseIterator"/>
+    <functioncall functionName="setTypeRemove"/>
+    <functioncall functionName="setTypeSize"/>
+    <functioncall functionName="set_max_intset_entries"/>
+    <functioncall functionName="setnum"/>
+    <functioncall functionName="setobj"/>
+    <functioncall functionName="sets"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sinterGenericCommand"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="spopWithCountCommand"/>
+    <functioncall functionName="srandmemberWithCountCommand"/>
+    <functioncall functionName="srcset"/>
+    <functioncall functionName="sremCommand"/>
+    <functioncall functionName="subject"/>
+    <functioncall functionName="success"/>
+    <functioncall functionName="sunionDiffGenericCommand"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="uniq"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="valDup"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

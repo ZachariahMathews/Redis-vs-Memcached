@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4100371525">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="consumeNewline" lineNumber="43"/>
+    <functiondecl functionName="readLong" lineNumber="51"/>
+    <functiondecl functionName="readBytes" lineNumber="65"/>
+    <functiondecl functionName="readString" lineNumber="76"/>
+    <functiondecl functionName="readArgc" lineNumber="96"/>
+    <functiondecl functionName="process" lineNumber="100"/>
+    <functiondecl functionName="redis_check_aof_main" lineNumber="144"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="__buf"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="consumeNewline"/>
+    <functioncall functionName="diff"/>
+    <functioncall functionName="epos"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="feof"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="fix"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fread"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="ftello"/>
+    <functioncall functionName="ftruncate"/>
+    <functioncall functionName="has_preamble"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="multi"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="process"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readArgc"/>
+    <functioncall functionName="readBytes"/>
+    <functioncall functionName="readLong"/>
+    <functioncall functionName="readString"/>
+    <functioncall functionName="real"/>
+    <functioncall functionName="redis_check_rdb_main"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewind"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="stdin"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncasecmp"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1186150145">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="usec" lineNumber="41"/>
+    <functiondecl functionName="select_database" lineNumber="54"/>
+    <functiondecl functionName="disconnect" lineNumber="76"/>
+    <functiondecl functionName="connect" lineNumber="94"/>
+    <functiondecl functionName="test_format_commands" lineNumber="125"/>
+    <functiondecl functionName="test_append_formatted_commands" lineNumber="245"/>
+    <functiondecl functionName="test_reply_reader" lineNumber="267"/>
+    <functiondecl functionName="test_free_null" lineNumber="346"/>
+    <functiondecl functionName="test_blocking_connection_errors" lineNumber="359"/>
+    <functiondecl functionName="test_blocking_connection" lineNumber="386"/>
+    <functiondecl functionName="test_blocking_connection_timeouts" lineNumber="464"/>
+    <functiondecl functionName="test_blocking_io_errors" lineNumber="510"/>
+    <functiondecl functionName="test_invalid_timeout_errors" lineNumber="561"/>
+    <functiondecl functionName="test_throughput" lineNumber="585"/>
+    <functiondecl functionName="main" lineNumber="749"/>
+    <functiondecl functionName="usec" lineNumber="41"/>
+    <functiondecl functionName="select_database" lineNumber="54"/>
+    <functiondecl functionName="disconnect" lineNumber="76"/>
+    <functiondecl functionName="connect" lineNumber="94"/>
+    <functiondecl functionName="test_format_commands" lineNumber="125"/>
+    <functiondecl functionName="test_append_formatted_commands" lineNumber="245"/>
+    <functiondecl functionName="test_reply_reader" lineNumber="267"/>
+    <functiondecl functionName="test_free_null" lineNumber="346"/>
+    <functiondecl functionName="test_blocking_connection_errors" lineNumber="359"/>
+    <functiondecl functionName="test_blocking_connection" lineNumber="386"/>
+    <functiondecl functionName="test_blocking_connection_timeouts" lineNumber="464"/>
+    <functiondecl functionName="test_blocking_io_errors" lineNumber="510"/>
+    <functiondecl functionName="test_invalid_timeout_errors" lineNumber="561"/>
+    <functiondecl functionName="test_throughput" lineNumber="585"/>
+    <functiondecl functionName="main" lineNumber="749"/>
+    <functiondecl functionName="usec" lineNumber="41"/>
+    <functiondecl functionName="select_database" lineNumber="54"/>
+    <functiondecl functionName="disconnect" lineNumber="76"/>
+    <functiondecl functionName="connect" lineNumber="94"/>
+    <functiondecl functionName="test_format_commands" lineNumber="125"/>
+    <functiondecl functionName="test_append_formatted_commands" lineNumber="245"/>
+    <functiondecl functionName="test_reply_reader" lineNumber="267"/>
+    <functiondecl functionName="test_free_null" lineNumber="346"/>
+    <functiondecl functionName="test_blocking_connection_errors" lineNumber="359"/>
+    <functiondecl functionName="test_blocking_connection" lineNumber="386"/>
+    <functiondecl functionName="test_blocking_connection_timeouts" lineNumber="464"/>
+    <functiondecl functionName="test_blocking_io_errors" lineNumber="510"/>
+    <functiondecl functionName="test_invalid_timeout_errors" lineNumber="561"/>
+    <functiondecl functionName="test_throughput" lineNumber="585"/>
+    <functiondecl functionName="main" lineNumber="749"/>
+    <functioncall functionName="CONN_FD"/>
+    <functioncall functionName="CONN_TCP"/>
+    <functioncall functionName="CONN_UNIX"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="REDIS_CONN_TCP"/>
+    <functioncall functionName="REDIS_CONN_UNIX"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="_reply"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cfg"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="config"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="disconnect"/>
+    <functioncall functionName="dummy_ctx"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fails"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeReplyObject"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="host"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="keep_fd"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lens"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="major"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="reader"/>
+    <functioncall functionName="redisAppendCommand"/>
+    <functioncall functionName="redisAppendFormattedCommand"/>
+    <functioncall functionName="redisCommand"/>
+    <functioncall functionName="redisConnect"/>
+    <functioncall functionName="redisConnectFd"/>
+    <functioncall functionName="redisConnectUnix"/>
+    <functioncall functionName="redisConnectWithTimeout"/>
+    <functioncall functionName="redisCtx"/>
+    <functioncall functionName="redisFormatCommand"/>
+    <functioncall functionName="redisFormatCommandArgv"/>
+    <functioncall functionName="redisFormatSdsCommandArgv"/>
+    <functioncall functionName="redisFree"/>
+    <functioncall functionName="redisFreeKeepFd"/>
+    <functioncall functionName="redisGetReply"/>
+    <functioncall functionName="redisReaderCreate"/>
+    <functioncall functionName="redisReaderFeed"/>
+    <functioncall functionName="redisReaderFree"/>
+    <functioncall functionName="redisReaderGetReply"/>
+    <functioncall functionName="redisReconnect"/>
+    <functioncall functionName="redisSetTimeout"/>
+    <functioncall functionName="replies"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sds_cmd"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="select_database"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncasecmp"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t1"/>
+    <functioncall functionName="test_append_formatted_commands"/>
+    <functioncall functionName="test_blocking_connection"/>
+    <functioncall functionName="test_blocking_connection_errors"/>
+    <functioncall functionName="test_blocking_connection_timeouts"/>
+    <functioncall functionName="test_blocking_io_errors"/>
+    <functioncall functionName="test_format_commands"/>
+    <functioncall functionName="test_free_null"/>
+    <functioncall functionName="test_inherit_fd"/>
+    <functioncall functionName="test_invalid_timeout_errors"/>
+    <functioncall functionName="test_reply_reader"/>
+    <functioncall functionName="test_throughput"/>
+    <functioncall functionName="throughput"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="usec"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

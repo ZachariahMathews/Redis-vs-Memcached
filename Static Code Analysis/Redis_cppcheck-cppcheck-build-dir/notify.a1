@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="333075852">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="keyspaceEventsStringToFlags" lineNumber="40"/>
+    <functiondecl functionName="keyspaceEventsFlagsToString" lineNumber="68"/>
+    <functiondecl functionName="notifyKeyspaceEvent" lineNumber="97"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="chan"/>
+    <functioncall functionName="chanobj"/>
+    <functioncall functionName="classes"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="eventobj"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="moduleNotifyKeyspaceEvent"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pubsubPublishMessage"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

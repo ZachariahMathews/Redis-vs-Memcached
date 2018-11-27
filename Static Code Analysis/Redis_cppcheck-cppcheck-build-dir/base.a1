@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3127739650">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="metadata_thp_mode_names" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="metadata_thp_madvise" lineNumber="26"/>
+    <functiondecl functionName="base_map" lineNumber="32"/>
+    <functiondecl functionName="base_unmap" lineNumber="55"/>
+    <functiondecl functionName="base_extent_init" lineNumber="119"/>
+    <functiondecl functionName="base_get_num_blocks" lineNumber="130"/>
+    <functiondecl functionName="base_auto_thp_switch" lineNumber="144"/>
+    <functiondecl functionName="base_extent_bump_alloc_helper" lineNumber="180"/>
+    <functiondecl functionName="base_extent_bump_alloc_post" lineNumber="198"/>
+    <functiondecl functionName="base_extent_bump_alloc" lineNumber="232"/>
+    <functiondecl functionName="base_block_alloc" lineNumber="248"/>
+    <functiondecl functionName="base_extent_alloc" lineNumber="308"/>
+    <functiondecl functionName="b0get" lineNumber="345"/>
+    <functiondecl functionName="base_new" lineNumber="350"/>
+    <functiondecl functionName="base_delete" lineNumber="396"/>
+    <functiondecl functionName="base_extent_hooks_get" lineNumber="408"/>
+    <functiondecl functionName="base_extent_hooks_set" lineNumber="414"/>
+    <functiondecl functionName="base_alloc_impl" lineNumber="421"/>
+    <functiondecl functionName="base_alloc" lineNumber="464"/>
+    <functiondecl functionName="base_alloc_extent" lineNumber="469"/>
+    <functiondecl functionName="base_stats_get" lineNumber="481"/>
+    <functiondecl functionName="base_prefork" lineNumber="496"/>
+    <functiondecl functionName="base_postfork_parent" lineNumber="501"/>
+    <functiondecl functionName="base_postfork_child" lineNumber="506"/>
+    <functiondecl functionName="base_boot" lineNumber="511"/>
+    <functioncall functionName="ALIGNMENT_CEILING"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="ATOMIC_RELEASE"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="HUGEPAGE"/>
+    <functioncall functionName="HUGEPAGE_CEILING"/>
+    <functioncall functionName="METADATA_THP_DEFAULT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE_CEILING"/>
+    <functioncall functionName="QUANTUM"/>
+    <functioncall functionName="QUANTUM_CEILING"/>
+    <functioncall functionName="WITNESS_RANK_BASE"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="allocated"/>
+    <functioncall functionName="asize"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_load_p"/>
+    <functioncall functionName="atomic_store_p"/>
+    <functioncall functionName="auto_thp_switched"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="base_alignment"/>
+    <functioncall functionName="base_alloc_impl"/>
+    <functioncall functionName="base_auto_thp_switch"/>
+    <functioncall functionName="base_block_alloc"/>
+    <functioncall functionName="base_block_t"/>
+    <functioncall functionName="base_extent_alloc"/>
+    <functioncall functionName="base_extent_bump_alloc"/>
+    <functioncall functionName="base_extent_bump_alloc_helper"/>
+    <functioncall functionName="base_extent_bump_alloc_post"/>
+    <functioncall functionName="base_extent_hooks_get"/>
+    <functioncall functionName="base_extent_init"/>
+    <functioncall functionName="base_get_num_blocks"/>
+    <functioncall functionName="base_ind_get"/>
+    <functioncall functionName="base_map"/>
+    <functioncall functionName="base_new"/>
+    <functioncall functionName="base_size"/>
+    <functioncall functionName="base_t"/>
+    <functioncall functionName="base_unmap"/>
+    <functioncall functionName="block"/>
+    <functioncall functionName="block_size"/>
+    <functioncall functionName="blocks"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cassert"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="dalloc"/>
+    <functioncall functionName="decommit"/>
+    <functioncall functionName="esn"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_addr_get"/>
+    <functioncall functionName="extent_alloc_mmap"/>
+    <functioncall functionName="extent_binit"/>
+    <functioncall functionName="extent_bsize_get"/>
+    <functioncall functionName="extent_dalloc_mmap"/>
+    <functioncall functionName="extent_esn_set"/>
+    <functioncall functionName="extent_heap_insert"/>
+    <functioncall functionName="extent_heap_new"/>
+    <functioncall functionName="extent_heap_remove_first"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_hooks_default"/>
+    <functioncall functionName="extent_sn_get"/>
+    <functioncall functionName="extent_sn_next"/>
+    <functioncall functionName="extent_t"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gap_size"/>
+    <functioncall functionName="header_size"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="index_floor"/>
+    <functioncall functionName="label_done"/>
+    <functioncall functionName="label_post_reentrancy"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="mapped"/>
+    <functioncall functionName="metadata_thp_enabled"/>
+    <functioncall functionName="metadata_thp_madvise"/>
+    <functioncall functionName="min_block_size"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="n_thp"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="next_block_size"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="pages_decommit"/>
+    <functioncall functionName="pages_huge"/>
+    <functioncall functionName="pages_nohuge"/>
+    <functioncall functionName="pages_purge_forced"/>
+    <functioncall functionName="pages_purge_lazy"/>
+    <functioncall functionName="pind_last"/>
+    <functioncall functionName="pind_next"/>
+    <functioncall functionName="post_reentrancy"/>
+    <functioncall functionName="pre_reentrancy"/>
+    <functioncall functionName="purge_forced"/>
+    <functioncall functionName="purge_lazy"/>
+    <functioncall functionName="resident"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="should_switch"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sn"/>
+    <functioncall functionName="sz_pind2sz"/>
+    <functioncall functionName="sz_psz2ind"/>
+    <functioncall functionName="sz_psz2u"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_null"/>
+    <functioncall functionName="tsdn_tsd"/>
+    <functioncall functionName="usize"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zero"/>
+  </FileInfo>
+</analyzerinfo>

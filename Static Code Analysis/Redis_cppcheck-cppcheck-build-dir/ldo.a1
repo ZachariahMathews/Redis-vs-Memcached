@@ -1,0 +1,484 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="562946638">
+        <error id="unreadVariable" severity="style" msg="Variable &apos;c&apos; is assigned a value that is never used." verbose="Variable &apos;c&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\ldo.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\ldo.c" line="496"/>
+            <symbol>c</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functiondecl functionName="luaD_seterrorobj" lineNumber="51"/>
+    <functiondecl functionName="restore_stack_limit" lineNumber="71"/>
+    <functiondecl functionName="resetstack" lineNumber="81"/>
+    <functiondecl functionName="luaD_throw" lineNumber="94"/>
+    <functiondecl functionName="luaD_rawrunprotected" lineNumber="111"/>
+    <functiondecl functionName="correctstack" lineNumber="126"/>
+    <functiondecl functionName="luaD_reallocstack" lineNumber="141"/>
+    <functiondecl functionName="luaD_reallocCI" lineNumber="152"/>
+    <functiondecl functionName="luaD_growstack" lineNumber="161"/>
+    <functiondecl functionName="growCI" lineNumber="169"/>
+    <functiondecl functionName="luaD_callhook" lineNumber="181"/>
+    <functiondecl functionName="adjust_varargs" lineNumber="208"/>
+    <functiondecl functionName="tryfuncTM" lineNumber="244"/>
+    <functiondecl functionName="luaD_precall" lineNumber="265"/>
+    <functiondecl functionName="callrethooks" lineNumber="332"/>
+    <functiondecl functionName="luaD_poscall" lineNumber="343"/>
+    <functiondecl functionName="luaD_call" lineNumber="370"/>
+    <functiondecl functionName="resume" lineNumber="384"/>
+    <functiondecl functionName="resume_error" lineNumber="409"/>
+    <functiondecl functionName="lua_resume" lineNumber="418"/>
+    <functiondecl functionName="lua_yield" lineNumber="444"/>
+    <functiondecl functionName="luaD_pcall" lineNumber="456"/>
+    <functiondecl functionName="f_parser" lineNumber="491"/>
+    <functiondecl functionName="luaD_protectedparser" lineNumber="509"/>
+    <functioncall functionName="EXIT_FAILURE"/>
+    <functioncall functionName="GCthreshold"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OP_ADD"/>
+    <functioncall functionName="OP_CALL"/>
+    <functioncall functionName="OP_CLOSE"/>
+    <functioncall functionName="OP_CLOSURE"/>
+    <functioncall functionName="OP_CONCAT"/>
+    <functioncall functionName="OP_DIV"/>
+    <functioncall functionName="OP_EQ"/>
+    <functioncall functionName="OP_FORLOOP"/>
+    <functioncall functionName="OP_FORPREP"/>
+    <functioncall functionName="OP_GETGLOBAL"/>
+    <functioncall functionName="OP_GETTABLE"/>
+    <functioncall functionName="OP_GETUPVAL"/>
+    <functioncall functionName="OP_JMP"/>
+    <functioncall functionName="OP_LE"/>
+    <functioncall functionName="OP_LEN"/>
+    <functioncall functionName="OP_LOADBOOL"/>
+    <functioncall functionName="OP_LOADK"/>
+    <functioncall functionName="OP_LOADNIL"/>
+    <functioncall functionName="OP_LT"/>
+    <functioncall functionName="OP_MOD"/>
+    <functioncall functionName="OP_MOVE"/>
+    <functioncall functionName="OP_MUL"/>
+    <functioncall functionName="OP_NEWTABLE"/>
+    <functioncall functionName="OP_NOT"/>
+    <functioncall functionName="OP_POW"/>
+    <functioncall functionName="OP_RETURN"/>
+    <functioncall functionName="OP_SELF"/>
+    <functioncall functionName="OP_SETGLOBAL"/>
+    <functioncall functionName="OP_SETLIST"/>
+    <functioncall functionName="OP_SETTABLE"/>
+    <functioncall functionName="OP_SETUPVAL"/>
+    <functioncall functionName="OP_SUB"/>
+    <functioncall functionName="OP_TAILCALL"/>
+    <functioncall functionName="OP_TEST"/>
+    <functioncall functionName="OP_TESTSET"/>
+    <functioncall functionName="OP_TFORLOOP"/>
+    <functioncall functionName="OP_UNM"/>
+    <functioncall functionName="OP_VARARG"/>
+    <functioncall functionName="OpArgK"/>
+    <functioncall functionName="OpArgN"/>
+    <functioncall functionName="OpArgR"/>
+    <functioncall functionName="OpArgU"/>
+    <functioncall functionName="TM_ADD"/>
+    <functioncall functionName="TM_CALL"/>
+    <functioncall functionName="TM_CONCAT"/>
+    <functioncall functionName="TM_DIV"/>
+    <functioncall functionName="TM_EQ"/>
+    <functioncall functionName="TM_GC"/>
+    <functioncall functionName="TM_INDEX"/>
+    <functioncall functionName="TM_LE"/>
+    <functioncall functionName="TM_LEN"/>
+    <functioncall functionName="TM_LT"/>
+    <functioncall functionName="TM_MOD"/>
+    <functioncall functionName="TM_MODE"/>
+    <functioncall functionName="TM_MUL"/>
+    <functioncall functionName="TM_N"/>
+    <functioncall functionName="TM_NEWINDEX"/>
+    <functioncall functionName="TM_POW"/>
+    <functioncall functionName="TM_SUB"/>
+    <functioncall functionName="TM_UNM"/>
+    <functioncall functionName="VCALL"/>
+    <functioncall functionName="VFALSE"/>
+    <functioncall functionName="VGLOBAL"/>
+    <functioncall functionName="VINDEXED"/>
+    <functioncall functionName="VJMP"/>
+    <functioncall functionName="VK"/>
+    <functioncall functionName="VKNUM"/>
+    <functioncall functionName="VLOCAL"/>
+    <functioncall functionName="VNIL"/>
+    <functioncall functionName="VNONRELOC"/>
+    <functioncall functionName="VRELOCABLE"/>
+    <functioncall functionName="VTRUE"/>
+    <functioncall functionName="VUPVAL"/>
+    <functioncall functionName="VVARARG"/>
+    <functioncall functionName="VVOID"/>
+    <functioncall functionName="_longjmp"/>
+    <functioncall functionName="_setjmp"/>
+    <functioncall functionName="actual"/>
+    <functioncall functionName="adjust_varargs"/>
+    <functioncall functionName="allowhook"/>
+    <functioncall functionName="ar"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="baseCcalls"/>
+    <functioncall functionName="base_ci"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buff"/>
+    <functioncall functionName="buffer"/>
+    <functioncall functionName="buffsize"/>
+    <functioncall functionName="callrethooks"/>
+    <functioncall functionName="cast"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="ci"/>
+    <functioncall functionName="ci_top"/>
+    <functioncall functionName="cl"/>
+    <functioncall functionName="code"/>
+    <functioncall functionName="correctstack"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ef"/>
+    <functioncall functionName="end_ci"/>
+    <functioncall functionName="errcode"/>
+    <functioncall functionName="errfunc"/>
+    <functioncall functionName="errorJmp"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="f_parser"/>
+    <functioncall functionName="firstArg"/>
+    <functioncall functionName="firstResult"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fr"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="funcr"/>
+    <functioncall functionName="growCI"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="hook"/>
+    <functioncall functionName="htab"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="iABC"/>
+    <functioncall functionName="iABx"/>
+    <functioncall functionName="iAsBx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isC"/>
+    <functioncall functionName="is_vararg"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l_G"/>
+    <functioncall functionName="l_gt"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="lj"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="longjmp"/>
+    <functioncall functionName="luaC_step"/>
+    <functioncall functionName="luaD_callhook"/>
+    <functioncall functionName="luaD_growstack"/>
+    <functioncall functionName="luaD_pcall"/>
+    <functioncall functionName="luaD_poscall"/>
+    <functioncall functionName="luaD_precall"/>
+    <functioncall functionName="luaD_rawrunprotected"/>
+    <functioncall functionName="luaD_reallocCI"/>
+    <functioncall functionName="luaD_reallocstack"/>
+    <functioncall functionName="luaD_seterrorobj"/>
+    <functioncall functionName="luaD_throw"/>
+    <functioncall functionName="luaF_close"/>
+    <functioncall functionName="luaF_newLclosure"/>
+    <functioncall functionName="luaF_newupval"/>
+    <functioncall functionName="luaG_runerror"/>
+    <functioncall functionName="luaG_typeerror"/>
+    <functioncall functionName="luaH_new"/>
+    <functioncall functionName="luaH_setnum"/>
+    <functioncall functionName="luaH_setstr"/>
+    <functioncall functionName="luaM_realloc_"/>
+    <functioncall functionName="luaM_toobig"/>
+    <functioncall functionName="luaS_newlstr"/>
+    <functioncall functionName="luaT_gettmbyobj"/>
+    <functioncall functionName="luaV_execute"/>
+    <functioncall functionName="luaY_parser"/>
+    <functioncall functionName="luaZ_lookahead"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="maxstacksize"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="nCcalls"/>
+    <functioncall functionName="nResults"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="nargs"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nfixargs"/>
+    <functioncall functionName="nresults"/>
+    <functioncall functionName="numparams"/>
+    <functioncall functionName="nups"/>
+    <functioncall functionName="nvar"/>
+    <functioncall functionName="old_allowhooks"/>
+    <functioncall functionName="old_ci"/>
+    <functioncall functionName="old_errfunc"/>
+    <functioncall functionName="old_top"/>
+    <functioncall functionName="oldci"/>
+    <functioncall functionName="oldnCcalls"/>
+    <functioncall functionName="oldstack"/>
+    <functioncall functionName="oldtop"/>
+    <functioncall functionName="openupval"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="panic"/>
+    <functioncall functionName="previous"/>
+    <functioncall functionName="realsize"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="resetstack"/>
+    <functioncall functionName="restore_stack_limit"/>
+    <functioncall functionName="resume"/>
+    <functioncall functionName="resume_error"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="savedpc"/>
+    <functioncall functionName="setjmp"/>
+    <functioncall functionName="size_ci"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="st"/>
+    <functioncall functionName="stack"/>
+    <functioncall functionName="stacksize"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tf"/>
+    <functioncall functionName="tm"/>
+    <functioncall functionName="top"/>
+    <functioncall functionName="tryfuncTM"/>
+    <functioncall functionName="tt"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="ud"/>
+    <functioncall functionName="uv"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="wanted"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

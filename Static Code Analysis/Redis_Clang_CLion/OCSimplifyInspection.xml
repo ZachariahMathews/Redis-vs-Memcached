@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/replication.c</file>
+    <line>284</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/replication.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rdb.c</file>
+    <line>1072</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rdb.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>3774</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '&quot;32&quot;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>3725</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>1534</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>4145</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/lzf_c.c</file>
+    <line>148</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lzf_c.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '(off = ip - ref - 1) &lt; MAX_OFF'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/debug.c</file>
+    <line>531</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/debug.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sort.c</file>
+    <line>480</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sort.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'false'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/config.c</file>
+    <line>910</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/config.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/lua/src/lua_cmsgpack.c</file>
+    <line>207</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/lua/src/lua_cmsgpack.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'sizeof(d) == 8'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/lua/src/lua_cmsgpack.c</file>
+    <line>213</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/lua/src/lua_cmsgpack.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always true</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c</file>
+    <line>573</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'j != 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c</file>
+    <line>529</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'j != 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c</file>
+    <line>555</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'j != 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c</file>
+    <line>577</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'j != 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c</file>
+    <line>526</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'j != 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c</file>
+    <line>549</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/src/jemalloc.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'j != 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/test/unit/log.c</file>
+    <line>178</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/test/unit/log.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/test/unit/ph.c</file>
+    <line>135</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/test/unit/ph.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/sz.h</file>
+    <line>82</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/sz.h" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '(grp != NULL)'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/sz.h</file>
+    <line>186</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/sz.h" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '(grp != NULL)'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/tcache_inlines.h</file>
+    <line>62</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/tcache_inlines.h" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '! tcache_hard_success'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/extent_inlines.h</file>
+    <line>45</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/jemalloc/include/jemalloc/internal/extent_inlines.h" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+</problems>
+

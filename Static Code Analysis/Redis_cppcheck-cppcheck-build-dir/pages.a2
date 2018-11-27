@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2432269323">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;hugepage&apos; can be reduced." verbose="The scope of the variable &apos;hugepage&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\pages.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\pages.c" line="6"/>
+            <symbol>hugepage</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="main" lineNumber="26"/>
+    <functioncall functionName="ALIGNMENT_CEILING"/>
+    <functioncall functionName="HUGEPAGE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="alloc_size"/>
+    <functioncall functionName="assert_b_ne"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="have_madvise_huge"/>
+    <functioncall functionName="hugepage"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="pages"/>
+    <functioncall functionName="pages_huge"/>
+    <functioncall functionName="pages_map"/>
+    <functioncall functionName="pages_nohuge"/>
+    <functioncall functionName="pages_unmap"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_pages_huge"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

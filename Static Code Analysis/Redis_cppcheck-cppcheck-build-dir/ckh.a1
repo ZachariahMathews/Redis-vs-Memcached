@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1815798902">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cell&apos; can be reduced." verbose="The scope of the variable &apos;cell&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" line="64"/>
+            <symbol>cell</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cell&apos; can be reduced." verbose="The scope of the variable &apos;cell&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" line="104"/>
+            <symbol>cell</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;tbucket&apos; can be reduced." verbose="The scope of the variable &apos;tbucket&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" line="138"/>
+            <symbol>tbucket</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ckh.c" line="139"/>
+            <symbol>i</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ckh_bucket_search" lineNumber="63"/>
+    <functiondecl functionName="ckh_isearch" lineNumber="81"/>
+    <functiondecl functionName="ckh_try_bucket_insert" lineNumber="102"/>
+    <functiondecl functionName="ckh_evict_reloc_insert" lineNumber="134"/>
+    <functiondecl functionName="ckh_try_insert" lineNumber="205"/>
+    <functiondecl functionName="ckh_rebuild" lineNumber="235"/>
+    <functiondecl functionName="ckh_grow" lineNumber="257"/>
+    <functiondecl functionName="ckh_shrink" lineNumber="311"/>
+    <functiondecl functionName="ckh_new" lineNumber="359"/>
+    <functiondecl functionName="ckh_delete" lineNumber="416"/>
+    <functiondecl functionName="ckh_count" lineNumber="438"/>
+    <functiondecl functionName="ckh_iter" lineNumber="445"/>
+    <functiondecl functionName="ckh_insert" lineNumber="466"/>
+    <functiondecl functionName="ckh_remove" lineNumber="489"/>
+    <functiondecl functionName="ckh_search" lineNumber="522"/>
+    <functiondecl functionName="ckh_string_hash" lineNumber="542"/>
+    <functiondecl functionName="ckh_string_keycomp" lineNumber="547"/>
+    <functiondecl functionName="ckh_pointer_hash" lineNumber="555"/>
+    <functiondecl functionName="ckh_pointer_keycomp" lineNumber="567"/>
+    <functiondecl functionName="ckh_bucket_search" lineNumber="63"/>
+    <functiondecl functionName="ckh_isearch" lineNumber="81"/>
+    <functiondecl functionName="ckh_try_bucket_insert" lineNumber="102"/>
+    <functiondecl functionName="ckh_evict_reloc_insert" lineNumber="134"/>
+    <functiondecl functionName="ckh_try_insert" lineNumber="205"/>
+    <functiondecl functionName="ckh_rebuild" lineNumber="235"/>
+    <functiondecl functionName="ckh_grow" lineNumber="257"/>
+    <functiondecl functionName="ckh_shrink" lineNumber="311"/>
+    <functiondecl functionName="ckh_new" lineNumber="359"/>
+    <functiondecl functionName="ckh_delete" lineNumber="416"/>
+    <functiondecl functionName="ckh_count" lineNumber="438"/>
+    <functiondecl functionName="ckh_iter" lineNumber="445"/>
+    <functiondecl functionName="ckh_insert" lineNumber="466"/>
+    <functiondecl functionName="ckh_remove" lineNumber="489"/>
+    <functiondecl functionName="ckh_search" lineNumber="522"/>
+    <functiondecl functionName="ckh_string_hash" lineNumber="542"/>
+    <functiondecl functionName="ckh_string_keycomp" lineNumber="547"/>
+    <functiondecl functionName="ckh_pointer_hash" lineNumber="555"/>
+    <functiondecl functionName="ckh_pointer_keycomp" lineNumber="567"/>
+    <functiondecl functionName="ckh_bucket_search" lineNumber="63"/>
+    <functiondecl functionName="ckh_isearch" lineNumber="81"/>
+    <functiondecl functionName="ckh_try_bucket_insert" lineNumber="102"/>
+    <functiondecl functionName="ckh_evict_reloc_insert" lineNumber="134"/>
+    <functiondecl functionName="ckh_try_insert" lineNumber="205"/>
+    <functiondecl functionName="ckh_rebuild" lineNumber="235"/>
+    <functiondecl functionName="ckh_grow" lineNumber="257"/>
+    <functiondecl functionName="ckh_shrink" lineNumber="311"/>
+    <functiondecl functionName="ckh_new" lineNumber="359"/>
+    <functiondecl functionName="ckh_delete" lineNumber="416"/>
+    <functiondecl functionName="ckh_count" lineNumber="438"/>
+    <functiondecl functionName="ckh_iter" lineNumber="445"/>
+    <functiondecl functionName="ckh_insert" lineNumber="466"/>
+    <functiondecl functionName="ckh_remove" lineNumber="489"/>
+    <functiondecl functionName="ckh_search" lineNumber="522"/>
+    <functiondecl functionName="ckh_string_hash" lineNumber="542"/>
+    <functiondecl functionName="ckh_string_keycomp" lineNumber="547"/>
+    <functiondecl functionName="ckh_pointer_hash" lineNumber="555"/>
+    <functiondecl functionName="ckh_pointer_keycomp" lineNumber="567"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="JEMALLOC_FREE_JUNK"/>
+    <functioncall functionName="LG_CKH_BUCKET_CELLS"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="__func__"/>
+    <functioncall functionName="arena_ichoose"/>
+    <functioncall functionName="argbucket"/>
+    <functioncall functionName="argdata"/>
+    <functioncall functionName="argkey"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bucket"/>
+    <functioncall functionName="cell"/>
+    <functioncall functionName="ckh"/>
+    <functioncall functionName="ckh_bucket_search"/>
+    <functioncall functionName="ckh_evict_reloc_insert"/>
+    <functioncall functionName="ckh_grow"/>
+    <functioncall functionName="ckh_isearch"/>
+    <functioncall functionName="ckh_rebuild"/>
+    <functioncall functionName="ckh_search"/>
+    <functioncall functionName="ckh_shrink"/>
+    <functioncall functionName="ckh_t"/>
+    <functioncall functionName="ckh_try_bucket_insert"/>
+    <functioncall functionName="ckh_try_insert"/>
+    <functioncall functionName="ckhc_t"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashes"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idalloctm"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="ipallocztm"/>
+    <functioncall functionName="k1"/>
+    <functioncall functionName="k2"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keycomp"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="lg_curbuckets"/>
+    <functioncall functionName="lg_minbuckets"/>
+    <functioncall functionName="lg_prevbuckets"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="minitems"/>
+    <functioncall functionName="ngrows"/>
+    <functioncall functionName="ninserts"/>
+    <functioncall functionName="nrelocs"/>
+    <functioncall functionName="nshrinkfails"/>
+    <functioncall functionName="nshrinks"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="prng_lg_range_u64"/>
+    <functioncall functionName="prng_state"/>
+    <functioncall functionName="r_hash"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="searchkey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="sz_sa2u"/>
+    <functioncall functionName="tab"/>
+    <functioncall functionName="tbucket"/>
+    <functioncall functionName="tdata"/>
+    <functioncall functionName="tkey"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="ttab"/>
+    <functioncall functionName="unlikely"/>
+    <functioncall functionName="usize"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

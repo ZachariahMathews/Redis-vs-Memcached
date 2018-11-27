@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3815379501">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="handleOOM" lineNumber="44"/>
+    <functiondecl functionName="newImpl &lt; false &gt;" lineNumber="77"/>
+    <functiondecl functionName="newImpl &lt; true &gt;" lineNumber="77"/>
+    <functioncall functionName="__throw_bad_alloc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="catch"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="handleOOM"/>
+    <functioncall functionName="handler"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="je_free"/>
+    <functioncall functionName="je_malloc"/>
+    <functioncall functionName="likely"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="newImpl &lt; false &gt;"/>
+    <functioncall functionName="newImpl &lt; true &gt;"/>
+    <functioncall functionName="noexcept"/>
+    <functioncall functionName="nothrow"/>
+    <functioncall functionName="nullptr"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="set_new_handler"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2548754484">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="bin_init" lineNumber="23"/>
+    <functiondecl functionName="bin_prefork" lineNumber="38"/>
+    <functiondecl functionName="bin_postfork_parent" lineNumber="43"/>
+    <functiondecl functionName="bin_postfork_child" lineNumber="48"/>
+    <functioncall functionName="NBINS"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIZE_CLASSES"/>
+    <functioncall functionName="WITNESS_RANK_BIN"/>
+    <functioncall functionName="bin_stats_t"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="extent_heap_new"/>
+    <functioncall functionName="extent_list_init"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slabs_full"/>
+    <functioncall functionName="slabs_nonfull"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="tsdn"/>
+  </FileInfo>
+</analyzerinfo>

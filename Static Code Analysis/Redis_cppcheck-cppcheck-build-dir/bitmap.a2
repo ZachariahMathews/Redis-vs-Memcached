@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="301893045">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="test_bitmap_initializer_body" lineNumber="96"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="126"/>
+    <functiondecl functionName="test_bitmap_size_body" lineNumber="140"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="149"/>
+    <functiondecl functionName="test_bitmap_init_body" lineNumber="170"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="189"/>
+    <functiondecl functionName="test_bitmap_set_body" lineNumber="207"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="220"/>
+    <functiondecl functionName="test_bitmap_unset_body" lineNumber="238"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="258"/>
+    <functiondecl functionName="test_bitmap_xfu_body" lineNumber="276"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="405"/>
+    <functiondecl functionName="main" lineNumber="423"/>
+    <functiondecl functionName="test_bitmap_initializer_body" lineNumber="96"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="126"/>
+    <functiondecl functionName="test_bitmap_size_body" lineNumber="140"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="149"/>
+    <functiondecl functionName="test_bitmap_init_body" lineNumber="170"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="189"/>
+    <functiondecl functionName="test_bitmap_set_body" lineNumber="207"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="220"/>
+    <functiondecl functionName="test_bitmap_unset_body" lineNumber="238"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="258"/>
+    <functiondecl functionName="test_bitmap_xfu_body" lineNumber="276"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="405"/>
+    <functiondecl functionName="main" lineNumber="423"/>
+    <functioncall functionName="BITMAP_INFO_INITIALIZER"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_ge"/>
+    <functioncall functionName="binfo"/>
+    <functioncall functionName="binfo_dyn"/>
+    <functioncall functionName="bitmap"/>
+    <functioncall functionName="bitmap_ffu"/>
+    <functioncall functionName="bitmap_full"/>
+    <functioncall functionName="bitmap_get"/>
+    <functioncall functionName="bitmap_info_init"/>
+    <functioncall functionName="bitmap_init"/>
+    <functioncall functionName="bitmap_set"/>
+    <functioncall functionName="bitmap_sfu"/>
+    <functioncall functionName="bitmap_size"/>
+    <functioncall functionName="bitmap_unset"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="group_offset"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="nbits"/>
+    <functioncall functionName="ngroups"/>
+    <functioncall functionName="nlevels"/>
+    <functioncall functionName="prev_size"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_bitmap_init"/>
+    <functioncall functionName="test_bitmap_init_body"/>
+    <functioncall functionName="test_bitmap_initializer"/>
+    <functioncall functionName="test_bitmap_initializer_body"/>
+    <functioncall functionName="test_bitmap_set"/>
+    <functioncall functionName="test_bitmap_set_body"/>
+    <functioncall functionName="test_bitmap_size"/>
+    <functioncall functionName="test_bitmap_size_body"/>
+    <functioncall functionName="test_bitmap_unset"/>
+    <functioncall functionName="test_bitmap_unset_body"/>
+    <functioncall functionName="test_bitmap_xfu"/>
+    <functioncall functionName="test_bitmap_xfu_body"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

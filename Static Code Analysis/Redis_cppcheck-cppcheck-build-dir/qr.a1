@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2631308541">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\qr.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\qr.c" line="120"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\qr.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\qr.c" line="187"/>
+            <symbol>j</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="init_entries" lineNumber="18"/>
+    <functiondecl functionName="test_independent_entries" lineNumber="28"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="64"/>
+    <functiondecl functionName="test_entries_ring" lineNumber="73"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="105"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="117"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="146"/>
+    <functiondecl functionName="test_split_entries" lineNumber="185"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="206"/>
+    <functiondecl functionName="main" lineNumber="236"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_c_eq"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="entries"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init_entries"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="qr"/>
+    <functioncall functionName="qr_after_insert"/>
+    <functioncall functionName="qr_before_insert"/>
+    <functioncall functionName="qr_foreach"/>
+    <functioncall functionName="qr_meld"/>
+    <functioncall functionName="qr_new"/>
+    <functioncall functionName="qr_next"/>
+    <functioncall functionName="qr_prev"/>
+    <functioncall functionName="qr_remove"/>
+    <functioncall functionName="qr_reverse_foreach"/>
+    <functioncall functionName="qr_split"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_entries_ring"/>
+    <functioncall functionName="test_independent_entries"/>
+    <functioncall functionName="test_qr_after_insert"/>
+    <functioncall functionName="test_qr_before_insert"/>
+    <functioncall functionName="test_qr_meld_split"/>
+    <functioncall functionName="test_qr_one"/>
+    <functioncall functionName="test_qr_remove"/>
+    <functioncall functionName="test_split_entries"/>
+  </FileInfo>
+</analyzerinfo>

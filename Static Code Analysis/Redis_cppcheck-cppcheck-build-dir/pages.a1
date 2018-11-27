@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1056921305">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+        <error id="leakReturnValNotUsed" severity="error" msg="Return value of allocation function &apos;VirtualAlloc&apos; is not stored." verbose="Return value of allocation function &apos;VirtualAlloc&apos; is not stored." cwe="771">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\pages.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\pages.c" line="229"/>
+            <symbol>VirtualAlloc</symbol>
+        </error>
+        <error id="leakReturnValNotUsed" severity="error" msg="Return value of allocation function &apos;VirtualAlloc&apos; is not stored." verbose="Return value of allocation function &apos;VirtualAlloc&apos; is not stored." cwe="771">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\pages.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\pages.c" line="279"/>
+            <symbol>VirtualAlloc</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="thp_mode_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="os_overcommits_proc" lineNumber="436"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="os_overcommits_sysctl" lineNumber="406"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="os_overcommits_sysctl" lineNumber="406"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functiondecl functionName="os_pages_map" lineNumber="54"/>
+    <functiondecl functionName="os_pages_trim" lineNumber="99"/>
+    <functiondecl functionName="os_pages_unmap" lineNumber="128"/>
+    <functiondecl functionName="pages_map_slow" lineNumber="155"/>
+    <functiondecl functionName="pages_map" lineNumber="179"/>
+    <functiondecl functionName="pages_unmap" lineNumber="212"/>
+    <functiondecl functionName="pages_commit_impl" lineNumber="220"/>
+    <functiondecl functionName="pages_commit" lineNumber="253"/>
+    <functiondecl functionName="pages_decommit" lineNumber="258"/>
+    <functiondecl functionName="pages_purge_lazy" lineNumber="263"/>
+    <functiondecl functionName="pages_purge_forced" lineNumber="298"/>
+    <functiondecl functionName="pages_huge_impl" lineNumber="318"/>
+    <functiondecl functionName="pages_huge" lineNumber="331"/>
+    <functiondecl functionName="pages_huge_unaligned" lineNumber="336"/>
+    <functiondecl functionName="pages_nohuge_impl" lineNumber="341"/>
+    <functiondecl functionName="pages_nohuge" lineNumber="355"/>
+    <functiondecl functionName="pages_nohuge_unaligned" lineNumber="360"/>
+    <functiondecl functionName="pages_dontdump" lineNumber="365"/>
+    <functiondecl functionName="pages_dodump" lineNumber="376"/>
+    <functiondecl functionName="os_page_detect" lineNumber="388"/>
+    <functiondecl functionName="pages_set_thp_state" lineNumber="497"/>
+    <functiondecl functionName="init_thp_state" lineNumber="516"/>
+    <functiondecl functionName="pages_boot" lineNumber="562"/>
+    <functioncall functionName="ALIGNMENT_ADDR2BASE"/>
+    <functioncall functionName="ALIGNMENT_ADDR2OFFSET"/>
+    <functioncall functionName="ALIGNMENT_CEILING"/>
+    <functioncall functionName="BUFERROR_BUF"/>
+    <functioncall functionName="FD_CLOEXEC"/>
+    <functioncall functionName="F_GETFD"/>
+    <functioncall functionName="F_SETFD"/>
+    <functioncall functionName="GetSystemInfo"/>
+    <functioncall functionName="HUGEPAGE_ADDR2BASE"/>
+    <functioncall functionName="HUGEPAGE_CEILING"/>
+    <functioncall functionName="JEMALLOC_MADV_FREE"/>
+    <functioncall functionName="MADV_DODUMP"/>
+    <functioncall functionName="MADV_DONTDUMP"/>
+    <functioncall functionName="MADV_DONTNEED"/>
+    <functioncall functionName="MADV_HUGEPAGE"/>
+    <functioncall functionName="MADV_NOHUGEPAGE"/>
+    <functioncall functionName="MAP_ANON"/>
+    <functioncall functionName="MAP_FIXED"/>
+    <functioncall functionName="MEM_COMMIT"/>
+    <functioncall functionName="MEM_DECOMMIT"/>
+    <functioncall functionName="MEM_RELEASE"/>
+    <functioncall functionName="MEM_RESET"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_RDONLY"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="PAGE_ADDR2BASE"/>
+    <functioncall functionName="PAGE_CEILING"/>
+    <functioncall functionName="PAGE_READWRITE"/>
+    <functioncall functionName="PROT_NONE"/>
+    <functioncall functionName="PROT_WRITE"/>
+    <functioncall functionName="THP_MODE_DEFAULT"/>
+    <functioncall functionName="VirtualAlloc"/>
+    <functioncall functionName="VirtualFree"/>
+    <functioncall functionName="_SC_PAGESIZE"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="aligned"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="alloc_size"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buferror"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="committed"/>
+    <functioncall functionName="dwPageSize"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fcntl"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="get_errno"/>
+    <functioncall functionName="getpagesize"/>
+    <functioncall functionName="have_madvise_huge"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init_thp_state"/>
+    <functioncall functionName="label_error"/>
+    <functioncall functionName="leadsize"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="madv_free_page"/>
+    <functioncall functionName="madvise"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_read_fd"/>
+    <functioncall functionName="malloc_write"/>
+    <functioncall functionName="metadata_thp_enabled"/>
+    <functioncall functionName="mmap"/>
+    <functioncall functionName="mmap_flags"/>
+    <functioncall functionName="munmap"/>
+    <functioncall functionName="new_addr"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="opt_abort"/>
+    <functioncall functionName="os_overcommits"/>
+    <functioncall functionName="os_overcommits_proc"/>
+    <functioncall functionName="os_overcommits_sysctl"/>
+    <functioncall functionName="os_page"/>
+    <functioncall functionName="os_page_detect"/>
+    <functioncall functionName="os_pages_map"/>
+    <functioncall functionName="os_pages_trim"/>
+    <functioncall functionName="os_pages_unmap"/>
+    <functioncall functionName="pages"/>
+    <functioncall functionName="pages_can_purge_forced"/>
+    <functioncall functionName="pages_can_purge_lazy"/>
+    <functioncall functionName="pages_can_purge_lazy_runtime"/>
+    <functioncall functionName="pages_commit"/>
+    <functioncall functionName="pages_commit_impl"/>
+    <functioncall functionName="pages_huge_impl"/>
+    <functioncall functionName="pages_huge_unaligned"/>
+    <functioncall functionName="pages_map_slow"/>
+    <functioncall functionName="pages_nohuge_impl"/>
+    <functioncall functionName="pages_nohuge_unaligned"/>
+    <functioncall functionName="pages_purge_lazy"/>
+    <functioncall functionName="prot"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="sys_state_always"/>
+    <functioncall functionName="sys_state_madvise"/>
+    <functioncall functionName="sys_state_never"/>
+    <functioncall functionName="sysconf"/>
+    <functioncall functionName="sysctlbyname"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="thp_mode_always"/>
+    <functioncall functionName="thp_mode_default"/>
+    <functioncall functionName="thp_mode_never"/>
+    <functioncall functionName="thp_mode_not_supported"/>
+    <functioncall functionName="trailsize"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="vm_overcommit"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

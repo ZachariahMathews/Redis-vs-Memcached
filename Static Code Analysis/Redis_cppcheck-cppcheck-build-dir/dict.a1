@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2587066823">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="dictGenHashFunction" lineNumber="53"/>
+    <functiondecl functionName="_dictReset" lineNumber="65"/>
+    <functiondecl functionName="dictCreate" lineNumber="73"/>
+    <functiondecl functionName="_dictInit" lineNumber="80"/>
+    <functiondecl functionName="dictExpand" lineNumber="88"/>
+    <functiondecl functionName="dictAdd" lineNumber="135"/>
+    <functiondecl functionName="dictReplace" lineNumber="160"/>
+    <functiondecl functionName="dictDelete" lineNumber="182"/>
+    <functiondecl functionName="_dictClear" lineNumber="213"/>
+    <functiondecl functionName="dictRelease" lineNumber="238"/>
+    <functiondecl functionName="dictFind" lineNumber="243"/>
+    <functiondecl functionName="dictGetIterator" lineNumber="258"/>
+    <functiondecl functionName="dictNext" lineNumber="268"/>
+    <functiondecl functionName="dictReleaseIterator" lineNumber="288"/>
+    <functiondecl functionName="_dictExpandIfNeeded" lineNumber="295"/>
+    <functiondecl functionName="_dictNextPower" lineNumber="306"/>
+    <functiondecl functionName="_dictKeyIndex" lineNumber="320"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_dictClear"/>
+    <functioncall functionName="_dictExpandIfNeeded"/>
+    <functioncall functionName="_dictInit"/>
+    <functioncall functionName="_dictKeyIndex"/>
+    <functioncall functionName="_dictNextPower"/>
+    <functioncall functionName="_dictReset"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashFunction"/>
+    <functioncall functionName="he"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyCompare"/>
+    <functioncall functionName="keyDestructor"/>
+    <functioncall functionName="keyDup"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextEntry"/>
+    <functioncall functionName="nextHe"/>
+    <functioncall functionName="prevde"/>
+    <functioncall functionName="privDataPtr"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="realsize"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizemask"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="table"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="valDestructor"/>
+    <functioncall functionName="valDup"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

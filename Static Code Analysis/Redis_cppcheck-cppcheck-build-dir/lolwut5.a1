@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1744357554">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;e2&apos; can be reduced." verbose="The scope of the variable &apos;e2&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\lolwut5.c" file="C:\Users\bharm\Downloads\redis-unstable\src\lolwut5.c" line="111"/>
+            <symbol>e2</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="lwTranslatePixelsGroup" lineNumber="62"/>
+    <functiondecl functionName="lwCreateCanvas" lineNumber="73"/>
+    <functiondecl functionName="lwFreeCanvas" lineNumber="83"/>
+    <functiondecl functionName="lwDrawPixel" lineNumber="92"/>
+    <functiondecl functionName="lwGetPixel" lineNumber="99"/>
+    <functiondecl functionName="lwDrawLine" lineNumber="106"/>
+    <functiondecl functionName="lwDrawSquare" lineNumber="147"/>
+    <functiondecl functionName="lwDrawSchotter" lineNumber="177"/>
+    <functiondecl functionName="lwRenderCanvas" lineNumber="215"/>
+    <functiondecl functionName="lolwut5Command" lineNumber="246"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="abs"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="angle"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="canvas"/>
+    <functioncall functionName="canvas_height"/>
+    <functioncall functionName="canvas_width"/>
+    <functioncall functionName="color"/>
+    <functioncall functionName="cols"/>
+    <functioncall functionName="cos"/>
+    <functioncall functionName="dy"/>
+    <functioncall functionName="e2"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="height"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lwCreateCanvas"/>
+    <functioncall functionName="lwDrawLine"/>
+    <functioncall functionName="lwDrawPixel"/>
+    <functioncall functionName="lwDrawSchotter"/>
+    <functioncall functionName="lwDrawSquare"/>
+    <functioncall functionName="lwFreeCanvas"/>
+    <functioncall functionName="lwGetPixel"/>
+    <functioncall functionName="lwRenderCanvas"/>
+    <functioncall functionName="lwTranslatePixelsGroup"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="padding"/>
+    <functioncall functionName="pixels"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="r1"/>
+    <functioncall functionName="r2"/>
+    <functioncall functionName="r3"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="rendered"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="round"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sin"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="square_side"/>
+    <functioncall functionName="squares_per_col"/>
+    <functioncall functionName="squares_per_row"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sx"/>
+    <functioncall functionName="sy"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="text"/>
+    <functioncall functionName="unicode"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="width"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="x1"/>
+    <functioncall functionName="y"/>
+    <functioncall functionName="y1"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

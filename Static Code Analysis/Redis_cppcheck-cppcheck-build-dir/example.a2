@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="435654375">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="completion" lineNumber="7"/>
+    <functiondecl functionName="hints" lineNumber="14"/>
+    <functiondecl functionName="main" lineNumber="23"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="completion"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="hints"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="lc"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="linenoise"/>
+    <functioncall functionName="linenoiseAddCompletion"/>
+    <functioncall functionName="linenoiseHistoryAdd"/>
+    <functioncall functionName="linenoiseHistoryLoad"/>
+    <functioncall functionName="linenoiseHistorySave"/>
+    <functioncall functionName="linenoiseHistorySetMaxLen"/>
+    <functioncall functionName="linenoisePrintKeyCodes"/>
+    <functioncall functionName="linenoiseSetCompletionCallback"/>
+    <functioncall functionName="linenoiseSetHintsCallback"/>
+    <functioncall functionName="linenoiseSetMultiLine"/>
+    <functioncall functionName="prgname"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

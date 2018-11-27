@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1471066305">
+        <error id="duplicateExpression" severity="style" msg="Same expression on both sides of &apos;!=&apos;." verbose="Finding the same expression on both sides of an operator is suspicious and might indicate a cut and paste or logic error. Please examine this code carefully to determine if it is correct." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sort.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sort.c" line="480"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sdsele&apos; can be reduced." verbose="The scope of the variable &apos;sdsele&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sort.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sort.c" line="402"/>
+            <symbol>sdsele</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sdsele&apos; can be reduced." verbose="The scope of the variable &apos;sdsele&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sort.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sort.c" line="434"/>
+            <symbol>sdsele</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="createSortOperation" lineNumber="38"/>
+    <functiondecl functionName="lookupKeyByPattern" lineNumber="61"/>
+    <functiondecl functionName="sortCompare" lineNumber="138"/>
+    <functiondecl functionName="sortCommand" lineNumber="189"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alpha"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="backward"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="byval"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cmp"/>
+    <functioncall functionName="cmpobj"/>
+    <functioncall functionName="collateStringObjects"/>
+    <functioncall functionName="compareStringObjects"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createQuicklistObject"/>
+    <functioncall functionName="createSortOperation"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="desc"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dontsort"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="fieldlen"/>
+    <functioncall functionName="fieldobj"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getop"/>
+    <functioncall functionName="hashTypeGetValueObject"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="int_conversion_error"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyobj"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="limit_count"/>
+    <functioncall functionName="limit_start"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listTypeGet"/>
+    <functioncall functionName="listTypeInitIterator"/>
+    <functioncall functionName="listTypeLength"/>
+    <functioncall functionName="listTypeNext"/>
+    <functioncall functionName="listTypePush"/>
+    <functioncall functionName="listTypeReleaseIterator"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyByPattern"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="noobj"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="operations"/>
+    <functioncall functionName="outputlen"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pattern"/>
+    <functioncall functionName="postfixlen"/>
+    <functioncall functionName="pqsort"/>
+    <functioncall functionName="prefixlen"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s1"/>
+    <functioncall functionName="s2"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="sdsele"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="set"/>
+    <functioncall functionName="setKey"/>
+    <functioncall functionName="setTypeInitIterator"/>
+    <functioncall functionName="setTypeNextObject"/>
+    <functioncall functionName="setTypeReleaseIterator"/>
+    <functioncall functionName="setTypeSize"/>
+    <functioncall functionName="setele"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sobj"/>
+    <functioncall functionName="sortCompare"/>
+    <functioncall functionName="sort_alpha"/>
+    <functioncall functionName="sort_bypattern"/>
+    <functioncall functionName="sort_store"/>
+    <functioncall functionName="sortby"/>
+    <functioncall functionName="sortval"/>
+    <functioncall functionName="spat"/>
+    <functioncall functionName="ssub"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="storekey"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcoll"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="strtod"/>
+    <functioncall functionName="sublen"/>
+    <functioncall functionName="subst"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntax_error"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vector"/>
+    <functioncall functionName="vectorlen"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zsetConvert"/>
+    <functioncall functionName="zsl"/>
+    <functioncall functionName="zslGetElementByRank"/>
+  </FileInfo>
+</analyzerinfo>

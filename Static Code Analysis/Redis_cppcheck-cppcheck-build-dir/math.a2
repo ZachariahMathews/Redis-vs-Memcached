@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2668171103">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="double_eq_rel" lineNumber="17"/>
+    <functiondecl functionName="factorial" lineNumber="28"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="39"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="190"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="240"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="289"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="350"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="369"/>
+    <functiondecl functionName="main" lineNumber="382"/>
+    <functioncall functionName="DBL_MAX"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="df"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="double_eq_rel"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="exp"/>
+    <functioncall functionName="fabs"/>
+    <functioncall functionName="factorial"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="ln_gamma"/>
+    <functioncall functionName="ln_gamma_df"/>
+    <functioncall functionName="ln_gamma_misc_expected"/>
+    <functioncall functionName="ln_gamma_shape"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pt_chi2"/>
+    <functioncall functionName="pt_chi2_df"/>
+    <functioncall functionName="pt_gamma"/>
+    <functioncall functionName="pt_gamma_shape"/>
+    <functioncall functionName="pt_norm"/>
+    <functioncall functionName="pt_norm_expected"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="shape"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_ln_gamma_factorial"/>
+    <functioncall functionName="test_ln_gamma_misc"/>
+    <functioncall functionName="test_pt_chi2"/>
+    <functioncall functionName="test_pt_gamma_scale"/>
+    <functioncall functionName="test_pt_gamma_shape"/>
+    <functioncall functionName="test_pt_norm"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

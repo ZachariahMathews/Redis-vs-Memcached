@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1804825659">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;decay_type.str_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;decay_type.str_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="643"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="602"/>
+            <symbol>decay_type.str_val</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;alloc_count_title.str_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;alloc_count_title.str_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="742"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="701"/>
+            <symbol>alloc_count_title.str_val</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;mem_count_title.str_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;mem_count_title.str_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="794"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="781"/>
+            <symbol>mem_count_title.str_val</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;in_gap_prev&apos; can be reduced." verbose="The scope of the variable &apos;in_gap_prev&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="221"/>
+            <symbol>in_gap_prev</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;in_gap_prev&apos; can be reduced." verbose="The scope of the variable &apos;in_gap_prev&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="413"/>
+            <symbol>in_gap_prev</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="1164"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="signConversion" severity="warning" msg="Suspicious code: sign conversion of 18446744073709551615 in calculation because &apos;18446744073709551615&apos; has a negative value" verbose="Suspicious code: sign conversion of 18446744073709551615 in calculation because &apos;18446744073709551615&apos; has a negative value" cwe="195">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="63"/>
+            <symbol>18446744073709551615</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;k_uint64_t&apos; is assigned a value that is never used." verbose="Variable &apos;k_uint64_t&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="92"/>
+            <symbol>k_uint64_t</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;k_uint32_t&apos; is assigned a value that is never used." verbose="Variable &apos;k_uint32_t&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="93"/>
+            <symbol>k_uint32_t</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: col" verbose="Unused variable: col" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="95"/>
+            <symbol>col</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: cmd" verbose="Unused variable: cmd" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="125"/>
+            <symbol>cmd</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: dst" verbose="Unused variable: dst" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="129"/>
+            <symbol>dst</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: cmd" verbose="Unused variable: cmd" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="149"/>
+            <symbol>cmd</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: dst" verbose="Unused variable: dst" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="153"/>
+            <symbol>dst</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: cmd" verbose="Unused variable: cmd" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="173"/>
+            <symbol>cmd</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: dst" verbose="Unused variable: dst" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="174"/>
+            <symbol>dst</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;k_uint64_t&apos; is assigned a value that is never used." verbose="Variable &apos;k_uint64_t&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="200"/>
+            <symbol>k_uint64_t</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;k_uint32_t&apos; is assigned a value that is never used." verbose="Variable &apos;k_uint32_t&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="201"/>
+            <symbol>k_uint32_t</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: col" verbose="Unused variable: col" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="203"/>
+            <symbol>col</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;j&apos; is assigned a value that is never used." verbose="Variable &apos;j&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="1204"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: epoch" verbose="Unused variable: epoch" cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\stats.c" line="1228"/>
+            <symbol>epoch</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="get_rate_str" lineNumber="57"/>
+    <functiondecl functionName="gen_mutex_ctl_str" lineNumber="82"/>
+    <functiondecl functionName="mutex_stats_init_cols" lineNumber="88"/>
+    <functiondecl functionName="mutex_stats_read_global" lineNumber="122"/>
+    <functiondecl functionName="mutex_stats_read_arena" lineNumber="145"/>
+    <functiondecl functionName="mutex_stats_read_arena_bin" lineNumber="170"/>
+    <functiondecl functionName="mutex_stats_emit" lineNumber="193"/>
+    <functiondecl functionName="stats_arena_bins_print" lineNumber="219"/>
+    <functiondecl functionName="stats_arena_lextents_print" lineNumber="411"/>
+    <functiondecl functionName="stats_arena_mutexes_print" lineNumber="498"/>
+    <functiondecl functionName="stats_arena_print" lineNumber="523"/>
+    <functiondecl functionName="stats_general_print" lineNumber="826"/>
+    <functiondecl functionName="stats_print_helper" lineNumber="1065"/>
+    <functiondecl functionName="stats_print" lineNumber="1225"/>
+    <functioncall functionName="CTL_MAX_DEPTH"/>
+    <functioncall functionName="MALLCTL_ARENAS_ALL"/>
+    <functioncall functionName="MALLCTL_ARENAS_DESTROYED"/>
+    <functioncall functionName="MUTEX_PROF_ARENA_MUTEXES"/>
+    <functioncall functionName="MUTEX_PROF_COUNTERS"/>
+    <functioncall functionName="MUTEX_PROF_GLOBAL_MUTEXES"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="alloc_count_allocated"/>
+    <functioncall functionName="alloc_count_ndalloc"/>
+    <functioncall functionName="alloc_count_nmalloc"/>
+    <functioncall functionName="alloc_count_nrequests"/>
+    <functioncall functionName="alloc_count_row"/>
+    <functioncall functionName="alloc_count_title"/>
+    <functioncall functionName="allocated"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arena_ind_str"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="availregs"/>
+    <functioncall functionName="background_thread_num_runs"/>
+    <functioncall functionName="background_thread_run_interval"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="bins"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="bsz"/>
+    <functioncall functionName="buf_len"/>
+    <functioncall functionName="bv"/>
+    <functioncall functionName="bv2"/>
+    <functioncall functionName="cbopaque"/>
+    <functioncall functionName="col32"/>
+    <functioncall functionName="col64"/>
+    <functioncall functionName="col_allocated"/>
+    <functioncall functionName="col_curlextents"/>
+    <functioncall functionName="col_curregs"/>
+    <functioncall functionName="col_curslabs"/>
+    <functioncall functionName="col_ind"/>
+    <functioncall functionName="col_justify_spacer"/>
+    <functioncall functionName="col_mutex32"/>
+    <functioncall functionName="col_mutex64"/>
+    <functioncall functionName="col_name"/>
+    <functioncall functionName="col_ndalloc"/>
+    <functioncall functionName="col_nfills"/>
+    <functioncall functionName="col_nflushes"/>
+    <functioncall functionName="col_nmalloc"/>
+    <functioncall functionName="col_nrequests"/>
+    <functioncall functionName="col_nreslabs"/>
+    <functioncall functionName="col_nslabs"/>
+    <functioncall functionName="col_pgs"/>
+    <functioncall functionName="col_regs"/>
+    <functioncall functionName="col_size"/>
+    <functioncall functionName="col_util"/>
+    <functioncall functionName="config_malloc_conf"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="counter"/>
+    <functioncall functionName="cpsz"/>
+    <functioncall functionName="cpv"/>
+    <functioncall functionName="curlextents"/>
+    <functioncall functionName="curregs"/>
+    <functioncall functionName="curslabs"/>
+    <functioncall functionName="decay_madvises"/>
+    <functioncall functionName="decay_npages"/>
+    <functioncall functionName="decay_purged"/>
+    <functioncall functionName="decay_row"/>
+    <functioncall functionName="decay_sweeps"/>
+    <functioncall functionName="decay_time"/>
+    <functioncall functionName="decay_type"/>
+    <functioncall functionName="destroyed"/>
+    <functioncall functionName="destroyed_initialized"/>
+    <functioncall functionName="dirty_decay_ms"/>
+    <functioncall functionName="dirty_nmadvise"/>
+    <functioncall functionName="dirty_npurge"/>
+    <functioncall functionName="dirty_purged"/>
+    <functioncall functionName="dividend"/>
+    <functioncall functionName="divisor"/>
+    <functioncall functionName="dss"/>
+    <functioncall functionName="emitter"/>
+    <functioncall functionName="emitter_begin"/>
+    <functioncall functionName="emitter_col_init"/>
+    <functioncall functionName="emitter_dict_begin"/>
+    <functioncall functionName="emitter_dict_end"/>
+    <functioncall functionName="emitter_end"/>
+    <functioncall functionName="emitter_init"/>
+    <functioncall functionName="emitter_json_arr_begin"/>
+    <functioncall functionName="emitter_json_arr_end"/>
+    <functioncall functionName="emitter_json_arr_obj_begin"/>
+    <functioncall functionName="emitter_json_arr_obj_end"/>
+    <functioncall functionName="emitter_json_dict_begin"/>
+    <functioncall functionName="emitter_json_dict_end"/>
+    <functioncall functionName="emitter_json_kv"/>
+    <functioncall functionName="emitter_justify_left"/>
+    <functioncall functionName="emitter_justify_right"/>
+    <functioncall functionName="emitter_kv"/>
+    <functioncall functionName="emitter_kv_note"/>
+    <functioncall functionName="emitter_output_json"/>
+    <functioncall functionName="emitter_output_table"/>
+    <functioncall functionName="emitter_row_init"/>
+    <functioncall functionName="emitter_table_printf"/>
+    <functioncall functionName="emitter_table_row"/>
+    <functioncall functionName="emitter_type_bool"/>
+    <functioncall functionName="emitter_type_size"/>
+    <functioncall functionName="emitter_type_ssize"/>
+    <functioncall functionName="emitter_type_string"/>
+    <functioncall functionName="emitter_type_title"/>
+    <functioncall functionName="emitter_type_uint32"/>
+    <functioncall functionName="emitter_type_uint64"/>
+    <functioncall functionName="emitter_type_unsigned"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="general"/>
+    <functioncall functionName="get_rate_str"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="header_allocated"/>
+    <functioncall functionName="header_col_allocated"/>
+    <functioncall functionName="header_col_curregs"/>
+    <functioncall functionName="header_col_curslabs"/>
+    <functioncall functionName="header_col_ind"/>
+    <functioncall functionName="header_col_justify_spacer"/>
+    <functioncall functionName="header_col_ndalloc"/>
+    <functioncall functionName="header_col_nfills"/>
+    <functioncall functionName="header_col_nflushes"/>
+    <functioncall functionName="header_col_nmalloc"/>
+    <functioncall functionName="header_col_nrequests"/>
+    <functioncall functionName="header_col_nreslabs"/>
+    <functioncall functionName="header_col_nslabs"/>
+    <functioncall functionName="header_col_pgs"/>
+    <functioncall functionName="header_col_regs"/>
+    <functioncall functionName="header_col_size"/>
+    <functioncall functionName="header_col_util"/>
+    <functioncall functionName="header_curlextents"/>
+    <functioncall functionName="header_ind"/>
+    <functioncall functionName="header_mutex32"/>
+    <functioncall functionName="header_mutex64"/>
+    <functioncall functionName="header_ndalloc"/>
+    <functioncall functionName="header_nmalloc"/>
+    <functioncall functionName="header_nrequests"/>
+    <functioncall functionName="header_row"/>
+    <functioncall functionName="header_size"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in_gap"/>
+    <functioncall functionName="initialized"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="internal"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="je_mallctl"/>
+    <functioncall functionName="large"/>
+    <functioncall functionName="large_allocated"/>
+    <functioncall functionName="large_ndalloc"/>
+    <functioncall functionName="large_nmalloc"/>
+    <functioncall functionName="large_nrequests"/>
+    <functioncall functionName="lextent_size"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_snprintf"/>
+    <functioncall functionName="malloc_write"/>
+    <functioncall functionName="mapped"/>
+    <functioncall functionName="mem_count_row"/>
+    <functioncall functionName="mem_count_title"/>
+    <functioncall functionName="mem_count_val"/>
+    <functioncall functionName="merged"/>
+    <functioncall functionName="metadata"/>
+    <functioncall functionName="metadata_thp"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="mutex"/>
+    <functioncall functionName="mutex_prof_num_arena_mutexes"/>
+    <functioncall functionName="mutex_prof_num_global_mutexes"/>
+    <functioncall functionName="mutex_prof_num_uint32_t_counters"/>
+    <functioncall functionName="mutex_prof_num_uint64_t_counters"/>
+    <functioncall functionName="mutex_stats_emit"/>
+    <functioncall functionName="mutex_stats_init_cols"/>
+    <functioncall functionName="mutex_stats_read_arena"/>
+    <functioncall functionName="mutex_stats_read_arena_bin"/>
+    <functioncall functionName="mutex_stats_read_global"/>
+    <functioncall functionName="muzzy_decay_ms"/>
+    <functioncall functionName="muzzy_nmadvise"/>
+    <functioncall functionName="muzzy_npurge"/>
+    <functioncall functionName="muzzy_purged"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="narenas"/>
+    <functioncall functionName="nbins"/>
+    <functioncall functionName="ndalloc"/>
+    <functioncall functionName="nfills"/>
+    <functioncall functionName="nflushes"/>
+    <functioncall functionName="nhbins"/>
+    <functioncall functionName="ninitialized"/>
+    <functioncall functionName="nlextents"/>
+    <functioncall functionName="nmalloc"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="nregs"/>
+    <functioncall functionName="nrequests"/>
+    <functioncall functionName="nreslabs"/>
+    <functioncall functionName="nslabs"/>
+    <functioncall functionName="nthreads"/>
+    <functioncall functionName="num_background_threads"/>
+    <functioncall functionName="pactive"/>
+    <functioncall functionName="page"/>
+    <functioncall functionName="pdirty"/>
+    <functioncall functionName="pmuzzy"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="resident"/>
+    <functioncall functionName="retained"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="row"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab_size"/>
+    <functioncall functionName="small_allocated"/>
+    <functioncall functionName="small_ndalloc"/>
+    <functioncall functionName="small_nmalloc"/>
+    <functioncall functionName="small_nrequests"/>
+    <functioncall functionName="sssz"/>
+    <functioncall functionName="ssv"/>
+    <functioncall functionName="ssv2"/>
+    <functioncall functionName="ssz"/>
+    <functioncall functionName="stats_arena_bins_print"/>
+    <functioncall functionName="stats_arena_lextents_print"/>
+    <functioncall functionName="stats_arena_mutexes_print"/>
+    <functioncall functionName="stats_arena_print"/>
+    <functioncall functionName="stats_general_print"/>
+    <functioncall functionName="stats_print_helper"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="sv"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="table_name"/>
+    <functioncall functionName="tcache_bytes"/>
+    <functioncall functionName="u32v"/>
+    <functioncall functionName="u64sz"/>
+    <functioncall functionName="u64v"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unmerged"/>
+    <functioncall functionName="uptime"/>
+    <functioncall functionName="usz"/>
+    <functioncall functionName="util"/>
+    <functioncall functionName="uv"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write_cb"/>
+    <functioncall functionName="xmallctl"/>
+    <functioncall functionName="xmallctlbymib"/>
+    <functioncall functionName="xmallctlnametomib"/>
+  </FileInfo>
+</analyzerinfo>

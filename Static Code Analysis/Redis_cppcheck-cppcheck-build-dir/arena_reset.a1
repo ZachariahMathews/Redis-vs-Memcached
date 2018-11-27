@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="623119779">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;z&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;z&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\arena_reset.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\arena_reset.c" line="43"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\arena_reset.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\arena_reset.c" line="39"/>
+            <symbol>z</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="get_nsizes_impl" lineNumber="11"/>
+    <functiondecl functionName="get_nsmall" lineNumber="23"/>
+    <functiondecl functionName="get_nlarge" lineNumber="28"/>
+    <functiondecl functionName="get_size_impl" lineNumber="33"/>
+    <functiondecl functionName="get_small_size" lineNumber="51"/>
+    <functiondecl functionName="get_large_size" lineNumber="56"/>
+    <functiondecl functionName="vsalloc" lineNumber="62"/>
+    <functiondecl functionName="do_arena_create" lineNumber="88"/>
+    <functiondecl functionName="do_arena_reset_pre" lineNumber="98"/>
+    <functiondecl functionName="do_arena_reset_post" lineNumber="137"/>
+    <functiondecl functionName="do_arena_reset_destroy" lineNumber="161"/>
+    <functiondecl functionName="do_arena_reset" lineNumber="174"/>
+    <functiondecl functionName="do_arena_destroy" lineNumber="179"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="183"/>
+    <functiondecl functionName="arena_i_initialized" lineNumber="196"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="218"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="224"/>
+    <functiondecl functionName="extent_dalloc_unmap" lineNumber="269"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="301"/>
+    <functiondecl functionName="main" lineNumber="338"/>
+    <functioncall functionName="MALLCTL_ARENAS_DESTROYED"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="TRACE_HOOK"/>
+    <functioncall functionName="__func__"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="arena_i_initialized"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arena_ind_another"/>
+    <functioncall functionName="arena_ind_prev"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_gt"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="dalloc"/>
+    <functioncall functionName="did_alloc"/>
+    <functioncall functionName="did_dalloc"/>
+    <functioncall functionName="do_arena_create"/>
+    <functioncall functionName="do_arena_destroy"/>
+    <functioncall functionName="do_arena_reset"/>
+    <functioncall functionName="do_arena_reset_destroy"/>
+    <functioncall functionName="do_arena_reset_post"/>
+    <functioncall functionName="do_arena_reset_pre"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_alloc_hook"/>
+    <functioncall functionName="extent_commit_hook"/>
+    <functioncall functionName="extent_dalloc_unmap"/>
+    <functioncall functionName="extent_decommit_hook"/>
+    <functioncall functionName="extent_destroy_hook"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_hooks_prep"/>
+    <functioncall functionName="extent_hooks_t"/>
+    <functioncall functionName="extent_merge_hook"/>
+    <functioncall functionName="extent_purge_forced_hook"/>
+    <functioncall functionName="extent_purge_lazy_hook"/>
+    <functioncall functionName="extent_split_hook"/>
+    <functioncall functionName="extent_state_get"/>
+    <functioncall functionName="extents_rtree"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="get_large_size"/>
+    <functioncall functionName="get_nlarge"/>
+    <functioncall functionName="get_nsizes_impl"/>
+    <functioncall functionName="get_nsmall"/>
+    <functioncall functionName="get_size_impl"/>
+    <functioncall functionName="get_small_size"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="hooks"/>
+    <functioncall functionName="hooks_orig"/>
+    <functioncall functionName="hooks_unmap"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="initialized"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="ivsalloc"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="nlarge"/>
+    <functioncall functionName="nptrs"/>
+    <functioncall functionName="pages_unmap"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="ptrs"/>
+    <functioncall functionName="refresh"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="rtree_ctx"/>
+    <functioncall functionName="rtree_ctx_fallback"/>
+    <functioncall functionName="rtree_extent_szind_read"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_index2size"/>
+    <functioncall functionName="szind"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_arena_destroy_hooks_default"/>
+    <functioncall functionName="test_arena_destroy_hooks_unmap"/>
+    <functioncall functionName="test_arena_destroy_initial"/>
+    <functioncall functionName="test_arena_reset"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="try_dalloc"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_fetch"/>
+    <functioncall functionName="tsdn_rtree_ctx"/>
+    <functioncall functionName="vsalloc"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

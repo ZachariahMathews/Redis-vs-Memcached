@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2483867090">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="timer_start" lineNumber="4"/>
+    <functiondecl functionName="timer_stop" lineNumber="10"/>
+    <functiondecl functionName="timer_usec" lineNumber="16"/>
+    <functiondecl functionName="timer_ratio" lineNumber="25"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="malloc_snprintf"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_ns"/>
+    <functioncall functionName="nstime_subtract"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="round"/>
+    <functioncall functionName="t0"/>
+    <functioncall functionName="t1"/>
+    <functioncall functionName="timer_usec"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

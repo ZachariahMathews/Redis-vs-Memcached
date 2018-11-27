@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2495027967">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;buf&apos; can be reduced." verbose="The scope of the variable &apos;buf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="727"/>
+            <symbol>buf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="852"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="853"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="880"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="881"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="951"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="976"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1002"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1032"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;offset&apos; can be reduced." verbose="The scope of the variable &apos;offset&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1035"/>
+            <symbol>offset</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1057"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;s&apos; can be reduced." verbose="The scope of the variable &apos;s&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1058"/>
+            <symbol>s</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1091"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ele&apos; can be reduced." verbose="The scope of the variable &apos;ele&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1173"/>
+            <symbol>ele</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1174"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1437"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="1510"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ele&apos; can be reduced." verbose="The scope of the variable &apos;ele&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="2489"/>
+            <symbol>ele</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="2584"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;rank&apos; can be reduced." verbose="The scope of the variable &apos;rank&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="2774"/>
+            <symbol>rank</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;rank&apos; can be reduced." verbose="The scope of the variable &apos;rank&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="2852"/>
+            <symbol>rank</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;o&apos; can be reduced." verbose="The scope of the variable &apos;o&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_zset.c" line="3257"/>
+            <symbol>o</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="zslCreateNode" lineNumber="71"/>
+    <functiondecl functionName="zslCreate" lineNumber="80"/>
+    <functiondecl functionName="zslFreeNode" lineNumber="100"/>
+    <functiondecl functionName="zslFree" lineNumber="106"/>
+    <functiondecl functionName="zslRandomLevel" lineNumber="122"/>
+    <functiondecl functionName="zslInsert" lineNumber="132"/>
+    <functiondecl functionName="zslDeleteNode" lineNumber="190"/>
+    <functiondecl functionName="zslDelete" lineNumber="218"/>
+    <functiondecl functionName="zslUpdateScore" lineNumber="258"/>
+    <functiondecl functionName="zslValueGteMin" lineNumber="302"/>
+    <functiondecl functionName="zslValueLteMax" lineNumber="306"/>
+    <functiondecl functionName="zslIsInRange" lineNumber="311"/>
+    <functiondecl functionName="zslFirstInRange" lineNumber="329"/>
+    <functiondecl functionName="zslLastInRange" lineNumber="355"/>
+    <functiondecl functionName="zslDeleteRangeByScore" lineNumber="382"/>
+    <functiondecl functionName="zslDeleteRangeByLex" lineNumber="413"/>
+    <functiondecl functionName="zslDeleteRangeByRank" lineNumber="444"/>
+    <functiondecl functionName="zslGetRank" lineNumber="476"/>
+    <functiondecl functionName="zslGetElementByRank" lineNumber="500"/>
+    <functiondecl functionName="zslParseRange" lineNumber="520"/>
+    <functiondecl functionName="zslParseLexRangeItem" lineNumber="571"/>
+    <functiondecl functionName="zslFreeLexRange" lineNumber="600"/>
+    <functiondecl functionName="zslParseLexRange" lineNumber="612"/>
+    <functiondecl functionName="sdscmplex" lineNumber="631"/>
+    <functiondecl functionName="zslLexValueGteMin" lineNumber="638"/>
+    <functiondecl functionName="zslLexValueLteMax" lineNumber="644"/>
+    <functiondecl functionName="zslIsInLexRange" lineNumber="651"/>
+    <functiondecl functionName="zslFirstInLexRange" lineNumber="670"/>
+    <functiondecl functionName="zslLastInLexRange" lineNumber="696"/>
+    <functiondecl functionName="zzlGetScore" lineNumber="723"/>
+    <functiondecl functionName="ziplistGetObject" lineNumber="745"/>
+    <functiondecl functionName="zzlCompareElements" lineNumber="761"/>
+    <functiondecl functionName="zzlLength" lineNumber="781"/>
+    <functiondecl functionName="zzlNext" lineNumber="787"/>
+    <functiondecl functionName="zzlPrev" lineNumber="806"/>
+    <functiondecl functionName="zzlIsInRange" lineNumber="825"/>
+    <functiondecl functionName="zzlFirstInRange" lineNumber="851"/>
+    <functiondecl functionName="zzlLastInRange" lineNumber="879"/>
+    <functiondecl functionName="zzlLexValueGteMin" lineNumber="910"/>
+    <functiondecl functionName="zzlLexValueLteMax" lineNumber="917"/>
+    <functiondecl functionName="zzlIsInLexRange" lineNumber="926"/>
+    <functiondecl functionName="zzlFirstInLexRange" lineNumber="950"/>
+    <functiondecl functionName="zzlLastInLexRange" lineNumber="975"/>
+    <functiondecl functionName="zzlFind" lineNumber="1001"/>
+    <functiondecl functionName="zzlDelete" lineNumber="1022"/>
+    <functiondecl functionName="zzlInsertAt" lineNumber="1031"/>
+    <functiondecl functionName="zzlInsert" lineNumber="1056"/>
+    <functiondecl functionName="zzlDeleteRangeByScore" lineNumber="1089"/>
+    <functiondecl functionName="zzlDeleteRangeByLex" lineNumber="1118"/>
+    <functiondecl functionName="zzlDeleteRangeByRank" lineNumber="1147"/>
+    <functiondecl functionName="zsetLength" lineNumber="1158"/>
+    <functiondecl functionName="zsetConvert" lineNumber="1170"/>
+    <functiondecl functionName="zsetConvertToZiplistIfNeeded" lineNumber="1244"/>
+    <functiondecl functionName="zsetScore" lineNumber="1257"/>
+    <functiondecl functionName="zsetAdd" lineNumber="1316"/>
+    <functiondecl functionName="zsetDel" lineNumber="1426"/>
+    <functiondecl functionName="zsetRank" lineNumber="1475"/>
+    <functiondecl functionName="zaddGenericCommand" lineNumber="1535"/>
+    <functiondecl functionName="zaddCommand" lineNumber="1657"/>
+    <functiondecl functionName="zincrbyCommand" lineNumber="1661"/>
+    <functiondecl functionName="zremCommand" lineNumber="1665"/>
+    <functiondecl functionName="zremrangeGenericCommand" lineNumber="1696"/>
+    <functiondecl functionName="zremrangebyrankCommand" lineNumber="1796"/>
+    <functiondecl functionName="zremrangebyscoreCommand" lineNumber="1800"/>
+    <functiondecl functionName="zremrangebylexCommand" lineNumber="1804"/>
+    <functiondecl functionName="zuiInitIterator" lineNumber="1867"/>
+    <functiondecl functionName="zuiClearIterator" lineNumber="1903"/>
+    <functiondecl functionName="zuiLength" lineNumber="1930"/>
+    <functiondecl functionName="zuiNext" lineNumber="1960"/>
+    <functiondecl functionName="zuiLongLongFromValue" lineNumber="2020"/>
+    <functiondecl functionName="zuiSdsFromValue" lineNumber="2038"/>
+    <functiondecl functionName="zuiNewSdsFromValue" lineNumber="2052"/>
+    <functiondecl functionName="zuiBufferFromValue" lineNumber="2068"/>
+    <functiondecl functionName="zuiFind" lineNumber="2083"/>
+    <functiondecl functionName="zuiCompareByCardinality" lineNumber="2136"/>
+    <functiondecl functionName="zunionInterAggregate" lineNumber="2149"/>
+    <functiondecl functionName="zunionInterGenericCommand" lineNumber="2178"/>
+    <functiondecl functionName="zunionstoreCommand" lineNumber="2405"/>
+    <functiondecl functionName="zinterstoreCommand" lineNumber="2409"/>
+    <functiondecl functionName="zrangeGenericCommand" lineNumber="2413"/>
+    <functiondecl functionName="zrangeCommand" lineNumber="2515"/>
+    <functiondecl functionName="zrevrangeCommand" lineNumber="2519"/>
+    <functiondecl functionName="genericZrangebyscoreCommand" lineNumber="2524"/>
+    <functiondecl functionName="zrangebyscoreCommand" lineNumber="2715"/>
+    <functiondecl functionName="zrevrangebyscoreCommand" lineNumber="2719"/>
+    <functiondecl functionName="zcountCommand" lineNumber="2723"/>
+    <functiondecl functionName="zlexcountCommand" lineNumber="2800"/>
+    <functiondecl functionName="genericZrangebylexCommand" lineNumber="2880"/>
+    <functiondecl functionName="zrangebylexCommand" lineNumber="3056"/>
+    <functiondecl functionName="zrevrangebylexCommand" lineNumber="3060"/>
+    <functiondecl functionName="zcardCommand" lineNumber="3064"/>
+    <functiondecl functionName="zscoreCommand" lineNumber="3074"/>
+    <functiondecl functionName="zrankGenericCommand" lineNumber="3089"/>
+    <functiondecl functionName="zrankCommand" lineNumber="3107"/>
+    <functiondecl functionName="zrevrankCommand" lineNumber="3111"/>
+    <functiondecl functionName="zscanCommand" lineNumber="3115"/>
+    <functiondecl functionName="genericZpopCommand" lineNumber="3134"/>
+    <functiondecl functionName="zpopminCommand" lineNumber="3236"/>
+    <functiondecl functionName="zpopmaxCommand" lineNumber="3246"/>
+    <functiondecl functionName="blockingGenericZpopCommand" lineNumber="3256"/>
+    <functiondecl functionName="bzpopminCommand" lineNumber="3296"/>
+    <functiondecl functionName="bzpopmaxCommand" lineNumber="3301"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_buf"/>
+    <functioncall functionName="_eptr"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="_sptr"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="accumulator"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyDouble"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="added"/>
+    <functioncall functionName="aggregate"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="arraylen_ptr"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="backward"/>
+    <functioncall functionName="blockForKeys"/>
+    <functioncall functionName="blockingGenericZpopCommand"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="clen"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="countarg"/>
+    <functioncall functionName="createZsetObject"/>
+    <functioncall functionName="createZsetZiplistObject"/>
+    <functioncall functionName="cstr"/>
+    <functioncall functionName="curscore"/>
+    <functioncall functionName="cursor"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="d2string"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictAddRaw"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictFreeUnlinkedEntry"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictResize"/>
+    <functioncall functionName="dictSdsHash"/>
+    <functioncall functionName="dictSdsKeyCompare"/>
+    <functioncall functionName="dictUnlink"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dstkey"/>
+    <functioncall functionName="dstobj"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="elements"/>
+    <functioncall functionName="elen"/>
+    <functioncall functionName="ell"/>
+    <functioncall functionName="emitkey"/>
+    <functioncall functionName="emptymultibulk"/>
+    <functioncall functionName="emptyscan"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="estr"/>
+    <functioncall functionName="existing"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="genericZpopCommand"/>
+    <functioncall functionName="genericZrangebylexCommand"/>
+    <functioncall functionName="genericZrangebyscoreCommand"/>
+    <functioncall functionName="getDoubleFromObjectOrReply"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getTimeoutFromObjectOrReply"/>
+    <functioncall functionName="header"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="htNeedsResize"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ii"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="intsetFind"/>
+    <functioncall functionName="intsetGet"/>
+    <functioncall functionName="intsetLen"/>
+    <functioncall functionName="is"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyDup"/>
+    <functioncall functionName="keyremoved"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="lexrange"/>
+    <functioncall functionName="limit"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupKeyWriteOrReply"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxelelen"/>
+    <functioncall functionName="maxex"/>
+    <functioncall functionName="maxidx"/>
+    <functioncall functionName="maxstring"/>
+    <functioncall functionName="member"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="minex"/>
+    <functioncall functionName="minidx"/>
+    <functioncall functionName="minlen"/>
+    <functioncall functionName="minstring"/>
+    <functioncall functionName="nanerr"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newscore"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="nullmultibulk"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="nx"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="opt"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="parseScanCursorOrReply"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="processed"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="random"/>
+    <functioncall functionName="range"/>
+    <functioncall functionName="rangelen"/>
+    <functioncall functionName="rangetype"/>
+    <functioncall functionName="rank"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="reply_to_client"/>
+    <functioncall functionName="replylen"/>
+    <functioncall functionName="retflags"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="reverse"/>
+    <functioncall functionName="rewriteClientCommandVector"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s1"/>
+    <functioncall functionName="s2"/>
+    <functioncall functionName="scanGenericCommand"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="scorebuf"/>
+    <functioncall functionName="scoreidx"/>
+    <functioncall functionName="scorelen"/>
+    <functioncall functionName="scores"/>
+    <functioncall functionName="sdscmp"/>
+    <functioncall functionName="sdscmplex"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="set"/>
+    <functioncall functionName="setAccumulatorDictType"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setnum"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="span"/>
+    <functioncall functionName="spec"/>
+    <functioncall functionName="sptr"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="strtod"/>
+    <functioncall functionName="subject"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="touched"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="update"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="updated"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vbuf"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vlong"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="weight"/>
+    <functioncall functionName="where"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="withscores"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="xx"/>
+    <functioncall functionName="zaddGenericCommand"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistCompare"/>
+    <functioncall functionName="ziplistDelete"/>
+    <functioncall functionName="ziplistDeleteRange"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistGetObject"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistInsert"/>
+    <functioncall functionName="ziplistLen"/>
+    <functioncall functionName="ziplistNew"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="ziplistPrev"/>
+    <functioncall functionName="ziplistPush"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zobj"/>
+    <functioncall functionName="zpopmax"/>
+    <functioncall functionName="zpopmin"/>
+    <functioncall functionName="zrangeGenericCommand"/>
+    <functioncall functionName="zrankGenericCommand"/>
+    <functioncall functionName="zremrangeGenericCommand"/>
+    <functioncall functionName="zs"/>
+    <functioncall functionName="zset"/>
+    <functioncall functionName="zsetAdd"/>
+    <functioncall functionName="zsetConvert"/>
+    <functioncall functionName="zsetConvertToZiplistIfNeeded"/>
+    <functioncall functionName="zsetDel"/>
+    <functioncall functionName="zsetDictType"/>
+    <functioncall functionName="zsetLength"/>
+    <functioncall functionName="zsetRank"/>
+    <functioncall functionName="zsetScore"/>
+    <functioncall functionName="zset_max_ziplist_entries"/>
+    <functioncall functionName="zset_max_ziplist_value"/>
+    <functioncall functionName="zsl"/>
+    <functioncall functionName="zslCreate"/>
+    <functioncall functionName="zslCreateNode"/>
+    <functioncall functionName="zslDelete"/>
+    <functioncall functionName="zslDeleteNode"/>
+    <functioncall functionName="zslDeleteRangeByLex"/>
+    <functioncall functionName="zslDeleteRangeByRank"/>
+    <functioncall functionName="zslDeleteRangeByScore"/>
+    <functioncall functionName="zslFirstInLexRange"/>
+    <functioncall functionName="zslFirstInRange"/>
+    <functioncall functionName="zslFreeLexRange"/>
+    <functioncall functionName="zslFreeNode"/>
+    <functioncall functionName="zslGetElementByRank"/>
+    <functioncall functionName="zslGetRank"/>
+    <functioncall functionName="zslInsert"/>
+    <functioncall functionName="zslIsInLexRange"/>
+    <functioncall functionName="zslIsInRange"/>
+    <functioncall functionName="zslLastInLexRange"/>
+    <functioncall functionName="zslLastInRange"/>
+    <functioncall functionName="zslLexValueGteMin"/>
+    <functioncall functionName="zslLexValueLteMax"/>
+    <functioncall functionName="zslParseLexRange"/>
+    <functioncall functionName="zslParseLexRangeItem"/>
+    <functioncall functionName="zslParseRange"/>
+    <functioncall functionName="zslRandomLevel"/>
+    <functioncall functionName="zslUpdateScore"/>
+    <functioncall functionName="zslValueGteMin"/>
+    <functioncall functionName="zslValueLteMax"/>
+    <functioncall functionName="zuiClearIterator"/>
+    <functioncall functionName="zuiCompareByCardinality"/>
+    <functioncall functionName="zuiFind"/>
+    <functioncall functionName="zuiInitIterator"/>
+    <functioncall functionName="zuiLength"/>
+    <functioncall functionName="zuiLongLongFromValue"/>
+    <functioncall functionName="zuiNewSdsFromValue"/>
+    <functioncall functionName="zuiNext"/>
+    <functioncall functionName="zuiSdsFromValue"/>
+    <functioncall functionName="zunionInterAggregate"/>
+    <functioncall functionName="zunionInterGenericCommand"/>
+    <functioncall functionName="zval"/>
+    <functioncall functionName="zzlCompareElements"/>
+    <functioncall functionName="zzlDelete"/>
+    <functioncall functionName="zzlDeleteRangeByLex"/>
+    <functioncall functionName="zzlDeleteRangeByRank"/>
+    <functioncall functionName="zzlDeleteRangeByScore"/>
+    <functioncall functionName="zzlFind"/>
+    <functioncall functionName="zzlFirstInLexRange"/>
+    <functioncall functionName="zzlFirstInRange"/>
+    <functioncall functionName="zzlGetScore"/>
+    <functioncall functionName="zzlInsert"/>
+    <functioncall functionName="zzlInsertAt"/>
+    <functioncall functionName="zzlIsInLexRange"/>
+    <functioncall functionName="zzlIsInRange"/>
+    <functioncall functionName="zzlLastInLexRange"/>
+    <functioncall functionName="zzlLastInRange"/>
+    <functioncall functionName="zzlLength"/>
+    <functioncall functionName="zzlLexValueGteMin"/>
+    <functioncall functionName="zzlLexValueLteMax"/>
+    <functioncall functionName="zzlNext"/>
+    <functioncall functionName="zzlPrev"/>
+  </FileInfo>
+</analyzerinfo>

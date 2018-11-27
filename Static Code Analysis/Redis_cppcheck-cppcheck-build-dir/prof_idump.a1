@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3485844023">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="prof_dump_open_intercept" lineNumber="6"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="17"/>
+    <functiondecl functionName="main" lineNumber="39"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_WRONLY"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_d_ne"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="did_prof_dump_open"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prof_dump_open_intercept"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_idump"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

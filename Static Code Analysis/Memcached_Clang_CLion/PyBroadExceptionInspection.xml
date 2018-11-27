@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>222</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Too broad exception clauses</problem_class>
+    <description>Too broad exception clause</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>315</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Too broad exception clauses</problem_class>
+    <description>Too broad exception clause</description>
+  </problem>
+</problems>
+

@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3883953500">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;replid&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;replid&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1488"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1484"/>
+            <symbol>replid</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;len&apos; can be reduced." verbose="The scope of the variable &apos;len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="176"/>
+            <symbol>len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;llstr&apos; can be reduced." verbose="The scope of the variable &apos;llstr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="177"/>
+            <symbol>llstr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;buf&apos; can be reduced." verbose="The scope of the variable &apos;buf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="419"/>
+            <symbol>buf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;buflen&apos; can be reduced." verbose="The scope of the variable &apos;buflen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="420"/>
+            <symbol>buflen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;arg&apos; can be reduced." verbose="The scope of the variable &apos;arg&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1335"/>
+            <symbol>arg</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;psync_replid&apos; can be reduced." verbose="The scope of the variable &apos;psync_replid&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1438"/>
+            <symbol>psync_replid</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;psync_offset&apos; can be reduced." verbose="The scope of the variable &apos;psync_offset&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1439"/>
+            <symbol>psync_offset</symbol>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1462"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1473"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1632"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1639"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1664"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1675"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1691"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1701"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1723"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1732"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1751"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" file="C:\Users\bharm\Downloads\redis-unstable\src\replication.c" line="1760"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="replicationGetSlaveName" lineNumber="52"/>
+    <functiondecl functionName="createReplicationBacklog" lineNumber="77"/>
+    <functiondecl functionName="resizeReplicationBacklog" lineNumber="95"/>
+    <functiondecl functionName="freeReplicationBacklog" lineNumber="116"/>
+    <functiondecl functionName="feedReplicationBacklog" lineNumber="126"/>
+    <functiondecl functionName="feedReplicationBacklogWithObject" lineNumber="153"/>
+    <functiondecl functionName="replicationFeedSlaves" lineNumber="173"/>
+    <functiondecl functionName="replicationFeedSlavesFromMasterStream" lineNumber="278"/>
+    <functiondecl functionName="replicationFeedMonitors" lineNumber="303"/>
+    <functiondecl functionName="addReplyReplicationBacklog" lineNumber="344"/>
+    <functiondecl functionName="getPsyncInitialOffset" lineNumber="398"/>
+    <functiondecl functionName="replicationSetupSlaveForFullResync" lineNumber="418"/>
+    <functiondecl functionName="masterTryPartialResynchronization" lineNumber="447"/>
+    <functiondecl functionName="startBgsaveForReplication" lineNumber="563"/>
+    <functiondecl functionName="syncCommand" lineNumber="627"/>
+    <functiondecl functionName="replconfCommand" lineNumber="776"/>
+    <functiondecl functionName="putSlaveOnline" lineNumber="855"/>
+    <functiondecl functionName="sendBulkToSlave" lineNumber="870"/>
+    <functiondecl functionName="updateSlavesWaitingBgsave" lineNumber="940"/>
+    <functiondecl functionName="changeReplicationId" lineNumber="1007"/>
+    <functiondecl functionName="clearReplicationId2" lineNumber="1015"/>
+    <functiondecl functionName="shiftReplicationId" lineNumber="1026"/>
+    <functiondecl functionName="slaveIsInHandshakeState" lineNumber="1044"/>
+    <functiondecl functionName="replicationSendNewlineToMaster" lineNumber="1057"/>
+    <functiondecl functionName="replicationEmptyDbCallback" lineNumber="1069"/>
+    <functiondecl functionName="replicationCreateMasterClient" lineNumber="1077"/>
+    <functiondecl functionName="restartAOF" lineNumber="1092"/>
+    <functiondecl functionName="readSyncBulkPayload" lineNumber="1106"/>
+    <functiondecl functionName="sendSynchronousCommand" lineNumber="1329"/>
+    <functiondecl functionName="slaveTryPartialResynchronization" lineNumber="1437"/>
+    <functiondecl functionName="syncWithMaster" lineNumber="1597"/>
+    <functiondecl functionName="connectWithMaster" lineNumber="1875"/>
+    <functiondecl functionName="undoConnectWithMaster" lineNumber="1904"/>
+    <functiondecl functionName="replicationAbortSyncTransfer" lineNumber="1915"/>
+    <functiondecl functionName="cancelReplicationHandshake" lineNumber="1931"/>
+    <functiondecl functionName="replicationSetMaster" lineNumber="1947"/>
+    <functiondecl functionName="replicationUnsetMaster" lineNumber="1969"/>
+    <functiondecl functionName="replicationHandleMasterDisconnection" lineNumber="2003"/>
+    <functiondecl functionName="replicaofCommand" lineNumber="2012"/>
+    <functiondecl functionName="roleCommand" lineNumber="2058"/>
+    <functiondecl functionName="replicationSendAck" lineNumber="2114"/>
+    <functiondecl functionName="replicationCacheMaster" lineNumber="2147"/>
+    <functiondecl functionName="replicationCacheMasterUsingMyself" lineNumber="2193"/>
+    <functiondecl functionName="replicationDiscardCachedMaster" lineNumber="2211"/>
+    <functiondecl functionName="replicationResurrectCachedMaster" lineNumber="2226"/>
+    <functiondecl functionName="refreshGoodSlavesCount" lineNumber="2260"/>
+    <functiondecl functionName="replicationScriptCacheInit" lineNumber="2311"/>
+    <functiondecl functionName="replicationScriptCacheFlush" lineNumber="2328"/>
+    <functiondecl functionName="replicationScriptCacheAdd" lineNumber="2336"/>
+    <functiondecl functionName="replicationScriptCacheExists" lineNumber="2359"/>
+    <functiondecl functionName="replicationRequestAckFromSlaves" lineNumber="2393"/>
+    <functiondecl functionName="replicationCountAcksByOffset" lineNumber="2399"/>
+    <functiondecl functionName="waitCommand" lineNumber="2416"/>
+    <functiondecl functionName="unblockClientWaitingReplicas" lineNumber="2456"/>
+    <functiondecl functionName="processClientsWaitingReplicas" lineNumber="2464"/>
+    <functiondecl functionName="replicationGetSlaveOffset" lineNumber="2499"/>
+    <functiondecl functionName="replicationCron" lineNumber="2520"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_EXCL"/>
+    <functioncall functionName="O_RDONLY"/>
+    <functioncall functionName="SEEK_SET"/>
+    <functioncall functionName="SIGUSR1"/>
+    <functioncall functionName="SOL_SOCKET"/>
+    <functioncall functionName="SO_ERROR"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="ackreplicas"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplyReplicationBacklog"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyString"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeDeleteFileEvent"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="anetDisableTcpNoDelay"/>
+    <functioncall functionName="anetFormatAddr"/>
+    <functioncall functionName="anetPeerToString"/>
+    <functioncall functionName="anetTcpNonBlockBestEffortBindConnect"/>
+    <functioncall functionName="aof_is_enabled"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argslen"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="blockClient"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cached_master"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cancelReplicationHandshake"/>
+    <functioncall functionName="catClientInfoString"/>
+    <functioncall functionName="changeReplicationId"/>
+    <functioncall functionName="clearReplicationId2"/>
+    <functioncall functionName="client"/>
+    <functioncall functionName="clientHasPendingReplies"/>
+    <functioncall functionName="clients_waiting_acks"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmdargs"/>
+    <functioncall functionName="cmdobj"/>
+    <functioncall functionName="cmdrepr"/>
+    <functioncall functionName="connectWithMaster"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copyClientOutputBuffer"/>
+    <functioncall functionName="createClient"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createReplicationBacklog"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="dfd"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictEmpty"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictid"/>
+    <functioncall functionName="dictid_len"/>
+    <functioncall functionName="discardTransaction"/>
+    <functioncall functionName="disconnectAllBlockedClients"/>
+    <functioncall functionName="disconnectSlaves"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="emptyDb"/>
+    <functioncall functionName="eof_reached"/>
+    <functioncall functionName="eofmark"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errlen"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="feedReplicationBacklog"/>
+    <functioncall functionName="feedReplicationBacklogWithObject"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeClient"/>
+    <functioncall functionName="freeClientAsync"/>
+    <functioncall functionName="freeReplicationBacklog"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="ftruncate"/>
+    <functioncall functionName="getClientPeerId"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObject"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getPsyncInitialOffset"/>
+    <functioncall functionName="getRandomHexChars"/>
+    <functioncall functionName="getTimeoutFromObjectOrReply"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="getsockopt"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="good"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idle"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="is_presync"/>
+    <functioncall functionName="isprint"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="last_numreplicas"/>
+    <functioncall functionName="lastbytes"/>
+    <functioncall functionName="lastinteraction"/>
+    <functioncall functionName="left"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="linkClient"/>
+    <functioncall functionName="listAddNodeHead"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listEmpty"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listSearchKey"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llstr"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lseek"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="master"/>
+    <functioncall functionName="masterTryPartialResynchronization"/>
+    <functioncall functionName="master_initial_offset"/>
+    <functioncall functionName="master_repl_offset"/>
+    <functioncall functionName="master_replid"/>
+    <functioncall functionName="masterauth"/>
+    <functioncall functionName="masterhost"/>
+    <functioncall functionName="masterport"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="mbcount"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mincapa"/>
+    <functioncall functionName="monitor"/>
+    <functioncall functionName="monitors"/>
+    <functioncall functionName="need_full_resync"/>
+    <functioncall functionName="new"/>
+    <functioncall functionName="newfd"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="numreplicas"/>
+    <functioncall functionName="nwritten"/>
+    <functioncall functionName="objlen"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="oldest"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="peerid"/>
+    <functioncall functionName="pending_querybuf"/>
+    <functioncall functionName="ping_argv"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="psync_initial_offset"/>
+    <functioncall functionName="psync_len"/>
+    <functioncall functionName="psync_offset"/>
+    <functioncall functionName="psync_replid"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="putSlaveOnline"/>
+    <functioncall functionName="querybuf"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rdbLoad"/>
+    <functioncall functionName="rdbPopulateSaveInfo"/>
+    <functioncall functionName="rdbRemoveTempFile"/>
+    <functioncall functionName="rdbSaveBackground"/>
+    <functioncall functionName="rdbSaveToSlavesSockets"/>
+    <functioncall functionName="rdb_child_pid"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readQueryFromClient"/>
+    <functioncall functionName="readSyncBulkPayload"/>
+    <functioncall functionName="read_reply"/>
+    <functioncall functionName="readlen"/>
+    <functioncall functionName="refreshGoodSlavesCount"/>
+    <functioncall functionName="rem"/>
+    <functioncall functionName="rename"/>
+    <functioncall functionName="replScriptCacheDictType"/>
+    <functioncall functionName="repl_ack_off"/>
+    <functioncall functionName="repl_ack_time"/>
+    <functioncall functionName="repl_backlog"/>
+    <functioncall functionName="repl_backlog_histlen"/>
+    <functioncall functionName="repl_backlog_idx"/>
+    <functioncall functionName="repl_backlog_off"/>
+    <functioncall functionName="repl_backlog_size"/>
+    <functioncall functionName="repl_backlog_time_limit"/>
+    <functioncall functionName="repl_disable_tcp_nodelay"/>
+    <functioncall functionName="repl_diskless_sync_delay"/>
+    <functioncall functionName="repl_min_slaves_max_lag"/>
+    <functioncall functionName="repl_no_slaves_since"/>
+    <functioncall functionName="repl_ping_slave_period"/>
+    <functioncall functionName="repl_scriptcache_dict"/>
+    <functioncall functionName="repl_scriptcache_fifo"/>
+    <functioncall functionName="repl_scriptcache_size"/>
+    <functioncall functionName="repl_state"/>
+    <functioncall functionName="repl_stream_db"/>
+    <functioncall functionName="repl_timeout"/>
+    <functioncall functionName="repl_transfer_fd"/>
+    <functioncall functionName="repl_transfer_last_fsync_off"/>
+    <functioncall functionName="repl_transfer_lastio"/>
+    <functioncall functionName="repl_transfer_read"/>
+    <functioncall functionName="repl_transfer_s"/>
+    <functioncall functionName="repl_transfer_size"/>
+    <functioncall functionName="repl_transfer_tmpfile"/>
+    <functioncall functionName="repldbfd"/>
+    <functioncall functionName="repldboff"/>
+    <functioncall functionName="repldbsize"/>
+    <functioncall functionName="replicationAbortSyncTransfer"/>
+    <functioncall functionName="replicationCacheMasterUsingMyself"/>
+    <functioncall functionName="replicationCountAcksByOffset"/>
+    <functioncall functionName="replicationCreateMasterClient"/>
+    <functioncall functionName="replicationDiscardCachedMaster"/>
+    <functioncall functionName="replicationEmptyDbCallback"/>
+    <functioncall functionName="replicationFeedSlaves"/>
+    <functioncall functionName="replicationGetSlaveName"/>
+    <functioncall functionName="replicationHandleMasterDisconnection"/>
+    <functioncall functionName="replicationRequestAckFromSlaves"/>
+    <functioncall functionName="replicationResurrectCachedMaster"/>
+    <functioncall functionName="replicationScriptCacheFlush"/>
+    <functioncall functionName="replicationSendAck"/>
+    <functioncall functionName="replicationSendNewlineToMaster"/>
+    <functioncall functionName="replicationSetMaster"/>
+    <functioncall functionName="replicationSetupSlaveForFullResync"/>
+    <functioncall functionName="replicationUnsetMaster"/>
+    <functioncall functionName="replid"/>
+    <functioncall functionName="replid2"/>
+    <functioncall functionName="reploff"/>
+    <functioncall functionName="reploffset"/>
+    <functioncall functionName="replpreamble"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="resetClient"/>
+    <functioncall functionName="restartAOF"/>
+    <functioncall functionName="retry"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rsi"/>
+    <functioncall functionName="rsiptr"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsclear"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="second_replid_offset"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="selectcmd"/>
+    <functioncall functionName="sendBulkToSlave"/>
+    <functioncall functionName="sendReplyToClient"/>
+    <functioncall functionName="sendSynchronousCommand"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="sha1"/>
+    <functioncall functionName="shiftReplicationId"/>
+    <functioncall functionName="signalFlushedDb"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="skip"/>
+    <functioncall functionName="slave"/>
+    <functioncall functionName="slaveIsInHandshakeState"/>
+    <functioncall functionName="slaveTryPartialResynchronization"/>
+    <functioncall functionName="slave_announce_ip"/>
+    <functioncall functionName="slave_announce_port"/>
+    <functioncall functionName="slave_capa"/>
+    <functioncall functionName="slave_ip"/>
+    <functioncall functionName="slave_listening_port"/>
+    <functioncall functionName="slaveip"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="slaveseldb"/>
+    <functioncall functionName="slavestate"/>
+    <functioncall functionName="sleep"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sockerr"/>
+    <functioncall functionName="socket_target"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="startAppendOnly"/>
+    <functioncall functionName="startBgsaveForReplication"/>
+    <functioncall functionName="startbgsave"/>
+    <functioncall functionName="stopAppendOnly"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="stringObjectLen"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syncReadLine"/>
+    <functioncall functionName="syncWithMaster"/>
+    <functioncall functionName="syncWrite"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="thislen"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tmpfile"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="unblockClient"/>
+    <functioncall functionName="undoConnectWithMaster"/>
+    <functioncall functionName="unixsocket"/>
+    <functioncall functionName="unixtime"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="unlinkClient"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="usemark"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="was_master"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="woff"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="write_error"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zstrdup"/>
+  </FileInfo>
+</analyzerinfo>

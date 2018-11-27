@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1670878771">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aeApiCreate" lineNumber="41"/>
+    <functiondecl functionName="aeApiResize" lineNumber="60"/>
+    <functiondecl functionName="aeApiFree" lineNumber="67"/>
+    <functiondecl functionName="aeApiAddEvent" lineNumber="75"/>
+    <functiondecl functionName="aeApiDelEvent" lineNumber="90"/>
+    <functiondecl functionName="aeApiPoll" lineNumber="104"/>
+    <functiondecl functionName="aeApiName" lineNumber="136"/>
+    <functioncall functionName="EVFILT_READ"/>
+    <functioncall functionName="EVFILT_WRITE"/>
+    <functioncall functionName="EV_ADD"/>
+    <functioncall functionName="EV_DELETE"/>
+    <functioncall functionName="EV_SET"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="apidata"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="events"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="ident"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="ke"/>
+    <functioncall functionName="kevent"/>
+    <functioncall functionName="kqfd"/>
+    <functioncall functionName="kqueue"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="setsize"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

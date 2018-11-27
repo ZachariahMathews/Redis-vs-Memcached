@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4108808722">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="witness_init" lineNumber="9"/>
+    <functiondecl functionName="witness_lock_error_impl" lineNumber="18"/>
+    <functiondecl functionName="witness_owner_error_impl" lineNumber="32"/>
+    <functiondecl functionName="witness_not_owner_error_impl" lineNumber="41"/>
+    <functiondecl functionName="witness_depth_error_impl" lineNumber="50"/>
+    <functiondecl functionName="witnesses_cleanup" lineNumber="66"/>
+    <functiondecl functionName="witness_prefork" lineNumber="73"/>
+    <functiondecl functionName="witness_postfork_parent" lineNumber="81"/>
+    <functiondecl functionName="witness_postfork_child" lineNumber="89"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="comp"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="depth"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="opaque"/>
+    <functioncall functionName="ql_foreach"/>
+    <functioncall functionName="ql_new"/>
+    <functioncall functionName="rank"/>
+    <functioncall functionName="rank_inclusive"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="w"/>
+    <functioncall functionName="witness_assert_lockless"/>
+    <functioncall functionName="witness_tsd"/>
+    <functioncall functionName="witness_tsd_tsdn"/>
+    <functioncall functionName="witnesses"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,1082 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3284188732">
+        <error id="duplicateExpression" severity="style" msg="Same expression on both sides of &apos;/&apos;." verbose="Finding the same expression on both sides of an operator is suspicious and might indicate a cut and paste or logic error. Please examine this code carefully to determine if it is correct." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="1686"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="340"/>
+            <symbol>c</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;buf&apos; can be reduced." verbose="The scope of the variable &apos;buf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="342"/>
+            <symbol>buf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;rehash_db&apos; can be reduced." verbose="The scope of the variable &apos;rehash_db&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="1021"/>
+            <symbol>rehash_db</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="2220"/>
+            <symbol>c</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="2511"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="3027"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="3090"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\server.c" line="3600"/>
+            <symbol>c</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ascii_logo&apos; can be reduced." verbose="The scope of the variable &apos;ascii_logo&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\server.c" file="C:\Users\bharm\Downloads\redis-unstable\src\asciilogo.h" line="30"/>
+            <symbol>ascii_logo</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="clientBufferLimitsDefaults" index="2" fileName="C:/Users/bharm/Downloads/redis-unstable/src/server.c" linenr="1680"/>
+    <ArraySize array="ClientsPeakMemInput" size="8"/>
+    <ArraySize array="ClientsPeakMemOutput" size="8"/>
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+    <ArraySize array="redisCommandTable" size="200"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="serverLogRaw" lineNumber="338"/>
+    <functiondecl functionName="serverLog" lineNumber="384"/>
+    <functiondecl functionName="serverLogFromHandler" lineNumber="403"/>
+    <functiondecl functionName="ustime" lineNumber="426"/>
+    <functiondecl functionName="mstime" lineNumber="437"/>
+    <functiondecl functionName="exitFromChild" lineNumber="445"/>
+    <functiondecl functionName="dictVanillaFree" lineNumber="459"/>
+    <functiondecl functionName="dictListDestructor" lineNumber="465"/>
+    <functiondecl functionName="dictSdsKeyCompare" lineNumber="471"/>
+    <functiondecl functionName="dictSdsKeyCaseCompare" lineNumber="485"/>
+    <functiondecl functionName="dictObjectDestructor" lineNumber="493"/>
+    <functiondecl functionName="dictSdsDestructor" lineNumber="501"/>
+    <functiondecl functionName="dictObjKeyCompare" lineNumber="508"/>
+    <functiondecl functionName="dictObjHash" lineNumber="515"/>
+    <functiondecl functionName="dictSdsHash" lineNumber="520"/>
+    <functiondecl functionName="dictSdsCaseHash" lineNumber="524"/>
+    <functiondecl functionName="dictEncObjKeyCompare" lineNumber="528"/>
+    <functiondecl functionName="dictEncObjHash" lineNumber="546"/>
+    <functiondecl functionName="htNeedsResize" lineNumber="730"/>
+    <functiondecl functionName="tryResizeHashTables" lineNumber="741"/>
+    <functiondecl functionName="incrementallyRehash" lineNumber="755"/>
+    <functiondecl functionName="updateDictResizePolicy" lineNumber="775"/>
+    <functiondecl functionName="trackInstantaneousMetric" lineNumber="785"/>
+    <functiondecl functionName="getInstantaneousMetric" lineNumber="802"/>
+    <functiondecl functionName="clientsCronHandleTimeout" lineNumber="815"/>
+    <functiondecl functionName="clientsCronResizeQueryBuffer" lineNumber="851"/>
+    <functiondecl functionName="clientsCronTrackExpansiveClients" lineNumber="907"/>
+    <functiondecl functionName="getExpansiveClientsInfo" lineNumber="936"/>
+    <functiondecl functionName="clientsCron" lineNumber="962"/>
+    <functiondecl functionName="databasesCron" lineNumber="1000"/>
+    <functiondecl functionName="updateCachedTime" lineNumber="1056"/>
+    <functiondecl functionName="serverCron" lineNumber="1089"/>
+    <functiondecl functionName="beforeSleep" lineNumber="1358"/>
+    <functiondecl functionName="afterSleep" lineNumber="1415"/>
+    <functiondecl functionName="createSharedObjects" lineNumber="1422"/>
+    <functiondecl functionName="initServerConfig" lineNumber="1517"/>
+    <functiondecl functionName="restartServer" lineNumber="1746"/>
+    <functiondecl functionName="adjustOpenFilesLimit" lineNumber="1803"/>
+    <functiondecl functionName="checkTcpBacklogSettings" lineNumber="1880"/>
+    <functiondecl functionName="listenToPort" lineNumber="1913"/>
+    <functiondecl functionName="resetServerStats" lineNumber="1975"/>
+    <functiondecl functionName="initServer" lineNumber="2009"/>
+    <functiondecl functionName="populateCommandTable" lineNumber="2182"/>
+    <functiondecl functionName="resetCommandTableStats" lineNumber="2219"/>
+    <functiondecl functionName="redisOpArrayInit" lineNumber="2236"/>
+    <functiondecl functionName="redisOpArrayAppend" lineNumber="2241"/>
+    <functiondecl functionName="redisOpArrayFree" lineNumber="2257"/>
+    <functiondecl functionName="lookupCommand" lineNumber="2273"/>
+    <functiondecl functionName="lookupCommandByCString" lineNumber="2277"/>
+    <functiondecl functionName="lookupCommandOrOriginal" lineNumber="2293"/>
+    <functiondecl functionName="propagate" lineNumber="2311"/>
+    <functiondecl functionName="alsoPropagate" lineNumber="2332"/>
+    <functiondecl functionName="forceCommandPropagation" lineNumber="2351"/>
+    <functiondecl functionName="preventCommandPropagation" lineNumber="2359"/>
+    <functiondecl functionName="preventCommandAOF" lineNumber="2364"/>
+    <functiondecl functionName="preventCommandReplication" lineNumber="2369"/>
+    <functiondecl functionName="call" lineNumber="2410"/>
+    <functiondecl functionName="processCommand" lineNumber="2539"/>
+    <functiondecl functionName="closeListeningSockets" lineNumber="2741"/>
+    <functiondecl functionName="prepareForShutdown" lineNumber="2754"/>
+    <functiondecl functionName="writeCommandsDeniedByDiskError" lineNumber="2839"/>
+    <functiondecl functionName="time_independent_strcmp" lineNumber="2863"/>
+    <functiondecl functionName="authCommand" lineNumber="2896"/>
+    <functiondecl functionName="pingCommand" lineNumber="2910"/>
+    <functiondecl functionName="echoCommand" lineNumber="2933"/>
+    <functiondecl functionName="timeCommand" lineNumber="2937"/>
+    <functiondecl functionName="addReplyCommandFlag" lineNumber="2949"/>
+    <functiondecl functionName="addReplyCommand" lineNumber="2958"/>
+    <functiondecl functionName="commandCommand" lineNumber="2997"/>
+    <functiondecl functionName="bytesToHuman" lineNumber="3057"/>
+    <functiondecl functionName="genRedisInfoString" lineNumber="3087"/>
+    <functiondecl functionName="infoCommand" lineNumber="3643"/>
+    <functiondecl functionName="monitorCommand" lineNumber="3653"/>
+    <functiondecl functionName="createPidFile" lineNumber="3689"/>
+    <functiondecl functionName="daemonize" lineNumber="3702"/>
+    <functiondecl functionName="version" lineNumber="3719"/>
+    <functiondecl functionName="usage" lineNumber="3730"/>
+    <functiondecl functionName="redisAsciiArt" lineNumber="3747"/>
+    <functiondecl functionName="sigShutdownHandler" lineNumber="3783"/>
+    <functiondecl functionName="setupSignalHandlers" lineNumber="3813"/>
+    <functiondecl functionName="checkForSentinelMode" lineNumber="3840"/>
+    <functiondecl functionName="loadDataFromDisk" lineNumber="3850"/>
+    <functiondecl functionName="redisOutOfMemoryHandler" lineNumber="3885"/>
+    <functiondecl functionName="redisSetProcTitle" lineNumber="3891"/>
+    <functiondecl functionName="redisSupervisedUpstart" lineNumber="3911"/>
+    <functiondecl functionName="redisSupervisedSystemd" lineNumber="3926"/>
+    <functiondecl functionName="redisIsSupervised" lineNumber="3983"/>
+    <functiondecl functionName="main" lineNumber="4003"/>
+    <functioncall functionName="AF_UNIX"/>
+    <functioncall functionName="F_GETFD"/>
+    <functioncall functionName="LC_COLLATE"/>
+    <functioncall functionName="LOG_DEBUG"/>
+    <functioncall functionName="LOG_INFO"/>
+    <functioncall functionName="LOG_LOCAL0"/>
+    <functioncall functionName="LOG_NOTICE"/>
+    <functioncall functionName="LOG_NOWAIT"/>
+    <functioncall functionName="LOG_WARNING"/>
+    <functioncall functionName="LUA_GCCOUNT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_CREAT"/>
+    <functioncall functionName="O_RDWR"/>
+    <functioncall functionName="O_WRONLY"/>
+    <functioncall functionName="RLIMIT_NOFILE"/>
+    <functioncall functionName="RUSAGE_CHILDREN"/>
+    <functioncall functionName="RUSAGE_SELF"/>
+    <functioncall functionName="R_Zero"/>
+    <functioncall functionName="SIGHUP"/>
+    <functioncall functionName="SIGINT"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIGSTOP"/>
+    <functioncall functionName="SIGTERM"/>
+    <functioncall functionName="SIGUSR1"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="SOCK_DGRAM"/>
+    <functioncall functionName="STDERR_FILENO"/>
+    <functioncall functionName="STDIN_FILENO"/>
+    <functioncall functionName="STDOUT_FILENO"/>
+    <functioncall functionName="WEXITSTATUS"/>
+    <functioncall functionName="WIFSIGNALED"/>
+    <functioncall functionName="WNOHANG"/>
+    <functioncall functionName="WTERMSIG"/>
+    <functioncall functionName="X_OK"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="acceptTcpHandler"/>
+    <functioncall functionName="acceptUnixHandler"/>
+    <functioncall functionName="access"/>
+    <functioncall functionName="act"/>
+    <functioncall functionName="activeDefragCycle"/>
+    <functioncall functionName="activeExpireCycle"/>
+    <functioncall functionName="active_defrag_enabled"/>
+    <functioncall functionName="active_defrag_running"/>
+    <functioncall functionName="activerehashing"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="addReplyCommand"/>
+    <functioncall functionName="addReplyCommandFlag"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="adjustOpenFilesLimit"/>
+    <functioncall functionName="aeCreateEventLoop"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeCreateTimeEvent"/>
+    <functioncall functionName="aeDeleteEventLoop"/>
+    <functioncall functionName="aeGetApiName"/>
+    <functioncall functionName="aeMain"/>
+    <functioncall functionName="aeSetAfterSleepProc"/>
+    <functioncall functionName="aeSetBeforeSleepProc"/>
+    <functioncall functionName="afterSleep"/>
+    <functioncall functionName="alen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="allocation_size"/>
+    <functioncall functionName="allocator_active"/>
+    <functioncall functionName="allocator_allocated"/>
+    <functioncall functionName="allocator_frag"/>
+    <functioncall functionName="allocator_frag_bytes"/>
+    <functioncall functionName="allocator_resident"/>
+    <functioncall functionName="allocator_rss"/>
+    <functioncall functionName="allocator_rss_bytes"/>
+    <functioncall functionName="also_propagate"/>
+    <functioncall functionName="always_show_logo"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="anetPeerToString"/>
+    <functioncall functionName="anetTcp6Server"/>
+    <functioncall functionName="anetTcpServer"/>
+    <functioncall functionName="anetUnixServer"/>
+    <functioncall functionName="aofRewriteBufferReset"/>
+    <functioncall functionName="aofRewriteBufferSize"/>
+    <functioncall functionName="aof_buf"/>
+    <functioncall functionName="aof_buffer"/>
+    <functioncall functionName="aof_child_pid"/>
+    <functioncall functionName="aof_current_size"/>
+    <functioncall functionName="aof_delayed_fsync"/>
+    <functioncall functionName="aof_fd"/>
+    <functioncall functionName="aof_filename"/>
+    <functioncall functionName="aof_flush_postponed_start"/>
+    <functioncall functionName="aof_last_write_errno"/>
+    <functioncall functionName="aof_rewrite_base_size"/>
+    <functioncall functionName="aof_rewrite_min_size"/>
+    <functioncall functionName="aof_rewrite_perc"/>
+    <functioncall functionName="aof_rewrite_scheduled"/>
+    <functioncall functionName="aof_rewrite_time_last"/>
+    <functioncall functionName="aof_rewrite_time_start"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="appendCommand"/>
+    <functioncall functionName="appendServerSaveParams"/>
+    <functioncall functionName="arch_bits"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="args"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="argvcopy"/>
+    <functioncall functionName="arity"/>
+    <functioncall functionName="ascii_logo"/>
+    <functioncall functionName="askingCommand"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="authCommand"/>
+    <functioncall functionName="avg_ttl"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="background"/>
+    <functioncall functionName="backgroundRewriteDoneHandler"/>
+    <functioncall functionName="backgroundSaveDoneHandler"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="beforeSleep"/>
+    <functioncall functionName="bestlimit"/>
+    <functioncall functionName="bgrewriteaofCommand"/>
+    <functioncall functionName="bgsaveCommand"/>
+    <functioncall functionName="bgsaveerr"/>
+    <functioncall functionName="bioInit"/>
+    <functioncall functionName="bioPendingJobsOfType"/>
+    <functioncall functionName="bitcountCommand"/>
+    <functioncall functionName="bitfieldCommand"/>
+    <functioncall functionName="bitopCommand"/>
+    <functioncall functionName="bitposCommand"/>
+    <functioncall functionName="blen"/>
+    <functioncall functionName="blocked_clients"/>
+    <functioncall functionName="blocked_clients_by_type"/>
+    <functioncall functionName="blpopCommand"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="brpopCommand"/>
+    <functioncall functionName="brpoplpushCommand"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufa"/>
+    <functioncall functionName="bufb"/>
+    <functioncall functionName="bysignal"/>
+    <functioncall functionName="bytesToHuman"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="bzpopmaxCommand"/>
+    <functioncall functionName="bzpopminCommand"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="c_ru"/>
+    <functioncall functionName="cached_master"/>
+    <functioncall functionName="call"/>
+    <functioncall functionName="call_uname"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="calls"/>
+    <functioncall functionName="cfd_count"/>
+    <functioncall functionName="changeReplicationId"/>
+    <functioncall functionName="changes"/>
+    <functioncall functionName="checkForSentinelMode"/>
+    <functioncall functionName="checkTcpBacklogSettings"/>
+    <functioncall functionName="clearReplicationId2"/>
+    <functioncall functionName="clientCommand"/>
+    <functioncall functionName="clientData"/>
+    <functioncall functionName="clients"/>
+    <functioncall functionName="clientsArePaused"/>
+    <functioncall functionName="clientsCron"/>
+    <functioncall functionName="clientsCronHandleTimeout"/>
+    <functioncall functionName="clientsCronResizeQueryBuffer"/>
+    <functioncall functionName="clientsCronTrackExpansiveClients"/>
+    <functioncall functionName="clients_normal"/>
+    <functioncall functionName="clients_slaves"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="closeChildInfoPipe"/>
+    <functioncall functionName="closeListeningSockets"/>
+    <functioncall functionName="clusterBeforeSleep"/>
+    <functioncall functionName="clusterCommand"/>
+    <functioncall functionName="clusterCron"/>
+    <functioncall functionName="clusterInit"/>
+    <functioncall functionName="clusterRedirectBlockedClientIfNeeded"/>
+    <functioncall functionName="clusterRedirectClient"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="commandCommand"/>
+    <functioncall functionName="commandTableDictType"/>
+    <functioncall functionName="commands"/>
+    <functioncall functionName="configCommand"/>
+    <functioncall functionName="config_hz"/>
+    <functioncall functionName="configfile"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createPidFile"/>
+    <functioncall functionName="createSharedObjects"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="current_reading"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="daemonize"/>
+    <functioncall functionName="databasesCron"/>
+    <functioncall functionName="dataset"/>
+    <functioncall functionName="dataset_perc"/>
+    <functioncall functionName="daylight_active"/>
+    <functioncall functionName="dbDictType"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="dbs_per_call"/>
+    <functioncall functionName="dbsizeCommand"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="debugCommand"/>
+    <functioncall functionName="decrCommand"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="decrbyCommand"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delCommand"/>
+    <functioncall functionName="delay"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDisableResize"/>
+    <functioncall functionName="dictEnableResize"/>
+    <functioncall functionName="dictEncObjHash"/>
+    <functioncall functionName="dictEncObjKeyCompare"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictGenCaseHashFunction"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictListDestructor"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictObjHash"/>
+    <functioncall functionName="dictObjKeyCompare"/>
+    <functioncall functionName="dictObjectDestructor"/>
+    <functioncall functionName="dictRehashMilliseconds"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictResize"/>
+    <functioncall functionName="dictSdsCaseHash"/>
+    <functioncall functionName="dictSdsDestructor"/>
+    <functioncall functionName="dictSdsHash"/>
+    <functioncall functionName="dictSdsKeyCaseCompare"/>
+    <functioncall functionName="dictSdsKeyCompare"/>
+    <functioncall functionName="dictSetHashFunctionSeed"/>
+    <functioncall functionName="dictVanillaFree"/>
+    <functioncall functionName="dictid_len"/>
+    <functioncall functionName="dictid_str"/>
+    <functioncall functionName="dirty"/>
+    <functioncall functionName="discardCommand"/>
+    <functioncall functionName="discardTransaction"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dumpCommand"/>
+    <functioncall functionName="dup2"/>
+    <functioncall functionName="duration"/>
+    <functioncall functionName="dynamic_hz"/>
+    <functioncall functionName="echoCommand"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="environ"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error_code"/>
+    <functioncall functionName="eta"/>
+    <functioncall functionName="evalCommand"/>
+    <functioncall functionName="evalGetKeys"/>
+    <functioncall functionName="evalShaCommand"/>
+    <functioncall functionName="eventLoop"/>
+    <functioncall functionName="evictPolicyToString"/>
+    <functioncall functionName="evict_policy"/>
+    <functioncall functionName="evictionPoolAlloc"/>
+    <functioncall functionName="execCommand"/>
+    <functioncall functionName="exec_argv"/>
+    <functioncall functionName="executable"/>
+    <functioncall functionName="execve"/>
+    <functioncall functionName="existsCommand"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exitcode"/>
+    <functioncall functionName="expireCommand"/>
+    <functioncall functionName="expireSlaveKeys"/>
+    <functioncall functionName="expireatCommand"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fcntl"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="feedAppendOnlyFile"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="firstkey"/>
+    <functioncall functionName="flagTransaction"/>
+    <functioncall functionName="flagcount"/>
+    <functioncall functionName="flaglen"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="flushAppendOnlyFile"/>
+    <functioncall functionName="flushSlavesOutputBuffers"/>
+    <functioncall functionName="flushallCommand"/>
+    <functioncall functionName="flushdbCommand"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="freeClient"/>
+    <functioncall functionName="freeClientsInAsyncFreeQueue"/>
+    <functioncall functionName="freeMemoryGetNotCountedMemory"/>
+    <functioncall functionName="freeMemoryIfNeeded"/>
+    <functioncall functionName="freeMemoryOverheadData"/>
+    <functioncall functionName="freePubsubPattern"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="genRedisInfoString"/>
+    <functioncall functionName="geoaddCommand"/>
+    <functioncall functionName="geodistCommand"/>
+    <functioncall functionName="geohashCommand"/>
+    <functioncall functionName="geoposCommand"/>
+    <functioncall functionName="georadiusCommand"/>
+    <functioncall functionName="georadiusGetKeys"/>
+    <functioncall functionName="georadiusbymemberCommand"/>
+    <functioncall functionName="georadiusbymemberroCommand"/>
+    <functioncall functionName="georadiusroCommand"/>
+    <functioncall functionName="getAbsolutePath"/>
+    <functioncall functionName="getClientOutputBufferMemoryUsage"/>
+    <functioncall functionName="getCommand"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getExpansiveClientsInfo"/>
+    <functioncall functionName="getInstantaneousMetric"/>
+    <functioncall functionName="getKeysFreeResult"/>
+    <functioncall functionName="getKeysFromCommand"/>
+    <functioncall functionName="getLRUClock"/>
+    <functioncall functionName="getMemoryOverheadData"/>
+    <functioncall functionName="getNodeByQuery"/>
+    <functioncall functionName="getRandomHexChars"/>
+    <functioncall functionName="getSlaveKeyWithExpireCount"/>
+    <functioncall functionName="getTimeZone"/>
+    <functioncall functionName="get_ack_from_slaves"/>
+    <functioncall functionName="getbitCommand"/>
+    <functioncall functionName="getenv"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="getrangeCommand"/>
+    <functioncall functionName="getrlimit"/>
+    <functioncall functionName="getrusage"/>
+    <functioncall functionName="getsetCommand"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="growth"/>
+    <functioncall functionName="handleClientsBlockedOnKeys"/>
+    <functioncall functionName="handleClientsWithPendingWrites"/>
+    <functioncall functionName="hashseed"/>
+    <functioncall functionName="hashslot"/>
+    <functioncall functionName="hdelCommand"/>
+    <functioncall functionName="hdr"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="hexistsCommand"/>
+    <functioncall functionName="hgetCommand"/>
+    <functioncall functionName="hgetallCommand"/>
+    <functioncall functionName="hincrbyCommand"/>
+    <functioncall functionName="hincrbyfloatCommand"/>
+    <functioncall functionName="hkeysCommand"/>
+    <functioncall functionName="hlenCommand"/>
+    <functioncall functionName="hmem"/>
+    <functioncall functionName="hmgetCommand"/>
+    <functioncall functionName="hscanCommand"/>
+    <functioncall functionName="hsetCommand"/>
+    <functioncall functionName="hsetnxCommand"/>
+    <functioncall functionName="hstrlenCommand"/>
+    <functioncall functionName="htNeedsResize"/>
+    <functioncall functionName="hvalsCommand"/>
+    <functioncall functionName="hz"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in_usage"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrCommand"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="incrbyCommand"/>
+    <functioncall functionName="incrbyfloatCommand"/>
+    <functioncall functionName="incrementallyRehash"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="infoCommand"/>
+    <functioncall functionName="initSentinel"/>
+    <functioncall functionName="initSentinelConfig"/>
+    <functioncall functionName="initServer"/>
+    <functioncall functionName="initServerConfig"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="iov"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="ipfd"/>
+    <functioncall functionName="ipfd_count"/>
+    <functioncall functionName="isatty"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="keylistDictType"/>
+    <functioncall functionName="keyptrDictType"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="keysCommand"/>
+    <functioncall functionName="keystep"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="l1"/>
+    <functioncall functionName="lag"/>
+    <functioncall functionName="last_sample_count"/>
+    <functioncall functionName="last_sample_time"/>
+    <functioncall functionName="lastbgsave_try"/>
+    <functioncall functionName="lastinteraction"/>
+    <functioncall functionName="lastkey"/>
+    <functioncall functionName="lastsave"/>
+    <functioncall functionName="lastsaveCommand"/>
+    <functioncall functionName="latencyAddSample"/>
+    <functioncall functionName="latencyCommand"/>
+    <functioncall functionName="latencyMonitorInit"/>
+    <functioncall functionName="latency_event"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="lazyfreeGetPendingObjectsCount"/>
+    <functioncall functionName="ldbKillForkedSessions"/>
+    <functioncall functionName="ldbPendingChildren"/>
+    <functioncall functionName="ldbRemoveChild"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="limit"/>
+    <functioncall functionName="lindexCommand"/>
+    <functioncall functionName="linsertCommand"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listMatchPubsubPattern"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listRotate"/>
+    <functioncall functionName="listenToPort"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llenCommand"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="loadAppendOnlyFile"/>
+    <functioncall functionName="loadDataFromDisk"/>
+    <functioncall functionName="loadServerConfig"/>
+    <functioncall functionName="loading"/>
+    <functioncall functionName="loading_loaded_bytes"/>
+    <functioncall functionName="loading_start_time"/>
+    <functioncall functionName="loading_total_bytes"/>
+    <functioncall functionName="loadingerr"/>
+    <functioncall functionName="localtime_r"/>
+    <functioncall functionName="log_to_stdout"/>
+    <functioncall functionName="logfile"/>
+    <functioncall functionName="lolwutCommand"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupCommand"/>
+    <functioncall functionName="lookupCommandByCString"/>
+    <functioncall functionName="lpopCommand"/>
+    <functioncall functionName="lpushCommand"/>
+    <functioncall functionName="lpushxCommand"/>
+    <functioncall functionName="lrangeCommand"/>
+    <functioncall functionName="lremCommand"/>
+    <functioncall functionName="lruclock"/>
+    <functioncall functionName="lruclock_mutex"/>
+    <functioncall functionName="lsetCommand"/>
+    <functioncall functionName="ltrimCommand"/>
+    <functioncall functionName="lua"/>
+    <functioncall functionName="lua_caches"/>
+    <functioncall functionName="lua_caller"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_memory"/>
+    <functioncall functionName="lua_scripts"/>
+    <functioncall functionName="lua_timedout"/>
+    <functioncall functionName="machine"/>
+    <functioncall functionName="makeObjectShared"/>
+    <functioncall functionName="master"/>
+    <functioncall functionName="master_repl_offset"/>
+    <functioncall functionName="masterdownerr"/>
+    <functioncall functionName="masterhost"/>
+    <functioncall functionName="masterport"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxclients"/>
+    <functioncall functionName="maxfiles"/>
+    <functioncall functionName="maxidletime"/>
+    <functioncall functionName="maxin"/>
+    <functioncall functionName="maxmemory"/>
+    <functioncall functionName="maxmemory_hmem"/>
+    <functioncall functionName="maxout"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memoryCommand"/>
+    <functioncall functionName="memory_lua"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="memtest"/>
+    <functioncall functionName="metric"/>
+    <functioncall functionName="mgetCommand"/>
+    <functioncall functionName="mh"/>
+    <functioncall functionName="microseconds"/>
+    <functioncall functionName="migrateCacheDictType"/>
+    <functioncall functionName="migrateCloseTimedoutSockets"/>
+    <functioncall functionName="migrateCommand"/>
+    <functioncall functionName="migrateGetKeys"/>
+    <functioncall functionName="migrate_cached_sockets"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="moduleAcquireGIL"/>
+    <functioncall functionName="moduleBlockedClientPipeReadable"/>
+    <functioncall functionName="moduleCommand"/>
+    <functioncall functionName="moduleCount"/>
+    <functioncall functionName="moduleHandleBlockedClients"/>
+    <functioncall functionName="moduleInitModulesSystem"/>
+    <functioncall functionName="moduleLoadFromQueue"/>
+    <functioncall functionName="moduleReleaseGIL"/>
+    <functioncall functionName="monitorCommand"/>
+    <functioncall functionName="monitors"/>
+    <functioncall functionName="moveCommand"/>
+    <functioncall functionName="msetCommand"/>
+    <functioncall functionName="msetnxCommand"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="multiCommand"/>
+    <functioncall functionName="myself"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="neterr"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next_client_id_mutex"/>
+    <functioncall functionName="noautherr"/>
+    <functioncall functionName="nolocks_localtime"/>
+    <functioncall functionName="noreplicaserr"/>
+    <functioncall functionName="nosave"/>
+    <functioncall functionName="notify_socket"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="numclients"/>
+    <functioncall functionName="numkeys"/>
+    <functioncall functionName="numops"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="o1"/>
+    <functioncall functionName="o2"/>
+    <functioncall functionName="objectCommand"/>
+    <functioncall functionName="objectKeyPointerValueDictType"/>
+    <functioncall functionName="off"/>
+    <functioncall functionName="offsetof"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="old_maxclients"/>
+    <functioncall functionName="oldlimit"/>
+    <functioncall functionName="oomerr"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="openlog"/>
+    <functioncall functionName="ops"/>
+    <functioncall functionName="ops_sec"/>
+    <functioncall functionName="options"/>
+    <functioncall functionName="orig_commands"/>
+    <functioncall functionName="out_usage"/>
+    <functioncall functionName="overhead_total"/>
+    <functioncall functionName="peak_hmem"/>
+    <functioncall functionName="peak_perc"/>
+    <functioncall functionName="pending_querybuf"/>
+    <functioncall functionName="pending_querybuf_size"/>
+    <functioncall functionName="perc"/>
+    <functioncall functionName="persistCommand"/>
+    <functioncall functionName="pexpireCommand"/>
+    <functioncall functionName="pexpireatCommand"/>
+    <functioncall functionName="pfaddCommand"/>
+    <functioncall functionName="pfcountCommand"/>
+    <functioncall functionName="pfdebugCommand"/>
+    <functioncall functionName="pfmergeCommand"/>
+    <functioncall functionName="pfselftestCommand"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="pidfile"/>
+    <functioncall functionName="pingCommand"/>
+    <functioncall functionName="pong"/>
+    <functioncall functionName="populateCommandTable"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="prepareForShutdown"/>
+    <functioncall functionName="prev_also_propagate"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="proc"/>
+    <functioncall functionName="processClientsWaitingReplicas"/>
+    <functioncall functionName="processUnblockedClients"/>
+    <functioncall functionName="process_rss"/>
+    <functioncall functionName="propagate"/>
+    <functioncall functionName="propagate_flags"/>
+    <functioncall functionName="psetexCommand"/>
+    <functioncall functionName="psubscribeCommand"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pttlCommand"/>
+    <functioncall functionName="publishCommand"/>
+    <functioncall functionName="pubsubCommand"/>
+    <functioncall functionName="pubsub_channels"/>
+    <functioncall functionName="pubsub_patterns"/>
+    <functioncall functionName="punsubscribeCommand"/>
+    <functioncall functionName="querybuf"/>
+    <functioncall functionName="querybuf_size"/>
+    <functioncall functionName="queueMultiCommand"/>
+    <functioncall functionName="queued"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="raise"/>
+    <functioncall functionName="randomkeyCommand"/>
+    <functioncall functionName="rawmode"/>
+    <functioncall functionName="raxNew"/>
+    <functioncall functionName="rdbLoad"/>
+    <functioncall functionName="rdbPopulateSaveInfo"/>
+    <functioncall functionName="rdbRemoveTempFile"/>
+    <functioncall functionName="rdbSave"/>
+    <functioncall functionName="rdbSaveBackground"/>
+    <functioncall functionName="rdb_child_pid"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="rdb_save_time_last"/>
+    <functioncall functionName="rdb_save_time_start"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readonlyCommand"/>
+    <functioncall functionName="readwriteCommand"/>
+    <functioncall functionName="receiveChildInfo"/>
+    <functioncall functionName="redisAsciiArt"/>
+    <functioncall functionName="redisBuildId"/>
+    <functioncall functionName="redisCommandTable"/>
+    <functioncall functionName="redisGitDirty"/>
+    <functioncall functionName="redisGitSHA1"/>
+    <functioncall functionName="redisIsSupervised"/>
+    <functioncall functionName="redisOpArrayAppend"/>
+    <functioncall functionName="redisOpArrayFree"/>
+    <functioncall functionName="redisOpArrayInit"/>
+    <functioncall functionName="redisOutOfMemoryHandler"/>
+    <functioncall functionName="redisSetProcTitle"/>
+    <functioncall functionName="redisSupervisedSystemd"/>
+    <functioncall functionName="redisSupervisedUpstart"/>
+    <functioncall functionName="redis_check_aof_main"/>
+    <functioncall functionName="redis_check_rdb_main"/>
+    <functioncall functionName="rehash_db"/>
+    <functioncall functionName="release"/>
+    <functioncall functionName="renameCommand"/>
+    <functioncall functionName="renamenxCommand"/>
+    <functioncall functionName="repl_ack_off"/>
+    <functioncall functionName="repl_ack_time"/>
+    <functioncall functionName="repl_backlog"/>
+    <functioncall functionName="repl_backlog_histlen"/>
+    <functioncall functionName="repl_backlog_off"/>
+    <functioncall functionName="repl_backlog_size"/>
+    <functioncall functionName="repl_down_since"/>
+    <functioncall functionName="repl_good_slaves_count"/>
+    <functioncall functionName="repl_id"/>
+    <functioncall functionName="repl_min_slaves_max_lag"/>
+    <functioncall functionName="repl_min_slaves_to_write"/>
+    <functioncall functionName="repl_offset"/>
+    <functioncall functionName="repl_slave_ro"/>
+    <functioncall functionName="repl_stream_db"/>
+    <functioncall functionName="repl_transfer_lastio"/>
+    <functioncall functionName="repl_transfer_read"/>
+    <functioncall functionName="replconfCommand"/>
+    <functioncall functionName="replicaofCommand"/>
+    <functioncall functionName="replicationCacheMasterUsingMyself"/>
+    <functioncall functionName="replicationCron"/>
+    <functioncall functionName="replicationFeedMonitors"/>
+    <functioncall functionName="replicationFeedSlaves"/>
+    <functioncall functionName="replicationScriptCacheInit"/>
+    <functioncall functionName="replid"/>
+    <functioncall functionName="replid2"/>
+    <functioncall functionName="reploff"/>
+    <functioncall functionName="replstate"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="replyToBlockedClientTimedOut"/>
+    <functioncall functionName="requirepass"/>
+    <functioncall functionName="resetServerSaveParams"/>
+    <functioncall functionName="resetServerStats"/>
+    <functioncall functionName="restoreCommand"/>
+    <functioncall functionName="retcode"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteAppendOnlyFileBackground"/>
+    <functioncall functionName="rewriteConfig"/>
+    <functioncall functionName="rlim_cur"/>
+    <functioncall functionName="roleCommand"/>
+    <functioncall functionName="role_char"/>
+    <functioncall functionName="roslaveerr"/>
+    <functioncall functionName="rpopCommand"/>
+    <functioncall functionName="rpoplpushCommand"/>
+    <functioncall functionName="rpushCommand"/>
+    <functioncall functionName="rpushxCommand"/>
+    <functioncall functionName="rsi"/>
+    <functioncall functionName="rsiptr"/>
+    <functioncall functionName="rss_extra"/>
+    <functioncall functionName="rss_extra_bytes"/>
+    <functioncall functionName="runid"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa_mask"/>
+    <functioncall functionName="saddCommand"/>
+    <functioncall functionName="samples"/>
+    <functioncall functionName="saveCommand"/>
+    <functioncall functionName="saveparamslen"/>
+    <functioncall functionName="scanCommand"/>
+    <functioncall functionName="scardCommand"/>
+    <functioncall functionName="scriptCommand"/>
+    <functioncall functionName="scriptingInit"/>
+    <functioncall functionName="sdiffCommand"/>
+    <functioncall functionName="sdiffstoreCommand"/>
+    <functioncall functionName="sdsAllocSize"/>
+    <functioncall functionName="sdsRemoveFreeSpace"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="second_replid_offset"/>
+    <functioncall functionName="seconds"/>
+    <functioncall functionName="section"/>
+    <functioncall functionName="securityWarningCommand"/>
+    <functioncall functionName="selectCommand"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="self_ru"/>
+    <functioncall functionName="sendmsg"/>
+    <functioncall functionName="sendto_flags"/>
+    <functioncall functionName="sentinelIsRunning"/>
+    <functioncall functionName="sentinelTimer"/>
+    <functioncall functionName="sentinel_mode"/>
+    <functioncall functionName="server.lruclock_mutex"/>
+    <functioncall functionName="server.unixtime_mutex"/>
+    <functioncall functionName="serverCron"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="serverLogFromHandler"/>
+    <functioncall functionName="serverLogRaw"/>
+    <functioncall functionName="setCommand"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setbitCommand"/>
+    <functioncall functionName="setexCommand"/>
+    <functioncall functionName="setlocale"/>
+    <functioncall functionName="setnxCommand"/>
+    <functioncall functionName="setrangeCommand"/>
+    <functioncall functionName="setrlimit"/>
+    <functioncall functionName="setrlimit_error"/>
+    <functioncall functionName="setsid"/>
+    <functioncall functionName="setupSignalHandlers"/>
+    <functioncall functionName="sflags"/>
+    <functioncall functionName="show_logo"/>
+    <functioncall functionName="shutdownCommand"/>
+    <functioncall functionName="shutdown_asap"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="sigShutdownHandler"/>
+    <functioncall functionName="sigaction"/>
+    <functioncall functionName="sigemptyset"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="sinterCommand"/>
+    <functioncall functionName="sinterstoreCommand"/>
+    <functioncall functionName="sismemberCommand"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slave_ip"/>
+    <functioncall functionName="slave_listening_port"/>
+    <functioncall functionName="slave_priority"/>
+    <functioncall functionName="slave_repl_offset"/>
+    <functioncall functionName="slaveid"/>
+    <functioncall functionName="slaveip"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="slaveseldb"/>
+    <functioncall functionName="slowlogCommand"/>
+    <functioncall functionName="slowlogInit"/>
+    <functioncall functionName="slowlogPushEntryIfNeeded"/>
+    <functioncall functionName="slowscripterr"/>
+    <functioncall functionName="smoveCommand"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="socket"/>
+    <functioncall functionName="sofd"/>
+    <functioncall functionName="sortCommand"/>
+    <functioncall functionName="sortGetKeys"/>
+    <functioncall functionName="spopCommand"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="srand"/>
+    <functioncall functionName="srandmemberCommand"/>
+    <functioncall functionName="sremCommand"/>
+    <functioncall functionName="sscanCommand"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="startup_allocated"/>
+    <functioncall functionName="stat_active_defrag_hits"/>
+    <functioncall functionName="stat_active_defrag_key_hits"/>
+    <functioncall functionName="stat_active_defrag_key_misses"/>
+    <functioncall functionName="stat_active_defrag_misses"/>
+    <functioncall functionName="stat_aof_cow_bytes"/>
+    <functioncall functionName="stat_evictedkeys"/>
+    <functioncall functionName="stat_expired_time_cap_reached_count"/>
+    <functioncall functionName="stat_expiredkeys"/>
+    <functioncall functionName="stat_fork_time"/>
+    <functioncall functionName="stat_keyspace_hits"/>
+    <functioncall functionName="stat_keyspace_misses"/>
+    <functioncall functionName="stat_net_input_bytes"/>
+    <functioncall functionName="stat_net_output_bytes"/>
+    <functioncall functionName="stat_numcommands"/>
+    <functioncall functionName="stat_numconnections"/>
+    <functioncall functionName="stat_peak_memory"/>
+    <functioncall functionName="stat_rdb_cow_bytes"/>
+    <functioncall functionName="stat_rejected_conn"/>
+    <functioncall functionName="stat_starttime"/>
+    <functioncall functionName="stat_sync_full"/>
+    <functioncall functionName="stat_sync_partial_err"/>
+    <functioncall functionName="stat_sync_partial_ok"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="statloc"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strftime"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strlenCommand"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="su"/>
+    <functioncall functionName="subscribeCommand"/>
+    <functioncall functionName="sun_path"/>
+    <functioncall functionName="sunionCommand"/>
+    <functioncall functionName="sunionstoreCommand"/>
+    <functioncall functionName="supervised"/>
+    <functioncall functionName="supervised_mode"/>
+    <functioncall functionName="swapdbCommand"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syncCommand"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="syslog"/>
+    <functioncall functionName="syslog_enabled"/>
+    <functioncall functionName="syslog_facility"/>
+    <functioncall functionName="syslog_ident"/>
+    <functioncall functionName="sysname"/>
+    <functioncall functionName="system_memory_size"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tcp_backlog"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timeCommand"/>
+    <functioncall functionName="time_independent_strcmp"/>
+    <functioncall functionName="timezone"/>
+    <functioncall functionName="title"/>
+    <functioncall functionName="tm"/>
+    <functioncall functionName="tm_isdst"/>
+    <functioncall functionName="tolower"/>
+    <functioncall functionName="total_frag"/>
+    <functioncall functionName="total_frag_bytes"/>
+    <functioncall functionName="total_system_hmem"/>
+    <functioncall functionName="total_system_mem"/>
+    <functioncall functionName="touchCommand"/>
+    <functioncall functionName="trackInstantaneousMetric"/>
+    <functioncall functionName="tryResizeHashTables"/>
+    <functioncall functionName="ttlCommand"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="typeCommand"/>
+    <functioncall functionName="tzset"/>
+    <functioncall functionName="uname"/>
+    <functioncall functionName="unblockClient"/>
+    <functioncall functionName="unixsocket"/>
+    <functioncall functionName="unixsocketperm"/>
+    <functioncall functionName="unixtime"/>
+    <functioncall functionName="unixtime_mutex"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="unlinkCommand"/>
+    <functioncall functionName="unsetenv"/>
+    <functioncall functionName="unsubscribeCommand"/>
+    <functioncall functionName="unwatchCommand"/>
+    <functioncall functionName="updateCachedTime"/>
+    <functioncall functionName="updateDictResizePolicy"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="upstart_job"/>
+    <functioncall functionName="uptime"/>
+    <functioncall functionName="usage"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="used_memory_lua_hmem"/>
+    <functioncall functionName="used_memory_rss_hmem"/>
+    <functioncall functionName="used_memory_scripts_hmem"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="verbosity"/>
+    <functioncall functionName="verifyClusterConfigWithData"/>
+    <functioncall functionName="version"/>
+    <functioncall functionName="vkeys"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="wait3"/>
+    <functioncall functionName="waitCommand"/>
+    <functioncall functionName="watchCommand"/>
+    <functioncall functionName="watchdogScheduleSignal"/>
+    <functioncall functionName="watchdog_period"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="work_done"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writeCommandsDeniedByDiskError"/>
+    <functioncall functionName="xackCommand"/>
+    <functioncall functionName="xaddCommand"/>
+    <functioncall functionName="xclaimCommand"/>
+    <functioncall functionName="xdelCommand"/>
+    <functioncall functionName="xgroupCommand"/>
+    <functioncall functionName="xinfoCommand"/>
+    <functioncall functionName="xlenCommand"/>
+    <functioncall functionName="xpendingCommand"/>
+    <functioncall functionName="xrangeCommand"/>
+    <functioncall functionName="xreadCommand"/>
+    <functioncall functionName="xreadGetKeys"/>
+    <functioncall functionName="xrevrangeCommand"/>
+    <functioncall functionName="xsetidCommand"/>
+    <functioncall functionName="xtrimCommand"/>
+    <functioncall functionName="zaddCommand"/>
+    <functioncall functionName="zcardCommand"/>
+    <functioncall functionName="zcountCommand"/>
+    <functioncall functionName="zeroidx"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zincrbyCommand"/>
+    <functioncall functionName="zinterstoreCommand"/>
+    <functioncall functionName="zlexcountCommand"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_get_allocator_info"/>
+    <functioncall functionName="zmalloc_get_memory_size"/>
+    <functioncall functionName="zmalloc_get_rss"/>
+    <functioncall functionName="zmalloc_set_oom_handler"/>
+    <functioncall functionName="zmalloc_used"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+    <functioncall functionName="zpopmaxCommand"/>
+    <functioncall functionName="zpopminCommand"/>
+    <functioncall functionName="zrangeCommand"/>
+    <functioncall functionName="zrangebylexCommand"/>
+    <functioncall functionName="zrangebyscoreCommand"/>
+    <functioncall functionName="zrankCommand"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zremCommand"/>
+    <functioncall functionName="zremrangebylexCommand"/>
+    <functioncall functionName="zremrangebyrankCommand"/>
+    <functioncall functionName="zremrangebyscoreCommand"/>
+    <functioncall functionName="zrevrangeCommand"/>
+    <functioncall functionName="zrevrangebylexCommand"/>
+    <functioncall functionName="zrevrangebyscoreCommand"/>
+    <functioncall functionName="zrevrankCommand"/>
+    <functioncall functionName="zscanCommand"/>
+    <functioncall functionName="zscoreCommand"/>
+    <functioncall functionName="zstrdup"/>
+    <functioncall functionName="zunionInterGetKeys"/>
+    <functioncall functionName="zunionstoreCommand"/>
+  </FileInfo>
+</analyzerinfo>

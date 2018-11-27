@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2340530113">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="minutes_diff" lineNumber="28"/>
+    <functiondecl functionName="log_incr" lineNumber="36"/>
+    <functiondecl functionName="access_entry" lineNumber="47"/>
+    <functiondecl functionName="scan_entry" lineNumber="54"/>
+    <functiondecl functionName="show_entry" lineNumber="71"/>
+    <functiondecl functionName="main" lineNumber="83"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="RAND_MAX"/>
+    <functioncall functionName="access_entry"/>
+    <functioncall functionName="counter"/>
+    <functioncall functionName="ctime"/>
+    <functioncall functionName="decrtime"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="hits"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="keyspace_size"/>
+    <functioncall functionName="log_incr"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="minutes_diff"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="scan_entry"/>
+    <functioncall functionName="show_entry"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="tag"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3940613060">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="node_cmp" lineNumber="26"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="47"/>
+    <functiondecl functionName="tree_recurse" lineNumber="72"/>
+    <functiondecl functionName="tree_iterate_cb" lineNumber="121"/>
+    <functiondecl functionName="tree_iterate" lineNumber="148"/>
+    <functiondecl functionName="tree_iterate_reverse" lineNumber="158"/>
+    <functiondecl functionName="node_remove" lineNumber="168"/>
+    <functiondecl functionName="remove_iterate_cb" lineNumber="200"/>
+    <functiondecl functionName="remove_reverse_iterate_cb" lineNumber="210"/>
+    <functiondecl functionName="destroy_cb" lineNumber="220"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="227"/>
+    <functiondecl functionName="main" lineNumber="351"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u64_ge"/>
+    <functioncall functionName="assert_u64_le"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_u_gt"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="black_depth"/>
+    <functioncall functionName="black_height"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="destroy_cb"/>
+    <functioncall functionName="fini_gen_rand"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gen_rand64_range"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="imbalances"/>
+    <functioncall functionName="init_gen_rand"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="left_node"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="magic"/>
+    <functioncall functionName="nnodes"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="node_cmp"/>
+    <functioncall functionName="node_remove"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="rb_gen"/>
+    <functioncall functionName="rb_node"/>
+    <functioncall functionName="rbp_bh_t"/>
+    <functioncall functionName="rbt_root"/>
+    <functioncall functionName="rbtn_left_get"/>
+    <functioncall functionName="rbtn_red_get"/>
+    <functioncall functionName="rbtn_right_get"/>
+    <functioncall functionName="remove_iterate_cb"/>
+    <functioncall functionName="remove_reverse_iterate_cb"/>
+    <functioncall functionName="right_node"/>
+    <functioncall functionName="search_node"/>
+    <functioncall functionName="sfmt"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="static"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_rb_empty"/>
+    <functioncall functionName="test_rb_random"/>
+    <functioncall functionName="tree"/>
+    <functioncall functionName="tree_"/>
+    <functioncall functionName="tree_destroy"/>
+    <functioncall functionName="tree_empty"/>
+    <functioncall functionName="tree_first"/>
+    <functioncall functionName="tree_insert"/>
+    <functioncall functionName="tree_iter"/>
+    <functioncall functionName="tree_iterate"/>
+    <functioncall functionName="tree_iterate_cb"/>
+    <functioncall functionName="tree_iterate_reverse"/>
+    <functioncall functionName="tree_last"/>
+    <functioncall functionName="tree_new"/>
+    <functioncall functionName="tree_next"/>
+    <functioncall functionName="tree_nsearch"/>
+    <functioncall functionName="tree_prev"/>
+    <functioncall functionName="tree_psearch"/>
+    <functioncall functionName="tree_recurse"/>
+    <functioncall functionName="tree_remove"/>
+    <functioncall functionName="tree_reverse_iter"/>
+    <functioncall functionName="tree_search"/>
+    <functioncall functionName="tree_t"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

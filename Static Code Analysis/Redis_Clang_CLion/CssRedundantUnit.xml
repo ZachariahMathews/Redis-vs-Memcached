@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/deps/lua/doc/lua.css</file>
+    <line>31</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/deps/lua/doc/lua.css" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant measure unit</problem_class>
+    <description>Unit of measure &lt;code&gt;px&lt;/code&gt; is redundant #loc</description>
+  </problem>
+</problems>
+

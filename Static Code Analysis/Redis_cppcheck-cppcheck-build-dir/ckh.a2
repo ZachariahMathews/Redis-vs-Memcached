@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1775907224">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="19"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="106"/>
+    <functiondecl functionName="main" lineNumber="206"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="ckh"/>
+    <functioncall functionName="ckh_count"/>
+    <functioncall functionName="ckh_delete"/>
+    <functioncall functionName="ckh_insert"/>
+    <functioncall functionName="ckh_iter"/>
+    <functioncall functionName="ckh_new"/>
+    <functioncall functionName="ckh_pointer_hash"/>
+    <functioncall functionName="ckh_pointer_keycomp"/>
+    <functioncall functionName="ckh_remove"/>
+    <functioncall functionName="ckh_search"/>
+    <functioncall functionName="ckh_string_hash"/>
+    <functioncall functionName="ckh_string_keycomp"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="kp"/>
+    <functioncall functionName="ks"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="missing"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="seen"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strs"/>
+    <functioncall functionName="tabind"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_count_insert_search_remove"/>
+    <functioncall functionName="test_insert_iter_remove"/>
+    <functioncall functionName="test_new_delete"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="vp"/>
+    <functioncall functionName="vs"/>
+  </FileInfo>
+</analyzerinfo>

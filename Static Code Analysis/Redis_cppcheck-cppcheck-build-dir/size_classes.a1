@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="425774674">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="get_max_size_class" lineNumber="4"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="25"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="83"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="139"/>
+    <functiondecl functionName="main" lineNumber="178"/>
+    <functioncall functionName="NPSIZES"/>
+    <functioncall functionName="NSIZES"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="PTRDIFF_MAX"/>
+    <functioncall functionName="SIZE_T_MAX"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_max_size_class"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="max_psz"/>
+    <functioncall functionName="max_size_class"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nlextents"/>
+    <functioncall functionName="pind"/>
+    <functioncall functionName="size_class"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_index2size"/>
+    <functioncall functionName="sz_pind2sz"/>
+    <functioncall functionName="sz_psz2ind"/>
+    <functioncall functionName="sz_psz2u"/>
+    <functioncall functionName="sz_s2u"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_overflow"/>
+    <functioncall functionName="test_psize_classes"/>
+    <functioncall functionName="test_size_classes"/>
+  </FileInfo>
+</analyzerinfo>

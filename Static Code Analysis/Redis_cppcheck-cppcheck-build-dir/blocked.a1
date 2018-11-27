@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2466321291">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\blocked.c" file="C:\Users\bharm\Downloads\redis-unstable\src\blocked.c" line="114"/>
+            <symbol>c</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;l&apos; can be reduced." verbose="The scope of the variable &apos;l&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\blocked.c" file="C:\Users\bharm\Downloads\redis-unstable\src\blocked.c" line="546"/>
+            <symbol>l</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getTimeoutFromObjectOrReply" lineNumber="78"/>
+    <functiondecl functionName="blockClient" lineNumber="102"/>
+    <functiondecl functionName="processUnblockedClients" lineNumber="112"/>
+    <functiondecl functionName="queueClientForReprocessing" lineNumber="151"/>
+    <functiondecl functionName="unblockClient" lineNumber="162"/>
+    <functiondecl functionName="replyToBlockedClientTimedOut" lineNumber="186"/>
+    <functiondecl functionName="disconnectAllBlockedClients" lineNumber="207"/>
+    <functiondecl functionName="handleClientsBlockedOnKeys" lineNumber="246"/>
+    <functiondecl functionName="blockForKeys" lineNumber="497"/>
+    <functiondecl functionName="unblockClientWaitingData" lineNumber="543"/>
+    <functiondecl functionName="signalKeyAsReady" lineNumber="585"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="blockClient"/>
+    <functioncall functionName="blocking_keys"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="btype"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="clientnode"/>
+    <functioncall functionName="clients"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="consumer"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictEmpty"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dstkey"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="genericZpopCommand"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="group"/>
+    <functioncall functionName="gt"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_data"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="last_id"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listSearchKey"/>
+    <functioncall functionName="listTypeLength"/>
+    <functioncall functionName="listTypePop"/>
+    <functioncall functionName="listTypePush"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="moduleBlockedClientTimedOut"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="noack"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullmultibulk"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="object"/>
+    <functioncall functionName="pi"/>
+    <functioncall functionName="processInputBufferAndReplicate"/>
+    <functioncall functionName="propagate"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="querybuf"/>
+    <functioncall functionName="queueClientForReprocessing"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="ready_keys"/>
+    <functioncall functionName="receiver"/>
+    <functioncall functionName="replicationCountAcksByOffset"/>
+    <functioncall functionName="reploffset"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rl"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="serveClientBlockedOnList"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="streamCompareID"/>
+    <functioncall functionName="streamLookupCG"/>
+    <functioncall functionName="streamLookupConsumer"/>
+    <functioncall functionName="streamReplyWithRange"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tval"/>
+    <functioncall functionName="unblockClient"/>
+    <functioncall functionName="unblockClientFromModule"/>
+    <functioncall functionName="unblockClientWaitingData"/>
+    <functioncall functionName="unblockClientWaitingReplicas"/>
+    <functioncall functionName="unblocked_clients"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="where"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="xread_consumer"/>
+    <functioncall functionName="xread_count"/>
+    <functioncall functionName="xread_group"/>
+    <functioncall functionName="xread_group_noack"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zpopmaxCommand"/>
+    <functioncall functionName="zpopminCommand"/>
+    <functioncall functionName="zsetLength"/>
+  </FileInfo>
+</analyzerinfo>

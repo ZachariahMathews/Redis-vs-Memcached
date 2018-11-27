@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1305055888">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="tcache_salloc" lineNumber="35"/>
+    <functiondecl functionName="tcache_event_hard" lineNumber="40"/>
+    <functiondecl functionName="tcache_alloc_small_hard" lineNumber="88"/>
+    <functiondecl functionName="tcache_bin_flush_small" lineNumber="104"/>
+    <functiondecl functionName="tcache_bin_flush_large" lineNumber="189"/>
+    <functiondecl functionName="tcache_arena_associate" lineNumber="287"/>
+    <functiondecl functionName="tcache_arena_dissociate" lineNumber="308"/>
+    <functiondecl functionName="tcache_arena_reassociate" lineNumber="335"/>
+    <functiondecl functionName="tsd_tcache_enabled_data_init" lineNumber="341"/>
+    <functiondecl functionName="tcache_init" lineNumber="356"/>
+    <functiondecl functionName="tsd_tcache_data_init" lineNumber="390"/>
+    <functiondecl functionName="tcache_create_explicit" lineNumber="432"/>
+    <functiondecl functionName="tcache_flush_cache" lineNumber="458"/>
+    <functiondecl functionName="tcache_flush" lineNumber="486"/>
+    <functiondecl functionName="tcache_destroy" lineNumber="492"/>
+    <functiondecl functionName="tcache_cleanup" lineNumber="510"/>
+    <functiondecl functionName="tcache_stats_merge" lineNumber="529"/>
+    <functiondecl functionName="tcaches_create_prep" lineNumber="553"/>
+    <functiondecl functionName="tcaches_create" lineNumber="579"/>
+    <functiondecl functionName="tcaches_elm_remove" lineNumber="617"/>
+    <functiondecl functionName="tcaches_flush" lineNumber="629"/>
+    <functiondecl functionName="tcaches_destroy" lineNumber="639"/>
+    <functiondecl functionName="tcache_boot" lineNumber="652"/>
+    <functiondecl functionName="tcache_prefork" lineNumber="699"/>
+    <functiondecl functionName="tcache_postfork_parent" lineNumber="706"/>
+    <functiondecl functionName="tcache_postfork_child" lineNumber="713"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="LG_TCACHE_MAXCLASS_DEFAULT"/>
+    <functioncall functionName="NBINS"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PTR_CEILING"/>
+    <functioncall functionName="SMALL_MAXCLASS"/>
+    <functioncall functionName="TCACHE_GC_INCR"/>
+    <functioncall functionName="TCACHE_NSLOTS_LARGE"/>
+    <functioncall functionName="TCACHE_NSLOTS_SMALL_MAX"/>
+    <functioncall functionName="TCACHE_NSLOTS_SMALL_MIN"/>
+    <functioncall functionName="TSDN_NULL"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="WITNESS_RANK_TCACHES"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_choose"/>
+    <functioncall functionName="arena_dalloc_bin_junked_locked"/>
+    <functioncall functionName="arena_decay_ticks"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arena_ichoose"/>
+    <functioncall functionName="arena_prof_accum"/>
+    <functioncall functionName="arena_salloc"/>
+    <functioncall functionName="arena_stats_large_nrequests_add"/>
+    <functioncall functionName="arena_tcache_fill_small"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="avail_array"/>
+    <functioncall functionName="b0get"/>
+    <functioncall functionName="base_alloc"/>
+    <functioncall functionName="bin_arena"/>
+    <functioncall functionName="binind"/>
+    <functioncall functionName="bins_large"/>
+    <functioncall functionName="bins_small"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cache_bin_alloc_easy"/>
+    <functioncall functionName="cache_bin_array_descriptor"/>
+    <functioncall functionName="cache_bin_array_descriptor_init"/>
+    <functioncall functionName="cache_bin_array_descriptor_ql"/>
+    <functioncall functionName="cache_bin_info_t"/>
+    <functioncall functionName="cache_bin_sz_t"/>
+    <functioncall functionName="cache_bin_t"/>
+    <functioncall functionName="cassert"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="elm"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_arena_get"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gc_ticker"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idalloctm"/>
+    <functioncall functionName="iealloc"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in_ql"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="ipallocztm"/>
+    <functioncall functionName="item_extent"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="large_dalloc_finish"/>
+    <functioncall functionName="large_dalloc_prep_junked_locked"/>
+    <functioncall functionName="large_mtx"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="locked_arena"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="low_water"/>
+    <functioncall functionName="malloc_initialized"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="merged_stats"/>
+    <functioncall functionName="ncached"/>
+    <functioncall functionName="ncached_max"/>
+    <functioncall functionName="ndeferred"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="next_gc_bin"/>
+    <functioncall functionName="nflush"/>
+    <functioncall functionName="nrequests"/>
+    <functioncall functionName="opt_tcache"/>
+    <functioncall functionName="prof_accumbytes"/>
+    <functioncall functionName="prof_idump"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="ql_elm"/>
+    <functioncall functionName="ql_elm_new"/>
+    <functioncall functionName="ql_foreach"/>
+    <functioncall functionName="ql_remove"/>
+    <functioncall functionName="ql_tail_insert"/>
+    <functioncall functionName="rem"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="stack_offset"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="sz_sa2u"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="tbin"/>
+    <functioncall functionName="tcache"/>
+    <functioncall functionName="tcache_arena_associate"/>
+    <functioncall functionName="tcache_arena_dissociate"/>
+    <functioncall functionName="tcache_available"/>
+    <functioncall functionName="tcache_bin_flush_large"/>
+    <functioncall functionName="tcache_bin_flush_small"/>
+    <functioncall functionName="tcache_create_explicit"/>
+    <functioncall functionName="tcache_destroy"/>
+    <functioncall functionName="tcache_flush_cache"/>
+    <functioncall functionName="tcache_init"/>
+    <functioncall functionName="tcache_large_bin_get"/>
+    <functioncall functionName="tcache_maxclass"/>
+    <functioncall functionName="tcache_ql"/>
+    <functioncall functionName="tcache_ql_mtx"/>
+    <functioncall functionName="tcache_small_bin_get"/>
+    <functioncall functionName="tcache_stats_merge"/>
+    <functioncall functionName="tcache_success"/>
+    <functioncall functionName="tcache_t"/>
+    <functioncall functionName="tcaches"/>
+    <functioncall functionName="tcaches_avail"/>
+    <functioncall functionName="tcaches_create_prep"/>
+    <functioncall functionName="tcaches_elm_remove"/>
+    <functioncall functionName="tcaches_mtx"/>
+    <functioncall functionName="tcaches_past"/>
+    <functioncall functionName="ticker_init"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_slow_update"/>
+    <functioncall functionName="tsd_tcache"/>
+    <functioncall functionName="tsd_tcache_data_init"/>
+    <functioncall functionName="tsd_tcache_enabled_get"/>
+    <functioncall functionName="tsd_tcache_enabled_set"/>
+    <functioncall functionName="tsd_tcachep_get"/>
+    <functioncall functionName="tsd_tcachep_get_unsafe"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_witness_tsdp_get"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="witness_assert_depth"/>
+  </FileInfo>
+</analyzerinfo>

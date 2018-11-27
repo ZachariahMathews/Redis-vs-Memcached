@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1082738871">
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="63"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="64"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="65"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="66"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="67"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="68"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="69"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\crc32c.c" file="C:\Users\bharm\Downloads\memcached-master\crc32c.c" line="70"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="crc32c_init_sw" lineNumber="57"/>
+    <functiondecl functionName="crc32c_sw" lineNumber="85"/>
+    <functiondecl functionName="crc32c_init" lineNumber="393"/>
+    <functiondecl functionName="crc32c_init_sw" lineNumber="57"/>
+    <functiondecl functionName="crc32c_sw" lineNumber="85"/>
+    <functiondecl functionName="crc32c_hw_aarch64" lineNumber="128"/>
+    <functiondecl functionName="crc32c_init" lineNumber="393"/>
+    <functiondecl functionName="crc32c_init_sw" lineNumber="57"/>
+    <functiondecl functionName="crc32c_sw" lineNumber="85"/>
+    <functiondecl functionName="gf2_matrix_times" lineNumber="174"/>
+    <functiondecl functionName="gf2_matrix_square" lineNumber="190"/>
+    <functiondecl functionName="crc32c_zeros_op" lineNumber="203"/>
+    <functiondecl functionName="crc32c_zeros" lineNumber="242"/>
+    <functiondecl functionName="crc32c_shift" lineNumber="257"/>
+    <functiondecl functionName="crc32c_init_hw" lineNumber="279"/>
+    <functiondecl functionName="crc32c_hw" lineNumber="286"/>
+    <functiondecl functionName="crc32c_init" lineNumber="393"/>
+    <functioncall functionName="AT_HWCAP"/>
+    <functioncall functionName="PTHREAD_ONCE_INIT"/>
+    <functioncall functionName="asm"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="crc"/>
+    <functioncall functionName="crc0"/>
+    <functioncall functionName="crc32c_hw"/>
+    <functioncall functionName="crc32c_hw_aarch64"/>
+    <functioncall functionName="crc32c_init_hw"/>
+    <functioncall functionName="crc32c_init_sw"/>
+    <functioncall functionName="crc32c_long"/>
+    <functioncall functionName="crc32c_once_hw"/>
+    <functioncall functionName="crc32c_once_sw"/>
+    <functioncall functionName="crc32c_shift"/>
+    <functioncall functionName="crc32c_short"/>
+    <functioncall functionName="crc32c_sw"/>
+    <functioncall functionName="crc32c_zeros"/>
+    <functioncall functionName="crc32c_zeros_op"/>
+    <functioncall functionName="crc64bit"/>
+    <functioncall functionName="even"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getauxval"/>
+    <functioncall functionName="gf2_matrix_square"/>
+    <functioncall functionName="gf2_matrix_times"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mat"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="odd"/>
+    <functioncall functionName="op"/>
+    <functioncall functionName="pthread_once"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="row"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sse42"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="vec"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

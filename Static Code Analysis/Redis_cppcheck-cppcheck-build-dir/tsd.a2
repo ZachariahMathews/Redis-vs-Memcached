@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3162559876">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="data_cleanup" lineNumber="6"/>
+    <functiondecl functionName="thd_start" lineNumber="42"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="67"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="72"/>
+    <functiondecl functionName="thd_start_reincarnated" lineNumber="88"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="120"/>
+    <functiondecl functionName="main" lineNumber="128"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="MALLOC_TSD_TEST_DATA_INIT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_x_eq"/>
+    <functioncall functionName="assert_x_ge"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="data_cleanup"/>
+    <functioncall functionName="data_cleanup_count"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="reincarnate"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_tsd_main_thread"/>
+    <functioncall functionName="test_tsd_reincarnation"/>
+    <functioncall functionName="test_tsd_sub_thread"/>
+    <functioncall functionName="thd"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="thd_start_reincarnated"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_arena_get"/>
+    <functioncall functionName="tsd_arenap_get_unsafe"/>
+    <functioncall functionName="tsd_cleanup"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_state_purgatory"/>
+    <functioncall functionName="tsd_state_reincarnated"/>
+    <functioncall functionName="tsd_test_callback_set"/>
+    <functioncall functionName="tsd_test_data_get"/>
+    <functioncall functionName="tsd_test_data_set"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1311484777">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="1452"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="1486"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="1521"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="1556"/>
+    <functiondecl functionName="main" lineNumber="1593"/>
+    <functioncall functionName="JEMALLOC_ATTR"/>
+    <functioncall functionName="KQU"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="aligned"/>
+    <functioncall functionName="array32"/>
+    <functioncall functionName="array32_2"/>
+    <functioncall functionName="array64"/>
+    <functioncall functionName="array64_2"/>
+    <functioncall functionName="assert_d_le"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="fill_array32"/>
+    <functioncall functionName="fill_array64"/>
+    <functioncall functionName="fini_gen_rand"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gen_rand32"/>
+    <functioncall functionName="gen_rand64"/>
+    <functioncall functionName="get_min_array_size32"/>
+    <functioncall functionName="get_min_array_size64"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ini"/>
+    <functioncall functionName="init_by_array"/>
+    <functioncall functionName="init_gen_rand"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="r32"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_by_array_32"/>
+    <functioncall functionName="test_by_array_64"/>
+    <functioncall functionName="test_gen_rand_32"/>
+    <functioncall functionName="test_gen_rand_64"/>
+  </FileInfo>
+</analyzerinfo>

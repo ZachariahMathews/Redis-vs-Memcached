@@ -1,0 +1,1614 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2733271379">
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;malloc_utrace_t::p&apos; is never used." verbose="struct member &apos;malloc_utrace_t::p&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\jemalloc.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\jemalloc.c" line="164"/>
+            <symbol>malloc_utrace_t::p</symbol>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;malloc_utrace_t::s&apos; is never used." verbose="struct member &apos;malloc_utrace_t::s&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\jemalloc.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\jemalloc.c" line="165"/>
+            <symbol>malloc_utrace_t::s</symbol>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;malloc_utrace_t::r&apos; is never used." verbose="struct member &apos;malloc_utrace_t::r&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\jemalloc.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\jemalloc.c" line="166"/>
+            <symbol>malloc_utrace_t::r</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="_init_init_lock" lineNumber="135"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="_malloc_prefork" lineNumber="3193"/>
+    <functiondecl functionName="_malloc_postfork" lineNumber="3266"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="_malloc_prefork" lineNumber="3193"/>
+    <functiondecl functionName="_malloc_postfork" lineNumber="3266"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="_init_init_lock" lineNumber="135"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functiondecl functionName="_init_init_lock" lineNumber="135"/>
+    <functiondecl functionName="malloc_initialized" lineNumber="203"/>
+    <functiondecl functionName="malloc_init_a0" lineNumber="208"/>
+    <functiondecl functionName="malloc_init" lineNumber="216"/>
+    <functiondecl functionName="a0ialloc" lineNumber="229"/>
+    <functiondecl functionName="a0idalloc" lineNumber="239"/>
+    <functiondecl functionName="a0malloc" lineNumber="244"/>
+    <functiondecl functionName="a0dalloc" lineNumber="249"/>
+    <functiondecl functionName="bootstrap_malloc" lineNumber="260"/>
+    <functiondecl functionName="bootstrap_calloc" lineNumber="269"/>
+    <functiondecl functionName="bootstrap_free" lineNumber="282"/>
+    <functiondecl functionName="arena_set" lineNumber="291"/>
+    <functiondecl functionName="narenas_total_set" lineNumber="296"/>
+    <functiondecl functionName="narenas_total_inc" lineNumber="301"/>
+    <functiondecl functionName="narenas_total_get" lineNumber="306"/>
+    <functiondecl functionName="arena_init_locked" lineNumber="312"/>
+    <functiondecl functionName="arena_new_create_background_thread" lineNumber="340"/>
+    <functiondecl functionName="arena_init" lineNumber="358"/>
+    <functiondecl functionName="arena_bind" lineNumber="371"/>
+    <functiondecl functionName="arena_migrate" lineNumber="383"/>
+    <functiondecl functionName="arena_unbind" lineNumber="394"/>
+    <functiondecl functionName="arena_tdata_get_hard" lineNumber="408"/>
+    <functiondecl functionName="arena_choose_hard" lineNumber="485"/>
+    <functiondecl functionName="iarena_cleanup" lineNumber="599"/>
+    <functiondecl functionName="arena_cleanup" lineNumber="609"/>
+    <functiondecl functionName="arenas_tdata_cleanup" lineNumber="619"/>
+    <functiondecl functionName="stats_print_atexit" lineNumber="633"/>
+    <functiondecl functionName="check_entry_exit_locking" lineNumber="670"/>
+    <functiondecl functionName="jemalloc_secure_getenv" lineNumber="698"/>
+    <functiondecl functionName="malloc_ncpus" lineNumber="712"/>
+    <functiondecl functionName="init_opt_stats_print_opts" lineNumber="740"/>
+    <functiondecl functionName="malloc_conf_next" lineNumber="765"/>
+    <functiondecl functionName="malloc_abort_invalid_conf" lineNumber="840"/>
+    <functiondecl functionName="malloc_conf_error" lineNumber="848"/>
+    <functiondecl functionName="malloc_slow_flag_init" lineNumber="857"/>
+    <functiondecl functionName="malloc_conf_init" lineNumber="872"/>
+    <functiondecl functionName="malloc_init_hard_needed" lineNumber="1249"/>
+    <functiondecl functionName="malloc_init_hard_a0_locked" lineNumber="1275"/>
+    <functiondecl functionName="malloc_init_hard_a0" lineNumber="1335"/>
+    <functiondecl functionName="malloc_init_hard_recursible" lineNumber="1346"/>
+    <functiondecl functionName="malloc_narenas_default" lineNumber="1373"/>
+    <functiondecl functionName="percpu_arena_as_initialized" lineNumber="1387"/>
+    <functiondecl functionName="malloc_init_narenas" lineNumber="1399"/>
+    <functiondecl functionName="malloc_init_percpu" lineNumber="1471"/>
+    <functiondecl functionName="malloc_init_hard_finish" lineNumber="1476"/>
+    <functiondecl functionName="malloc_init_hard_cleanup" lineNumber="1488"/>
+    <functiondecl functionName="malloc_init_hard" lineNumber="1500"/>
+    <functiondecl functionName="static_opts_init" lineNumber="1627"/>
+    <functiondecl functionName="dynamic_opts_init" lineNumber="1660"/>
+    <functiondecl functionName="imalloc_no_sample" lineNumber="1672"/>
+    <functiondecl functionName="imalloc_sample" lineNumber="1714"/>
+    <functiondecl functionName="compute_size_with_overflow" lineNumber="1749"/>
+    <functiondecl functionName="imalloc_body" lineNumber="1787"/>
+    <functiondecl functionName="imalloc" lineNumber="1985"/>
+    <functiondecl functionName="irealloc_prof_sample" lineNumber="2146"/>
+    <functiondecl functionName="irealloc_prof" lineNumber="2167"/>
+    <functiondecl functionName="ifree" lineNumber="2192"/>
+    <functiondecl functionName="isfree" lineNumber="2231"/>
+    <functiondecl functionName="je_free" lineNumber="2372"/>
+    <functiondecl functionName="irallocx_prof_sample" lineNumber="2595"/>
+    <functiondecl functionName="irallocx_prof" lineNumber="2619"/>
+    <functiondecl functionName="ixallocx_helper" lineNumber="2753"/>
+    <functiondecl functionName="ixallocx_prof_sample" lineNumber="2766"/>
+    <functiondecl functionName="ixallocx_prof" lineNumber="2780"/>
+    <functiondecl functionName="je_xallocx" lineNumber="2829"/>
+    <functiondecl functionName="je_dallocx" lineNumber="2920"/>
+    <functiondecl functionName="inallocx" lineNumber="2965"/>
+    <functiondecl functionName="je_sdallocx" lineNumber="2979"/>
+    <functiondecl functionName="je_mallctl" lineNumber="3054"/>
+    <functiondecl functionName="je_mallctlnametomib" lineNumber="3076"/>
+    <functiondecl functionName="je_mallctlbymib" lineNumber="3096"/>
+    <functiondecl functionName="je_malloc_stats_print" lineNumber="3117"/>
+    <functiondecl functionName="je_malloc_usable_size" lineNumber="3131"/>
+    <functiondecl functionName="jemalloc_constructor" lineNumber="3183"/>
+    <functiondecl functionName="jemalloc_prefork" lineNumber="3190"/>
+    <functiondecl functionName="jemalloc_postfork_parent" lineNumber="3263"/>
+    <functiondecl functionName="jemalloc_postfork_child" lineNumber="3300"/>
+    <functiondecl functionName="get_defrag_hint" lineNumber="3334"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_RELEASE"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="DECAY_NTICKS_PER_UPDATE"/>
+    <functioncall functionName="EAGAIN"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ENOMEM"/>
+    <functioncall functionName="GetSystemInfo"/>
+    <functioncall functionName="JEMALLOC_ALIGNED"/>
+    <functioncall functionName="JEMALLOC_ALLOC_SIZE"/>
+    <functioncall functionName="JEMALLOC_ALLOC_SIZE2"/>
+    <functioncall functionName="JEMALLOC_ATTR"/>
+    <functioncall functionName="JEMALLOC_CC_SILENCE_INIT"/>
+    <functioncall functionName="JEMALLOC_SECTION"/>
+    <functioncall functionName="KQU"/>
+    <functioncall functionName="LARGE_MAXCLASS"/>
+    <functioncall functionName="LARGE_MINCLASS"/>
+    <functioncall functionName="LOG"/>
+    <functioncall functionName="MALLOCX_ALIGN_GET"/>
+    <functioncall functionName="MALLOCX_ALIGN_GET_SPECIFIED"/>
+    <functioncall functionName="MALLOCX_ARENA_GET"/>
+    <functioncall functionName="MALLOCX_ARENA_LIMIT"/>
+    <functioncall functionName="MALLOCX_TCACHE_GET"/>
+    <functioncall functionName="MALLOCX_ZERO_GET"/>
+    <functioncall functionName="MALLOC_MUTEX_INITIALIZER"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="PERCPU_ARENA_ENABLED"/>
+    <functioncall functionName="QU"/>
+    <functioncall functionName="SPIN_INITIALIZER"/>
+    <functioncall functionName="SSIZE_MAX"/>
+    <functioncall functionName="TSDN_NULL"/>
+    <functioncall functionName="UINT_MAX"/>
+    <functioncall functionName="WITNESS_RANK_ARENAS"/>
+    <functioncall functionName="WITNESS_RANK_INIT"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="_SC_NPROCESSORS_ONLN"/>
+    <functioncall functionName="_init_init_lock"/>
+    <functioncall functionName="a0dalloc"/>
+    <functioncall functionName="a0ialloc"/>
+    <functioncall functionName="a0idalloc"/>
+    <functioncall functionName="a0malloc"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="accept"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="alloc_ctx"/>
+    <functioncall functionName="allocation"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_bind"/>
+    <functioncall functionName="arena_boot"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arena_ind_get"/>
+    <functioncall functionName="arena_init"/>
+    <functioncall functionName="arena_init_locked"/>
+    <functioncall functionName="arena_new"/>
+    <functioncall functionName="arena_new_create_background_thread"/>
+    <functioncall functionName="arena_nthreads_dec"/>
+    <functioncall functionName="arena_nthreads_get"/>
+    <functioncall functionName="arena_nthreads_inc"/>
+    <functioncall functionName="arena_postfork_child"/>
+    <functioncall functionName="arena_postfork_parent"/>
+    <functioncall functionName="arena_prefork0"/>
+    <functioncall functionName="arena_prefork1"/>
+    <functioncall functionName="arena_prefork2"/>
+    <functioncall functionName="arena_prefork3"/>
+    <functioncall functionName="arena_prefork4"/>
+    <functioncall functionName="arena_prefork5"/>
+    <functioncall functionName="arena_prefork6"/>
+    <functioncall functionName="arena_prefork7"/>
+    <functioncall functionName="arena_prof_promote"/>
+    <functioncall functionName="arena_tdata_t"/>
+    <functioncall functionName="arena_unbind"/>
+    <functioncall functionName="arenas"/>
+    <functioncall functionName="arenas_lock"/>
+    <functioncall functionName="arenas_tdata"/>
+    <functioncall functionName="arenas_tdata_old"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="assert_nonempty_alloc"/>
+    <functioncall functionName="atexit"/>
+    <functioncall functionName="atomic_fetch_add_u"/>
+    <functioncall functionName="atomic_load_u"/>
+    <functioncall functionName="atomic_store_b"/>
+    <functioncall functionName="atomic_store_p"/>
+    <functioncall functionName="atomic_store_u"/>
+    <functioncall functionName="background_thread_boot0"/>
+    <functioncall functionName="background_thread_boot1"/>
+    <functioncall functionName="background_thread_create"/>
+    <functioncall functionName="background_thread_ctl_init"/>
+    <functioncall functionName="background_thread_lock"/>
+    <functioncall functionName="background_thread_postfork_child"/>
+    <functioncall functionName="background_thread_postfork_parent"/>
+    <functioncall functionName="background_thread_prefork0"/>
+    <functioncall functionName="background_thread_prefork1"/>
+    <functioncall functionName="base_boot"/>
+    <functioncall functionName="bin_util"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bump_empty_alloc"/>
+    <functioncall functionName="bumped_usize"/>
+    <functioncall functionName="cbopaque"/>
+    <functioncall functionName="check_entry_exit_locking"/>
+    <functioncall functionName="choose"/>
+    <functioncall functionName="compute_size_with_overflow"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_fill"/>
+    <functioncall functionName="config_log"/>
+    <functioncall functionName="config_malloc_conf"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="config_utrace"/>
+    <functioncall functionName="config_xmalloc"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cpylen"/>
+    <functioncall functionName="ctl_boot"/>
+    <functioncall functionName="ctl_bymib"/>
+    <functioncall functionName="ctl_byname"/>
+    <functioncall functionName="ctl_nametomib"/>
+    <functioncall functionName="ctl_postfork_child"/>
+    <functioncall functionName="ctl_postfork_parent"/>
+    <functioncall functionName="ctl_prefork"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="decay_ticker"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="dopts"/>
+    <functioncall functionName="dwNumberOfProcessors"/>
+    <functioncall functionName="dynamic_opts_init"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="envname"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="extent_boot"/>
+    <functioncall functionName="extent_dss_prec_set"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_hooks_default"/>
+    <functioncall functionName="extents_rtree"/>
+    <functioncall functionName="extra"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fast"/>
+    <functioncall functionName="first_null"/>
+    <functioncall functionName="flag_opt_junk_alloc"/>
+    <functioncall functionName="flag_opt_junk_free"/>
+    <functioncall functionName="flag_opt_utrace"/>
+    <functioncall functionName="flag_opt_xmalloc"/>
+    <functioncall functionName="flag_opt_zero"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_errno"/>
+    <functioncall functionName="getenv"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="have_madvise_huge"/>
+    <functioncall functionName="have_percpu_arena"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="iallocztm"/>
+    <functioncall functionName="iarena"/>
+    <functioncall functionName="idalloctm"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ifree"/>
+    <functioncall functionName="iget_defrag_hint"/>
+    <functioncall functionName="imalloc"/>
+    <functioncall functionName="imalloc_body"/>
+    <functioncall functionName="imalloc_no_sample"/>
+    <functioncall functionName="imalloc_sample"/>
+    <functioncall functionName="inallocx"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="ind_large"/>
+    <functioncall functionName="init_lock"/>
+    <functioncall functionName="init_lock_initialized"/>
+    <functioncall functionName="init_opt_stats_print_opts"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="internal"/>
+    <functioncall functionName="invalid_alignment_string"/>
+    <functioncall functionName="ipalloct"/>
+    <functioncall functionName="iralloc"/>
+    <functioncall functionName="iralloct"/>
+    <functioncall functionName="irallocx_prof"/>
+    <functioncall functionName="irallocx_prof_sample"/>
+    <functioncall functionName="irealloc_prof"/>
+    <functioncall functionName="irealloc_prof_sample"/>
+    <functioncall functionName="is_internal"/>
+    <functioncall functionName="isalloc"/>
+    <functioncall functionName="isdalloct"/>
+    <functioncall functionName="isfree"/>
+    <functioncall functionName="issetugid"/>
+    <functioncall functionName="item_size"/>
+    <functioncall functionName="ivsalloc"/>
+    <functioncall functionName="ixalloc"/>
+    <functioncall functionName="ixallocx_helper"/>
+    <functioncall functionName="ixallocx_prof"/>
+    <functioncall functionName="ixallocx_prof_sample"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="je_aligned_alloc"/>
+    <functioncall functionName="je_calloc"/>
+    <functioncall functionName="je_free"/>
+    <functioncall functionName="je_malloc"/>
+    <functioncall functionName="je_malloc_conf"/>
+    <functioncall functionName="je_malloc_stats_print"/>
+    <functioncall functionName="je_mallocx"/>
+    <functioncall functionName="je_memalign"/>
+    <functioncall functionName="je_nallocx"/>
+    <functioncall functionName="je_posix_memalign"/>
+    <functioncall functionName="je_rallocx"/>
+    <functioncall functionName="je_realloc"/>
+    <functioncall functionName="je_sallocx"/>
+    <functioncall functionName="je_valloc"/>
+    <functioncall functionName="jemalloc_secure_getenv"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="klen"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="label_invalid_alignment"/>
+    <functioncall functionName="label_not_resized"/>
+    <functioncall functionName="label_oom"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="likely"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="linklen"/>
+    <functioncall functionName="linkname"/>
+    <functioncall functionName="log_init_done"/>
+    <functioncall functionName="log_var_names"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="malloc_abort_invalid_conf"/>
+    <functioncall functionName="malloc_conf_error"/>
+    <functioncall functionName="malloc_conf_init"/>
+    <functioncall functionName="malloc_conf_next"/>
+    <functioncall functionName="malloc_getcpu"/>
+    <functioncall functionName="malloc_init"/>
+    <functioncall functionName="malloc_init_a0"/>
+    <functioncall functionName="malloc_init_a0_initialized"/>
+    <functioncall functionName="malloc_init_hard"/>
+    <functioncall functionName="malloc_init_hard_a0"/>
+    <functioncall functionName="malloc_init_hard_a0_locked"/>
+    <functioncall functionName="malloc_init_hard_cleanup"/>
+    <functioncall functionName="malloc_init_hard_finish"/>
+    <functioncall functionName="malloc_init_hard_needed"/>
+    <functioncall functionName="malloc_init_hard_recursible"/>
+    <functioncall functionName="malloc_init_initialized"/>
+    <functioncall functionName="malloc_init_narenas"/>
+    <functioncall functionName="malloc_init_percpu"/>
+    <functioncall functionName="malloc_init_recursible"/>
+    <functioncall functionName="malloc_init_uninitialized"/>
+    <functioncall functionName="malloc_initialized"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_boot"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="malloc_narenas_default"/>
+    <functioncall functionName="malloc_ncpus"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_slow_flag_init"/>
+    <functioncall functionName="malloc_strtoumax"/>
+    <functioncall functionName="malloc_tsd_boot0"/>
+    <functioncall functionName="malloc_tsd_boot1"/>
+    <functioncall functionName="malloc_write"/>
+    <functioncall functionName="match"/>
+    <functioncall functionName="may_overflow"/>
+    <functioncall functionName="memptr"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="miblenp"/>
+    <functioncall functionName="mibp"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="narenas"/>
+    <functioncall functionName="narenas_actual"/>
+    <functioncall functionName="narenas_auto"/>
+    <functioncall functionName="narenas_tdata"/>
+    <functioncall functionName="narenas_total"/>
+    <functioncall functionName="narenas_total_get"/>
+    <functioncall functionName="narenas_total_inc"/>
+    <functioncall functionName="narenas_total_set"/>
+    <functioncall functionName="ncpus"/>
+    <functioncall functionName="newarena"/>
+    <functioncall functionName="newind"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newp"/>
+    <functioncall functionName="nonnull"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="null_out_result_on_error"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="num_items"/>
+    <functioncall functionName="num_size"/>
+    <functioncall functionName="old_ptr"/>
+    <functioncall functionName="old_tctx"/>
+    <functioncall functionName="old_usize"/>
+    <functioncall functionName="oldarena"/>
+    <functioncall functionName="oldind"/>
+    <functioncall functionName="oldlenp"/>
+    <functioncall functionName="oldp"/>
+    <functioncall functionName="oom_string"/>
+    <functioncall functionName="opt_abort"/>
+    <functioncall functionName="opt_abort_conf"/>
+    <functioncall functionName="opt_background_thread"/>
+    <functioncall functionName="opt_max_background_threads"/>
+    <functioncall functionName="opt_narenas"/>
+    <functioncall functionName="opt_percpu_arena"/>
+    <functioncall functionName="opt_prof_prefix"/>
+    <functioncall functionName="opt_stats_print"/>
+    <functioncall functionName="opt_stats_print_opts"/>
+    <functioncall functionName="opt_utrace"/>
+    <functioncall functionName="opt_xmalloc"/>
+    <functioncall functionName="opts"/>
+    <functioncall functionName="opts_len"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pages_boot"/>
+    <functioncall functionName="percpu_arena_as_initialized"/>
+    <functioncall functionName="percpu_arena_choose"/>
+    <functioncall functionName="percpu_arena_disabled"/>
+    <functioncall functionName="percpu_arena_ind_limit"/>
+    <functioncall functionName="percpu_arena_mode_names_base"/>
+    <functioncall functionName="post_reentrancy"/>
+    <functioncall functionName="pre_reentrancy"/>
+    <functioncall functionName="prof_active"/>
+    <functioncall functionName="prof_active_get_unlocked"/>
+    <functioncall functionName="prof_alloc_prep"/>
+    <functioncall functionName="prof_alloc_rollback"/>
+    <functioncall functionName="prof_boot0"/>
+    <functioncall functionName="prof_boot1"/>
+    <functioncall functionName="prof_boot2"/>
+    <functioncall functionName="prof_free"/>
+    <functioncall functionName="prof_malloc"/>
+    <functioncall functionName="prof_postfork_child"/>
+    <functioncall functionName="prof_postfork_parent"/>
+    <functioncall functionName="prof_prefork0"/>
+    <functioncall functionName="prof_prefork1"/>
+    <functioncall functionName="prof_realloc"/>
+    <functioncall functionName="prof_tctx_get"/>
+    <functioncall functionName="pthread_self"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pure"/>
+    <functioncall functionName="ql_foreach"/>
+    <functioncall functionName="readlink"/>
+    <functioncall functionName="reentrancy_level"/>
+    <functioncall functionName="reentrancy_set"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rtree_ctx"/>
+    <functioncall functionName="rtree_szind_slab_read"/>
+    <functioncall functionName="run_util"/>
+    <functioncall functionName="saved_errno"/>
+    <functioncall functionName="secure_getenv"/>
+    <functioncall functionName="set_errno"/>
+    <functioncall functionName="set_errno_on_error"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab"/>
+    <functioncall functionName="slow"/>
+    <functioncall functionName="slow_path"/>
+    <functioncall functionName="sopts"/>
+    <functioncall functionName="spin_adaptive"/>
+    <functioncall functionName="spinner"/>
+    <functioncall functionName="static_opts_init"/>
+    <functioncall functionName="stats_print"/>
+    <functioncall functionName="stats_print_atexit"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sysconf"/>
+    <functioncall functionName="sz_index2size"/>
+    <functioncall functionName="sz_s2u"/>
+    <functioncall functionName="sz_sa2u"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="szind"/>
+    <functioncall functionName="tcache"/>
+    <functioncall functionName="tcache_boot"/>
+    <functioncall functionName="tcache_get"/>
+    <functioncall functionName="tcache_ind"/>
+    <functioncall functionName="tcache_postfork_child"/>
+    <functioncall functionName="tcache_postfork_parent"/>
+    <functioncall functionName="tcache_prefork"/>
+    <functioncall functionName="tcache_ql"/>
+    <functioncall functionName="tcache_ql_mtx"/>
+    <functioncall functionName="tcache_stats_merge"/>
+    <functioncall functionName="tcaches_get"/>
+    <functioncall functionName="tctx"/>
+    <functioncall functionName="ticker_copy"/>
+    <functioncall functionName="ticker_init"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_arena_get"/>
+    <functioncall functionName="tsd_arena_set"/>
+    <functioncall functionName="tsd_arenas_tdata_bypassp_get"/>
+    <functioncall functionName="tsd_arenas_tdata_get"/>
+    <functioncall functionName="tsd_arenas_tdata_set"/>
+    <functioncall functionName="tsd_assert_fast"/>
+    <functioncall functionName="tsd_fast"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_fetch_min"/>
+    <functioncall functionName="tsd_iarena_get"/>
+    <functioncall functionName="tsd_iarena_set"/>
+    <functioncall functionName="tsd_narenas_tdata_get"/>
+    <functioncall functionName="tsd_narenas_tdata_set"/>
+    <functioncall functionName="tsd_nominal"/>
+    <functioncall functionName="tsd_reentrancy_level_get"/>
+    <functioncall functionName="tsd_rtree_ctx"/>
+    <functioncall functionName="tsd_tcachep_get"/>
+    <functioncall functionName="tsd_thread_allocatedp_get"/>
+    <functioncall functionName="tsd_thread_deallocatedp_get"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsd_witness_tsdp_get"/>
+    <functioncall functionName="tsd_witness_tsdp_get_unsafe"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_fetch"/>
+    <functioncall functionName="tsdn_null"/>
+    <functioncall functionName="tsdn_tsd"/>
+    <functioncall functionName="tsdn_witness_tsdp_get"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="um"/>
+    <functioncall functionName="unlikely"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="usize"/>
+    <functioncall functionName="usize_max"/>
+    <functioncall functionName="ut"/>
+    <functioncall functionName="utrace"/>
+    <functioncall functionName="utrace_serrno"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="weak"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="witness_assert_lockless"/>
+    <functioncall functionName="witness_postfork_child"/>
+    <functioncall functionName="witness_postfork_parent"/>
+    <functioncall functionName="witness_prefork"/>
+    <functioncall functionName="witness_tsd_tsdn"/>
+    <functioncall functionName="write_cb"/>
+    <functioncall functionName="zero"/>
+  </FileInfo>
+</analyzerinfo>

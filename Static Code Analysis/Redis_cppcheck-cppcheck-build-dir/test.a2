@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="588463770">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;ret&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;ret&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" line="177"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" line="175"/>
+            <symbol>ret</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;ret&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;ret&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" line="190"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" line="188"/>
+            <symbol>ret</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;ret&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;ret&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" line="207"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\test.c" line="201"/>
+            <symbol>ret</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="reentrancy_t_str" lineNumber="24"/>
+    <functiondecl functionName="do_hook" lineNumber="38"/>
+    <functiondecl functionName="libc_reentrancy_hook" lineNumber="50"/>
+    <functiondecl functionName="arena_new_reentrancy_hook" lineNumber="55"/>
+    <functiondecl functionName="test_is_reentrant" lineNumber="61"/>
+    <functiondecl functionName="test_skip" lineNumber="67"/>
+    <functiondecl functionName="test_fail" lineNumber="79"/>
+    <functiondecl functionName="test_status_string" lineNumber="90"/>
+    <functiondecl functionName="p_test_init" lineNumber="100"/>
+    <functiondecl functionName="p_test_fini" lineNumber="107"/>
+    <functiondecl functionName="p_test_impl" lineNumber="114"/>
+    <functiondecl functionName="p_test" lineNumber="171"/>
+    <functiondecl functionName="p_test_no_reentrancy" lineNumber="184"/>
+    <functiondecl functionName="p_test_no_malloc_init" lineNumber="197"/>
+    <functiondecl functionName="p_test_fail" lineNumber="214"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="alloc_size"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arena_new_hook_ran"/>
+    <functioncall functionName="arena_new_reentrancy_hook"/>
+    <functioncall functionName="arena_new_reentrant"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="do_hook"/>
+    <functioncall functionName="do_malloc_init"/>
+    <functioncall functionName="do_reentrant"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="hooks_arena_new_hook"/>
+    <functioncall functionName="hooks_libc_hook"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="libc_hook_ran"/>
+    <functioncall functionName="libc_reentrancy_hook"/>
+    <functioncall functionName="libc_reentrant"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="malloc_cprintf"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_vcprintf"/>
+    <functioncall functionName="message"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="non_reentrant"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="p_test_impl"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="reentrancy"/>
+    <functioncall functionName="reentrancy_t_str"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="test_count"/>
+    <functioncall functionName="test_name"/>
+    <functioncall functionName="test_status"/>
+    <functioncall functionName="test_status_count"/>
+    <functioncall functionName="test_status_fail"/>
+    <functioncall functionName="test_status_pass"/>
+    <functioncall functionName="test_status_skip"/>
+    <functioncall functionName="test_status_string"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="unreachable"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+  </FileInfo>
+</analyzerinfo>

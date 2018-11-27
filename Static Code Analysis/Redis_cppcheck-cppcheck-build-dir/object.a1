@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1835177721">
+        <error id="invalidPrintfArgType_sint" severity="portability" msg="%zd in format string (no. 1) requires &apos;ssize_t&apos; but the argument type is &apos;size_t {aka unsigned long long}&apos;." verbose="%zd in format string (no. 1) requires &apos;ssize_t&apos; but the argument type is &apos;size_t {aka unsigned long long}&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\object.c" file="C:\Users\bharm\Downloads\redis-unstable\src\object.c" line="1356"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;dec&apos; can be reduced." verbose="The scope of the variable &apos;dec&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\object.c" file="C:\Users\bharm\Downloads\redis-unstable\src\object.c" line="500"/>
+            <symbol>dec</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;minlen&apos; can be reduced." verbose="The scope of the variable &apos;minlen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\object.c" file="C:\Users\bharm\Downloads\redis-unstable\src\object.c" line="531"/>
+            <symbol>minlen</symbol>
+        </error>
+        <error id="unsignedLessThanZero" severity="style" msg="Checking if unsigned variable &apos;val-&gt;lru&apos; is less than zero." verbose="The unsigned variable &apos;val-&gt;lru&apos; will never be negative so it is either pointless or an error to check if it is." cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\object.c" file="C:\Users\bharm\Downloads\redis-unstable\src\object.c" line="1214"/>
+            <symbol>val-&gt;lru</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="createObject" lineNumber="41"/>
+    <functiondecl functionName="makeObjectShared" lineNumber="69"/>
+    <functiondecl functionName="createRawStringObject" lineNumber="77"/>
+    <functiondecl functionName="createEmbeddedStringObject" lineNumber="84"/>
+    <functiondecl functionName="createStringObject" lineNumber="119"/>
+    <functiondecl functionName="createStringObjectFromLongLongWithOptions" lineNumber="133"/>
+    <functiondecl functionName="createStringObjectFromLongLong" lineNumber="161"/>
+    <functiondecl functionName="createStringObjectFromLongLongForValue" lineNumber="169"/>
+    <functiondecl functionName="createStringObjectFromLongDouble" lineNumber="179"/>
+    <functiondecl functionName="dupStringObject" lineNumber="193"/>
+    <functiondecl functionName="createQuicklistObject" lineNumber="214"/>
+    <functiondecl functionName="createZiplistObject" lineNumber="221"/>
+    <functiondecl functionName="createSetObject" lineNumber="228"/>
+    <functiondecl functionName="createIntsetObject" lineNumber="235"/>
+    <functiondecl functionName="createHashObject" lineNumber="242"/>
+    <functiondecl functionName="createZsetObject" lineNumber="249"/>
+    <functiondecl functionName="createZsetZiplistObject" lineNumber="260"/>
+    <functiondecl functionName="createStreamObject" lineNumber="267"/>
+    <functiondecl functionName="createModuleObject" lineNumber="274"/>
+    <functiondecl functionName="freeStringObject" lineNumber="281"/>
+    <functiondecl functionName="freeListObject" lineNumber="287"/>
+    <functiondecl functionName="freeSetObject" lineNumber="295"/>
+    <functiondecl functionName="freeZsetObject" lineNumber="308"/>
+    <functiondecl functionName="freeHashObject" lineNumber="325"/>
+    <functiondecl functionName="freeModuleObject" lineNumber="339"/>
+    <functiondecl functionName="freeStreamObject" lineNumber="345"/>
+    <functiondecl functionName="incrRefCount" lineNumber="349"/>
+    <functiondecl functionName="decrRefCount" lineNumber="353"/>
+    <functiondecl functionName="decrRefCountVoid" lineNumber="375"/>
+    <functiondecl functionName="resetRefCount" lineNumber="391"/>
+    <functiondecl functionName="checkType" lineNumber="396"/>
+    <functiondecl functionName="isSdsRepresentableAsLongLong" lineNumber="404"/>
+    <functiondecl functionName="isObjectRepresentableAsLongLong" lineNumber="408"/>
+    <functiondecl functionName="tryObjectEncoding" lineNumber="419"/>
+    <functiondecl functionName="getDecodedObject" lineNumber="499"/>
+    <functiondecl functionName="compareStringObjectsWithFlags" lineNumber="528"/>
+    <functiondecl functionName="compareStringObjects" lineNumber="561"/>
+    <functiondecl functionName="collateStringObjects" lineNumber="566"/>
+    <functiondecl functionName="equalStringObjects" lineNumber="574"/>
+    <functiondecl functionName="stringObjectLen" lineNumber="585"/>
+    <functiondecl functionName="getDoubleFromObject" lineNumber="594"/>
+    <functiondecl functionName="getDoubleFromObjectOrReply" lineNumber="622"/>
+    <functiondecl functionName="getLongDoubleFromObject" lineNumber="636"/>
+    <functiondecl functionName="getLongDoubleFromObjectOrReply" lineNumber="664"/>
+    <functiondecl functionName="getLongLongFromObject" lineNumber="678"/>
+    <functiondecl functionName="getLongLongFromObjectOrReply" lineNumber="697"/>
+    <functiondecl functionName="getLongFromObjectOrReply" lineNumber="711"/>
+    <functiondecl functionName="strEncoding" lineNumber="727"/>
+    <functiondecl functionName="streamRadixTreeMemoryUsage" lineNumber="758"/>
+    <functiondecl functionName="objectComputeSize" lineNumber="772"/>
+    <functiondecl functionName="freeMemoryOverheadData" lineNumber="935"/>
+    <functiondecl functionName="getMemoryOverheadData" lineNumber="943"/>
+    <functiondecl functionName="inputCatSds" lineNumber="1072"/>
+    <functiondecl functionName="getMemoryDoctorReport" lineNumber="1080"/>
+    <functiondecl functionName="objectSetLRUOrLFU" lineNumber="1197"/>
+    <functiondecl functionName="objectCommandLookup" lineNumber="1222"/>
+    <functiondecl functionName="objectCommandLookupOrReply" lineNumber="1229"/>
+    <functiondecl functionName="objectCommand" lineNumber="1238"/>
+    <functiondecl functionName="memoryCommand" lineNumber="1287"/>
+    <functioncall functionName="INT_MAX"/>
+    <functioncall functionName="LFUDecrAndReturn"/>
+    <functioncall functionName="LFUGetTimeInMinutes"/>
+    <functioncall functionName="LLONG_MAX"/>
+    <functioncall functionName="LRU_CLOCK"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="addReplyDouble"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="alen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="allocator_active"/>
+    <functioncall functionName="allocator_allocated"/>
+    <functioncall functionName="allocator_frag"/>
+    <functioncall functionName="allocator_frag_bytes"/>
+    <functioncall functionName="allocator_resident"/>
+    <functioncall functionName="allocator_rss"/>
+    <functioncall functionName="allocator_rss_bytes"/>
+    <functioncall functionName="aofRewriteBufferSize"/>
+    <functioncall functionName="aof_buf"/>
+    <functioncall functionName="aof_buffer"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="astr"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="big_client_buf"/>
+    <functioncall functionName="big_peak"/>
+    <functioncall functionName="big_slave_buf"/>
+    <functioncall functionName="blen"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bstr"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufa"/>
+    <functioncall functionName="bufb"/>
+    <functioncall functionName="bytes_per_key"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cgroups"/>
+    <functioncall functionName="client"/>
+    <functioncall functionName="clients"/>
+    <functioncall functionName="clients_normal"/>
+    <functioncall functionName="clients_slaves"/>
+    <functioncall functionName="compareStringObjects"/>
+    <functioncall functionName="compareStringObjectsWithFlags"/>
+    <functioncall functionName="consumers"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createEmbeddedStringObject"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLongWithOptions"/>
+    <functioncall functionName="cri"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="dataset"/>
+    <functioncall functionName="dataset_perc"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbname"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="ele2"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="estimateObjectIdleTime"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeHashObject"/>
+    <functioncall functionName="freeListObject"/>
+    <functioncall functionName="freeMemoryOverheadData"/>
+    <functioncall functionName="freeModuleObject"/>
+    <functioncall functionName="freeSetObject"/>
+    <functioncall functionName="freeStream"/>
+    <functioncall functionName="freeStreamObject"/>
+    <functioncall functionName="freeStringObject"/>
+    <functioncall functionName="freeZsetObject"/>
+    <functioncall functionName="getClientOutputBufferMemoryUsage"/>
+    <functioncall functionName="getDoubleFromObject"/>
+    <functioncall functionName="getLongDoubleFromObject"/>
+    <functioncall functionName="getLongLongFromObject"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getMemoryDoctorReport"/>
+    <functioncall functionName="getMemoryOverheadData"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="high_alloc_frag"/>
+    <functioncall functionName="high_alloc_rss"/>
+    <functioncall functionName="high_frag"/>
+    <functioncall functionName="high_proc_rss"/>
+    <functioncall functionName="humanfriendly"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="initial_memory_usage"/>
+    <functioncall functionName="intsetNew"/>
+    <functioncall functionName="is"/>
+    <functioncall functionName="isSdsRepresentableAsLongLong"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="ld2string"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="lfu_freq"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llval"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lp"/>
+    <functioncall functionName="lpBytes"/>
+    <functioncall functionName="lru_idle"/>
+    <functioncall functionName="lua_caches"/>
+    <functioncall functionName="lua_scripts"/>
+    <functioncall functionName="lua_scripts_mem"/>
+    <functioncall functionName="many_scripts"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="mem"/>
+    <functioncall functionName="mem_total"/>
+    <functioncall functionName="mem_usage"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mh"/>
+    <functioncall functionName="minlen"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mt"/>
+    <functioncall functionName="mv"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="net_usage"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="num_dbs"/>
+    <functioncall functionName="numclients"/>
+    <functioncall functionName="numslaves"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="objectCommandLookup"/>
+    <functioncall functionName="objectCommandLookupOrReply"/>
+    <functioncall functionName="objectComputeSize"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="overhead_ht_expires"/>
+    <functioncall functionName="overhead_ht_main"/>
+    <functioncall functionName="overhead_total"/>
+    <functioncall functionName="peak_allocated"/>
+    <functioncall functionName="peak_perc"/>
+    <functioncall functionName="pel"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="querybuf"/>
+    <functioncall functionName="quicklist"/>
+    <functioncall functionName="quicklistCreate"/>
+    <functioncall functionName="quicklistRelease"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rax"/>
+    <functioncall functionName="raxNext"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxSize"/>
+    <functioncall functionName="raxStart"/>
+    <functioncall functionName="raxStop"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="refcount"/>
+    <functioncall functionName="repl_backlog"/>
+    <functioncall functionName="repl_scriptcache_dict"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="report"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="rss_extra"/>
+    <functioncall functionName="rss_extra_bytes"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="samples"/>
+    <functioncall functionName="sdigits10"/>
+    <functioncall functionName="sdsAllocSize"/>
+    <functioncall functionName="sdsRemoveFreeSpace"/>
+    <functioncall functionName="sdsZmallocSize"/>
+    <functioncall functionName="sdsalloc"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="setDictType"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="startup_allocated"/>
+    <functioncall functionName="stat_peak_memory"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strEncoding"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcoll"/>
+    <functioncall functionName="streamNew"/>
+    <functioncall functionName="streamRadixTreeMemoryUsage"/>
+    <functioncall functionName="string2l"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtod"/>
+    <functioncall functionName="strtold"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="total_allocated"/>
+    <functioncall functionName="total_frag"/>
+    <functioncall functionName="total_frag_bytes"/>
+    <functioncall functionName="total_keys"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="usage"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistBlobLen"/>
+    <functioncall functionName="ziplistNew"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_size"/>
+    <functioncall functionName="zmalloc_used"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+    <functioncall functionName="znode"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zs"/>
+    <functioncall functionName="zsetDictType"/>
+    <functioncall functionName="zsl"/>
+    <functioncall functionName="zslCreate"/>
+    <functioncall functionName="zslFree"/>
+  </FileInfo>
+</analyzerinfo>

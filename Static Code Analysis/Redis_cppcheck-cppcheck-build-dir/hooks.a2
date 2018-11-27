@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="109447787">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="hook" lineNumber="6"/>
+    <functiondecl functionName="func_to_hook" lineNumber="11"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="17"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="25"/>
+    <functiondecl functionName="main" lineNumber="34"/>
+    <functioncall functionName="JEMALLOC_HOOK"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="arg2"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="func_to_hook"/>
+    <functioncall functionName="hook"/>
+    <functioncall functionName="hook_called"/>
+    <functioncall functionName="hooked_call"/>
+    <functioncall functionName="hooks_libc_hook"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="unhooked_call"/>
+  </FileInfo>
+</analyzerinfo>

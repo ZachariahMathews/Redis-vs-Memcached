@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>5</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named argparse</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>6</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named socket</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>7</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named sys</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>8</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named re</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>9</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named traceback</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>10</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'time'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>10</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'sleep'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>16</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>20</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>22</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'float'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>61</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>80</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>105</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>105</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>109</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>115</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'str'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>115</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'str'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>144</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>145</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>146</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>146</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>147</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>147</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>189</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>5</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named argparse</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>6</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named socket</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>7</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named sys</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>8</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named re</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>9</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named traceback</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>10</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'time'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>10</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'sleep'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>10</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'time'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>16</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>20</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>22</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'float'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>24</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'float'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>26</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>72</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>80</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>82</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>110</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>121</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>131</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>144</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>150</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>150</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>159</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'len'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>165</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'str'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>165</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'str'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>194</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>195</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>196</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>196</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>197</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>197</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>255</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>267</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>270</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>277</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>297</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>303</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>303</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>5</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named argparse</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>6</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named socket</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>7</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>No module named csv</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>8</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'time'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>8</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'sleep'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>12</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'str'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>14</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>16</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'str'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>21</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'open'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>37</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>38</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>39</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'int'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Unresolved references</problem_class>
+    <description>Unresolved reference 'range'</description>
+  </problem>
+</problems>
+

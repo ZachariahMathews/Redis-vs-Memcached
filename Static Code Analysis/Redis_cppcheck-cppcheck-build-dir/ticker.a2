@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2712725183">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="5"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="30"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="48"/>
+    <functiondecl functionName="main" lineNumber="68"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="ta"/>
+    <functioncall functionName="tb"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_ticker_copy"/>
+    <functioncall functionName="test_ticker_tick"/>
+    <functioncall functionName="test_ticker_ticks"/>
+    <functioncall functionName="ticker"/>
+    <functioncall functionName="ticker_copy"/>
+    <functioncall functionName="ticker_init"/>
+    <functioncall functionName="ticker_read"/>
+    <functioncall functionName="ticker_tick"/>
+    <functioncall functionName="ticker_ticks"/>
+  </FileInfo>
+</analyzerinfo>

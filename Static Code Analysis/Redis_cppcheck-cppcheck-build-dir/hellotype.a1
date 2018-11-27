@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2435323812">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="createHelloTypeObject" lineNumber="63"/>
+    <functiondecl functionName="HelloTypeInsert" lineNumber="71"/>
+    <functiondecl functionName="HelloTypeReleaseObject" lineNumber="89"/>
+    <functiondecl functionName="HelloTypeInsert_RedisCommand" lineNumber="103"/>
+    <functiondecl functionName="HelloTypeRange_RedisCommand" lineNumber="139"/>
+    <functiondecl functionName="HelloTypeLen_RedisCommand" lineNumber="175"/>
+    <functiondecl functionName="HelloTypeRdbLoad" lineNumber="196"/>
+    <functiondecl functionName="HelloTypeRdbSave" lineNumber="210"/>
+    <functiondecl functionName="HelloTypeAofRewrite" lineNumber="220"/>
+    <functiondecl functionName="HelloTypeMemUsage" lineNumber="231"/>
+    <functiondecl functionName="HelloTypeFree" lineNumber="237"/>
+    <functiondecl functionName="HelloTypeDigest" lineNumber="241"/>
+    <functiondecl functionName="RedisModule_OnLoad" lineNumber="253"/>
+    <functiondecl functionName="createHelloTypeObject" lineNumber="63"/>
+    <functiondecl functionName="HelloTypeInsert" lineNumber="71"/>
+    <functiondecl functionName="HelloTypeReleaseObject" lineNumber="89"/>
+    <functiondecl functionName="HelloTypeInsert_RedisCommand" lineNumber="103"/>
+    <functiondecl functionName="HelloTypeRange_RedisCommand" lineNumber="139"/>
+    <functiondecl functionName="HelloTypeLen_RedisCommand" lineNumber="175"/>
+    <functiondecl functionName="HelloTypeRdbLoad" lineNumber="196"/>
+    <functiondecl functionName="HelloTypeRdbSave" lineNumber="210"/>
+    <functiondecl functionName="HelloTypeAofRewrite" lineNumber="220"/>
+    <functiondecl functionName="HelloTypeMemUsage" lineNumber="231"/>
+    <functiondecl functionName="HelloTypeFree" lineNumber="237"/>
+    <functiondecl functionName="HelloTypeDigest" lineNumber="241"/>
+    <functiondecl functionName="RedisModule_OnLoad" lineNumber="253"/>
+    <functiondecl functionName="createHelloTypeObject" lineNumber="63"/>
+    <functiondecl functionName="HelloTypeInsert" lineNumber="71"/>
+    <functiondecl functionName="HelloTypeReleaseObject" lineNumber="89"/>
+    <functiondecl functionName="HelloTypeInsert_RedisCommand" lineNumber="103"/>
+    <functiondecl functionName="HelloTypeRange_RedisCommand" lineNumber="139"/>
+    <functiondecl functionName="HelloTypeLen_RedisCommand" lineNumber="175"/>
+    <functiondecl functionName="HelloTypeRdbLoad" lineNumber="196"/>
+    <functiondecl functionName="HelloTypeRdbSave" lineNumber="210"/>
+    <functiondecl functionName="HelloTypeAofRewrite" lineNumber="220"/>
+    <functiondecl functionName="HelloTypeMemUsage" lineNumber="231"/>
+    <functiondecl functionName="HelloTypeFree" lineNumber="237"/>
+    <functiondecl functionName="HelloTypeDigest" lineNumber="241"/>
+    <functiondecl functionName="RedisModule_OnLoad" lineNumber="253"/>
+    <functioncall functionName="HelloType"/>
+    <functioncall functionName="HelloTypeAofRewrite"/>
+    <functioncall functionName="HelloTypeDigest"/>
+    <functioncall functionName="HelloTypeFree"/>
+    <functioncall functionName="HelloTypeInsert"/>
+    <functioncall functionName="HelloTypeInsert_RedisCommand"/>
+    <functioncall functionName="HelloTypeLen_RedisCommand"/>
+    <functioncall functionName="HelloTypeMemUsage"/>
+    <functioncall functionName="HelloTypeRange_RedisCommand"/>
+    <functioncall functionName="HelloTypeRdbLoad"/>
+    <functioncall functionName="HelloTypeRdbSave"/>
+    <functioncall functionName="HelloTypeReleaseObject"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="REDISMODULE_TYPE_METHOD_VERSION"/>
+    <functioncall functionName="RedisModule_AbortBlock"/>
+    <functioncall functionName="RedisModule_Alloc"/>
+    <functioncall functionName="RedisModule_AutoMemory"/>
+    <functioncall functionName="RedisModule_BlockClient"/>
+    <functioncall functionName="RedisModule_BlockedClientDisconnected"/>
+    <functioncall functionName="RedisModule_Call"/>
+    <functioncall functionName="RedisModule_CallReplyArrayElement"/>
+    <functioncall functionName="RedisModule_CallReplyInteger"/>
+    <functioncall functionName="RedisModule_CallReplyLength"/>
+    <functioncall functionName="RedisModule_CallReplyProto"/>
+    <functioncall functionName="RedisModule_CallReplyStringPtr"/>
+    <functioncall functionName="RedisModule_CallReplyType"/>
+    <functioncall functionName="RedisModule_Calloc"/>
+    <functioncall functionName="RedisModule_CloseKey"/>
+    <functioncall functionName="RedisModule_CreateCommand"/>
+    <functioncall functionName="RedisModule_CreateDataType"/>
+    <functioncall functionName="RedisModule_CreateDict"/>
+    <functioncall functionName="RedisModule_CreateString"/>
+    <functioncall functionName="RedisModule_CreateStringFromCallReply"/>
+    <functioncall functionName="RedisModule_CreateStringFromLongLong"/>
+    <functioncall functionName="RedisModule_CreateStringFromString"/>
+    <functioncall functionName="RedisModule_CreateStringPrintf"/>
+    <functioncall functionName="RedisModule_CreateTimer"/>
+    <functioncall functionName="RedisModule_DeleteKey"/>
+    <functioncall functionName="RedisModule_DictCompare"/>
+    <functioncall functionName="RedisModule_DictCompareC"/>
+    <functioncall functionName="RedisModule_DictDel"/>
+    <functioncall functionName="RedisModule_DictDelC"/>
+    <functioncall functionName="RedisModule_DictGet"/>
+    <functioncall functionName="RedisModule_DictGetC"/>
+    <functioncall functionName="RedisModule_DictIteratorReseek"/>
+    <functioncall functionName="RedisModule_DictIteratorReseekC"/>
+    <functioncall functionName="RedisModule_DictIteratorStart"/>
+    <functioncall functionName="RedisModule_DictIteratorStartC"/>
+    <functioncall functionName="RedisModule_DictIteratorStop"/>
+    <functioncall functionName="RedisModule_DictNext"/>
+    <functioncall functionName="RedisModule_DictNextC"/>
+    <functioncall functionName="RedisModule_DictPrev"/>
+    <functioncall functionName="RedisModule_DictPrevC"/>
+    <functioncall functionName="RedisModule_DictReplace"/>
+    <functioncall functionName="RedisModule_DictReplaceC"/>
+    <functioncall functionName="RedisModule_DictSet"/>
+    <functioncall functionName="RedisModule_DictSetC"/>
+    <functioncall functionName="RedisModule_DictSize"/>
+    <functioncall functionName="RedisModule_DigestAddLongLong"/>
+    <functioncall functionName="RedisModule_DigestAddStringBuffer"/>
+    <functioncall functionName="RedisModule_DigestEndSequence"/>
+    <functioncall functionName="RedisModule_EmitAOF"/>
+    <functioncall functionName="RedisModule_Free"/>
+    <functioncall functionName="RedisModule_FreeCallReply"/>
+    <functioncall functionName="RedisModule_FreeClusterNodesList"/>
+    <functioncall functionName="RedisModule_FreeDict"/>
+    <functioncall functionName="RedisModule_FreeString"/>
+    <functioncall functionName="RedisModule_FreeThreadSafeContext"/>
+    <functioncall functionName="RedisModule_GetApi"/>
+    <functioncall functionName="RedisModule_GetBlockedClientHandle"/>
+    <functioncall functionName="RedisModule_GetBlockedClientPrivateData"/>
+    <functioncall functionName="RedisModule_GetClientId"/>
+    <functioncall functionName="RedisModule_GetClusterNodeInfo"/>
+    <functioncall functionName="RedisModule_GetClusterNodesList"/>
+    <functioncall functionName="RedisModule_GetClusterSize"/>
+    <functioncall functionName="RedisModule_GetContextFlags"/>
+    <functioncall functionName="RedisModule_GetContextFromIO"/>
+    <functioncall functionName="RedisModule_GetExpire"/>
+    <functioncall functionName="RedisModule_GetMyClusterID"/>
+    <functioncall functionName="RedisModule_GetRandomBytes"/>
+    <functioncall functionName="RedisModule_GetRandomHexChars"/>
+    <functioncall functionName="RedisModule_GetSelectedDb"/>
+    <functioncall functionName="RedisModule_GetThreadSafeContext"/>
+    <functioncall functionName="RedisModule_GetTimerInfo"/>
+    <functioncall functionName="RedisModule_HashGet"/>
+    <functioncall functionName="RedisModule_HashSet"/>
+    <functioncall functionName="RedisModule_Init"/>
+    <functioncall functionName="RedisModule_IsBlockedReplyRequest"/>
+    <functioncall functionName="RedisModule_IsBlockedTimeoutRequest"/>
+    <functioncall functionName="RedisModule_IsKeysPositionRequest"/>
+    <functioncall functionName="RedisModule_IsModuleNameBusy"/>
+    <functioncall functionName="RedisModule_KeyAtPos"/>
+    <functioncall functionName="RedisModule_KeyType"/>
+    <functioncall functionName="RedisModule_ListPop"/>
+    <functioncall functionName="RedisModule_ListPush"/>
+    <functioncall functionName="RedisModule_LoadDouble"/>
+    <functioncall functionName="RedisModule_LoadFloat"/>
+    <functioncall functionName="RedisModule_LoadSigned"/>
+    <functioncall functionName="RedisModule_LoadString"/>
+    <functioncall functionName="RedisModule_LoadStringBuffer"/>
+    <functioncall functionName="RedisModule_LoadUnsigned"/>
+    <functioncall functionName="RedisModule_Log"/>
+    <functioncall functionName="RedisModule_LogIOError"/>
+    <functioncall functionName="RedisModule_Milliseconds"/>
+    <functioncall functionName="RedisModule_ModuleTypeGetType"/>
+    <functioncall functionName="RedisModule_ModuleTypeGetValue"/>
+    <functioncall functionName="RedisModule_ModuleTypeSetValue"/>
+    <functioncall functionName="RedisModule_OpenKey"/>
+    <functioncall functionName="RedisModule_PoolAlloc"/>
+    <functioncall functionName="RedisModule_Realloc"/>
+    <functioncall functionName="RedisModule_RegisterClusterMessageReceiver"/>
+    <functioncall functionName="RedisModule_Replicate"/>
+    <functioncall functionName="RedisModule_ReplicateVerbatim"/>
+    <functioncall functionName="RedisModule_ReplySetArrayLength"/>
+    <functioncall functionName="RedisModule_ReplyWithArray"/>
+    <functioncall functionName="RedisModule_ReplyWithCallReply"/>
+    <functioncall functionName="RedisModule_ReplyWithDouble"/>
+    <functioncall functionName="RedisModule_ReplyWithError"/>
+    <functioncall functionName="RedisModule_ReplyWithLongLong"/>
+    <functioncall functionName="RedisModule_ReplyWithNull"/>
+    <functioncall functionName="RedisModule_ReplyWithSimpleString"/>
+    <functioncall functionName="RedisModule_ReplyWithString"/>
+    <functioncall functionName="RedisModule_ReplyWithStringBuffer"/>
+    <functioncall functionName="RedisModule_RetainString"/>
+    <functioncall functionName="RedisModule_SaveDouble"/>
+    <functioncall functionName="RedisModule_SaveFloat"/>
+    <functioncall functionName="RedisModule_SaveSigned"/>
+    <functioncall functionName="RedisModule_SaveString"/>
+    <functioncall functionName="RedisModule_SaveStringBuffer"/>
+    <functioncall functionName="RedisModule_SaveUnsigned"/>
+    <functioncall functionName="RedisModule_SelectDb"/>
+    <functioncall functionName="RedisModule_SendClusterMessage"/>
+    <functioncall functionName="RedisModule_SetClusterFlags"/>
+    <functioncall functionName="RedisModule_SetDisconnectCallback"/>
+    <functioncall functionName="RedisModule_SetExpire"/>
+    <functioncall functionName="RedisModule_SetModuleAttribs"/>
+    <functioncall functionName="RedisModule_StopTimer"/>
+    <functioncall functionName="RedisModule_Strdup"/>
+    <functioncall functionName="RedisModule_StringAppendBuffer"/>
+    <functioncall functionName="RedisModule_StringCompare"/>
+    <functioncall functionName="RedisModule_StringDMA"/>
+    <functioncall functionName="RedisModule_StringPtrLen"/>
+    <functioncall functionName="RedisModule_StringSet"/>
+    <functioncall functionName="RedisModule_StringToDouble"/>
+    <functioncall functionName="RedisModule_StringToLongLong"/>
+    <functioncall functionName="RedisModule_StringTruncate"/>
+    <functioncall functionName="RedisModule_SubscribeToKeyspaceEvents"/>
+    <functioncall functionName="RedisModule_ThreadSafeContextLock"/>
+    <functioncall functionName="RedisModule_ThreadSafeContextUnlock"/>
+    <functioncall functionName="RedisModule_UnblockClient"/>
+    <functioncall functionName="RedisModule_UnlinkKey"/>
+    <functioncall functionName="RedisModule_ValueLength"/>
+    <functioncall functionName="RedisModule_WrongArity"/>
+    <functioncall functionName="RedisModule_ZsetAdd"/>
+    <functioncall functionName="RedisModule_ZsetFirstInLexRange"/>
+    <functioncall functionName="RedisModule_ZsetFirstInScoreRange"/>
+    <functioncall functionName="RedisModule_ZsetIncrby"/>
+    <functioncall functionName="RedisModule_ZsetLastInLexRange"/>
+    <functioncall functionName="RedisModule_ZsetLastInScoreRange"/>
+    <functioncall functionName="RedisModule_ZsetRangeCurrentElement"/>
+    <functioncall functionName="RedisModule_ZsetRangeEndReached"/>
+    <functioncall functionName="RedisModule_ZsetRangeNext"/>
+    <functioncall functionName="RedisModule_ZsetRangePrev"/>
+    <functioncall functionName="RedisModule_ZsetRangeStop"/>
+    <functioncall functionName="RedisModule_ZsetRem"/>
+    <functioncall functionName="RedisModule_ZsetScore"/>
+    <functioncall functionName="aof"/>
+    <functioncall functionName="apiver"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="arraylen"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="createHelloTypeObject"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="getapifuncptr"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hto"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="md"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newnode"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="rdb"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="tm"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="ver"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

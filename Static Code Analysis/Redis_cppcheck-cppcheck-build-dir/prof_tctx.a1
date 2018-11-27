@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3328561743">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="main" lineNumber="43"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="assert_ptr_ne"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="curobjs_0"/>
+    <functioncall functionName="curobjs_1"/>
+    <functioncall functionName="curobjs_2"/>
+    <functioncall functionName="curobjs_3"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prof_cnt_all"/>
+    <functioncall functionName="prof_tctx_get"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="tctx_p"/>
+    <functioncall functionName="tctx_q"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_prof_realloc"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_fetch"/>
+  </FileInfo>
+</analyzerinfo>

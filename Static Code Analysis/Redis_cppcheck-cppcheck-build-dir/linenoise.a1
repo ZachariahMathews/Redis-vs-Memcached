@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2480729199">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nread&apos; can be reduced." verbose="The scope of the variable &apos;nread&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" line="352"/>
+            <symbol>nread</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nwritten&apos; can be reduced." verbose="The scope of the variable &apos;nwritten&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" line="352"/>
+            <symbol>nwritten</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;seq&apos; can be reduced." verbose="The scope of the variable &apos;seq&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" line="477"/>
+            <symbol>seq</symbol>
+        </error>
+        <error id="umaskCalled" severity="style" msg="Obsolete function &apos;umask&apos; called. It is recommended to use &apos;_umask&apos; instead." verbose="Obsolete function &apos;umask&apos; called. It is recommended to use &apos;_umask&apos; instead." cwe="477">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" line="1164"/>
+        </error>
+        <error id="umaskCalled" severity="style" msg="Obsolete function &apos;umask&apos; called. It is recommended to use &apos;_umask&apos; instead." verbose="Obsolete function &apos;umask&apos; called. It is recommended to use &apos;_umask&apos; instead." cwe="477">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\linenoise\linenoise.c" line="1169"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="linenoiseSetMultiLine" lineNumber="201"/>
+    <functiondecl functionName="isUnsupportedTerm" lineNumber="207"/>
+    <functiondecl functionName="enableRawMode" lineNumber="218"/>
+    <functiondecl functionName="disableRawMode" lineNumber="253"/>
+    <functiondecl functionName="getCursorPosition" lineNumber="262"/>
+    <functiondecl functionName="getColumns" lineNumber="286"/>
+    <functiondecl functionName="linenoiseClearScreen" lineNumber="320"/>
+    <functiondecl functionName="linenoiseBeep" lineNumber="328"/>
+    <functiondecl functionName="freeCompletions" lineNumber="336"/>
+    <functiondecl functionName="completeLine" lineNumber="350"/>
+    <functiondecl functionName="linenoiseSetCompletionCallback" lineNumber="409"/>
+    <functiondecl functionName="linenoiseSetHintsCallback" lineNumber="415"/>
+    <functiondecl functionName="linenoiseSetFreeHintsCallback" lineNumber="421"/>
+    <functiondecl functionName="linenoiseAddCompletion" lineNumber="429"/>
+    <functiondecl functionName="abInit" lineNumber="456"/>
+    <functiondecl functionName="abAppend" lineNumber="461"/>
+    <functiondecl functionName="abFree" lineNumber="470"/>
+    <functiondecl functionName="refreshShowHints" lineNumber="476"/>
+    <functiondecl functionName="refreshSingleLine" lineNumber="502"/>
+    <functiondecl functionName="refreshMultiLine" lineNumber="543"/>
+    <functiondecl functionName="refreshLine" lineNumber="628"/>
+    <functiondecl functionName="linenoiseEditInsert" lineNumber="638"/>
+    <functiondecl functionName="linenoiseEditMoveLeft" lineNumber="665"/>
+    <functiondecl functionName="linenoiseEditMoveRight" lineNumber="673"/>
+    <functiondecl functionName="linenoiseEditMoveHome" lineNumber="681"/>
+    <functiondecl functionName="linenoiseEditMoveEnd" lineNumber="689"/>
+    <functiondecl functionName="linenoiseEditHistoryNext" lineNumber="700"/>
+    <functiondecl functionName="linenoiseEditDelete" lineNumber="724"/>
+    <functiondecl functionName="linenoiseEditBackspace" lineNumber="734"/>
+    <functiondecl functionName="linenoiseEditDeletePrevWord" lineNumber="746"/>
+    <functiondecl functionName="linenoiseEdit" lineNumber="768"/>
+    <functiondecl functionName="linenoisePrintKeyCodes" lineNumber="955"/>
+    <functiondecl functionName="linenoiseRaw" lineNumber="982"/>
+    <functiondecl functionName="linenoiseNoTTY" lineNumber="1002"/>
+    <functiondecl functionName="linenoise" lineNumber="1038"/>
+    <functiondecl functionName="linenoiseFree" lineNumber="1069"/>
+    <functiondecl functionName="freeHistory" lineNumber="1077"/>
+    <functiondecl functionName="linenoiseAtExit" lineNumber="1088"/>
+    <functiondecl functionName="linenoiseHistoryAdd" lineNumber="1100"/>
+    <functiondecl functionName="linenoiseHistorySetMaxLen" lineNumber="1133"/>
+    <functiondecl functionName="linenoiseHistorySave" lineNumber="1163"/>
+    <functiondecl functionName="linenoiseHistoryLoad" lineNumber="1183"/>
+    <functioncall functionName="CS8"/>
+    <functioncall functionName="EAGAIN"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ENOTTY"/>
+    <functioncall functionName="ISIG"/>
+    <functioncall functionName="IXON"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OPOST"/>
+    <functioncall functionName="STDIN_FILENO"/>
+    <functioncall functionName="STDOUT_FILENO"/>
+    <functioncall functionName="S_IRWXO"/>
+    <functioncall functionName="S_IWUSR"/>
+    <functioncall functionName="TCSAFLUSH"/>
+    <functioncall functionName="TIOCGWINSZ"/>
+    <functioncall functionName="VMIN"/>
+    <functioncall functionName="VTIME"/>
+    <functioncall functionName="ab"/>
+    <functioncall functionName="abAppend"/>
+    <functioncall functionName="abFree"/>
+    <functioncall functionName="abInit"/>
+    <functioncall functionName="atexit"/>
+    <functioncall functionName="atexit_registered"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="bold"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="chmod"/>
+    <functioncall functionName="col"/>
+    <functioncall functionName="color"/>
+    <functioncall functionName="cols"/>
+    <functioncall functionName="completeLine"/>
+    <functioncall functionName="completionCallback"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="cvec"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="disableRawMode"/>
+    <functioncall functionName="enableRawMode"/>
+    <functioncall functionName="failed"/>
+    <functioncall functionName="fatal"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="fgetc"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="fn"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeCompletions"/>
+    <functioncall functionName="freeHintsCallback"/>
+    <functioncall functionName="freeHistory"/>
+    <functioncall functionName="getColumns"/>
+    <functioncall functionName="getCursorPosition"/>
+    <functioncall functionName="getenv"/>
+    <functioncall functionName="hc"/>
+    <functioncall functionName="hint"/>
+    <functioncall functionName="hintlen"/>
+    <functioncall functionName="hintmaxlen"/>
+    <functioncall functionName="hintsCallback"/>
+    <functioncall functionName="history"/>
+    <functioncall functionName="history_index"/>
+    <functioncall functionName="history_len"/>
+    <functioncall functionName="history_max_len"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ifd"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="ioctl"/>
+    <functioncall functionName="isUnsupportedTerm"/>
+    <functioncall functionName="isatty"/>
+    <functioncall functionName="isprint"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="lc"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="linecopy"/>
+    <functioncall functionName="linenoiseAtExit"/>
+    <functioncall functionName="linenoiseBeep"/>
+    <functioncall functionName="linenoiseClearScreen"/>
+    <functioncall functionName="linenoiseEdit"/>
+    <functioncall functionName="linenoiseEditBackspace"/>
+    <functioncall functionName="linenoiseEditDelete"/>
+    <functioncall functionName="linenoiseEditDeletePrevWord"/>
+    <functioncall functionName="linenoiseEditHistoryNext"/>
+    <functioncall functionName="linenoiseEditInsert"/>
+    <functioncall functionName="linenoiseEditMoveEnd"/>
+    <functioncall functionName="linenoiseEditMoveHome"/>
+    <functioncall functionName="linenoiseEditMoveLeft"/>
+    <functioncall functionName="linenoiseEditMoveRight"/>
+    <functioncall functionName="linenoiseHistoryAdd"/>
+    <functioncall functionName="linenoiseNoTTY"/>
+    <functioncall functionName="linenoiseRaw"/>
+    <functioncall functionName="ls"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="maxlen"/>
+    <functioncall functionName="maxrows"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="ml"/>
+    <functioncall functionName="mlmode"/>
+    <functioncall functionName="new"/>
+    <functioncall functionName="nwritten"/>
+    <functioncall functionName="ofd"/>
+    <functioncall functionName="old_pos"/>
+    <functioncall functionName="old_umask"/>
+    <functioncall functionName="oldval"/>
+    <functioncall functionName="orig_termios"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="plen"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="prompt"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="quit"/>
+    <functioncall functionName="raw"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="refreshLine"/>
+    <functioncall functionName="refreshMultiLine"/>
+    <functioncall functionName="refreshShowHints"/>
+    <functioncall functionName="refreshSingleLine"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rows"/>
+    <functioncall functionName="rpos"/>
+    <functioncall functionName="rpos2"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sscanf"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdin"/>
+    <functioncall functionName="stdin_fd"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="stdout_fd"/>
+    <functioncall functionName="stop"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strdup"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tcgetattr"/>
+    <functioncall functionName="tcsetattr"/>
+    <functioncall functionName="term"/>
+    <functioncall functionName="tocopy"/>
+    <functioncall functionName="umask"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="ws"/>
+    <functioncall functionName="ws_col"/>
+  </FileInfo>
+</analyzerinfo>

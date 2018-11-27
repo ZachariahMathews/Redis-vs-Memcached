@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="530604817">
+        <error id="CastIntegerToAddressAtReturn" severity="portability" msg="Returning an integer in a function with pointer return type is not portable." verbose="Returning an integer (int/long/etc) in a function with pointer return type is not portable across different platforms and compilers. For example in 32-bit Windows and Linux they are same width, but in 64-bit Windows and Linux they are of different width. In worst case you end up casting 64-bit integer down to 32-bit pointer. The safe way is to always return a pointer." cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\rtree.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\rtree.c" line="18"/>
+        </error>
+        <error id="CastIntegerToAddressAtReturn" severity="portability" msg="Returning an integer in a function with pointer return type is not portable." verbose="Returning an integer (int/long/etc) in a function with pointer return type is not portable across different platforms and compilers. For example in 32-bit Windows and Linux they are same width, but in 64-bit Windows and Linux they are of different width. In worst case you end up casting 64-bit integer down to 32-bit pointer. The safe way is to always return a pointer." cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\rtree.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\rtree.c" line="45"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="rtree_node_alloc_intercept" lineNumber="14"/>
+    <functiondecl functionName="rtree_node_dalloc_intercept" lineNumber="30"/>
+    <functiondecl functionName="rtree_leaf_alloc_intercept" lineNumber="41"/>
+    <functiondecl functionName="rtree_leaf_dalloc_intercept" lineNumber="57"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="67"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="86"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="121"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="158"/>
+    <functiondecl functionName="main" lineNumber="212"/>
+    <functioncall functionName="LARGE_MINCLASS"/>
+    <functioncall functionName="NSIZES"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="elm"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_a"/>
+    <functioncall functionName="extent_b"/>
+    <functioncall functionName="extent_init"/>
+    <functioncall functionName="extent_slab_get"/>
+    <functioncall functionName="extent_state_active"/>
+    <functioncall functionName="extent_szind_get"/>
+    <functioncall functionName="extent_szind_get_maybe_invalid"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fini_gen_rand"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="gen_rand64"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init_gen_rand"/>
+    <functioncall functionName="init_lock"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="leaf"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="nelms"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rtree"/>
+    <functioncall functionName="rtree_clear"/>
+    <functioncall functionName="rtree_ctx"/>
+    <functioncall functionName="rtree_ctx_data_init"/>
+    <functioncall functionName="rtree_delete"/>
+    <functioncall functionName="rtree_extent_read"/>
+    <functioncall functionName="rtree_leaf_alloc"/>
+    <functioncall functionName="rtree_leaf_alloc_intercept"/>
+    <functioncall functionName="rtree_leaf_alloc_orig"/>
+    <functioncall functionName="rtree_leaf_dalloc"/>
+    <functioncall functionName="rtree_leaf_dalloc_intercept"/>
+    <functioncall functionName="rtree_leaf_dalloc_orig"/>
+    <functioncall functionName="rtree_leaf_elm_lookup"/>
+    <functioncall functionName="rtree_leaf_elm_t"/>
+    <functioncall functionName="rtree_leaf_elm_write"/>
+    <functioncall functionName="rtree_new"/>
+    <functioncall functionName="rtree_node_alloc"/>
+    <functioncall functionName="rtree_node_alloc_intercept"/>
+    <functioncall functionName="rtree_node_alloc_orig"/>
+    <functioncall functionName="rtree_node_dalloc"/>
+    <functioncall functionName="rtree_node_dalloc_intercept"/>
+    <functioncall functionName="rtree_node_dalloc_orig"/>
+    <functioncall functionName="rtree_node_elm_t"/>
+    <functioncall functionName="rtree_szind_slab_update"/>
+    <functioncall functionName="rtree_write"/>
+    <functioncall functionName="sfmt"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_rtree"/>
+    <functioncall functionName="test_rtree_bits"/>
+    <functioncall functionName="test_rtree_extrema"/>
+    <functioncall functionName="test_rtree_random"/>
+    <functioncall functionName="test_rtree_read_empty"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_fetch"/>
+  </FileInfo>
+</analyzerinfo>

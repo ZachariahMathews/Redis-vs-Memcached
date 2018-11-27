@@ -1,0 +1,794 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3232458375">
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 1) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." verbose="%lu in format string (no. 1) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\testapp.c" file="C:\Users\bharm\Downloads\memcached-master\testapp.c" line="297"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 1) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." verbose="%lu in format string (no. 1) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\testapp.c" file="C:\Users\bharm\Downloads\memcached-master\testapp.c" line="301"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 1) requires &apos;unsigned int&apos; but the argument type is &apos;signed int&apos;." verbose="%u in format string (no. 1) requires &apos;unsigned int&apos; but the argument type is &apos;signed int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\testapp.c" file="C:\Users\bharm\Downloads\memcached-master\testapp.c" line="324"/>
+        </error>
+        <error id="selfAssignment" severity="warning" msg="Redundant assignment of &apos;*(p-1)&apos; to itself." verbose="Redundant assignment of &apos;*(p-1)&apos; to itself." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\testapp.c" file="C:\Users\bharm\Downloads\memcached-master\testapp.c" line="168"/>
+            <symbol>*(p-1)</symbol>
+        </error>
+        <error id="literalWithCharPtrCompare" severity="warning" msg="String literal compared with variable &apos;NULL&apos;. Did you intend to use strcmp() instead?" verbose="String literal compared with variable &apos;NULL&apos;. Did you intend to use strcmp() instead?" cwe="595">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\testapp.c" file="C:\Users\bharm\Downloads\memcached-master\testapp.c" line="952"/>
+            <symbol>NULL</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="testcases" size="53"/>
+  </FileInfo>
+        <error id="memleak" severity="error" msg="Memory leak: buffer" verbose="Memory leak: buffer" cwe="401">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\testapp.c" file="C:\Users\bharm\Downloads\memcached-master\testapp.c" line="1845"/>
+            <symbol>buffer</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="testcases" size="53"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="testcases" size="53"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="testcases" size="53"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="testcases" size="53"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="cache_create_test" lineNumber="35"/>
+    <functiondecl functionName="cache_constructor" lineNumber="46"/>
+    <functiondecl functionName="cache_constructor_test" lineNumber="52"/>
+    <functiondecl functionName="cache_fail_constructor" lineNumber="64"/>
+    <functiondecl functionName="cache_fail_constructor_test" lineNumber="68"/>
+    <functiondecl functionName="cache_destructor" lineNumber="85"/>
+    <functiondecl functionName="cache_destructor_test" lineNumber="89"/>
+    <functiondecl functionName="cache_reuse_test" lineNumber="101"/>
+    <functiondecl functionName="cache_bulkalloc" lineNumber="118"/>
+    <functiondecl functionName="test_issue_161" lineNumber="140"/>
+    <functiondecl functionName="cache_redzone_test" lineNumber="150"/>
+    <functiondecl functionName="test_safe_strtoul" lineNumber="185"/>
+    <functiondecl functionName="test_safe_strtoull" lineNumber="209"/>
+    <functiondecl functionName="test_safe_strtoll" lineNumber="228"/>
+    <functiondecl functionName="test_safe_strtol" lineNumber="257"/>
+    <functiondecl functionName="start_server" lineNumber="295"/>
+    <functiondecl functionName="test_issue_44" lineNumber="417"/>
+    <functiondecl functionName="lookuphost" lineNumber="427"/>
+    <functiondecl functionName="connect_server" lineNumber="448"/>
+    <functiondecl functionName="test_vperror" lineNumber="478"/>
+    <functiondecl functionName="send_ascii_command" lineNumber="522"/>
+    <functiondecl functionName="read_ascii_response" lineNumber="546"/>
+    <functiondecl functionName="test_issue_92" lineNumber="568"/>
+    <functiondecl functionName="test_issue_102" lineNumber="587"/>
+    <functiondecl functionName="start_memcached_server" lineNumber="636"/>
+    <functiondecl functionName="stop_memcached_server" lineNumber="642"/>
+    <functiondecl functionName="shutdown_memcached_server" lineNumber="651"/>
+    <functiondecl functionName="safe_send" lineNumber="671"/>
+    <functiondecl functionName="safe_recv" lineNumber="713"/>
+    <functiondecl functionName="safe_recv_packet" lineNumber="737"/>
+    <functiondecl functionName="storage_command" lineNumber="774"/>
+    <functiondecl functionName="ext_command" lineNumber="807"/>
+    <functiondecl functionName="raw_command" lineNumber="844"/>
+    <functiondecl functionName="flush_command" lineNumber="855"/>
+    <functiondecl functionName="touch_command" lineNumber="877"/>
+    <functiondecl functionName="arithmetic_command" lineNumber="903"/>
+    <functiondecl functionName="validate_response_header" lineNumber="931"/>
+    <functiondecl functionName="test_binary_noop" lineNumber="1031"/>
+    <functiondecl functionName="test_binary_quit_impl" lineNumber="1050"/>
+    <functiondecl functionName="test_binary_quit" lineNumber="1074"/>
+    <functiondecl functionName="test_binary_quitq" lineNumber="1078"/>
+    <functiondecl functionName="test_binary_set_impl" lineNumber="1082"/>
+    <functiondecl functionName="test_binary_set" lineNumber="1122"/>
+    <functiondecl functionName="test_binary_setq" lineNumber="1126"/>
+    <functiondecl functionName="test_binary_add_impl" lineNumber="1131"/>
+    <functiondecl functionName="test_binary_add" lineNumber="1162"/>
+    <functiondecl functionName="test_binary_addq" lineNumber="1166"/>
+    <functiondecl functionName="test_binary_replace_impl" lineNumber="1170"/>
+    <functiondecl functionName="test_binary_replace" lineNumber="1212"/>
+    <functiondecl functionName="test_binary_replaceq" lineNumber="1217"/>
+    <functiondecl functionName="test_binary_delete_impl" lineNumber="1222"/>
+    <functiondecl functionName="test_binary_delete" lineNumber="1261"/>
+    <functiondecl functionName="test_binary_deleteq" lineNumber="1266"/>
+    <functiondecl functionName="test_binary_get_impl" lineNumber="1271"/>
+    <functiondecl functionName="test_binary_get" lineNumber="1326"/>
+    <functiondecl functionName="test_binary_getk" lineNumber="1330"/>
+    <functiondecl functionName="test_binary_gat" lineNumber="1334"/>
+    <functiondecl functionName="test_binary_gatk" lineNumber="1338"/>
+    <functiondecl functionName="test_binary_getq_impl" lineNumber="1342"/>
+    <functiondecl functionName="test_binary_getq" lineNumber="1386"/>
+    <functiondecl functionName="test_binary_getkq" lineNumber="1390"/>
+    <functiondecl functionName="test_binary_gatq" lineNumber="1394"/>
+    <functiondecl functionName="test_binary_gatkq" lineNumber="1398"/>
+    <functiondecl functionName="test_binary_incr_impl" lineNumber="1402"/>
+    <functiondecl functionName="test_binary_incr" lineNumber="1429"/>
+    <functiondecl functionName="test_binary_incrq" lineNumber="1434"/>
+    <functiondecl functionName="test_binary_decr_impl" lineNumber="1439"/>
+    <functiondecl functionName="test_binary_decr" lineNumber="1474"/>
+    <functiondecl functionName="test_binary_decrq" lineNumber="1479"/>
+    <functiondecl functionName="test_binary_version" lineNumber="1484"/>
+    <functiondecl functionName="test_binary_flush_impl" lineNumber="1503"/>
+    <functiondecl functionName="test_binary_flush" lineNumber="1569"/>
+    <functiondecl functionName="test_binary_flushq" lineNumber="1574"/>
+    <functiondecl functionName="test_binary_concat_impl" lineNumber="1579"/>
+    <functiondecl functionName="test_binary_append" lineNumber="1645"/>
+    <functiondecl functionName="test_binary_prepend" lineNumber="1650"/>
+    <functiondecl functionName="test_binary_appendq" lineNumber="1655"/>
+    <functiondecl functionName="test_binary_prependq" lineNumber="1660"/>
+    <functiondecl functionName="test_binary_stat" lineNumber="1665"/>
+    <functiondecl functionName="test_binary_illegal" lineNumber="1686"/>
+    <functiondecl functionName="binary_hickup_recv_verification_thread" lineNumber="1708"/>
+    <functiondecl functionName="test_binary_pipeline_hickup_chunk" lineNumber="1724"/>
+    <functiondecl functionName="test_binary_pipeline_hickup" lineNumber="1832"/>
+    <functiondecl functionName="test_issue_101" lineNumber="1867"/>
+    <functiondecl functionName="main" lineNumber="1999"/>
+    <functiondecl functionName="cache_create_test" lineNumber="35"/>
+    <functiondecl functionName="cache_constructor" lineNumber="46"/>
+    <functiondecl functionName="cache_constructor_test" lineNumber="52"/>
+    <functiondecl functionName="cache_fail_constructor" lineNumber="64"/>
+    <functiondecl functionName="cache_fail_constructor_test" lineNumber="68"/>
+    <functiondecl functionName="cache_destructor" lineNumber="85"/>
+    <functiondecl functionName="cache_destructor_test" lineNumber="89"/>
+    <functiondecl functionName="cache_reuse_test" lineNumber="101"/>
+    <functiondecl functionName="cache_bulkalloc" lineNumber="118"/>
+    <functiondecl functionName="test_issue_161" lineNumber="140"/>
+    <functiondecl functionName="cache_redzone_test" lineNumber="150"/>
+    <functiondecl functionName="test_safe_strtoul" lineNumber="185"/>
+    <functiondecl functionName="test_safe_strtoull" lineNumber="209"/>
+    <functiondecl functionName="test_safe_strtoll" lineNumber="228"/>
+    <functiondecl functionName="test_safe_strtol" lineNumber="257"/>
+    <functiondecl functionName="start_server" lineNumber="295"/>
+    <functiondecl functionName="test_issue_44" lineNumber="417"/>
+    <functiondecl functionName="lookuphost" lineNumber="427"/>
+    <functiondecl functionName="connect_server" lineNumber="448"/>
+    <functiondecl functionName="test_vperror" lineNumber="478"/>
+    <functiondecl functionName="send_ascii_command" lineNumber="522"/>
+    <functiondecl functionName="read_ascii_response" lineNumber="546"/>
+    <functiondecl functionName="test_issue_92" lineNumber="568"/>
+    <functiondecl functionName="test_issue_102" lineNumber="587"/>
+    <functiondecl functionName="start_memcached_server" lineNumber="636"/>
+    <functiondecl functionName="stop_memcached_server" lineNumber="642"/>
+    <functiondecl functionName="shutdown_memcached_server" lineNumber="651"/>
+    <functiondecl functionName="safe_send" lineNumber="671"/>
+    <functiondecl functionName="safe_recv" lineNumber="713"/>
+    <functiondecl functionName="safe_recv_packet" lineNumber="737"/>
+    <functiondecl functionName="storage_command" lineNumber="774"/>
+    <functiondecl functionName="ext_command" lineNumber="807"/>
+    <functiondecl functionName="raw_command" lineNumber="844"/>
+    <functiondecl functionName="flush_command" lineNumber="855"/>
+    <functiondecl functionName="touch_command" lineNumber="877"/>
+    <functiondecl functionName="arithmetic_command" lineNumber="903"/>
+    <functiondecl functionName="validate_response_header" lineNumber="931"/>
+    <functiondecl functionName="test_binary_noop" lineNumber="1031"/>
+    <functiondecl functionName="test_binary_quit_impl" lineNumber="1050"/>
+    <functiondecl functionName="test_binary_quit" lineNumber="1074"/>
+    <functiondecl functionName="test_binary_quitq" lineNumber="1078"/>
+    <functiondecl functionName="test_binary_set_impl" lineNumber="1082"/>
+    <functiondecl functionName="test_binary_set" lineNumber="1122"/>
+    <functiondecl functionName="test_binary_setq" lineNumber="1126"/>
+    <functiondecl functionName="test_binary_add_impl" lineNumber="1131"/>
+    <functiondecl functionName="test_binary_add" lineNumber="1162"/>
+    <functiondecl functionName="test_binary_addq" lineNumber="1166"/>
+    <functiondecl functionName="test_binary_replace_impl" lineNumber="1170"/>
+    <functiondecl functionName="test_binary_replace" lineNumber="1212"/>
+    <functiondecl functionName="test_binary_replaceq" lineNumber="1217"/>
+    <functiondecl functionName="test_binary_delete_impl" lineNumber="1222"/>
+    <functiondecl functionName="test_binary_delete" lineNumber="1261"/>
+    <functiondecl functionName="test_binary_deleteq" lineNumber="1266"/>
+    <functiondecl functionName="test_binary_get_impl" lineNumber="1271"/>
+    <functiondecl functionName="test_binary_get" lineNumber="1326"/>
+    <functiondecl functionName="test_binary_getk" lineNumber="1330"/>
+    <functiondecl functionName="test_binary_gat" lineNumber="1334"/>
+    <functiondecl functionName="test_binary_gatk" lineNumber="1338"/>
+    <functiondecl functionName="test_binary_getq_impl" lineNumber="1342"/>
+    <functiondecl functionName="test_binary_getq" lineNumber="1386"/>
+    <functiondecl functionName="test_binary_getkq" lineNumber="1390"/>
+    <functiondecl functionName="test_binary_gatq" lineNumber="1394"/>
+    <functiondecl functionName="test_binary_gatkq" lineNumber="1398"/>
+    <functiondecl functionName="test_binary_incr_impl" lineNumber="1402"/>
+    <functiondecl functionName="test_binary_incr" lineNumber="1429"/>
+    <functiondecl functionName="test_binary_incrq" lineNumber="1434"/>
+    <functiondecl functionName="test_binary_decr_impl" lineNumber="1439"/>
+    <functiondecl functionName="test_binary_decr" lineNumber="1474"/>
+    <functiondecl functionName="test_binary_decrq" lineNumber="1479"/>
+    <functiondecl functionName="test_binary_version" lineNumber="1484"/>
+    <functiondecl functionName="test_binary_flush_impl" lineNumber="1503"/>
+    <functiondecl functionName="test_binary_flush" lineNumber="1569"/>
+    <functiondecl functionName="test_binary_flushq" lineNumber="1574"/>
+    <functiondecl functionName="test_binary_concat_impl" lineNumber="1579"/>
+    <functiondecl functionName="test_binary_append" lineNumber="1645"/>
+    <functiondecl functionName="test_binary_prepend" lineNumber="1650"/>
+    <functiondecl functionName="test_binary_appendq" lineNumber="1655"/>
+    <functiondecl functionName="test_binary_prependq" lineNumber="1660"/>
+    <functiondecl functionName="test_binary_stat" lineNumber="1665"/>
+    <functiondecl functionName="test_binary_illegal" lineNumber="1686"/>
+    <functiondecl functionName="binary_hickup_recv_verification_thread" lineNumber="1708"/>
+    <functiondecl functionName="test_binary_pipeline_hickup_chunk" lineNumber="1724"/>
+    <functiondecl functionName="test_binary_pipeline_hickup" lineNumber="1832"/>
+    <functiondecl functionName="test_issue_101" lineNumber="1867"/>
+    <functiondecl functionName="main" lineNumber="1999"/>
+    <functiondecl functionName="cache_create_test" lineNumber="35"/>
+    <functiondecl functionName="cache_constructor" lineNumber="46"/>
+    <functiondecl functionName="cache_constructor_test" lineNumber="52"/>
+    <functiondecl functionName="cache_fail_constructor" lineNumber="64"/>
+    <functiondecl functionName="cache_fail_constructor_test" lineNumber="68"/>
+    <functiondecl functionName="cache_destructor" lineNumber="85"/>
+    <functiondecl functionName="cache_destructor_test" lineNumber="89"/>
+    <functiondecl functionName="cache_reuse_test" lineNumber="101"/>
+    <functiondecl functionName="cache_bulkalloc" lineNumber="118"/>
+    <functiondecl functionName="test_issue_161" lineNumber="140"/>
+    <functiondecl functionName="cache_redzone_test" lineNumber="150"/>
+    <functiondecl functionName="test_safe_strtoul" lineNumber="185"/>
+    <functiondecl functionName="test_safe_strtoull" lineNumber="209"/>
+    <functiondecl functionName="test_safe_strtoll" lineNumber="228"/>
+    <functiondecl functionName="test_safe_strtol" lineNumber="257"/>
+    <functiondecl functionName="start_server" lineNumber="295"/>
+    <functiondecl functionName="test_issue_44" lineNumber="417"/>
+    <functiondecl functionName="lookuphost" lineNumber="427"/>
+    <functiondecl functionName="connect_server" lineNumber="448"/>
+    <functiondecl functionName="test_vperror" lineNumber="478"/>
+    <functiondecl functionName="send_ascii_command" lineNumber="522"/>
+    <functiondecl functionName="read_ascii_response" lineNumber="546"/>
+    <functiondecl functionName="test_issue_92" lineNumber="568"/>
+    <functiondecl functionName="test_issue_102" lineNumber="587"/>
+    <functiondecl functionName="start_memcached_server" lineNumber="636"/>
+    <functiondecl functionName="stop_memcached_server" lineNumber="642"/>
+    <functiondecl functionName="shutdown_memcached_server" lineNumber="651"/>
+    <functiondecl functionName="safe_send" lineNumber="671"/>
+    <functiondecl functionName="safe_recv" lineNumber="713"/>
+    <functiondecl functionName="safe_recv_packet" lineNumber="737"/>
+    <functiondecl functionName="storage_command" lineNumber="774"/>
+    <functiondecl functionName="ext_command" lineNumber="807"/>
+    <functiondecl functionName="raw_command" lineNumber="844"/>
+    <functiondecl functionName="flush_command" lineNumber="855"/>
+    <functiondecl functionName="touch_command" lineNumber="877"/>
+    <functiondecl functionName="arithmetic_command" lineNumber="903"/>
+    <functiondecl functionName="validate_response_header" lineNumber="931"/>
+    <functiondecl functionName="test_binary_noop" lineNumber="1031"/>
+    <functiondecl functionName="test_binary_quit_impl" lineNumber="1050"/>
+    <functiondecl functionName="test_binary_quit" lineNumber="1074"/>
+    <functiondecl functionName="test_binary_quitq" lineNumber="1078"/>
+    <functiondecl functionName="test_binary_set_impl" lineNumber="1082"/>
+    <functiondecl functionName="test_binary_set" lineNumber="1122"/>
+    <functiondecl functionName="test_binary_setq" lineNumber="1126"/>
+    <functiondecl functionName="test_binary_add_impl" lineNumber="1131"/>
+    <functiondecl functionName="test_binary_add" lineNumber="1162"/>
+    <functiondecl functionName="test_binary_addq" lineNumber="1166"/>
+    <functiondecl functionName="test_binary_replace_impl" lineNumber="1170"/>
+    <functiondecl functionName="test_binary_replace" lineNumber="1212"/>
+    <functiondecl functionName="test_binary_replaceq" lineNumber="1217"/>
+    <functiondecl functionName="test_binary_delete_impl" lineNumber="1222"/>
+    <functiondecl functionName="test_binary_delete" lineNumber="1261"/>
+    <functiondecl functionName="test_binary_deleteq" lineNumber="1266"/>
+    <functiondecl functionName="test_binary_get_impl" lineNumber="1271"/>
+    <functiondecl functionName="test_binary_get" lineNumber="1326"/>
+    <functiondecl functionName="test_binary_getk" lineNumber="1330"/>
+    <functiondecl functionName="test_binary_gat" lineNumber="1334"/>
+    <functiondecl functionName="test_binary_gatk" lineNumber="1338"/>
+    <functiondecl functionName="test_binary_getq_impl" lineNumber="1342"/>
+    <functiondecl functionName="test_binary_getq" lineNumber="1386"/>
+    <functiondecl functionName="test_binary_getkq" lineNumber="1390"/>
+    <functiondecl functionName="test_binary_gatq" lineNumber="1394"/>
+    <functiondecl functionName="test_binary_gatkq" lineNumber="1398"/>
+    <functiondecl functionName="test_binary_incr_impl" lineNumber="1402"/>
+    <functiondecl functionName="test_binary_incr" lineNumber="1429"/>
+    <functiondecl functionName="test_binary_incrq" lineNumber="1434"/>
+    <functiondecl functionName="test_binary_decr_impl" lineNumber="1439"/>
+    <functiondecl functionName="test_binary_decr" lineNumber="1474"/>
+    <functiondecl functionName="test_binary_decrq" lineNumber="1479"/>
+    <functiondecl functionName="test_binary_version" lineNumber="1484"/>
+    <functiondecl functionName="test_binary_flush_impl" lineNumber="1503"/>
+    <functiondecl functionName="test_binary_flush" lineNumber="1569"/>
+    <functiondecl functionName="test_binary_flushq" lineNumber="1574"/>
+    <functiondecl functionName="test_binary_concat_impl" lineNumber="1579"/>
+    <functiondecl functionName="test_binary_append" lineNumber="1645"/>
+    <functiondecl functionName="test_binary_prepend" lineNumber="1650"/>
+    <functiondecl functionName="test_binary_appendq" lineNumber="1655"/>
+    <functiondecl functionName="test_binary_prependq" lineNumber="1660"/>
+    <functiondecl functionName="test_binary_stat" lineNumber="1665"/>
+    <functiondecl functionName="test_binary_illegal" lineNumber="1686"/>
+    <functiondecl functionName="binary_hickup_recv_verification_thread" lineNumber="1708"/>
+    <functiondecl functionName="test_binary_pipeline_hickup_chunk" lineNumber="1724"/>
+    <functiondecl functionName="test_binary_pipeline_hickup" lineNumber="1832"/>
+    <functiondecl functionName="test_issue_101" lineNumber="1867"/>
+    <functiondecl functionName="main" lineNumber="1999"/>
+    <functiondecl functionName="cache_create_test" lineNumber="35"/>
+    <functiondecl functionName="cache_constructor" lineNumber="46"/>
+    <functiondecl functionName="cache_constructor_test" lineNumber="52"/>
+    <functiondecl functionName="cache_fail_constructor" lineNumber="64"/>
+    <functiondecl functionName="cache_fail_constructor_test" lineNumber="68"/>
+    <functiondecl functionName="cache_destructor" lineNumber="85"/>
+    <functiondecl functionName="cache_destructor_test" lineNumber="89"/>
+    <functiondecl functionName="cache_reuse_test" lineNumber="101"/>
+    <functiondecl functionName="cache_bulkalloc" lineNumber="118"/>
+    <functiondecl functionName="test_issue_161" lineNumber="140"/>
+    <functiondecl functionName="cache_redzone_test" lineNumber="150"/>
+    <functiondecl functionName="test_safe_strtoul" lineNumber="185"/>
+    <functiondecl functionName="test_safe_strtoull" lineNumber="209"/>
+    <functiondecl functionName="test_safe_strtoll" lineNumber="228"/>
+    <functiondecl functionName="test_safe_strtol" lineNumber="257"/>
+    <functiondecl functionName="start_server" lineNumber="295"/>
+    <functiondecl functionName="test_issue_44" lineNumber="417"/>
+    <functiondecl functionName="lookuphost" lineNumber="427"/>
+    <functiondecl functionName="connect_server" lineNumber="448"/>
+    <functiondecl functionName="test_vperror" lineNumber="478"/>
+    <functiondecl functionName="send_ascii_command" lineNumber="522"/>
+    <functiondecl functionName="read_ascii_response" lineNumber="546"/>
+    <functiondecl functionName="test_issue_92" lineNumber="568"/>
+    <functiondecl functionName="test_issue_102" lineNumber="587"/>
+    <functiondecl functionName="start_memcached_server" lineNumber="636"/>
+    <functiondecl functionName="stop_memcached_server" lineNumber="642"/>
+    <functiondecl functionName="shutdown_memcached_server" lineNumber="651"/>
+    <functiondecl functionName="safe_send" lineNumber="671"/>
+    <functiondecl functionName="safe_recv" lineNumber="713"/>
+    <functiondecl functionName="safe_recv_packet" lineNumber="737"/>
+    <functiondecl functionName="storage_command" lineNumber="774"/>
+    <functiondecl functionName="ext_command" lineNumber="807"/>
+    <functiondecl functionName="raw_command" lineNumber="844"/>
+    <functiondecl functionName="flush_command" lineNumber="855"/>
+    <functiondecl functionName="touch_command" lineNumber="877"/>
+    <functiondecl functionName="arithmetic_command" lineNumber="903"/>
+    <functiondecl functionName="validate_response_header" lineNumber="931"/>
+    <functiondecl functionName="test_binary_noop" lineNumber="1031"/>
+    <functiondecl functionName="test_binary_quit_impl" lineNumber="1050"/>
+    <functiondecl functionName="test_binary_quit" lineNumber="1074"/>
+    <functiondecl functionName="test_binary_quitq" lineNumber="1078"/>
+    <functiondecl functionName="test_binary_set_impl" lineNumber="1082"/>
+    <functiondecl functionName="test_binary_set" lineNumber="1122"/>
+    <functiondecl functionName="test_binary_setq" lineNumber="1126"/>
+    <functiondecl functionName="test_binary_add_impl" lineNumber="1131"/>
+    <functiondecl functionName="test_binary_add" lineNumber="1162"/>
+    <functiondecl functionName="test_binary_addq" lineNumber="1166"/>
+    <functiondecl functionName="test_binary_replace_impl" lineNumber="1170"/>
+    <functiondecl functionName="test_binary_replace" lineNumber="1212"/>
+    <functiondecl functionName="test_binary_replaceq" lineNumber="1217"/>
+    <functiondecl functionName="test_binary_delete_impl" lineNumber="1222"/>
+    <functiondecl functionName="test_binary_delete" lineNumber="1261"/>
+    <functiondecl functionName="test_binary_deleteq" lineNumber="1266"/>
+    <functiondecl functionName="test_binary_get_impl" lineNumber="1271"/>
+    <functiondecl functionName="test_binary_get" lineNumber="1326"/>
+    <functiondecl functionName="test_binary_getk" lineNumber="1330"/>
+    <functiondecl functionName="test_binary_gat" lineNumber="1334"/>
+    <functiondecl functionName="test_binary_gatk" lineNumber="1338"/>
+    <functiondecl functionName="test_binary_getq_impl" lineNumber="1342"/>
+    <functiondecl functionName="test_binary_getq" lineNumber="1386"/>
+    <functiondecl functionName="test_binary_getkq" lineNumber="1390"/>
+    <functiondecl functionName="test_binary_gatq" lineNumber="1394"/>
+    <functiondecl functionName="test_binary_gatkq" lineNumber="1398"/>
+    <functiondecl functionName="test_binary_incr_impl" lineNumber="1402"/>
+    <functiondecl functionName="test_binary_incr" lineNumber="1429"/>
+    <functiondecl functionName="test_binary_incrq" lineNumber="1434"/>
+    <functiondecl functionName="test_binary_decr_impl" lineNumber="1439"/>
+    <functiondecl functionName="test_binary_decr" lineNumber="1474"/>
+    <functiondecl functionName="test_binary_decrq" lineNumber="1479"/>
+    <functiondecl functionName="test_binary_version" lineNumber="1484"/>
+    <functiondecl functionName="test_binary_flush_impl" lineNumber="1503"/>
+    <functiondecl functionName="test_binary_flush" lineNumber="1569"/>
+    <functiondecl functionName="test_binary_flushq" lineNumber="1574"/>
+    <functiondecl functionName="test_binary_concat_impl" lineNumber="1579"/>
+    <functiondecl functionName="test_binary_append" lineNumber="1645"/>
+    <functiondecl functionName="test_binary_prepend" lineNumber="1650"/>
+    <functiondecl functionName="test_binary_appendq" lineNumber="1655"/>
+    <functiondecl functionName="test_binary_prependq" lineNumber="1660"/>
+    <functiondecl functionName="test_binary_stat" lineNumber="1665"/>
+    <functiondecl functionName="test_binary_illegal" lineNumber="1686"/>
+    <functiondecl functionName="binary_hickup_recv_verification_thread" lineNumber="1708"/>
+    <functiondecl functionName="test_binary_pipeline_hickup_chunk" lineNumber="1724"/>
+    <functiondecl functionName="test_binary_pipeline_hickup" lineNumber="1832"/>
+    <functiondecl functionName="test_issue_101" lineNumber="1867"/>
+    <functiondecl functionName="main" lineNumber="1999"/>
+    <functiondecl functionName="cache_create_test" lineNumber="35"/>
+    <functiondecl functionName="cache_constructor" lineNumber="46"/>
+    <functiondecl functionName="cache_constructor_test" lineNumber="52"/>
+    <functiondecl functionName="cache_fail_constructor" lineNumber="64"/>
+    <functiondecl functionName="cache_fail_constructor_test" lineNumber="68"/>
+    <functiondecl functionName="cache_destructor" lineNumber="85"/>
+    <functiondecl functionName="cache_destructor_test" lineNumber="89"/>
+    <functiondecl functionName="cache_reuse_test" lineNumber="101"/>
+    <functiondecl functionName="cache_bulkalloc" lineNumber="118"/>
+    <functiondecl functionName="test_issue_161" lineNumber="140"/>
+    <functiondecl functionName="cache_redzone_test" lineNumber="150"/>
+    <functiondecl functionName="test_safe_strtoul" lineNumber="185"/>
+    <functiondecl functionName="test_safe_strtoull" lineNumber="209"/>
+    <functiondecl functionName="test_safe_strtoll" lineNumber="228"/>
+    <functiondecl functionName="test_safe_strtol" lineNumber="257"/>
+    <functiondecl functionName="start_server" lineNumber="295"/>
+    <functiondecl functionName="test_issue_44" lineNumber="417"/>
+    <functiondecl functionName="lookuphost" lineNumber="427"/>
+    <functiondecl functionName="connect_server" lineNumber="448"/>
+    <functiondecl functionName="test_vperror" lineNumber="478"/>
+    <functiondecl functionName="send_ascii_command" lineNumber="522"/>
+    <functiondecl functionName="read_ascii_response" lineNumber="546"/>
+    <functiondecl functionName="test_issue_92" lineNumber="568"/>
+    <functiondecl functionName="test_issue_102" lineNumber="587"/>
+    <functiondecl functionName="start_memcached_server" lineNumber="636"/>
+    <functiondecl functionName="stop_memcached_server" lineNumber="642"/>
+    <functiondecl functionName="shutdown_memcached_server" lineNumber="651"/>
+    <functiondecl functionName="safe_send" lineNumber="671"/>
+    <functiondecl functionName="safe_recv" lineNumber="713"/>
+    <functiondecl functionName="safe_recv_packet" lineNumber="737"/>
+    <functiondecl functionName="storage_command" lineNumber="774"/>
+    <functiondecl functionName="ext_command" lineNumber="807"/>
+    <functiondecl functionName="raw_command" lineNumber="844"/>
+    <functiondecl functionName="flush_command" lineNumber="855"/>
+    <functiondecl functionName="touch_command" lineNumber="877"/>
+    <functiondecl functionName="arithmetic_command" lineNumber="903"/>
+    <functiondecl functionName="validate_response_header" lineNumber="931"/>
+    <functiondecl functionName="test_binary_noop" lineNumber="1031"/>
+    <functiondecl functionName="test_binary_quit_impl" lineNumber="1050"/>
+    <functiondecl functionName="test_binary_quit" lineNumber="1074"/>
+    <functiondecl functionName="test_binary_quitq" lineNumber="1078"/>
+    <functiondecl functionName="test_binary_set_impl" lineNumber="1082"/>
+    <functiondecl functionName="test_binary_set" lineNumber="1122"/>
+    <functiondecl functionName="test_binary_setq" lineNumber="1126"/>
+    <functiondecl functionName="test_binary_add_impl" lineNumber="1131"/>
+    <functiondecl functionName="test_binary_add" lineNumber="1162"/>
+    <functiondecl functionName="test_binary_addq" lineNumber="1166"/>
+    <functiondecl functionName="test_binary_replace_impl" lineNumber="1170"/>
+    <functiondecl functionName="test_binary_replace" lineNumber="1212"/>
+    <functiondecl functionName="test_binary_replaceq" lineNumber="1217"/>
+    <functiondecl functionName="test_binary_delete_impl" lineNumber="1222"/>
+    <functiondecl functionName="test_binary_delete" lineNumber="1261"/>
+    <functiondecl functionName="test_binary_deleteq" lineNumber="1266"/>
+    <functiondecl functionName="test_binary_get_impl" lineNumber="1271"/>
+    <functiondecl functionName="test_binary_get" lineNumber="1326"/>
+    <functiondecl functionName="test_binary_getk" lineNumber="1330"/>
+    <functiondecl functionName="test_binary_gat" lineNumber="1334"/>
+    <functiondecl functionName="test_binary_gatk" lineNumber="1338"/>
+    <functiondecl functionName="test_binary_getq_impl" lineNumber="1342"/>
+    <functiondecl functionName="test_binary_getq" lineNumber="1386"/>
+    <functiondecl functionName="test_binary_getkq" lineNumber="1390"/>
+    <functiondecl functionName="test_binary_gatq" lineNumber="1394"/>
+    <functiondecl functionName="test_binary_gatkq" lineNumber="1398"/>
+    <functiondecl functionName="test_binary_incr_impl" lineNumber="1402"/>
+    <functiondecl functionName="test_binary_incr" lineNumber="1429"/>
+    <functiondecl functionName="test_binary_incrq" lineNumber="1434"/>
+    <functiondecl functionName="test_binary_decr_impl" lineNumber="1439"/>
+    <functiondecl functionName="test_binary_decr" lineNumber="1474"/>
+    <functiondecl functionName="test_binary_decrq" lineNumber="1479"/>
+    <functiondecl functionName="test_binary_version" lineNumber="1484"/>
+    <functiondecl functionName="test_binary_flush_impl" lineNumber="1503"/>
+    <functiondecl functionName="test_binary_flush" lineNumber="1569"/>
+    <functiondecl functionName="test_binary_flushq" lineNumber="1574"/>
+    <functiondecl functionName="test_binary_concat_impl" lineNumber="1579"/>
+    <functiondecl functionName="test_binary_append" lineNumber="1645"/>
+    <functiondecl functionName="test_binary_prepend" lineNumber="1650"/>
+    <functiondecl functionName="test_binary_appendq" lineNumber="1655"/>
+    <functiondecl functionName="test_binary_prependq" lineNumber="1660"/>
+    <functiondecl functionName="test_binary_stat" lineNumber="1665"/>
+    <functiondecl functionName="test_binary_illegal" lineNumber="1686"/>
+    <functiondecl functionName="binary_hickup_recv_verification_thread" lineNumber="1708"/>
+    <functiondecl functionName="test_binary_pipeline_hickup_chunk" lineNumber="1724"/>
+    <functiondecl functionName="test_binary_pipeline_hickup" lineNumber="1832"/>
+    <functiondecl functionName="test_issue_101" lineNumber="1867"/>
+    <functiondecl functionName="main" lineNumber="1999"/>
+    <functioncall functionName="AF_UNSPEC"/>
+    <functioncall functionName="EIO"/>
+    <functioncall functionName="F_GETFL"/>
+    <functioncall functionName="F_OK"/>
+    <functioncall functionName="F_SETFL"/>
+    <functioncall functionName="IPPROTO_TCP"/>
+    <functioncall functionName="NI_MAXSERV"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_NONBLOCK"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_ADD"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_ADDQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_APPEND"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_APPENDQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_DECREMENT"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_DECREMENTQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_DELETE"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_DELETEQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_FLUSH"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_FLUSHQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GAT"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GATK"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GATKQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GATQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GET"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GETK"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GETKQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_GETQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_INCREMENT"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_INCREMENTQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_NOOP"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_PREPEND"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_PREPENDQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_QUIT"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_QUITQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_REPLACE"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_REPLACEQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_SET"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_SETQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_STAT"/>
+    <functioncall functionName="PROTOCOL_BINARY_CMD_VERSION"/>
+    <functioncall functionName="PROTOCOL_BINARY_REQ"/>
+    <functioncall functionName="PROTOCOL_BINARY_RESPONSE_KEY_EEXISTS"/>
+    <functioncall functionName="PROTOCOL_BINARY_RESPONSE_KEY_ENOENT"/>
+    <functioncall functionName="PROTOCOL_BINARY_RESPONSE_NOT_STORED"/>
+    <functioncall functionName="PROTOCOL_BINARY_RESPONSE_SUCCESS"/>
+    <functioncall functionName="PROTOCOL_BINARY_RESPONSE_UNKNOWN_COMMAND"/>
+    <functioncall functionName="SIGABRT"/>
+    <functioncall functionName="SIGHUP"/>
+    <functioncall functionName="SIGTERM"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="SOCK_STREAM"/>
+    <functioncall functionName="STDERR_FILENO"/>
+    <functioncall functionName="TEST_FAIL"/>
+    <functioncall functionName="TEST_PASS"/>
+    <functioncall functionName="TEST_SKIP"/>
+    <functioncall functionName="UMEM_DEFAULT"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="access"/>
+    <functioncall functionName="action"/>
+    <functioncall functionName="ai"/>
+    <functioncall functionName="ai_addr"/>
+    <functioncall functionName="ai_addrlen"/>
+    <functioncall functionName="ai_family"/>
+    <functioncall functionName="ai_protocol"/>
+    <functioncall functionName="ai_socktype"/>
+    <functioncall functionName="alarm"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="arithmetic_command"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="binary_hickup_recv_verification_thread"/>
+    <functioncall functionName="bodylen"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buffer"/>
+    <functioncall functionName="buffersize"/>
+    <functioncall functionName="bufsz"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="cache"/>
+    <functioncall functionName="cache_alloc"/>
+    <functioncall functionName="cache_bulkalloc"/>
+    <functioncall functionName="cache_constructor"/>
+    <functioncall functionName="cache_constructor_test"/>
+    <functioncall functionName="cache_create"/>
+    <functioncall functionName="cache_create_test"/>
+    <functioncall functionName="cache_destroy"/>
+    <functioncall functionName="cache_destructor"/>
+    <functioncall functionName="cache_destructor_test"/>
+    <functioncall functionName="cache_fail_constructor"/>
+    <functioncall functionName="cache_fail_constructor_test"/>
+    <functioncall functionName="cache_free"/>
+    <functioncall functionName="cache_redzone_test"/>
+    <functioncall functionName="cache_reuse_test"/>
+    <functioncall functionName="cas"/>
+    <functioncall functionName="child"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmdlen"/>
+    <functioncall functionName="command"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="connect_server"/>
+    <functioncall functionName="constructor_pattern"/>
+    <functioncall functionName="coreadm"/>
+    <functioncall functionName="daemon"/>
+    <functioncall functionName="datasize"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="description"/>
+    <functioncall functionName="dta"/>
+    <functioncall functionName="dta_offset"/>
+    <functioncall functionName="dtalen"/>
+    <functioncall functionName="dup"/>
+    <functioncall functionName="dup2"/>
+    <functioncall functionName="efile"/>
+    <functioncall functionName="environment"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="execv"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exp"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="expiration"/>
+    <functioncall functionName="exptime"/>
+    <functioncall functionName="ext"/>
+    <functioncall functionName="ext_command"/>
+    <functioncall functionName="ext_offset"/>
+    <functioncall functionName="extlen"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fcntl"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush_command"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeaddrinfo"/>
+    <functioncall functionName="function"/>
+    <functioncall functionName="gai_strerror"/>
+    <functioncall functionName="getaddrinfo"/>
+    <functioncall functionName="getenv"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="getuid"/>
+    <functioncall functionName="hickup"/>
+    <functioncall functionName="hints"/>
+    <functioncall functionName="hostname"/>
+    <functioncall functionName="htonl"/>
+    <functioncall functionName="htonll"/>
+    <functioncall functionName="htons"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ii"/>
+    <functioncall functionName="in_port_t"/>
+    <functioncall functionName="initial"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_offset"/>
+    <functioncall functionName="keylen"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="len2"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookuphost"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="missing"/>
+    <functioncall functionName="mkstemp"/>
+    <functioncall functionName="more"/>
+    <functioncall functionName="need_more"/>
+    <functioncall functionName="newfile"/>
+    <functioncall functionName="nonblock"/>
+    <functioncall functionName="ntohl"/>
+    <functioncall functionName="ntohll"/>
+    <functioncall functionName="ntohs"/>
+    <functioncall functionName="num_bytes"/>
+    <functioncall functionName="num_cases"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="old_action"/>
+    <functioncall functionName="oldstderr"/>
+    <functioncall functionName="opcode"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="pid_file"/>
+    <functioncall functionName="pid_t"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="prv"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_join"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="putenv"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="raw_command"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="read_ascii_response"/>
+    <functioncall functionName="remove"/>
+    <functioncall functionName="request"/>
+    <functioncall functionName="response"/>
+    <functioncall functionName="response_header"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rsp"/>
+    <functioncall functionName="sa_mask"/>
+    <functioncall functionName="safe_recv"/>
+    <functioncall functionName="safe_recv_packet"/>
+    <functioncall functionName="safe_send"/>
+    <functioncall functionName="safe_strtol"/>
+    <functioncall functionName="safe_strtoll"/>
+    <functioncall functionName="safe_strtoul"/>
+    <functioncall functionName="safe_strtoull"/>
+    <functioncall functionName="send_ascii_command"/>
+    <functioncall functionName="server_pid"/>
+    <functioncall functionName="service"/>
+    <functioncall functionName="shutdown_memcached_server"/>
+    <functioncall functionName="sigaction"/>
+    <functioncall functionName="sigemptyset"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sleep"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sock"/>
+    <functioncall functionName="socket"/>
+    <functioncall functionName="srand"/>
+    <functioncall functionName="start_memcached_server"/>
+    <functioncall functionName="start_server"/>
+    <functioncall functionName="stat"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="stop_memcached_server"/>
+    <functioncall functionName="storage_command"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="system"/>
+    <functioncall functionName="test_binary_add"/>
+    <functioncall functionName="test_binary_add_impl"/>
+    <functioncall functionName="test_binary_addq"/>
+    <functioncall functionName="test_binary_append"/>
+    <functioncall functionName="test_binary_appendq"/>
+    <functioncall functionName="test_binary_concat_impl"/>
+    <functioncall functionName="test_binary_decr"/>
+    <functioncall functionName="test_binary_decr_impl"/>
+    <functioncall functionName="test_binary_decrq"/>
+    <functioncall functionName="test_binary_delete"/>
+    <functioncall functionName="test_binary_delete_impl"/>
+    <functioncall functionName="test_binary_deleteq"/>
+    <functioncall functionName="test_binary_flush"/>
+    <functioncall functionName="test_binary_flush_impl"/>
+    <functioncall functionName="test_binary_flushq"/>
+    <functioncall functionName="test_binary_gat"/>
+    <functioncall functionName="test_binary_gatk"/>
+    <functioncall functionName="test_binary_gatkq"/>
+    <functioncall functionName="test_binary_gatq"/>
+    <functioncall functionName="test_binary_get"/>
+    <functioncall functionName="test_binary_get_impl"/>
+    <functioncall functionName="test_binary_getk"/>
+    <functioncall functionName="test_binary_getkq"/>
+    <functioncall functionName="test_binary_getq"/>
+    <functioncall functionName="test_binary_getq_impl"/>
+    <functioncall functionName="test_binary_illegal"/>
+    <functioncall functionName="test_binary_incr"/>
+    <functioncall functionName="test_binary_incr_impl"/>
+    <functioncall functionName="test_binary_incrq"/>
+    <functioncall functionName="test_binary_noop"/>
+    <functioncall functionName="test_binary_pipeline_hickup"/>
+    <functioncall functionName="test_binary_pipeline_hickup_chunk"/>
+    <functioncall functionName="test_binary_prepend"/>
+    <functioncall functionName="test_binary_prependq"/>
+    <functioncall functionName="test_binary_quit"/>
+    <functioncall functionName="test_binary_quit_impl"/>
+    <functioncall functionName="test_binary_quitq"/>
+    <functioncall functionName="test_binary_replace"/>
+    <functioncall functionName="test_binary_replace_impl"/>
+    <functioncall functionName="test_binary_replaceq"/>
+    <functioncall functionName="test_binary_set"/>
+    <functioncall functionName="test_binary_set_impl"/>
+    <functioncall functionName="test_binary_setq"/>
+    <functioncall functionName="test_binary_stat"/>
+    <functioncall functionName="test_binary_version"/>
+    <functioncall functionName="test_issue_101"/>
+    <functioncall functionName="test_issue_102"/>
+    <functioncall functionName="test_issue_161"/>
+    <functioncall functionName="test_issue_44"/>
+    <functioncall functionName="test_issue_92"/>
+    <functioncall functionName="test_safe_strtol"/>
+    <functioncall functionName="test_safe_strtoll"/>
+    <functioncall functionName="test_safe_strtoul"/>
+    <functioncall functionName="test_safe_strtoull"/>
+    <functioncall functionName="test_vperror"/>
+    <functioncall functionName="tid"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tmo"/>
+    <functioncall functionName="tmpl"/>
+    <functioncall functionName="touch_command"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="umem_cache_alloc"/>
+    <functioncall functionName="umem_cache_create"/>
+    <functioncall functionName="umem_cache_destroy"/>
+    <functioncall functionName="umem_cache_free"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="use_extra"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="validate_response_header"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vperror"/>
+    <functioncall functionName="waitpid"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

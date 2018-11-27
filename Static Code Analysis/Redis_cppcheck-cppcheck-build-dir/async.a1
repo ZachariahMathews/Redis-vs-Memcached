@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4292291762">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;callbacks&apos; can be reduced." verbose="The scope of the variable &apos;callbacks&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="366"/>
+            <symbol>callbacks</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;de&apos; can be reduced." verbose="The scope of the variable &apos;de&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="367"/>
+            <symbol>de</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;pvariant&apos; can be reduced." verbose="The scope of the variable &apos;pvariant&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="368"/>
+            <symbol>pvariant</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;stype&apos; can be reduced." verbose="The scope of the variable &apos;stype&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="369"/>
+            <symbol>stype</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sname&apos; can be reduced." verbose="The scope of the variable &apos;sname&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="370"/>
+            <symbol>sname</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sname&apos; can be reduced." verbose="The scope of the variable &apos;sname&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="590"/>
+            <symbol>sname</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ret&apos; can be reduced." verbose="The scope of the variable &apos;ret&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="591"/>
+            <symbol>ret</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;__redisShiftCallback&apos;." verbose="Non-pure function: &apos;__redisShiftCallback&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\async.c" line="339"/>
+            <symbol>__redisShiftCallback</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="callbackHash" lineNumber="64"/>
+    <functiondecl functionName="callbackValDup" lineNumber="69"/>
+    <functiondecl functionName="callbackKeyCompare" lineNumber="76"/>
+    <functiondecl functionName="callbackKeyDestructor" lineNumber="86"/>
+    <functiondecl functionName="callbackValDestructor" lineNumber="91"/>
+    <functiondecl functionName="redisAsyncInitialize" lineNumber="105"/>
+    <functiondecl functionName="__redisAsyncCopyError" lineNumber="144"/>
+    <functiondecl functionName="redisAsyncConnect" lineNumber="153"/>
+    <functiondecl functionName="redisAsyncConnectBind" lineNumber="171"/>
+    <functiondecl functionName="redisAsyncConnectBindWithReuse" lineNumber="179"/>
+    <functiondecl functionName="redisAsyncConnectUnix" lineNumber="187"/>
+    <functiondecl functionName="redisAsyncSetConnectCallback" lineNumber="205"/>
+    <functiondecl functionName="redisAsyncSetDisconnectCallback" lineNumber="218"/>
+    <functiondecl functionName="__redisPushCallback" lineNumber="227"/>
+    <functiondecl functionName="__redisShiftCallback" lineNumber="249"/>
+    <functiondecl functionName="__redisRunCallback" lineNumber="265"/>
+    <functiondecl functionName="__redisAsyncFree" lineNumber="275"/>
+    <functiondecl functionName="redisAsyncFree" lineNumber="323"/>
+    <functiondecl functionName="__redisAsyncDisconnect" lineNumber="331"/>
+    <functiondecl functionName="redisAsyncDisconnect" lineNumber="357"/>
+    <functiondecl functionName="__redisGetSubscribeCallback" lineNumber="364"/>
+    <functiondecl functionName="redisProcessCallbacks" lineNumber="411"/>
+    <functiondecl functionName="__redisAsyncHandleConnect" lineNumber="494"/>
+    <functiondecl functionName="redisAsyncHandleRead" lineNumber="516"/>
+    <functiondecl functionName="redisAsyncHandleWrite" lineNumber="537"/>
+    <functiondecl functionName="nextArgument" lineNumber="566"/>
+    <functiondecl functionName="__redisAsyncCommand" lineNumber="583"/>
+    <functiondecl functionName="redisvAsyncCommand" lineNumber="650"/>
+    <functiondecl functionName="redisAsyncCommand" lineNumber="665"/>
+    <functiondecl functionName="redisAsyncCommandArgv" lineNumber="674"/>
+    <functiondecl functionName="redisAsyncFormattedCommand" lineNumber="684"/>
+    <functiondecl functionName="callbackHash" lineNumber="64"/>
+    <functiondecl functionName="callbackValDup" lineNumber="69"/>
+    <functiondecl functionName="callbackKeyCompare" lineNumber="76"/>
+    <functiondecl functionName="callbackKeyDestructor" lineNumber="86"/>
+    <functiondecl functionName="callbackValDestructor" lineNumber="91"/>
+    <functiondecl functionName="redisAsyncInitialize" lineNumber="105"/>
+    <functiondecl functionName="__redisAsyncCopyError" lineNumber="144"/>
+    <functiondecl functionName="redisAsyncConnect" lineNumber="153"/>
+    <functiondecl functionName="redisAsyncConnectBind" lineNumber="171"/>
+    <functiondecl functionName="redisAsyncConnectBindWithReuse" lineNumber="179"/>
+    <functiondecl functionName="redisAsyncConnectUnix" lineNumber="187"/>
+    <functiondecl functionName="redisAsyncSetConnectCallback" lineNumber="205"/>
+    <functiondecl functionName="redisAsyncSetDisconnectCallback" lineNumber="218"/>
+    <functiondecl functionName="__redisPushCallback" lineNumber="227"/>
+    <functiondecl functionName="__redisShiftCallback" lineNumber="249"/>
+    <functiondecl functionName="__redisRunCallback" lineNumber="265"/>
+    <functiondecl functionName="__redisAsyncFree" lineNumber="275"/>
+    <functiondecl functionName="redisAsyncFree" lineNumber="323"/>
+    <functiondecl functionName="__redisAsyncDisconnect" lineNumber="331"/>
+    <functiondecl functionName="redisAsyncDisconnect" lineNumber="357"/>
+    <functiondecl functionName="__redisGetSubscribeCallback" lineNumber="364"/>
+    <functiondecl functionName="redisProcessCallbacks" lineNumber="411"/>
+    <functiondecl functionName="__redisAsyncHandleConnect" lineNumber="494"/>
+    <functiondecl functionName="redisAsyncHandleRead" lineNumber="516"/>
+    <functiondecl functionName="redisAsyncHandleWrite" lineNumber="537"/>
+    <functiondecl functionName="nextArgument" lineNumber="566"/>
+    <functiondecl functionName="__redisAsyncCommand" lineNumber="583"/>
+    <functiondecl functionName="redisvAsyncCommand" lineNumber="650"/>
+    <functiondecl functionName="redisAsyncCommand" lineNumber="665"/>
+    <functiondecl functionName="redisAsyncCommandArgv" lineNumber="674"/>
+    <functiondecl functionName="redisAsyncFormattedCommand" lineNumber="684"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="REDIS_CONN_TCP"/>
+    <functioncall functionName="REDIS_CONN_UNIX"/>
+    <functioncall functionName="__redisAppendCommand"/>
+    <functioncall functionName="__redisAsyncCommand"/>
+    <functioncall functionName="__redisAsyncCopyError"/>
+    <functioncall functionName="__redisAsyncDisconnect"/>
+    <functioncall functionName="__redisAsyncFree"/>
+    <functioncall functionName="__redisAsyncHandleConnect"/>
+    <functioncall functionName="__redisGetSubscribeCallback"/>
+    <functioncall functionName="__redisPushCallback"/>
+    <functioncall functionName="__redisRunCallback"/>
+    <functioncall functionName="__redisShiftCallback"/>
+    <functioncall functionName="_dictClear"/>
+    <functioncall functionName="_dictExpandIfNeeded"/>
+    <functioncall functionName="_dictInit"/>
+    <functioncall functionName="_dictKeyIndex"/>
+    <functioncall functionName="_dictNextPower"/>
+    <functioncall functionName="_dictReset"/>
+    <functioncall functionName="ac"/>
+    <functioncall functionName="addRead"/>
+    <functioncall functionName="addWrite"/>
+    <functioncall functionName="alen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="argvlen"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="astr"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callbackDict"/>
+    <functioncall functionName="callbackHash"/>
+    <functioncall functionName="callbackKeyCompare"/>
+    <functioncall functionName="callbackKeyDestructor"/>
+    <functioncall functionName="callbackValDestructor"/>
+    <functioncall functionName="callbackValDup"/>
+    <functioncall functionName="callbacks"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cb"/>
+    <functioncall functionName="channels"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="clen"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cstr"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="delWrite"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictReplace"/>
+    <functioncall functionName="done"/>
+    <functioncall functionName="dstcb"/>
+    <functioncall functionName="dup"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fn"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeObject"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashFunction"/>
+    <functioncall functionName="he"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="invalid"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="keyCompare"/>
+    <functioncall functionName="keyDestructor"/>
+    <functioncall functionName="keyDup"/>
+    <functioncall functionName="l1"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextArgument"/>
+    <functioncall functionName="nextEntry"/>
+    <functioncall functionName="nextHe"/>
+    <functioncall functionName="obuf"/>
+    <functioncall functionName="onConnect"/>
+    <functioncall functionName="onDisconnect"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="patterns"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="prevde"/>
+    <functioncall functionName="privDataPtr"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="pvariant"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="realsize"/>
+    <functioncall functionName="redisAsyncInitialize"/>
+    <functioncall functionName="redisBufferRead"/>
+    <functioncall functionName="redisBufferWrite"/>
+    <functioncall functionName="redisCheckSocketError"/>
+    <functioncall functionName="redisConnectBindNonBlock"/>
+    <functioncall functionName="redisConnectBindNonBlockWithReuse"/>
+    <functioncall functionName="redisConnectNonBlock"/>
+    <functioncall functionName="redisConnectUnixNonBlock"/>
+    <functioncall functionName="redisFormatSdsCommandArgv"/>
+    <functioncall functionName="redisFree"/>
+    <functioncall functionName="redisGetReply"/>
+    <functioncall functionName="redisProcessCallbacks"/>
+    <functioncall functionName="redisvAsyncCommand"/>
+    <functioncall functionName="redisvFormatCommand"/>
+    <functioncall functionName="replies"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizemask"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sname"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="source_addr"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strncasecmp"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="table"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tolower"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="valDestructor"/>
+    <functioncall functionName="valDup"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

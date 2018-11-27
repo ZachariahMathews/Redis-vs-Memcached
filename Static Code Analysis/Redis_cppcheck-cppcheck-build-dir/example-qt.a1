@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3885257311">
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;ExampleQt::m_ctx&apos; is not initialized in the constructor." verbose="Member variable &apos;ExampleQt::m_ctx&apos; is not initialized in the constructor." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\examples\example-qt.cpp" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\examples\example-qt.h" line="11"/>
+            <symbol>ExampleQt::m_ctx</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getCallback" lineNumber="9"/>
+    <functiondecl functionName="run" lineNumber="20"/>
+    <functiondecl functionName="main" lineNumber="36"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="QObject"/>
+    <functioncall functionName="app"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="example"/>
+    <functioncall functionName="exec"/>
+    <functioncall functionName="finish"/>
+    <functioncall functionName="finished"/>
+    <functioncall functionName="getCallback"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="m_ctx"/>
+    <functioncall functionName="m_value"/>
+    <functioncall functionName="parent"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="redisAsyncCommand"/>
+    <functioncall functionName="redisAsyncConnect"/>
+    <functioncall functionName="redisAsyncFree"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="setContext"/>
+    <functioncall functionName="singleShot"/>
+    <functioncall functionName="static_cast"/>
+    <functioncall functionName="this"/>
+    <functioncall functionName="value"/>
+  </FileInfo>
+</analyzerinfo>

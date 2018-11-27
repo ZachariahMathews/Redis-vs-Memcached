@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1074108229">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="redisGitSHA1" lineNumber="40"/>
+    <functiondecl functionName="redisGitDirty" lineNumber="44"/>
+    <functiondecl functionName="redisBuildId" lineNumber="48"/>
+    <functiondecl functionName="redisGitSHA1" lineNumber="40"/>
+    <functiondecl functionName="redisGitDirty" lineNumber="44"/>
+    <functiondecl functionName="redisBuildId" lineNumber="48"/>
+    <functioncall functionName="buildid"/>
+    <functioncall functionName="crc64"/>
+    <functioncall functionName="strlen"/>
+  </FileInfo>
+</analyzerinfo>

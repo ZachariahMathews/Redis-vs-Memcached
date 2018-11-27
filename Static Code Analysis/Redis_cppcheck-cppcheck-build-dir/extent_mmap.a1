@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="65602548">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="extent_alloc_mmap" lineNumber="22"/>
+    <functiondecl functionName="extent_dalloc_mmap" lineNumber="37"/>
+    <functiondecl functionName="extent_alloc_mmap" lineNumber="22"/>
+    <functiondecl functionName="extent_dalloc_mmap" lineNumber="37"/>
+    <functioncall functionName="ALIGNMENT_CEILING"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="new_addr"/>
+    <functioncall functionName="opt_retain"/>
+    <functioncall functionName="pages_map"/>
+    <functioncall functionName="pages_unmap"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

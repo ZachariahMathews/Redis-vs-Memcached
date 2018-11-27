@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1637965868">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;value&apos; can be reduced." verbose="The scope of the variable &apos;value&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_list.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_list.c" line="566"/>
+            <symbol>value</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;o&apos; can be reduced." verbose="The scope of the variable &apos;o&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_list.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_list.c" line="687"/>
+            <symbol>o</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="listTypePush" lineNumber="41"/>
+    <functiondecl functionName="listPopSaver" lineNumber="53"/>
+    <functiondecl functionName="listTypePop" lineNumber="57"/>
+    <functiondecl functionName="listTypeLength" lineNumber="74"/>
+    <functiondecl functionName="listTypeInitIterator" lineNumber="83"/>
+    <functiondecl functionName="listTypeReleaseIterator" lineNumber="104"/>
+    <functiondecl functionName="listTypeNext" lineNumber="112"/>
+    <functiondecl functionName="listTypeGet" lineNumber="126"/>
+    <functiondecl functionName="listTypeInsert" lineNumber="141"/>
+    <functiondecl functionName="listTypeEqual" lineNumber="160"/>
+    <functiondecl functionName="listTypeDelete" lineNumber="170"/>
+    <functiondecl functionName="listTypeConvert" lineNumber="179"/>
+    <functiondecl functionName="pushGenericCommand" lineNumber="197"/>
+    <functiondecl functionName="lpushCommand" lineNumber="226"/>
+    <functiondecl functionName="rpushCommand" lineNumber="230"/>
+    <functiondecl functionName="pushxGenericCommand" lineNumber="234"/>
+    <functiondecl functionName="lpushxCommand" lineNumber="256"/>
+    <functiondecl functionName="rpushxCommand" lineNumber="260"/>
+    <functiondecl functionName="linsertCommand" lineNumber="264"/>
+    <functiondecl functionName="llenCommand" lineNumber="308"/>
+    <functiondecl functionName="lindexCommand" lineNumber="314"/>
+    <functiondecl functionName="lsetCommand" lineNumber="341"/>
+    <functiondecl functionName="popGenericCommand" lineNumber="367"/>
+    <functiondecl functionName="lpopCommand" lineNumber="390"/>
+    <functiondecl functionName="rpopCommand" lineNumber="394"/>
+    <functiondecl functionName="lrangeCommand" lineNumber="398"/>
+    <functiondecl functionName="ltrimCommand" lineNumber="444"/>
+    <functiondecl functionName="lremCommand" lineNumber="490"/>
+    <functiondecl functionName="rpoplpushHandlePush" lineNumber="550"/>
+    <functiondecl functionName="rpoplpushCommand" lineNumber="565"/>
+    <functiondecl functionName="serveClientBlockedOnList" lineNumber="628"/>
+    <functiondecl functionName="blockingPopGenericCommand" lineNumber="686"/>
+    <functiondecl functionName="blpopCommand" lineNumber="742"/>
+    <functiondecl functionName="brpopCommand" lineNumber="746"/>
+    <functiondecl functionName="brpoplpushCommand" lineNumber="750"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="blockForKeys"/>
+    <functioncall functionName="blockingPopGenericCommand"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="cnegone"/>
+    <functioncall functionName="createQuicklistObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLong"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="depth"/>
+    <functioncall functionName="direction"/>
+    <functioncall functionName="dobj"/>
+    <functioncall functionName="dstkey"/>
+    <functioncall functionName="dstobj"/>
+    <functioncall functionName="emptymultibulk"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getTimeoutFromObjectOrReply"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="inserted"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="iter_direction"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="listPopSaver"/>
+    <functioncall functionName="listTypeDelete"/>
+    <functioncall functionName="listTypeEqual"/>
+    <functioncall functionName="listTypeInitIterator"/>
+    <functioncall functionName="listTypeInsert"/>
+    <functioncall functionName="listTypeLength"/>
+    <functioncall functionName="listTypeNext"/>
+    <functioncall functionName="listTypePop"/>
+    <functioncall functionName="listTypePush"/>
+    <functioncall functionName="listTypeReleaseIterator"/>
+    <functioncall functionName="list_compress_depth"/>
+    <functioncall functionName="list_max_ziplist_size"/>
+    <functioncall functionName="llen"/>
+    <functioncall functionName="lobj"/>
+    <functioncall functionName="longval"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupKeyWriteOrReply"/>
+    <functioncall functionName="lpop"/>
+    <functioncall functionName="lpopCommand"/>
+    <functioncall functionName="lpush"/>
+    <functioncall functionName="lpushCommand"/>
+    <functioncall functionName="ltrim"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="nokeyerr"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="nullmultibulk"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="outofrangeerr"/>
+    <functioncall functionName="popGenericCommand"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="propagate"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pushGenericCommand"/>
+    <functioncall functionName="pushed"/>
+    <functioncall functionName="pushxGenericCommand"/>
+    <functioncall functionName="ql"/>
+    <functioncall functionName="ql_where"/>
+    <functioncall functionName="quicklist"/>
+    <functioncall functionName="quicklistCompare"/>
+    <functioncall functionName="quicklistCount"/>
+    <functioncall functionName="quicklistCreateFromZiplist"/>
+    <functioncall functionName="quicklistDelEntry"/>
+    <functioncall functionName="quicklistDelRange"/>
+    <functioncall functionName="quicklistGetIteratorAtIdx"/>
+    <functioncall functionName="quicklistIndex"/>
+    <functioncall functionName="quicklistInsertAfter"/>
+    <functioncall functionName="quicklistInsertBefore"/>
+    <functioncall functionName="quicklistNext"/>
+    <functioncall functionName="quicklistPopCustom"/>
+    <functioncall functionName="quicklistPush"/>
+    <functioncall functionName="quicklistReplaceAtIndex"/>
+    <functioncall functionName="quicklistSetOptions"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rangelen"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="receiver"/>
+    <functioncall functionName="removed"/>
+    <functioncall functionName="replaced"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteClientCommandVector"/>
+    <functioncall functionName="rpop"/>
+    <functioncall functionName="rpopCommand"/>
+    <functioncall functionName="rpoplpush"/>
+    <functioncall functionName="rpoplpushCommand"/>
+    <functioncall functionName="rpoplpushHandlePush"/>
+    <functioncall functionName="rtrim"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sobj"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="subject"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="toremove"/>
+    <functioncall functionName="touchedkey"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vlong"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="where"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zi"/>
+    <functioncall functionName="zlen"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

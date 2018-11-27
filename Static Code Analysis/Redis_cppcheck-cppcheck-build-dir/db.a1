@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4267256593">
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;!filter&apos; is always true" verbose="Condition &apos;!filter&apos; is always true" cwe="571">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\db.c" file="C:\Users\bharm\Downloads\redis-unstable\src\db.c" line="746" info="Condition &apos;!filter&apos; is always true"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\db.c" file="C:\Users\bharm\Downloads\redis-unstable\src\db.c" line="743" info="Assignment &apos;filter=0&apos;, assigned value is 0"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;de&apos; can be reduced." verbose="The scope of the variable &apos;de&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\db.c" file="C:\Users\bharm\Downloads\redis-unstable\src\db.c" line="236"/>
+            <symbol>de</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;keyobj&apos; can be reduced." verbose="The scope of the variable &apos;keyobj&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\db.c" file="C:\Users\bharm\Downloads\redis-unstable\src\db.c" line="548"/>
+            <symbol>keyobj</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+        <error id="uninitvar" severity="error" msg="Uninitialized variable: key" verbose="Uninitialized variable: key" cwe="908">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\db.c" file="C:\Users\bharm\Downloads\redis-unstable\src\db.c" line="590"/>
+            <symbol>key</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="updateLFU" lineNumber="46"/>
+    <functiondecl functionName="lookupKey" lineNumber="55"/>
+    <functiondecl functionName="lookupKeyReadWithFlags" lineNumber="100"/>
+    <functiondecl functionName="lookupKeyRead" lineNumber="143"/>
+    <functiondecl functionName="lookupKeyWrite" lineNumber="152"/>
+    <functiondecl functionName="lookupKeyReadOrReply" lineNumber="157"/>
+    <functiondecl functionName="lookupKeyWriteOrReply" lineNumber="163"/>
+    <functiondecl functionName="dbAdd" lineNumber="173"/>
+    <functiondecl functionName="dbOverwrite" lineNumber="189"/>
+    <functiondecl functionName="setKey" lineNumber="216"/>
+    <functiondecl functionName="dbExists" lineNumber="227"/>
+    <functiondecl functionName="dbRandomKey" lineNumber="235"/>
+    <functiondecl functionName="dbSyncDelete" lineNumber="271"/>
+    <functiondecl functionName="dbDelete" lineNumber="285"/>
+    <functiondecl functionName="dbUnshareStringValue" lineNumber="317"/>
+    <functiondecl functionName="emptyDb" lineNumber="342"/>
+    <functiondecl functionName="selectDb" lineNumber="379"/>
+    <functiondecl functionName="signalModifiedKey" lineNumber="395"/>
+    <functiondecl functionName="signalFlushedDb" lineNumber="399"/>
+    <functiondecl functionName="getFlushCommandFlags" lineNumber="415"/>
+    <functiondecl functionName="flushdbCommand" lineNumber="432"/>
+    <functiondecl functionName="flushallCommand" lineNumber="444"/>
+    <functiondecl functionName="delGenericCommand" lineNumber="468"/>
+    <functiondecl functionName="delCommand" lineNumber="486"/>
+    <functiondecl functionName="unlinkCommand" lineNumber="490"/>
+    <functiondecl functionName="existsCommand" lineNumber="496"/>
+    <functiondecl functionName="selectCommand" lineNumber="506"/>
+    <functiondecl functionName="randomkeyCommand" lineNumber="524"/>
+    <functiondecl functionName="keysCommand" lineNumber="536"/>
+    <functiondecl functionName="scanCallback" lineNumber="565"/>
+    <functiondecl functionName="parseScanCursorOrReply" lineNumber="598"/>
+    <functiondecl functionName="scanGenericCommand" lineNumber="624"/>
+    <functiondecl functionName="scanCommand" lineNumber="802"/>
+    <functiondecl functionName="dbsizeCommand" lineNumber="808"/>
+    <functiondecl functionName="lastsaveCommand" lineNumber="812"/>
+    <functiondecl functionName="typeCommand" lineNumber="816"/>
+    <functiondecl functionName="shutdownCommand" lineNumber="841"/>
+    <functiondecl functionName="renameGenericCommand" lineNumber="869"/>
+    <functiondecl functionName="renameCommand" lineNumber="911"/>
+    <functiondecl functionName="renamenxCommand" lineNumber="915"/>
+    <functiondecl functionName="moveCommand" lineNumber="919"/>
+    <functiondecl functionName="scanDatabaseForReadyLists" lineNumber="978"/>
+    <functiondecl functionName="dbSwapDatabases" lineNumber="1000"/>
+    <functiondecl functionName="swapdbCommand" lineNumber="1033"/>
+    <functiondecl functionName="removeExpire" lineNumber="1065"/>
+    <functiondecl functionName="setExpire" lineNumber="1076"/>
+    <functiondecl functionName="getExpire" lineNumber="1092"/>
+    <functiondecl functionName="propagateExpire" lineNumber="1113"/>
+    <functiondecl functionName="keyIsExpired" lineNumber="1130"/>
+    <functiondecl functionName="expireIfNeeded" lineNumber="1167"/>
+    <functiondecl functionName="getKeysUsingCommandTable" lineNumber="1195"/>
+    <functiondecl functionName="getKeysFromCommand" lineNumber="1240"/>
+    <functiondecl functionName="getKeysFreeResult" lineNumber="1251"/>
+    <functiondecl functionName="zunionInterGetKeys" lineNumber="1258"/>
+    <functiondecl functionName="evalGetKeys" lineNumber="1287"/>
+    <functiondecl functionName="sortGetKeys" lineNumber="1315"/>
+    <functiondecl functionName="migrateGetKeys" lineNumber="1357"/>
+    <functiondecl functionName="georadiusGetKeys" lineNumber="1388"/>
+    <functiondecl functionName="xreadGetKeys" lineNumber="1424"/>
+    <functiondecl functionName="slotToKeyUpdateKey" lineNumber="1470"/>
+    <functiondecl functionName="slotToKeyAdd" lineNumber="1489"/>
+    <functiondecl functionName="slotToKeyDel" lineNumber="1493"/>
+    <functiondecl functionName="slotToKeyFlush" lineNumber="1497"/>
+    <functiondecl functionName="getKeysInSlot" lineNumber="1507"/>
+    <functiondecl functionName="delKeysInSlot" lineNumber="1526"/>
+    <functiondecl functionName="countKeysInSlot" lineNumber="1547"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="LFUDecrAndReturn"/>
+    <functioncall functionName="LFUGetTimeInMinutes"/>
+    <functioncall functionName="LFULogIncr"/>
+    <functioncall functionName="LRU_CLOCK"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIGUSR1"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="add"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="async"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="avg_ttl"/>
+    <functioncall functionName="blocking_keys"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="counter"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongDouble"/>
+    <functioncall functionName="createStringObjectFromLongLong"/>
+    <functioncall functionName="cursor"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="db1"/>
+    <functioncall functionName="db2"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbAsyncDelete"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="dbOverwrite"/>
+    <functioncall functionName="dbRandomKey"/>
+    <functioncall functionName="dbSwapDatabases"/>
+    <functioncall functionName="dbSyncDelete"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decoded"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="decrRefCountVoid"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="del"/>
+    <functioncall functionName="delCommand"/>
+    <functioncall functionName="delGenericCommand"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictAddOrFind"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictEmpty"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetRandomKey"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictScan"/>
+    <functioncall functionName="dirty"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="emptyDb"/>
+    <functioncall functionName="emptyDbAsync"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="expire"/>
+    <functioncall functionName="expireIfNeeded"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="feedAppendOnlyFile"/>
+    <functioncall functionName="filter"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="firstkey"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="flushSlaveKeysWithExpireList"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="found_store"/>
+    <functioncall functionName="freeObjAsync"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getFlushCommandFlags"/>
+    <functioncall functionName="getKeysUsingCommandTable"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObject"/>
+    <functioncall functionName="getkeys_proc"/>
+    <functioncall functionName="hashslot"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="id1"/>
+    <functioncall functionName="id2"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="indexed"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intsetGet"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="kde"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyHashSlot"/>
+    <functioncall functionName="keyIsExpired"/>
+    <functioncall functionName="keylen"/>
+    <functioncall functionName="keyobj"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="keysds"/>
+    <functioncall functionName="keystep"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="kobj"/>
+    <functioncall functionName="last"/>
+    <functioncall functionName="lastkey"/>
+    <functioncall functionName="lastsave"/>
+    <functioncall functionName="lazyfree_lazy_expire"/>
+    <functioncall functionName="lazyfree_lazy_server_del"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="loading"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKey"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadWithFlags"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupKeyWriteOrReply"/>
+    <functioncall functionName="lru"/>
+    <functioncall functionName="lua_time_start"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="moduleGetCommandKeysViaAPI"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextnode"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nokeyerr"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="numdel"/>
+    <functioncall functionName="numkeys"/>
+    <functioncall functionName="nx"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="outofrangeerr"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="parseScanCursorOrReply"/>
+    <functioncall functionName="pat"/>
+    <functioncall functionName="patlen"/>
+    <functioncall functionName="pattern"/>
+    <functioncall functionName="plen"/>
+    <functioncall functionName="prepareForShutdown"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="propagateExpire"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="raxFree"/>
+    <functioncall functionName="raxInsert"/>
+    <functioncall functionName="raxNew"/>
+    <functioncall functionName="raxNext"/>
+    <functioncall functionName="raxRemove"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxStart"/>
+    <functioncall functionName="raxStop"/>
+    <functioncall functionName="rdbPopulateSaveInfo"/>
+    <functioncall functionName="rdbRemoveTempFile"/>
+    <functioncall functionName="rdbSave"/>
+    <functioncall functionName="rdb_child_pid"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="rememberSlaveKeyWithExpire"/>
+    <functioncall functionName="removeExpire"/>
+    <functioncall functionName="renameGenericCommand"/>
+    <functioncall functionName="replicationFeedSlaves"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="replylen"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rsi"/>
+    <functioncall functionName="rsiptr"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s64"/>
+    <functioncall functionName="samekey"/>
+    <functioncall functionName="sameobjecterr"/>
+    <functioncall functionName="saved_dirty"/>
+    <functioncall functionName="saveparamslen"/>
+    <functioncall functionName="scanCallback"/>
+    <functioncall functionName="scanDatabaseForReadyLists"/>
+    <functioncall functionName="scanGenericCommand"/>
+    <functioncall functionName="sdscmp"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdskey"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsval"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="sentinel_mode"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setExpire"/>
+    <functioncall functionName="signalFlushedDb"/>
+    <functioncall functionName="signalKeyAsReady"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="skip"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="slotToKeyAdd"/>
+    <functioncall functionName="slotToKeyDel"/>
+    <functioncall functionName="slotToKeyFlush"/>
+    <functioncall functionName="slotToKeyFlushAsync"/>
+    <functioncall functionName="slotToKeyUpdateKey"/>
+    <functioncall functionName="slots_keys_count"/>
+    <functioncall functionName="slots_to_keys"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="srcid"/>
+    <functioncall functionName="startdb"/>
+    <functioncall functionName="stored_key"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="stringmatchlen"/>
+    <functioncall functionName="strtoul"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="touchWatchedKey"/>
+    <functioncall functionName="touchWatchedKeysOnFlush"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="updateLFU"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="valDestructor"/>
+    <functioncall functionName="valDup"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vll"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="when"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

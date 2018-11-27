@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/memcached.c</file>
+    <line>4813</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/memcached.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '! settings.lru_crawler'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/memcached.c</file>
+    <line>4839</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/memcached.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '! settings.lru_crawler'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/memcached.c</file>
+    <line>161</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/memcached.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'allow_new_conns == 0'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/memcached.c</file>
+    <line>4772</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/memcached.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '! settings.slab_reassign'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/slab_automove.c</file>
+    <line>135</line>
+    <module>memcached-master</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/slab_automove.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'wd-&gt;evicted != NULL || false'</description>
+  </problem>
+</problems>
+

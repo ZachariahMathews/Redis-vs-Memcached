@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2708434615">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="36"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="41"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="46"/>
+    <functiondecl functionName="main" lineNumber="52"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="pow2_ceil_u32"/>
+    <functioncall functionName="pow2_ceil_u64"/>
+    <functioncall functionName="pow2_ceil_zu"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_pow2_ceil_u32"/>
+    <functioncall functionName="test_pow2_ceil_u64"/>
+    <functioncall functionName="test_pow2_ceil_zu"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

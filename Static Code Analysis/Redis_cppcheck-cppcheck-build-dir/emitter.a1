@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1269703351">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;abc.int_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;abc.int_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="373"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="368"/>
+            <symbol>abc.int_val</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;def.bool_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;def.bool_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="374"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="369"/>
+            <symbol>def.bool_val</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;ghi.int_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;ghi.int_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="375"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="370"/>
+            <symbol>ghi.int_val</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;def.bool_val&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;def.bool_val&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="380"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\emitter.c" line="374"/>
+            <symbol>def.bool_val</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="forwarding_cb" lineNumber="25"/>
+    <functiondecl functionName="assert_emit_output" lineNumber="68"/>
+    <functiondecl functionName="emit_dict" lineNumber="94"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="127"/>
+    <functiondecl functionName="emit_table_printf" lineNumber="133"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="149"/>
+    <functiondecl functionName="emit_nested_dict" lineNumber="155"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="194"/>
+    <functiondecl functionName="emit_types" lineNumber="201"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="249"/>
+    <functiondecl functionName="emit_modal" lineNumber="255"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="295"/>
+    <functiondecl functionName="emit_json_arr" lineNumber="301"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="341"/>
+    <functiondecl functionName="emit_table_row" lineNumber="347"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="398"/>
+    <functiondecl functionName="main" lineNumber="404"/>
+    <functioncall functionName="MALLOC_PRINTF_BUFSIZE"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="abc"/>
+    <functioncall functionName="assert_emit_output"/>
+    <functioncall functionName="assert_str_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_gt"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="b_false"/>
+    <functioncall functionName="b_true"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buf_descriptor"/>
+    <functioncall functionName="buf_descriptor_v"/>
+    <functioncall functionName="def"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="dict_json"/>
+    <functioncall functionName="dict_table"/>
+    <functioncall functionName="emit_dict"/>
+    <functioncall functionName="emit_json_arr"/>
+    <functioncall functionName="emit_modal"/>
+    <functioncall functionName="emit_nested_dict"/>
+    <functioncall functionName="emit_table_printf"/>
+    <functioncall functionName="emit_table_row"/>
+    <functioncall functionName="emit_types"/>
+    <functioncall functionName="emitter"/>
+    <functioncall functionName="emitter_begin"/>
+    <functioncall functionName="emitter_col_init"/>
+    <functioncall functionName="emitter_dict_begin"/>
+    <functioncall functionName="emitter_dict_end"/>
+    <functioncall functionName="emitter_end"/>
+    <functioncall functionName="emitter_init"/>
+    <functioncall functionName="emitter_json_arr_begin"/>
+    <functioncall functionName="emitter_json_arr_end"/>
+    <functioncall functionName="emitter_json_arr_obj_begin"/>
+    <functioncall functionName="emitter_json_arr_obj_end"/>
+    <functioncall functionName="emitter_json_arr_value"/>
+    <functioncall functionName="emitter_json_dict_begin"/>
+    <functioncall functionName="emitter_json_dict_end"/>
+    <functioncall functionName="emitter_json_kv"/>
+    <functioncall functionName="emitter_justify_left"/>
+    <functioncall functionName="emitter_justify_right"/>
+    <functioncall functionName="emitter_kv"/>
+    <functioncall functionName="emitter_kv_note"/>
+    <functioncall functionName="emitter_output_json"/>
+    <functioncall functionName="emitter_output_table"/>
+    <functioncall functionName="emitter_row_init"/>
+    <functioncall functionName="emitter_table_dict_begin"/>
+    <functioncall functionName="emitter_table_dict_end"/>
+    <functioncall functionName="emitter_table_kv"/>
+    <functioncall functionName="emitter_table_printf"/>
+    <functioncall functionName="emitter_table_row"/>
+    <functioncall functionName="emitter_type_bool"/>
+    <functioncall functionName="emitter_type_int"/>
+    <functioncall functionName="emitter_type_size"/>
+    <functioncall functionName="emitter_type_ssize"/>
+    <functioncall functionName="emitter_type_string"/>
+    <functioncall functionName="emitter_type_title"/>
+    <functioncall functionName="emitter_type_uint32"/>
+    <functioncall functionName="emitter_type_uint64"/>
+    <functioncall functionName="emitter_type_unsigned"/>
+    <functioncall functionName="expected_json_output"/>
+    <functioncall functionName="expected_table_output"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="forwarding_cb"/>
+    <functioncall functionName="ghi"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i_123"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ival"/>
+    <functioncall functionName="json_arr_json"/>
+    <functioncall functionName="json_arr_table"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_snprintf"/>
+    <functioncall functionName="mid_quote"/>
+    <functioncall functionName="modal_json"/>
+    <functioncall functionName="modal_table"/>
+    <functioncall functionName="nested_dict_json"/>
+    <functioncall functionName="nested_dict_table"/>
+    <functioncall functionName="print_escaped"/>
+    <functioncall functionName="print_raw"/>
+    <functioncall functionName="row"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="table_printf_json"/>
+    <functioncall functionName="table_printf_table"/>
+    <functioncall functionName="table_row_json"/>
+    <functioncall functionName="table_row_table"/>
+    <functioncall functionName="test_dict"/>
+    <functioncall functionName="test_json_arr"/>
+    <functioncall functionName="test_modal"/>
+    <functioncall functionName="test_nested_dict"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_table_printf"/>
+    <functioncall functionName="test_table_row"/>
+    <functioncall functionName="test_types"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="types_json"/>
+    <functioncall functionName="types_table"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="u32"/>
+    <functioncall functionName="u64"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="written"/>
+    <functioncall functionName="zd"/>
+    <functioncall functionName="zu"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>138</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unbound local variable</problem_class>
+    <description>Local variable 'slab' might be referenced before assignment</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>310</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unbound local variable</problem_class>
+    <description>Name 'decision' can be not defined</description>
+  </problem>
+</problems>
+

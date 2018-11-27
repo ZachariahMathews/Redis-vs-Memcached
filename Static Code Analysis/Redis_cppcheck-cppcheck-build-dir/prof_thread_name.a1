@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="872495753">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="mallctl_thread_name_get_impl" lineNumber="4"/>
+    <functiondecl functionName="mallctl_thread_name_set_impl" lineNumber="21"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="32"/>
+    <functiondecl functionName="thd_start" lineNumber="74"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="96"/>
+    <functiondecl functionName="main" lineNumber="116"/>
+    <functioncall functionName="EFAULT"/>
+    <functioncall functionName="EPERM"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="__func__"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_str_eq"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctl_thread_name_get_impl"/>
+    <functioncall functionName="mallctl_thread_name_set_impl"/>
+    <functioncall functionName="malloc_snprintf"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_prof_thread_name_threaded"/>
+    <functioncall functionName="test_prof_thread_name_validation"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_ind"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="thread_name"/>
+    <functioncall functionName="thread_name_expected"/>
+    <functioncall functionName="thread_name_old"/>
+    <functioncall functionName="varg"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4195696578">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functiondecl functionName="pthread_create" lineNumber="32"/>
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functiondecl functionName="malloc_mutex_lock_slow" lineNumber="47"/>
+    <functiondecl functionName="mutex_prof_data_init" lineNumber="104"/>
+    <functiondecl functionName="malloc_mutex_prof_data_reset" lineNumber="112"/>
+    <functiondecl functionName="mutex_addr_comp" lineNumber="118"/>
+    <functiondecl functionName="malloc_mutex_init" lineNumber="134"/>
+    <functiondecl functionName="malloc_mutex_prefork" lineNumber="186"/>
+    <functiondecl functionName="malloc_mutex_postfork_parent" lineNumber="191"/>
+    <functiondecl functionName="malloc_mutex_postfork_child" lineNumber="196"/>
+    <functiondecl functionName="malloc_mutex_boot" lineNumber="212"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="InitializeCriticalSectionAndSpinCount"/>
+    <functioncall functionName="MALLOC_MUTEX_MAX_SPIN"/>
+    <functioncall functionName="MALLOC_MUTEX_TYPE"/>
+    <functioncall functionName="NSTIME_ZERO_INITIALIZER"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OS_UNFAIR_LOCK_INIT"/>
+    <functioncall functionName="_pthread_mutex_init_calloc_cb"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="after"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_fetch_add_u32"/>
+    <functioncall functionName="atomic_fetch_sub_u32"/>
+    <functioncall functionName="attr"/>
+    <functioncall functionName="before"/>
+    <functioncall functionName="bootstrap_calloc"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="label_spin_done"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="lock_order"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_lock_final"/>
+    <functioncall functionName="malloc_mutex_trylock_final"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="max_n_thds"/>
+    <functioncall functionName="max_wait_time"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mutex"/>
+    <functioncall functionName="mutex1"/>
+    <functioncall functionName="mutex2"/>
+    <functioncall functionName="mutex_addr_comp"/>
+    <functioncall functionName="mutex_prof_data_init"/>
+    <functioncall functionName="mutex_prof_data_t"/>
+    <functioncall functionName="n_thds"/>
+    <functioncall functionName="n_waiting_thds"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="nstime_add"/>
+    <functioncall functionName="nstime_compare"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_subtract"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="opt_abort"/>
+    <functioncall functionName="postpone_init"/>
+    <functioncall functionName="postponed_mutexes"/>
+    <functioncall functionName="postponed_next"/>
+    <functioncall functionName="prof_data"/>
+    <functioncall functionName="pthread_create_wrapper"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutexattr_destroy"/>
+    <functioncall functionName="pthread_mutexattr_init"/>
+    <functioncall functionName="pthread_mutexattr_settype"/>
+    <functioncall functionName="rank"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="spin_cpu_spinwait"/>
+    <functioncall functionName="start_routine"/>
+    <functioncall functionName="thread"/>
+    <functioncall functionName="tot_wait_time"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="witness"/>
+    <functioncall functionName="witness_init"/>
+  </FileInfo>
+</analyzerinfo>

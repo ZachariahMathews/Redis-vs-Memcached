@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4221623591">
+        <error id="memleak" severity="error" msg="Memory leak: ptr" verbose="Memory leak: ptr" cwe="401">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\zmalloc.c" file="C:\Users\bharm\Downloads\redis-unstable\src\zmalloc.c" line="108"/>
+            <symbol>ptr</symbol>
+        </error>
+        <error id="memleak" severity="error" msg="Memory leak: ptr" verbose="Memory leak: ptr" cwe="401">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\zmalloc.c" file="C:\Users\bharm\Downloads\redis-unstable\src\zmalloc.c" line="140"/>
+            <symbol>ptr</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="zlibc_free" lineNumber="39"/>
+    <functiondecl functionName="zmalloc_default_oom" lineNumber="89"/>
+    <functiondecl functionName="zmalloc" lineNumber="98"/>
+    <functiondecl functionName="zcalloc" lineNumber="130"/>
+    <functiondecl functionName="zrealloc" lineNumber="144"/>
+    <functiondecl functionName="zmalloc_size" lineNumber="177"/>
+    <functiondecl functionName="zmalloc_usable" lineNumber="185"/>
+    <functiondecl functionName="zfree" lineNumber="190"/>
+    <functiondecl functionName="zstrdup" lineNumber="208"/>
+    <functiondecl functionName="zmalloc_used_memory" lineNumber="216"/>
+    <functiondecl functionName="zmalloc_set_oom_handler" lineNumber="222"/>
+    <functiondecl functionName="zmalloc_get_rss" lineNumber="294"/>
+    <functiondecl functionName="zmalloc_get_allocator_info" lineNumber="327"/>
+    <functiondecl functionName="zmalloc_get_smap_bytes_by_field" lineNumber="374"/>
+    <functiondecl functionName="zmalloc_get_private_dirty" lineNumber="381"/>
+    <functiondecl functionName="zmalloc_get_memory_size" lineNumber="398"/>
+    <functiondecl functionName="zlibc_free" lineNumber="39"/>
+    <functiondecl functionName="zmalloc_default_oom" lineNumber="89"/>
+    <functiondecl functionName="zmalloc" lineNumber="98"/>
+    <functiondecl functionName="zcalloc" lineNumber="130"/>
+    <functiondecl functionName="zrealloc" lineNumber="144"/>
+    <functiondecl functionName="zmalloc_size" lineNumber="177"/>
+    <functiondecl functionName="zmalloc_usable" lineNumber="185"/>
+    <functiondecl functionName="zfree" lineNumber="190"/>
+    <functiondecl functionName="zstrdup" lineNumber="208"/>
+    <functiondecl functionName="zmalloc_used_memory" lineNumber="216"/>
+    <functiondecl functionName="zmalloc_set_oom_handler" lineNumber="222"/>
+    <functiondecl functionName="zmalloc_get_rss" lineNumber="294"/>
+    <functiondecl functionName="zmalloc_get_allocator_info" lineNumber="327"/>
+    <functiondecl functionName="zmalloc_get_smap_bytes_by_field" lineNumber="374"/>
+    <functiondecl functionName="zmalloc_get_private_dirty" lineNumber="381"/>
+    <functiondecl functionName="zmalloc_get_memory_size" lineNumber="398"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="newptr"/>
+    <functioncall functionName="oom_handler"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="realptr"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="used_memory"/>
+    <functioncall functionName="used_memory_mutex"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_default_oom"/>
+    <functioncall functionName="zmalloc_get_smap_bytes_by_field"/>
+    <functioncall functionName="zmalloc_oom_handler"/>
+    <functioncall functionName="zmalloc_size"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+  </FileInfo>
+</analyzerinfo>

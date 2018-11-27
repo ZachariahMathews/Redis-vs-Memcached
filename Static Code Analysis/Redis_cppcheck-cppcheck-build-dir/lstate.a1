@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2050490038">
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="stack_init" lineNumber="42"/>
+    <functiondecl functionName="freestack" lineNumber="61"/>
+    <functiondecl functionName="f_luaopen" lineNumber="70"/>
+    <functiondecl functionName="preinit_state" lineNumber="84"/>
+    <functiondecl functionName="close_state" lineNumber="105"/>
+    <functiondecl functionName="luaE_newthread" lineNumber="119"/>
+    <functiondecl functionName="luaE_freethread" lineNumber="134"/>
+    <functiondecl functionName="lua_newstate" lineNumber="143"/>
+    <functiondecl functionName="callallgcTM" lineNumber="193"/>
+    <functiondecl functionName="lua_close" lineNumber="199"/>
+    <functiondecl functionName="stack_init" lineNumber="42"/>
+    <functiondecl functionName="freestack" lineNumber="61"/>
+    <functiondecl functionName="f_luaopen" lineNumber="70"/>
+    <functiondecl functionName="preinit_state" lineNumber="84"/>
+    <functiondecl functionName="close_state" lineNumber="105"/>
+    <functiondecl functionName="luaE_newthread" lineNumber="119"/>
+    <functiondecl functionName="luaE_freethread" lineNumber="134"/>
+    <functiondecl functionName="lua_newstate" lineNumber="143"/>
+    <functiondecl functionName="callallgcTM" lineNumber="193"/>
+    <functiondecl functionName="lua_close" lineNumber="199"/>
+    <functiondecl functionName="stack_init" lineNumber="42"/>
+    <functiondecl functionName="freestack" lineNumber="61"/>
+    <functiondecl functionName="f_luaopen" lineNumber="70"/>
+    <functiondecl functionName="preinit_state" lineNumber="84"/>
+    <functiondecl functionName="close_state" lineNumber="105"/>
+    <functiondecl functionName="luaE_newthread" lineNumber="119"/>
+    <functiondecl functionName="luaE_freethread" lineNumber="134"/>
+    <functiondecl functionName="lua_newstate" lineNumber="143"/>
+    <functiondecl functionName="callallgcTM" lineNumber="193"/>
+    <functiondecl functionName="lua_close" lineNumber="199"/>
+    <functiondecl functionName="stack_init" lineNumber="42"/>
+    <functiondecl functionName="freestack" lineNumber="61"/>
+    <functiondecl functionName="f_luaopen" lineNumber="70"/>
+    <functiondecl functionName="preinit_state" lineNumber="84"/>
+    <functiondecl functionName="close_state" lineNumber="105"/>
+    <functiondecl functionName="luaE_newthread" lineNumber="119"/>
+    <functiondecl functionName="luaE_freethread" lineNumber="134"/>
+    <functiondecl functionName="lua_newstate" lineNumber="143"/>
+    <functiondecl functionName="callallgcTM" lineNumber="193"/>
+    <functiondecl functionName="lua_close" lineNumber="199"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="L1"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TK_BREAK"/>
+    <functioncall functionName="TK_CONCAT"/>
+    <functioncall functionName="TK_DO"/>
+    <functioncall functionName="TK_DOTS"/>
+    <functioncall functionName="TK_ELSE"/>
+    <functioncall functionName="TK_ELSEIF"/>
+    <functioncall functionName="TK_END"/>
+    <functioncall functionName="TK_EOS"/>
+    <functioncall functionName="TK_EQ"/>
+    <functioncall functionName="TK_FALSE"/>
+    <functioncall functionName="TK_FOR"/>
+    <functioncall functionName="TK_FUNCTION"/>
+    <functioncall functionName="TK_GE"/>
+    <functioncall functionName="TK_IF"/>
+    <functioncall functionName="TK_IN"/>
+    <functioncall functionName="TK_LE"/>
+    <functioncall functionName="TK_LOCAL"/>
+    <functioncall functionName="TK_NAME"/>
+    <functioncall functionName="TK_NE"/>
+    <functioncall functionName="TK_NIL"/>
+    <functioncall functionName="TK_NOT"/>
+    <functioncall functionName="TK_NUMBER"/>
+    <functioncall functionName="TK_OR"/>
+    <functioncall functionName="TK_REPEAT"/>
+    <functioncall functionName="TK_RETURN"/>
+    <functioncall functionName="TK_STRING"/>
+    <functioncall functionName="TK_THEN"/>
+    <functioncall functionName="TK_TRUE"/>
+    <functioncall functionName="TK_UNTIL"/>
+    <functioncall functionName="TK_WHILE"/>
+    <functioncall functionName="TM_ADD"/>
+    <functioncall functionName="TM_CALL"/>
+    <functioncall functionName="TM_CONCAT"/>
+    <functioncall functionName="TM_DIV"/>
+    <functioncall functionName="TM_EQ"/>
+    <functioncall functionName="TM_GC"/>
+    <functioncall functionName="TM_INDEX"/>
+    <functioncall functionName="TM_LE"/>
+    <functioncall functionName="TM_LEN"/>
+    <functioncall functionName="TM_LT"/>
+    <functioncall functionName="TM_MOD"/>
+    <functioncall functionName="TM_MODE"/>
+    <functioncall functionName="TM_MUL"/>
+    <functioncall functionName="TM_N"/>
+    <functioncall functionName="TM_NEWINDEX"/>
+    <functioncall functionName="TM_POW"/>
+    <functioncall functionName="TM_SUB"/>
+    <functioncall functionName="TM_UNM"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="base_ci"/>
+    <functioncall functionName="basehookcount"/>
+    <functioncall functionName="buff"/>
+    <functioncall functionName="buffer"/>
+    <functioncall functionName="buffsize"/>
+    <functioncall functionName="callallgcTM"/>
+    <functioncall functionName="cast"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="close_state"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="f_luaopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="frealloc"/>
+    <functioncall functionName="freestack"/>
+    <functioncall functionName="g"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hook"/>
+    <functioncall functionName="hookmask"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l_G"/>
+    <functioncall functionName="l_gt"/>
+    <functioncall functionName="l_registry"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="luaC_callGCTM"/>
+    <functioncall functionName="luaC_freeall"/>
+    <functioncall functionName="luaC_link"/>
+    <functioncall functionName="luaC_separateudata"/>
+    <functioncall functionName="luaD_rawrunprotected"/>
+    <functioncall functionName="luaF_close"/>
+    <functioncall functionName="luaH_new"/>
+    <functioncall functionName="luaM_realloc_"/>
+    <functioncall functionName="luaM_toobig"/>
+    <functioncall functionName="luaS_newlstr"/>
+    <functioncall functionName="luaS_resize"/>
+    <functioncall functionName="luaT_init"/>
+    <functioncall functionName="luaX_init"/>
+    <functioncall functionName="lua_State"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="mainthread"/>
+    <functioncall functionName="marked"/>
+    <functioncall functionName="preinit_state"/>
+    <functioncall functionName="rootgc"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="stack"/>
+    <functioncall functionName="stack_init"/>
+    <functioncall functionName="top"/>
+    <functioncall functionName="totalbytes"/>
+    <functioncall functionName="tt"/>
+    <functioncall functionName="ud"/>
+    <functioncall functionName="uvhead"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

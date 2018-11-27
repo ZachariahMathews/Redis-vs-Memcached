@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3265026434">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;name&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;name&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\config.c" file="C:\Users\bharm\Downloads\redis-unstable\src\config.c" line="1870"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\config.c" file="C:\Users\bharm\Downloads\redis-unstable\src\config.c" line="1867"/>
+            <symbol>name</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;buf&apos; can be reduced." verbose="The scope of the variable &apos;buf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\config.c" file="C:\Users\bharm\Downloads\redis-unstable\src\config.c" line="836"/>
+            <symbol>buf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;line&apos; can be reduced." verbose="The scope of the variable &apos;line&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\config.c" file="C:\Users\bharm\Downloads\redis-unstable\src\config.c" line="1878"/>
+            <symbol>line</symbol>
+        </error>
+        <error id="unsignedLessThanZero" severity="style" msg="Checking if unsigned variable &apos;server.active_defrag_ignore_bytes&apos; is less than zero." verbose="The unsigned variable &apos;server.active_defrag_ignore_bytes&apos; will never be negative so it is either pointless or an error to check if it is." cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\config.c" file="C:\Users\bharm\Downloads\redis-unstable\src\config.c" line="561"/>
+            <symbol>server.active_defrag_ignore_bytes</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="aof_fsync_enum" size="4"/>
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+    <ArraySize array="loglevel_enum" size="5"/>
+    <ArraySize array="maxmemory_policy_enum" size="9"/>
+    <ArraySize array="supervised_mode_enum" size="5"/>
+    <ArraySize array="syslog_facility_enum" size="10"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="configEnumGetValue" lineNumber="106"/>
+    <functiondecl functionName="configEnumGetName" lineNumber="115"/>
+    <functiondecl functionName="configEnumGetNameOrUnknown" lineNumber="125"/>
+    <functiondecl functionName="evictPolicyToString" lineNumber="131"/>
+    <functiondecl functionName="yesnotoi" lineNumber="139"/>
+    <functiondecl functionName="appendServerSaveParams" lineNumber="145"/>
+    <functiondecl functionName="resetServerSaveParams" lineNumber="152"/>
+    <functiondecl functionName="queueLoadModule" lineNumber="158"/>
+    <functiondecl functionName="loadServerConfigFromString" lineNumber="172"/>
+    <functiondecl functionName="loadServerConfig" lineNumber="834"/>
+    <functiondecl functionName="configSetCommand" lineNumber="902"/>
+    <functiondecl functionName="configGetCommand" lineNumber="1325"/>
+    <functiondecl functionName="rewriteConfigAppendLine" lineNumber="1624"/>
+    <functiondecl functionName="rewriteConfigAddLineNumberToOption" lineNumber="1630"/>
+    <functiondecl functionName="rewriteConfigMarkAsProcessed" lineNumber="1644"/>
+    <functiondecl functionName="rewriteConfigReadOldFile" lineNumber="1655"/>
+    <functiondecl functionName="rewriteConfigRewriteLine" lineNumber="1740"/>
+    <functiondecl functionName="rewriteConfigFormatMemory" lineNumber="1777"/>
+    <functiondecl functionName="rewriteConfigBytesOption" lineNumber="1794"/>
+    <functiondecl functionName="rewriteConfigYesNoOption" lineNumber="1805"/>
+    <functiondecl functionName="rewriteConfigStringOption" lineNumber="1814"/>
+    <functiondecl functionName="rewriteConfigNumericalOption" lineNumber="1836"/>
+    <functiondecl functionName="rewriteConfigOctalOption" lineNumber="1844"/>
+    <functiondecl functionName="rewriteConfigEnumOption" lineNumber="1854"/>
+    <functiondecl functionName="rewriteConfigSyslogfacilityOption" lineNumber="1864"/>
+    <functiondecl functionName="rewriteConfigSaveOption" lineNumber="1876"/>
+    <functiondecl functionName="rewriteConfigDirOption" lineNumber="1893"/>
+    <functiondecl functionName="rewriteConfigSlaveofOption" lineNumber="1904"/>
+    <functiondecl functionName="rewriteConfigNotifykeyspaceeventsOption" lineNumber="1920"/>
+    <functiondecl functionName="rewriteConfigClientoutputbufferlimitOption" lineNumber="1934"/>
+    <functiondecl functionName="rewriteConfigBindOption" lineNumber="1963"/>
+    <functiondecl functionName="rewriteConfigGetContentFromState" lineNumber="1986"/>
+    <functiondecl functionName="rewriteConfigReleaseState" lineNumber="2005"/>
+    <functiondecl functionName="rewriteConfigRemoveOrphaned" lineNumber="2020"/>
+    <functiondecl functionName="rewriteConfigOverwriteFile" lineNumber="2059"/>
+    <functiondecl functionName="rewriteConfig" lineNumber="2112"/>
+    <functiondecl functionName="configCommand" lineNumber="2245"/>
+    <functioncall functionName="LOG_LOCAL0"/>
+    <functioncall functionName="LOG_LOCAL1"/>
+    <functioncall functionName="LOG_LOCAL2"/>
+    <functioncall functionName="LOG_LOCAL3"/>
+    <functioncall functionName="LOG_LOCAL4"/>
+    <functioncall functionName="LOG_LOCAL5"/>
+    <functioncall functionName="LOG_LOCAL6"/>
+    <functioncall functionName="LOG_LOCAL7"/>
+    <functioncall functionName="LOG_USER"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_CREAT"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="active_defrag_cycle_max"/>
+    <functioncall functionName="active_defrag_cycle_min"/>
+    <functioncall functionName="active_defrag_enabled"/>
+    <functioncall functionName="active_defrag_ignore_bytes"/>
+    <functioncall functionName="active_defrag_max_scan_fields"/>
+    <functioncall functionName="active_defrag_threshold_lower"/>
+    <functioncall functionName="active_defrag_threshold_upper"/>
+    <functioncall functionName="activerehashing"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="addresses"/>
+    <functioncall functionName="adjustOpenFilesLimit"/>
+    <functioncall functionName="aeGetSetSize"/>
+    <functioncall functionName="aeResizeSetSize"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alt"/>
+    <functioncall functionName="aof_filename"/>
+    <functioncall functionName="aof_fsync"/>
+    <functioncall functionName="aof_fsync_enum"/>
+    <functioncall functionName="aof_load_truncated"/>
+    <functioncall functionName="aof_no_fsync_on_rewrite"/>
+    <functioncall functionName="aof_rewrite_incremental_fsync"/>
+    <functioncall functionName="aof_rewrite_min_size"/>
+    <functioncall functionName="aof_rewrite_perc"/>
+    <functioncall functionName="aof_use_rdb_preamble"/>
+    <functioncall functionName="appendServerSaveParams"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="badfmt"/>
+    <functioncall functionName="bindaddr"/>
+    <functioncall functionName="bindaddr_count"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="ce"/>
+    <functioncall functionName="changes"/>
+    <functioncall functionName="chdir"/>
+    <functioncall functionName="class"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="client_max_querybuf_len"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cluster_announce_bus_port"/>
+    <functioncall functionName="cluster_announce_ip"/>
+    <functioncall functionName="cluster_announce_port"/>
+    <functioncall functionName="cluster_configfile"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cluster_migration_barrier"/>
+    <functioncall functionName="cluster_node_timeout"/>
+    <functioncall functionName="cluster_require_full_coverage"/>
+    <functioncall functionName="cluster_slave_no_failover"/>
+    <functioncall functionName="cluster_slave_validity_factor"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="commands"/>
+    <functioncall functionName="config"/>
+    <functioncall functionName="configEnumGetName"/>
+    <functioncall functionName="configEnumGetNameOrUnknown"/>
+    <functioncall functionName="configEnumGetValue"/>
+    <functioncall functionName="configGetCommand"/>
+    <functioncall functionName="configSetCommand"/>
+    <functioncall functionName="config_hz"/>
+    <functioncall functionName="configfile"/>
+    <functioncall functionName="content"/>
+    <functioncall functionName="content_padded"/>
+    <functioncall functionName="content_size"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="cwd"/>
+    <functioncall functionName="daemonize"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="defvalue"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictListDestructor"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictSdsCaseHash"/>
+    <functioncall functionName="dictSdsDestructor"/>
+    <functioncall functionName="dictSdsKeyCaseCompare"/>
+    <functioncall functionName="disableWatchdog"/>
+    <functioncall functionName="dynamic_hz"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="enableWatchdog"/>
+    <functioncall functionName="enumval"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flagsobj"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="force"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="freeMemoryIfNeeded"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="ftruncate"/>
+    <functioncall functionName="gb"/>
+    <functioncall functionName="getClientTypeByName"/>
+    <functioncall functionName="getClientTypeName"/>
+    <functioncall functionName="getLongLongFromObject"/>
+    <functioncall functionName="getcwd"/>
+    <functioncall functionName="hard"/>
+    <functioncall functionName="hard_limit_bytes"/>
+    <functioncall functionName="has_tail"/>
+    <functioncall functionName="hash_max_ziplist_entries"/>
+    <functioncall functionName="hash_max_ziplist_value"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="hll_sparse_max_bytes"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="kb"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyspaceEventsFlagsToString"/>
+    <functioncall functionName="keyspaceEventsStringToFlags"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="lazyfree_lazy_eviction"/>
+    <functioncall functionName="lazyfree_lazy_expire"/>
+    <functioncall functionName="lazyfree_lazy_server_del"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lfu_decay_time"/>
+    <functioncall functionName="lfu_log_factor"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="linenum"/>
+    <functioncall functionName="lines"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="list_compress_depth"/>
+    <functioncall functionName="list_max_ziplist_size"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="loadServerConfig"/>
+    <functioncall functionName="loadServerConfigFromString"/>
+    <functioncall functionName="loaderr"/>
+    <functioncall functionName="loadmod"/>
+    <functioncall functionName="loadmodule_queue"/>
+    <functioncall functionName="logfile"/>
+    <functioncall functionName="logfp"/>
+    <functioncall functionName="loglevel_enum"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupCommand"/>
+    <functioncall functionName="lua_time_limit"/>
+    <functioncall functionName="masterauth"/>
+    <functioncall functionName="masterhost"/>
+    <functioncall functionName="masterport"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxclients"/>
+    <functioncall functionName="maxidletime"/>
+    <functioncall functionName="maxmemory"/>
+    <functioncall functionName="maxmemory_policy"/>
+    <functioncall functionName="maxmemory_policy_enum"/>
+    <functioncall functionName="maxmemory_samples"/>
+    <functioncall functionName="mb"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="memtoll"/>
+    <functioncall functionName="mode_t"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newcontent"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="notify_keyspace_events"/>
+    <functioncall functionName="numlines"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="opt"/>
+    <functioncall functionName="option"/>
+    <functioncall functionName="optionSetDictType"/>
+    <functioncall functionName="optionToLineDictType"/>
+    <functioncall functionName="option_to_line"/>
+    <functioncall functionName="options"/>
+    <functioncall functionName="optname"/>
+    <functioncall functionName="orig_value"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="padding"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="pathIsBaseName"/>
+    <functioncall functionName="pattern"/>
+    <functioncall functionName="pidfile"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="protected_mode"/>
+    <functioncall functionName="proto_max_bulk_len"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="queueLoadModule"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rdb_checksum"/>
+    <functioncall functionName="rdb_compression"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="rdb_save_incremental_fsync"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="refreshGoodSlavesCount"/>
+    <functioncall functionName="repl_backlog_size"/>
+    <functioncall functionName="repl_backlog_time_limit"/>
+    <functioncall functionName="repl_disable_tcp_nodelay"/>
+    <functioncall functionName="repl_diskless_sync"/>
+    <functioncall functionName="repl_diskless_sync_delay"/>
+    <functioncall functionName="repl_min_slaves_max_lag"/>
+    <functioncall functionName="repl_min_slaves_to_write"/>
+    <functioncall functionName="repl_ping_slave_period"/>
+    <functioncall functionName="repl_serve_stale_data"/>
+    <functioncall functionName="repl_slave_ignore_maxmemory"/>
+    <functioncall functionName="repl_slave_lazy_flush"/>
+    <functioncall functionName="repl_slave_ro"/>
+    <functioncall functionName="repl_timeout"/>
+    <functioncall functionName="replylen"/>
+    <functioncall functionName="requirepass"/>
+    <functioncall functionName="resetCommandTableStats"/>
+    <functioncall functionName="resetServerSaveParams"/>
+    <functioncall functionName="resetServerStats"/>
+    <functioncall functionName="resizeReplicationBacklog"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteConfig"/>
+    <functioncall functionName="rewriteConfigAddLineNumberToOption"/>
+    <functioncall functionName="rewriteConfigAppendLine"/>
+    <functioncall functionName="rewriteConfigBindOption"/>
+    <functioncall functionName="rewriteConfigBytesOption"/>
+    <functioncall functionName="rewriteConfigClientoutputbufferlimitOption"/>
+    <functioncall functionName="rewriteConfigDirOption"/>
+    <functioncall functionName="rewriteConfigEnumOption"/>
+    <functioncall functionName="rewriteConfigFormatMemory"/>
+    <functioncall functionName="rewriteConfigGetContentFromState"/>
+    <functioncall functionName="rewriteConfigMarkAsProcessed"/>
+    <functioncall functionName="rewriteConfigNotifykeyspaceeventsOption"/>
+    <functioncall functionName="rewriteConfigNumericalOption"/>
+    <functioncall functionName="rewriteConfigOctalOption"/>
+    <functioncall functionName="rewriteConfigOverwriteFile"/>
+    <functioncall functionName="rewriteConfigReadOldFile"/>
+    <functioncall functionName="rewriteConfigReleaseState"/>
+    <functioncall functionName="rewriteConfigRemoveOrphaned"/>
+    <functioncall functionName="rewriteConfigRewriteLine"/>
+    <functioncall functionName="rewriteConfigSaveOption"/>
+    <functioncall functionName="rewriteConfigSentinelOption"/>
+    <functioncall functionName="rewriteConfigSlaveofOption"/>
+    <functioncall functionName="rewriteConfigStringOption"/>
+    <functioncall functionName="rewriteConfigSyslogfacilityOption"/>
+    <functioncall functionName="rewriteConfigYesNoOption"/>
+    <functioncall functionName="rewritten"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="saveparams"/>
+    <functioncall functionName="saveparamslen"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfreesplitres"/>
+    <functioncall functionName="sdsgrowzero"/>
+    <functioncall functionName="sdsjoin"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdssplitargs"/>
+    <functioncall functionName="sdssplitlen"/>
+    <functioncall functionName="sdstolower"/>
+    <functioncall functionName="sdstrim"/>
+    <functioncall functionName="seconds"/>
+    <functioncall functionName="sentinelHandleConfiguration"/>
+    <functioncall functionName="sentinel_mode"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="set_max_intset_entries"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slave_announce_ip"/>
+    <functioncall functionName="slave_announce_port"/>
+    <functioncall functionName="slave_priority"/>
+    <functioncall functionName="slaveof_linenum"/>
+    <functioncall functionName="slowlog_log_slower_than"/>
+    <functioncall functionName="slowlog_max_len"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="soft"/>
+    <functioncall functionName="soft_limit_bytes"/>
+    <functioncall functionName="soft_limit_seconds"/>
+    <functioncall functionName="soft_seconds"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="startAppendOnly"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdin"/>
+    <functioncall functionName="stopAppendOnly"/>
+    <functioncall functionName="stop_writes_on_bgsave_err"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="stream_node_max_bytes"/>
+    <functioncall functionName="stream_node_max_entries"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="stringmatch"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="supervised_mode"/>
+    <functioncall functionName="supervised_mode_enum"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syslog_enabled"/>
+    <functioncall functionName="syslog_facility"/>
+    <functioncall functionName="syslog_facility_enum"/>
+    <functioncall functionName="syslog_ident"/>
+    <functioncall functionName="tcp_backlog"/>
+    <functioncall functionName="tcpkeepalive"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="totlines"/>
+    <functioncall functionName="typename"/>
+    <functioncall functionName="unixsocket"/>
+    <functioncall functionName="unixsocketperm"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="verbosity"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="was_empty"/>
+    <functioncall functionName="watchdog_period"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="yesnotoi"/>
+    <functioncall functionName="yn"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zset_max_ziplist_entries"/>
+    <functioncall functionName="zset_max_ziplist_value"/>
+    <functioncall functionName="zstrdup"/>
+  </FileInfo>
+</analyzerinfo>

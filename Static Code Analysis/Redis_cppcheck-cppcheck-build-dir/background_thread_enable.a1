@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1235483450">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="5"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="33"/>
+    <functiondecl functionName="main" lineNumber="79"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="enable"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="maxt"/>
+    <functioncall functionName="n_background_threads"/>
+    <functioncall functionName="opt_maxt"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz_b"/>
+    <functioncall functionName="sz_m"/>
+    <functioncall functionName="sz_u"/>
+    <functioncall functionName="test_deferred"/>
+    <functioncall functionName="test_max_background_threads"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

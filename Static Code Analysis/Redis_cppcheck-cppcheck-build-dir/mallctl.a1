@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="753520948">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="5"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="32"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="42"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="78"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="105"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="119"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="145"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="192"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="216"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="239"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="332"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="368"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="406"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="438"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="470"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="493"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="516"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="561"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="609"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="641"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="673"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="691"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="709"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="724"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="741"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="757"/>
+    <functiondecl functionName="main" lineNumber="777"/>
+    <functioncall functionName="EFAULT"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ENOENT"/>
+    <functioncall functionName="EPERM"/>
+    <functioncall functionName="EXTENT_GROW_MAX_PIND"/>
+    <functioncall functionName="LARGE_MINCLASS"/>
+    <functioncall functionName="MALLCTL_ARENAS_ALL"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_TCACHE"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NBINS"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="QUANTUM"/>
+    <functioncall functionName="STRINGIFY"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena1"/>
+    <functioncall functionName="assert_b_eq"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_str_ne"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zd_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="bin_size"/>
+    <functioncall functionName="config_cache_oblivious"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_fill"/>
+    <functioncall functionName="config_lazy_lock"/>
+    <functioncall functionName="config_malloc_conf"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="config_prof_libgcc"/>
+    <functioncall functionName="config_prof_libunwind"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="config_utrace"/>
+    <functioncall functionName="config_xmalloc"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="default_limit"/>
+    <functioncall functionName="dirty_decay_ms"/>
+    <functioncall functionName="dss"/>
+    <functioncall functionName="dss_prec_new"/>
+    <functioncall functionName="dss_prec_old"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="initialized"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="muzzy_decay_ms"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="narenas"/>
+    <functioncall functionName="narenas_after"/>
+    <functioncall functionName="narenas_before"/>
+    <functioncall functionName="narenas_total_get"/>
+    <functioncall functionName="nbins"/>
+    <functioncall functionName="new_arena_ind"/>
+    <functioncall functionName="new_epoch"/>
+    <functioncall functionName="new_limit"/>
+    <functioncall functionName="nlextents"/>
+    <functioncall functionName="nregs"/>
+    <functioncall functionName="nthreads"/>
+    <functioncall functionName="old_arena_ind"/>
+    <functioncall functionName="old_dirty_decay_ms"/>
+    <functioncall functionName="old_epoch"/>
+    <functioncall functionName="old_limit"/>
+    <functioncall functionName="old_muzzy_decay_ms"/>
+    <functioncall functionName="oldval"/>
+    <functioncall functionName="opa"/>
+    <functioncall functionName="opt_narenas"/>
+    <functioncall functionName="opt_percpu_arena"/>
+    <functioncall functionName="opt_tcache"/>
+    <functioncall functionName="orig_dirty_decay_ms"/>
+    <functioncall functionName="orig_muzzy_decay_ms"/>
+    <functioncall functionName="p0"/>
+    <functioncall functionName="p1"/>
+    <functioncall functionName="pactive"/>
+    <functioncall functionName="page"/>
+    <functioncall functionName="pdirty"/>
+    <functioncall functionName="percpu_arena_ind_limit"/>
+    <functioncall functionName="prev_dirty_decay_ms"/>
+    <functioncall functionName="prev_muzzy_decay_ms"/>
+    <functioncall functionName="psz"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="q0"/>
+    <functioncall functionName="qsz"/>
+    <functioncall functionName="quantum"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="retain_enabled"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab_size"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_pind2sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_arena_i_decay"/>
+    <functioncall functionName="test_arena_i_dirty_decay_ms"/>
+    <functioncall functionName="test_arena_i_dss"/>
+    <functioncall functionName="test_arena_i_initialized"/>
+    <functioncall functionName="test_arena_i_muzzy_decay_ms"/>
+    <functioncall functionName="test_arena_i_purge"/>
+    <functioncall functionName="test_arena_i_retain_grow_limit"/>
+    <functioncall functionName="test_arenas_bin_constants"/>
+    <functioncall functionName="test_arenas_constants"/>
+    <functioncall functionName="test_arenas_create"/>
+    <functioncall functionName="test_arenas_dirty_decay_ms"/>
+    <functioncall functionName="test_arenas_lextent_constants"/>
+    <functioncall functionName="test_arenas_lookup"/>
+    <functioncall functionName="test_arenas_muzzy_decay_ms"/>
+    <functioncall functionName="test_mallctl_config"/>
+    <functioncall functionName="test_mallctl_errors"/>
+    <functioncall functionName="test_mallctl_opt"/>
+    <functioncall functionName="test_mallctl_read_write"/>
+    <functioncall functionName="test_mallctlbymib_errors"/>
+    <functioncall functionName="test_mallctlnametomib_errors"/>
+    <functioncall functionName="test_mallctlnametomib_short_mib"/>
+    <functioncall functionName="test_manpage_example"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="test_stats_arenas"/>
+    <functioncall functionName="test_tcache"/>
+    <functioncall functionName="test_tcache_none"/>
+    <functioncall functionName="test_thread_arena"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

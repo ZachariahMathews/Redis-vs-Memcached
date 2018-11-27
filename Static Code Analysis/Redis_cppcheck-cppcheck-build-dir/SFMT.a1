@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1144927518">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;work&apos; can be reduced." verbose="The scope of the variable &apos;work&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\SFMT.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\SFMT.c" line="386"/>
+            <symbol>work</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;x&apos; can be reduced." verbose="The scope of the variable &apos;x&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\SFMT.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\SFMT.c" line="348"/>
+            <symbol>x</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;y&apos; can be reduced." verbose="The scope of the variable &apos;y&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\SFMT.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\src\SFMT.c" line="348"/>
+            <symbol>y</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="idxof" lineNumber="149"/>
+    <functiondecl functionName="rshift128" lineNumber="178"/>
+    <functiondecl functionName="lshift128" lineNumber="217"/>
+    <functiondecl functionName="do_recursion" lineNumber="261"/>
+    <functiondecl functionName="gen_rand_all" lineNumber="285"/>
+    <functiondecl functionName="gen_rand_array" lineNumber="312"/>
+    <functiondecl functionName="func1" lineNumber="366"/>
+    <functiondecl functionName="func2" lineNumber="376"/>
+    <functiondecl functionName="period_certification" lineNumber="383"/>
+    <functiondecl functionName="get_idstring" lineNumber="419"/>
+    <functiondecl functionName="get_min_array_size32" lineNumber="428"/>
+    <functiondecl functionName="get_min_array_size64" lineNumber="437"/>
+    <functiondecl functionName="gen_rand32" lineNumber="447"/>
+    <functiondecl functionName="gen_rand32_range" lineNumber="461"/>
+    <functiondecl functionName="gen_rand64" lineNumber="482"/>
+    <functiondecl functionName="gen_rand64_range" lineNumber="511"/>
+    <functiondecl functionName="fill_array32" lineNumber="551"/>
+    <functiondecl functionName="fill_array64" lineNumber="587"/>
+    <functiondecl functionName="init_gen_rand" lineNumber="607"/>
+    <functiondecl functionName="init_by_array" lineNumber="638"/>
+    <functiondecl functionName="fini_gen_rand" lineNumber="714"/>
+    <functiondecl functionName="idxof" lineNumber="149"/>
+    <functiondecl functionName="rshift128" lineNumber="178"/>
+    <functiondecl functionName="lshift128" lineNumber="217"/>
+    <functiondecl functionName="do_recursion" lineNumber="261"/>
+    <functiondecl functionName="gen_rand_all" lineNumber="285"/>
+    <functiondecl functionName="gen_rand_array" lineNumber="312"/>
+    <functiondecl functionName="swap" lineNumber="346"/>
+    <functiondecl functionName="func1" lineNumber="366"/>
+    <functiondecl functionName="func2" lineNumber="376"/>
+    <functiondecl functionName="period_certification" lineNumber="383"/>
+    <functiondecl functionName="get_idstring" lineNumber="419"/>
+    <functiondecl functionName="get_min_array_size32" lineNumber="428"/>
+    <functiondecl functionName="get_min_array_size64" lineNumber="437"/>
+    <functiondecl functionName="gen_rand32" lineNumber="447"/>
+    <functiondecl functionName="gen_rand32_range" lineNumber="461"/>
+    <functiondecl functionName="gen_rand64" lineNumber="482"/>
+    <functiondecl functionName="gen_rand64_range" lineNumber="511"/>
+    <functiondecl functionName="fill_array32" lineNumber="551"/>
+    <functiondecl functionName="fill_array64" lineNumber="587"/>
+    <functiondecl functionName="init_gen_rand" lineNumber="607"/>
+    <functiondecl functionName="init_by_array" lineNumber="638"/>
+    <functiondecl functionName="fini_gen_rand" lineNumber="714"/>
+    <functiondecl functionName="idxof" lineNumber="149"/>
+    <functiondecl functionName="func1" lineNumber="366"/>
+    <functiondecl functionName="func2" lineNumber="376"/>
+    <functiondecl functionName="period_certification" lineNumber="383"/>
+    <functiondecl functionName="get_idstring" lineNumber="419"/>
+    <functiondecl functionName="get_min_array_size32" lineNumber="428"/>
+    <functiondecl functionName="get_min_array_size64" lineNumber="437"/>
+    <functiondecl functionName="gen_rand32" lineNumber="447"/>
+    <functiondecl functionName="gen_rand32_range" lineNumber="461"/>
+    <functiondecl functionName="gen_rand64" lineNumber="482"/>
+    <functiondecl functionName="gen_rand64_range" lineNumber="511"/>
+    <functiondecl functionName="fill_array32" lineNumber="551"/>
+    <functiondecl functionName="fill_array64" lineNumber="587"/>
+    <functiondecl functionName="init_gen_rand" lineNumber="607"/>
+    <functiondecl functionName="init_by_array" lineNumber="638"/>
+    <functiondecl functionName="fini_gen_rand" lineNumber="714"/>
+    <functiondecl functionName="idxof" lineNumber="145"/>
+    <functiondecl functionName="func1" lineNumber="366"/>
+    <functiondecl functionName="func2" lineNumber="376"/>
+    <functiondecl functionName="period_certification" lineNumber="383"/>
+    <functiondecl functionName="get_idstring" lineNumber="419"/>
+    <functiondecl functionName="get_min_array_size32" lineNumber="428"/>
+    <functiondecl functionName="get_min_array_size64" lineNumber="437"/>
+    <functiondecl functionName="gen_rand64" lineNumber="482"/>
+    <functiondecl functionName="gen_rand64_range" lineNumber="511"/>
+    <functiondecl functionName="fill_array64" lineNumber="587"/>
+    <functiondecl functionName="init_gen_rand" lineNumber="607"/>
+    <functiondecl functionName="init_by_array" lineNumber="638"/>
+    <functiondecl functionName="fini_gen_rand" lineNumber="714"/>
+    <functiondecl functionName="idxof" lineNumber="149"/>
+    <functiondecl functionName="func1" lineNumber="366"/>
+    <functiondecl functionName="func2" lineNumber="376"/>
+    <functiondecl functionName="period_certification" lineNumber="383"/>
+    <functiondecl functionName="get_idstring" lineNumber="419"/>
+    <functiondecl functionName="get_min_array_size32" lineNumber="428"/>
+    <functiondecl functionName="get_min_array_size64" lineNumber="437"/>
+    <functiondecl functionName="gen_rand32" lineNumber="447"/>
+    <functiondecl functionName="gen_rand32_range" lineNumber="461"/>
+    <functiondecl functionName="gen_rand64" lineNumber="482"/>
+    <functiondecl functionName="gen_rand64_range" lineNumber="511"/>
+    <functiondecl functionName="fill_array32" lineNumber="551"/>
+    <functiondecl functionName="fill_array64" lineNumber="587"/>
+    <functiondecl functionName="init_gen_rand" lineNumber="607"/>
+    <functiondecl functionName="init_by_array" lineNumber="638"/>
+    <functiondecl functionName="fini_gen_rand" lineNumber="714"/>
+    <functioncall functionName="KQU"/>
+    <functioncall functionName="MSK1"/>
+    <functioncall functionName="MSK2"/>
+    <functioncall functionName="MSK3"/>
+    <functioncall functionName="MSK4"/>
+    <functioncall functionName="N"/>
+    <functioncall functionName="N32"/>
+    <functioncall functionName="PARITY1"/>
+    <functioncall functionName="PARITY2"/>
+    <functioncall functionName="PARITY3"/>
+    <functioncall functionName="PARITY4"/>
+    <functioncall functionName="POS1"/>
+    <functioncall functionName="SL2"/>
+    <functioncall functionName="SR2"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="array"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="do_recursion"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="func1"/>
+    <functioncall functionName="func2"/>
+    <functioncall functionName="gen_rand32"/>
+    <functioncall functionName="gen_rand64"/>
+    <functioncall functionName="gen_rand_all"/>
+    <functioncall functionName="gen_rand_array"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="idxof"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="initialized"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="lag"/>
+    <functioncall functionName="lshift128"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mid"/>
+    <functioncall functionName="oh"/>
+    <functioncall functionName="ol"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="period_certification"/>
+    <functioncall functionName="posix_memalign"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="r1"/>
+    <functioncall functionName="r2"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rshift128"/>
+    <functioncall functionName="seed"/>
+    <functioncall functionName="sfmt"/>
+    <functioncall functionName="sfmt_t"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="swap"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="y"/>
+  </FileInfo>
+</analyzerinfo>

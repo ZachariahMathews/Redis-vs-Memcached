@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="625456483">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="wrtmessage" lineNumber="72"/>
+    <functiondecl functionName="malloc_write" lineNumber="83"/>
+    <functiondecl functionName="buferror" lineNumber="96"/>
+    <functiondecl functionName="malloc_strtoumax" lineNumber="114"/>
+    <functiondecl functionName="u2s" lineNumber="235"/>
+    <functiondecl functionName="d2s" lineNumber="277"/>
+    <functiondecl functionName="o2s" lineNumber="305"/>
+    <functiondecl functionName="x2s" lineNumber="316"/>
+    <functiondecl functionName="malloc_vsnprintf" lineNumber="327"/>
+    <functiondecl functionName="malloc_snprintf" lineNumber="611"/>
+    <functiondecl functionName="malloc_vcprintf" lineNumber="623"/>
+    <functiondecl functionName="malloc_cprintf" lineNumber="648"/>
+    <functiondecl functionName="malloc_printf" lineNumber="660"/>
+    <functiondecl functionName="wrtmessage" lineNumber="72"/>
+    <functiondecl functionName="malloc_write" lineNumber="83"/>
+    <functiondecl functionName="buferror" lineNumber="96"/>
+    <functiondecl functionName="malloc_strtoumax" lineNumber="114"/>
+    <functiondecl functionName="u2s" lineNumber="235"/>
+    <functiondecl functionName="d2s" lineNumber="277"/>
+    <functiondecl functionName="o2s" lineNumber="305"/>
+    <functiondecl functionName="x2s" lineNumber="316"/>
+    <functiondecl functionName="malloc_vsnprintf" lineNumber="327"/>
+    <functiondecl functionName="malloc_snprintf" lineNumber="611"/>
+    <functiondecl functionName="malloc_vcprintf" lineNumber="623"/>
+    <functiondecl functionName="malloc_cprintf" lineNumber="648"/>
+    <functiondecl functionName="malloc_printf" lineNumber="660"/>
+    <functiondecl functionName="wrtmessage" lineNumber="72"/>
+    <functiondecl functionName="malloc_write" lineNumber="83"/>
+    <functiondecl functionName="buferror" lineNumber="96"/>
+    <functiondecl functionName="malloc_strtoumax" lineNumber="114"/>
+    <functiondecl functionName="u2s" lineNumber="235"/>
+    <functiondecl functionName="d2s" lineNumber="277"/>
+    <functiondecl functionName="o2s" lineNumber="305"/>
+    <functiondecl functionName="x2s" lineNumber="316"/>
+    <functiondecl functionName="malloc_vsnprintf" lineNumber="327"/>
+    <functiondecl functionName="malloc_snprintf" lineNumber="611"/>
+    <functiondecl functionName="malloc_vcprintf" lineNumber="623"/>
+    <functiondecl functionName="malloc_cprintf" lineNumber="648"/>
+    <functiondecl functionName="malloc_printf" lineNumber="660"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ERANGE"/>
+    <functioncall functionName="FORMAT_MESSAGE_FROM_SYSTEM"/>
+    <functioncall functionName="FormatMessageA"/>
+    <functioncall functionName="JEMALLOC_CC_SILENCE_INIT"/>
+    <functioncall functionName="MALLOC_PRINTF_BUFSIZE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="STDERR_FILENO"/>
+    <functioncall functionName="UINTMAX_MAX"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="alt_form"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="cbopaque"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="cpylen"/>
+    <functioncall functionName="d2s"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="get_errno"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="je_malloc_message"/>
+    <functioncall functionName="label_length"/>
+    <functioncall functionName="label_out"/>
+    <functioncall functionName="label_prefix"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="label_width"/>
+    <functioncall functionName="left_justify"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_strtoumax"/>
+    <functioncall functionName="malloc_vcprintf"/>
+    <functioncall functionName="malloc_vsnprintf"/>
+    <functioncall functionName="malloc_write"/>
+    <functioncall functionName="malloc_write_fd"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="neg"/>
+    <functioncall functionName="nptr"/>
+    <functioncall functionName="o2s"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="plus_plus"/>
+    <functioncall functionName="plus_space"/>
+    <functioncall functionName="prec"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="set_errno"/>
+    <functioncall functionName="sign"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="slen_p"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strerror_r"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="u2s"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unlikely"/>
+    <functioncall functionName="unreachable"/>
+    <functioncall functionName="uppercase"/>
+    <functioncall functionName="uprec"/>
+    <functioncall functionName="uwidth"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="width"/>
+    <functioncall functionName="write_cb"/>
+    <functioncall functionName="wrtmessage"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="x2s"/>
+  </FileInfo>
+</analyzerinfo>

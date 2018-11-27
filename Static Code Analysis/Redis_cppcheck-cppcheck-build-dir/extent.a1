@@ -1,0 +1,666 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2459934118">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="extent_rtree_leaf_elm_try_lock" lineNumber="132"/>
+    <functiondecl functionName="extent_lock_from_addr" lineNumber="162"/>
+    <functiondecl functionName="extent_alloc" lineNumber="177"/>
+    <functiondecl functionName="extent_dalloc" lineNumber="190"/>
+    <functiondecl functionName="extent_hooks_get" lineNumber="197"/>
+    <functiondecl functionName="extent_hooks_set" lineNumber="202"/>
+    <functiondecl functionName="extent_hooks_assure_initialized" lineNumber="217"/>
+    <functiondecl functionName="extent_size_quantize_floor" lineNumber="228"/>
+    <functiondecl functionName="extent_size_quantize_ceil" lineNumber="254"/>
+    <functiondecl functionName="extents_state_get" lineNumber="299"/>
+    <functiondecl functionName="extents_npages_get" lineNumber="304"/>
+    <functiondecl functionName="extents_insert_locked" lineNumber="309"/>
+    <functiondecl functionName="extents_remove_locked" lineNumber="335"/>
+    <functiondecl functionName="extents_fit_alignment" lineNumber="365"/>
+    <functiondecl functionName="extents_best_fit_locked" lineNumber="399"/>
+    <functiondecl functionName="extents_first_fit_locked" lineNumber="426"/>
+    <functiondecl functionName="extents_fit_locked" lineNumber="457"/>
+    <functiondecl functionName="extent_try_delayed_coalesce" lineNumber="485"/>
+    <functiondecl functionName="extents_alloc" lineNumber="502"/>
+    <functiondecl functionName="extents_dalloc" lineNumber="517"/>
+    <functiondecl functionName="extents_evict" lineNumber="532"/>
+    <functiondecl functionName="extents_leak" lineNumber="596"/>
+    <functiondecl functionName="extents_prefork" lineNumber="614"/>
+    <functiondecl functionName="extents_postfork_parent" lineNumber="619"/>
+    <functiondecl functionName="extents_postfork_child" lineNumber="624"/>
+    <functiondecl functionName="extent_deactivate_locked" lineNumber="629"/>
+    <functiondecl functionName="extent_deactivate" lineNumber="639"/>
+    <functiondecl functionName="extent_activate_locked" lineNumber="647"/>
+    <functiondecl functionName="extent_rtree_leaf_elms_lookup" lineNumber="657"/>
+    <functiondecl functionName="extent_rtree_write_acquired" lineNumber="678"/>
+    <functiondecl functionName="extent_interior_register" lineNumber="688"/>
+    <functiondecl functionName="extent_gdump_add" lineNumber="701"/>
+    <functiondecl functionName="extent_gdump_sub" lineNumber="727"/>
+    <functiondecl functionName="extent_register_impl" lineNumber="738"/>
+    <functiondecl functionName="extent_register" lineNumber="771"/>
+    <functiondecl functionName="extent_register_no_gdump_add" lineNumber="776"/>
+    <functiondecl functionName="extent_reregister" lineNumber="781"/>
+    <functiondecl functionName="extent_interior_deregister" lineNumber="794"/>
+    <functiondecl functionName="extent_deregister_impl" lineNumber="811"/>
+    <functiondecl functionName="extent_deregister" lineNumber="834"/>
+    <functiondecl functionName="extent_deregister_no_gdump_sub" lineNumber="839"/>
+    <functiondecl functionName="extent_recycle_extract" lineNumber="848"/>
+    <functiondecl functionName="extent_split_interior" lineNumber="935"/>
+    <functiondecl functionName="extent_recycle_split" lineNumber="1012"/>
+    <functiondecl functionName="extent_recycle" lineNumber="1061"/>
+    <functiondecl functionName="extent_alloc_core" lineNumber="1138"/>
+    <functiondecl functionName="extent_alloc_default_impl" lineNumber="1168"/>
+    <functiondecl functionName="extent_alloc_default" lineNumber="1180"/>
+    <functiondecl functionName="extent_hook_pre_reentrancy" lineNumber="1198"/>
+    <functiondecl functionName="extent_hook_post_reentrancy" lineNumber="1215"/>
+    <functiondecl functionName="extent_grow_retained" lineNumber="1226"/>
+    <functiondecl functionName="extent_alloc_retained" lineNumber="1390"/>
+    <functiondecl functionName="extent_alloc_wrapper_hard" lineNumber="1419"/>
+    <functiondecl functionName="extent_alloc_wrapper" lineNumber="1458"/>
+    <functiondecl functionName="extent_can_coalesce" lineNumber="1487"/>
+    <functiondecl functionName="extent_coalesce" lineNumber="1507"/>
+    <functiondecl functionName="extent_try_coalesce" lineNumber="1527"/>
+    <functiondecl functionName="extent_record" lineNumber="1597"/>
+    <functiondecl functionName="extent_dalloc_gap" lineNumber="1640"/>
+    <functiondecl functionName="extent_dalloc_default_impl" lineNumber="1655"/>
+    <functiondecl functionName="extent_dalloc_default" lineNumber="1663"/>
+    <functiondecl functionName="extent_dalloc_wrapper_try" lineNumber="1669"/>
+    <functiondecl functionName="extent_dalloc_wrapper" lineNumber="1703"/>
+    <functiondecl functionName="extent_destroy_default_impl" lineNumber="1757"/>
+    <functiondecl functionName="extent_destroy_default" lineNumber="1764"/>
+    <functiondecl functionName="extent_destroy_wrapper" lineNumber="1770"/>
+    <functiondecl functionName="extent_commit_default" lineNumber="1800"/>
+    <functiondecl functionName="extent_commit_impl" lineNumber="1807"/>
+    <functiondecl functionName="extent_commit_wrapper" lineNumber="1828"/>
+    <functiondecl functionName="extent_decommit_default" lineNumber="1836"/>
+    <functiondecl functionName="extent_decommit_wrapper" lineNumber="1843"/>
+    <functiondecl functionName="extent_purge_lazy_impl" lineNumber="1880"/>
+    <functiondecl functionName="extent_purge_lazy_wrapper" lineNumber="1905"/>
+    <functiondecl functionName="extent_purge_forced_impl" lineNumber="1927"/>
+    <functiondecl functionName="extent_purge_forced_wrapper" lineNumber="1951"/>
+    <functiondecl functionName="extent_split_impl" lineNumber="1974"/>
+    <functiondecl functionName="extent_split_wrapper" lineNumber="2056"/>
+    <functiondecl functionName="extent_merge_default_impl" lineNumber="2064"/>
+    <functiondecl functionName="extent_merge_impl" lineNumber="2084"/>
+    <functiondecl functionName="extent_merge_wrapper" lineNumber="2156"/>
+    <functiondecl functionName="extent_boot" lineNumber="2162"/>
+    <functiondecl functionName="extent_rtree_leaf_elm_try_lock" lineNumber="132"/>
+    <functiondecl functionName="extent_lock_from_addr" lineNumber="162"/>
+    <functiondecl functionName="extent_alloc" lineNumber="177"/>
+    <functiondecl functionName="extent_dalloc" lineNumber="190"/>
+    <functiondecl functionName="extent_hooks_get" lineNumber="197"/>
+    <functiondecl functionName="extent_hooks_set" lineNumber="202"/>
+    <functiondecl functionName="extent_hooks_assure_initialized" lineNumber="217"/>
+    <functiondecl functionName="extent_size_quantize_floor" lineNumber="228"/>
+    <functiondecl functionName="extent_size_quantize_ceil" lineNumber="254"/>
+    <functiondecl functionName="extents_state_get" lineNumber="299"/>
+    <functiondecl functionName="extents_npages_get" lineNumber="304"/>
+    <functiondecl functionName="extents_insert_locked" lineNumber="309"/>
+    <functiondecl functionName="extents_remove_locked" lineNumber="335"/>
+    <functiondecl functionName="extents_fit_alignment" lineNumber="365"/>
+    <functiondecl functionName="extents_best_fit_locked" lineNumber="399"/>
+    <functiondecl functionName="extents_first_fit_locked" lineNumber="426"/>
+    <functiondecl functionName="extents_fit_locked" lineNumber="457"/>
+    <functiondecl functionName="extent_try_delayed_coalesce" lineNumber="485"/>
+    <functiondecl functionName="extents_alloc" lineNumber="502"/>
+    <functiondecl functionName="extents_dalloc" lineNumber="517"/>
+    <functiondecl functionName="extents_evict" lineNumber="532"/>
+    <functiondecl functionName="extents_leak" lineNumber="596"/>
+    <functiondecl functionName="extents_prefork" lineNumber="614"/>
+    <functiondecl functionName="extents_postfork_parent" lineNumber="619"/>
+    <functiondecl functionName="extents_postfork_child" lineNumber="624"/>
+    <functiondecl functionName="extent_deactivate_locked" lineNumber="629"/>
+    <functiondecl functionName="extent_deactivate" lineNumber="639"/>
+    <functiondecl functionName="extent_activate_locked" lineNumber="647"/>
+    <functiondecl functionName="extent_rtree_leaf_elms_lookup" lineNumber="657"/>
+    <functiondecl functionName="extent_rtree_write_acquired" lineNumber="678"/>
+    <functiondecl functionName="extent_interior_register" lineNumber="688"/>
+    <functiondecl functionName="extent_gdump_add" lineNumber="701"/>
+    <functiondecl functionName="extent_gdump_sub" lineNumber="727"/>
+    <functiondecl functionName="extent_register_impl" lineNumber="738"/>
+    <functiondecl functionName="extent_register" lineNumber="771"/>
+    <functiondecl functionName="extent_register_no_gdump_add" lineNumber="776"/>
+    <functiondecl functionName="extent_reregister" lineNumber="781"/>
+    <functiondecl functionName="extent_interior_deregister" lineNumber="794"/>
+    <functiondecl functionName="extent_deregister_impl" lineNumber="811"/>
+    <functiondecl functionName="extent_deregister" lineNumber="834"/>
+    <functiondecl functionName="extent_deregister_no_gdump_sub" lineNumber="839"/>
+    <functiondecl functionName="extent_recycle_extract" lineNumber="848"/>
+    <functiondecl functionName="extent_split_interior" lineNumber="935"/>
+    <functiondecl functionName="extent_recycle_split" lineNumber="1012"/>
+    <functiondecl functionName="extent_recycle" lineNumber="1061"/>
+    <functiondecl functionName="extent_alloc_core" lineNumber="1138"/>
+    <functiondecl functionName="extent_alloc_default_impl" lineNumber="1168"/>
+    <functiondecl functionName="extent_alloc_default" lineNumber="1180"/>
+    <functiondecl functionName="extent_hook_pre_reentrancy" lineNumber="1198"/>
+    <functiondecl functionName="extent_hook_post_reentrancy" lineNumber="1215"/>
+    <functiondecl functionName="extent_grow_retained" lineNumber="1226"/>
+    <functiondecl functionName="extent_alloc_retained" lineNumber="1390"/>
+    <functiondecl functionName="extent_alloc_wrapper_hard" lineNumber="1419"/>
+    <functiondecl functionName="extent_alloc_wrapper" lineNumber="1458"/>
+    <functiondecl functionName="extent_can_coalesce" lineNumber="1487"/>
+    <functiondecl functionName="extent_coalesce" lineNumber="1507"/>
+    <functiondecl functionName="extent_try_coalesce" lineNumber="1527"/>
+    <functiondecl functionName="extent_record" lineNumber="1597"/>
+    <functiondecl functionName="extent_dalloc_gap" lineNumber="1640"/>
+    <functiondecl functionName="extent_dalloc_default_impl" lineNumber="1655"/>
+    <functiondecl functionName="extent_dalloc_default" lineNumber="1663"/>
+    <functiondecl functionName="extent_dalloc_wrapper_try" lineNumber="1669"/>
+    <functiondecl functionName="extent_dalloc_wrapper" lineNumber="1703"/>
+    <functiondecl functionName="extent_destroy_default_impl" lineNumber="1757"/>
+    <functiondecl functionName="extent_destroy_default" lineNumber="1764"/>
+    <functiondecl functionName="extent_destroy_wrapper" lineNumber="1770"/>
+    <functiondecl functionName="extent_commit_default" lineNumber="1800"/>
+    <functiondecl functionName="extent_commit_impl" lineNumber="1807"/>
+    <functiondecl functionName="extent_commit_wrapper" lineNumber="1828"/>
+    <functiondecl functionName="extent_decommit_default" lineNumber="1836"/>
+    <functiondecl functionName="extent_decommit_wrapper" lineNumber="1843"/>
+    <functiondecl functionName="extent_purge_lazy_impl" lineNumber="1880"/>
+    <functiondecl functionName="extent_purge_lazy_wrapper" lineNumber="1905"/>
+    <functiondecl functionName="extent_purge_forced_impl" lineNumber="1927"/>
+    <functiondecl functionName="extent_purge_forced_wrapper" lineNumber="1951"/>
+    <functiondecl functionName="extent_split_default" lineNumber="1960"/>
+    <functiondecl functionName="extent_split_impl" lineNumber="1974"/>
+    <functiondecl functionName="extent_split_wrapper" lineNumber="2056"/>
+    <functiondecl functionName="extent_merge_default_impl" lineNumber="2064"/>
+    <functiondecl functionName="extent_merge_default" lineNumber="2077"/>
+    <functiondecl functionName="extent_merge_impl" lineNumber="2084"/>
+    <functiondecl functionName="extent_merge_wrapper" lineNumber="2156"/>
+    <functiondecl functionName="extent_boot" lineNumber="2162"/>
+    <functiondecl functionName="extent_rtree_leaf_elm_try_lock" lineNumber="132"/>
+    <functiondecl functionName="extent_lock_from_addr" lineNumber="162"/>
+    <functiondecl functionName="extent_alloc" lineNumber="177"/>
+    <functiondecl functionName="extent_dalloc" lineNumber="190"/>
+    <functiondecl functionName="extent_hooks_get" lineNumber="197"/>
+    <functiondecl functionName="extent_hooks_set" lineNumber="202"/>
+    <functiondecl functionName="extent_hooks_assure_initialized" lineNumber="217"/>
+    <functiondecl functionName="extent_size_quantize_floor" lineNumber="228"/>
+    <functiondecl functionName="extent_size_quantize_ceil" lineNumber="254"/>
+    <functiondecl functionName="extents_state_get" lineNumber="299"/>
+    <functiondecl functionName="extents_npages_get" lineNumber="304"/>
+    <functiondecl functionName="extents_insert_locked" lineNumber="309"/>
+    <functiondecl functionName="extents_remove_locked" lineNumber="335"/>
+    <functiondecl functionName="extents_fit_alignment" lineNumber="365"/>
+    <functiondecl functionName="extents_best_fit_locked" lineNumber="399"/>
+    <functiondecl functionName="extents_first_fit_locked" lineNumber="426"/>
+    <functiondecl functionName="extents_fit_locked" lineNumber="457"/>
+    <functiondecl functionName="extent_try_delayed_coalesce" lineNumber="485"/>
+    <functiondecl functionName="extents_alloc" lineNumber="502"/>
+    <functiondecl functionName="extents_dalloc" lineNumber="517"/>
+    <functiondecl functionName="extents_evict" lineNumber="532"/>
+    <functiondecl functionName="extents_leak" lineNumber="596"/>
+    <functiondecl functionName="extents_prefork" lineNumber="614"/>
+    <functiondecl functionName="extents_postfork_parent" lineNumber="619"/>
+    <functiondecl functionName="extents_postfork_child" lineNumber="624"/>
+    <functiondecl functionName="extent_deactivate_locked" lineNumber="629"/>
+    <functiondecl functionName="extent_deactivate" lineNumber="639"/>
+    <functiondecl functionName="extent_activate_locked" lineNumber="647"/>
+    <functiondecl functionName="extent_rtree_leaf_elms_lookup" lineNumber="657"/>
+    <functiondecl functionName="extent_rtree_write_acquired" lineNumber="678"/>
+    <functiondecl functionName="extent_interior_register" lineNumber="688"/>
+    <functiondecl functionName="extent_gdump_add" lineNumber="701"/>
+    <functiondecl functionName="extent_gdump_sub" lineNumber="727"/>
+    <functiondecl functionName="extent_register_impl" lineNumber="738"/>
+    <functiondecl functionName="extent_register" lineNumber="771"/>
+    <functiondecl functionName="extent_register_no_gdump_add" lineNumber="776"/>
+    <functiondecl functionName="extent_reregister" lineNumber="781"/>
+    <functiondecl functionName="extent_interior_deregister" lineNumber="794"/>
+    <functiondecl functionName="extent_deregister_impl" lineNumber="811"/>
+    <functiondecl functionName="extent_deregister" lineNumber="834"/>
+    <functiondecl functionName="extent_deregister_no_gdump_sub" lineNumber="839"/>
+    <functiondecl functionName="extent_recycle_extract" lineNumber="848"/>
+    <functiondecl functionName="extent_split_interior" lineNumber="935"/>
+    <functiondecl functionName="extent_recycle_split" lineNumber="1012"/>
+    <functiondecl functionName="extent_recycle" lineNumber="1061"/>
+    <functiondecl functionName="extent_alloc_core" lineNumber="1138"/>
+    <functiondecl functionName="extent_alloc_default_impl" lineNumber="1168"/>
+    <functiondecl functionName="extent_alloc_default" lineNumber="1180"/>
+    <functiondecl functionName="extent_hook_pre_reentrancy" lineNumber="1198"/>
+    <functiondecl functionName="extent_hook_post_reentrancy" lineNumber="1215"/>
+    <functiondecl functionName="extent_grow_retained" lineNumber="1226"/>
+    <functiondecl functionName="extent_alloc_retained" lineNumber="1390"/>
+    <functiondecl functionName="extent_alloc_wrapper_hard" lineNumber="1419"/>
+    <functiondecl functionName="extent_alloc_wrapper" lineNumber="1458"/>
+    <functiondecl functionName="extent_can_coalesce" lineNumber="1487"/>
+    <functiondecl functionName="extent_coalesce" lineNumber="1507"/>
+    <functiondecl functionName="extent_try_coalesce" lineNumber="1527"/>
+    <functiondecl functionName="extent_record" lineNumber="1597"/>
+    <functiondecl functionName="extent_dalloc_gap" lineNumber="1640"/>
+    <functiondecl functionName="extent_dalloc_default_impl" lineNumber="1655"/>
+    <functiondecl functionName="extent_dalloc_default" lineNumber="1663"/>
+    <functiondecl functionName="extent_dalloc_wrapper_try" lineNumber="1669"/>
+    <functiondecl functionName="extent_dalloc_wrapper" lineNumber="1703"/>
+    <functiondecl functionName="extent_destroy_default_impl" lineNumber="1757"/>
+    <functiondecl functionName="extent_destroy_default" lineNumber="1764"/>
+    <functiondecl functionName="extent_destroy_wrapper" lineNumber="1770"/>
+    <functiondecl functionName="extent_commit_default" lineNumber="1800"/>
+    <functiondecl functionName="extent_commit_impl" lineNumber="1807"/>
+    <functiondecl functionName="extent_commit_wrapper" lineNumber="1828"/>
+    <functiondecl functionName="extent_decommit_default" lineNumber="1836"/>
+    <functiondecl functionName="extent_decommit_wrapper" lineNumber="1843"/>
+    <functiondecl functionName="extent_purge_lazy_impl" lineNumber="1880"/>
+    <functiondecl functionName="extent_purge_lazy_wrapper" lineNumber="1905"/>
+    <functiondecl functionName="extent_purge_forced_default" lineNumber="1914"/>
+    <functiondecl functionName="extent_purge_forced_impl" lineNumber="1927"/>
+    <functiondecl functionName="extent_purge_forced_wrapper" lineNumber="1951"/>
+    <functiondecl functionName="extent_split_impl" lineNumber="1974"/>
+    <functiondecl functionName="extent_split_wrapper" lineNumber="2056"/>
+    <functiondecl functionName="extent_merge_default_impl" lineNumber="2064"/>
+    <functiondecl functionName="extent_merge_impl" lineNumber="2084"/>
+    <functiondecl functionName="extent_merge_wrapper" lineNumber="2156"/>
+    <functiondecl functionName="extent_boot" lineNumber="2162"/>
+    <functiondecl functionName="extent_rtree_leaf_elm_try_lock" lineNumber="132"/>
+    <functiondecl functionName="extent_lock_from_addr" lineNumber="162"/>
+    <functiondecl functionName="extent_alloc" lineNumber="177"/>
+    <functiondecl functionName="extent_dalloc" lineNumber="190"/>
+    <functiondecl functionName="extent_hooks_get" lineNumber="197"/>
+    <functiondecl functionName="extent_hooks_set" lineNumber="202"/>
+    <functiondecl functionName="extent_hooks_assure_initialized" lineNumber="217"/>
+    <functiondecl functionName="extent_size_quantize_floor" lineNumber="228"/>
+    <functiondecl functionName="extent_size_quantize_ceil" lineNumber="254"/>
+    <functiondecl functionName="extents_state_get" lineNumber="299"/>
+    <functiondecl functionName="extents_npages_get" lineNumber="304"/>
+    <functiondecl functionName="extents_insert_locked" lineNumber="309"/>
+    <functiondecl functionName="extents_remove_locked" lineNumber="335"/>
+    <functiondecl functionName="extents_fit_alignment" lineNumber="365"/>
+    <functiondecl functionName="extents_best_fit_locked" lineNumber="399"/>
+    <functiondecl functionName="extents_first_fit_locked" lineNumber="426"/>
+    <functiondecl functionName="extents_fit_locked" lineNumber="457"/>
+    <functiondecl functionName="extent_try_delayed_coalesce" lineNumber="485"/>
+    <functiondecl functionName="extents_alloc" lineNumber="502"/>
+    <functiondecl functionName="extents_dalloc" lineNumber="517"/>
+    <functiondecl functionName="extents_evict" lineNumber="532"/>
+    <functiondecl functionName="extents_leak" lineNumber="596"/>
+    <functiondecl functionName="extents_prefork" lineNumber="614"/>
+    <functiondecl functionName="extents_postfork_parent" lineNumber="619"/>
+    <functiondecl functionName="extents_postfork_child" lineNumber="624"/>
+    <functiondecl functionName="extent_deactivate_locked" lineNumber="629"/>
+    <functiondecl functionName="extent_deactivate" lineNumber="639"/>
+    <functiondecl functionName="extent_activate_locked" lineNumber="647"/>
+    <functiondecl functionName="extent_rtree_leaf_elms_lookup" lineNumber="657"/>
+    <functiondecl functionName="extent_rtree_write_acquired" lineNumber="678"/>
+    <functiondecl functionName="extent_interior_register" lineNumber="688"/>
+    <functiondecl functionName="extent_gdump_add" lineNumber="701"/>
+    <functiondecl functionName="extent_gdump_sub" lineNumber="727"/>
+    <functiondecl functionName="extent_register_impl" lineNumber="738"/>
+    <functiondecl functionName="extent_register" lineNumber="771"/>
+    <functiondecl functionName="extent_register_no_gdump_add" lineNumber="776"/>
+    <functiondecl functionName="extent_reregister" lineNumber="781"/>
+    <functiondecl functionName="extent_interior_deregister" lineNumber="794"/>
+    <functiondecl functionName="extent_deregister_impl" lineNumber="811"/>
+    <functiondecl functionName="extent_deregister" lineNumber="834"/>
+    <functiondecl functionName="extent_deregister_no_gdump_sub" lineNumber="839"/>
+    <functiondecl functionName="extent_recycle_extract" lineNumber="848"/>
+    <functiondecl functionName="extent_split_interior" lineNumber="935"/>
+    <functiondecl functionName="extent_recycle_split" lineNumber="1012"/>
+    <functiondecl functionName="extent_recycle" lineNumber="1061"/>
+    <functiondecl functionName="extent_alloc_core" lineNumber="1138"/>
+    <functiondecl functionName="extent_alloc_default_impl" lineNumber="1168"/>
+    <functiondecl functionName="extent_alloc_default" lineNumber="1180"/>
+    <functiondecl functionName="extent_hook_pre_reentrancy" lineNumber="1198"/>
+    <functiondecl functionName="extent_hook_post_reentrancy" lineNumber="1215"/>
+    <functiondecl functionName="extent_grow_retained" lineNumber="1226"/>
+    <functiondecl functionName="extent_alloc_retained" lineNumber="1390"/>
+    <functiondecl functionName="extent_alloc_wrapper_hard" lineNumber="1419"/>
+    <functiondecl functionName="extent_alloc_wrapper" lineNumber="1458"/>
+    <functiondecl functionName="extent_can_coalesce" lineNumber="1487"/>
+    <functiondecl functionName="extent_coalesce" lineNumber="1507"/>
+    <functiondecl functionName="extent_try_coalesce" lineNumber="1527"/>
+    <functiondecl functionName="extent_record" lineNumber="1597"/>
+    <functiondecl functionName="extent_dalloc_gap" lineNumber="1640"/>
+    <functiondecl functionName="extent_dalloc_default_impl" lineNumber="1655"/>
+    <functiondecl functionName="extent_dalloc_default" lineNumber="1663"/>
+    <functiondecl functionName="extent_dalloc_wrapper_try" lineNumber="1669"/>
+    <functiondecl functionName="extent_dalloc_wrapper" lineNumber="1703"/>
+    <functiondecl functionName="extent_destroy_default_impl" lineNumber="1757"/>
+    <functiondecl functionName="extent_destroy_default" lineNumber="1764"/>
+    <functiondecl functionName="extent_destroy_wrapper" lineNumber="1770"/>
+    <functiondecl functionName="extent_commit_default" lineNumber="1800"/>
+    <functiondecl functionName="extent_commit_impl" lineNumber="1807"/>
+    <functiondecl functionName="extent_commit_wrapper" lineNumber="1828"/>
+    <functiondecl functionName="extent_decommit_default" lineNumber="1836"/>
+    <functiondecl functionName="extent_decommit_wrapper" lineNumber="1843"/>
+    <functiondecl functionName="extent_purge_lazy_default" lineNumber="1867"/>
+    <functiondecl functionName="extent_purge_lazy_impl" lineNumber="1880"/>
+    <functiondecl functionName="extent_purge_lazy_wrapper" lineNumber="1905"/>
+    <functiondecl functionName="extent_purge_forced_impl" lineNumber="1927"/>
+    <functiondecl functionName="extent_purge_forced_wrapper" lineNumber="1951"/>
+    <functiondecl functionName="extent_split_impl" lineNumber="1974"/>
+    <functiondecl functionName="extent_split_wrapper" lineNumber="2056"/>
+    <functiondecl functionName="extent_merge_default_impl" lineNumber="2064"/>
+    <functiondecl functionName="extent_merge_impl" lineNumber="2084"/>
+    <functiondecl functionName="extent_merge_wrapper" lineNumber="2156"/>
+    <functiondecl functionName="extent_boot" lineNumber="2162"/>
+    <functioncall functionName="ALIGNMENT_CEILING"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="BITMAP_INFO_INITIALIZER"/>
+    <functioncall functionName="EXTENT_HOOKS_INITIALIZER"/>
+    <functioncall functionName="LARGE_MINCLASS"/>
+    <functioncall functionName="LG_EXTENT_MAX_ACTIVE_FIT_DEFAULT"/>
+    <functioncall functionName="NSIZES"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="PAGE_ADDR2BASE"/>
+    <functioncall functionName="PAGE_CEILING"/>
+    <functioncall functionName="UNUSED"/>
+    <functioncall functionName="WITNESS_RANK_CORE"/>
+    <functioncall functionName="WITNESS_RANK_EXTENTS"/>
+    <functioncall functionName="WITNESS_RANK_EXTENT_POOL"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="a_elm_a"/>
+    <functioncall functionName="a_elm_b"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="addr_a"/>
+    <functioncall functionName="addr_b"/>
+    <functioncall functionName="again"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alloc_size"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_background_thread_info_get"/>
+    <functioncall functionName="arena_extent_sn_next"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arena_ind_get"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_compare_exchange_weak_zu"/>
+    <functioncall functionName="atomic_fetch_add_zu"/>
+    <functioncall functionName="atomic_fetch_sub_zu"/>
+    <functioncall functionName="atomic_load_u"/>
+    <functioncall functionName="atomic_load_zu"/>
+    <functioncall functionName="atomic_store_zu"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="b_elm_a"/>
+    <functioncall functionName="b_elm_b"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="base_alloc_extent"/>
+    <functioncall functionName="base_extent_hooks_get"/>
+    <functioncall functionName="base_extent_hooks_set"/>
+    <functioncall functionName="bitmap"/>
+    <functioncall functionName="bitmap_ffu"/>
+    <functioncall functionName="bitmap_init"/>
+    <functioncall functionName="bitmap_set"/>
+    <functioncall functionName="bitmap_unset"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cassert"/>
+    <functioncall functionName="coalesced"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="committed"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="curpages"/>
+    <functioncall functionName="dalloc"/>
+    <functioncall functionName="decommit"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delay_coalesce"/>
+    <functioncall functionName="dependent"/>
+    <functioncall functionName="destroy"/>
+    <functioncall functionName="dss_prec"/>
+    <functioncall functionName="dss_prec_t"/>
+    <functioncall functionName="egn_skip"/>
+    <functioncall functionName="elm"/>
+    <functioncall functionName="elm_a"/>
+    <functioncall functionName="elm_b"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="esize"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent1"/>
+    <functioncall functionName="extent_activate_locked"/>
+    <functioncall functionName="extent_addr_get"/>
+    <functioncall functionName="extent_addr_randomize"/>
+    <functioncall functionName="extent_addr_set"/>
+    <functioncall functionName="extent_alloc"/>
+    <functioncall functionName="extent_alloc_core"/>
+    <functioncall functionName="extent_alloc_default"/>
+    <functioncall functionName="extent_alloc_default_impl"/>
+    <functioncall functionName="extent_alloc_dss"/>
+    <functioncall functionName="extent_alloc_mmap"/>
+    <functioncall functionName="extent_alloc_retained"/>
+    <functioncall functionName="extent_alloc_wrapper_hard"/>
+    <functioncall functionName="extent_arena_get"/>
+    <functioncall functionName="extent_avail"/>
+    <functioncall functionName="extent_avail_"/>
+    <functioncall functionName="extent_avail_first"/>
+    <functioncall functionName="extent_avail_insert"/>
+    <functioncall functionName="extent_avail_mtx"/>
+    <functioncall functionName="extent_avail_remove"/>
+    <functioncall functionName="extent_base_get"/>
+    <functioncall functionName="extent_before_get"/>
+    <functioncall functionName="extent_can_coalesce"/>
+    <functioncall functionName="extent_coalesce"/>
+    <functioncall functionName="extent_commit_default"/>
+    <functioncall functionName="extent_commit_impl"/>
+    <functioncall functionName="extent_committed_get"/>
+    <functioncall functionName="extent_committed_set"/>
+    <functioncall functionName="extent_dalloc"/>
+    <functioncall functionName="extent_dalloc_default"/>
+    <functioncall functionName="extent_dalloc_default_impl"/>
+    <functioncall functionName="extent_dalloc_mmap"/>
+    <functioncall functionName="extent_dalloc_wrapper"/>
+    <functioncall functionName="extent_dalloc_wrapper_try"/>
+    <functioncall functionName="extent_deactivate"/>
+    <functioncall functionName="extent_deactivate_locked"/>
+    <functioncall functionName="extent_decommit_default"/>
+    <functioncall functionName="extent_decommit_wrapper"/>
+    <functioncall functionName="extent_deregister"/>
+    <functioncall functionName="extent_deregister_impl"/>
+    <functioncall functionName="extent_deregister_no_gdump_sub"/>
+    <functioncall functionName="extent_destroy_default"/>
+    <functioncall functionName="extent_destroy_default_impl"/>
+    <functioncall functionName="extent_dss_boot"/>
+    <functioncall functionName="extent_dss_mergeable"/>
+    <functioncall functionName="extent_dumpable_get"/>
+    <functioncall functionName="extent_esnead_comp"/>
+    <functioncall functionName="extent_gdump_add"/>
+    <functioncall functionName="extent_gdump_sub"/>
+    <functioncall functionName="extent_grow_mtx"/>
+    <functioncall functionName="extent_grow_retained"/>
+    <functioncall functionName="extent_heap_"/>
+    <functioncall functionName="extent_heap_empty"/>
+    <functioncall functionName="extent_heap_first"/>
+    <functioncall functionName="extent_heap_insert"/>
+    <functioncall functionName="extent_heap_new"/>
+    <functioncall functionName="extent_heap_remove"/>
+    <functioncall functionName="extent_heap_t"/>
+    <functioncall functionName="extent_hook_post_reentrancy"/>
+    <functioncall functionName="extent_hook_pre_reentrancy"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_hooks_assure_initialized"/>
+    <functioncall functionName="extent_hooks_get"/>
+    <functioncall functionName="extent_in_dss"/>
+    <functioncall functionName="extent_init"/>
+    <functioncall functionName="extent_interior_deregister"/>
+    <functioncall functionName="extent_interior_register"/>
+    <functioncall functionName="extent_last_get"/>
+    <functioncall functionName="extent_list_append"/>
+    <functioncall functionName="extent_list_first"/>
+    <functioncall functionName="extent_list_init"/>
+    <functioncall functionName="extent_list_remove"/>
+    <functioncall functionName="extent_lock"/>
+    <functioncall functionName="extent_lock2"/>
+    <functioncall functionName="extent_lock_from_addr"/>
+    <functioncall functionName="extent_merge_default"/>
+    <functioncall functionName="extent_merge_default_impl"/>
+    <functioncall functionName="extent_merge_impl"/>
+    <functioncall functionName="extent_mutex_pool"/>
+    <functioncall functionName="extent_past_get"/>
+    <functioncall functionName="extent_purge_forced_default"/>
+    <functioncall functionName="extent_purge_forced_impl"/>
+    <functioncall functionName="extent_purge_lazy_default"/>
+    <functioncall functionName="extent_purge_lazy_impl"/>
+    <functioncall functionName="extent_record"/>
+    <functioncall functionName="extent_recycle"/>
+    <functioncall functionName="extent_recycle_extract"/>
+    <functioncall functionName="extent_recycle_split"/>
+    <functioncall functionName="extent_register"/>
+    <functioncall functionName="extent_register_impl"/>
+    <functioncall functionName="extent_register_no_gdump_add"/>
+    <functioncall functionName="extent_reregister"/>
+    <functioncall functionName="extent_rtree_leaf_elm_try_lock"/>
+    <functioncall functionName="extent_rtree_leaf_elms_lookup"/>
+    <functioncall functionName="extent_rtree_write_acquired"/>
+    <functioncall functionName="extent_size_get"/>
+    <functioncall functionName="extent_size_quantize_ceil"/>
+    <functioncall functionName="extent_size_quantize_floor"/>
+    <functioncall functionName="extent_size_set"/>
+    <functioncall functionName="extent_slab_get"/>
+    <functioncall functionName="extent_slab_set"/>
+    <functioncall functionName="extent_sn_get"/>
+    <functioncall functionName="extent_sn_set"/>
+    <functioncall functionName="extent_snad_comp"/>
+    <functioncall functionName="extent_split_default"/>
+    <functioncall functionName="extent_split_impl"/>
+    <functioncall functionName="extent_split_interior"/>
+    <functioncall functionName="extent_split_interior_cant_alloc"/>
+    <functioncall functionName="extent_split_interior_error"/>
+    <functioncall functionName="extent_split_interior_ok"/>
+    <functioncall functionName="extent_state_active"/>
+    <functioncall functionName="extent_state_get"/>
+    <functioncall functionName="extent_state_set"/>
+    <functioncall functionName="extent_szind_get_maybe_invalid"/>
+    <functioncall functionName="extent_szind_set"/>
+    <functioncall functionName="extent_t"/>
+    <functioncall functionName="extent_tree_t"/>
+    <functioncall functionName="extent_try_coalesce"/>
+    <functioncall functionName="extent_try_delayed_coalesce"/>
+    <functioncall functionName="extent_unlock"/>
+    <functioncall functionName="extent_unlock2"/>
+    <functioncall functionName="extent_zeroed_get"/>
+    <functioncall functionName="extent_zeroed_set"/>
+    <functioncall functionName="extents"/>
+    <functioncall functionName="extents_best_fit_locked"/>
+    <functioncall functionName="extents_bitmap_info"/>
+    <functioncall functionName="extents_first_fit_locked"/>
+    <functioncall functionName="extents_fit_alignment"/>
+    <functioncall functionName="extents_fit_locked"/>
+    <functioncall functionName="extents_insert_locked"/>
+    <functioncall functionName="extents_leak"/>
+    <functioncall functionName="extents_remove_locked"/>
+    <functioncall functionName="extents_retained"/>
+    <functioncall functionName="extents_rtree"/>
+    <functioncall functionName="extents_state_get"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="growing_retained"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="have_dss"/>
+    <functioncall functionName="high"/>
+    <functioncall functionName="highpages"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init_missing"/>
+    <functioncall functionName="inner"/>
+    <functioncall functionName="label_err"/>
+    <functioncall functionName="label_error_a"/>
+    <functioncall functionName="label_error_b"/>
+    <functioncall functionName="label_error_c"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="lead"/>
+    <functioncall functionName="lead_elm_a"/>
+    <functioncall functionName="lead_elm_b"/>
+    <functioncall functionName="leadsize"/>
+    <functioncall functionName="leak"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="lock_result_failure"/>
+    <functioncall functionName="lock_result_no_extent"/>
+    <functioncall functionName="lock_result_success"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lru"/>
+    <functioncall functionName="malloc_mutex_assert_not_owner"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="maps_coalesce"/>
+    <functioncall functionName="max_size"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="merge"/>
+    <functioncall functionName="min_size"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="mutex_pool_init"/>
+    <functioncall functionName="nadd"/>
+    <functioncall functionName="new_addr"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="npages"/>
+    <functioncall functionName="nsub"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="outer"/>
+    <functioncall functionName="pad"/>
+    <functioncall functionName="pages_commit"/>
+    <functioncall functionName="pages_decommit"/>
+    <functioncall functionName="pages_purge_forced"/>
+    <functioncall functionName="pages_purge_lazy"/>
+    <functioncall functionName="pages_set_thp_state"/>
+    <functioncall functionName="pages_unmap"/>
+    <functioncall functionName="ph_gen"/>
+    <functioncall functionName="ph_link"/>
+    <functioncall functionName="pind"/>
+    <functioncall functionName="post_reentrancy"/>
+    <functioncall functionName="pre_reentrancy"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="prof_gdump"/>
+    <functioncall functionName="prof_gdump_get_unlocked"/>
+    <functioncall functionName="psz"/>
+    <functioncall functionName="pszind_t"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="purge_forced"/>
+    <functioncall functionName="purge_lazy"/>
+    <functioncall functionName="r_extent_hooks"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="retain_grow_limit"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rtree_clear"/>
+    <functioncall functionName="rtree_ctx"/>
+    <functioncall functionName="rtree_ctx_fallback"/>
+    <functioncall functionName="rtree_extent_read"/>
+    <functioncall functionName="rtree_leaf_elm_extent_read"/>
+    <functioncall functionName="rtree_leaf_elm_lookup"/>
+    <functioncall functionName="rtree_leaf_elm_write"/>
+    <functioncall functionName="rtree_new"/>
+    <functioncall functionName="rtree_szind_slab_update"/>
+    <functioncall functionName="rtree_write"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="size_a"/>
+    <functioncall functionName="size_b"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab"/>
+    <functioncall functionName="slab_a"/>
+    <functioncall functionName="slab_b"/>
+    <functioncall functionName="split"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz_large_pad"/>
+    <functioncall functionName="sz_pind2sz"/>
+    <functioncall functionName="sz_psz2ind"/>
+    <functioncall functionName="szind"/>
+    <functioncall functionName="szind_a"/>
+    <functioncall functionName="szind_b"/>
+    <functioncall functionName="to_leak"/>
+    <functioncall functionName="to_salvage"/>
+    <functioncall functionName="trail"/>
+    <functioncall functionName="trail_elm_a"/>
+    <functioncall functionName="trail_elm_b"/>
+    <functioncall functionName="trailsize"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_fetch"/>
+    <functioncall functionName="tsdn_null"/>
+    <functioncall functionName="tsdn_rtree_ctx"/>
+    <functioncall functionName="tsdn_tsd"/>
+    <functioncall functionName="tsdn_witness_tsdp_get"/>
+    <functioncall functionName="unlock_extent"/>
+    <functioncall functionName="unreachable"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="witness_assert_depth_to_rank"/>
+    <functioncall functionName="zero"/>
+    <functioncall functionName="zeroed"/>
+  </FileInfo>
+</analyzerinfo>

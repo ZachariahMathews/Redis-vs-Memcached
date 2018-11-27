@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1990987411">
+        <error id="deallocDealloc" severity="error" msg="Deallocating a deallocated pointer: p" verbose="Deallocating a deallocated pointer: p" cwe="415">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\overflow.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\overflow.c" line="38"/>
+            <symbol>p</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="main" lineNumber="43"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIZE_T_MAX"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="max_size_class"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nlextents"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_overflow"/>
+  </FileInfo>
+</analyzerinfo>
