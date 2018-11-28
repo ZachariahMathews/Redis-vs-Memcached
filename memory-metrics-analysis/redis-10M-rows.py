@@ -6,10 +6,10 @@ r.flushall()
 
 start_time = time.time()
 
-# 1,000,000 rows - key size of 10 bytes and value size of 10 bytes
+# 10,000,000 rows - key size of 13 bytes and value size of 13 bytes
 for i in range(10000000,20000000):
-	a = "key" + str(i)
-	v = "val" + str(i)
+	a = "keys:" + str(i)
+	v = "vals:" + str(i)
 	r.set(a,v)
 
 time_for_insert = time.time() - start_time
