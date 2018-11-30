@@ -1,0 +1,1199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/t_set.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - t_set.c<span style="font-size: 80%;"> (source / <a href="t_set.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">548</td>
+            <td class="headerCovTableEntry">566</td>
+            <td class="headerCovTableEntryHi">96.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">      33 </span>            :  * Set Commands
+<span class="lineNum">      34 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : void sunionDiffGenericCommand(client *c, robj **setkeys, int setnum,
+<span class="lineNum">      37 </span>            :                               robj *dstkey, int op);
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span>            : /* Factory method to return a set that *can* hold &quot;value&quot;. When the object has
+<a name="40"><span class="lineNum">      40 </span>            :  * an integer-encodable value, an intset will be returned. Otherwise a regular</a>
+<span class="lineNum">      41 </span>            :  * hash table. */
+<span class="lineNum">      42 </span><span class="lineCov">     426210 : robj *setTypeCreate(sds value) {</span>
+<span class="lineNum">      43 </span><span class="lineCov">     426210 :     if (isSdsRepresentableAsLongLong(value,NULL) == C_OK)</span>
+<span class="lineNum">      44 </span><span class="lineCov">     320950 :         return createIntsetObject();</span>
+<span class="lineNum">      45 </span><span class="lineCov">     105260 :     return createSetObject();</span>
+<span class="lineNum">      46 </span>            : }
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : /* Add the specified value into a set.
+<span class="lineNum">      49 </span>            :  *
+<a name="50"><span class="lineNum">      50 </span>            :  * If the value was already member of the set, nothing is done and 0 is</a>
+<span class="lineNum">      51 </span>            :  * returned, otherwise the new element is added and 1 is returned. */
+<span class="lineNum">      52 </span><span class="lineCov">    1700000 : int setTypeAdd(robj *subject, sds value) {</span>
+<span class="lineNum">      53 </span><span class="lineCov">    1700000 :     long long llval;</span>
+<span class="lineNum">      54 </span><span class="lineCov">    1700000 :     if (subject-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">      55 </span><span class="lineCov">    1017731 :         dict *ht = subject-&gt;ptr;</span>
+<span class="lineNum">      56 </span><span class="lineCov">    1017731 :         dictEntry *de = dictAddRaw(ht,value,NULL);</span>
+<span class="lineNum">      57 </span><span class="lineCov">    1017731 :         if (de) {</span>
+<span class="lineNum">      58 </span><span class="lineCov">     987465 :             dictSetKey(ht,de,sdsdup(value));</span>
+<span class="lineNum">      59 </span><span class="lineCov">     987465 :             dictSetVal(ht,de,NULL);</span>
+<span class="lineNum">      60 </span><span class="lineCov">     987465 :             return 1;</span>
+<span class="lineNum">      61 </span>            :         }
+<span class="lineNum">      62 </span><span class="lineCov">     682269 :     } else if (subject-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">      63 </span><span class="lineCov">     682269 :         if (isSdsRepresentableAsLongLong(value,&amp;llval) == C_OK) {</span>
+<span class="lineNum">      64 </span><span class="lineCov">     630592 :             uint8_t success = 0;</span>
+<span class="lineNum">      65 </span><span class="lineCov">     630592 :             subject-&gt;ptr = intsetAdd(subject-&gt;ptr,llval,&amp;success);</span>
+<span class="lineNum">      66 </span><span class="lineCov">     630592 :             if (success) {</span>
+<span class="lineNum">      67 </span>            :                 /* Convert to regular set when the intset contains
+<span class="lineNum">      68 </span>            :                  * too many entries. */
+<span class="lineNum">      69 </span><span class="lineCov">     547741 :                 if (intsetLen(subject-&gt;ptr) &gt; server.set_max_intset_entries)</span>
+<span class="lineNum">      70 </span><span class="lineCov">        110 :                     setTypeConvert(subject,OBJ_ENCODING_HT);</span>
+<span class="lineNum">      71 </span><span class="lineCov">     547741 :                 return 1;</span>
+<span class="lineNum">      72 </span>            :             }
+<span class="lineNum">      73 </span>            :         } else {
+<span class="lineNum">      74 </span>            :             /* Failed to get integer from object, convert to regular set. */
+<span class="lineNum">      75 </span><span class="lineCov">      51677 :             setTypeConvert(subject,OBJ_ENCODING_HT);</span>
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            :             /* The set *was* an intset and this value is not integer
+<span class="lineNum">      78 </span>            :              * encodable, so dictAdd should always work. */
+<span class="lineNum">      79 </span><span class="lineCov">      51677 :             serverAssert(dictAdd(subject-&gt;ptr,sdsdup(value),NULL) == DICT_OK);</span>
+<span class="lineNum">      80 </span>            :             return 1;
+<span class="lineNum">      81 </span>            :         }
+<span class="lineNum">      82 </span>            :     } else {
+<span class="lineNum">      83 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">      84 </span>            :     }
+<span class="lineNum">      85 </span>            :     return 0;
+<a name="86"><span class="lineNum">      86 </span>            : }</a>
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span><span class="lineCov">     326369 : int setTypeRemove(robj *setobj, sds value) {</span>
+<span class="lineNum">      89 </span><span class="lineCov">     326369 :     long long llval;</span>
+<span class="lineNum">      90 </span><span class="lineCov">     326369 :     if (setobj-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">      91 </span><span class="lineCov">     202758 :         if (dictDelete(setobj-&gt;ptr,value) == DICT_OK) {</span>
+<span class="lineNum">      92 </span><span class="lineCov">     191387 :             if (htNeedsResize(setobj-&gt;ptr)) dictResize(setobj-&gt;ptr);</span>
+<span class="lineNum">      93 </span><span class="lineCov">     191387 :             return 1;</span>
+<span class="lineNum">      94 </span>            :         }
+<span class="lineNum">      95 </span><span class="lineCov">     123611 :     } else if (setobj-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">      96 </span><span class="lineCov">     123611 :         if (isSdsRepresentableAsLongLong(value,&amp;llval) == C_OK) {</span>
+<span class="lineNum">      97 </span><span class="lineCov">     119474 :             int success;</span>
+<span class="lineNum">      98 </span><span class="lineCov">     119474 :             setobj-&gt;ptr = intsetRemove(setobj-&gt;ptr,llval,&amp;success);</span>
+<span class="lineNum">      99 </span><span class="lineCov">     119474 :             if (success) return 1;</span>
+<span class="lineNum">     100 </span>            :         }
+<span class="lineNum">     101 </span>            :     } else {
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">     103 </span>            :     }
+<span class="lineNum">     104 </span>            :     return 0;
+<a name="105"><span class="lineNum">     105 </span>            : }</a>
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span><span class="lineCov">     158499 : int setTypeIsMember(robj *subject, sds value) {</span>
+<span class="lineNum">     108 </span><span class="lineCov">     158499 :     long long llval;</span>
+<span class="lineNum">     109 </span><span class="lineCov">     158499 :     if (subject-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     110 </span><span class="lineCov">      96465 :         return dictFind((dict*)subject-&gt;ptr,value) != NULL;</span>
+<span class="lineNum">     111 </span><span class="lineCov">      62034 :     } else if (subject-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     112 </span><span class="lineCov">      62034 :         if (isSdsRepresentableAsLongLong(value,&amp;llval) == C_OK) {</span>
+<span class="lineNum">     113 </span><span class="lineCov">      39715 :             return intsetFind((intset*)subject-&gt;ptr,llval);</span>
+<span class="lineNum">     114 </span>            :         }
+<span class="lineNum">     115 </span>            :     } else {
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">     117 </span>            :     }
+<span class="lineNum">     118 </span>            :     return 0;
+<a name="119"><span class="lineNum">     119 </span>            : }</a>
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span><span class="lineCov">    1385137 : setTypeIterator *setTypeInitIterator(robj *subject) {</span>
+<span class="lineNum">     122 </span><span class="lineCov">    1385137 :     setTypeIterator *si = zmalloc(sizeof(setTypeIterator));</span>
+<span class="lineNum">     123 </span><span class="lineCov">    1385137 :     si-&gt;subject = subject;</span>
+<span class="lineNum">     124 </span><span class="lineCov">    1385137 :     si-&gt;encoding = subject-&gt;encoding;</span>
+<span class="lineNum">     125 </span><span class="lineCov">    1385137 :     if (si-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     126 </span><span class="lineCov">     380870 :         si-&gt;di = dictGetIterator(subject-&gt;ptr);</span>
+<span class="lineNum">     127 </span><span class="lineCov">    1004267 :     } else if (si-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     128 </span><span class="lineCov">    1004267 :         si-&gt;ii = 0;</span>
+<span class="lineNum">     129 </span>            :     } else {
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">     131 </span>            :     }
+<span class="lineNum">     132 </span><span class="lineCov">    1385137 :     return si;</span>
+<a name="133"><span class="lineNum">     133 </span>            : }</a>
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span><span class="lineCov">    1385137 : void setTypeReleaseIterator(setTypeIterator *si) {</span>
+<span class="lineNum">     136 </span><span class="lineCov">    1385137 :     if (si-&gt;encoding == OBJ_ENCODING_HT)</span>
+<span class="lineNum">     137 </span><span class="lineCov">     380870 :         dictReleaseIterator(si-&gt;di);</span>
+<span class="lineNum">     138 </span><span class="lineCov">    1385137 :     zfree(si);</span>
+<span class="lineNum">     139 </span><span class="lineCov">    1385137 : }</span>
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : /* Move to the next entry in the set. Returns the object at the current
+<span class="lineNum">     142 </span>            :  * position.
+<span class="lineNum">     143 </span>            :  *
+<span class="lineNum">     144 </span>            :  * Since set elements can be internally be stored as SDS strings or
+<span class="lineNum">     145 </span>            :  * simple arrays of integers, setTypeNext returns the encoding of the
+<span class="lineNum">     146 </span>            :  * set object you are iterating, and will populate the appropriate pointer
+<span class="lineNum">     147 </span>            :  * (sdsele) or (llele) accordingly.
+<span class="lineNum">     148 </span>            :  *
+<span class="lineNum">     149 </span>            :  * Note that both the sdsele and llele pointers should be passed and cannot
+<span class="lineNum">     150 </span>            :  * be NULL since the function will try to defensively populate the non
+<span class="lineNum">     151 </span>            :  * used field with values which are easy to trap if misused.
+<a name="152"><span class="lineNum">     152 </span>            :  *</a>
+<span class="lineNum">     153 </span>            :  * When there are no longer elements -1 is returned. */
+<span class="lineNum">     154 </span><span class="lineCov">    3505857 : int setTypeNext(setTypeIterator *si, sds *sdsele, int64_t *llele) {</span>
+<span class="lineNum">     155 </span><span class="lineCov">    3505857 :     if (si-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     156 </span><span class="lineCov">    1309727 :         dictEntry *de = dictNext(si-&gt;di);</span>
+<span class="lineNum">     157 </span><span class="lineCov">    1309727 :         if (de == NULL) return -1;</span>
+<span class="lineNum">     158 </span><span class="lineCov">     928857 :         *sdsele = dictGetKey(de);</span>
+<span class="lineNum">     159 </span><span class="lineCov">     928857 :         *llele = -123456789; /* Not needed. Defensive. */</span>
+<span class="lineNum">     160 </span><span class="lineCov">    2196130 :     } else if (si-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     161 </span><span class="lineCov">    2196130 :         if (!intsetGet(si-&gt;subject-&gt;ptr,si-&gt;ii++,llele))</span>
+<span class="lineNum">     162 </span>            :             return -1;
+<span class="lineNum">     163 </span><span class="lineCov">    1191863 :         *sdsele = NULL; /* Not needed. Defensive. */</span>
+<span class="lineNum">     164 </span>            :     } else {
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Wrong set encoding in setTypeNext&quot;);</span>
+<span class="lineNum">     166 </span>            :     }
+<span class="lineNum">     167 </span><span class="lineCov">    2120720 :     return si-&gt;encoding;</span>
+<span class="lineNum">     168 </span>            : }
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span>            : /* The not copy on write friendly version but easy to use version
+<span class="lineNum">     171 </span>            :  * of setTypeNext() is setTypeNextObject(), returning new SDS
+<span class="lineNum">     172 </span>            :  * strings. So if you don't retain a pointer to this object you should call
+<span class="lineNum">     173 </span>            :  * sdsfree() against it.
+<span class="lineNum">     174 </span>            :  *
+<a name="175"><span class="lineNum">     175 </span>            :  * This function is the way to go for write operations where COW is not</a>
+<span class="lineNum">     176 </span>            :  * an issue. */
+<span class="lineNum">     177 </span><span class="lineCov">    3155623 : sds setTypeNextObject(setTypeIterator *si) {</span>
+<span class="lineNum">     178 </span><span class="lineCov">    3155623 :     int64_t intele;</span>
+<span class="lineNum">     179 </span><span class="lineCov">    3155623 :     sds sdsele;</span>
+<span class="lineNum">     180 </span><span class="lineCov">    3155623 :     int encoding;</span>
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span><span class="lineCov">    3155623 :     encoding = setTypeNext(si,&amp;sdsele,&amp;intele);</span>
+<span class="lineNum">     183 </span><span class="lineCov">    3155623 :     switch(encoding) {</span>
+<span class="lineNum">     184 </span>            :         case -1:    return NULL;
+<span class="lineNum">     185 </span><span class="lineCov">    1035160 :         case OBJ_ENCODING_INTSET:</span>
+<span class="lineNum">     186 </span><span class="lineCov">    1035160 :             return sdsfromlonglong(intele);</span>
+<span class="lineNum">     187 </span><span class="lineCov">     887298 :         case OBJ_ENCODING_HT:</span>
+<span class="lineNum">     188 </span><span class="lineCov">     887298 :             return sdsdup(sdsele);</span>
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :         default:</span>
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unsupported encoding&quot;);</span>
+<span class="lineNum">     191 </span>            :     }
+<span class="lineNum">     192 </span>            :     return NULL; /* just to suppress warnings */
+<span class="lineNum">     193 </span>            : }
+<span class="lineNum">     194 </span>            : 
+<span class="lineNum">     195 </span>            : /* Return random element from a non empty set.
+<span class="lineNum">     196 </span>            :  * The returned element can be a int64_t value if the set is encoded
+<span class="lineNum">     197 </span>            :  * as an &quot;intset&quot; blob of integers, or an SDS string if the set
+<span class="lineNum">     198 </span>            :  * is a regular set.
+<span class="lineNum">     199 </span>            :  *
+<span class="lineNum">     200 </span>            :  * The caller provides both pointers to be populated with the right
+<span class="lineNum">     201 </span>            :  * object. The return value of the function is the object-&gt;encoding
+<span class="lineNum">     202 </span>            :  * field of the object and is used by the caller to check if the
+<span class="lineNum">     203 </span>            :  * int64_t pointer or the redis object pointer was populated.
+<span class="lineNum">     204 </span>            :  *
+<span class="lineNum">     205 </span>            :  * Note that both the sdsele and llele pointers should be passed and cannot
+<a name="206"><span class="lineNum">     206 </span>            :  * be NULL since the function will try to defensively populate the non</a>
+<span class="lineNum">     207 </span>            :  * used field with values which are easy to trap if misused. */
+<span class="lineNum">     208 </span><span class="lineCov">      33287 : int setTypeRandomElement(robj *setobj, sds *sdsele, int64_t *llele) {</span>
+<span class="lineNum">     209 </span><span class="lineCov">      33287 :     if (setobj-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     210 </span><span class="lineCov">      22792 :         dictEntry *de = dictGetRandomKey(setobj-&gt;ptr);</span>
+<span class="lineNum">     211 </span><span class="lineCov">      22792 :         *sdsele = dictGetKey(de);</span>
+<span class="lineNum">     212 </span><span class="lineCov">      22792 :         *llele = -123456789; /* Not needed. Defensive. */</span>
+<span class="lineNum">     213 </span><span class="lineCov">      10495 :     } else if (setobj-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     214 </span><span class="lineCov">      10495 :         *llele = intsetRandom(setobj-&gt;ptr);</span>
+<span class="lineNum">     215 </span><span class="lineCov">      10495 :         *sdsele = NULL; /* Not needed. Defensive. */</span>
+<span class="lineNum">     216 </span>            :     } else {
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">     218 </span>            :     }
+<span class="lineNum">     219 </span><span class="lineCov">      33287 :     return setobj-&gt;encoding;</span>
+<a name="220"><span class="lineNum">     220 </span>            : }</a>
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span><span class="lineCov">    1074440 : unsigned long setTypeSize(const robj *subject) {</span>
+<span class="lineNum">     223 </span><span class="lineCov">    1074440 :     if (subject-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     224 </span><span class="lineCov">     415592 :         return dictSize((const dict*)subject-&gt;ptr);</span>
+<span class="lineNum">     225 </span><span class="lineCov">     658848 :     } else if (subject-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     226 </span><span class="lineCov">     658848 :         return intsetLen((const intset*)subject-&gt;ptr);</span>
+<span class="lineNum">     227 </span>            :     } else {
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">     229 </span>            :     }
+<span class="lineNum">     230 </span>            : }
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span>            : /* Convert the set to specified encoding. The resulting dict (when converting
+<a name="233"><span class="lineNum">     233 </span>            :  * to a hash table) is presized to hold the number of elements in the original</a>
+<span class="lineNum">     234 </span>            :  * set. */
+<span class="lineNum">     235 </span><span class="lineCov">      92334 : void setTypeConvert(robj *setobj, int enc) {</span>
+<span class="lineNum">     236 </span><span class="lineCov">      92334 :     setTypeIterator *si;</span>
+<span class="lineNum">     237 </span><span class="lineCov">      92334 :     serverAssertWithInfo(NULL,setobj,setobj-&gt;type == OBJ_SET &amp;&amp;</span>
+<span class="lineNum">     238 </span>            :                              setobj-&gt;encoding == OBJ_ENCODING_INTSET);
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span><span class="lineCov">      92334 :     if (enc == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     241 </span><span class="lineCov">      92334 :         int64_t intele;</span>
+<span class="lineNum">     242 </span><span class="lineCov">      92334 :         dict *d = dictCreate(&amp;setDictType,NULL);</span>
+<span class="lineNum">     243 </span><span class="lineCov">      92334 :         sds element;</span>
+<span class="lineNum">     244 </span>            : 
+<span class="lineNum">     245 </span>            :         /* Presize the dict to avoid rehashing */
+<span class="lineNum">     246 </span><span class="lineCov">      92334 :         dictExpand(d,intsetLen(setobj-&gt;ptr));</span>
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            :         /* To add the elements we extract integers and create redis objects */
+<span class="lineNum">     249 </span><span class="lineCov">      92334 :         si = setTypeInitIterator(setobj);</span>
+<span class="lineNum">     250 </span><span class="lineCov">     188870 :         while (setTypeNext(si,&amp;element,&amp;intele) != -1) {</span>
+<span class="lineNum">     251 </span><span class="lineCov">      96536 :             element = sdsfromlonglong(intele);</span>
+<span class="lineNum">     252 </span><span class="lineCov">      96536 :             serverAssert(dictAdd(d,element,NULL) == DICT_OK);</span>
+<span class="lineNum">     253 </span>            :         }
+<span class="lineNum">     254 </span><span class="lineCov">      92334 :         setTypeReleaseIterator(si);</span>
+<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     256 </span><span class="lineCov">      92334 :         setobj-&gt;encoding = OBJ_ENCODING_HT;</span>
+<span class="lineNum">     257 </span><span class="lineCov">      92334 :         zfree(setobj-&gt;ptr);</span>
+<span class="lineNum">     258 </span><span class="lineCov">      92334 :         setobj-&gt;ptr = d;</span>
+<span class="lineNum">     259 </span>            :     } else {
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unsupported set conversion&quot;);</span>
+<span class="lineNum">     261 </span>            :     }
+<a name="262"><span class="lineNum">     262 </span><span class="lineCov">      92334 : }</span></a>
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span><span class="lineCov">     999887 : void saddCommand(client *c) {</span>
+<span class="lineNum">     265 </span><span class="lineCov">     999887 :     robj *set;</span>
+<span class="lineNum">     266 </span><span class="lineCov">     999887 :     int j, added = 0;</span>
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span><span class="lineCov">     999887 :     set = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     269 </span><span class="lineCov">     999887 :     if (set == NULL) {</span>
+<span class="lineNum">     270 </span><span class="lineCov">     426200 :         set = setTypeCreate(c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     271 </span><span class="lineCov">     426200 :         dbAdd(c-&gt;db,c-&gt;argv[1],set);</span>
+<span class="lineNum">     272 </span>            :     } else {
+<span class="lineNum">     273 </span><span class="lineCov">     573687 :         if (set-&gt;type != OBJ_SET) {</span>
+<span class="lineNum">     274 </span><span class="lineCov">          3 :             addReply(c,shared.wrongtypeerr);</span>
+<span class="lineNum">     275 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     276 </span>            :         }
+<span class="lineNum">     277 </span>            :     }
+<span class="lineNum">     278 </span>            : 
+<span class="lineNum">     279 </span><span class="lineCov">    2469976 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     280 </span><span class="lineCov">    1470092 :         if (setTypeAdd(set,c-&gt;argv[j]-&gt;ptr)) added++;</span>
+<span class="lineNum">     281 </span>            :     }
+<span class="lineNum">     282 </span><span class="lineCov">     999884 :     if (added) {</span>
+<span class="lineNum">     283 </span><span class="lineCov">     887151 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     284 </span><span class="lineCov">     887151 :         notifyKeyspaceEvent(NOTIFY_SET,&quot;sadd&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     285 </span>            :     }
+<span class="lineNum">     286 </span><span class="lineCov">     999884 :     server.dirty += added;</span>
+<span class="lineNum">     287 </span><span class="lineCov">     999884 :     addReplyLongLong(c,added);</span>
+<a name="288"><span class="lineNum">     288 </span>            : }</a>
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span><span class="lineCov">     167732 : void sremCommand(client *c) {</span>
+<span class="lineNum">     291 </span><span class="lineCov">     167732 :     robj *set;</span>
+<span class="lineNum">     292 </span><span class="lineCov">     167732 :     int j, deleted = 0, keyremoved = 0;</span>
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span><span class="lineCov">     335464 :     if ((set = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     295 </span><span class="lineCov">     167732 :         checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span><span class="lineCov">     332000 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     298 </span><span class="lineCov">     305288 :         if (setTypeRemove(set,c-&gt;argv[j]-&gt;ptr)) {</span>
+<span class="lineNum">     299 </span><span class="lineCov">     278922 :             deleted++;</span>
+<span class="lineNum">     300 </span><span class="lineCov">     278922 :             if (setTypeSize(set) == 0) {</span>
+<span class="lineNum">     301 </span><span class="lineCov">     141020 :                 dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     302 </span><span class="lineCov">     141020 :                 keyremoved = 1;</span>
+<span class="lineNum">     303 </span><span class="lineCov">     141020 :                 break;</span>
+<span class="lineNum">     304 </span>            :             }
+<span class="lineNum">     305 </span>            :         }
+<span class="lineNum">     306 </span>            :     }
+<span class="lineNum">     307 </span><span class="lineCov">     167732 :     if (deleted) {</span>
+<span class="lineNum">     308 </span><span class="lineCov">     141378 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     309 </span><span class="lineCov">     141378 :         notifyKeyspaceEvent(NOTIFY_SET,&quot;srem&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     310 </span><span class="lineCov">     141378 :         if (keyremoved)</span>
+<span class="lineNum">     311 </span><span class="lineCov">     282040 :             notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],</span>
+<span class="lineNum">     312 </span><span class="lineCov">     141020 :                                 c-&gt;db-&gt;id);</span>
+<span class="lineNum">     313 </span><span class="lineCov">     141378 :         server.dirty += deleted;</span>
+<span class="lineNum">     314 </span>            :     }
+<span class="lineNum">     315 </span><span class="lineCov">     167732 :     addReplyLongLong(c,deleted);</span>
+<a name="316"><span class="lineNum">     316 </span>            : }</a>
+<span class="lineNum">     317 </span>            : 
+<span class="lineNum">     318 </span><span class="lineCov">         33 : void smoveCommand(client *c) {</span>
+<span class="lineNum">     319 </span><span class="lineCov">         33 :     robj *srcset, *dstset, *ele;</span>
+<span class="lineNum">     320 </span><span class="lineCov">         33 :     srcset = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     321 </span><span class="lineCov">         33 :     dstset = lookupKeyWrite(c-&gt;db,c-&gt;argv[2]);</span>
+<span class="lineNum">     322 </span><span class="lineCov">         33 :     ele = c-&gt;argv[3];</span>
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span>            :     /* If the source key does not exist return 0 */
+<span class="lineNum">     325 </span><span class="lineCov">         33 :     if (srcset == NULL) {</span>
+<span class="lineNum">     326 </span><span class="lineCov">          3 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     327 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     328 </span>            :     }
+<span class="lineNum">     329 </span>            : 
+<span class="lineNum">     330 </span>            :     /* If the source key has the wrong type, or the destination key
+<span class="lineNum">     331 </span>            :      * is set and has the wrong type, return with an error. */
+<span class="lineNum">     332 </span><span class="lineCov">         30 :     if (checkType(c,srcset,OBJ_SET) ||</span>
+<span class="lineNum">     333 </span><span class="lineCov">         24 :         (dstset &amp;&amp; checkType(c,dstset,OBJ_SET))) return;</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span>            :     /* If srcset and dstset are equal, SMOVE is a no-op */
+<span class="lineNum">     336 </span><span class="lineCov">         24 :     if (srcset == dstset) {</span>
+<span class="lineNum">     337 </span><span class="lineCov">          6 :         addReply(c,setTypeIsMember(srcset,ele-&gt;ptr) ?</span>
+<span class="lineNum">     338 </span>            :             shared.cone : shared.czero);
+<span class="lineNum">     339 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     340 </span>            :     }
+<span class="lineNum">     341 </span>            : 
+<span class="lineNum">     342 </span>            :     /* If the element cannot be removed from the src set, return 0. */
+<span class="lineNum">     343 </span><span class="lineCov">         18 :     if (!setTypeRemove(srcset,ele-&gt;ptr)) {</span>
+<span class="lineNum">     344 </span><span class="lineCov">          3 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     345 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     346 </span>            :     }
+<span class="lineNum">     347 </span><span class="lineCov">         15 :     notifyKeyspaceEvent(NOTIFY_SET,&quot;srem&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span>            :     /* Remove the src set from the database when empty */
+<span class="lineNum">     350 </span><span class="lineCov">         15 :     if (setTypeSize(srcset) == 0) {</span>
+<span class="lineNum">     351 </span><span class="lineNoCov">          0 :         dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     352 </span><span class="lineNoCov">          0 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     353 </span>            :     }
+<span class="lineNum">     354 </span>            : 
+<span class="lineNum">     355 </span>            :     /* Create the destination set when it doesn't exist */
+<span class="lineNum">     356 </span><span class="lineCov">         15 :     if (!dstset) {</span>
+<span class="lineNum">     357 </span><span class="lineCov">          6 :         dstset = setTypeCreate(ele-&gt;ptr);</span>
+<span class="lineNum">     358 </span><span class="lineCov">          6 :         dbAdd(c-&gt;db,c-&gt;argv[2],dstset);</span>
+<span class="lineNum">     359 </span>            :     }
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span><span class="lineCov">         15 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     362 </span><span class="lineCov">         15 :     signalModifiedKey(c-&gt;db,c-&gt;argv[2]);</span>
+<span class="lineNum">     363 </span><span class="lineCov">         15 :     server.dirty++;</span>
+<span class="lineNum">     364 </span>            : 
+<span class="lineNum">     365 </span>            :     /* An extra key has changed when ele was successfully added to dstset */
+<span class="lineNum">     366 </span><span class="lineCov">         15 :     if (setTypeAdd(dstset,ele-&gt;ptr)) {</span>
+<span class="lineNum">     367 </span><span class="lineCov">         15 :         server.dirty++;</span>
+<span class="lineNum">     368 </span><span class="lineCov">         15 :         notifyKeyspaceEvent(NOTIFY_SET,&quot;sadd&quot;,c-&gt;argv[2],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     369 </span>            :     }
+<span class="lineNum">     370 </span><span class="lineCov">         15 :     addReply(c,shared.cone);</span>
+<a name="371"><span class="lineNum">     371 </span>            : }</a>
+<span class="lineNum">     372 </span>            : 
+<span class="lineNum">     373 </span><span class="lineCov">         21 : void sismemberCommand(client *c) {</span>
+<span class="lineNum">     374 </span><span class="lineCov">         21 :     robj *set;</span>
+<span class="lineNum">     375 </span>            : 
+<span class="lineNum">     376 </span><span class="lineCov">         42 :     if ((set = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     377 </span><span class="lineCov">         21 :         checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span><span class="lineCov">         21 :     if (setTypeIsMember(set,c-&gt;argv[2]-&gt;ptr))</span>
+<span class="lineNum">     380 </span><span class="lineCov">         15 :         addReply(c,shared.cone);</span>
+<span class="lineNum">     381 </span>            :     else
+<span class="lineNum">     382 </span><span class="lineCov">          6 :         addReply(c,shared.czero);</span>
+<a name="383"><span class="lineNum">     383 </span>            : }</a>
+<span class="lineNum">     384 </span>            : 
+<span class="lineNum">     385 </span><span class="lineCov">        121 : void scardCommand(client *c) {</span>
+<span class="lineNum">     386 </span><span class="lineCov">        121 :     robj *o;</span>
+<span class="lineNum">     387 </span>            : 
+<span class="lineNum">     388 </span><span class="lineCov">        158 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     389 </span><span class="lineCov">        121 :         checkType(c,o,OBJ_SET)) return;</span>
+<span class="lineNum">     390 </span>            : 
+<span class="lineNum">     391 </span><span class="lineCov">         37 :     addReplyLongLong(c,setTypeSize(o));</span>
+<span class="lineNum">     392 </span>            : }
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            : /* Handle the &quot;SPOP key &lt;count&gt;&quot; variant. The normal version of the
+<span class="lineNum">     395 </span>            :  * command is handled by the spopCommand() function itself. */
+<span class="lineNum">     396 </span>            : 
+<span class="lineNum">     397 </span>            : /* How many times bigger should be the set compared to the remaining size
+<span class="lineNum">     398 </span>            :  * for us to use the &quot;create new set&quot; strategy? Read later in the
+<span class="lineNum">     399 </span>            :  * implementation for more info. */
+<a name="400"><span class="lineNum">     400 </span>            : #define SPOP_MOVE_STRATEGY_MUL 5</a>
+<span class="lineNum">     401 </span>            : 
+<span class="lineNum">     402 </span><span class="lineCov">        104 : void spopWithCountCommand(client *c) {</span>
+<span class="lineNum">     403 </span><span class="lineCov">        104 :     long l;</span>
+<span class="lineNum">     404 </span><span class="lineCov">        104 :     unsigned long count, size;</span>
+<span class="lineNum">     405 </span><span class="lineCov">        104 :     robj *set;</span>
+<span class="lineNum">     406 </span>            : 
+<span class="lineNum">     407 </span>            :     /* Get the count argument */
+<span class="lineNum">     408 </span><span class="lineCov">        148 :     if (getLongFromObjectOrReply(c,c-&gt;argv[2],&amp;l,NULL) != C_OK) return;</span>
+<span class="lineNum">     409 </span><span class="lineCov">        104 :     if (l &gt;= 0) {</span>
+<span class="lineNum">     410 </span><span class="lineCov">        104 :         count = (unsigned long) l;</span>
+<span class="lineNum">     411 </span>            :     } else {
+<span class="lineNum">     412 </span><span class="lineNoCov">          0 :         addReply(c,shared.outofrangeerr);</span>
+<span class="lineNum">     413 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     414 </span>            :     }
+<span class="lineNum">     415 </span>            : 
+<span class="lineNum">     416 </span>            :     /* Make sure a key with the name inputted exists, and that it's type is
+<span class="lineNum">     417 </span>            :      * indeed a set. Otherwise, return nil */
+<span class="lineNum">     418 </span><span class="lineCov">        104 :     if ((set = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptymultibulk))</span>
+<span class="lineNum">     419 </span><span class="lineCov">        104 :         == NULL || checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">     420 </span>            : 
+<span class="lineNum">     421 </span>            :     /* If count is zero, serve an empty multibulk ASAP to avoid special
+<span class="lineNum">     422 </span>            :      * cases later. */
+<span class="lineNum">     423 </span><span class="lineCov">         92 :     if (count == 0) {</span>
+<span class="lineNum">     424 </span><span class="lineCov">         12 :         addReply(c,shared.emptymultibulk);</span>
+<span class="lineNum">     425 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">     426 </span>            :     }
+<span class="lineNum">     427 </span>            : 
+<span class="lineNum">     428 </span><span class="lineCov">         80 :     size = setTypeSize(set);</span>
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span>            :     /* Generate an SPOP keyspace notification */
+<span class="lineNum">     431 </span><span class="lineCov">         80 :     notifyKeyspaceEvent(NOTIFY_SET,&quot;spop&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     432 </span><span class="lineCov">         80 :     server.dirty += count;</span>
+<span class="lineNum">     433 </span>            : 
+<span class="lineNum">     434 </span>            :     /* CASE 1:
+<span class="lineNum">     435 </span>            :      * The number of requested elements is greater than or equal to
+<span class="lineNum">     436 </span>            :      * the number of elements inside the set: simply return the whole set. */
+<span class="lineNum">     437 </span><span class="lineCov">         80 :     if (count &gt;= size) {</span>
+<span class="lineNum">     438 </span>            :         /* We just return the entire set */
+<span class="lineNum">     439 </span><span class="lineCov">         20 :         sunionDiffGenericCommand(c,c-&gt;argv+1,1,NULL,SET_OP_UNION);</span>
+<span class="lineNum">     440 </span>            : 
+<span class="lineNum">     441 </span>            :         /* Delete the set as it is now empty */
+<span class="lineNum">     442 </span><span class="lineCov">         20 :         dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     443 </span><span class="lineCov">         20 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     444 </span>            : 
+<span class="lineNum">     445 </span>            :         /* Propagate this command as an DEL operation */
+<span class="lineNum">     446 </span><span class="lineCov">         20 :         rewriteClientCommandVector(c,2,shared.del,c-&gt;argv[1]);</span>
+<span class="lineNum">     447 </span><span class="lineCov">         20 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     448 </span><span class="lineCov">         20 :         server.dirty++;</span>
+<span class="lineNum">     449 </span><span class="lineCov">         20 :         return;</span>
+<span class="lineNum">     450 </span>            :     }
+<span class="lineNum">     451 </span>            : 
+<span class="lineNum">     452 </span>            :     /* Case 2 and 3 require to replicate SPOP as a set of SREM commands.
+<span class="lineNum">     453 </span>            :      * Prepare our replication argument vector. Also send the array length
+<span class="lineNum">     454 </span>            :      * which is common to both the code paths. */
+<span class="lineNum">     455 </span><span class="lineCov">         60 :     robj *propargv[3];</span>
+<span class="lineNum">     456 </span><span class="lineCov">         60 :     propargv[0] = createStringObject(&quot;SREM&quot;,4);</span>
+<span class="lineNum">     457 </span><span class="lineCov">         60 :     propargv[1] = c-&gt;argv[1];</span>
+<span class="lineNum">     458 </span><span class="lineCov">         60 :     addReplyMultiBulkLen(c,count);</span>
+<span class="lineNum">     459 </span>            : 
+<span class="lineNum">     460 </span>            :     /* Common iteration vars. */
+<span class="lineNum">     461 </span><span class="lineCov">         60 :     sds sdsele;</span>
+<span class="lineNum">     462 </span><span class="lineCov">         60 :     robj *objele;</span>
+<span class="lineNum">     463 </span><span class="lineCov">         60 :     int encoding;</span>
+<span class="lineNum">     464 </span><span class="lineCov">         60 :     int64_t llele;</span>
+<span class="lineNum">     465 </span><span class="lineCov">         60 :     unsigned long remaining = size-count; /* Elements left after SPOP. */</span>
+<span class="lineNum">     466 </span>            : 
+<span class="lineNum">     467 </span>            :     /* If we are here, the number of requested elements is less than the
+<span class="lineNum">     468 </span>            :      * number of elements inside the set. Also we are sure that count &lt; size.
+<span class="lineNum">     469 </span>            :      * Use two different strategies.
+<span class="lineNum">     470 </span>            :      *
+<span class="lineNum">     471 </span>            :      * CASE 2: The number of elements to return is small compared to the
+<span class="lineNum">     472 </span>            :      * set size. We can just extract random elements and return them to
+<span class="lineNum">     473 </span>            :      * the set. */
+<span class="lineNum">     474 </span><span class="lineCov">         60 :     if (remaining*SPOP_MOVE_STRATEGY_MUL &gt; count) {</span>
+<span class="lineNum">     475 </span><span class="lineCov">        280 :         while(count--) {</span>
+<span class="lineNum">     476 </span>            :             /* Emit and remove. */
+<span class="lineNum">     477 </span><span class="lineCov">        224 :             encoding = setTypeRandomElement(set,&amp;sdsele,&amp;llele);</span>
+<span class="lineNum">     478 </span><span class="lineCov">        224 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     479 </span><span class="lineCov">        135 :                 addReplyBulkLongLong(c,llele);</span>
+<span class="lineNum">     480 </span><span class="lineCov">        135 :                 objele = createStringObjectFromLongLong(llele);</span>
+<span class="lineNum">     481 </span><span class="lineCov">        135 :                 set-&gt;ptr = intsetRemove(set-&gt;ptr,llele,NULL);</span>
+<span class="lineNum">     482 </span>            :             } else {
+<span class="lineNum">     483 </span><span class="lineCov">        178 :                 addReplyBulkCBuffer(c,sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     484 </span><span class="lineCov">        178 :                 objele = createStringObject(sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     485 </span><span class="lineCov">         89 :                 setTypeRemove(set,sdsele);</span>
+<span class="lineNum">     486 </span>            :             }
+<span class="lineNum">     487 </span>            : 
+<span class="lineNum">     488 </span>            :             /* Replicate/AOF this command as an SREM operation */
+<span class="lineNum">     489 </span><span class="lineCov">        224 :             propargv[2] = objele;</span>
+<span class="lineNum">     490 </span><span class="lineCov">        224 :             alsoPropagate(server.sremCommand,c-&gt;db-&gt;id,propargv,3,</span>
+<span class="lineNum">     491 </span>            :                 PROPAGATE_AOF|PROPAGATE_REPL);
+<span class="lineNum">     492 </span><span class="lineCov">        224 :             decrRefCount(objele);</span>
+<span class="lineNum">     493 </span>            :         }
+<span class="lineNum">     494 </span>            :     } else {
+<span class="lineNum">     495 </span>            :     /* CASE 3: The number of elements to return is very big, approaching
+<span class="lineNum">     496 </span>            :      * the size of the set itself. After some time extracting random elements
+<span class="lineNum">     497 </span>            :      * from such a set becomes computationally expensive, so we use
+<span class="lineNum">     498 </span>            :      * a different strategy, we extract random elements that we don't
+<span class="lineNum">     499 </span>            :      * want to return (the elements that will remain part of the set),
+<span class="lineNum">     500 </span>            :      * creating a new set as we do this (that will be stored as the original
+<span class="lineNum">     501 </span>            :      * set). Then we return the elements left in the original set and
+<span class="lineNum">     502 </span>            :      * release it. */
+<span class="lineNum">     503 </span>            :         robj *newset = NULL;
+<span class="lineNum">     504 </span>            : 
+<span class="lineNum">     505 </span>            :         /* Create a new set with just the remaining elements. */
+<span class="lineNum">     506 </span><span class="lineCov">         17 :         while(remaining--) {</span>
+<span class="lineNum">     507 </span><span class="lineCov">         13 :             encoding = setTypeRandomElement(set,&amp;sdsele,&amp;llele);</span>
+<span class="lineNum">     508 </span><span class="lineCov">         13 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     509 </span><span class="lineCov">          6 :                 sdsele = sdsfromlonglong(llele);</span>
+<span class="lineNum">     510 </span>            :             } else {
+<span class="lineNum">     511 </span><span class="lineCov">          7 :                 sdsele = sdsdup(sdsele);</span>
+<span class="lineNum">     512 </span>            :             }
+<span class="lineNum">     513 </span><span class="lineCov">         13 :             if (!newset) newset = setTypeCreate(sdsele);</span>
+<span class="lineNum">     514 </span><span class="lineCov">         13 :             setTypeAdd(newset,sdsele);</span>
+<span class="lineNum">     515 </span><span class="lineCov">         13 :             setTypeRemove(set,sdsele);</span>
+<span class="lineNum">     516 </span><span class="lineCov">         13 :             sdsfree(sdsele);</span>
+<span class="lineNum">     517 </span>            :         }
+<span class="lineNum">     518 </span>            : 
+<span class="lineNum">     519 </span>            :         /* Transfer the old set to the client. */
+<span class="lineNum">     520 </span><span class="lineCov">          4 :         setTypeIterator *si;</span>
+<span class="lineNum">     521 </span><span class="lineCov">          4 :         si = setTypeInitIterator(set);</span>
+<span class="lineNum">     522 </span><span class="lineCov">        127 :         while((encoding = setTypeNext(si,&amp;sdsele,&amp;llele)) != -1) {</span>
+<span class="lineNum">     523 </span><span class="lineCov">        123 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     524 </span><span class="lineCov">         54 :                 addReplyBulkLongLong(c,llele);</span>
+<span class="lineNum">     525 </span><span class="lineCov">         54 :                 objele = createStringObjectFromLongLong(llele);</span>
+<span class="lineNum">     526 </span>            :             } else {
+<span class="lineNum">     527 </span><span class="lineCov">        138 :                 addReplyBulkCBuffer(c,sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     528 </span><span class="lineCov">        138 :                 objele = createStringObject(sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     529 </span>            :             }
+<span class="lineNum">     530 </span>            : 
+<span class="lineNum">     531 </span>            :             /* Replicate/AOF this command as an SREM operation */
+<span class="lineNum">     532 </span><span class="lineCov">        123 :             propargv[2] = objele;</span>
+<span class="lineNum">     533 </span><span class="lineCov">        123 :             alsoPropagate(server.sremCommand,c-&gt;db-&gt;id,propargv,3,</span>
+<span class="lineNum">     534 </span>            :                 PROPAGATE_AOF|PROPAGATE_REPL);
+<span class="lineNum">     535 </span><span class="lineCov">        123 :             decrRefCount(objele);</span>
+<span class="lineNum">     536 </span>            :         }
+<span class="lineNum">     537 </span><span class="lineCov">          4 :         setTypeReleaseIterator(si);</span>
+<span class="lineNum">     538 </span>            : 
+<span class="lineNum">     539 </span>            :         /* Assign the new set as the key value. */
+<span class="lineNum">     540 </span><span class="lineCov">          4 :         dbOverwrite(c-&gt;db,c-&gt;argv[1],newset);</span>
+<span class="lineNum">     541 </span>            :     }
+<span class="lineNum">     542 </span>            : 
+<span class="lineNum">     543 </span>            :     /* Don't propagate the command itself even if we incremented the
+<span class="lineNum">     544 </span>            :      * dirty counter. We don't want to propagate an SPOP command since
+<span class="lineNum">     545 </span>            :      * we propagated the command as a set of SREMs operations using
+<span class="lineNum">     546 </span>            :      * the alsoPropagate() API. */
+<span class="lineNum">     547 </span><span class="lineCov">         60 :     decrRefCount(propargv[0]);</span>
+<span class="lineNum">     548 </span><span class="lineCov">         60 :     preventCommandPropagation(c);</span>
+<span class="lineNum">     549 </span><span class="lineCov">         60 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     550 </span><span class="lineCov">         60 :     server.dirty++;</span>
+<a name="551"><span class="lineNum">     551 </span>            : }</a>
+<span class="lineNum">     552 </span>            : 
+<span class="lineNum">     553 </span><span class="lineCov">      26795 : void spopCommand(client *c) {</span>
+<span class="lineNum">     554 </span><span class="lineCov">      26795 :     robj *set, *ele, *aux;</span>
+<span class="lineNum">     555 </span><span class="lineCov">      26795 :     sds sdsele;</span>
+<span class="lineNum">     556 </span><span class="lineCov">      26795 :     int64_t llele;</span>
+<span class="lineNum">     557 </span><span class="lineCov">      26795 :     int encoding;</span>
+<span class="lineNum">     558 </span>            : 
+<span class="lineNum">     559 </span><span class="lineCov">      26795 :     if (c-&gt;argc == 3) {</span>
+<span class="lineNum">     560 </span><span class="lineCov">        104 :         spopWithCountCommand(c);</span>
+<span class="lineNum">     561 </span><span class="lineCov">        106 :         return;</span>
+<span class="lineNum">     562 </span><span class="lineCov">      26691 :     } else if (c-&gt;argc &gt; 3) {</span>
+<span class="lineNum">     563 </span><span class="lineNoCov">          0 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     564 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     565 </span>            :     }
+<span class="lineNum">     566 </span>            : 
+<span class="lineNum">     567 </span>            :     /* Make sure a key with the name inputted exists, and that it's type is
+<span class="lineNum">     568 </span>            :      * indeed a set */
+<span class="lineNum">     569 </span><span class="lineCov">      53380 :     if ((set = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.nullbulk)) == NULL ||</span>
+<span class="lineNum">     570 </span><span class="lineCov">      26691 :         checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">     571 </span>            : 
+<span class="lineNum">     572 </span>            :     /* Get a random element from the set */
+<span class="lineNum">     573 </span><span class="lineCov">      26689 :     encoding = setTypeRandomElement(set,&amp;sdsele,&amp;llele);</span>
+<span class="lineNum">     574 </span>            : 
+<span class="lineNum">     575 </span>            :     /* Remove the element from the set */
+<span class="lineNum">     576 </span><span class="lineCov">      26689 :     if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     577 </span><span class="lineCov">       7659 :         ele = createStringObjectFromLongLong(llele);</span>
+<span class="lineNum">     578 </span><span class="lineCov">       7659 :         set-&gt;ptr = intsetRemove(set-&gt;ptr,llele,NULL);</span>
+<span class="lineNum">     579 </span>            :     } else {
+<span class="lineNum">     580 </span><span class="lineCov">      38060 :         ele = createStringObject(sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     581 </span><span class="lineCov">      19030 :         setTypeRemove(set,ele-&gt;ptr);</span>
+<span class="lineNum">     582 </span>            :     }
+<span class="lineNum">     583 </span>            : 
+<span class="lineNum">     584 </span><span class="lineCov">      26689 :     notifyKeyspaceEvent(NOTIFY_SET,&quot;spop&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     585 </span>            : 
+<span class="lineNum">     586 </span>            :     /* Replicate/AOF this command as an SREM operation */
+<span class="lineNum">     587 </span><span class="lineCov">      26689 :     aux = createStringObject(&quot;SREM&quot;,4);</span>
+<span class="lineNum">     588 </span><span class="lineCov">      26689 :     rewriteClientCommandVector(c,3,aux,c-&gt;argv[1],ele);</span>
+<span class="lineNum">     589 </span><span class="lineCov">      26689 :     decrRefCount(aux);</span>
+<span class="lineNum">     590 </span>            : 
+<span class="lineNum">     591 </span>            :     /* Add the element to the reply */
+<span class="lineNum">     592 </span><span class="lineCov">      26689 :     addReplyBulk(c,ele);</span>
+<span class="lineNum">     593 </span><span class="lineCov">      26689 :     decrRefCount(ele);</span>
+<span class="lineNum">     594 </span>            : 
+<span class="lineNum">     595 </span>            :     /* Delete the set if it's empty */
+<span class="lineNum">     596 </span><span class="lineCov">      26689 :     if (setTypeSize(set) == 0) {</span>
+<span class="lineNum">     597 </span><span class="lineCov">         82 :         dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     598 </span><span class="lineCov">         82 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     599 </span>            :     }
+<span class="lineNum">     600 </span>            : 
+<span class="lineNum">     601 </span>            :     /* Set has been modified */
+<span class="lineNum">     602 </span><span class="lineCov">      26689 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     603 </span><span class="lineCov">      26689 :     server.dirty++;</span>
+<span class="lineNum">     604 </span>            : }
+<span class="lineNum">     605 </span>            : 
+<span class="lineNum">     606 </span>            : /* handle the &quot;SRANDMEMBER key &lt;count&gt;&quot; variant. The normal version of the
+<span class="lineNum">     607 </span>            :  * command is handled by the srandmemberCommand() function itself. */
+<span class="lineNum">     608 </span>            : 
+<span class="lineNum">     609 </span>            : /* How many times bigger should be the set compared to the requested size
+<span class="lineNum">     610 </span>            :  * for us to don't use the &quot;remove elements&quot; strategy? Read later in the
+<span class="lineNum">     611 </span>            :  * implementation for more info. */
+<a name="612"><span class="lineNum">     612 </span>            : #define SRANDMEMBER_SUB_STRATEGY_MUL 3</a>
+<span class="lineNum">     613 </span>            : 
+<span class="lineNum">     614 </span><span class="lineCov">        552 : void srandmemberWithCountCommand(client *c) {</span>
+<span class="lineNum">     615 </span><span class="lineCov">        552 :     long l;</span>
+<span class="lineNum">     616 </span><span class="lineCov">        552 :     unsigned long count, size;</span>
+<span class="lineNum">     617 </span><span class="lineCov">        552 :     int uniq = 1;</span>
+<span class="lineNum">     618 </span><span class="lineCov">        552 :     robj *set;</span>
+<span class="lineNum">     619 </span><span class="lineCov">        552 :     sds ele;</span>
+<span class="lineNum">     620 </span><span class="lineCov">        552 :     int64_t llele;</span>
+<span class="lineNum">     621 </span><span class="lineCov">        552 :     int encoding;</span>
+<span class="lineNum">     622 </span>            : 
+<span class="lineNum">     623 </span><span class="lineCov">        552 :     dict *d;</span>
+<span class="lineNum">     624 </span>            : 
+<span class="lineNum">     625 </span><span class="lineCov">       1092 :     if (getLongFromObjectOrReply(c,c-&gt;argv[2],&amp;l,NULL) != C_OK) return;</span>
+<span class="lineNum">     626 </span><span class="lineCov">        552 :     if (l &gt;= 0) {</span>
+<span class="lineNum">     627 </span><span class="lineCov">         33 :         count = (unsigned long) l;</span>
+<span class="lineNum">     628 </span>            :     } else {
+<span class="lineNum">     629 </span>            :         /* A negative count means: return the same elements multiple times
+<span class="lineNum">     630 </span>            :          * (i.e. don't remove the extracted element after every extraction). */
+<span class="lineNum">     631 </span><span class="lineCov">        519 :         count = -l;</span>
+<span class="lineNum">     632 </span><span class="lineCov">        519 :         uniq = 0;</span>
+<span class="lineNum">     633 </span>            :     }
+<span class="lineNum">     634 </span>            : 
+<span class="lineNum">     635 </span><span class="lineCov">        552 :     if ((set = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptymultibulk))</span>
+<span class="lineNum">     636 </span><span class="lineCov">        552 :         == NULL || checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">     637 </span><span class="lineCov">        549 :     size = setTypeSize(set);</span>
+<span class="lineNum">     638 </span>            : 
+<span class="lineNum">     639 </span>            :     /* If count is zero, serve it ASAP to avoid special cases later. */
+<span class="lineNum">     640 </span><span class="lineCov">        549 :     if (count == 0) {</span>
+<span class="lineNum">     641 </span><span class="lineCov">          6 :         addReply(c,shared.emptymultibulk);</span>
+<span class="lineNum">     642 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     643 </span>            :     }
+<span class="lineNum">     644 </span>            : 
+<span class="lineNum">     645 </span>            :     /* CASE 1: The count was negative, so the extraction method is just:
+<span class="lineNum">     646 </span>            :      * &quot;return N random elements&quot; sampling the whole set every time.
+<span class="lineNum">     647 </span>            :      * This case is trivial and can be served without auxiliary data
+<span class="lineNum">     648 </span>            :      * structures. */
+<span class="lineNum">     649 </span><span class="lineCov">        543 :     if (!uniq) {</span>
+<span class="lineNum">     650 </span><span class="lineCov">        519 :         addReplyMultiBulkLen(c,count);</span>
+<span class="lineNum">     651 </span><span class="lineCov">       6249 :         while(count--) {</span>
+<span class="lineNum">     652 </span><span class="lineCov">       5730 :             encoding = setTypeRandomElement(set,&amp;ele,&amp;llele);</span>
+<span class="lineNum">     653 </span><span class="lineCov">       5730 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     654 </span><span class="lineCov">       2380 :                 addReplyBulkLongLong(c,llele);</span>
+<span class="lineNum">     655 </span>            :             } else {
+<span class="lineNum">     656 </span><span class="lineCov">       6700 :                 addReplyBulkCBuffer(c,ele,sdslen(ele));</span>
+<span class="lineNum">     657 </span>            :             }
+<span class="lineNum">     658 </span>            :         }
+<span class="lineNum">     659 </span>            :         return;
+<span class="lineNum">     660 </span>            :     }
+<span class="lineNum">     661 </span>            : 
+<span class="lineNum">     662 </span>            :     /* CASE 2:
+<span class="lineNum">     663 </span>            :      * The number of requested elements is greater than the number of
+<span class="lineNum">     664 </span>            :      * elements inside the set: simply return the whole set. */
+<span class="lineNum">     665 </span><span class="lineCov">         24 :     if (count &gt;= size) {</span>
+<span class="lineNum">     666 </span><span class="lineCov">         12 :         sunionDiffGenericCommand(c,c-&gt;argv+1,1,NULL,SET_OP_UNION);</span>
+<span class="lineNum">     667 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">     668 </span>            :     }
+<span class="lineNum">     669 </span>            : 
+<span class="lineNum">     670 </span>            :     /* For CASE 3 and CASE 4 we need an auxiliary dictionary. */
+<span class="lineNum">     671 </span><span class="lineCov">         12 :     d = dictCreate(&amp;objectKeyPointerValueDictType,NULL);</span>
+<span class="lineNum">     672 </span>            : 
+<span class="lineNum">     673 </span>            :     /* CASE 3:
+<span class="lineNum">     674 </span>            :      * The number of elements inside the set is not greater than
+<span class="lineNum">     675 </span>            :      * SRANDMEMBER_SUB_STRATEGY_MUL times the number of requested elements.
+<span class="lineNum">     676 </span>            :      * In this case we create a set from scratch with all the elements, and
+<span class="lineNum">     677 </span>            :      * subtract random elements to reach the requested number of elements.
+<span class="lineNum">     678 </span>            :      *
+<span class="lineNum">     679 </span>            :      * This is done because if the number of requsted elements is just
+<span class="lineNum">     680 </span>            :      * a bit less than the number of elements in the set, the natural approach
+<span class="lineNum">     681 </span>            :      * used into CASE 3 is highly inefficient. */
+<span class="lineNum">     682 </span><span class="lineCov">         12 :     if (count*SRANDMEMBER_SUB_STRATEGY_MUL &gt; size) {</span>
+<span class="lineNum">     683 </span><span class="lineCov">          6 :         setTypeIterator *si;</span>
+<span class="lineNum">     684 </span>            : 
+<span class="lineNum">     685 </span>            :         /* Add all the elements into the temporary dictionary. */
+<span class="lineNum">     686 </span><span class="lineCov">          6 :         si = setTypeInitIterator(set);</span>
+<span class="lineNum">     687 </span><span class="lineCov">        306 :         while((encoding = setTypeNext(si,&amp;ele,&amp;llele)) != -1) {</span>
+<span class="lineNum">     688 </span><span class="lineCov">        300 :             int retval = DICT_ERR;</span>
+<span class="lineNum">     689 </span>            : 
+<span class="lineNum">     690 </span><span class="lineCov">        300 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     691 </span><span class="lineCov">        150 :                 retval = dictAdd(d,createStringObjectFromLongLong(llele),NULL);</span>
+<span class="lineNum">     692 </span>            :             } else {
+<span class="lineNum">     693 </span><span class="lineCov">        300 :                 retval = dictAdd(d,createStringObject(ele,sdslen(ele)),NULL);</span>
+<span class="lineNum">     694 </span>            :             }
+<span class="lineNum">     695 </span><span class="lineCov">        300 :             serverAssert(retval == DICT_OK);</span>
+<span class="lineNum">     696 </span>            :         }
+<span class="lineNum">     697 </span><span class="lineCov">          6 :         setTypeReleaseIterator(si);</span>
+<span class="lineNum">     698 </span><span class="lineCov">          6 :         serverAssert(dictSize(d) == size);</span>
+<span class="lineNum">     699 </span>            : 
+<span class="lineNum">     700 </span>            :         /* Remove random elements to reach the right count. */
+<span class="lineNum">     701 </span><span class="lineCov">         36 :         while(size &gt; count) {</span>
+<span class="lineNum">     702 </span><span class="lineCov">         30 :             dictEntry *de;</span>
+<span class="lineNum">     703 </span>            : 
+<span class="lineNum">     704 </span><span class="lineCov">         30 :             de = dictGetRandomKey(d);</span>
+<span class="lineNum">     705 </span><span class="lineCov">         30 :             dictDelete(d,dictGetKey(de));</span>
+<span class="lineNum">     706 </span><span class="lineCov">         30 :             size--;</span>
+<span class="lineNum">     707 </span>            :         }
+<span class="lineNum">     708 </span>            :     }
+<span class="lineNum">     709 </span>            : 
+<span class="lineNum">     710 </span>            :     /* CASE 4: We have a big set compared to the requested number of elements.
+<span class="lineNum">     711 </span>            :      * In this case we can simply get random elements from the set and add
+<span class="lineNum">     712 </span>            :      * to the temporary set, trying to eventually get enough unique elements
+<span class="lineNum">     713 </span>            :      * to reach the specified count. */
+<span class="lineNum">     714 </span>            :     else {
+<span class="lineNum">     715 </span>            :         unsigned long added = 0;
+<span class="lineNum">     716 </span>            :         robj *objele;
+<span class="lineNum">     717 </span>            : 
+<span class="lineNum">     718 </span><span class="lineCov">         37 :         while(added &lt; count) {</span>
+<span class="lineNum">     719 </span><span class="lineCov">         31 :             encoding = setTypeRandomElement(set,&amp;ele,&amp;llele);</span>
+<span class="lineNum">     720 </span><span class="lineCov">         31 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     721 </span><span class="lineCov">         15 :                 objele = createStringObjectFromLongLong(llele);</span>
+<span class="lineNum">     722 </span>            :             } else {
+<span class="lineNum">     723 </span><span class="lineCov">         32 :                 objele = createStringObject(ele,sdslen(ele));</span>
+<span class="lineNum">     724 </span>            :             }
+<span class="lineNum">     725 </span>            :             /* Try to add the object to the dictionary. If it already exists
+<span class="lineNum">     726 </span>            :              * free it, otherwise increment the number of objects we have
+<span class="lineNum">     727 </span>            :              * in the result dictionary. */
+<span class="lineNum">     728 </span><span class="lineCov">         31 :             if (dictAdd(d,objele,NULL) == DICT_OK)</span>
+<span class="lineNum">     729 </span><span class="lineCov">         30 :                 added++;</span>
+<span class="lineNum">     730 </span>            :             else
+<span class="lineNum">     731 </span><span class="lineCov">          1 :                 decrRefCount(objele);</span>
+<span class="lineNum">     732 </span>            :         }
+<span class="lineNum">     733 </span>            :     }
+<span class="lineNum">     734 </span>            : 
+<span class="lineNum">     735 </span>            :     /* CASE 3 &amp; 4: send the result to the user. */
+<span class="lineNum">     736 </span>            :     {
+<span class="lineNum">     737 </span><span class="lineCov">         12 :         dictIterator *di;</span>
+<span class="lineNum">     738 </span><span class="lineCov">         12 :         dictEntry *de;</span>
+<span class="lineNum">     739 </span>            : 
+<span class="lineNum">     740 </span><span class="lineCov">         12 :         addReplyMultiBulkLen(c,count);</span>
+<span class="lineNum">     741 </span><span class="lineCov">         12 :         di = dictGetIterator(d);</span>
+<span class="lineNum">     742 </span><span class="lineCov">        312 :         while((de = dictNext(di)) != NULL)</span>
+<span class="lineNum">     743 </span><span class="lineCov">        300 :             addReplyBulk(c,dictGetKey(de));</span>
+<span class="lineNum">     744 </span><span class="lineCov">         12 :         dictReleaseIterator(di);</span>
+<span class="lineNum">     745 </span><span class="lineCov">         12 :         dictRelease(d);</span>
+<span class="lineNum">     746 </span>            :     }
+<a name="747"><span class="lineNum">     747 </span>            : }</a>
+<span class="lineNum">     748 </span>            : 
+<span class="lineNum">     749 </span><span class="lineCov">       1152 : void srandmemberCommand(client *c) {</span>
+<span class="lineNum">     750 </span><span class="lineCov">       1152 :     robj *set;</span>
+<span class="lineNum">     751 </span><span class="lineCov">       1152 :     sds ele;</span>
+<span class="lineNum">     752 </span><span class="lineCov">       1152 :     int64_t llele;</span>
+<span class="lineNum">     753 </span><span class="lineCov">       1152 :     int encoding;</span>
+<span class="lineNum">     754 </span>            : 
+<span class="lineNum">     755 </span><span class="lineCov">       1152 :     if (c-&gt;argc == 3) {</span>
+<span class="lineNum">     756 </span><span class="lineCov">        552 :         srandmemberWithCountCommand(c);</span>
+<span class="lineNum">     757 </span><span class="lineCov">        552 :         return;</span>
+<span class="lineNum">     758 </span><span class="lineCov">        600 :     } else if (c-&gt;argc &gt; 3) {</span>
+<span class="lineNum">     759 </span><span class="lineNoCov">          0 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     760 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     761 </span>            :     }
+<span class="lineNum">     762 </span>            : 
+<span class="lineNum">     763 </span><span class="lineCov">       1200 :     if ((set = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.nullbulk)) == NULL ||</span>
+<span class="lineNum">     764 </span><span class="lineCov">        600 :         checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">     765 </span>            : 
+<span class="lineNum">     766 </span><span class="lineCov">        600 :     encoding = setTypeRandomElement(set,&amp;ele,&amp;llele);</span>
+<span class="lineNum">     767 </span><span class="lineCov">        600 :     if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     768 </span><span class="lineCov">        300 :         addReplyBulkLongLong(c,llele);</span>
+<span class="lineNum">     769 </span>            :     } else {
+<span class="lineNum">     770 </span><span class="lineCov">        600 :         addReplyBulkCBuffer(c,ele,sdslen(ele));</span>
+<span class="lineNum">     771 </span>            :     }
+<a name="772"><span class="lineNum">     772 </span>            : }</a>
+<span class="lineNum">     773 </span>            : 
+<span class="lineNum">     774 </span><span class="lineCov">      59439 : int qsortCompareSetsByCardinality(const void *s1, const void *s2) {</span>
+<span class="lineNum">     775 </span><span class="lineCov">      59439 :     if (setTypeSize(*(robj**)s1) &gt; setTypeSize(*(robj**)s2)) return 1;</span>
+<span class="lineNum">     776 </span><span class="lineCov">      54522 :     if (setTypeSize(*(robj**)s1) &lt; setTypeSize(*(robj**)s2)) return -1;</span>
+<span class="lineNum">     777 </span>            :     return 0;
+<span class="lineNum">     778 </span>            : }
+<span class="lineNum">     779 </span>            : 
+<a name="780"><span class="lineNum">     780 </span>            : /* This is used by SDIFF and in this case we can receive NULL that should</a>
+<span class="lineNum">     781 </span>            :  * be handled as empty sets. */
+<span class="lineNum">     782 </span><span class="lineCov">       1793 : int qsortCompareSetsByRevCardinality(const void *s1, const void *s2) {</span>
+<span class="lineNum">     783 </span><span class="lineCov">       1793 :     robj *o1 = *(robj**)s1, *o2 = *(robj**)s2;</span>
+<span class="lineNum">     784 </span><span class="lineCov">       1793 :     unsigned long first = o1 ? setTypeSize(o1) : 0;</span>
+<span class="lineNum">     785 </span><span class="lineCov">       1793 :     unsigned long second = o2 ? setTypeSize(o2) : 0;</span>
+<span class="lineNum">     786 </span>            : 
+<span class="lineNum">     787 </span><span class="lineCov">       1793 :     if (first &lt; second) return 1;</span>
+<span class="lineNum">     788 </span><span class="lineCov">        853 :     if (first &gt; second) return -1;</span>
+<span class="lineNum">     789 </span>            :     return 0;
+<a name="790"><span class="lineNum">     790 </span>            : }</a>
+<span class="lineNum">     791 </span>            : 
+<span class="lineNum">     792 </span><span class="lineCov">      59638 : void sinterGenericCommand(client *c, robj **setkeys,</span>
+<span class="lineNum">     793 </span>            :                           unsigned long setnum, robj *dstkey) {
+<span class="lineNum">     794 </span><span class="lineCov">      59638 :     robj **sets = zmalloc(sizeof(robj*)*setnum);</span>
+<span class="lineNum">     795 </span><span class="lineCov">      59638 :     setTypeIterator *si;</span>
+<span class="lineNum">     796 </span><span class="lineCov">      59638 :     robj *dstset = NULL;</span>
+<span class="lineNum">     797 </span><span class="lineCov">      59638 :     sds elesds;</span>
+<span class="lineNum">     798 </span><span class="lineCov">      59638 :     int64_t intobj;</span>
+<span class="lineNum">     799 </span><span class="lineCov">      59638 :     void *replylen = NULL;</span>
+<span class="lineNum">     800 </span><span class="lineCov">      59638 :     unsigned long j, cardinality = 0;</span>
+<span class="lineNum">     801 </span><span class="lineCov">      59638 :     int encoding;</span>
+<span class="lineNum">     802 </span>            : 
+<span class="lineNum">     803 </span><span class="lineCov">     178699 :     for (j = 0; j &lt; setnum; j++) {</span>
+<span class="lineNum">     804 </span><span class="lineCov">     238142 :         robj *setobj = dstkey ?</span>
+<span class="lineNum">     805 </span><span class="lineCov">     119071 :             lookupKeyWrite(c-&gt;db,setkeys[j]) :</span>
+<span class="lineNum">     806 </span><span class="lineCov">        262 :             lookupKeyRead(c-&gt;db,setkeys[j]);</span>
+<span class="lineNum">     807 </span><span class="lineCov">     119071 :         if (!setobj) {</span>
+<span class="lineNum">     808 </span><span class="lineCov">          7 :             zfree(sets);</span>
+<span class="lineNum">     809 </span><span class="lineCov">          7 :             if (dstkey) {</span>
+<span class="lineNum">     810 </span><span class="lineCov">          3 :                 if (dbDelete(c-&gt;db,dstkey)) {</span>
+<span class="lineNum">     811 </span><span class="lineCov">          3 :                     signalModifiedKey(c-&gt;db,dstkey);</span>
+<span class="lineNum">     812 </span><span class="lineCov">          3 :                     server.dirty++;</span>
+<span class="lineNum">     813 </span>            :                 }
+<span class="lineNum">     814 </span><span class="lineCov">          3 :                 addReply(c,shared.czero);</span>
+<span class="lineNum">     815 </span>            :             } else {
+<span class="lineNum">     816 </span><span class="lineCov">          4 :                 addReply(c,shared.emptymultibulk);</span>
+<span class="lineNum">     817 </span>            :             }
+<span class="lineNum">     818 </span><span class="lineCov">         10 :             return;</span>
+<span class="lineNum">     819 </span>            :         }
+<span class="lineNum">     820 </span><span class="lineCov">     119064 :         if (checkType(c,setobj,OBJ_SET)) {</span>
+<span class="lineNum">     821 </span><span class="lineCov">          3 :             zfree(sets);</span>
+<span class="lineNum">     822 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     823 </span>            :         }
+<span class="lineNum">     824 </span><span class="lineCov">     119061 :         sets[j] = setobj;</span>
+<span class="lineNum">     825 </span>            :     }
+<span class="lineNum">     826 </span>            :     /* Sort sets from the smallest to largest, this will improve our
+<span class="lineNum">     827 </span>            :      * algorithm's performance */
+<span class="lineNum">     828 </span><span class="lineCov">      59628 :     qsort(sets,setnum,sizeof(robj*),qsortCompareSetsByCardinality);</span>
+<span class="lineNum">     829 </span>            : 
+<span class="lineNum">     830 </span>            :     /* The first thing we should output is the total number of elements...
+<span class="lineNum">     831 </span>            :      * since this is a multi-bulk write, but at this stage we don't know
+<span class="lineNum">     832 </span>            :      * the intersection set size, so we use a trick, append an empty object
+<span class="lineNum">     833 </span>            :      * to the output list and save the pointer to later modify it with the
+<span class="lineNum">     834 </span>            :      * right length */
+<span class="lineNum">     835 </span><span class="lineCov">      59628 :     if (!dstkey) {</span>
+<span class="lineNum">     836 </span><span class="lineCov">        228 :         replylen = addDeferredMultiBulkLength(c);</span>
+<span class="lineNum">     837 </span>            :     } else {
+<span class="lineNum">     838 </span>            :         /* If we have a target key where to store the resulting set
+<span class="lineNum">     839 </span>            :          * create this key with an empty set inside */
+<span class="lineNum">     840 </span><span class="lineCov">      59400 :         dstset = createIntsetObject();</span>
+<span class="lineNum">     841 </span>            :     }
+<span class="lineNum">     842 </span>            : 
+<span class="lineNum">     843 </span>            :     /* Iterate all the elements of the first (smallest) set, and test
+<span class="lineNum">     844 </span>            :      * the element against all the other sets, if at least one set does
+<span class="lineNum">     845 </span>            :      * not include the element it is discarded */
+<span class="lineNum">     846 </span><span class="lineCov">      59628 :     si = setTypeInitIterator(sets[0]);</span>
+<span class="lineNum">     847 </span><span class="lineCov">     220559 :     while((encoding = setTypeNext(si,&amp;elesds,&amp;intobj)) != -1) {</span>
+<span class="lineNum">     848 </span><span class="lineCov">     101822 :         for (j = 1; j &lt; setnum; j++) {</span>
+<span class="lineNum">     849 </span><span class="lineCov">      64301 :             if (sets[j] == sets[0]) continue;</span>
+<span class="lineNum">     850 </span><span class="lineCov">      63989 :             if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     851 </span>            :                 /* intset with intset is simple... and fast */
+<span class="lineNum">     852 </span><span class="lineCov">      79784 :                 if (sets[j]-&gt;encoding == OBJ_ENCODING_INTSET &amp;&amp;</span>
+<span class="lineNum">     853 </span><span class="lineCov">      32865 :                     !intsetFind((intset*)sets[j]-&gt;ptr,intobj))</span>
+<span class="lineNum">     854 </span>            :                 {
+<span class="lineNum">     855 </span>            :                     break;
+<span class="lineNum">     856 </span>            :                 /* in order to compare an integer with an object we
+<span class="lineNum">     857 </span>            :                  * have to use the generic function, creating an object
+<span class="lineNum">     858 </span>            :                  * for this */
+<span class="lineNum">     859 </span><span class="lineCov">      14156 :                 } else if (sets[j]-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     860 </span><span class="lineCov">      14054 :                     elesds = sdsfromlonglong(intobj);</span>
+<span class="lineNum">     861 </span><span class="lineCov">      14054 :                     if (!setTypeIsMember(sets[j],elesds)) {</span>
+<span class="lineNum">     862 </span><span class="lineCov">      14041 :                         sdsfree(elesds);</span>
+<span class="lineNum">     863 </span><span class="lineCov">      14041 :                         break;</span>
+<span class="lineNum">     864 </span>            :                     }
+<span class="lineNum">     865 </span><span class="lineCov">         13 :                     sdsfree(elesds);</span>
+<span class="lineNum">     866 </span>            :                 }
+<span class="lineNum">     867 </span><span class="lineCov">      17070 :             } else if (encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     868 </span><span class="lineCov">      17070 :                 if (!setTypeIsMember(sets[j],elesds)) {</span>
+<span class="lineNum">     869 </span>            :                     break;
+<span class="lineNum">     870 </span>            :                 }
+<span class="lineNum">     871 </span>            :             }
+<span class="lineNum">     872 </span>            :         }
+<span class="lineNum">     873 </span>            : 
+<span class="lineNum">     874 </span>            :         /* Only take action when all sets contain the member */
+<span class="lineNum">     875 </span><span class="lineCov">     101303 :         if (j == setnum) {</span>
+<span class="lineNum">     876 </span><span class="lineCov">      37521 :             if (!dstkey) {</span>
+<span class="lineNum">     877 </span><span class="lineCov">      37101 :                 if (encoding == OBJ_ENCODING_HT)</span>
+<span class="lineNum">     878 </span><span class="lineCov">      48486 :                     addReplyBulkCBuffer(c,elesds,sdslen(elesds));</span>
+<span class="lineNum">     879 </span>            :                 else
+<span class="lineNum">     880 </span><span class="lineCov">      12858 :                     addReplyBulkLongLong(c,intobj);</span>
+<span class="lineNum">     881 </span><span class="lineCov">      37101 :                 cardinality++;</span>
+<span class="lineNum">     882 </span>            :             } else {
+<span class="lineNum">     883 </span><span class="lineCov">        420 :                 if (encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     884 </span><span class="lineCov">        301 :                     elesds = sdsfromlonglong(intobj);</span>
+<span class="lineNum">     885 </span><span class="lineCov">        301 :                     setTypeAdd(dstset,elesds);</span>
+<span class="lineNum">     886 </span><span class="lineCov">        301 :                     sdsfree(elesds);</span>
+<span class="lineNum">     887 </span>            :                 } else {
+<span class="lineNum">     888 </span><span class="lineCov">        119 :                     setTypeAdd(dstset,elesds);</span>
+<span class="lineNum">     889 </span>            :                 }
+<span class="lineNum">     890 </span>            :             }
+<span class="lineNum">     891 </span>            :         }
+<span class="lineNum">     892 </span>            :     }
+<span class="lineNum">     893 </span><span class="lineCov">      59628 :     setTypeReleaseIterator(si);</span>
+<span class="lineNum">     894 </span>            : 
+<span class="lineNum">     895 </span><span class="lineCov">      59628 :     if (dstkey) {</span>
+<span class="lineNum">     896 </span>            :         /* Store the resulting set into the target, if the intersection
+<span class="lineNum">     897 </span>            :          * is not an empty set. */
+<span class="lineNum">     898 </span><span class="lineCov">      59400 :         int deleted = dbDelete(c-&gt;db,dstkey);</span>
+<span class="lineNum">     899 </span><span class="lineCov">      59400 :         if (setTypeSize(dstset) &gt; 0) {</span>
+<span class="lineNum">     900 </span><span class="lineCov">        338 :             dbAdd(c-&gt;db,dstkey,dstset);</span>
+<span class="lineNum">     901 </span><span class="lineCov">        338 :             addReplyLongLong(c,setTypeSize(dstset));</span>
+<span class="lineNum">     902 </span><span class="lineCov">        676 :             notifyKeyspaceEvent(NOTIFY_SET,&quot;sinterstore&quot;,</span>
+<span class="lineNum">     903 </span><span class="lineCov">        338 :                 dstkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     904 </span>            :         } else {
+<span class="lineNum">     905 </span><span class="lineCov">      59062 :             decrRefCount(dstset);</span>
+<span class="lineNum">     906 </span><span class="lineCov">      59062 :             addReply(c,shared.czero);</span>
+<span class="lineNum">     907 </span><span class="lineCov">      59062 :             if (deleted)</span>
+<span class="lineNum">     908 </span><span class="lineCov">      15808 :                 notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,</span>
+<span class="lineNum">     909 </span><span class="lineCov">       7904 :                     dstkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     910 </span>            :         }
+<span class="lineNum">     911 </span><span class="lineCov">      59400 :         signalModifiedKey(c-&gt;db,dstkey);</span>
+<span class="lineNum">     912 </span><span class="lineCov">      59400 :         server.dirty++;</span>
+<span class="lineNum">     913 </span>            :     } else {
+<span class="lineNum">     914 </span><span class="lineCov">        228 :         setDeferredMultiBulkLength(c,replylen,cardinality);</span>
+<span class="lineNum">     915 </span>            :     }
+<span class="lineNum">     916 </span><span class="lineCov">      59628 :     zfree(sets);</span>
+<a name="917"><span class="lineNum">     917 </span>            : }</a>
+<span class="lineNum">     918 </span>            : 
+<span class="lineNum">     919 </span><span class="lineCov">        235 : void sinterCommand(client *c) {</span>
+<span class="lineNum">     920 </span><span class="lineCov">        235 :     sinterGenericCommand(c,c-&gt;argv+1,c-&gt;argc-1,NULL);</span>
+<a name="921"><span class="lineNum">     921 </span><span class="lineCov">        235 : }</span></a>
+<span class="lineNum">     922 </span>            : 
+<span class="lineNum">     923 </span><span class="lineCov">      59403 : void sinterstoreCommand(client *c) {</span>
+<span class="lineNum">     924 </span><span class="lineCov">      59403 :     sinterGenericCommand(c,c-&gt;argv+2,c-&gt;argc-2,c-&gt;argv[1]);</span>
+<span class="lineNum">     925 </span><span class="lineCov">      59403 : }</span>
+<span class="lineNum">     926 </span>            : 
+<span class="lineNum">     927 </span>            : #define SET_OP_UNION 0
+<span class="lineNum">     928 </span>            : #define SET_OP_DIFF 1
+<a name="929"><span class="lineNum">     929 </span>            : #define SET_OP_INTER 2</a>
+<span class="lineNum">     930 </span>            : 
+<span class="lineNum">     931 </span><span class="lineCov">     118444 : void sunionDiffGenericCommand(client *c, robj **setkeys, int setnum,</span>
+<span class="lineNum">     932 </span>            :                               robj *dstkey, int op) {
+<span class="lineNum">     933 </span><span class="lineCov">     118444 :     robj **sets = zmalloc(sizeof(robj*)*setnum);</span>
+<span class="lineNum">     934 </span><span class="lineCov">     118444 :     setTypeIterator *si;</span>
+<span class="lineNum">     935 </span><span class="lineCov">     118444 :     robj *dstset = NULL;</span>
+<span class="lineNum">     936 </span><span class="lineCov">     118444 :     sds ele;</span>
+<span class="lineNum">     937 </span><span class="lineCov">     118444 :     int j, cardinality = 0;</span>
+<span class="lineNum">     938 </span><span class="lineCov">     118444 :     int diff_algo = 1;</span>
+<span class="lineNum">     939 </span>            : 
+<span class="lineNum">     940 </span><span class="lineCov">     356249 :     for (j = 0; j &lt; setnum; j++) {</span>
+<span class="lineNum">     941 </span><span class="lineCov">     475616 :         robj *setobj = dstkey ?</span>
+<span class="lineNum">     942 </span><span class="lineCov">     237808 :             lookupKeyWrite(c-&gt;db,setkeys[j]) :</span>
+<span class="lineNum">     943 </span><span class="lineCov">       1644 :             lookupKeyRead(c-&gt;db,setkeys[j]);</span>
+<span class="lineNum">     944 </span><span class="lineCov">     237808 :         if (!setobj) {</span>
+<span class="lineNum">     945 </span><span class="lineCov">         40 :             sets[j] = NULL;</span>
+<span class="lineNum">     946 </span><span class="lineCov">         40 :             continue;</span>
+<span class="lineNum">     947 </span>            :         }
+<span class="lineNum">     948 </span><span class="lineCov">     237768 :         if (checkType(c,setobj,OBJ_SET)) {</span>
+<span class="lineNum">     949 </span><span class="lineCov">          3 :             zfree(sets);</span>
+<span class="lineNum">     950 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     951 </span>            :         }
+<span class="lineNum">     952 </span><span class="lineCov">     237765 :         sets[j] = setobj;</span>
+<span class="lineNum">     953 </span>            :     }
+<span class="lineNum">     954 </span>            : 
+<span class="lineNum">     955 </span>            :     /* Select what DIFF algorithm to use.
+<span class="lineNum">     956 </span>            :      *
+<span class="lineNum">     957 </span>            :      * Algorithm 1 is O(N*M) where N is the size of the element first set
+<span class="lineNum">     958 </span>            :      * and M the total number of sets.
+<span class="lineNum">     959 </span>            :      *
+<span class="lineNum">     960 </span>            :      * Algorithm 2 is O(N) where N is the total number of elements in all
+<span class="lineNum">     961 </span>            :      * the sets.
+<span class="lineNum">     962 </span>            :      *
+<span class="lineNum">     963 </span>            :      * We compute what is the best bet with the current input here. */
+<span class="lineNum">     964 </span><span class="lineCov">     118441 :     if (op == SET_OP_DIFF &amp;&amp; sets[0]) {</span>
+<span class="lineNum">     965 </span>            :         long long algo_one_work = 0, algo_two_work = 0;
+<span class="lineNum">     966 </span>            : 
+<span class="lineNum">     967 </span><span class="lineCov">     180322 :         for (j = 0; j &lt; setnum; j++) {</span>
+<span class="lineNum">     968 </span><span class="lineCov">     120528 :             if (sets[j] == NULL) continue;</span>
+<span class="lineNum">     969 </span>            : 
+<span class="lineNum">     970 </span><span class="lineCov">     120509 :             algo_one_work += setTypeSize(sets[0]);</span>
+<span class="lineNum">     971 </span><span class="lineCov">     120509 :             algo_two_work += setTypeSize(sets[j]);</span>
+<span class="lineNum">     972 </span>            :         }
+<span class="lineNum">     973 </span>            : 
+<span class="lineNum">     974 </span>            :         /* Algorithm 1 has better constant times and performs less operations
+<span class="lineNum">     975 </span>            :          * if there are elements in common. Give it some advantage. */
+<span class="lineNum">     976 </span><span class="lineCov">      59794 :         algo_one_work /= 2;</span>
+<span class="lineNum">     977 </span><span class="lineCov">      59794 :         diff_algo = (algo_one_work &lt;= algo_two_work) ? 1 : 2;</span>
+<span class="lineNum">     978 </span>            : 
+<span class="lineNum">     979 </span><span class="lineCov">      59794 :         if (diff_algo == 1 &amp;&amp; setnum &gt; 1) {</span>
+<span class="lineNum">     980 </span>            :             /* With algorithm 1 it is better to order the sets to subtract
+<span class="lineNum">     981 </span>            :              * by decreasing size, so that we are more likely to find
+<span class="lineNum">     982 </span>            :              * duplicated elements ASAP. */
+<span class="lineNum">     983 </span><span class="lineCov">      59742 :             qsort(sets+1,setnum-1,sizeof(robj*),</span>
+<span class="lineNum">     984 </span>            :                 qsortCompareSetsByRevCardinality);
+<span class="lineNum">     985 </span>            :         }
+<span class="lineNum">     986 </span>            :     }
+<span class="lineNum">     987 </span>            : 
+<span class="lineNum">     988 </span>            :     /* We need a temp set object to store our union. If the dstkey
+<span class="lineNum">     989 </span>            :      * is not NULL (that is, we are inside an SUNIONSTORE operation) then
+<span class="lineNum">     990 </span>            :      * this set object will be the resulting object to set into the target key*/
+<span class="lineNum">     991 </span><span class="lineCov">     118441 :     dstset = createIntsetObject();</span>
+<span class="lineNum">     992 </span>            : 
+<span class="lineNum">     993 </span><span class="lineCov">     118441 :     if (op == SET_OP_UNION) {</span>
+<span class="lineNum">     994 </span>            :         /* Union is trivial, just add every element of every set to the
+<span class="lineNum">     995 </span>            :          * temporary set. */
+<span class="lineNum">     996 </span><span class="lineCov">     175912 :         for (j = 0; j &lt; setnum; j++) {</span>
+<span class="lineNum">     997 </span><span class="lineCov">     117268 :             if (!sets[j]) continue; /* non existing keys are like empty sets */</span>
+<span class="lineNum">     998 </span>            : 
+<span class="lineNum">     999 </span><span class="lineCov">     117250 :             si = setTypeInitIterator(sets[j]);</span>
+<span class="lineNum">    1000 </span><span class="lineCov">     263931 :             while((ele = setTypeNextObject(si)) != NULL) {</span>
+<span class="lineNum">    1001 </span><span class="lineCov">     146681 :                 if (setTypeAdd(dstset,ele)) cardinality++;</span>
+<span class="lineNum">    1002 </span><span class="lineCov">     146681 :                 sdsfree(ele);</span>
+<span class="lineNum">    1003 </span>            :             }
+<span class="lineNum">    1004 </span><span class="lineCov">     117250 :             setTypeReleaseIterator(si);</span>
+<span class="lineNum">    1005 </span>            :         }
+<span class="lineNum">    1006 </span><span class="lineCov">      59797 :     } else if (op == SET_OP_DIFF &amp;&amp; sets[0] &amp;&amp; diff_algo == 1) {</span>
+<span class="lineNum">    1007 </span>            :         /* DIFF Algorithm 1:
+<span class="lineNum">    1008 </span>            :          *
+<span class="lineNum">    1009 </span>            :          * We perform the diff by iterating all the elements of the first set,
+<span class="lineNum">    1010 </span>            :          * and only adding it to the target set if the element does not exist
+<span class="lineNum">    1011 </span>            :          * into all the other sets.
+<span class="lineNum">    1012 </span>            :          *
+<span class="lineNum">    1013 </span>            :          * This way we perform at max N*M operations, where N is the size of
+<span class="lineNum">    1014 </span>            :          * the first set, and M the number of sets. */
+<span class="lineNum">    1015 </span><span class="lineCov">      59784 :         si = setTypeInitIterator(sets[0]);</span>
+<span class="lineNum">    1016 </span><span class="lineCov">     145754 :         while((ele = setTypeNextObject(si)) != NULL) {</span>
+<span class="lineNum">    1017 </span><span class="lineCov">     210414 :             for (j = 1; j &lt; setnum; j++) {</span>
+<span class="lineNum">    1018 </span><span class="lineCov">     128452 :                 if (!sets[j]) continue; /* no key is an empty set. */</span>
+<span class="lineNum">    1019 </span><span class="lineCov">     127660 :                 if (sets[j] == sets[0]) break; /* same set! */</span>
+<span class="lineNum">    1020 </span><span class="lineCov">     127348 :                 if (setTypeIsMember(sets[j],ele)) break;</span>
+<span class="lineNum">    1021 </span>            :             }
+<span class="lineNum">    1022 </span><span class="lineCov">      85970 :             if (j == setnum) {</span>
+<span class="lineNum">    1023 </span>            :                 /* There is no other set with this element. Add it. */
+<span class="lineNum">    1024 </span><span class="lineCov">      81962 :                 setTypeAdd(dstset,ele);</span>
+<span class="lineNum">    1025 </span><span class="lineCov">      81962 :                 cardinality++;</span>
+<span class="lineNum">    1026 </span>            :             }
+<span class="lineNum">    1027 </span><span class="lineCov">      85970 :             sdsfree(ele);</span>
+<span class="lineNum">    1028 </span>            :         }
+<span class="lineNum">    1029 </span><span class="lineCov">      59784 :         setTypeReleaseIterator(si);</span>
+<span class="lineNum">    1030 </span><span class="lineCov">         13 :     } else if (op == SET_OP_DIFF &amp;&amp; sets[0] &amp;&amp; diff_algo == 2) {</span>
+<span class="lineNum">    1031 </span>            :         /* DIFF Algorithm 2:
+<span class="lineNum">    1032 </span>            :          *
+<span class="lineNum">    1033 </span>            :          * Add all the elements of the first set to the auxiliary set.
+<span class="lineNum">    1034 </span>            :          * Then remove all the elements of all the next sets from it.
+<span class="lineNum">    1035 </span>            :          *
+<span class="lineNum">    1036 </span>            :          * This is O(N) where N is the sum of all the elements in every
+<span class="lineNum">    1037 </span>            :          * set. */
+<span class="lineNum">    1038 </span><span class="lineCov">         91 :         for (j = 0; j &lt; setnum; j++) {</span>
+<span class="lineNum">    1039 </span><span class="lineCov">         81 :             if (!sets[j]) continue; /* non existing keys are like empty sets */</span>
+<span class="lineNum">    1040 </span>            : 
+<span class="lineNum">    1041 </span><span class="lineCov">         78 :             si = setTypeInitIterator(sets[j]);</span>
+<span class="lineNum">    1042 </span><span class="lineCov">       2826 :             while((ele = setTypeNextObject(si)) != NULL) {</span>
+<span class="lineNum">    1043 </span><span class="lineCov">       2748 :                 if (j == 0) {</span>
+<span class="lineNum">    1044 </span><span class="lineCov">        817 :                     if (setTypeAdd(dstset,ele)) cardinality++;</span>
+<span class="lineNum">    1045 </span>            :                 } else {
+<span class="lineNum">    1046 </span><span class="lineCov">       1931 :                     if (setTypeRemove(dstset,ele)) cardinality--;</span>
+<span class="lineNum">    1047 </span>            :                 }
+<span class="lineNum">    1048 </span><span class="lineCov">       2748 :                 sdsfree(ele);</span>
+<span class="lineNum">    1049 </span>            :             }
+<span class="lineNum">    1050 </span><span class="lineCov">         78 :             setTypeReleaseIterator(si);</span>
+<span class="lineNum">    1051 </span>            : 
+<span class="lineNum">    1052 </span>            :             /* Exit if result set is empty as any additional removal
+<span class="lineNum">    1053 </span>            :              * of elements will have no effect. */
+<span class="lineNum">    1054 </span><span class="lineCov">         78 :             if (cardinality == 0) break;</span>
+<span class="lineNum">    1055 </span>            :         }
+<span class="lineNum">    1056 </span>            :     }
+<span class="lineNum">    1057 </span>            : 
+<span class="lineNum">    1058 </span>            :     /* Output the content of the resulting set, if not in STORE mode */
+<span class="lineNum">    1059 </span><span class="lineCov">     118441 :     if (!dstkey) {</span>
+<span class="lineNum">    1060 </span><span class="lineCov">        362 :         addReplyMultiBulkLen(c,cardinality);</span>
+<span class="lineNum">    1061 </span><span class="lineCov">        362 :         si = setTypeInitIterator(dstset);</span>
+<span class="lineNum">    1062 </span><span class="lineCov">      21106 :         while((ele = setTypeNextObject(si)) != NULL) {</span>
+<span class="lineNum">    1063 </span><span class="lineCov">      41488 :             addReplyBulkCBuffer(c,ele,sdslen(ele));</span>
+<span class="lineNum">    1064 </span><span class="lineCov">      20744 :             sdsfree(ele);</span>
+<span class="lineNum">    1065 </span>            :         }
+<span class="lineNum">    1066 </span><span class="lineCov">        362 :         setTypeReleaseIterator(si);</span>
+<span class="lineNum">    1067 </span><span class="lineCov">        362 :         decrRefCount(dstset);</span>
+<span class="lineNum">    1068 </span>            :     } else {
+<span class="lineNum">    1069 </span>            :         /* If we have a target key where to store the resulting set
+<span class="lineNum">    1070 </span>            :          * create this key with the result set inside */
+<span class="lineNum">    1071 </span><span class="lineCov">     118079 :         int deleted = dbDelete(c-&gt;db,dstkey);</span>
+<span class="lineNum">    1072 </span><span class="lineCov">     118079 :         if (setTypeSize(dstset) &gt; 0) {</span>
+<span class="lineNum">    1073 </span><span class="lineCov">     117781 :             dbAdd(c-&gt;db,dstkey,dstset);</span>
+<span class="lineNum">    1074 </span><span class="lineCov">     117781 :             addReplyLongLong(c,setTypeSize(dstset));</span>
+<span class="lineNum">    1075 </span><span class="lineCov">     117781 :             notifyKeyspaceEvent(NOTIFY_SET,</span>
+<span class="lineNum">    1076 </span>            :                 op == SET_OP_UNION ? &quot;sunionstore&quot; : &quot;sdiffstore&quot;,
+<span class="lineNum">    1077 </span><span class="lineCov">     117781 :                 dstkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">    1078 </span>            :         } else {
+<span class="lineNum">    1079 </span><span class="lineCov">        298 :             decrRefCount(dstset);</span>
+<span class="lineNum">    1080 </span><span class="lineCov">        298 :             addReply(c,shared.czero);</span>
+<span class="lineNum">    1081 </span><span class="lineCov">        298 :             if (deleted)</span>
+<span class="lineNum">    1082 </span><span class="lineCov">         46 :                 notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,</span>
+<span class="lineNum">    1083 </span><span class="lineCov">         23 :                     dstkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">    1084 </span>            :         }
+<span class="lineNum">    1085 </span><span class="lineCov">     118079 :         signalModifiedKey(c-&gt;db,dstkey);</span>
+<span class="lineNum">    1086 </span><span class="lineCov">     118079 :         server.dirty++;</span>
+<span class="lineNum">    1087 </span>            :     }
+<span class="lineNum">    1088 </span><span class="lineCov">     118441 :     zfree(sets);</span>
+<a name="1089"><span class="lineNum">    1089 </span>            : }</a>
+<span class="lineNum">    1090 </span>            : 
+<span class="lineNum">    1091 </span><span class="lineCov">         15 : void sunionCommand(client *c) {</span>
+<span class="lineNum">    1092 </span><span class="lineCov">         15 :     sunionDiffGenericCommand(c,c-&gt;argv+1,c-&gt;argc-1,NULL,SET_OP_UNION);</span>
+<a name="1093"><span class="lineNum">    1093 </span><span class="lineCov">         15 : }</span></a>
+<span class="lineNum">    1094 </span>            : 
+<span class="lineNum">    1095 </span><span class="lineCov">      58600 : void sunionstoreCommand(client *c) {</span>
+<span class="lineNum">    1096 </span><span class="lineCov">      58600 :     sunionDiffGenericCommand(c,c-&gt;argv+2,c-&gt;argc-2,c-&gt;argv[1],SET_OP_UNION);</span>
+<a name="1097"><span class="lineNum">    1097 </span><span class="lineCov">      58600 : }</span></a>
+<span class="lineNum">    1098 </span>            : 
+<span class="lineNum">    1099 </span><span class="lineCov">        318 : void sdiffCommand(client *c) {</span>
+<span class="lineNum">    1100 </span><span class="lineCov">        318 :     sunionDiffGenericCommand(c,c-&gt;argv+1,c-&gt;argc-1,NULL,SET_OP_DIFF);</span>
+<a name="1101"><span class="lineNum">    1101 </span><span class="lineCov">        318 : }</span></a>
+<span class="lineNum">    1102 </span>            : 
+<span class="lineNum">    1103 </span><span class="lineCov">      59479 : void sdiffstoreCommand(client *c) {</span>
+<span class="lineNum">    1104 </span><span class="lineCov">      59479 :     sunionDiffGenericCommand(c,c-&gt;argv+2,c-&gt;argc-2,c-&gt;argv[1],SET_OP_DIFF);</span>
+<a name="1105"><span class="lineNum">    1105 </span><span class="lineCov">      59479 : }</span></a>
+<span class="lineNum">    1106 </span>            : 
+<span class="lineNum">    1107 </span><span class="lineCov">       5650 : void sscanCommand(client *c) {</span>
+<span class="lineNum">    1108 </span><span class="lineCov">       5650 :     robj *set;</span>
+<span class="lineNum">    1109 </span><span class="lineCov">       5650 :     unsigned long cursor;</span>
+<span class="lineNum">    1110 </span>            : 
+<span class="lineNum">    1111 </span><span class="lineCov">       5650 :     if (parseScanCursorOrReply(c,c-&gt;argv[2],&amp;cursor) == C_ERR) return;</span>
+<span class="lineNum">    1112 </span><span class="lineCov">      11300 :     if ((set = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptyscan)) == NULL ||</span>
+<span class="lineNum">    1113 </span><span class="lineCov">       5650 :         checkType(c,set,OBJ_SET)) return;</span>
+<span class="lineNum">    1114 </span><span class="lineCov">       5650 :     scanGenericCommand(c,set,cursor);</span>
+<span class="lineNum">    1115 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

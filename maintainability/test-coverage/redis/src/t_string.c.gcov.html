@@ -1,0 +1,555 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/t_string.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - t_string.c<span style="font-size: 80%;"> (source / <a href="t_string.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">264</td>
+            <td class="headerCovTableEntry">271</td>
+            <td class="headerCovTableEntryHi">97.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : #include &lt;math.h&gt; /* isnan(), isinf() */
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">      34 </span>            :  * String Commands
+<span class="lineNum">      35 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : static int checkStringLength(client *c, long long size) {
+<span class="lineNum">      38 </span><span class="lineCov">    3363021 :     if (size &gt; 512*1024*1024) {</span>
+<span class="lineNum">      39 </span><span class="lineCov">          6 :         addReplyError(c,&quot;string exceeds maximum allowed size (512MB)&quot;);</span>
+<span class="lineNum">      40 </span><span class="lineCov">          6 :         return C_ERR;</span>
+<span class="lineNum">      41 </span>            :     }
+<span class="lineNum">      42 </span>            :     return C_OK;
+<span class="lineNum">      43 </span>            : }
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : /* The setGenericCommand() function implements the SET operation with different
+<span class="lineNum">      46 </span>            :  * options and variants. This function is called in order to implement the
+<span class="lineNum">      47 </span>            :  * following commands: SET, SETEX, PSETEX, SETNX.
+<span class="lineNum">      48 </span>            :  *
+<span class="lineNum">      49 </span>            :  * 'flags' changes the behavior of the command (NX or XX, see belove).
+<span class="lineNum">      50 </span>            :  *
+<span class="lineNum">      51 </span>            :  * 'expire' represents an expire to set in form of a Redis object as passed
+<span class="lineNum">      52 </span>            :  * by the user. It is interpreted according to the specified 'unit'.
+<span class="lineNum">      53 </span>            :  *
+<span class="lineNum">      54 </span>            :  * 'ok_reply' and 'abort_reply' is what the function will reply to the client
+<span class="lineNum">      55 </span>            :  * if the operation is performed, or when it is not because of NX or
+<span class="lineNum">      56 </span>            :  * XX flags.
+<span class="lineNum">      57 </span>            :  *
+<span class="lineNum">      58 </span>            :  * If ok_reply is NULL &quot;+OK&quot; is used.
+<span class="lineNum">      59 </span>            :  * If abort_reply is NULL, &quot;$-1&quot; is used. */
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : #define OBJ_SET_NO_FLAGS 0
+<span class="lineNum">      62 </span>            : #define OBJ_SET_NX (1&lt;&lt;0)     /* Set if key not exists. */
+<span class="lineNum">      63 </span>            : #define OBJ_SET_XX (1&lt;&lt;1)     /* Set if key exists. */
+<span class="lineNum">      64 </span>            : #define OBJ_SET_EX (1&lt;&lt;2)     /* Set if time in seconds is given */
+<a name="65"><span class="lineNum">      65 </span>            : #define OBJ_SET_PX (1&lt;&lt;3)     /* Set if time in ms in given */</a>
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span><span class="lineCov">   31434437 : void setGenericCommand(client *c, int flags, robj *key, robj *val, robj *expire, int unit, robj *ok_reply, robj *abort_reply) {</span>
+<span class="lineNum">      68 </span><span class="lineCov">   31434437 :     long long milliseconds = 0; /* initialized to avoid any harmness warning */</span>
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span><span class="lineCov">   31434437 :     if (expire) {</span>
+<span class="lineNum">      71 </span><span class="lineCov">      61939 :         if (getLongLongFromObjectOrReply(c, expire, &amp;milliseconds, NULL) != C_OK)</span>
+<span class="lineNum">      72 </span><span class="lineCov">         18 :             return;</span>
+<span class="lineNum">      73 </span><span class="lineCov">      61939 :         if (milliseconds &lt;= 0) {</span>
+<span class="lineNum">      74 </span><span class="lineCov">          6 :             addReplyErrorFormat(c,&quot;invalid expire time in %s&quot;,c-&gt;cmd-&gt;name);</span>
+<span class="lineNum">      75 </span><span class="lineCov">          6 :             return;</span>
+<span class="lineNum">      76 </span>            :         }
+<span class="lineNum">      77 </span><span class="lineCov">      61933 :         if (unit == UNIT_SECONDS) milliseconds *= 1000;</span>
+<span class="lineNum">      78 </span>            :     }
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span><span class="lineCov">   31434431 :     if ((flags &amp; OBJ_SET_NX &amp;&amp; lookupKeyWrite(c-&gt;db,key) != NULL) ||</span>
+<span class="lineNum">      81 </span><span class="lineCov">   31434422 :         (flags &amp; OBJ_SET_XX &amp;&amp; lookupKeyWrite(c-&gt;db,key) == NULL))</span>
+<span class="lineNum">      82 </span>            :     {
+<span class="lineNum">      83 </span><span class="lineCov">         12 :         addReply(c, abort_reply ? abort_reply : shared.nullbulk);</span>
+<span class="lineNum">      84 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">      85 </span>            :     }
+<span class="lineNum">      86 </span><span class="lineCov">   31434419 :     setKey(c-&gt;db,key,val);</span>
+<span class="lineNum">      87 </span><span class="lineCov">   31434419 :     server.dirty++;</span>
+<span class="lineNum">      88 </span><span class="lineCov">   31434419 :     if (expire) setExpire(c,c-&gt;db,key,mstime()+milliseconds);</span>
+<span class="lineNum">      89 </span><span class="lineCov">   31434419 :     notifyKeyspaceEvent(NOTIFY_STRING,&quot;set&quot;,key,c-&gt;db-&gt;id);</span>
+<span class="lineNum">      90 </span><span class="lineCov">   31434419 :     if (expire) notifyKeyspaceEvent(NOTIFY_GENERIC,</span>
+<span class="lineNum">      91 </span><span class="lineCov">      61933 :         &quot;expire&quot;,key,c-&gt;db-&gt;id);</span>
+<span class="lineNum">      92 </span><span class="lineCov">   31434419 :     addReply(c, ok_reply ? ok_reply : shared.ok);</span>
+<span class="lineNum">      93 </span>            : }
+<a name="94"><span class="lineNum">      94 </span>            : </a>
+<span class="lineNum">      95 </span>            : /* SET key value [NX] [XX] [EX &lt;seconds&gt;] [PX &lt;milliseconds&gt;] */
+<span class="lineNum">      96 </span><span class="lineCov">   31372516 : void setCommand(client *c) {</span>
+<span class="lineNum">      97 </span><span class="lineCov">   31372516 :     int j;</span>
+<span class="lineNum">      98 </span><span class="lineCov">   31372516 :     robj *expire = NULL;</span>
+<span class="lineNum">      99 </span><span class="lineCov">   31372516 :     int unit = UNIT_SECONDS;</span>
+<span class="lineNum">     100 </span><span class="lineCov">   31372516 :     int flags = OBJ_SET_NO_FLAGS;</span>
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span><span class="lineCov">   31372558 :     for (j = 3; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     103 </span><span class="lineCov">         45 :         char *a = c-&gt;argv[j]-&gt;ptr;</span>
+<span class="lineNum">     104 </span><span class="lineCov">         45 :         robj *next = (j == c-&gt;argc-1) ? NULL : c-&gt;argv[j+1];</span>
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span><span class="lineCov">         45 :         if ((a[0] == 'n' || a[0] == 'N') &amp;&amp;</span>
+<span class="lineNum">     107 </span><span class="lineCov">          9 :             (a[1] == 'x' || a[1] == 'X') &amp;&amp; a[2] == '\0' &amp;&amp;</span>
+<span class="lineNum">     108 </span><span class="lineCov">          6 :             !(flags &amp; OBJ_SET_XX))</span>
+<span class="lineNum">     109 </span>            :         {
+<span class="lineNum">     110 </span><span class="lineCov">          6 :             flags |= OBJ_SET_NX;</span>
+<span class="lineNum">     111 </span><span class="lineCov">         39 :         } else if ((a[0] == 'x' || a[0] == 'X') &amp;&amp;</span>
+<span class="lineNum">     112 </span><span class="lineCov">          9 :                    (a[1] == 'x' || a[1] == 'X') &amp;&amp; a[2] == '\0' &amp;&amp;</span>
+<span class="lineNum">     113 </span><span class="lineCov">          9 :                    !(flags &amp; OBJ_SET_NX))</span>
+<span class="lineNum">     114 </span>            :         {
+<span class="lineNum">     115 </span><span class="lineCov">          9 :             flags |= OBJ_SET_XX;</span>
+<span class="lineNum">     116 </span><span class="lineCov">         30 :         } else if ((a[0] == 'e' || a[0] == 'E') &amp;&amp;</span>
+<span class="lineNum">     117 </span><span class="lineCov">         18 :                    (a[1] == 'x' || a[1] == 'X') &amp;&amp; a[2] == '\0' &amp;&amp;</span>
+<span class="lineNum">     118 </span><span class="lineCov">         18 :                    !(flags &amp; OBJ_SET_PX) &amp;&amp; next)</span>
+<span class="lineNum">     119 </span>            :         {
+<span class="lineNum">     120 </span><span class="lineCov">         18 :             flags |= OBJ_SET_EX;</span>
+<span class="lineNum">     121 </span><span class="lineCov">         18 :             unit = UNIT_SECONDS;</span>
+<span class="lineNum">     122 </span><span class="lineCov">         18 :             expire = next;</span>
+<span class="lineNum">     123 </span><span class="lineCov">         18 :             j++;</span>
+<span class="lineNum">     124 </span><span class="lineCov">         12 :         } else if ((a[0] == 'p' || a[0] == 'P') &amp;&amp;</span>
+<span class="lineNum">     125 </span><span class="lineCov">          9 :                    (a[1] == 'x' || a[1] == 'X') &amp;&amp; a[2] == '\0' &amp;&amp;</span>
+<span class="lineNum">     126 </span><span class="lineCov">          9 :                    !(flags &amp; OBJ_SET_EX) &amp;&amp; next)</span>
+<span class="lineNum">     127 </span>            :         {
+<span class="lineNum">     128 </span><span class="lineCov">          9 :             flags |= OBJ_SET_PX;</span>
+<span class="lineNum">     129 </span><span class="lineCov">          9 :             unit = UNIT_MILLISECONDS;</span>
+<span class="lineNum">     130 </span><span class="lineCov">          9 :             expire = next;</span>
+<span class="lineNum">     131 </span><span class="lineCov">          9 :             j++;</span>
+<span class="lineNum">     132 </span>            :         } else {
+<span class="lineNum">     133 </span><span class="lineCov">          3 :             addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     134 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     135 </span>            :         }
+<span class="lineNum">     136 </span>            :     }
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span><span class="lineCov">   31372513 :     c-&gt;argv[2] = tryObjectEncoding(c-&gt;argv[2]);</span>
+<span class="lineNum">     139 </span><span class="lineCov">   31372513 :     setGenericCommand(c,flags,c-&gt;argv[1],c-&gt;argv[2],expire,unit,NULL,NULL);</span>
+<a name="140"><span class="lineNum">     140 </span>            : }</a>
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span><span class="lineCov">         12 : void setnxCommand(client *c) {</span>
+<span class="lineNum">     143 </span><span class="lineCov">         12 :     c-&gt;argv[2] = tryObjectEncoding(c-&gt;argv[2]);</span>
+<span class="lineNum">     144 </span><span class="lineCov">         12 :     setGenericCommand(c,OBJ_SET_NX,c-&gt;argv[1],c-&gt;argv[2],NULL,0,shared.cone,shared.czero);</span>
+<a name="145"><span class="lineNum">     145 </span><span class="lineCov">         12 : }</span></a>
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span><span class="lineCov">      61851 : void setexCommand(client *c) {</span>
+<span class="lineNum">     148 </span><span class="lineCov">      61851 :     c-&gt;argv[3] = tryObjectEncoding(c-&gt;argv[3]);</span>
+<span class="lineNum">     149 </span><span class="lineCov">      61851 :     setGenericCommand(c,OBJ_SET_NO_FLAGS,c-&gt;argv[1],c-&gt;argv[3],c-&gt;argv[2],UNIT_SECONDS,NULL,NULL);</span>
+<a name="150"><span class="lineNum">     150 </span><span class="lineCov">      61851 : }</span></a>
+<span class="lineNum">     151 </span>            : 
+<span class="lineNum">     152 </span><span class="lineCov">         61 : void psetexCommand(client *c) {</span>
+<span class="lineNum">     153 </span><span class="lineCov">         61 :     c-&gt;argv[3] = tryObjectEncoding(c-&gt;argv[3]);</span>
+<span class="lineNum">     154 </span><span class="lineCov">         61 :     setGenericCommand(c,OBJ_SET_NO_FLAGS,c-&gt;argv[1],c-&gt;argv[3],c-&gt;argv[2],UNIT_MILLISECONDS,NULL,NULL);</span>
+<a name="155"><span class="lineNum">     155 </span><span class="lineCov">         61 : }</span></a>
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span><span class="lineCov">     375848 : int getGenericCommand(client *c) {</span>
+<span class="lineNum">     158 </span><span class="lineCov">     375848 :     robj *o;</span>
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span><span class="lineCov">     375848 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.nullbulk)) == NULL)</span>
+<span class="lineNum">     161 </span>            :         return C_OK;
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span><span class="lineCov">     375710 :     if (o-&gt;type != OBJ_STRING) {</span>
+<span class="lineNum">     164 </span><span class="lineNoCov">          0 :         addReply(c,shared.wrongtypeerr);</span>
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 :         return C_ERR;</span>
+<span class="lineNum">     166 </span>            :     } else {
+<span class="lineNum">     167 </span><span class="lineCov">     375710 :         addReplyBulk(c,o);</span>
+<span class="lineNum">     168 </span><span class="lineCov">     375710 :         return C_OK;</span>
+<span class="lineNum">     169 </span>            :     }
+<a name="170"><span class="lineNum">     170 </span>            : }</a>
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span><span class="lineCov">     375842 : void getCommand(client *c) {</span>
+<span class="lineNum">     173 </span><span class="lineCov">     375842 :     getGenericCommand(c);</span>
+<a name="174"><span class="lineNum">     174 </span><span class="lineCov">     375842 : }</span></a>
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span><span class="lineCov">          6 : void getsetCommand(client *c) {</span>
+<span class="lineNum">     177 </span><span class="lineCov">          6 :     if (getGenericCommand(c) == C_ERR) return;</span>
+<span class="lineNum">     178 </span><span class="lineCov">          6 :     c-&gt;argv[2] = tryObjectEncoding(c-&gt;argv[2]);</span>
+<span class="lineNum">     179 </span><span class="lineCov">          6 :     setKey(c-&gt;db,c-&gt;argv[1],c-&gt;argv[2]);</span>
+<span class="lineNum">     180 </span><span class="lineCov">          6 :     notifyKeyspaceEvent(NOTIFY_STRING,&quot;set&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     181 </span><span class="lineCov">          6 :     server.dirty++;</span>
+<a name="182"><span class="lineNum">     182 </span>            : }</a>
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span><span class="lineCov">    3353978 : void setrangeCommand(client *c) {</span>
+<span class="lineNum">     185 </span><span class="lineCov">    3353978 :     robj *o;</span>
+<span class="lineNum">     186 </span><span class="lineCov">    3353978 :     long offset;</span>
+<span class="lineNum">     187 </span><span class="lineCov">    3353978 :     sds value = c-&gt;argv[3]-&gt;ptr;</span>
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span><span class="lineCov">    3353978 :     if (getLongFromObjectOrReply(c,c-&gt;argv[2],&amp;offset,NULL) != C_OK)</span>
+<span class="lineNum">     190 </span><span class="lineCov">         21 :         return;</span>
+<span class="lineNum">     191 </span>            : 
+<span class="lineNum">     192 </span><span class="lineCov">    3353978 :     if (offset &lt; 0) {</span>
+<span class="lineNum">     193 </span><span class="lineCov">          3 :         addReplyError(c,&quot;offset is out of range&quot;);</span>
+<span class="lineNum">     194 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     195 </span>            :     }
+<span class="lineNum">     196 </span>            : 
+<span class="lineNum">     197 </span><span class="lineCov">    3353975 :     o = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     198 </span><span class="lineCov">    3353975 :     if (o == NULL) {</span>
+<span class="lineNum">     199 </span>            :         /* Return 0 when setting nothing on a non-existing string */
+<span class="lineNum">     200 </span><span class="lineCov">    2001624 :         if (sdslen(value) == 0) {</span>
+<span class="lineNum">     201 </span><span class="lineCov">          3 :             addReply(c,shared.czero);</span>
+<span class="lineNum">     202 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     203 </span>            :         }
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            :         /* Return when the resulting string exceeds allowed size */
+<span class="lineNum">     206 </span><span class="lineCov">    2001618 :         if (checkStringLength(c,offset+sdslen(value)) != C_OK)</span>
+<span class="lineNum">     207 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span><span class="lineCov">    2001612 :         o = createObject(OBJ_STRING,sdsnewlen(NULL, offset+sdslen(value)));</span>
+<span class="lineNum">     210 </span><span class="lineCov">    1000806 :         dbAdd(c-&gt;db,c-&gt;argv[1],o);</span>
+<span class="lineNum">     211 </span>            :     } else {
+<span class="lineNum">     212 </span><span class="lineCov">    2353163 :         size_t olen;</span>
+<span class="lineNum">     213 </span>            : 
+<span class="lineNum">     214 </span>            :         /* Key exists, check type */
+<span class="lineNum">     215 </span><span class="lineCov">    2353163 :         if (checkType(c,o,OBJ_STRING))</span>
+<span class="lineNum">     216 </span>            :             return;
+<span class="lineNum">     217 </span>            : 
+<span class="lineNum">     218 </span>            :         /* Return existing string length when setting nothing */
+<span class="lineNum">     219 </span><span class="lineCov">    2353160 :         olen = stringObjectLen(o);</span>
+<span class="lineNum">     220 </span><span class="lineCov">    4706320 :         if (sdslen(value) == 0) {</span>
+<span class="lineNum">     221 </span><span class="lineCov">          6 :             addReplyLongLong(c,olen);</span>
+<span class="lineNum">     222 </span><span class="lineCov">          6 :             return;</span>
+<span class="lineNum">     223 </span>            :         }
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span>            :         /* Return when the resulting string exceeds allowed size */
+<span class="lineNum">     226 </span><span class="lineCov">    4706308 :         if (checkStringLength(c,offset+sdslen(value)) != C_OK)</span>
+<span class="lineNum">     227 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span>            :         /* Create a copy when the object is shared or encoded. */
+<span class="lineNum">     230 </span><span class="lineCov">    2353151 :         o = dbUnshareStringValue(c-&gt;db,c-&gt;argv[1],o);</span>
+<span class="lineNum">     231 </span>            :     }
+<span class="lineNum">     232 </span>            : 
+<span class="lineNum">     233 </span><span class="lineCov">    6707914 :     if (sdslen(value) &gt; 0) {</span>
+<span class="lineNum">     234 </span><span class="lineCov">    6707914 :         o-&gt;ptr = sdsgrowzero(o-&gt;ptr,offset+sdslen(value));</span>
+<span class="lineNum">     235 </span><span class="lineCov">    6707914 :         memcpy((char*)o-&gt;ptr+offset,value,sdslen(value));</span>
+<span class="lineNum">     236 </span><span class="lineCov">    3353957 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     237 </span><span class="lineCov">   10061871 :         notifyKeyspaceEvent(NOTIFY_STRING,</span>
+<span class="lineNum">     238 </span><span class="lineCov">    3353957 :             &quot;setrange&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     239 </span><span class="lineCov">    3353957 :         server.dirty++;</span>
+<span class="lineNum">     240 </span>            :     }
+<span class="lineNum">     241 </span><span class="lineCov">    6707914 :     addReplyLongLong(c,sdslen(o-&gt;ptr));</span>
+<a name="242"><span class="lineNum">     242 </span>            : }</a>
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span><span class="lineCov">       3048 : void getrangeCommand(client *c) {</span>
+<span class="lineNum">     245 </span><span class="lineCov">       3048 :     robj *o;</span>
+<span class="lineNum">     246 </span><span class="lineCov">       3048 :     long long start, end;</span>
+<span class="lineNum">     247 </span><span class="lineCov">       3048 :     char *str, llbuf[32];</span>
+<span class="lineNum">     248 </span><span class="lineCov">       3048 :     size_t strlen;</span>
+<span class="lineNum">     249 </span>            : 
+<span class="lineNum">     250 </span><span class="lineCov">       3048 :     if (getLongLongFromObjectOrReply(c,c-&gt;argv[2],&amp;start,NULL) != C_OK)</span>
+<span class="lineNum">     251 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     252 </span><span class="lineCov">       3048 :     if (getLongLongFromObjectOrReply(c,c-&gt;argv[3],&amp;end,NULL) != C_OK)</span>
+<span class="lineNum">     253 </span>            :         return;
+<span class="lineNum">     254 </span><span class="lineCov">       6093 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptybulk)) == NULL ||</span>
+<span class="lineNum">     255 </span><span class="lineCov">       3048 :         checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span><span class="lineCov">       3045 :     if (o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     258 </span><span class="lineCov">         18 :         str = llbuf;</span>
+<span class="lineNum">     259 </span><span class="lineCov">         18 :         strlen = ll2string(llbuf,sizeof(llbuf),(long)o-&gt;ptr);</span>
+<span class="lineNum">     260 </span>            :     } else {
+<span class="lineNum">     261 </span><span class="lineCov">       3027 :         str = o-&gt;ptr;</span>
+<span class="lineNum">     262 </span><span class="lineCov">       3027 :         strlen = sdslen(str);</span>
+<span class="lineNum">     263 </span>            :     }
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span>            :     /* Convert negative indexes */
+<span class="lineNum">     266 </span><span class="lineCov">       3045 :     if (start &lt; 0 &amp;&amp; end &lt; 0 &amp;&amp; start &gt; end) {</span>
+<span class="lineNum">     267 </span><span class="lineNoCov">          0 :         addReply(c,shared.emptybulk);</span>
+<span class="lineNum">     268 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     269 </span>            :     }
+<span class="lineNum">     270 </span><span class="lineCov">       3045 :     if (start &lt; 0) start = strlen+start;</span>
+<span class="lineNum">     271 </span><span class="lineCov">       3045 :     if (end &lt; 0) end = strlen+end;</span>
+<span class="lineNum">     272 </span><span class="lineCov">       3045 :     if (start &lt; 0) start = 0;</span>
+<span class="lineNum">     273 </span><span class="lineCov">       3045 :     if (end &lt; 0) end = 0;</span>
+<span class="lineNum">     274 </span><span class="lineCov">       3045 :     if ((unsigned long long)end &gt;= strlen) end = strlen-1;</span>
+<span class="lineNum">     275 </span>            : 
+<span class="lineNum">     276 </span>            :     /* Precondition: end &gt;= 0 &amp;&amp; end &lt; strlen, so the only condition where
+<span class="lineNum">     277 </span>            :      * nothing can be returned is: start &gt; end. */
+<span class="lineNum">     278 </span><span class="lineCov">       3045 :     if (start &gt; end || strlen == 0) {</span>
+<span class="lineNum">     279 </span><span class="lineCov">       2252 :         addReply(c,shared.emptybulk);</span>
+<span class="lineNum">     280 </span>            :     } else {
+<span class="lineNum">     281 </span><span class="lineCov">        793 :         addReplyBulkCBuffer(c,(char*)str+start,end-start+1);</span>
+<span class="lineNum">     282 </span>            :     }
+<a name="283"><span class="lineNum">     283 </span>            : }</a>
+<span class="lineNum">     284 </span>            : 
+<span class="lineNum">     285 </span><span class="lineCov">         73 : void mgetCommand(client *c) {</span>
+<span class="lineNum">     286 </span><span class="lineCov">         73 :     int j;</span>
+<span class="lineNum">     287 </span>            : 
+<span class="lineNum">     288 </span><span class="lineCov">         73 :     addReplyMultiBulkLen(c,c-&gt;argc-1);</span>
+<span class="lineNum">     289 </span><span class="lineCov">        300 :     for (j = 1; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     290 </span><span class="lineCov">        227 :         robj *o = lookupKeyRead(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     291 </span><span class="lineCov">        227 :         if (o == NULL) {</span>
+<span class="lineNum">     292 </span><span class="lineCov">         61 :             addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     293 </span>            :         } else {
+<span class="lineNum">     294 </span><span class="lineCov">        166 :             if (o-&gt;type != OBJ_STRING) {</span>
+<span class="lineNum">     295 </span><span class="lineCov">          3 :                 addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     296 </span>            :             } else {
+<span class="lineNum">     297 </span><span class="lineCov">        163 :                 addReplyBulk(c,o);</span>
+<span class="lineNum">     298 </span>            :             }
+<span class="lineNum">     299 </span>            :         }
+<span class="lineNum">     300 </span>            :     }
+<a name="301"><span class="lineNum">     301 </span><span class="lineCov">         73 : }</span></a>
+<span class="lineNum">     302 </span>            : 
+<span class="lineNum">     303 </span><span class="lineCov">        626 : void msetGenericCommand(client *c, int nx) {</span>
+<span class="lineNum">     304 </span><span class="lineCov">        626 :     int j;</span>
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span><span class="lineCov">        626 :     if ((c-&gt;argc % 2) == 0) {</span>
+<span class="lineNum">     307 </span><span class="lineCov">          3 :         addReplyError(c,&quot;wrong number of arguments for MSET&quot;);</span>
+<span class="lineNum">     308 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     309 </span>            :     }
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span>            :     /* Handle the NX flag. The MSETNX semantic is to return zero and don't
+<span class="lineNum">     312 </span>            :      * set anything if at least one key alerady exists. */
+<span class="lineNum">     313 </span><span class="lineCov">        623 :     if (nx) {</span>
+<span class="lineNum">     314 </span><span class="lineCov">         18 :         for (j = 1; j &lt; c-&gt;argc; j += 2) {</span>
+<span class="lineNum">     315 </span><span class="lineCov">         15 :             if (lookupKeyWrite(c-&gt;db,c-&gt;argv[j]) != NULL) {</span>
+<span class="lineNum">     316 </span><span class="lineCov">          3 :                 addReply(c, shared.czero);</span>
+<span class="lineNum">     317 </span><span class="lineCov">          3 :                 return;</span>
+<span class="lineNum">     318 </span>            :             }
+<span class="lineNum">     319 </span>            :         }
+<span class="lineNum">     320 </span>            :     }
+<span class="lineNum">     321 </span>            : 
+<span class="lineNum">     322 </span><span class="lineCov">     600757 :     for (j = 1; j &lt; c-&gt;argc; j += 2) {</span>
+<span class="lineNum">     323 </span><span class="lineCov">     600137 :         c-&gt;argv[j+1] = tryObjectEncoding(c-&gt;argv[j+1]);</span>
+<span class="lineNum">     324 </span><span class="lineCov">     600137 :         setKey(c-&gt;db,c-&gt;argv[j],c-&gt;argv[j+1]);</span>
+<span class="lineNum">     325 </span><span class="lineCov">     600137 :         notifyKeyspaceEvent(NOTIFY_STRING,&quot;set&quot;,c-&gt;argv[j],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     326 </span>            :     }
+<span class="lineNum">     327 </span><span class="lineCov">        620 :     server.dirty += (c-&gt;argc-1)/2;</span>
+<span class="lineNum">     328 </span><span class="lineCov">        620 :     addReply(c, nx ? shared.cone : shared.ok);</span>
+<a name="329"><span class="lineNum">     329 </span>            : }</a>
+<span class="lineNum">     330 </span>            : 
+<span class="lineNum">     331 </span><span class="lineCov">        620 : void msetCommand(client *c) {</span>
+<span class="lineNum">     332 </span><span class="lineCov">        620 :     msetGenericCommand(c,0);</span>
+<a name="333"><span class="lineNum">     333 </span><span class="lineCov">        620 : }</span></a>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span><span class="lineCov">          6 : void msetnxCommand(client *c) {</span>
+<span class="lineNum">     336 </span><span class="lineCov">          6 :     msetGenericCommand(c,1);</span>
+<a name="337"><span class="lineNum">     337 </span><span class="lineCov">          6 : }</span></a>
+<span class="lineNum">     338 </span>            : 
+<span class="lineNum">     339 </span><span class="lineCov">   10973248 : void incrDecrCommand(client *c, long long incr) {</span>
+<span class="lineNum">     340 </span><span class="lineCov">   10973248 :     long long value, oldvalue;</span>
+<span class="lineNum">     341 </span><span class="lineCov">   10973248 :     robj *o, *new;</span>
+<span class="lineNum">     342 </span>            : 
+<span class="lineNum">     343 </span><span class="lineCov">   10973248 :     o = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     344 </span><span class="lineCov">   10973261 :     if (o != NULL &amp;&amp; checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     345 </span><span class="lineCov">   10973245 :     if (getLongLongFromObjectOrReply(c,o,&amp;value,NULL) != C_OK) return;</span>
+<span class="lineNum">     346 </span>            : 
+<span class="lineNum">     347 </span><span class="lineCov">   10973232 :     oldvalue = value;</span>
+<span class="lineNum">     348 </span><span class="lineCov">   10973232 :     if ((incr &lt; 0 &amp;&amp; oldvalue &lt; 0 &amp;&amp; incr &lt; (LLONG_MIN-oldvalue)) ||</span>
+<span class="lineNum">     349 </span><span class="lineCov">   10973232 :         (incr &gt; 0 &amp;&amp; oldvalue &gt; 0 &amp;&amp; incr &gt; (LLONG_MAX-oldvalue))) {</span>
+<span class="lineNum">     350 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;increment or decrement would overflow&quot;);</span>
+<span class="lineNum">     351 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     352 </span>            :     }
+<span class="lineNum">     353 </span><span class="lineCov">   10973232 :     value += incr;</span>
+<span class="lineNum">     354 </span>            : 
+<span class="lineNum">     355 </span><span class="lineCov">   10973232 :     if (o &amp;&amp; o-&gt;refcount == 1 &amp;&amp; o-&gt;encoding == OBJ_ENCODING_INT &amp;&amp;</span>
+<span class="lineNum">     356 </span><span class="lineCov">    2601862 :         (value &lt; 0 || value &gt;= OBJ_SHARED_INTEGERS) &amp;&amp;</span>
+<span class="lineNum">     357 </span><span class="lineCov">    2601862 :         value &gt;= LONG_MIN &amp;&amp; value &lt;= LONG_MAX)</span>
+<span class="lineNum">     358 </span>            :     {
+<span class="lineNum">     359 </span><span class="lineCov">    2601859 :         new = o;</span>
+<span class="lineNum">     360 </span><span class="lineCov">    2601859 :         o-&gt;ptr = (void*)((long)value);</span>
+<span class="lineNum">     361 </span>            :     } else {
+<span class="lineNum">     362 </span><span class="lineCov">    8371373 :         new = createStringObjectFromLongLongForValue(value);</span>
+<span class="lineNum">     363 </span><span class="lineCov">    8371373 :         if (o) {</span>
+<span class="lineNum">     364 </span><span class="lineCov">    8095322 :             dbOverwrite(c-&gt;db,c-&gt;argv[1],new);</span>
+<span class="lineNum">     365 </span>            :         } else {
+<span class="lineNum">     366 </span><span class="lineCov">     276051 :             dbAdd(c-&gt;db,c-&gt;argv[1],new);</span>
+<span class="lineNum">     367 </span>            :         }
+<span class="lineNum">     368 </span>            :     }
+<span class="lineNum">     369 </span><span class="lineCov">   10973232 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     370 </span><span class="lineCov">   10973232 :     notifyKeyspaceEvent(NOTIFY_STRING,&quot;incrby&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     371 </span><span class="lineCov">   10973232 :     server.dirty++;</span>
+<span class="lineNum">     372 </span><span class="lineCov">   10973232 :     addReply(c,shared.colon);</span>
+<span class="lineNum">     373 </span><span class="lineCov">   10973232 :     addReply(c,new);</span>
+<span class="lineNum">     374 </span><span class="lineCov">   10973232 :     addReply(c,shared.crlf);</span>
+<a name="375"><span class="lineNum">     375 </span>            : }</a>
+<span class="lineNum">     376 </span>            : 
+<span class="lineNum">     377 </span><span class="lineCov">   10973230 : void incrCommand(client *c) {</span>
+<span class="lineNum">     378 </span><span class="lineCov">   10973230 :     incrDecrCommand(c,1);</span>
+<a name="379"><span class="lineNum">     379 </span><span class="lineCov">   10973230 : }</span></a>
+<span class="lineNum">     380 </span>            : 
+<span class="lineNum">     381 </span><span class="lineCov">         12 : void decrCommand(client *c) {</span>
+<span class="lineNum">     382 </span><span class="lineCov">         12 :     incrDecrCommand(c,-1);</span>
+<a name="383"><span class="lineNum">     383 </span><span class="lineCov">         12 : }</span></a>
+<span class="lineNum">     384 </span>            : 
+<span class="lineNum">     385 </span><span class="lineCov">          3 : void incrbyCommand(client *c) {</span>
+<span class="lineNum">     386 </span><span class="lineCov">          3 :     long long incr;</span>
+<span class="lineNum">     387 </span>            : 
+<span class="lineNum">     388 </span><span class="lineCov">          3 :     if (getLongLongFromObjectOrReply(c, c-&gt;argv[2], &amp;incr, NULL) != C_OK) return;</span>
+<span class="lineNum">     389 </span><span class="lineCov">          3 :     incrDecrCommand(c,incr);</span>
+<a name="390"><span class="lineNum">     390 </span>            : }</a>
+<span class="lineNum">     391 </span>            : 
+<span class="lineNum">     392 </span><span class="lineCov">          3 : void decrbyCommand(client *c) {</span>
+<span class="lineNum">     393 </span><span class="lineCov">          3 :     long long incr;</span>
+<span class="lineNum">     394 </span>            : 
+<span class="lineNum">     395 </span><span class="lineCov">          3 :     if (getLongLongFromObjectOrReply(c, c-&gt;argv[2], &amp;incr, NULL) != C_OK) return;</span>
+<span class="lineNum">     396 </span><span class="lineCov">          3 :     incrDecrCommand(c,-incr);</span>
+<a name="397"><span class="lineNum">     397 </span>            : }</a>
+<span class="lineNum">     398 </span>            : 
+<span class="lineNum">     399 </span><span class="lineCov">         36 : void incrbyfloatCommand(client *c) {</span>
+<span class="lineNum">     400 </span><span class="lineCov">         36 :     long double incr, value;</span>
+<span class="lineNum">     401 </span><span class="lineCov">         36 :     robj *o, *new, *aux;</span>
+<span class="lineNum">     402 </span>            : 
+<span class="lineNum">     403 </span><span class="lineCov">         36 :     o = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     404 </span><span class="lineCov">         51 :     if (o != NULL &amp;&amp; checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     405 </span><span class="lineCov">         54 :     if (getLongDoubleFromObjectOrReply(c,o,&amp;value,NULL) != C_OK ||</span>
+<span class="lineNum">     406 </span><span class="lineCov">         21 :         getLongDoubleFromObjectOrReply(c,c-&gt;argv[2],&amp;incr,NULL) != C_OK)</span>
+<span class="lineNum">     407 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span><span class="lineCov">         21 :     value += incr;</span>
+<span class="lineNum">     410 </span><span class="lineCov">         21 :     if (isnan(value) || isinf(value)) {</span>
+<span class="lineNum">     411 </span><span class="lineCov">          3 :         addReplyError(c,&quot;increment would produce NaN or Infinity&quot;);</span>
+<span class="lineNum">     412 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     413 </span>            :     }
+<span class="lineNum">     414 </span><span class="lineCov">         18 :     new = createStringObjectFromLongDouble(value,1);</span>
+<span class="lineNum">     415 </span><span class="lineCov">         18 :     if (o)</span>
+<span class="lineNum">     416 </span><span class="lineCov">         15 :         dbOverwrite(c-&gt;db,c-&gt;argv[1],new);</span>
+<span class="lineNum">     417 </span>            :     else
+<span class="lineNum">     418 </span><span class="lineCov">          3 :         dbAdd(c-&gt;db,c-&gt;argv[1],new);</span>
+<span class="lineNum">     419 </span><span class="lineCov">         18 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     420 </span><span class="lineCov">         18 :     notifyKeyspaceEvent(NOTIFY_STRING,&quot;incrbyfloat&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     421 </span><span class="lineCov">         18 :     server.dirty++;</span>
+<span class="lineNum">     422 </span><span class="lineCov">         18 :     addReplyBulk(c,new);</span>
+<span class="lineNum">     423 </span>            : 
+<span class="lineNum">     424 </span>            :     /* Always replicate INCRBYFLOAT as a SET command with the final value
+<span class="lineNum">     425 </span>            :      * in order to make sure that differences in float precision or formatting
+<span class="lineNum">     426 </span>            :      * will not create differences in replicas or after an AOF restart. */
+<span class="lineNum">     427 </span><span class="lineCov">         18 :     aux = createStringObject(&quot;SET&quot;,3);</span>
+<span class="lineNum">     428 </span><span class="lineCov">         18 :     rewriteClientCommandArgument(c,0,aux);</span>
+<span class="lineNum">     429 </span><span class="lineCov">         18 :     decrRefCount(aux);</span>
+<span class="lineNum">     430 </span><span class="lineCov">         18 :     rewriteClientCommandArgument(c,2,new);</span>
+<a name="431"><span class="lineNum">     431 </span>            : }</a>
+<span class="lineNum">     432 </span>            : 
+<span class="lineNum">     433 </span><span class="lineCov">       9073 : void appendCommand(client *c) {</span>
+<span class="lineNum">     434 </span><span class="lineCov">       9073 :     size_t totlen;</span>
+<span class="lineNum">     435 </span><span class="lineCov">       9073 :     robj *o, *append;</span>
+<span class="lineNum">     436 </span>            : 
+<span class="lineNum">     437 </span><span class="lineCov">       9073 :     o = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     438 </span><span class="lineCov">       9073 :     if (o == NULL) {</span>
+<span class="lineNum">     439 </span>            :         /* Create the key */
+<span class="lineNum">     440 </span><span class="lineCov">         15 :         c-&gt;argv[2] = tryObjectEncoding(c-&gt;argv[2]);</span>
+<span class="lineNum">     441 </span><span class="lineCov">         15 :         dbAdd(c-&gt;db,c-&gt;argv[1],c-&gt;argv[2]);</span>
+<span class="lineNum">     442 </span><span class="lineCov">         15 :         incrRefCount(c-&gt;argv[2]);</span>
+<span class="lineNum">     443 </span><span class="lineCov">         15 :         totlen = stringObjectLen(c-&gt;argv[2]);</span>
+<span class="lineNum">     444 </span>            :     } else {
+<span class="lineNum">     445 </span>            :         /* Key exists, check type */
+<span class="lineNum">     446 </span><span class="lineCov">       9058 :         if (checkType(c,o,OBJ_STRING))</span>
+<span class="lineNum">     447 </span>            :             return;
+<span class="lineNum">     448 </span>            : 
+<span class="lineNum">     449 </span>            :         /* &quot;append&quot; is an argument, so always an sds */
+<span class="lineNum">     450 </span><span class="lineCov">       9058 :         append = c-&gt;argv[2];</span>
+<span class="lineNum">     451 </span><span class="lineCov">       9058 :         totlen = stringObjectLen(o)+sdslen(append-&gt;ptr);</span>
+<span class="lineNum">     452 </span><span class="lineCov">       9058 :         if (checkStringLength(c,totlen) != C_OK)</span>
+<span class="lineNum">     453 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     454 </span>            : 
+<span class="lineNum">     455 </span>            :         /* Append the value */
+<span class="lineNum">     456 </span><span class="lineCov">       9058 :         o = dbUnshareStringValue(c-&gt;db,c-&gt;argv[1],o);</span>
+<span class="lineNum">     457 </span><span class="lineCov">      18116 :         o-&gt;ptr = sdscatlen(o-&gt;ptr,append-&gt;ptr,sdslen(append-&gt;ptr));</span>
+<span class="lineNum">     458 </span><span class="lineCov">       9058 :         totlen = sdslen(o-&gt;ptr);</span>
+<span class="lineNum">     459 </span>            :     }
+<span class="lineNum">     460 </span><span class="lineCov">       9073 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     461 </span><span class="lineCov">       9073 :     notifyKeyspaceEvent(NOTIFY_STRING,&quot;append&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     462 </span><span class="lineCov">       9073 :     server.dirty++;</span>
+<span class="lineNum">     463 </span><span class="lineCov">       9073 :     addReplyLongLong(c,totlen);</span>
+<a name="464"><span class="lineNum">     464 </span>            : }</a>
+<span class="lineNum">     465 </span>            : 
+<span class="lineNum">     466 </span><span class="lineCov">          9 : void strlenCommand(client *c) {</span>
+<span class="lineNum">     467 </span><span class="lineCov">          9 :     robj *o;</span>
+<span class="lineNum">     468 </span><span class="lineCov">         15 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     469 </span><span class="lineCov">          9 :         checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     470 </span><span class="lineCov">          6 :     addReplyLongLong(c,stringObjectLen(o));</span>
+<span class="lineNum">     471 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/expire.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - expire.c<span style="font-size: 80%;"> (source / <a href="expire.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">192</td>
+            <td class="headerCovTableEntry">206</td>
+            <td class="headerCovTableEntryHi">93.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Implementation of EXPIRE (keys with fixed time to live).</a>
+<span class="lineNum">       2 </span>            :  *
+<span class="lineNum">       3 </span>            :  * ----------------------------------------------------------------------------
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Copyright (c) 2009-2016, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       6 </span>            :  * All rights reserved.
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       9 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">      10 </span>            :  *
+<span class="lineNum">      11 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      12 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      13 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      14 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      15 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      16 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      17 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      18 </span>            :  *     specific prior written permission.
+<span class="lineNum">      19 </span>            :  *
+<span class="lineNum">      20 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      21 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      22 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      23 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      24 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      25 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      26 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      27 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      28 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      29 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      30 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      31 </span>            :  */
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">      36 </span>            :  * Incremental collection of expired keys.
+<span class="lineNum">      37 </span>            :  *
+<span class="lineNum">      38 </span>            :  * When keys are accessed they are expired on-access. However we need a
+<span class="lineNum">      39 </span>            :  * mechanism in order to ensure keys are eventually removed when expired even
+<span class="lineNum">      40 </span>            :  * if no access is performed on them.
+<span class="lineNum">      41 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : /* Helper function for the activeExpireCycle() function.
+<span class="lineNum">      44 </span>            :  * This function will try to expire the key that is stored in the hash table
+<span class="lineNum">      45 </span>            :  * entry 'de' of the 'expires' hash table of a Redis database.
+<span class="lineNum">      46 </span>            :  *
+<span class="lineNum">      47 </span>            :  * If the key is found to be expired, it is removed from the database and
+<span class="lineNum">      48 </span>            :  * 1 is returned. Otherwise no operation is performed and 0 is returned.
+<span class="lineNum">      49 </span>            :  *
+<span class="lineNum">      50 </span>            :  * When a key is expired, server.stat_expiredkeys is incremented.
+<span class="lineNum">      51 </span>            :  *
+<a name="52"><span class="lineNum">      52 </span>            :  * The parameter 'now' is the current time in milliseconds as is passed</a>
+<span class="lineNum">      53 </span>            :  * to the function to avoid too many gettimeofday() syscalls. */
+<span class="lineNum">      54 </span><span class="lineCov">       4855 : int activeExpireCycleTryExpire(redisDb *db, dictEntry *de, long long now) {</span>
+<span class="lineNum">      55 </span><span class="lineCov">       4855 :     long long t = dictGetSignedIntegerVal(de);</span>
+<span class="lineNum">      56 </span><span class="lineCov">       4855 :     if (now &gt; t) {</span>
+<span class="lineNum">      57 </span><span class="lineCov">        152 :         sds key = dictGetKey(de);</span>
+<span class="lineNum">      58 </span><span class="lineCov">        304 :         robj *keyobj = createStringObject(key,sdslen(key));</span>
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span><span class="lineCov">        152 :         propagateExpire(db,keyobj,server.lazyfree_lazy_expire);</span>
+<span class="lineNum">      61 </span><span class="lineCov">        152 :         if (server.lazyfree_lazy_expire)</span>
+<span class="lineNum">      62 </span><span class="lineNoCov">          0 :             dbAsyncDelete(db,keyobj);</span>
+<span class="lineNum">      63 </span>            :         else
+<span class="lineNum">      64 </span><span class="lineCov">        152 :             dbSyncDelete(db,keyobj);</span>
+<span class="lineNum">      65 </span><span class="lineCov">        152 :         notifyKeyspaceEvent(NOTIFY_EXPIRED,</span>
+<span class="lineNum">      66 </span>            :             &quot;expired&quot;,keyobj,db-&gt;id);
+<span class="lineNum">      67 </span><span class="lineCov">        152 :         decrRefCount(keyobj);</span>
+<span class="lineNum">      68 </span><span class="lineCov">        152 :         server.stat_expiredkeys++;</span>
+<span class="lineNum">      69 </span><span class="lineCov">        152 :         return 1;</span>
+<span class="lineNum">      70 </span>            :     } else {
+<span class="lineNum">      71 </span>            :         return 0;
+<span class="lineNum">      72 </span>            :     }
+<span class="lineNum">      73 </span>            : }
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            : /* Try to expire a few timed out keys. The algorithm used is adaptive and
+<span class="lineNum">      76 </span>            :  * will use few CPU cycles if there are few expiring keys, otherwise
+<span class="lineNum">      77 </span>            :  * it will get more aggressive to avoid that too much memory is used by
+<span class="lineNum">      78 </span>            :  * keys that can be removed from the keyspace.
+<span class="lineNum">      79 </span>            :  *
+<span class="lineNum">      80 </span>            :  * No more than CRON_DBS_PER_CALL databases are tested at every
+<span class="lineNum">      81 </span>            :  * iteration.
+<span class="lineNum">      82 </span>            :  *
+<span class="lineNum">      83 </span>            :  * This kind of call is used when Redis detects that timelimit_exit is
+<span class="lineNum">      84 </span>            :  * true, so there is more work to do, and we do it more incrementally from
+<span class="lineNum">      85 </span>            :  * the beforeSleep() function of the event loop.
+<span class="lineNum">      86 </span>            :  *
+<span class="lineNum">      87 </span>            :  * Expire cycle type:
+<span class="lineNum">      88 </span>            :  *
+<span class="lineNum">      89 </span>            :  * If type is ACTIVE_EXPIRE_CYCLE_FAST the function will try to run a
+<span class="lineNum">      90 </span>            :  * &quot;fast&quot; expire cycle that takes no longer than EXPIRE_FAST_CYCLE_DURATION
+<span class="lineNum">      91 </span>            :  * microseconds, and is not repeated again before the same amount of time.
+<span class="lineNum">      92 </span>            :  *
+<span class="lineNum">      93 </span>            :  * If type is ACTIVE_EXPIRE_CYCLE_SLOW, that normal expire cycle is
+<span class="lineNum">      94 </span>            :  * executed, where the time limit is a percentage of the REDIS_HZ period
+<a name="95"><span class="lineNum">      95 </span>            :  * as specified by the ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC define. */</a>
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span><span class="lineCov">   19454274 : void activeExpireCycle(int type) {</span>
+<span class="lineNum">      98 </span>            :     /* This function has some global state in order to continue the work
+<span class="lineNum">      99 </span>            :      * incrementally across calls. */
+<span class="lineNum">     100 </span><span class="lineCov">   19454274 :     static unsigned int current_db = 0; /* Last DB tested. */</span>
+<span class="lineNum">     101 </span><span class="lineCov">   19454274 :     static int timelimit_exit = 0;      /* Time limit hit in previous call? */</span>
+<span class="lineNum">     102 </span><span class="lineCov">   19454274 :     static long long last_fast_cycle = 0; /* When last fast cycle ran. */</span>
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span><span class="lineCov">   19454274 :     int j, iteration = 0;</span>
+<span class="lineNum">     105 </span><span class="lineCov">   19454274 :     int dbs_per_call = CRON_DBS_PER_CALL;</span>
+<span class="lineNum">     106 </span><span class="lineCov">   19454274 :     long long start = ustime(), timelimit, elapsed;</span>
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            :     /* When clients are paused the dataset should be static not just from the
+<span class="lineNum">     109 </span>            :      * POV of clients not being able to write, but also from the POV of
+<span class="lineNum">     110 </span>            :      * expires and evictions of keys not being performed. */
+<span class="lineNum">     111 </span><span class="lineCov">   19454274 :     if (clientsArePaused()) return;</span>
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span><span class="lineCov">   19454274 :     if (type == ACTIVE_EXPIRE_CYCLE_FAST) {</span>
+<span class="lineNum">     114 </span>            :         /* Don't start a fast cycle if the previous cycle did not exit
+<span class="lineNum">     115 </span>            :          * for time limit. Also don't repeat a fast cycle for the same period
+<span class="lineNum">     116 </span>            :          * as the fast cycle total duration itself. */
+<span class="lineNum">     117 </span><span class="lineCov">   19423601 :         if (!timelimit_exit) return;</span>
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :         if (start &lt; last_fast_cycle + ACTIVE_EXPIRE_CYCLE_FAST_DURATION*2) return;</span>
+<span class="lineNum">     119 </span><span class="lineNoCov">          0 :         last_fast_cycle = start;</span>
+<span class="lineNum">     120 </span>            :     }
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            :     /* We usually should test CRON_DBS_PER_CALL per iteration, with
+<span class="lineNum">     123 </span>            :      * two exceptions:
+<span class="lineNum">     124 </span>            :      *
+<span class="lineNum">     125 </span>            :      * 1) Don't test more DBs than we have.
+<span class="lineNum">     126 </span>            :      * 2) If last time we hit the time limit, we want to scan all DBs
+<span class="lineNum">     127 </span>            :      * in this iteration, as there is work to do in some DB and we don't want
+<span class="lineNum">     128 </span>            :      * expired keys to use memory for too much time. */
+<span class="lineNum">     129 </span><span class="lineCov">      30673 :     if (dbs_per_call &gt; server.dbnum || timelimit_exit)</span>
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :         dbs_per_call = server.dbnum;</span>
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            :     /* We can use at max ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC percentage of CPU time
+<span class="lineNum">     133 </span>            :      * per iteration. Since this function gets called with a frequency of
+<span class="lineNum">     134 </span>            :      * server.hz times per second, the following is the max amount of
+<span class="lineNum">     135 </span>            :      * microseconds we can spend in this function. */
+<span class="lineNum">     136 </span><span class="lineCov">      30673 :     timelimit = 1000000*ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC/server.hz/100;</span>
+<span class="lineNum">     137 </span><span class="lineCov">      30673 :     timelimit_exit = 0;</span>
+<span class="lineNum">     138 </span><span class="lineCov">      30673 :     if (timelimit &lt;= 0) timelimit = 1;</span>
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span><span class="lineCov">      30673 :     if (type == ACTIVE_EXPIRE_CYCLE_FAST)</span>
+<span class="lineNum">     141 </span><span class="lineNoCov">          0 :         timelimit = ACTIVE_EXPIRE_CYCLE_FAST_DURATION; /* in microseconds. */</span>
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span>            :     /* Accumulate some global stats as we expire keys, to have some idea
+<span class="lineNum">     144 </span>            :      * about the number of keys that are already logically expired, but still
+<span class="lineNum">     145 </span>            :      * existing inside the database. */
+<span class="lineNum">     146 </span><span class="lineCov">      30673 :     long total_sampled = 0;</span>
+<span class="lineNum">     147 </span><span class="lineCov">      30673 :     long total_expired = 0;</span>
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span><span class="lineCov">     521441 :     for (j = 0; j &lt; dbs_per_call &amp;&amp; timelimit_exit == 0; j++) {</span>
+<span class="lineNum">     150 </span><span class="lineCov">     490768 :         int expired;</span>
+<span class="lineNum">     151 </span><span class="lineCov">     490768 :         redisDb *db = server.db+(current_db % server.dbnum);</span>
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span>            :         /* Increment the DB now so we are sure if we run out of time
+<span class="lineNum">     154 </span>            :          * in the current DB we'll restart from the next. This allows to
+<span class="lineNum">     155 </span>            :          * distribute the time evenly across DBs. */
+<span class="lineNum">     156 </span><span class="lineCov">     490768 :         current_db++;</span>
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            :         /* Continue to expire if at the end of the cycle more than 25%
+<span class="lineNum">     159 </span>            :          * of the keys were expired. */
+<span class="lineNum">     160 </span><span class="lineCov">     490768 :         do {</span>
+<span class="lineNum">     161 </span><span class="lineCov">     490768 :             unsigned long num, slots;</span>
+<span class="lineNum">     162 </span><span class="lineCov">     490768 :             long long now, ttl_sum;</span>
+<span class="lineNum">     163 </span><span class="lineCov">     490768 :             int ttl_samples;</span>
+<span class="lineNum">     164 </span><span class="lineCov">     490768 :             iteration++;</span>
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            :             /* If there is nothing to expire try next DB ASAP. */
+<span class="lineNum">     167 </span><span class="lineCov">     490768 :             if ((num = dictSize(db-&gt;expires)) == 0) {</span>
+<span class="lineNum">     168 </span><span class="lineCov">     489778 :                 db-&gt;avg_ttl = 0;</span>
+<span class="lineNum">     169 </span><span class="lineCov">     489778 :                 break;</span>
+<span class="lineNum">     170 </span>            :             }
+<span class="lineNum">     171 </span><span class="lineCov">        990 :             slots = dictSlots(db-&gt;expires);</span>
+<span class="lineNum">     172 </span><span class="lineCov">        990 :             now = mstime();</span>
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            :             /* When there are less than 1% filled slots getting random
+<span class="lineNum">     175 </span>            :              * keys is expensive, so stop here waiting for better times...
+<span class="lineNum">     176 </span>            :              * The dictionary will be resized asap. */
+<span class="lineNum">     177 </span><span class="lineCov">        990 :             if (num &amp;&amp; slots &gt; DICT_HT_INITIAL_SIZE &amp;&amp;</span>
+<span class="lineNum">     178 </span><span class="lineCov">        179 :                 (num*100/slots &lt; 1)) break;</span>
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span>            :             /* The main collection cycle. Sample random keys among keys
+<span class="lineNum">     181 </span>            :              * with an expire set, checking for expired ones. */
+<span class="lineNum">     182 </span><span class="lineCov">        990 :             expired = 0;</span>
+<span class="lineNum">     183 </span><span class="lineCov">        990 :             ttl_sum = 0;</span>
+<span class="lineNum">     184 </span><span class="lineCov">        990 :             ttl_samples = 0;</span>
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span><span class="lineCov">        990 :             if (num &gt; ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP)</span>
+<span class="lineNum">     187 </span><span class="lineCov">         99 :                 num = ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP;</span>
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span><span class="lineCov">       5236 :             while (num--) {</span>
+<span class="lineNum">     190 </span><span class="lineCov">       4246 :                 dictEntry *de;</span>
+<span class="lineNum">     191 </span><span class="lineCov">       4246 :                 long long ttl;</span>
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span><span class="lineCov">       4246 :                 if ((de = dictGetRandomKey(db-&gt;expires)) == NULL) break;</span>
+<span class="lineNum">     194 </span><span class="lineCov">       4246 :                 ttl = dictGetSignedIntegerVal(de)-now;</span>
+<span class="lineNum">     195 </span><span class="lineCov">       4246 :                 if (activeExpireCycleTryExpire(db,de,now)) expired++;</span>
+<span class="lineNum">     196 </span><span class="lineCov">       4246 :                 if (ttl &gt; 0) {</span>
+<span class="lineNum">     197 </span>            :                     /* We want the average TTL of keys yet not expired. */
+<span class="lineNum">     198 </span><span class="lineCov">       4103 :                     ttl_sum += ttl;</span>
+<span class="lineNum">     199 </span><span class="lineCov">       4103 :                     ttl_samples++;</span>
+<span class="lineNum">     200 </span>            :                 }
+<span class="lineNum">     201 </span><span class="lineCov">       4246 :                 total_sampled++;</span>
+<span class="lineNum">     202 </span>            :             }
+<span class="lineNum">     203 </span><span class="lineCov">        990 :             total_expired += expired;</span>
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            :             /* Update the average TTL stats for this database. */
+<span class="lineNum">     206 </span><span class="lineCov">        990 :             if (ttl_samples) {</span>
+<span class="lineNum">     207 </span><span class="lineCov">        913 :                 long long avg_ttl = ttl_sum/ttl_samples;</span>
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span>            :                 /* Do a simple running average with a few samples.
+<span class="lineNum">     210 </span>            :                  * We just use the current estimate with a weight of 2%
+<span class="lineNum">     211 </span>            :                  * and the previous estimate with a weight of 98%. */
+<span class="lineNum">     212 </span><span class="lineCov">        913 :                 if (db-&gt;avg_ttl == 0) db-&gt;avg_ttl = avg_ttl;</span>
+<span class="lineNum">     213 </span><span class="lineCov">        913 :                 db-&gt;avg_ttl = (db-&gt;avg_ttl/50)*49 + (avg_ttl/50);</span>
+<span class="lineNum">     214 </span>            :             }
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            :             /* We can't block forever here even if there are many keys to
+<span class="lineNum">     217 </span>            :              * expire. So after a given amount of milliseconds return to the
+<span class="lineNum">     218 </span>            :              * caller waiting for the other active expire cycle. */
+<span class="lineNum">     219 </span><span class="lineCov">        990 :             if ((iteration &amp; 0xf) == 0) { /* check once every 16 iterations. */</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :                 elapsed = ustime()-start;</span>
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 :                 if (elapsed &gt; timelimit) {</span>
+<span class="lineNum">     222 </span><span class="lineNoCov">          0 :                     timelimit_exit = 1;</span>
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :                     server.stat_expired_time_cap_reached_count++;</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :                     break;</span>
+<span class="lineNum">     225 </span>            :                 }
+<span class="lineNum">     226 </span>            :             }
+<span class="lineNum">     227 </span>            :             /* We don't repeat the cycle if there are less than 25% of keys
+<span class="lineNum">     228 </span>            :              * found expired in the current DB. */
+<span class="lineNum">     229 </span><span class="lineCov">        990 :         } while (expired &gt; ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP/4);</span>
+<span class="lineNum">     230 </span>            :     }
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span><span class="lineCov">      30673 :     elapsed = ustime()-start;</span>
+<span class="lineNum">     233 </span><span class="lineCov">      30673 :     latencyAddSampleIfNeeded(&quot;expire-cycle&quot;,elapsed/1000);</span>
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            :     /* Update our estimate of keys existing but yet to be expired.
+<span class="lineNum">     236 </span>            :      * Running average with this sample accounting for 5%. */
+<span class="lineNum">     237 </span><span class="lineCov">      30673 :     double current_perc;</span>
+<span class="lineNum">     238 </span><span class="lineCov">      30673 :     if (total_sampled) {</span>
+<span class="lineNum">     239 </span><span class="lineCov">        990 :         current_perc = (double)total_expired/total_sampled;</span>
+<span class="lineNum">     240 </span>            :     } else
+<span class="lineNum">     241 </span>            :         current_perc = 0;
+<span class="lineNum">     242 </span><span class="lineCov">      61346 :     server.stat_expired_stale_perc = (current_perc*0.05)+</span>
+<span class="lineNum">     243 </span><span class="lineCov">      30673 :                                      (server.stat_expired_stale_perc*0.95);</span>
+<span class="lineNum">     244 </span>            : }
+<span class="lineNum">     245 </span>            : 
+<span class="lineNum">     246 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     247 </span>            :  * Expires of keys created in writable slaves
+<span class="lineNum">     248 </span>            :  *
+<span class="lineNum">     249 </span>            :  * Normally slaves do not process expires: they wait the masters to synthesize
+<span class="lineNum">     250 </span>            :  * DEL operations in order to retain consistency. However writable slaves are
+<span class="lineNum">     251 </span>            :  * an exception: if a key is created in the slave and an expire is assigned
+<span class="lineNum">     252 </span>            :  * to it, we need a way to expire such a key, since the master does not know
+<span class="lineNum">     253 </span>            :  * anything about such a key.
+<span class="lineNum">     254 </span>            :  *
+<span class="lineNum">     255 </span>            :  * In order to do so, we track keys created in the slave side with an expire
+<span class="lineNum">     256 </span>            :  * set, and call the expireSlaveKeys() function from time to time in order to
+<span class="lineNum">     257 </span>            :  * reclaim the keys if they already expired.
+<span class="lineNum">     258 </span>            :  *
+<span class="lineNum">     259 </span>            :  * Note that the use case we are trying to cover here, is a popular one where
+<span class="lineNum">     260 </span>            :  * slaves are put in writable mode in order to compute slow operations in
+<span class="lineNum">     261 </span>            :  * the slave side that are mostly useful to actually read data in a more
+<span class="lineNum">     262 </span>            :  * processed way. Think at sets intersections in a tmp key, with an expire so
+<span class="lineNum">     263 </span>            :  * that it is also used as a cache to avoid intersecting every time.
+<span class="lineNum">     264 </span>            :  *
+<span class="lineNum">     265 </span>            :  * This implementation is currently not perfect but a lot better than leaking
+<span class="lineNum">     266 </span>            :  * the keys as implemented in 3.2.
+<span class="lineNum">     267 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span>            : /* The dictionary where we remember key names and database ID of keys we may
+<span class="lineNum">     270 </span>            :  * want to expire from the slave. Since this function is not often used we
+<span class="lineNum">     271 </span>            :  * don't even care to initialize the database at startup. We'll do it once
+<span class="lineNum">     272 </span>            :  * the feature is used the first time, that is, when rememberSlaveKeyWithExpire()
+<span class="lineNum">     273 </span>            :  * is called.
+<span class="lineNum">     274 </span>            :  *
+<span class="lineNum">     275 </span>            :  * The dictionary has an SDS string representing the key as the hash table
+<span class="lineNum">     276 </span>            :  * key, while the value is a 64 bit unsigned integer with the bits corresponding
+<span class="lineNum">     277 </span>            :  * to the DB where the keys may exist set to 1. Currently the keys created
+<span class="lineNum">     278 </span>            :  * with a DB id &gt; 63 are not expired, but a trivial fix is to set the bitmap
+<span class="lineNum">     279 </span>            :  * to the max 64 bit unsigned value when we know there is a key with a DB
+<span class="lineNum">     280 </span>            :  * ID greater than 63, and check all the configured DBs in such a case. */
+<span class="lineNum">     281 </span>            : dict *slaveKeysWithExpire = NULL;
+<span class="lineNum">     282 </span>            : 
+<a name="283"><span class="lineNum">     283 </span>            : /* Check the set of keys created by the master with an expire set in order to</a>
+<span class="lineNum">     284 </span>            :  * check if they should be evicted. */
+<span class="lineNum">     285 </span><span class="lineCov">      11689 : void expireSlaveKeys(void) {</span>
+<span class="lineNum">     286 </span><span class="lineCov">      11689 :     if (slaveKeysWithExpire == NULL ||</span>
+<span class="lineNum">     287 </span><span class="lineCov">        184 :         dictSize(slaveKeysWithExpire) == 0) return;</span>
+<span class="lineNum">     288 </span>            : 
+<span class="lineNum">     289 </span><span class="lineCov">        153 :     int cycles = 0, noexpire = 0;</span>
+<span class="lineNum">     290 </span><span class="lineCov">        153 :     mstime_t start = mstime();</span>
+<span class="lineNum">     291 </span><span class="lineCov">        609 :     while(1) {</span>
+<span class="lineNum">     292 </span><span class="lineCov">        609 :         dictEntry *de = dictGetRandomKey(slaveKeysWithExpire);</span>
+<span class="lineNum">     293 </span><span class="lineCov">        609 :         sds keyname = dictGetKey(de);</span>
+<span class="lineNum">     294 </span><span class="lineCov">        609 :         uint64_t dbids = dictGetUnsignedIntegerVal(de);</span>
+<span class="lineNum">     295 </span><span class="lineCov">        609 :         uint64_t new_dbids = 0;</span>
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span>            :         /* Check the key against every database corresponding to the
+<span class="lineNum">     298 </span>            :          * bits set in the value bitmap. */
+<span class="lineNum">     299 </span><span class="lineCov">        609 :         int dbid = 0;</span>
+<span class="lineNum">     300 </span><span class="lineCov">       4263 :         while(dbids &amp;&amp; dbid &lt; server.dbnum) {</span>
+<span class="lineNum">     301 </span><span class="lineCov">       3654 :             if ((dbids &amp; 1) != 0) {</span>
+<span class="lineNum">     302 </span><span class="lineCov">        609 :                 redisDb *db = server.db+dbid;</span>
+<span class="lineNum">     303 </span><span class="lineCov">        609 :                 dictEntry *expire = dictFind(db-&gt;expires,keyname);</span>
+<span class="lineNum">     304 </span><span class="lineCov">        609 :                 int expired = 0;</span>
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span><span class="lineCov">       1218 :                 if (expire &amp;&amp;</span>
+<span class="lineNum">     307 </span><span class="lineCov">        609 :                     activeExpireCycleTryExpire(server.db+dbid,expire,start))</span>
+<span class="lineNum">     308 </span>            :                 {
+<span class="lineNum">     309 </span><span class="lineCov">          9 :                     expired = 1;</span>
+<span class="lineNum">     310 </span>            :                 }
+<span class="lineNum">     311 </span>            : 
+<span class="lineNum">     312 </span>            :                 /* If the key was not expired in this DB, we need to set the
+<span class="lineNum">     313 </span>            :                  * corresponding bit in the new bitmap we set as value.
+<span class="lineNum">     314 </span>            :                  * At the end of the loop if the bitmap is zero, it means we
+<span class="lineNum">     315 </span>            :                  * no longer need to keep track of this key. */
+<span class="lineNum">     316 </span><span class="lineCov">        609 :                 if (expire &amp;&amp; !expired) {</span>
+<span class="lineNum">     317 </span><span class="lineCov">        600 :                     noexpire++;</span>
+<span class="lineNum">     318 </span><span class="lineCov">        600 :                     new_dbids |= (uint64_t)1 &lt;&lt; dbid;</span>
+<span class="lineNum">     319 </span>            :                 }
+<span class="lineNum">     320 </span>            :             }
+<span class="lineNum">     321 </span><span class="lineCov">       3654 :             dbid++;</span>
+<span class="lineNum">     322 </span><span class="lineCov">       3654 :             dbids &gt;&gt;= 1;</span>
+<span class="lineNum">     323 </span>            :         }
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span>            :         /* Set the new bitmap as value of the key, in the dictionary
+<span class="lineNum">     326 </span>            :          * of keys with an expire set directly in the writable slave. Otherwise
+<span class="lineNum">     327 </span>            :          * if the bitmap is zero, we no longer need to keep track of it. */
+<span class="lineNum">     328 </span><span class="lineCov">        609 :         if (new_dbids)</span>
+<span class="lineNum">     329 </span><span class="lineCov">        600 :             dictSetUnsignedIntegerVal(de,new_dbids);</span>
+<span class="lineNum">     330 </span>            :         else
+<span class="lineNum">     331 </span><span class="lineCov">          9 :             dictDelete(slaveKeysWithExpire,keyname);</span>
+<span class="lineNum">     332 </span>            : 
+<span class="lineNum">     333 </span>            :         /* Stop conditions: found 3 keys we cna't expire in a row or
+<span class="lineNum">     334 </span>            :          * time limit was reached. */
+<span class="lineNum">     335 </span><span class="lineCov">        609 :         cycles++;</span>
+<span class="lineNum">     336 </span><span class="lineCov">        609 :         if (noexpire &gt; 3) break;</span>
+<span class="lineNum">     337 </span><span class="lineCov">        459 :         if ((cycles % 64) == 0 &amp;&amp; mstime()-start &gt; 1) break;</span>
+<span class="lineNum">     338 </span><span class="lineCov">        459 :         if (dictSize(slaveKeysWithExpire) == 0) break;</span>
+<span class="lineNum">     339 </span>            :     }
+<span class="lineNum">     340 </span>            : }
+<span class="lineNum">     341 </span>            : 
+<a name="342"><span class="lineNum">     342 </span>            : /* Track keys that received an EXPIRE or similar command in the context</a>
+<span class="lineNum">     343 </span>            :  * of a writable slave. */
+<span class="lineNum">     344 </span><span class="lineCov">          9 : void rememberSlaveKeyWithExpire(redisDb *db, robj *key) {</span>
+<span class="lineNum">     345 </span><span class="lineCov">          9 :     if (slaveKeysWithExpire == NULL) {</span>
+<span class="lineNum">     346 </span><span class="lineCov">          3 :         static dictType dt = {</span>
+<span class="lineNum">     347 </span>            :             dictSdsHash,                /* hash function */
+<span class="lineNum">     348 </span>            :             NULL,                       /* key dup */
+<span class="lineNum">     349 </span>            :             NULL,                       /* val dup */
+<span class="lineNum">     350 </span>            :             dictSdsKeyCompare,          /* key compare */
+<span class="lineNum">     351 </span>            :             dictSdsDestructor,          /* key destructor */
+<span class="lineNum">     352 </span>            :             NULL                        /* val destructor */
+<span class="lineNum">     353 </span>            :         };
+<span class="lineNum">     354 </span><span class="lineCov">          3 :         slaveKeysWithExpire = dictCreate(&amp;dt,NULL);</span>
+<span class="lineNum">     355 </span>            :     }
+<span class="lineNum">     356 </span><span class="lineCov">          9 :     if (db-&gt;id &gt; 63) return;</span>
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span><span class="lineCov">          9 :     dictEntry *de = dictAddOrFind(slaveKeysWithExpire,key-&gt;ptr);</span>
+<span class="lineNum">     359 </span>            :     /* If the entry was just created, set it to a copy of the SDS string
+<span class="lineNum">     360 </span>            :      * representing the key: we don't want to need to take those keys
+<span class="lineNum">     361 </span>            :      * in sync with the main DB. The keys will be removed by expireSlaveKeys()
+<span class="lineNum">     362 </span>            :      * as it scans to find keys to remove. */
+<span class="lineNum">     363 </span><span class="lineCov">          9 :     if (de-&gt;key == key-&gt;ptr) {</span>
+<span class="lineNum">     364 </span><span class="lineCov">          9 :         de-&gt;key = sdsdup(key-&gt;ptr);</span>
+<span class="lineNum">     365 </span><span class="lineCov">          9 :         dictSetUnsignedIntegerVal(de,0);</span>
+<span class="lineNum">     366 </span>            :     }
+<span class="lineNum">     367 </span>            : 
+<span class="lineNum">     368 </span><span class="lineCov">          9 :     uint64_t dbids = dictGetUnsignedIntegerVal(de);</span>
+<span class="lineNum">     369 </span><span class="lineCov">          9 :     dbids |= (uint64_t)1 &lt;&lt; db-&gt;id;</span>
+<span class="lineNum">     370 </span><span class="lineCov">          9 :     dictSetUnsignedIntegerVal(de,dbids);</span>
+<span class="lineNum">     371 </span>            : }
+<a name="372"><span class="lineNum">     372 </span>            : </a>
+<span class="lineNum">     373 </span>            : /* Return the number of keys we are tracking. */
+<span class="lineNum">     374 </span><span class="lineCov">      30618 : size_t getSlaveKeyWithExpireCount(void) {</span>
+<span class="lineNum">     375 </span><span class="lineCov">      30618 :     if (slaveKeysWithExpire == NULL) return 0;</span>
+<span class="lineNum">     376 </span><span class="lineNoCov">          0 :     return dictSize(slaveKeysWithExpire);</span>
+<span class="lineNum">     377 </span>            : }
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span>            : /* Remove the keys in the hash table. We need to do that when data is
+<span class="lineNum">     380 </span>            :  * flushed from the server. We may receive new keys from the master with
+<span class="lineNum">     381 </span>            :  * the same name/db and it is no longer a good idea to expire them.
+<span class="lineNum">     382 </span>            :  *
+<span class="lineNum">     383 </span>            :  * Note: technically we should handle the case of a single DB being flushed
+<span class="lineNum">     384 </span>            :  * but it is not worth it since anyway race conditions using the same set
+<a name="385"><span class="lineNum">     385 </span>            :  * of key names in a wriatable slave and in its master will lead to</a>
+<span class="lineNum">     386 </span>            :  * inconsistencies. This is just a best-effort thing we do. */
+<span class="lineNum">     387 </span><span class="lineCov">       1245 : void flushSlaveKeysWithExpireList(void) {</span>
+<span class="lineNum">     388 </span><span class="lineCov">       1245 :     if (slaveKeysWithExpire) {</span>
+<span class="lineNum">     389 </span><span class="lineNoCov">          0 :         dictRelease(slaveKeysWithExpire);</span>
+<span class="lineNum">     390 </span><span class="lineNoCov">          0 :         slaveKeysWithExpire = NULL;</span>
+<span class="lineNum">     391 </span>            :     }
+<span class="lineNum">     392 </span><span class="lineCov">       1245 : }</span>
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     395 </span>            :  * Expires Commands
+<span class="lineNum">     396 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">     397 </span>            : 
+<span class="lineNum">     398 </span>            : /* This is the generic command implementation for EXPIRE, PEXPIRE, EXPIREAT
+<span class="lineNum">     399 </span>            :  * and PEXPIREAT. Because the commad second argument may be relative or absolute
+<span class="lineNum">     400 </span>            :  * the &quot;basetime&quot; argument is used to signal what the base time is (either 0
+<span class="lineNum">     401 </span>            :  * for *AT variants of the command, or the current time for relative expires).
+<span class="lineNum">     402 </span>            :  *
+<a name="403"><span class="lineNum">     403 </span>            :  * unit is either UNIT_SECONDS or UNIT_MILLISECONDS, and is only used for</a>
+<span class="lineNum">     404 </span>            :  * the argv[2] parameter. The basetime is always specified in milliseconds. */
+<span class="lineNum">     405 </span><span class="lineCov">       1739 : void expireGenericCommand(client *c, long long basetime, int unit) {</span>
+<span class="lineNum">     406 </span><span class="lineCov">       1739 :     robj *key = c-&gt;argv[1], *param = c-&gt;argv[2];</span>
+<span class="lineNum">     407 </span><span class="lineCov">       1739 :     long long when; /* unix time in milliseconds when the key will expire. */</span>
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span><span class="lineCov">       1739 :     if (getLongLongFromObjectOrReply(c, param, &amp;when, NULL) != C_OK)</span>
+<span class="lineNum">     410 </span>            :         return;
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span><span class="lineCov">       1733 :     if (unit == UNIT_SECONDS) when *= 1000;</span>
+<span class="lineNum">     413 </span><span class="lineCov">       1733 :     when += basetime;</span>
+<span class="lineNum">     414 </span>            : 
+<span class="lineNum">     415 </span>            :     /* No key, return zero. */
+<span class="lineNum">     416 </span><span class="lineCov">       1733 :     if (lookupKeyWrite(c-&gt;db,key) == NULL) {</span>
+<span class="lineNum">     417 </span><span class="lineCov">       1355 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     418 </span><span class="lineCov">       1355 :         return;</span>
+<span class="lineNum">     419 </span>            :     }
+<span class="lineNum">     420 </span>            : 
+<span class="lineNum">     421 </span>            :     /* EXPIRE with negative TTL, or EXPIREAT with a timestamp into the past
+<span class="lineNum">     422 </span>            :      * should never be executed as a DEL when load the AOF or in the context
+<span class="lineNum">     423 </span>            :      * of a slave instance.
+<span class="lineNum">     424 </span>            :      *
+<span class="lineNum">     425 </span>            :      * Instead we take the other branch of the IF statement setting an expire
+<span class="lineNum">     426 </span>            :      * (possibly in the past) and wait for an explicit DEL from the master. */
+<span class="lineNum">     427 </span><span class="lineCov">        378 :     if (when &lt;= mstime() &amp;&amp; !server.loading &amp;&amp; !server.masterhost) {</span>
+<span class="lineNum">     428 </span><span class="lineCov">         94 :         robj *aux;</span>
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span><span class="lineCov">         94 :         int deleted = server.lazyfree_lazy_expire ? dbAsyncDelete(c-&gt;db,key) :</span>
+<span class="lineNum">     431 </span><span class="lineCov">         94 :                                                     dbSyncDelete(c-&gt;db,key);</span>
+<span class="lineNum">     432 </span><span class="lineCov">         94 :         serverAssertWithInfo(c,key,deleted);</span>
+<span class="lineNum">     433 </span><span class="lineCov">         94 :         server.dirty++;</span>
+<span class="lineNum">     434 </span>            : 
+<span class="lineNum">     435 </span>            :         /* Replicate/AOF this as an explicit DEL or UNLINK. */
+<span class="lineNum">     436 </span><span class="lineCov">         94 :         aux = server.lazyfree_lazy_expire ? shared.unlink : shared.del;</span>
+<span class="lineNum">     437 </span><span class="lineCov">         94 :         rewriteClientCommandVector(c,2,aux,key);</span>
+<span class="lineNum">     438 </span><span class="lineCov">         94 :         signalModifiedKey(c-&gt;db,key);</span>
+<span class="lineNum">     439 </span><span class="lineCov">         94 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,key,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     440 </span><span class="lineCov">         94 :         addReply(c, shared.cone);</span>
+<span class="lineNum">     441 </span><span class="lineCov">         94 :         return;</span>
+<span class="lineNum">     442 </span>            :     } else {
+<span class="lineNum">     443 </span><span class="lineCov">        284 :         setExpire(c,c-&gt;db,key,when);</span>
+<span class="lineNum">     444 </span><span class="lineCov">        284 :         addReply(c,shared.cone);</span>
+<span class="lineNum">     445 </span><span class="lineCov">        284 :         signalModifiedKey(c-&gt;db,key);</span>
+<span class="lineNum">     446 </span><span class="lineCov">        284 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;expire&quot;,key,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     447 </span><span class="lineCov">        284 :         server.dirty++;</span>
+<span class="lineNum">     448 </span><span class="lineCov">        284 :         return;</span>
+<span class="lineNum">     449 </span>            :     }
+<span class="lineNum">     450 </span>            : }
+<a name="451"><span class="lineNum">     451 </span>            : </a>
+<span class="lineNum">     452 </span>            : /* EXPIRE key seconds */
+<span class="lineNum">     453 </span><span class="lineCov">       1652 : void expireCommand(client *c) {</span>
+<span class="lineNum">     454 </span><span class="lineCov">       1652 :     expireGenericCommand(c,mstime(),UNIT_SECONDS);</span>
+<span class="lineNum">     455 </span><span class="lineCov">       1652 : }</span>
+<a name="456"><span class="lineNum">     456 </span>            : </a>
+<span class="lineNum">     457 </span>            : /* EXPIREAT key time */
+<span class="lineNum">     458 </span><span class="lineCov">         12 : void expireatCommand(client *c) {</span>
+<span class="lineNum">     459 </span><span class="lineCov">         12 :     expireGenericCommand(c,0,UNIT_SECONDS);</span>
+<span class="lineNum">     460 </span><span class="lineCov">         12 : }</span>
+<a name="461"><span class="lineNum">     461 </span>            : </a>
+<span class="lineNum">     462 </span>            : /* PEXPIRE key milliseconds */
+<span class="lineNum">     463 </span><span class="lineCov">         27 : void pexpireCommand(client *c) {</span>
+<span class="lineNum">     464 </span><span class="lineCov">         27 :     expireGenericCommand(c,mstime(),UNIT_MILLISECONDS);</span>
+<span class="lineNum">     465 </span><span class="lineCov">         27 : }</span>
+<a name="466"><span class="lineNum">     466 </span>            : </a>
+<span class="lineNum">     467 </span>            : /* PEXPIREAT key ms_time */
+<span class="lineNum">     468 </span><span class="lineCov">         48 : void pexpireatCommand(client *c) {</span>
+<span class="lineNum">     469 </span><span class="lineCov">         48 :     expireGenericCommand(c,0,UNIT_MILLISECONDS);</span>
+<span class="lineNum">     470 </span><span class="lineCov">         48 : }</span>
+<a name="471"><span class="lineNum">     471 </span>            : </a>
+<span class="lineNum">     472 </span>            : /* Implements TTL and PTTL */
+<span class="lineNum">     473 </span><span class="lineCov">        185 : void ttlGenericCommand(client *c, int output_ms) {</span>
+<span class="lineNum">     474 </span><span class="lineCov">        185 :     long long expire, ttl = -1;</span>
+<span class="lineNum">     475 </span>            : 
+<span class="lineNum">     476 </span>            :     /* If the key does not exist at all, return -2 */
+<span class="lineNum">     477 </span><span class="lineCov">        185 :     if (lookupKeyReadWithFlags(c-&gt;db,c-&gt;argv[1],LOOKUP_NOTOUCH) == NULL) {</span>
+<span class="lineNum">     478 </span><span class="lineCov">         18 :         addReplyLongLong(c,-2);</span>
+<span class="lineNum">     479 </span><span class="lineCov">         18 :         return;</span>
+<span class="lineNum">     480 </span>            :     }
+<span class="lineNum">     481 </span>            :     /* The key exists. Return -1 if it has no expire, or the actual
+<span class="lineNum">     482 </span>            :      * TTL value otherwise. */
+<span class="lineNum">     483 </span><span class="lineCov">        167 :     expire = getExpire(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     484 </span><span class="lineCov">        167 :     if (expire != -1) {</span>
+<span class="lineNum">     485 </span><span class="lineCov">        126 :         ttl = expire-mstime();</span>
+<span class="lineNum">     486 </span><span class="lineCov">        126 :         if (ttl &lt; 0) ttl = 0;</span>
+<span class="lineNum">     487 </span>            :     }
+<span class="lineNum">     488 </span><span class="lineCov">         41 :     if (ttl == -1) {</span>
+<span class="lineNum">     489 </span><span class="lineCov">         41 :         addReplyLongLong(c,-1);</span>
+<span class="lineNum">     490 </span>            :     } else {
+<span class="lineNum">     491 </span><span class="lineCov">        126 :         addReplyLongLong(c,output_ms ? ttl : ((ttl+500)/1000));</span>
+<span class="lineNum">     492 </span>            :     }
+<span class="lineNum">     493 </span>            : }
+<a name="494"><span class="lineNum">     494 </span>            : </a>
+<span class="lineNum">     495 </span>            : /* TTL key */
+<span class="lineNum">     496 </span><span class="lineCov">        158 : void ttlCommand(client *c) {</span>
+<span class="lineNum">     497 </span><span class="lineCov">        158 :     ttlGenericCommand(c, 0);</span>
+<span class="lineNum">     498 </span><span class="lineCov">        158 : }</span>
+<a name="499"><span class="lineNum">     499 </span>            : </a>
+<span class="lineNum">     500 </span>            : /* PTTL key */
+<span class="lineNum">     501 </span><span class="lineCov">         27 : void pttlCommand(client *c) {</span>
+<span class="lineNum">     502 </span><span class="lineCov">         27 :     ttlGenericCommand(c, 1);</span>
+<span class="lineNum">     503 </span><span class="lineCov">         27 : }</span>
+<a name="504"><span class="lineNum">     504 </span>            : </a>
+<span class="lineNum">     505 </span>            : /* PERSIST key */
+<span class="lineNum">     506 </span><span class="lineCov">         18 : void persistCommand(client *c) {</span>
+<span class="lineNum">     507 </span><span class="lineCov">         18 :     if (lookupKeyWrite(c-&gt;db,c-&gt;argv[1])) {</span>
+<span class="lineNum">     508 </span><span class="lineCov">          6 :         if (removeExpire(c-&gt;db,c-&gt;argv[1])) {</span>
+<span class="lineNum">     509 </span><span class="lineCov">          6 :             addReply(c,shared.cone);</span>
+<span class="lineNum">     510 </span><span class="lineCov">          6 :             server.dirty++;</span>
+<span class="lineNum">     511 </span>            :         } else {
+<span class="lineNum">     512 </span><span class="lineNoCov">          0 :             addReply(c,shared.czero);</span>
+<span class="lineNum">     513 </span>            :         }
+<span class="lineNum">     514 </span>            :     } else {
+<span class="lineNum">     515 </span><span class="lineCov">         12 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     516 </span>            :     }
+<span class="lineNum">     517 </span><span class="lineCov">         18 : }</span>
+<a name="518"><span class="lineNum">     518 </span>            : </a>
+<span class="lineNum">     519 </span>            : /* TOUCH key1 [key2 key3 ... keyN] */
+<span class="lineNum">     520 </span><span class="lineCov">          4 : void touchCommand(client *c) {</span>
+<span class="lineNum">     521 </span><span class="lineCov">          4 :     int touched = 0;</span>
+<span class="lineNum">     522 </span><span class="lineCov">         14 :     for (int j = 1; j &lt; c-&gt;argc; j++)</span>
+<span class="lineNum">     523 </span><span class="lineCov">         10 :         if (lookupKeyRead(c-&gt;db,c-&gt;argv[j]) != NULL) touched++;</span>
+<span class="lineNum">     524 </span><span class="lineCov">          4 :     addReplyLongLong(c,touched);</span>
+<span class="lineNum">     525 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">     526 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

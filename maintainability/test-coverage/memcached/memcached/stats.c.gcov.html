@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - memcached/stats.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">memcached</a> - stats.c<span style="font-size: 80%;"> (source / <a href="stats.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">87</td>
+            <td class="headerCovTableEntry">95</td>
+            <td class="headerCovTableEntryHi">91.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:48:59</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* -*- Mode: C; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*- */</a>
+<span class="lineNum">       2 </span>            : /*
+<span class="lineNum">       3 </span>            :  * Detailed statistics management. For simple stats like total number of
+<span class="lineNum">       4 </span>            :  * &quot;get&quot; requests, we use inline code in memcached.c and friends, but when
+<span class="lineNum">       5 </span>            :  * stats detail mode is activated, the code here records more information.
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  * Author:
+<span class="lineNum">       8 </span>            :  *   Steven Grimm &lt;sgrimm@facebook.com&gt;
+<span class="lineNum">       9 </span>            :  */
+<span class="lineNum">      10 </span>            : #include &quot;memcached.h&quot;
+<span class="lineNum">      11 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      12 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      13 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      14 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : /*
+<span class="lineNum">      17 </span>            :  * Stats are tracked on the basis of key prefixes. This is a simple
+<span class="lineNum">      18 </span>            :  * fixed-size hash of prefixes; we run the prefixes through the same
+<span class="lineNum">      19 </span>            :  * CRC function used by the cache hashtable.
+<span class="lineNum">      20 </span>            :  */
+<span class="lineNum">      21 </span>            : typedef struct _prefix_stats PREFIX_STATS;
+<span class="lineNum">      22 </span>            : struct _prefix_stats {
+<span class="lineNum">      23 </span>            :     char         *prefix;
+<span class="lineNum">      24 </span>            :     size_t        prefix_len;
+<span class="lineNum">      25 </span>            :     uint64_t      num_gets;
+<span class="lineNum">      26 </span>            :     uint64_t      num_sets;
+<span class="lineNum">      27 </span>            :     uint64_t      num_deletes;
+<span class="lineNum">      28 </span>            :     uint64_t      num_hits;
+<span class="lineNum">      29 </span>            :     PREFIX_STATS *next;
+<span class="lineNum">      30 </span>            : };
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : #define PREFIX_HASH_SIZE 256
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : static PREFIX_STATS *prefix_stats[PREFIX_HASH_SIZE];
+<span class="lineNum">      35 </span>            : static int num_prefixes = 0;
+<a name="36"><span class="lineNum">      36 </span>            : static int total_prefix_size = 0;</a>
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span><span class="lineCov">         96 : void stats_prefix_init() {</span>
+<span class="lineNum">      39 </span><span class="lineCov">        192 :     memset(prefix_stats, 0, sizeof(prefix_stats));</span>
+<span class="lineNum">      40 </span><span class="lineCov">         96 : }</span>
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span>            : /*
+<span class="lineNum">      43 </span>            :  * Cleans up all our previously collected stats. NOTE: the stats lock is
+<a name="44"><span class="lineNum">      44 </span>            :  * assumed to be held when this is called.</a>
+<span class="lineNum">      45 </span>            :  */
+<span class="lineNum">      46 </span><span class="lineCov">          3 : void stats_prefix_clear() {</span>
+<span class="lineNum">      47 </span><span class="lineCov">          3 :     int i;</span>
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span><span class="lineCov">        771 :     for (i = 0; i &lt; PREFIX_HASH_SIZE; i++) {</span>
+<span class="lineNum">      50 </span><span class="lineCov">        768 :         PREFIX_STATS *cur, *next;</span>
+<span class="lineNum">      51 </span><span class="lineCov">        769 :         for (cur = prefix_stats[i]; cur != NULL; cur = next) {</span>
+<span class="lineNum">      52 </span><span class="lineCov">          1 :             next = cur-&gt;next;</span>
+<span class="lineNum">      53 </span><span class="lineCov">          1 :             free(cur-&gt;prefix);</span>
+<span class="lineNum">      54 </span><span class="lineCov">          1 :             free(cur);</span>
+<span class="lineNum">      55 </span>            :         }
+<span class="lineNum">      56 </span><span class="lineCov">        768 :         prefix_stats[i] = NULL;</span>
+<span class="lineNum">      57 </span>            :     }
+<span class="lineNum">      58 </span><span class="lineCov">          3 :     num_prefixes = 0;</span>
+<span class="lineNum">      59 </span><span class="lineCov">          3 :     total_prefix_size = 0;</span>
+<span class="lineNum">      60 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : /*
+<span class="lineNum">      63 </span>            :  * Returns the stats structure for a prefix, creating it if it's not already
+<span class="lineNum">      64 </span>            :  * in the list.
+<a name="65"><span class="lineNum">      65 </span>            :  */</a>
+<span class="lineNum">      66 </span>            : /*@null@*/
+<span class="lineNum">      67 </span><span class="lineCov">      20553 : static PREFIX_STATS *stats_prefix_find(const char *key, const size_t nkey) {</span>
+<span class="lineNum">      68 </span><span class="lineCov">      20553 :     PREFIX_STATS *pfs;</span>
+<span class="lineNum">      69 </span><span class="lineCov">      20553 :     uint32_t hashval;</span>
+<span class="lineNum">      70 </span><span class="lineCov">      20553 :     size_t length;</span>
+<span class="lineNum">      71 </span><span class="lineCov">      20553 :     bool bailout = true;</span>
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span><span class="lineCov">      20553 :     assert(key != NULL);</span>
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span><span class="lineCov">     327096 :     for (length = 0; length &lt; nkey &amp;&amp; key[length] != '\0'; length++) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">     306548 :         if (key[length] == settings.prefix_delimiter) {</span>
+<span class="lineNum">      77 </span>            :             bailout = false;
+<span class="lineNum">      78 </span>            :             break;
+<span class="lineNum">      79 </span>            :         }
+<span class="lineNum">      80 </span>            :     }
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span><span class="lineCov">      20553 :     if (bailout) {</span>
+<span class="lineNum">      83 </span>            :         return NULL;
+<span class="lineNum">      84 </span>            :     }
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span><span class="lineCov">          5 :     hashval = hash(key, length) % PREFIX_HASH_SIZE;</span>
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span><span class="lineCov">          5 :     for (pfs = prefix_stats[hashval]; NULL != pfs; pfs = pfs-&gt;next) {</span>
+<span class="lineNum">      89 </span><span class="lineCov">          3 :         if (strncmp(pfs-&gt;prefix, key, length) == 0)</span>
+<span class="lineNum">      90 </span><span class="lineCov">          3 :             return pfs;</span>
+<span class="lineNum">      91 </span>            :     }
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span><span class="lineCov">          2 :     pfs = calloc(sizeof(PREFIX_STATS), 1);</span>
+<span class="lineNum">      94 </span><span class="lineCov">          2 :     if (NULL == pfs) {</span>
+<span class="lineNum">      95 </span><span class="lineNoCov">          0 :         perror(&quot;Can't allocate space for stats structure: calloc&quot;);</span>
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">      97 </span>            :     }
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span><span class="lineCov">          2 :     pfs-&gt;prefix = malloc(length + 1);</span>
+<span class="lineNum">     100 </span><span class="lineCov">          2 :     if (NULL == pfs-&gt;prefix) {</span>
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 :         perror(&quot;Can't allocate space for copy of prefix: malloc&quot;);</span>
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :         free(pfs);</span>
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">     104 </span>            :     }
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span><span class="lineCov">          4 :     strncpy(pfs-&gt;prefix, key, length);</span>
+<span class="lineNum">     107 </span><span class="lineCov">          2 :     pfs-&gt;prefix[length] = '\0';      /* because strncpy() sucks */</span>
+<span class="lineNum">     108 </span><span class="lineCov">          2 :     pfs-&gt;prefix_len = length;</span>
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span><span class="lineCov">          2 :     pfs-&gt;next = prefix_stats[hashval];</span>
+<span class="lineNum">     111 </span><span class="lineCov">          2 :     prefix_stats[hashval] = pfs;</span>
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span><span class="lineCov">          2 :     num_prefixes++;</span>
+<span class="lineNum">     114 </span><span class="lineCov">          2 :     total_prefix_size += length;</span>
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span><span class="lineCov">          2 :     return pfs;</span>
+<span class="lineNum">     117 </span>            : }
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : /*
+<a name="120"><span class="lineNum">     120 </span>            :  * Records a &quot;get&quot; of a key.</a>
+<span class="lineNum">     121 </span>            :  */
+<span class="lineNum">     122 </span><span class="lineCov">        557 : void stats_prefix_record_get(const char *key, const size_t nkey, const bool is_hit) {</span>
+<span class="lineNum">     123 </span><span class="lineCov">        557 :     PREFIX_STATS *pfs;</span>
+<span class="lineNum">     124 </span>            : 
+<span class="lineNum">     125 </span><span class="lineCov">        557 :     STATS_LOCK();</span>
+<span class="lineNum">     126 </span><span class="lineCov">        557 :     pfs = stats_prefix_find(key, nkey);</span>
+<span class="lineNum">     127 </span><span class="lineCov">        557 :     if (NULL != pfs) {</span>
+<span class="lineNum">     128 </span><span class="lineCov">          3 :         pfs-&gt;num_gets++;</span>
+<span class="lineNum">     129 </span><span class="lineCov">          3 :         if (is_hit) {</span>
+<span class="lineNum">     130 </span><span class="lineCov">          2 :             pfs-&gt;num_hits++;</span>
+<span class="lineNum">     131 </span>            :         }
+<span class="lineNum">     132 </span>            :     }
+<span class="lineNum">     133 </span><span class="lineCov">        557 :     STATS_UNLOCK();</span>
+<span class="lineNum">     134 </span><span class="lineCov">        557 : }</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            : /*
+<a name="137"><span class="lineNum">     137 </span>            :  * Records a &quot;delete&quot; of a key.</a>
+<span class="lineNum">     138 </span>            :  */
+<span class="lineNum">     139 </span><span class="lineCov">          3 : void stats_prefix_record_delete(const char *key, const size_t nkey) {</span>
+<span class="lineNum">     140 </span><span class="lineCov">          3 :     PREFIX_STATS *pfs;</span>
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span><span class="lineCov">          3 :     STATS_LOCK();</span>
+<span class="lineNum">     143 </span><span class="lineCov">          3 :     pfs = stats_prefix_find(key, nkey);</span>
+<span class="lineNum">     144 </span><span class="lineCov">          3 :     if (NULL != pfs) {</span>
+<span class="lineNum">     145 </span><span class="lineCov">          1 :         pfs-&gt;num_deletes++;</span>
+<span class="lineNum">     146 </span>            :     }
+<span class="lineNum">     147 </span><span class="lineCov">          3 :     STATS_UNLOCK();</span>
+<span class="lineNum">     148 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            : /*
+<a name="151"><span class="lineNum">     151 </span>            :  * Records a &quot;set&quot; of a key.</a>
+<span class="lineNum">     152 </span>            :  */
+<span class="lineNum">     153 </span><span class="lineCov">      19993 : void stats_prefix_record_set(const char *key, const size_t nkey) {</span>
+<span class="lineNum">     154 </span><span class="lineCov">      19993 :     PREFIX_STATS *pfs;</span>
+<span class="lineNum">     155 </span>            : 
+<span class="lineNum">     156 </span><span class="lineCov">      19993 :     STATS_LOCK();</span>
+<span class="lineNum">     157 </span><span class="lineCov">      19993 :     pfs = stats_prefix_find(key, nkey);</span>
+<span class="lineNum">     158 </span><span class="lineCov">      19993 :     if (NULL != pfs) {</span>
+<span class="lineNum">     159 </span><span class="lineCov">          1 :         pfs-&gt;num_sets++;</span>
+<span class="lineNum">     160 </span>            :     }
+<span class="lineNum">     161 </span><span class="lineCov">      19993 :     STATS_UNLOCK();</span>
+<span class="lineNum">     162 </span><span class="lineCov">      19993 : }</span>
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span>            : /*
+<span class="lineNum">     165 </span>            :  * Returns stats in textual form suitable for writing to a client.
+<a name="166"><span class="lineNum">     166 </span>            :  */</a>
+<span class="lineNum">     167 </span>            : /*@null@*/
+<span class="lineNum">     168 </span><span class="lineCov">          9 : char *stats_prefix_dump(int *length) {</span>
+<span class="lineNum">     169 </span><span class="lineCov">          9 :     const char *format = &quot;PREFIX %s get %llu hit %llu set %llu del %llu\r\n&quot;;</span>
+<span class="lineNum">     170 </span><span class="lineCov">          9 :     PREFIX_STATS *pfs;</span>
+<span class="lineNum">     171 </span><span class="lineCov">          9 :     char *buf;</span>
+<span class="lineNum">     172 </span><span class="lineCov">          9 :     int i, pos;</span>
+<span class="lineNum">     173 </span><span class="lineCov">          9 :     size_t size = 0, written = 0, total_written = 0;</span>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span>            :     /*
+<span class="lineNum">     176 </span>            :      * Figure out how big the buffer needs to be. This is the sum of the
+<span class="lineNum">     177 </span>            :      * lengths of the prefixes themselves, plus the size of one copy of
+<span class="lineNum">     178 </span>            :      * the per-prefix output with 20-digit values for all the counts,
+<span class="lineNum">     179 </span>            :      * plus space for the &quot;END&quot; at the end.
+<span class="lineNum">     180 </span>            :      */
+<span class="lineNum">     181 </span><span class="lineCov">          9 :     STATS_LOCK();</span>
+<span class="lineNum">     182 </span><span class="lineCov">         18 :     size = strlen(format) + total_prefix_size +</span>
+<span class="lineNum">     183 </span><span class="lineCov">          9 :            num_prefixes * (strlen(format) - 2 /* %s */</span>
+<span class="lineNum">     184 </span>            :                            + 4 * (20 - 4)) /* %llu replaced by 20-digit num */
+<span class="lineNum">     185 </span>            :                            + sizeof(&quot;END\r\n&quot;);
+<span class="lineNum">     186 </span><span class="lineCov">          9 :     buf = malloc(size);</span>
+<span class="lineNum">     187 </span><span class="lineCov">          9 :     if (NULL == buf) {</span>
+<span class="lineNum">     188 </span><span class="lineNoCov">          0 :         perror(&quot;Can't allocate stats response: malloc&quot;);</span>
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :         STATS_UNLOCK();</span>
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">     191 </span>            :     }
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            :     pos = 0;
+<span class="lineNum">     194 </span><span class="lineCov">       2313 :     for (i = 0; i &lt; PREFIX_HASH_SIZE; i++) {</span>
+<span class="lineNum">     195 </span><span class="lineCov">       2310 :         for (pfs = prefix_stats[i]; NULL != pfs; pfs = pfs-&gt;next) {</span>
+<span class="lineNum">     196 </span><span class="lineCov">          6 :             written = snprintf(buf + pos, size-pos, format,</span>
+<span class="lineNum">     197 </span>            :                            pfs-&gt;prefix, pfs-&gt;num_gets, pfs-&gt;num_hits,
+<span class="lineNum">     198 </span>            :                            pfs-&gt;num_sets, pfs-&gt;num_deletes);
+<span class="lineNum">     199 </span><span class="lineCov">          6 :             pos += written;</span>
+<span class="lineNum">     200 </span><span class="lineCov">          6 :             total_written += written;</span>
+<span class="lineNum">     201 </span><span class="lineCov">          6 :             assert(total_written &lt; size);</span>
+<span class="lineNum">     202 </span>            :         }
+<span class="lineNum">     203 </span>            :     }
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span><span class="lineCov">          9 :     STATS_UNLOCK();</span>
+<span class="lineNum">     206 </span><span class="lineCov">          9 :     memcpy(buf + pos, &quot;END\r\n&quot;, 6);</span>
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span><span class="lineCov">          9 :     *length = pos + 5;</span>
+<span class="lineNum">     209 </span><span class="lineCov">          9 :     return buf;</span>
+<span class="lineNum">     210 </span>            : }
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            : #ifdef UNIT_TEST
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            : /****************************************************************************
+<span class="lineNum">     216 </span>            :       To run unit tests, compile with $(CC) -DUNIT_TEST stats.c assoc.o
+<span class="lineNum">     217 </span>            :       (need assoc.o to get the hash() function).
+<span class="lineNum">     218 </span>            : ****************************************************************************/
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            : struct settings settings;
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span>            : static char *current_test = &quot;&quot;;
+<span class="lineNum">     223 </span>            : static int test_count = 0;
+<span class="lineNum">     224 </span>            : static int fail_count = 0;
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span>            : static void fail(char *what) { printf(&quot;\tFAIL: %s\n&quot;, what); fflush(stdout); fail_count++; }
+<span class="lineNum">     227 </span>            : static void test_equals_int(char *what, int a, int b) { test_count++; if (a != b) fail(what); }
+<span class="lineNum">     228 </span>            : static void test_equals_ptr(char *what, void *a, void *b) { test_count++; if (a != b) fail(what); }
+<span class="lineNum">     229 </span>            : static void test_equals_str(char *what, const char *a, const char *b) { test_count++; if (strcmp(a, b)) fail(what); }
+<span class="lineNum">     230 </span>            : static void test_equals_ull(char *what, uint64_t a, uint64_t b) { test_count++; if (a != b) fail(what); }
+<span class="lineNum">     231 </span>            : static void test_notequals_ptr(char *what, void *a, void *b) { test_count++; if (a == b) fail(what); }
+<span class="lineNum">     232 </span>            : static void test_notnull_ptr(char *what, void *a) { test_count++; if (NULL == a) fail(what); }
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span>            : static void test_prefix_find() {
+<span class="lineNum">     235 </span>            :     PREFIX_STATS *pfs1, *pfs2;
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            :     pfs1 = stats_prefix_find(&quot;abc&quot;);
+<span class="lineNum">     238 </span>            :     test_notnull_ptr(&quot;initial prefix find&quot;, pfs1);
+<span class="lineNum">     239 </span>            :     test_equals_ull(&quot;request counts&quot;, 0ULL,
+<span class="lineNum">     240 </span>            :         pfs1-&gt;num_gets + pfs1-&gt;num_sets + pfs1-&gt;num_deletes + pfs1-&gt;num_hits);
+<span class="lineNum">     241 </span>            :     pfs2 = stats_prefix_find(&quot;abc&quot;);
+<span class="lineNum">     242 </span>            :     test_equals_ptr(&quot;find of same prefix&quot;, pfs1, pfs2);
+<span class="lineNum">     243 </span>            :     pfs2 = stats_prefix_find(&quot;abc:&quot;);
+<span class="lineNum">     244 </span>            :     test_equals_ptr(&quot;find of same prefix, ignoring delimiter&quot;, pfs1, pfs2);
+<span class="lineNum">     245 </span>            :     pfs2 = stats_prefix_find(&quot;abc:d&quot;);
+<span class="lineNum">     246 </span>            :     test_equals_ptr(&quot;find of same prefix, ignoring extra chars&quot;, pfs1, pfs2);
+<span class="lineNum">     247 </span>            :     pfs2 = stats_prefix_find(&quot;xyz123&quot;);
+<span class="lineNum">     248 </span>            :     test_notequals_ptr(&quot;find of different prefix&quot;, pfs1, pfs2);
+<span class="lineNum">     249 </span>            :     pfs2 = stats_prefix_find(&quot;ab:&quot;);
+<span class="lineNum">     250 </span>            :     test_notequals_ptr(&quot;find of shorter prefix&quot;, pfs1, pfs2);
+<span class="lineNum">     251 </span>            : }
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span>            : static void test_prefix_record_get() {
+<span class="lineNum">     254 </span>            :     PREFIX_STATS *pfs;
+<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     256 </span>            :     stats_prefix_record_get(&quot;abc:123&quot;, 0);
+<span class="lineNum">     257 </span>            :     pfs = stats_prefix_find(&quot;abc:123&quot;);
+<span class="lineNum">     258 </span>            :     test_equals_ull(&quot;get count after get #1&quot;, 1, pfs-&gt;num_gets);
+<span class="lineNum">     259 </span>            :     test_equals_ull(&quot;hit count after get #1&quot;, 0, pfs-&gt;num_hits);
+<span class="lineNum">     260 </span>            :     stats_prefix_record_get(&quot;abc:456&quot;, 0);
+<span class="lineNum">     261 </span>            :     test_equals_ull(&quot;get count after get #2&quot;, 2, pfs-&gt;num_gets);
+<span class="lineNum">     262 </span>            :     test_equals_ull(&quot;hit count after get #2&quot;, 0, pfs-&gt;num_hits);
+<span class="lineNum">     263 </span>            :     stats_prefix_record_get(&quot;abc:456&quot;, 1);
+<span class="lineNum">     264 </span>            :     test_equals_ull(&quot;get count after get #3&quot;, 3, pfs-&gt;num_gets);
+<span class="lineNum">     265 </span>            :     test_equals_ull(&quot;hit count after get #3&quot;, 1, pfs-&gt;num_hits);
+<span class="lineNum">     266 </span>            :     stats_prefix_record_get(&quot;def:&quot;, 1);
+<span class="lineNum">     267 </span>            :     test_equals_ull(&quot;get count after get #4&quot;, 3, pfs-&gt;num_gets);
+<span class="lineNum">     268 </span>            :     test_equals_ull(&quot;hit count after get #4&quot;, 1, pfs-&gt;num_hits);
+<span class="lineNum">     269 </span>            : }
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span>            : static void test_prefix_record_delete() {
+<span class="lineNum">     272 </span>            :     PREFIX_STATS *pfs;
+<span class="lineNum">     273 </span>            : 
+<span class="lineNum">     274 </span>            :     stats_prefix_record_delete(&quot;abc:123&quot;);
+<span class="lineNum">     275 </span>            :     pfs = stats_prefix_find(&quot;abc:123&quot;);
+<span class="lineNum">     276 </span>            :     test_equals_ull(&quot;get count after delete #1&quot;, 0, pfs-&gt;num_gets);
+<span class="lineNum">     277 </span>            :     test_equals_ull(&quot;hit count after delete #1&quot;, 0, pfs-&gt;num_hits);
+<span class="lineNum">     278 </span>            :     test_equals_ull(&quot;delete count after delete #1&quot;, 1, pfs-&gt;num_deletes);
+<span class="lineNum">     279 </span>            :     test_equals_ull(&quot;set count after delete #1&quot;, 0, pfs-&gt;num_sets);
+<span class="lineNum">     280 </span>            :     stats_prefix_record_delete(&quot;def:&quot;);
+<span class="lineNum">     281 </span>            :     test_equals_ull(&quot;delete count after delete #2&quot;, 1, pfs-&gt;num_deletes);
+<span class="lineNum">     282 </span>            : }
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            : static void test_prefix_record_set() {
+<span class="lineNum">     285 </span>            :     PREFIX_STATS *pfs;
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span>            :     stats_prefix_record_set(&quot;abc:123&quot;);
+<span class="lineNum">     288 </span>            :     pfs = stats_prefix_find(&quot;abc:123&quot;);
+<span class="lineNum">     289 </span>            :     test_equals_ull(&quot;get count after set #1&quot;, 0, pfs-&gt;num_gets);
+<span class="lineNum">     290 </span>            :     test_equals_ull(&quot;hit count after set #1&quot;, 0, pfs-&gt;num_hits);
+<span class="lineNum">     291 </span>            :     test_equals_ull(&quot;delete count after set #1&quot;, 0, pfs-&gt;num_deletes);
+<span class="lineNum">     292 </span>            :     test_equals_ull(&quot;set count after set #1&quot;, 1, pfs-&gt;num_sets);
+<span class="lineNum">     293 </span>            :     stats_prefix_record_delete(&quot;def:&quot;);
+<span class="lineNum">     294 </span>            :     test_equals_ull(&quot;set count after set #2&quot;, 1, pfs-&gt;num_sets);
+<span class="lineNum">     295 </span>            : }
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span>            : static void test_prefix_dump() {
+<span class="lineNum">     298 </span>            :     int hashval = hash(&quot;abc&quot;, 3) % PREFIX_HASH_SIZE;
+<span class="lineNum">     299 </span>            :     char tmp[500];
+<span class="lineNum">     300 </span>            :     char *expected;
+<span class="lineNum">     301 </span>            :     int keynum;
+<span class="lineNum">     302 </span>            :     int length;
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span>            :     test_equals_str(&quot;empty stats&quot;, &quot;END\r\n&quot;, stats_prefix_dump(&amp;length));
+<span class="lineNum">     305 </span>            :     test_equals_int(&quot;empty stats length&quot;, 5, length);
+<span class="lineNum">     306 </span>            :     stats_prefix_record_set(&quot;abc:123&quot;);
+<span class="lineNum">     307 </span>            :     expected = &quot;PREFIX abc get 0 hit 0 set 1 del 0\r\nEND\r\n&quot;;
+<span class="lineNum">     308 </span>            :     test_equals_str(&quot;stats after set&quot;, expected, stats_prefix_dump(&amp;length));
+<span class="lineNum">     309 </span>            :     test_equals_int(&quot;stats length after set&quot;, strlen(expected), length);
+<span class="lineNum">     310 </span>            :     stats_prefix_record_get(&quot;abc:123&quot;, 0);
+<span class="lineNum">     311 </span>            :     expected = &quot;PREFIX abc get 1 hit 0 set 1 del 0\r\nEND\r\n&quot;;
+<span class="lineNum">     312 </span>            :     test_equals_str(&quot;stats after get #1&quot;, expected, stats_prefix_dump(&amp;length));
+<span class="lineNum">     313 </span>            :     test_equals_int(&quot;stats length after get #1&quot;, strlen(expected), length);
+<span class="lineNum">     314 </span>            :     stats_prefix_record_get(&quot;abc:123&quot;, 1);
+<span class="lineNum">     315 </span>            :     expected = &quot;PREFIX abc get 2 hit 1 set 1 del 0\r\nEND\r\n&quot;;
+<span class="lineNum">     316 </span>            :     test_equals_str(&quot;stats after get #2&quot;, expected, stats_prefix_dump(&amp;length));
+<span class="lineNum">     317 </span>            :     test_equals_int(&quot;stats length after get #2&quot;, strlen(expected), length);
+<span class="lineNum">     318 </span>            :     stats_prefix_record_delete(&quot;abc:123&quot;);
+<span class="lineNum">     319 </span>            :     expected = &quot;PREFIX abc get 2 hit 1 set 1 del 1\r\nEND\r\n&quot;;
+<span class="lineNum">     320 </span>            :     test_equals_str(&quot;stats after del #1&quot;, expected, stats_prefix_dump(&amp;length));
+<span class="lineNum">     321 </span>            :     test_equals_int(&quot;stats length after del #1&quot;, strlen(expected), length);
+<span class="lineNum">     322 </span>            : 
+<span class="lineNum">     323 </span>            :     /* The order of results might change if we switch hash functions. */
+<span class="lineNum">     324 </span>            :     stats_prefix_record_delete(&quot;def:123&quot;);
+<span class="lineNum">     325 </span>            :     expected = &quot;PREFIX abc get 2 hit 1 set 1 del 1\r\n&quot;
+<span class="lineNum">     326 </span>            :                &quot;PREFIX def get 0 hit 0 set 0 del 1\r\n&quot;
+<span class="lineNum">     327 </span>            :                &quot;END\r\n&quot;;
+<span class="lineNum">     328 </span>            :     test_equals_str(&quot;stats after del #2&quot;, expected, stats_prefix_dump(&amp;length));
+<span class="lineNum">     329 </span>            :     test_equals_int(&quot;stats length after del #2&quot;, strlen(expected), length);
+<span class="lineNum">     330 </span>            : 
+<span class="lineNum">     331 </span>            :     /* Find a key that hashes to the same bucket as &quot;abc&quot; */
+<span class="lineNum">     332 </span>            :     for (keynum = 0; keynum &lt; PREFIX_HASH_SIZE * 100; keynum++) {
+<span class="lineNum">     333 </span>            :         snprintf(tmp, sizeof(tmp), &quot;%d&quot;, keynum);
+<span class="lineNum">     334 </span>            :         if (hashval == hash(tmp, strlen(tmp)) % PREFIX_HASH_SIZE) {
+<span class="lineNum">     335 </span>            :             break;
+<span class="lineNum">     336 </span>            :         }
+<span class="lineNum">     337 </span>            :     }
+<span class="lineNum">     338 </span>            :     stats_prefix_record_set(tmp);
+<span class="lineNum">     339 </span>            :     snprintf(tmp, sizeof(tmp),
+<span class="lineNum">     340 </span>            :              &quot;PREFIX %d get 0 hit 0 set 1 del 0\r\n&quot;
+<span class="lineNum">     341 </span>            :              &quot;PREFIX abc get 2 hit 1 set 1 del 1\r\n&quot;
+<span class="lineNum">     342 </span>            :              &quot;PREFIX def get 0 hit 0 set 0 del 1\r\n&quot;
+<span class="lineNum">     343 </span>            :              &quot;END\r\n&quot;, keynum);
+<span class="lineNum">     344 </span>            :     test_equals_str(&quot;stats with two stats in one bucket&quot;,
+<span class="lineNum">     345 </span>            :                     tmp, stats_prefix_dump(&amp;length));
+<span class="lineNum">     346 </span>            :     test_equals_int(&quot;stats length with two stats in one bucket&quot;,
+<span class="lineNum">     347 </span>            :                     strlen(tmp), length);
+<span class="lineNum">     348 </span>            : }
+<span class="lineNum">     349 </span>            : 
+<span class="lineNum">     350 </span>            : static void run_test(char *what, void (*func)(void)) {
+<span class="lineNum">     351 </span>            :     current_test = what;
+<span class="lineNum">     352 </span>            :     test_count = fail_count = 0;
+<span class="lineNum">     353 </span>            :     puts(what);
+<span class="lineNum">     354 </span>            :     fflush(stdout);
+<span class="lineNum">     355 </span>            : 
+<span class="lineNum">     356 </span>            :     stats_prefix_clear();
+<span class="lineNum">     357 </span>            :     (func)();
+<span class="lineNum">     358 </span>            :     printf(&quot;\t%d / %d pass\n&quot;, (test_count - fail_count), test_count);
+<span class="lineNum">     359 </span>            : }
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            : /* In case we're compiled in thread mode */
+<span class="lineNum">     362 </span>            : void mt_stats_lock() { }
+<span class="lineNum">     363 </span>            : void mt_stats_unlock() { }
+<span class="lineNum">     364 </span>            : 
+<span class="lineNum">     365 </span>            : main(int argc, char **argv) {
+<span class="lineNum">     366 </span>            :     stats_prefix_init();
+<span class="lineNum">     367 </span>            :     settings.prefix_delimiter = ':';
+<span class="lineNum">     368 </span>            :     run_test(&quot;stats_prefix_find&quot;, test_prefix_find);
+<span class="lineNum">     369 </span>            :     run_test(&quot;stats_prefix_record_get&quot;, test_prefix_record_get);
+<span class="lineNum">     370 </span>            :     run_test(&quot;stats_prefix_record_delete&quot;, test_prefix_record_delete);
+<span class="lineNum">     371 </span>            :     run_test(&quot;stats_prefix_record_set&quot;, test_prefix_record_set);
+<span class="lineNum">     372 </span>            :     run_test(&quot;stats_prefix_dump&quot;, test_prefix_dump);
+<span class="lineNum">     373 </span>            : }
+<span class="lineNum">     374 </span>            : 
+<span class="lineNum">     375 </span>            : #endif
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

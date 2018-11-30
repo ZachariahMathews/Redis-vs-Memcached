@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/rio.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - rio.c<span style="font-size: 80%;"> (source / <a href="rio.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntry">128</td>
+            <td class="headerCovTableEntryMed">83.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntryLo">72.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* rio.c is a simple stream-oriented I/O abstraction that provides an interface</a>
+<span class="lineNum">       2 </span>            :  * to write code that can consume/produce data using different concrete input
+<span class="lineNum">       3 </span>            :  * and output devices. For instance the same rdb.c code using the rio
+<span class="lineNum">       4 </span>            :  * abstraction can be used to read and write the RDB format using in-memory
+<span class="lineNum">       5 </span>            :  * buffers or files.
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  * A rio object provides the following methods:
+<span class="lineNum">       8 </span>            :  *  read: read from stream.
+<span class="lineNum">       9 </span>            :  *  write: write to stream.
+<span class="lineNum">      10 </span>            :  *  tell: get the current offset.
+<span class="lineNum">      11 </span>            :  *
+<span class="lineNum">      12 </span>            :  * It is also possible to set a 'checksum' method that is used by rio.c in order
+<span class="lineNum">      13 </span>            :  * to compute a checksum of the data written or read, or to query the rio object
+<span class="lineNum">      14 </span>            :  * for the current checksum.
+<span class="lineNum">      15 </span>            :  *
+<span class="lineNum">      16 </span>            :  * ----------------------------------------------------------------------------
+<span class="lineNum">      17 </span>            :  *
+<span class="lineNum">      18 </span>            :  * Copyright (c) 2009-2012, Pieter Noordhuis &lt;pcnoordhuis at gmail dot com&gt;
+<span class="lineNum">      19 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">      20 </span>            :  * All rights reserved.
+<span class="lineNum">      21 </span>            :  *
+<span class="lineNum">      22 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">      23 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">      24 </span>            :  *
+<span class="lineNum">      25 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      26 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      27 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      28 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      29 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      30 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      31 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      32 </span>            :  *     specific prior written permission.
+<span class="lineNum">      33 </span>            :  *
+<span class="lineNum">      34 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      35 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      36 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      37 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      38 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      39 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      40 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      41 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      42 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      43 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      44 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      45 </span>            :  */
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : #include &quot;fmacros.h&quot;
+<span class="lineNum">      49 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      50 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      51 </span>            : #include &lt;unistd.h&gt;
+<span class="lineNum">      52 </span>            : #include &quot;rio.h&quot;
+<span class="lineNum">      53 </span>            : #include &quot;util.h&quot;
+<span class="lineNum">      54 </span>            : #include &quot;crc64.h&quot;
+<span class="lineNum">      55 </span>            : #include &quot;config.h&quot;
+<span class="lineNum">      56 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : /* ------------------------- Buffer I/O implementation ----------------------- */
+<a name="59"><span class="lineNum">      59 </span>            : </a>
+<span class="lineNum">      60 </span>            : /* Returns 1 or 0 for success/failure. */
+<span class="lineNum">      61 </span><span class="lineCov">      14463 : static size_t rioBufferWrite(rio *r, const void *buf, size_t len) {</span>
+<span class="lineNum">      62 </span><span class="lineCov">      14463 :     r-&gt;io.buffer.ptr = sdscatlen(r-&gt;io.buffer.ptr,(char*)buf,len);</span>
+<span class="lineNum">      63 </span><span class="lineCov">      14463 :     r-&gt;io.buffer.pos += len;</span>
+<span class="lineNum">      64 </span><span class="lineCov">      14463 :     return 1;</span>
+<span class="lineNum">      65 </span>            : }
+<a name="66"><span class="lineNum">      66 </span>            : </a>
+<span class="lineNum">      67 </span>            : /* Returns 1 or 0 for success/failure. */
+<span class="lineNum">      68 </span><span class="lineCov">       9363 : static size_t rioBufferRead(rio *r, void *buf, size_t len) {</span>
+<span class="lineNum">      69 </span><span class="lineCov">      18726 :     if (sdslen(r-&gt;io.buffer.ptr)-r-&gt;io.buffer.pos &lt; len)</span>
+<span class="lineNum">      70 </span>            :         return 0; /* not enough buffer to return len bytes. */
+<span class="lineNum">      71 </span><span class="lineCov">       9363 :     memcpy(buf,r-&gt;io.buffer.ptr+r-&gt;io.buffer.pos,len);</span>
+<span class="lineNum">      72 </span><span class="lineCov">       9363 :     r-&gt;io.buffer.pos += len;</span>
+<span class="lineNum">      73 </span><span class="lineCov">       9363 :     return 1;</span>
+<span class="lineNum">      74 </span>            : }
+<a name="75"><span class="lineNum">      75 </span>            : </a>
+<span class="lineNum">      76 </span>            : /* Returns read/write position in buffer. */
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 : static off_t rioBufferTell(rio *r) {</span>
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 :     return r-&gt;io.buffer.pos;</span>
+<span class="lineNum">      79 </span>            : }
+<span class="lineNum">      80 </span>            : 
+<a name="81"><span class="lineNum">      81 </span>            : /* Flushes any buffer to target device if applicable. Returns 1 on success</a>
+<span class="lineNum">      82 </span>            :  * and 0 on failures. */
+<span class="lineNum">      83 </span><span class="lineNoCov">          0 : static int rioBufferFlush(rio *r) {</span>
+<span class="lineNum">      84 </span><span class="lineNoCov">          0 :     UNUSED(r);</span>
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 :     return 1; /* Nothing to do, our write just appends to the buffer. */</span>
+<span class="lineNum">      86 </span>            : }
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : static const rio rioBufferIO = {
+<span class="lineNum">      89 </span>            :     rioBufferRead,
+<span class="lineNum">      90 </span>            :     rioBufferWrite,
+<span class="lineNum">      91 </span>            :     rioBufferTell,
+<span class="lineNum">      92 </span>            :     rioBufferFlush,
+<span class="lineNum">      93 </span>            :     NULL,           /* update_checksum */
+<span class="lineNum">      94 </span>            :     0,              /* current checksum */
+<span class="lineNum">      95 </span>            :     0,              /* bytes read or written */
+<span class="lineNum">      96 </span>            :     0,              /* read/write chunk size */
+<span class="lineNum">      97 </span>            :     { { NULL, 0 } } /* union for io-specific vars */
+<a name="98"><span class="lineNum">      98 </span>            : };</a>
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span><span class="lineCov">        363 : void rioInitWithBuffer(rio *r, sds s) {</span>
+<span class="lineNum">     101 </span><span class="lineCov">        363 :     *r = rioBufferIO;</span>
+<span class="lineNum">     102 </span><span class="lineCov">        363 :     r-&gt;io.buffer.ptr = s;</span>
+<span class="lineNum">     103 </span><span class="lineCov">        363 :     r-&gt;io.buffer.pos = 0;</span>
+<span class="lineNum">     104 </span><span class="lineCov">        363 : }</span>
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : /* --------------------- Stdio file pointer implementation ------------------- */
+<a name="107"><span class="lineNum">     107 </span>            : </a>
+<span class="lineNum">     108 </span>            : /* Returns 1 or 0 for success/failure. */
+<span class="lineNum">     109 </span><span class="lineCov">  178058270 : static size_t rioFileWrite(rio *r, const void *buf, size_t len) {</span>
+<span class="lineNum">     110 </span><span class="lineCov">  178058270 :     size_t retval;</span>
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span><span class="lineCov">  178058270 :     retval = fwrite(buf,len,1,r-&gt;io.file.fp);</span>
+<span class="lineNum">     113 </span><span class="lineCov">  178058270 :     r-&gt;io.file.buffered += len;</span>
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span><span class="lineCov">  178058270 :     if (r-&gt;io.file.autosync &amp;&amp;</span>
+<span class="lineNum">     116 </span>            :         r-&gt;io.file.buffered &gt;= r-&gt;io.file.autosync)
+<span class="lineNum">     117 </span>            :     {
+<span class="lineNum">     118 </span><span class="lineCov">         21 :         fflush(r-&gt;io.file.fp);</span>
+<span class="lineNum">     119 </span><span class="lineCov">         21 :         redis_fsync(fileno(r-&gt;io.file.fp));</span>
+<span class="lineNum">     120 </span><span class="lineCov">         21 :         r-&gt;io.file.buffered = 0;</span>
+<span class="lineNum">     121 </span>            :     }
+<span class="lineNum">     122 </span><span class="lineCov">  178058270 :     return retval;</span>
+<span class="lineNum">     123 </span>            : }
+<a name="124"><span class="lineNum">     124 </span>            : </a>
+<span class="lineNum">     125 </span>            : /* Returns 1 or 0 for success/failure. */
+<span class="lineNum">     126 </span><span class="lineCov">   62877619 : static size_t rioFileRead(rio *r, void *buf, size_t len) {</span>
+<span class="lineNum">     127 </span><span class="lineCov">   62877619 :     return fread(buf,len,1,r-&gt;io.file.fp);</span>
+<span class="lineNum">     128 </span>            : }
+<a name="129"><span class="lineNum">     129 </span>            : </a>
+<span class="lineNum">     130 </span>            : /* Returns read/write position in file. */
+<span class="lineNum">     131 </span><span class="lineNoCov">          0 : static off_t rioFileTell(rio *r) {</span>
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :     return ftello(r-&gt;io.file.fp);</span>
+<span class="lineNum">     133 </span>            : }
+<span class="lineNum">     134 </span>            : 
+<a name="135"><span class="lineNum">     135 </span>            : /* Flushes any buffer to target device if applicable. Returns 1 on success</a>
+<span class="lineNum">     136 </span>            :  * and 0 on failures. */
+<span class="lineNum">     137 </span><span class="lineNoCov">          0 : static int rioFileFlush(rio *r) {</span>
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 :     return (fflush(r-&gt;io.file.fp) == 0) ? 1 : 0;</span>
+<span class="lineNum">     139 </span>            : }
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : static const rio rioFileIO = {
+<span class="lineNum">     142 </span>            :     rioFileRead,
+<span class="lineNum">     143 </span>            :     rioFileWrite,
+<span class="lineNum">     144 </span>            :     rioFileTell,
+<span class="lineNum">     145 </span>            :     rioFileFlush,
+<span class="lineNum">     146 </span>            :     NULL,           /* update_checksum */
+<span class="lineNum">     147 </span>            :     0,              /* current checksum */
+<span class="lineNum">     148 </span>            :     0,              /* bytes read or written */
+<span class="lineNum">     149 </span>            :     0,              /* read/write chunk size */
+<span class="lineNum">     150 </span>            :     { { NULL, 0 } } /* union for io-specific vars */
+<a name="151"><span class="lineNum">     151 </span>            : };</a>
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span><span class="lineCov">       1543 : void rioInitWithFile(rio *r, FILE *fp) {</span>
+<span class="lineNum">     154 </span><span class="lineCov">       1543 :     *r = rioFileIO;</span>
+<span class="lineNum">     155 </span><span class="lineCov">       1543 :     r-&gt;io.file.fp = fp;</span>
+<span class="lineNum">     156 </span><span class="lineCov">       1543 :     r-&gt;io.file.buffered = 0;</span>
+<span class="lineNum">     157 </span><span class="lineCov">       1543 :     r-&gt;io.file.autosync = 0;</span>
+<span class="lineNum">     158 </span><span class="lineCov">       1543 : }</span>
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : /* ------------------- File descriptors set implementation ------------------- */
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span>            : /* Returns 1 or 0 for success/failure.
+<span class="lineNum">     163 </span>            :  * The function returns success as long as we are able to correctly write
+<span class="lineNum">     164 </span>            :  * to at least one file descriptor.
+<span class="lineNum">     165 </span>            :  *
+<span class="lineNum">     166 </span>            :  * When buf is NULL and len is 0, the function performs a flush operation
+<a name="167"><span class="lineNum">     167 </span>            :  * if there is some pending buffer, so this function is also used in order</a>
+<span class="lineNum">     168 </span>            :  * to implement rioFdsetFlush(). */
+<span class="lineNum">     169 </span><span class="lineCov">   15983268 : static size_t rioFdsetWrite(rio *r, const void *buf, size_t len) {</span>
+<span class="lineNum">     170 </span><span class="lineCov">   15983268 :     ssize_t retval;</span>
+<span class="lineNum">     171 </span><span class="lineCov">   15983268 :     int j;</span>
+<span class="lineNum">     172 </span><span class="lineCov">   15983268 :     unsigned char *p = (unsigned char*) buf;</span>
+<span class="lineNum">     173 </span><span class="lineCov">   15983268 :     int doflush = (buf == NULL &amp;&amp; len == 0);</span>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span>            :     /* To start we always append to our buffer. If it gets larger than
+<span class="lineNum">     176 </span>            :      * a given size, we actually write to the sockets. */
+<span class="lineNum">     177 </span><span class="lineCov">   15983268 :     if (len) {</span>
+<span class="lineNum">     178 </span><span class="lineCov">   15983241 :         r-&gt;io.fdset.buf = sdscatlen(r-&gt;io.fdset.buf,buf,len);</span>
+<span class="lineNum">     179 </span><span class="lineCov">   15983241 :         len = 0; /* Prevent entering the while below if we don't flush. */</span>
+<span class="lineNum">     180 </span><span class="lineCov">   31966482 :         if (sdslen(r-&gt;io.fdset.buf) &gt; PROTO_IOBUF_LEN) doflush = 1;</span>
+<span class="lineNum">     181 </span>            :     }
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span><span class="lineCov">   15974522 :     if (doflush) {</span>
+<span class="lineNum">     184 </span><span class="lineCov">       8773 :         p = (unsigned char*) r-&gt;io.fdset.buf;</span>
+<span class="lineNum">     185 </span><span class="lineCov">       8773 :         len = sdslen(r-&gt;io.fdset.buf);</span>
+<span class="lineNum">     186 </span>            :     }
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span>            :     /* Write in little chunchs so that when there are big writes we
+<span class="lineNum">     189 </span>            :      * parallelize while the kernel is sending data in background to
+<span class="lineNum">     190 </span>            :      * the TCP socket. */
+<span class="lineNum">     191 </span><span class="lineCov">   16132185 :     while(len) {</span>
+<span class="lineNum">     192 </span><span class="lineCov">     148917 :         size_t count = len &lt; 1024 ? len : 1024;</span>
+<span class="lineNum">     193 </span><span class="lineCov">     148917 :         int broken = 0;</span>
+<span class="lineNum">     194 </span><span class="lineCov">     533458 :         for (j = 0; j &lt; r-&gt;io.fdset.numfds; j++) {</span>
+<span class="lineNum">     195 </span><span class="lineCov">     384541 :             if (r-&gt;io.fdset.state[j] != 0) {</span>
+<span class="lineNum">     196 </span>            :                 /* Skip FDs alraedy in error. */
+<span class="lineNum">     197 </span><span class="lineNoCov">          0 :                 broken++;</span>
+<span class="lineNum">     198 </span><span class="lineNoCov">          0 :                 continue;</span>
+<span class="lineNum">     199 </span>            :             }
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span>            :             /* Make sure to write 'count' bytes to the socket regardless
+<span class="lineNum">     202 </span>            :              * of short writes. */
+<span class="lineNum">     203 </span>            :             size_t nwritten = 0;
+<span class="lineNum">     204 </span><span class="lineCov">     769082 :             while(nwritten != count) {</span>
+<span class="lineNum">     205 </span><span class="lineCov">     384541 :                 retval = write(r-&gt;io.fdset.fds[j],p+nwritten,count-nwritten);</span>
+<span class="lineNum">     206 </span><span class="lineCov">     384541 :                 if (retval &lt;= 0) {</span>
+<span class="lineNum">     207 </span>            :                     /* With blocking sockets, which is the sole user of this
+<span class="lineNum">     208 </span>            :                      * rio target, EWOULDBLOCK is returned only because of
+<span class="lineNum">     209 </span>            :                      * the SO_SNDTIMEO socket option, so we translate the error
+<span class="lineNum">     210 </span>            :                      * into one more recognizable by the user. */
+<span class="lineNum">     211 </span><span class="lineNoCov">          0 :                     if (retval == -1 &amp;&amp; errno == EWOULDBLOCK) errno = ETIMEDOUT;</span>
+<span class="lineNum">     212 </span>            :                     break;
+<span class="lineNum">     213 </span>            :                 }
+<span class="lineNum">     214 </span><span class="lineCov">     384541 :                 nwritten += retval;</span>
+<span class="lineNum">     215 </span>            :             }
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span><span class="lineCov">     384541 :             if (nwritten != count) {</span>
+<span class="lineNum">     218 </span>            :                 /* Mark this FD as broken. */
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :                 r-&gt;io.fdset.state[j] = errno;</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :                 if (r-&gt;io.fdset.state[j] == 0) r-&gt;io.fdset.state[j] = EIO;</span>
+<span class="lineNum">     221 </span>            :             }
+<span class="lineNum">     222 </span>            :         }
+<span class="lineNum">     223 </span><span class="lineCov">     148917 :         if (broken == r-&gt;io.fdset.numfds) return 0; /* All the FDs in error. */</span>
+<span class="lineNum">     224 </span><span class="lineCov">     148917 :         p += count;</span>
+<span class="lineNum">     225 </span><span class="lineCov">     148917 :         len -= count;</span>
+<span class="lineNum">     226 </span><span class="lineCov">     148917 :         r-&gt;io.fdset.pos += count;</span>
+<span class="lineNum">     227 </span>            :     }
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span><span class="lineCov">   15983268 :     if (doflush) sdsclear(r-&gt;io.fdset.buf);</span>
+<span class="lineNum">     230 </span>            :     return 1;
+<span class="lineNum">     231 </span>            : }
+<a name="232"><span class="lineNum">     232 </span>            : </a>
+<span class="lineNum">     233 </span>            : /* Returns 1 or 0 for success/failure. */
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 : static size_t rioFdsetRead(rio *r, void *buf, size_t len) {</span>
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 :     UNUSED(r);</span>
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     UNUSED(buf);</span>
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :     UNUSED(len);</span>
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :     return 0; /* Error, this target does not support reading. */</span>
+<span class="lineNum">     239 </span>            : }
+<a name="240"><span class="lineNum">     240 </span>            : </a>
+<span class="lineNum">     241 </span>            : /* Returns read/write position in file. */
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 : static off_t rioFdsetTell(rio *r) {</span>
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 :     return r-&gt;io.fdset.pos;</span>
+<span class="lineNum">     244 </span>            : }
+<span class="lineNum">     245 </span>            : 
+<a name="246"><span class="lineNum">     246 </span>            : /* Flushes any buffer to target device if applicable. Returns 1 on success</a>
+<span class="lineNum">     247 </span>            :  * and 0 on failures. */
+<span class="lineNum">     248 </span><span class="lineCov">         27 : static int rioFdsetFlush(rio *r) {</span>
+<span class="lineNum">     249 </span>            :     /* Our flush is implemented by the write method, that recognizes a
+<span class="lineNum">     250 </span>            :      * buffer set to NULL with a count of zero as a flush request. */
+<span class="lineNum">     251 </span><span class="lineCov">         27 :     return rioFdsetWrite(r,NULL,0);</span>
+<span class="lineNum">     252 </span>            : }
+<span class="lineNum">     253 </span>            : 
+<span class="lineNum">     254 </span>            : static const rio rioFdsetIO = {
+<span class="lineNum">     255 </span>            :     rioFdsetRead,
+<span class="lineNum">     256 </span>            :     rioFdsetWrite,
+<span class="lineNum">     257 </span>            :     rioFdsetTell,
+<span class="lineNum">     258 </span>            :     rioFdsetFlush,
+<span class="lineNum">     259 </span>            :     NULL,           /* update_checksum */
+<span class="lineNum">     260 </span>            :     0,              /* current checksum */
+<span class="lineNum">     261 </span>            :     0,              /* bytes read or written */
+<span class="lineNum">     262 </span>            :     0,              /* read/write chunk size */
+<span class="lineNum">     263 </span>            :     { { NULL, 0 } } /* union for io-specific vars */
+<a name="264"><span class="lineNum">     264 </span>            : };</a>
+<span class="lineNum">     265 </span>            : 
+<span class="lineNum">     266 </span><span class="lineCov">         27 : void rioInitWithFdset(rio *r, int *fds, int numfds) {</span>
+<span class="lineNum">     267 </span><span class="lineCov">         27 :     int j;</span>
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span><span class="lineCov">         27 :     *r = rioFdsetIO;</span>
+<span class="lineNum">     270 </span><span class="lineCov">         27 :     r-&gt;io.fdset.fds = zmalloc(sizeof(int)*numfds);</span>
+<span class="lineNum">     271 </span><span class="lineCov">         27 :     r-&gt;io.fdset.state = zmalloc(sizeof(int)*numfds);</span>
+<span class="lineNum">     272 </span><span class="lineCov">         27 :     memcpy(r-&gt;io.fdset.fds,fds,sizeof(int)*numfds);</span>
+<span class="lineNum">     273 </span><span class="lineCov">         60 :     for (j = 0; j &lt; numfds; j++) r-&gt;io.fdset.state[j] = 0;</span>
+<span class="lineNum">     274 </span><span class="lineCov">         27 :     r-&gt;io.fdset.numfds = numfds;</span>
+<span class="lineNum">     275 </span><span class="lineCov">         27 :     r-&gt;io.fdset.pos = 0;</span>
+<span class="lineNum">     276 </span><span class="lineCov">         27 :     r-&gt;io.fdset.buf = sdsempty();</span>
+<span class="lineNum">     277 </span><span class="lineCov">         27 : }</span>
+<a name="278"><span class="lineNum">     278 </span>            : </a>
+<span class="lineNum">     279 </span>            : /* release the rio stream. */
+<span class="lineNum">     280 </span><span class="lineCov">         27 : void rioFreeFdset(rio *r) {</span>
+<span class="lineNum">     281 </span><span class="lineCov">         27 :     zfree(r-&gt;io.fdset.fds);</span>
+<span class="lineNum">     282 </span><span class="lineCov">         27 :     zfree(r-&gt;io.fdset.state);</span>
+<span class="lineNum">     283 </span><span class="lineCov">         27 :     sdsfree(r-&gt;io.fdset.buf);</span>
+<span class="lineNum">     284 </span><span class="lineCov">         27 : }</span>
+<span class="lineNum">     285 </span>            : 
+<span class="lineNum">     286 </span>            : /* ---------------------------- Generic functions ---------------------------- */
+<span class="lineNum">     287 </span>            : 
+<a name="288"><span class="lineNum">     288 </span>            : /* This function can be installed both in memory and file streams when checksum</a>
+<span class="lineNum">     289 </span>            :  * computation is needed. */
+<span class="lineNum">     290 </span><span class="lineCov">  237696347 : void rioGenericUpdateChecksum(rio *r, const void *buf, size_t len) {</span>
+<span class="lineNum">     291 </span><span class="lineCov">  237696347 :     r-&gt;cksum = crc64(r-&gt;cksum,buf,len);</span>
+<span class="lineNum">     292 </span><span class="lineCov">  237696347 : }</span>
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span>            : /* Set the file-based rio object to auto-fsync every 'bytes' file written.
+<span class="lineNum">     295 </span>            :  * By default this is set to zero that means no automatic file sync is
+<span class="lineNum">     296 </span>            :  * performed.
+<span class="lineNum">     297 </span>            :  *
+<span class="lineNum">     298 </span>            :  * This feature is useful in a few contexts since when we rely on OS write
+<span class="lineNum">     299 </span>            :  * buffers sometimes the OS buffers way too much, resulting in too many
+<a name="300"><span class="lineNum">     300 </span>            :  * disk I/O concentrated in very little time. When we fsync in an explicit</a>
+<span class="lineNum">     301 </span>            :  * way instead the I/O pressure is more distributed across time. */
+<span class="lineNum">     302 </span><span class="lineCov">       1302 : void rioSetAutoSync(rio *r, off_t bytes) {</span>
+<span class="lineNum">     303 </span><span class="lineCov">       1302 :     serverAssert(r-&gt;read == rioFileIO.read);</span>
+<span class="lineNum">     304 </span><span class="lineCov">       1302 :     r-&gt;io.file.autosync = bytes;</span>
+<span class="lineNum">     305 </span><span class="lineCov">       1302 : }</span>
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span>            : /* --------------------------- Higher level interface --------------------------
+<span class="lineNum">     308 </span>            :  *
+<span class="lineNum">     309 </span>            :  * The following higher level functions use lower level rio.c functions to help
+<span class="lineNum">     310 </span>            :  * generating the Redis protocol for the Append Only File. */
+<a name="311"><span class="lineNum">     311 </span>            : </a>
+<span class="lineNum">     312 </span>            : /* Write multi bulk count in the format: &quot;*&lt;count&gt;\r\n&quot;. */
+<span class="lineNum">     313 </span><span class="lineCov">    5499434 : size_t rioWriteBulkCount(rio *r, char prefix, long count) {</span>
+<span class="lineNum">     314 </span><span class="lineCov">    5499434 :     char cbuf[128];</span>
+<span class="lineNum">     315 </span><span class="lineCov">    5499434 :     int clen;</span>
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span><span class="lineCov">    5499434 :     cbuf[0] = prefix;</span>
+<span class="lineNum">     318 </span><span class="lineCov">    5499434 :     clen = 1+ll2string(cbuf+1,sizeof(cbuf)-1,count);</span>
+<span class="lineNum">     319 </span><span class="lineCov">    5499434 :     cbuf[clen++] = '\r';</span>
+<span class="lineNum">     320 </span><span class="lineCov">    5499434 :     cbuf[clen++] = '\n';</span>
+<span class="lineNum">     321 </span><span class="lineCov">    5499434 :     if (rioWrite(r,cbuf,clen) == 0) return 0;</span>
+<span class="lineNum">     322 </span>            :     return clen;
+<span class="lineNum">     323 </span>            : }
+<a name="324"><span class="lineNum">     324 </span>            : </a>
+<span class="lineNum">     325 </span>            : /* Write binary-safe string in the format: &quot;$&lt;count&gt;\r\n&lt;payload&gt;\r\n&quot;. */
+<span class="lineNum">     326 </span><span class="lineCov">    5498792 : size_t rioWriteBulkString(rio *r, const char *buf, size_t len) {</span>
+<span class="lineNum">     327 </span><span class="lineCov">    5498792 :     size_t nwritten;</span>
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span><span class="lineCov">    5498792 :     if ((nwritten = rioWriteBulkCount(r,'$',len)) == 0) return 0;</span>
+<span class="lineNum">     330 </span><span class="lineCov">    5498792 :     if (len &gt; 0 &amp;&amp; rioWrite(r,buf,len) == 0) return 0;</span>
+<span class="lineNum">     331 </span><span class="lineCov">    5498792 :     if (rioWrite(r,&quot;\r\n&quot;,2) == 0) return 0;</span>
+<span class="lineNum">     332 </span><span class="lineCov">    5498792 :     return nwritten+len+2;</span>
+<span class="lineNum">     333 </span>            : }
+<a name="334"><span class="lineNum">     334 </span>            : </a>
+<span class="lineNum">     335 </span>            : /* Write a long long value in format: &quot;$&lt;count&gt;\r\n&lt;payload&gt;\r\n&quot;. */
+<span class="lineNum">     336 </span><span class="lineCov">       3382 : size_t rioWriteBulkLongLong(rio *r, long long l) {</span>
+<span class="lineNum">     337 </span><span class="lineCov">       3382 :     char lbuf[32];</span>
+<span class="lineNum">     338 </span><span class="lineCov">       3382 :     unsigned int llen;</span>
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span><span class="lineCov">       3382 :     llen = ll2string(lbuf,sizeof(lbuf),l);</span>
+<span class="lineNum">     341 </span><span class="lineCov">       3382 :     return rioWriteBulkString(r,lbuf,llen);</span>
+<span class="lineNum">     342 </span>            : }
+<a name="343"><span class="lineNum">     343 </span>            : </a>
+<span class="lineNum">     344 </span>            : /* Write a double value in the format: &quot;$&lt;count&gt;\r\n&lt;payload&gt;\r\n&quot; */
+<span class="lineNum">     345 </span><span class="lineCov">       8842 : size_t rioWriteBulkDouble(rio *r, double d) {</span>
+<span class="lineNum">     346 </span><span class="lineCov">       8842 :     char dbuf[128];</span>
+<span class="lineNum">     347 </span><span class="lineCov">       8842 :     unsigned int dlen;</span>
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span><span class="lineCov">       8842 :     dlen = snprintf(dbuf,sizeof(dbuf),&quot;%.17g&quot;,d);</span>
+<span class="lineNum">     350 </span><span class="lineCov">       8842 :     return rioWriteBulkString(r,dbuf,dlen);</span>
+<span class="lineNum">     351 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

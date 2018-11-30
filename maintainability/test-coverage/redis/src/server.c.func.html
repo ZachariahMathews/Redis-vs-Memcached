@@ -1,0 +1,440 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/server.c - functions</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - server.c<span style="font-size: 80%;"> (<a href="server.c.gcov.html">source</a> / functions)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1499</td>
+            <td class="headerCovTableEntry">1884</td>
+            <td class="headerCovTableEntryMed">79.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntry">90</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <center>
+  <table width="60%" cellpadding=1 cellspacing=1 border=0>
+    <tr><td><br></td></tr>
+    <tr>
+      <td width="80%" class="tableHead">Function Name <span class="tableHeadSort"><img src="../glass.png" width=10 height=14 alt="Sort by function name" title="Sort by function name" border=0></span></td>
+      <td width="20%" class="tableHead">Hit count <span class="tableHeadSort"><a href="server.c.func-sort-c.html"><img src="../updown.png" width=10 height=14 alt="Sort by hit count" title="Sort by hit count" border=0></a></span></td>
+    </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2960">addReplyCommand</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2951">addReplyCommandFlag</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1801">adjustOpenFilesLimit</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1413">afterSleep</a></td>
+              <td class="coverFnHi">22711701</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2334">alsoPropagate</a></td>
+              <td class="coverFnHi">490475</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2898">authCommand</a></td>
+              <td class="coverFnHi">18</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1356">beforeSleep</a></td>
+              <td class="coverFnHi">22711701</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3059">bytesToHuman</a></td>
+              <td class="coverFnHi">214354</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2412">call</a></td>
+              <td class="coverFnHi">56294366</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3842">checkForSentinelMode</a></td>
+              <td class="coverFnHi">662</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1878">checkTcpBacklogSettings</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#960">clientsCron</a></td>
+              <td class="coverFnHi">42513</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#813">clientsCronHandleTimeout</a></td>
+              <td class="coverFnHi">88967</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#849">clientsCronResizeQueryBuffer</a></td>
+              <td class="coverFnHi">88967</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#905">clientsCronTrackExpansiveClients</a></td>
+              <td class="coverFnHi">88967</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2743">closeListeningSockets</a></td>
+              <td class="coverFnHi">641</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2999">commandCommand</a></td>
+              <td class="coverFnHi">6</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3691">createPidFile</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1420">createSharedObjects</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3704">daemonize</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#998">databasesCron</a></td>
+              <td class="coverFnHi">42513</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#544">dictEncObjHash</a></td>
+              <td class="coverFnHi">1585</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#526">dictEncObjKeyCompare</a></td>
+              <td class="coverFnHi">462</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#463">dictListDestructor</a></td>
+              <td class="coverFnHi">714</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#513">dictObjHash</a></td>
+              <td class="coverFnHi">840638</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#506">dictObjKeyCompare</a></td>
+              <td class="coverFnHi">838453</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#491">dictObjectDestructor</a></td>
+              <td class="coverFnHi">20350786</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#522">dictSdsCaseHash</a></td>
+              <td class="coverFnHi">65224971</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#499">dictSdsDestructor</a></td>
+              <td class="coverFnHi">13446102</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#518">dictSdsHash</a></td>
+              <td class="coverFnHi">215775745</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#483">dictSdsKeyCaseCompare</a></td>
+              <td class="coverFnHi">91905942</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#469">dictSdsKeyCompare</a></td>
+              <td class="coverFnHi">147507357</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#457">dictVanillaFree</a></td>
+              <td class="coverFnHi">372</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2935">echoCommand</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#443">exitFromChild</a></td>
+              <td class="coverFnHi">230</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2353">forceCommandPropagation</a></td>
+              <td class="coverFnHi">837625</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3089">genRedisInfoString</a></td>
+              <td class="coverFnHi">30776</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#934">getExpansiveClientsInfo</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#800">getInstantaneousMetric</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#728">htNeedsResize</a></td>
+              <td class="coverFnHi">291455</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#753">incrementallyRehash</a></td>
+              <td class="coverFnHi">628752</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3645">infoCommand</a></td>
+              <td class="coverFnHi">30776</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2011">initServer</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1515">initServerConfig</a></td>
+              <td class="coverFnHi">662</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3681">linuxMemoryWarnings</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3667">linuxOvercommitMemoryValue</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1911">listenToPort</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3852">loadDataFromDisk</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2275">lookupCommand</a></td>
+              <td class="coverFnHi">7838850</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2279">lookupCommandByCString</a></td>
+              <td class="coverFnHi">8606</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2295">lookupCommandOrOriginal</a></td>
+              <td class="coverFnHi">27262</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#4005">main</a></td>
+              <td class="coverFnHi">662</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3655">monitorCommand</a></td>
+              <td class="coverFnHi">4</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#435">mstime</a></td>
+              <td class="coverFnHi">3169864</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2912">pingCommand</a></td>
+              <td class="coverFnHi">201601</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2184">populateCommandTable</a></td>
+              <td class="coverFnHi">662</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2756">prepareForShutdown</a></td>
+              <td class="coverFnHi">411</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2366">preventCommandAOF</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2361">preventCommandPropagation</a></td>
+              <td class="coverFnHi">640603</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2371">preventCommandReplication</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2541">processCommand</a></td>
+              <td class="coverFnHi">55429932</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2313">propagate</a></td>
+              <td class="coverFnHi">46737507</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3749">redisAsciiArt</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3985">redisIsSupervised</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2243">redisOpArrayAppend</a></td>
+              <td class="coverFnHi">490469</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2259">redisOpArrayFree</a></td>
+              <td class="coverFnHi">490185</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2238">redisOpArrayInit</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3887">redisOutOfMemoryHandler</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3893">redisSetProcTitle</a></td>
+              <td class="coverFnHi">886</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3928">redisSupervisedSystemd</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3913">redisSupervisedUpstart</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2221">resetCommandTableStats</a></td>
+              <td class="coverFnHi">12</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1977">resetServerStats</a></td>
+              <td class="coverFnHi">668</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1744">restartServer</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1087">serverCron</a></td>
+              <td class="coverFnHi">42922</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#382">serverLog</a></td>
+              <td class="coverFnHi">119230</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#401">serverLogFromHandler</a></td>
+              <td class="coverFnHi">415</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#336">serverLogRaw</a></td>
+              <td class="coverFnHi">117566</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3815">setupSignalHandlers</a></td>
+              <td class="coverFnHi">656</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3785">sigShutdownHandler</a></td>
+              <td class="coverFnHi">409</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2939">timeCommand</a></td>
+              <td class="coverFnHi">2</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2865">time_independent_strcmp</a></td>
+              <td class="coverFnHi">15</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#783">trackInstantaneousMetric</a></td>
+              <td class="coverFnHi">128766</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#739">tryResizeHashTables</a></td>
+              <td class="coverFnHi">656192</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#1054">updateCachedTime</a></td>
+              <td class="coverFnHi">43798</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#773">updateDictResizePolicy</a></td>
+              <td class="coverFnHi">1536</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3732">usage</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#424">ustime</a></td>
+              <td class="coverFnHi">19802517</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#3721">version</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="server.c.gcov.html#2841">writeCommandsDeniedByDiskError</a></td>
+              <td class="coverFnHi">490211</td>
+            </tr>
+  </table>
+  <br>
+  </center>
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

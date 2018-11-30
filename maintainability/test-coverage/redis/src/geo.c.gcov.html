@@ -1,0 +1,902 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/geo.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - geo.c<span style="font-size: 80%;"> (source / <a href="geo.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">334</td>
+            <td class="headerCovTableEntry">374</td>
+            <td class="headerCovTableEntryMed">89.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">21</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntryMed">84.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2014, Matt Stancliff &lt;matt@genges.com&gt;.
+<span class="lineNum">       3 </span>            :  * Copyright (c) 2015-2016, Salvatore Sanfilippo &lt;antirez@gmail.com&gt;.
+<span class="lineNum">       4 </span>            :  * All rights reserved.
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       7 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       8 </span>            :  *
+<span class="lineNum">       9 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      10 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      11 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      12 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      13 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      14 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      15 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      16 </span>            :  *     specific prior written permission.
+<span class="lineNum">      17 </span>            :  *
+<span class="lineNum">      18 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      19 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      20 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      21 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      22 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      23 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      24 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      25 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      26 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      27 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      28 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            :  */
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : #include &quot;geo.h&quot;
+<span class="lineNum">      32 </span>            : #include &quot;geohash_helper.h&quot;
+<span class="lineNum">      33 </span>            : #include &quot;debugmacro.h&quot;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : /* Things exported from t_zset.c only for geo.c, since it is the only other
+<span class="lineNum">      36 </span>            :  * part of Redis that requires close zset introspection. */
+<span class="lineNum">      37 </span>            : unsigned char *zzlFirstInRange(unsigned char *zl, zrangespec *range);
+<span class="lineNum">      38 </span>            : int zslValueLteMax(double value, zrangespec *spec);
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : /* ====================================================================
+<span class="lineNum">      41 </span>            :  * This file implements the following commands:
+<span class="lineNum">      42 </span>            :  *
+<span class="lineNum">      43 </span>            :  *   - geoadd - add coordinates for value to geoset
+<span class="lineNum">      44 </span>            :  *   - georadius - search radius by coordinates in geoset
+<span class="lineNum">      45 </span>            :  *   - georadiusbymember - search radius based on geoset member position
+<span class="lineNum">      46 </span>            :  * ==================================================================== */
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : /* ====================================================================
+<span class="lineNum">      49 </span>            :  * geoArray implementation
+<span class="lineNum">      50 </span>            :  * ==================================================================== */
+<a name="51"><span class="lineNum">      51 </span>            : </a>
+<span class="lineNum">      52 </span>            : /* Create a new array of geoPoints. */
+<span class="lineNum">      53 </span><span class="lineNoCov">          0 : geoArray *geoArrayCreate(void) {</span>
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :     geoArray *ga = zmalloc(sizeof(*ga));</span>
+<span class="lineNum">      55 </span>            :     /* It gets allocated on first geoArrayAppend() call. */
+<span class="lineNum">      56 </span><span class="lineCov">         80 :     ga-&gt;array = NULL;</span>
+<span class="lineNum">      57 </span><span class="lineCov">         80 :     ga-&gt;buckets = 0;</span>
+<span class="lineNum">      58 </span><span class="lineCov">         80 :     ga-&gt;used = 0;</span>
+<span class="lineNum">      59 </span><span class="lineCov">         80 :     return ga;</span>
+<span class="lineNum">      60 </span>            : }
+<span class="lineNum">      61 </span>            : 
+<a name="62"><span class="lineNum">      62 </span>            : /* Add a new entry and return its pointer so that the caller can populate</a>
+<span class="lineNum">      63 </span>            :  * it with data. */
+<span class="lineNum">      64 </span><span class="lineCov">      51702 : geoPoint *geoArrayAppend(geoArray *ga) {</span>
+<span class="lineNum">      65 </span><span class="lineCov">      51702 :     if (ga-&gt;used == ga-&gt;buckets) {</span>
+<span class="lineNum">      66 </span><span class="lineCov">        154 :         ga-&gt;buckets = (ga-&gt;buckets == 0) ? 8 : ga-&gt;buckets*2;</span>
+<span class="lineNum">      67 </span><span class="lineCov">        154 :         ga-&gt;array = zrealloc(ga-&gt;array,sizeof(geoPoint)*ga-&gt;buckets);</span>
+<span class="lineNum">      68 </span>            :     }
+<span class="lineNum">      69 </span><span class="lineCov">      51702 :     geoPoint *gp = ga-&gt;array+ga-&gt;used;</span>
+<span class="lineNum">      70 </span><span class="lineCov">      51702 :     ga-&gt;used++;</span>
+<span class="lineNum">      71 </span><span class="lineCov">      51702 :     return gp;</span>
+<span class="lineNum">      72 </span>            : }
+<a name="73"><span class="lineNum">      73 </span>            : </a>
+<span class="lineNum">      74 </span>            : /* Destroy a geoArray created with geoArrayCreate(). */
+<span class="lineNum">      75 </span><span class="lineCov">         80 : void geoArrayFree(geoArray *ga) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">         80 :     size_t i;</span>
+<span class="lineNum">      77 </span><span class="lineCov">      51782 :     for (i = 0; i &lt; ga-&gt;used; i++) sdsfree(ga-&gt;array[i].member);</span>
+<span class="lineNum">      78 </span><span class="lineCov">         80 :     zfree(ga-&gt;array);</span>
+<span class="lineNum">      79 </span><span class="lineCov">         80 :     zfree(ga);</span>
+<span class="lineNum">      80 </span><span class="lineCov">         80 : }</span>
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : /* ====================================================================
+<a name="83"><span class="lineNum">      83 </span>            :  * Helpers</a>
+<span class="lineNum">      84 </span>            :  * ==================================================================== */
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 : int decodeGeohash(double bits, double *xy) {</span>
+<span class="lineNum">      86 </span><span class="lineCov">     160920 :     GeoHashBits hash = { .bits = (uint64_t)bits, .step = GEO_STEP_MAX };</span>
+<span class="lineNum">      87 </span><span class="lineNoCov">          0 :     return geohashDecodeToLongLatWGS84(hash, xy);</span>
+<span class="lineNum">      88 </span>            : }
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            : /* Input Argument Helper */
+<a name="91"><span class="lineNum">      91 </span>            : /* Take a pointer to the latitude arg then use the next arg for longitude.</a>
+<span class="lineNum">      92 </span>            :  * On parse error C_ERR is returned, otherwise C_OK. */
+<span class="lineNum">      93 </span><span class="lineCov">    1160152 : int extractLongLatOrReply(client *c, robj **argv, double *xy) {</span>
+<span class="lineNum">      94 </span><span class="lineCov">    1160152 :     int i;</span>
+<span class="lineNum">      95 </span><span class="lineCov">    3480452 :     for (i = 0; i &lt; 2; i++) {</span>
+<span class="lineNum">      96 </span><span class="lineCov">    2320302 :         if (getDoubleFromObjectOrReply(c, argv[i], xy + i, NULL) !=</span>
+<span class="lineNum">      97 </span>            :             C_OK) {
+<span class="lineNum">      98 </span>            :             return C_ERR;
+<span class="lineNum">      99 </span>            :         }
+<span class="lineNum">     100 </span>            :     }
+<span class="lineNum">     101 </span><span class="lineCov">    1160150 :     if (xy[0] &lt; GEO_LONG_MIN || xy[0] &gt; GEO_LONG_MAX ||</span>
+<span class="lineNum">     102 </span><span class="lineCov">    1160150 :         xy[1] &lt; GEO_LAT_MIN  || xy[1] &gt; GEO_LAT_MAX) {</span>
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :         addReplySds(c, sdscatprintf(sdsempty(),</span>
+<span class="lineNum">     104 </span>            :             &quot;-ERR invalid longitude,latitude pair %f,%f\r\n&quot;,xy[0],xy[1]));
+<span class="lineNum">     105 </span><span class="lineNoCov">          0 :         return C_ERR;</span>
+<span class="lineNum">     106 </span>            :     }
+<span class="lineNum">     107 </span>            :     return C_OK;
+<span class="lineNum">     108 </span>            : }
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            : /* Input Argument Helper */
+<a name="111"><span class="lineNum">     111 </span>            : /* Decode lat/long from a zset member's score.</a>
+<span class="lineNum">     112 </span>            :  * Returns C_OK on successful decoding, otherwise C_ERR is returned. */
+<span class="lineNum">     113 </span><span class="lineCov">          4 : int longLatFromMember(robj *zobj, robj *member, double *xy) {</span>
+<span class="lineNum">     114 </span><span class="lineCov">          4 :     double score = 0;</span>
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span><span class="lineCov">          4 :     if (zsetScore(zobj, member-&gt;ptr, &amp;score) == C_ERR) return C_ERR;</span>
+<span class="lineNum">     117 </span><span class="lineCov">          4 :     if (!decodeGeohash(score, xy)) return C_ERR;</span>
+<span class="lineNum">     118 </span>            :     return C_OK;
+<span class="lineNum">     119 </span>            : }
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span>            : /* Check that the unit argument matches one of the known units, and returns
+<span class="lineNum">     122 </span>            :  * the conversion factor to meters (you need to divide meters by the conversion
+<span class="lineNum">     123 </span>            :  * factor to convert to the right unit).
+<span class="lineNum">     124 </span>            :  *
+<a name="125"><span class="lineNum">     125 </span>            :  * If the unit is not valid, an error is reported to the client, and a value</a>
+<span class="lineNum">     126 </span>            :  * less than zero is returned. */
+<span class="lineNum">     127 </span><span class="lineCov">         92 : double extractUnitOrReply(client *c, robj *unit) {</span>
+<span class="lineNum">     128 </span><span class="lineCov">         92 :     char *u = unit-&gt;ptr;</span>
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span><span class="lineCov">         92 :     if (!strcmp(u, &quot;m&quot;)) {</span>
+<span class="lineNum">     131 </span>            :         return 1;
+<span class="lineNum">     132 </span><span class="lineCov">         92 :     } else if (!strcmp(u, &quot;km&quot;)) {</span>
+<span class="lineNum">     133 </span>            :         return 1000;
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 :     } else if (!strcmp(u, &quot;ft&quot;)) {</span>
+<span class="lineNum">     135 </span>            :         return 0.3048;
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :     } else if (!strcmp(u, &quot;mi&quot;)) {</span>
+<span class="lineNum">     137 </span>            :         return 1609.34;
+<span class="lineNum">     138 </span>            :     } else {
+<span class="lineNum">     139 </span><span class="lineNoCov">          0 :         addReplyError(c,</span>
+<span class="lineNum">     140 </span>            :             &quot;unsupported unit provided. please use m, km, ft, mi&quot;);
+<span class="lineNum">     141 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">     142 </span>            :     }
+<span class="lineNum">     143 </span>            : }
+<span class="lineNum">     144 </span>            : 
+<span class="lineNum">     145 </span>            : /* Input Argument Helper.
+<span class="lineNum">     146 </span>            :  * Extract the dinstance from the specified two arguments starting at 'argv'
+<span class="lineNum">     147 </span>            :  * that shouldbe in the form: &lt;number&gt; &lt;unit&gt; and return the dinstance in the
+<span class="lineNum">     148 </span>            :  * specified unit on success. *conversions is populated with the coefficient
+<span class="lineNum">     149 </span>            :  * to use in order to convert meters to the unit.
+<a name="150"><span class="lineNum">     150 </span>            :  *</a>
+<span class="lineNum">     151 </span>            :  * On error a value less than zero is returned. */
+<span class="lineNum">     152 </span><span class="lineCov">         90 : double extractDistanceOrReply(client *c, robj **argv,</span>
+<span class="lineNum">     153 </span>            :                                      double *conversion) {
+<span class="lineNum">     154 </span><span class="lineCov">         90 :     double distance;</span>
+<span class="lineNum">     155 </span><span class="lineCov">         90 :     if (getDoubleFromObjectOrReply(c, argv[0], &amp;distance,</span>
+<span class="lineNum">     156 </span>            :                                    &quot;need numeric radius&quot;) != C_OK) {
+<span class="lineNum">     157 </span>            :         return -1;
+<span class="lineNum">     158 </span>            :     }
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span><span class="lineCov">         90 :     if (distance &lt; 0) {</span>
+<span class="lineNum">     161 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;radius cannot be negative&quot;);</span>
+<span class="lineNum">     162 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">     163 </span>            :     }
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span><span class="lineCov">         90 :     double to_meters = extractUnitOrReply(c,argv[1]);</span>
+<span class="lineNum">     166 </span><span class="lineCov">         90 :     if (to_meters &lt; 0) {</span>
+<span class="lineNum">     167 </span>            :         return -1;
+<span class="lineNum">     168 </span>            :     }
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span><span class="lineCov">         90 :     if (conversion) *conversion = to_meters;</span>
+<span class="lineNum">     171 </span><span class="lineCov">         90 :     return distance * to_meters;</span>
+<span class="lineNum">     172 </span>            : }
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            : /* The default addReplyDouble has too much accuracy.  We use this
+<span class="lineNum">     175 </span>            :  * for returning location distances. &quot;5.2145 meters away&quot; is nicer
+<span class="lineNum">     176 </span>            :  * than &quot;5.2144992818115 meters away.&quot; We provide 4 digits after the dot
+<a name="177"><span class="lineNum">     177 </span>            :  * so that the returned value is decently accurate even when the unit is</a>
+<span class="lineNum">     178 </span>            :  * the kilometer. */
+<span class="lineNum">     179 </span><span class="lineCov">         20 : void addReplyDoubleDistance(client *c, double d) {</span>
+<span class="lineNum">     180 </span><span class="lineCov">         20 :     char dbuf[128];</span>
+<span class="lineNum">     181 </span><span class="lineCov">         20 :     int dlen = snprintf(dbuf, sizeof(dbuf), &quot;%.4f&quot;, d);</span>
+<span class="lineNum">     182 </span><span class="lineCov">         20 :     addReplyBulkCBuffer(c, dbuf, dlen);</span>
+<span class="lineNum">     183 </span><span class="lineCov">         20 : }</span>
+<span class="lineNum">     184 </span>            : 
+<span class="lineNum">     185 </span>            : /* Helper function for geoGetPointsInRange(): given a sorted set score
+<span class="lineNum">     186 </span>            :  * representing a point, and another point (the center of our search) and
+<span class="lineNum">     187 </span>            :  * a radius, appends this entry as a geoPoint into the specified geoArray
+<span class="lineNum">     188 </span>            :  * only if the point is within the search area.
+<a name="189"><span class="lineNum">     189 </span>            :  *</a>
+<span class="lineNum">     190 </span>            :  * returns C_OK if the point is included, or REIDS_ERR if it is outside. */
+<span class="lineNum">     191 </span><span class="lineCov">     160894 : int geoAppendIfWithinRadius(geoArray *ga, double lon, double lat, double radius, double score, sds member) {</span>
+<span class="lineNum">     192 </span><span class="lineCov">     160894 :     double distance, xy[2];</span>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span><span class="lineCov">     160894 :     if (!decodeGeohash(score,xy)) return C_ERR; /* Can't decode. */</span>
+<span class="lineNum">     195 </span>            :     /* Note that geohashGetDistanceIfInRadiusWGS84() takes arguments in
+<span class="lineNum">     196 </span>            :      * reverse order: longitude first, latitude later. */
+<span class="lineNum">     197 </span><span class="lineCov">     160894 :     if (!geohashGetDistanceIfInRadiusWGS84(lon,lat, xy[0], xy[1],</span>
+<span class="lineNum">     198 </span>            :                                            radius, &amp;distance))
+<span class="lineNum">     199 </span>            :     {
+<span class="lineNum">     200 </span>            :         return C_ERR;
+<span class="lineNum">     201 </span>            :     }
+<span class="lineNum">     202 </span>            : 
+<span class="lineNum">     203 </span>            :     /* Append the new element. */
+<span class="lineNum">     204 </span><span class="lineCov">      51702 :     geoPoint *gp = geoArrayAppend(ga);</span>
+<span class="lineNum">     205 </span><span class="lineCov">      51702 :     gp-&gt;longitude = xy[0];</span>
+<span class="lineNum">     206 </span><span class="lineCov">      51702 :     gp-&gt;latitude = xy[1];</span>
+<span class="lineNum">     207 </span><span class="lineCov">      51702 :     gp-&gt;dist = distance;</span>
+<span class="lineNum">     208 </span><span class="lineCov">      51702 :     gp-&gt;member = member;</span>
+<span class="lineNum">     209 </span><span class="lineCov">      51702 :     gp-&gt;score = score;</span>
+<span class="lineNum">     210 </span><span class="lineCov">      51702 :     return C_OK;</span>
+<span class="lineNum">     211 </span>            : }
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            : /* Query a Redis sorted set to extract all the elements between 'min' and
+<span class="lineNum">     214 </span>            :  * 'max', appending them into the array of geoPoint structures 'gparray'.
+<span class="lineNum">     215 </span>            :  * The command returns the number of elements added to the array.
+<span class="lineNum">     216 </span>            :  *
+<span class="lineNum">     217 </span>            :  * Elements which are farest than 'radius' from the specified 'x' and 'y'
+<span class="lineNum">     218 </span>            :  * coordinates are not included.
+<span class="lineNum">     219 </span>            :  *
+<span class="lineNum">     220 </span>            :  * The ability of this function to append to an existing set of points is
+<span class="lineNum">     221 </span>            :  * important for good performances because querying by radius is performed
+<span class="lineNum">     222 </span>            :  * using multiple queries to the sorted set, that we later need to sort
+<a name="223"><span class="lineNum">     223 </span>            :  * via qsort. Similarly we need to be able to reject points outside the search</a>
+<span class="lineNum">     224 </span>            :  * radius area ASAP in order to allocate and process more points than needed. */
+<span class="lineNum">     225 </span><span class="lineCov">        366 : int geoGetPointsInRange(robj *zobj, double min, double max, double lon, double lat, double radius, geoArray *ga) {</span>
+<span class="lineNum">     226 </span>            :     /* minex 0 = include min in range; maxex 1 = exclude max in range */
+<span class="lineNum">     227 </span>            :     /* That's: min &lt;= val &lt; max */
+<span class="lineNum">     228 </span><span class="lineCov">        366 :     zrangespec range = { .min = min, .max = max, .minex = 0, .maxex = 1 };</span>
+<span class="lineNum">     229 </span><span class="lineCov">        366 :     size_t origincount = ga-&gt;used;</span>
+<span class="lineNum">     230 </span><span class="lineCov">        366 :     sds member;</span>
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span><span class="lineCov">        366 :     if (zobj-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     233 </span><span class="lineCov">        104 :         unsigned char *zl = zobj-&gt;ptr;</span>
+<span class="lineNum">     234 </span><span class="lineCov">        104 :         unsigned char *eptr, *sptr;</span>
+<span class="lineNum">     235 </span><span class="lineCov">        104 :         unsigned char *vstr = NULL;</span>
+<span class="lineNum">     236 </span><span class="lineCov">        104 :         unsigned int vlen = 0;</span>
+<span class="lineNum">     237 </span><span class="lineCov">        104 :         long long vlong = 0;</span>
+<span class="lineNum">     238 </span><span class="lineCov">        104 :         double score = 0;</span>
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span><span class="lineCov">        104 :         if ((eptr = zzlFirstInRange(zl, &amp;range)) == NULL) {</span>
+<span class="lineNum">     241 </span>            :             /* Nothing exists starting at our min.  No results. */
+<span class="lineNum">     242 </span><span class="lineCov">         70 :             return 0;</span>
+<span class="lineNum">     243 </span>            :         }
+<span class="lineNum">     244 </span>            : 
+<span class="lineNum">     245 </span><span class="lineCov">         34 :         sptr = ziplistNext(zl, eptr);</span>
+<span class="lineNum">     246 </span><span class="lineCov">        124 :         while (eptr) {</span>
+<span class="lineNum">     247 </span><span class="lineCov">        114 :             score = zzlGetScore(sptr);</span>
+<span class="lineNum">     248 </span>            : 
+<span class="lineNum">     249 </span>            :             /* If we fell out of range, break. */
+<span class="lineNum">     250 </span><span class="lineCov">        114 :             if (!zslValueLteMax(score, &amp;range))</span>
+<span class="lineNum">     251 </span>            :                 break;
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span>            :             /* We know the element exists. ziplistGet should always succeed */
+<span class="lineNum">     254 </span><span class="lineCov">         90 :             ziplistGet(eptr, &amp;vstr, &amp;vlen, &amp;vlong);</span>
+<span class="lineNum">     255 </span><span class="lineCov">         90 :             member = (vstr == NULL) ? sdsfromlonglong(vlong) :</span>
+<span class="lineNum">     256 </span><span class="lineCov">         78 :                                       sdsnewlen(vstr,vlen);</span>
+<span class="lineNum">     257 </span><span class="lineCov">         90 :             if (geoAppendIfWithinRadius(ga,lon,lat,radius,score,member)</span>
+<span class="lineNum">     258 </span><span class="lineCov">         16 :                 == C_ERR) sdsfree(member);</span>
+<span class="lineNum">     259 </span><span class="lineCov">         90 :             zzlNext(zl, &amp;eptr, &amp;sptr);</span>
+<span class="lineNum">     260 </span>            :         }
+<span class="lineNum">     261 </span><span class="lineCov">        262 :     } else if (zobj-&gt;encoding == OBJ_ENCODING_SKIPLIST) {</span>
+<span class="lineNum">     262 </span><span class="lineCov">        262 :         zset *zs = zobj-&gt;ptr;</span>
+<span class="lineNum">     263 </span><span class="lineCov">        262 :         zskiplist *zsl = zs-&gt;zsl;</span>
+<span class="lineNum">     264 </span><span class="lineCov">        262 :         zskiplistNode *ln;</span>
+<span class="lineNum">     265 </span>            : 
+<span class="lineNum">     266 </span><span class="lineCov">        262 :         if ((ln = zslFirstInRange(zsl, &amp;range)) == NULL) {</span>
+<span class="lineNum">     267 </span>            :             /* Nothing exists starting at our min.  No results. */
+<span class="lineNum">     268 </span>            :             return 0;
+<span class="lineNum">     269 </span>            :         }
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span><span class="lineCov">     160999 :         while (ln) {</span>
+<span class="lineNum">     272 </span><span class="lineCov">     160991 :             sds ele = ln-&gt;ele;</span>
+<span class="lineNum">     273 </span>            :             /* Abort when the node is no longer in range. */
+<span class="lineNum">     274 </span><span class="lineCov">     160991 :             if (!zslValueLteMax(ln-&gt;score, &amp;range))</span>
+<span class="lineNum">     275 </span>            :                 break;
+<span class="lineNum">     276 </span>            : 
+<span class="lineNum">     277 </span><span class="lineCov">     160804 :             ele = sdsdup(ele);</span>
+<span class="lineNum">     278 </span><span class="lineCov">     160804 :             if (geoAppendIfWithinRadius(ga,lon,lat,radius,ln-&gt;score,ele)</span>
+<span class="lineNum">     279 </span><span class="lineCov">     109176 :                 == C_ERR) sdsfree(ele);</span>
+<span class="lineNum">     280 </span><span class="lineCov">     160804 :             ln = ln-&gt;level[0].forward;</span>
+<span class="lineNum">     281 </span>            :         }
+<span class="lineNum">     282 </span>            :     }
+<span class="lineNum">     283 </span><span class="lineCov">        229 :     return ga-&gt;used - origincount;</span>
+<span class="lineNum">     284 </span>            : }
+<span class="lineNum">     285 </span>            : 
+<span class="lineNum">     286 </span>            : /* Compute the sorted set scores min (inclusive), max (exclusive) we should
+<a name="287"><span class="lineNum">     287 </span>            :  * query in order to retrieve all the elements inside the specified area</a>
+<span class="lineNum">     288 </span>            :  * 'hash'. The two scores are returned by reference in *min and *max. */
+<span class="lineNum">     289 </span><span class="lineCov">        366 : void scoresOfGeoHashBox(GeoHashBits hash, GeoHashFix52Bits *min, GeoHashFix52Bits *max) {</span>
+<span class="lineNum">     290 </span>            :     /* We want to compute the sorted set scores that will include all the
+<span class="lineNum">     291 </span>            :      * elements inside the specified Geohash 'hash', which has as many
+<span class="lineNum">     292 </span>            :      * bits as specified by hash.step * 2.
+<span class="lineNum">     293 </span>            :      *
+<span class="lineNum">     294 </span>            :      * So if step is, for example, 3, and the hash value in binary
+<span class="lineNum">     295 </span>            :      * is 101010, since our score is 52 bits we want every element which
+<span class="lineNum">     296 </span>            :      * is in binary: 101010?????????????????????????????????????????????
+<span class="lineNum">     297 </span>            :      * Where ? can be 0 or 1.
+<span class="lineNum">     298 </span>            :      *
+<span class="lineNum">     299 </span>            :      * To get the min score we just use the initial hash value left
+<span class="lineNum">     300 </span>            :      * shifted enough to get the 52 bit value. Later we increment the
+<span class="lineNum">     301 </span>            :      * 6 bit prefis (see the hash.bits++ statement), and get the new
+<span class="lineNum">     302 </span>            :      * prefix: 101011, which we align again to 52 bits to get the maximum
+<span class="lineNum">     303 </span>            :      * value (which is excluded from the search). So we get everything
+<span class="lineNum">     304 </span>            :      * between the two following scores (represented in binary):
+<span class="lineNum">     305 </span>            :      *
+<span class="lineNum">     306 </span>            :      * 1010100000000000000000000000000000000000000000000000 (included)
+<span class="lineNum">     307 </span>            :      * and
+<span class="lineNum">     308 </span>            :      * 1010110000000000000000000000000000000000000000000000 (excluded).
+<span class="lineNum">     309 </span>            :      */
+<span class="lineNum">     310 </span><span class="lineCov">        366 :     *min = geohashAlign52Bits(hash);</span>
+<span class="lineNum">     311 </span><span class="lineCov">        366 :     hash.bits++;</span>
+<span class="lineNum">     312 </span><span class="lineCov">        366 :     *max = geohashAlign52Bits(hash);</span>
+<span class="lineNum">     313 </span><span class="lineCov">        366 : }</span>
+<span class="lineNum">     314 </span>            : 
+<span class="lineNum">     315 </span>            : /* Obtain all members between the min/max of this geohash bounding box.
+<a name="316"><span class="lineNum">     316 </span>            :  * Populate a geoArray of GeoPoints by calling geoGetPointsInRange().</a>
+<span class="lineNum">     317 </span>            :  * Return the number of points added to the array. */
+<span class="lineNum">     318 </span><span class="lineCov">        366 : int membersOfGeoHashBox(robj *zobj, GeoHashBits hash, geoArray *ga, double lon, double lat, double radius) {</span>
+<span class="lineNum">     319 </span><span class="lineCov">        366 :     GeoHashFix52Bits min, max;</span>
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span><span class="lineCov">        366 :     scoresOfGeoHashBox(hash,&amp;min,&amp;max);</span>
+<span class="lineNum">     322 </span><span class="lineCov">        366 :     return geoGetPointsInRange(zobj, min, max, lon, lat, radius, ga);</span>
+<span class="lineNum">     323 </span>            : }
+<a name="324"><span class="lineNum">     324 </span>            : </a>
+<span class="lineNum">     325 </span>            : /* Search all eight neighbors + self geohash box */
+<span class="lineNum">     326 </span><span class="lineCov">         80 : int membersOfAllNeighbors(robj *zobj, GeoHashRadius n, double lon, double lat, double radius, geoArray *ga) {</span>
+<span class="lineNum">     327 </span><span class="lineCov">         80 :     GeoHashBits neighbors[9];</span>
+<span class="lineNum">     328 </span><span class="lineCov">         80 :     unsigned int i, count = 0, last_processed = 0;</span>
+<span class="lineNum">     329 </span><span class="lineCov">         80 :     int debugmsg = 0;</span>
+<span class="lineNum">     330 </span>            : 
+<span class="lineNum">     331 </span><span class="lineCov">         80 :     neighbors[0] = n.hash;</span>
+<span class="lineNum">     332 </span><span class="lineCov">         80 :     neighbors[1] = n.neighbors.north;</span>
+<span class="lineNum">     333 </span><span class="lineCov">         80 :     neighbors[2] = n.neighbors.south;</span>
+<span class="lineNum">     334 </span><span class="lineCov">         80 :     neighbors[3] = n.neighbors.east;</span>
+<span class="lineNum">     335 </span><span class="lineCov">         80 :     neighbors[4] = n.neighbors.west;</span>
+<span class="lineNum">     336 </span><span class="lineCov">         80 :     neighbors[5] = n.neighbors.north_east;</span>
+<span class="lineNum">     337 </span><span class="lineCov">         80 :     neighbors[6] = n.neighbors.north_west;</span>
+<span class="lineNum">     338 </span><span class="lineCov">         80 :     neighbors[7] = n.neighbors.south_east;</span>
+<span class="lineNum">     339 </span><span class="lineCov">         80 :     neighbors[8] = n.neighbors.south_west;</span>
+<span class="lineNum">     340 </span>            : 
+<span class="lineNum">     341 </span>            :     /* For each neighbor (*and* our own hashbox), get all the matching
+<span class="lineNum">     342 </span>            :      * members and add them to the potential result list. */
+<span class="lineNum">     343 </span><span class="lineCov">        800 :     for (i = 0; i &lt; sizeof(neighbors) / sizeof(*neighbors); i++) {</span>
+<span class="lineNum">     344 </span><span class="lineCov">        720 :         if (HASHISZERO(neighbors[i])) {</span>
+<span class="lineNum">     345 </span>            :             if (debugmsg) D(&quot;neighbors[%d] is zero&quot;,i);
+<span class="lineNum">     346 </span>            :             continue;
+<span class="lineNum">     347 </span>            :         }
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span>            :         /* Debugging info. */
+<span class="lineNum">     350 </span><span class="lineCov">        416 :         if (debugmsg) {</span>
+<span class="lineNum">     351 </span>            :             GeoHashRange long_range, lat_range;
+<span class="lineNum">     352 </span>            :             geohashGetCoordRange(&amp;long_range,&amp;lat_range);
+<span class="lineNum">     353 </span>            :             GeoHashArea myarea = {{0}};
+<span class="lineNum">     354 </span>            :             geohashDecode(long_range, lat_range, neighbors[i], &amp;myarea);
+<span class="lineNum">     355 </span>            : 
+<span class="lineNum">     356 </span>            :             /* Dump center square. */
+<span class="lineNum">     357 </span>            :             D(&quot;neighbors[%d]:\n&quot;,i);
+<span class="lineNum">     358 </span>            :             D(&quot;area.longitude.min: %f\n&quot;, myarea.longitude.min);
+<span class="lineNum">     359 </span>            :             D(&quot;area.longitude.max: %f\n&quot;, myarea.longitude.max);
+<span class="lineNum">     360 </span>            :             D(&quot;area.latitude.min: %f\n&quot;, myarea.latitude.min);
+<span class="lineNum">     361 </span>            :             D(&quot;area.latitude.max: %f\n&quot;, myarea.latitude.max);
+<span class="lineNum">     362 </span>            :             D(&quot;\n&quot;);
+<span class="lineNum">     363 </span>            :         }
+<span class="lineNum">     364 </span>            : 
+<span class="lineNum">     365 </span>            :         /* When a huge Radius (in the 5000 km range or more) is used,
+<span class="lineNum">     366 </span>            :          * adjacent neighbors can be the same, leading to duplicated
+<span class="lineNum">     367 </span>            :          * elements. Skip every range which is the same as the one
+<span class="lineNum">     368 </span>            :          * processed previously. */
+<span class="lineNum">     369 </span><span class="lineCov">        416 :         if (last_processed &amp;&amp;</span>
+<span class="lineNum">     370 </span><span class="lineCov">        256 :             neighbors[i].bits == neighbors[last_processed].bits &amp;&amp;</span>
+<span class="lineNum">     371 </span><span class="lineCov">         50 :             neighbors[i].step == neighbors[last_processed].step)</span>
+<span class="lineNum">     372 </span>            :         {
+<span class="lineNum">     373 </span>            :             if (debugmsg)
+<span class="lineNum">     374 </span>            :                 D(&quot;Skipping processing of %d, same as previous\n&quot;,i);
+<span class="lineNum">     375 </span>            :             continue;
+<span class="lineNum">     376 </span>            :         }
+<span class="lineNum">     377 </span><span class="lineCov">        366 :         count += membersOfGeoHashBox(zobj, neighbors[i], ga, lon, lat, radius);</span>
+<span class="lineNum">     378 </span><span class="lineCov">        366 :         last_processed = i;</span>
+<span class="lineNum">     379 </span>            :     }
+<span class="lineNum">     380 </span><span class="lineCov">         80 :     return count;</span>
+<span class="lineNum">     381 </span>            : }
+<a name="382"><span class="lineNum">     382 </span>            : </a>
+<span class="lineNum">     383 </span>            : /* Sort comparators for qsort() */
+<span class="lineNum">     384 </span><span class="lineCov">         30 : static int sort_gp_asc(const void *a, const void *b) {</span>
+<span class="lineNum">     385 </span><span class="lineCov">         52 :     const struct geoPoint *gpa = a, *gpb = b;</span>
+<span class="lineNum">     386 </span>            :     /* We can't do adist - bdist because they are doubles and
+<span class="lineNum">     387 </span>            :      * the comparator returns an int. */
+<span class="lineNum">     388 </span><span class="lineCov">         30 :     if (gpa-&gt;dist &gt; gpb-&gt;dist)</span>
+<span class="lineNum">     389 </span>            :         return 1;
+<span class="lineNum">     390 </span><span class="lineCov">         32 :     else if (gpa-&gt;dist == gpb-&gt;dist)</span>
+<span class="lineNum">     391 </span>            :         return 0;
+<span class="lineNum">     392 </span>            :     else
+<span class="lineNum">     393 </span><span class="lineCov">         32 :         return -1;</span>
+<a name="394"><span class="lineNum">     394 </span>            : }</a>
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span><span class="lineCov">         22 : static int sort_gp_desc(const void *a, const void *b) {</span>
+<span class="lineNum">     397 </span><span class="lineCov">         22 :     return -sort_gp_asc(a, b);</span>
+<span class="lineNum">     398 </span>            : }
+<span class="lineNum">     399 </span>            : 
+<span class="lineNum">     400 </span>            : /* ====================================================================
+<span class="lineNum">     401 </span>            :  * Commands
+<span class="lineNum">     402 </span>            :  * ==================================================================== */
+<a name="403"><span class="lineNum">     403 </span>            : </a>
+<span class="lineNum">     404 </span>            : /* GEOADD key long lat name [long2 lat2 name2 ... longN latN nameN] */
+<span class="lineNum">     405 </span><span class="lineCov">         94 : void geoaddCommand(client *c) {</span>
+<span class="lineNum">     406 </span>            :     /* Check arguments number for sanity. */
+<span class="lineNum">     407 </span><span class="lineCov">         94 :     if ((c-&gt;argc - 2) % 3 != 0) {</span>
+<span class="lineNum">     408 </span>            :         /* Need an odd number of arguments if we got this far... */
+<span class="lineNum">     409 </span><span class="lineNoCov">          0 :         addReplyError(c, &quot;syntax error. Try GEOADD key [x1] [y1] [name1] &quot;</span>
+<span class="lineNum">     410 </span>            :                          &quot;[x2] [y2] [name2] ... &quot;);
+<span class="lineNum">     411 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     412 </span>            :     }
+<span class="lineNum">     413 </span>            : 
+<span class="lineNum">     414 </span><span class="lineCov">         94 :     int elements = (c-&gt;argc - 2) / 3;</span>
+<span class="lineNum">     415 </span><span class="lineCov">         94 :     int argc = 2+elements*2; /* ZADD key score ele ... */</span>
+<span class="lineNum">     416 </span><span class="lineCov">         94 :     robj **argv = zcalloc(argc*sizeof(robj*));</span>
+<span class="lineNum">     417 </span><span class="lineCov">         94 :     argv[0] = createRawStringObject(&quot;zadd&quot;,4);</span>
+<span class="lineNum">     418 </span><span class="lineCov">         94 :     argv[1] = c-&gt;argv[1]; /* key */</span>
+<span class="lineNum">     419 </span><span class="lineCov">         94 :     incrRefCount(argv[1]);</span>
+<span class="lineNum">     420 </span>            : 
+<span class="lineNum">     421 </span>            :     /* Create the argument vector to call ZADD in order to add all
+<span class="lineNum">     422 </span>            :      * the score,value pairs to the requested zset, where score is actually
+<span class="lineNum">     423 </span>            :      * an encoded version of lat,long. */
+<span class="lineNum">     424 </span><span class="lineCov">         94 :     int i;</span>
+<span class="lineNum">     425 </span><span class="lineCov">    1160158 :     for (i = 0; i &lt; elements; i++) {</span>
+<span class="lineNum">     426 </span><span class="lineCov">    1160066 :         double xy[2];</span>
+<span class="lineNum">     427 </span>            : 
+<span class="lineNum">     428 </span><span class="lineCov">    1160066 :         if (extractLongLatOrReply(c, (c-&gt;argv+2)+(i*3),xy) == C_ERR) {</span>
+<span class="lineNum">     429 </span><span class="lineCov">         14 :             for (i = 0; i &lt; argc; i++)</span>
+<span class="lineNum">     430 </span><span class="lineCov">         12 :                 if (argv[i]) decrRefCount(argv[i]);</span>
+<span class="lineNum">     431 </span><span class="lineCov">          2 :             zfree(argv);</span>
+<span class="lineNum">     432 </span><span class="lineCov">          2 :             return;</span>
+<span class="lineNum">     433 </span>            :         }
+<span class="lineNum">     434 </span>            : 
+<span class="lineNum">     435 </span>            :         /* Turn the coordinates into the score of the element. */
+<span class="lineNum">     436 </span><span class="lineCov">    1160064 :         GeoHashBits hash;</span>
+<span class="lineNum">     437 </span><span class="lineCov">    1160064 :         geohashEncodeWGS84(xy[0], xy[1], GEO_STEP_MAX, &amp;hash);</span>
+<span class="lineNum">     438 </span><span class="lineCov">    1160064 :         GeoHashFix52Bits bits = geohashAlign52Bits(hash);</span>
+<span class="lineNum">     439 </span><span class="lineCov">    1160064 :         robj *score = createObject(OBJ_STRING, sdsfromlonglong(bits));</span>
+<span class="lineNum">     440 </span><span class="lineCov">    1160064 :         robj *val = c-&gt;argv[2 + i * 3 + 2];</span>
+<span class="lineNum">     441 </span><span class="lineCov">    1160064 :         argv[2+i*2] = score;</span>
+<span class="lineNum">     442 </span><span class="lineCov">    1160064 :         argv[3+i*2] = val;</span>
+<span class="lineNum">     443 </span><span class="lineCov">    1160064 :         incrRefCount(val);</span>
+<span class="lineNum">     444 </span>            :     }
+<span class="lineNum">     445 </span>            : 
+<span class="lineNum">     446 </span>            :     /* Finally call ZADD that will do the work for us. */
+<span class="lineNum">     447 </span><span class="lineCov">         92 :     replaceClientCommandVector(c,argc,argv);</span>
+<span class="lineNum">     448 </span><span class="lineCov">         92 :     zaddCommand(c);</span>
+<span class="lineNum">     449 </span>            : }
+<span class="lineNum">     450 </span>            : 
+<span class="lineNum">     451 </span>            : #define SORT_NONE 0
+<span class="lineNum">     452 </span>            : #define SORT_ASC 1
+<span class="lineNum">     453 </span>            : #define SORT_DESC 2
+<span class="lineNum">     454 </span>            : 
+<span class="lineNum">     455 </span>            : #define RADIUS_COORDS (1&lt;&lt;0)    /* Search around coordinates. */
+<span class="lineNum">     456 </span>            : #define RADIUS_MEMBER (1&lt;&lt;1)    /* Search around member. */
+<span class="lineNum">     457 </span>            : #define RADIUS_NOSTORE (1&lt;&lt;2)   /* Do not acceot STORE/STOREDIST option. */
+<span class="lineNum">     458 </span>            : 
+<span class="lineNum">     459 </span>            : /* GEORADIUS key x y radius unit [WITHDIST] [WITHHASH] [WITHCOORD] [ASC|DESC]
+<a name="460"><span class="lineNum">     460 </span>            :  *                               [COUNT count] [STORE key] [STOREDIST key]</a>
+<span class="lineNum">     461 </span>            :  * GEORADIUSBYMEMBER key member radius unit ... options ... */
+<span class="lineNum">     462 </span><span class="lineCov">         90 : void georadiusGeneric(client *c, int flags) {</span>
+<span class="lineNum">     463 </span><span class="lineCov">         90 :     robj *key = c-&gt;argv[1];</span>
+<span class="lineNum">     464 </span><span class="lineCov">         90 :     robj *storekey = NULL;</span>
+<span class="lineNum">     465 </span><span class="lineCov">         90 :     int storedist = 0; /* 0 for STORE, 1 for STOREDIST. */</span>
+<span class="lineNum">     466 </span>            : 
+<span class="lineNum">     467 </span>            :     /* Look up the requested zset */
+<span class="lineNum">     468 </span><span class="lineCov">         90 :     robj *zobj = NULL;</span>
+<span class="lineNum">     469 </span><span class="lineCov">        180 :     if ((zobj = lookupKeyReadOrReply(c, key, shared.emptymultibulk)) == NULL ||</span>
+<span class="lineNum">     470 </span><span class="lineCov">         90 :         checkType(c, zobj, OBJ_ZSET)) {</span>
+<span class="lineNum">     471 </span><span class="lineCov">         22 :         return;</span>
+<span class="lineNum">     472 </span>            :     }
+<span class="lineNum">     473 </span>            : 
+<span class="lineNum">     474 </span>            :     /* Find long/lat to use for radius search based on inquiry type */
+<span class="lineNum">     475 </span><span class="lineCov">         90 :     int base_args;</span>
+<span class="lineNum">     476 </span><span class="lineCov">         90 :     double xy[2] = { 0 };</span>
+<span class="lineNum">     477 </span><span class="lineCov">         90 :     if (flags &amp; RADIUS_COORDS) {</span>
+<span class="lineNum">     478 </span><span class="lineCov">         86 :         base_args = 6;</span>
+<span class="lineNum">     479 </span><span class="lineCov">         86 :         if (extractLongLatOrReply(c, c-&gt;argv + 2, xy) == C_ERR)</span>
+<span class="lineNum">     480 </span>            :             return;
+<span class="lineNum">     481 </span><span class="lineCov">          4 :     } else if (flags &amp; RADIUS_MEMBER) {</span>
+<span class="lineNum">     482 </span><span class="lineCov">          4 :         base_args = 5;</span>
+<span class="lineNum">     483 </span><span class="lineCov">          4 :         robj *member = c-&gt;argv[2];</span>
+<span class="lineNum">     484 </span><span class="lineCov">          4 :         if (longLatFromMember(zobj, member, xy) == C_ERR) {</span>
+<span class="lineNum">     485 </span><span class="lineNoCov">          0 :             addReplyError(c, &quot;could not decode requested zset member&quot;);</span>
+<span class="lineNum">     486 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     487 </span>            :         }
+<span class="lineNum">     488 </span>            :     } else {
+<span class="lineNum">     489 </span><span class="lineNoCov">          0 :         addReplyError(c, &quot;Unknown georadius search type&quot;);</span>
+<span class="lineNum">     490 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     491 </span>            :     }
+<span class="lineNum">     492 </span>            : 
+<span class="lineNum">     493 </span>            :     /* Extract radius and units from arguments */
+<span class="lineNum">     494 </span><span class="lineCov">         90 :     double radius_meters = 0, conversion = 1;</span>
+<span class="lineNum">     495 </span><span class="lineCov">         90 :     if ((radius_meters = extractDistanceOrReply(c, c-&gt;argv + base_args - 2,</span>
+<span class="lineNum">     496 </span>            :                                                 &amp;conversion)) &lt; 0) {
+<span class="lineNum">     497 </span>            :         return;
+<span class="lineNum">     498 </span>            :     }
+<span class="lineNum">     499 </span>            : 
+<span class="lineNum">     500 </span>            :     /* Discover and populate all optional parameters. */
+<span class="lineNum">     501 </span><span class="lineCov">         90 :     int withdist = 0, withhash = 0, withcoords = 0;</span>
+<span class="lineNum">     502 </span><span class="lineCov">         90 :     int sort = SORT_NONE;</span>
+<span class="lineNum">     503 </span><span class="lineCov">         90 :     long long count = 0;</span>
+<span class="lineNum">     504 </span><span class="lineCov">         90 :     if (c-&gt;argc &gt; base_args) {</span>
+<span class="lineNum">     505 </span><span class="lineCov">         30 :         int remaining = c-&gt;argc - base_args;</span>
+<span class="lineNum">     506 </span><span class="lineCov">         72 :         for (int i = 0; i &lt; remaining; i++) {</span>
+<span class="lineNum">     507 </span><span class="lineCov">         48 :             char *arg = c-&gt;argv[base_args + i]-&gt;ptr;</span>
+<span class="lineNum">     508 </span><span class="lineCov">         48 :             if (!strcasecmp(arg, &quot;withdist&quot;)) {</span>
+<span class="lineNum">     509 </span>            :                 withdist = 1;
+<span class="lineNum">     510 </span><span class="lineCov">         42 :             } else if (!strcasecmp(arg, &quot;withhash&quot;)) {</span>
+<span class="lineNum">     511 </span>            :                 withhash = 1;
+<span class="lineNum">     512 </span><span class="lineCov">         40 :             } else if (!strcasecmp(arg, &quot;withcoord&quot;)) {</span>
+<span class="lineNum">     513 </span>            :                 withcoords = 1;
+<span class="lineNum">     514 </span><span class="lineCov">         38 :             } else if (!strcasecmp(arg, &quot;asc&quot;)) {</span>
+<span class="lineNum">     515 </span>            :                 sort = SORT_ASC;
+<span class="lineNum">     516 </span><span class="lineCov">         32 :             } else if (!strcasecmp(arg, &quot;desc&quot;)) {</span>
+<span class="lineNum">     517 </span>            :                 sort = SORT_DESC;
+<span class="lineNum">     518 </span><span class="lineCov">         28 :             } else if (!strcasecmp(arg, &quot;count&quot;) &amp;&amp; (i+1) &lt; remaining) {</span>
+<span class="lineNum">     519 </span><span class="lineCov">          8 :                 if (getLongLongFromObjectOrReply(c, c-&gt;argv[base_args+i+1],</span>
+<span class="lineNum">     520 </span>            :                     &amp;count, NULL) != C_OK) return;
+<span class="lineNum">     521 </span><span class="lineCov">          8 :                 if (count &lt;= 0) {</span>
+<span class="lineNum">     522 </span><span class="lineNoCov">          0 :                     addReplyError(c,&quot;COUNT must be &gt; 0&quot;);</span>
+<span class="lineNum">     523 </span><span class="lineNoCov">          0 :                     return;</span>
+<span class="lineNum">     524 </span>            :                 }
+<span class="lineNum">     525 </span>            :                 i++;
+<span class="lineNum">     526 </span><span class="lineCov">         20 :             } else if (!strcasecmp(arg, &quot;store&quot;) &amp;&amp;</span>
+<span class="lineNum">     527 </span><span class="lineCov">         10 :                        (i+1) &lt; remaining &amp;&amp;</span>
+<span class="lineNum">     528 </span><span class="lineCov">          8 :                        !(flags &amp; RADIUS_NOSTORE))</span>
+<span class="lineNum">     529 </span>            :             {
+<span class="lineNum">     530 </span><span class="lineCov">          8 :                 storekey = c-&gt;argv[base_args+i+1];</span>
+<span class="lineNum">     531 </span><span class="lineCov">          8 :                 storedist = 0;</span>
+<span class="lineNum">     532 </span><span class="lineCov">          8 :                 i++;</span>
+<span class="lineNum">     533 </span><span class="lineCov">         12 :             } else if (!strcasecmp(arg, &quot;storedist&quot;) &amp;&amp;</span>
+<span class="lineNum">     534 </span><span class="lineCov">          6 :                        (i+1) &lt; remaining &amp;&amp;</span>
+<span class="lineNum">     535 </span><span class="lineCov">          6 :                        !(flags &amp; RADIUS_NOSTORE))</span>
+<span class="lineNum">     536 </span>            :             {
+<span class="lineNum">     537 </span><span class="lineCov">          6 :                 storekey = c-&gt;argv[base_args+i+1];</span>
+<span class="lineNum">     538 </span><span class="lineCov">          6 :                 storedist = 1;</span>
+<span class="lineNum">     539 </span><span class="lineCov">          6 :                 i++;</span>
+<span class="lineNum">     540 </span>            :             } else {
+<span class="lineNum">     541 </span><span class="lineCov">          6 :                 addReply(c, shared.syntaxerr);</span>
+<span class="lineNum">     542 </span><span class="lineCov">          6 :                 return;</span>
+<span class="lineNum">     543 </span>            :             }
+<span class="lineNum">     544 </span>            :         }
+<span class="lineNum">     545 </span>            :     }
+<span class="lineNum">     546 </span>            : 
+<span class="lineNum">     547 </span>            :     /* Trap options not compatible with STORE and STOREDIST. */
+<span class="lineNum">     548 </span><span class="lineCov">         84 :     if (storekey &amp;&amp; (withdist || withhash || withcoords)) {</span>
+<span class="lineNum">     549 </span><span class="lineCov">          4 :         addReplyError(c,</span>
+<span class="lineNum">     550 </span>            :             &quot;STORE option in GEORADIUS is not compatible with &quot;
+<span class="lineNum">     551 </span>            :             &quot;WITHDIST, WITHHASH and WITHCOORDS options&quot;);
+<span class="lineNum">     552 </span><span class="lineCov">          4 :         return;</span>
+<span class="lineNum">     553 </span>            :     }
+<span class="lineNum">     554 </span>            : 
+<span class="lineNum">     555 </span>            :     /* COUNT without ordering does not make much sense, force ASC
+<span class="lineNum">     556 </span>            :      * ordering if COUNT was specified but no sorting was requested. */
+<span class="lineNum">     557 </span><span class="lineCov">         80 :     if (count != 0 &amp;&amp; sort == SORT_NONE) sort = SORT_ASC;</span>
+<span class="lineNum">     558 </span>            : 
+<span class="lineNum">     559 </span>            :     /* Get all neighbor geohash boxes for our radius search */
+<span class="lineNum">     560 </span><span class="lineCov">         80 :     GeoHashRadius georadius =</span>
+<span class="lineNum">     561 </span><span class="lineCov">         80 :         geohashGetAreasByRadiusWGS84(xy[0], xy[1], radius_meters);</span>
+<span class="lineNum">     562 </span>            : 
+<span class="lineNum">     563 </span>            :     /* Search the zset for all matching points */
+<span class="lineNum">     564 </span><span class="lineCov">         80 :     geoArray *ga = geoArrayCreate();</span>
+<span class="lineNum">     565 </span><span class="lineCov">         80 :     membersOfAllNeighbors(zobj, georadius, xy[0], xy[1], radius_meters, ga);</span>
+<span class="lineNum">     566 </span>            : 
+<span class="lineNum">     567 </span>            :     /* If no matching results, the user gets an empty reply. */
+<span class="lineNum">     568 </span><span class="lineCov">         80 :     if (ga-&gt;used == 0 &amp;&amp; storekey == NULL) {</span>
+<span class="lineNum">     569 </span><span class="lineCov">         12 :         addReply(c, shared.emptymultibulk);</span>
+<span class="lineNum">     570 </span><span class="lineCov">         12 :         geoArrayFree(ga);</span>
+<span class="lineNum">     571 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">     572 </span>            :     }
+<span class="lineNum">     573 </span>            : 
+<span class="lineNum">     574 </span><span class="lineCov">         68 :     long result_length = ga-&gt;used;</span>
+<span class="lineNum">     575 </span><span class="lineCov">          8 :     long returned_items = (count == 0 || result_length &lt; count) ?</span>
+<span class="lineNum">     576 </span><span class="lineCov">         68 :                           result_length : count;</span>
+<span class="lineNum">     577 </span><span class="lineCov">         68 :     long option_length = 0;</span>
+<span class="lineNum">     578 </span>            : 
+<span class="lineNum">     579 </span>            :     /* Process [optional] requested sorting */
+<span class="lineNum">     580 </span><span class="lineCov">         68 :     if (sort == SORT_ASC) {</span>
+<span class="lineNum">     581 </span><span class="lineCov">          8 :         qsort(ga-&gt;array, result_length, sizeof(geoPoint), sort_gp_asc);</span>
+<span class="lineNum">     582 </span><span class="lineCov">         60 :     } else if (sort == SORT_DESC) {</span>
+<span class="lineNum">     583 </span><span class="lineCov">          4 :         qsort(ga-&gt;array, result_length, sizeof(geoPoint), sort_gp_desc);</span>
+<span class="lineNum">     584 </span>            :     }
+<span class="lineNum">     585 </span>            : 
+<span class="lineNum">     586 </span><span class="lineCov">         68 :     if (storekey == NULL) {</span>
+<span class="lineNum">     587 </span>            :         /* No target key, return results to user. */
+<span class="lineNum">     588 </span>            : 
+<span class="lineNum">     589 </span>            :         /* Our options are self-contained nested multibulk replies, so we
+<span class="lineNum">     590 </span>            :          * only need to track how many of those nested replies we return. */
+<span class="lineNum">     591 </span><span class="lineCov">         60 :         if (withdist)</span>
+<span class="lineNum">     592 </span><span class="lineCov">          4 :             option_length++;</span>
+<span class="lineNum">     593 </span>            : 
+<span class="lineNum">     594 </span><span class="lineCov">         60 :         if (withcoords)</span>
+<span class="lineNum">     595 </span><span class="lineCov">          2 :             option_length++;</span>
+<span class="lineNum">     596 </span>            : 
+<span class="lineNum">     597 </span><span class="lineCov">         60 :         if (withhash)</span>
+<span class="lineNum">     598 </span><span class="lineNoCov">          0 :             option_length++;</span>
+<span class="lineNum">     599 </span>            : 
+<span class="lineNum">     600 </span>            :         /* The multibulk len we send is exactly result_length. The result is
+<span class="lineNum">     601 </span>            :          * either all strings of just zset members  *or* a nested multi-bulk
+<span class="lineNum">     602 </span>            :          * reply containing the zset member string _and_ all the additional
+<span class="lineNum">     603 </span>            :          * options the user enabled for this request. */
+<span class="lineNum">     604 </span><span class="lineCov">         60 :         addReplyMultiBulkLen(c, returned_items);</span>
+<span class="lineNum">     605 </span>            : 
+<span class="lineNum">     606 </span>            :         /* Finally send results back to the caller */
+<span class="lineNum">     607 </span><span class="lineCov">         60 :         int i;</span>
+<span class="lineNum">     608 </span><span class="lineCov">      51732 :         for (i = 0; i &lt; returned_items; i++) {</span>
+<span class="lineNum">     609 </span><span class="lineCov">      51672 :             geoPoint *gp = ga-&gt;array+i;</span>
+<span class="lineNum">     610 </span><span class="lineCov">      51672 :             gp-&gt;dist /= conversion; /* Fix according to unit. */</span>
+<span class="lineNum">     611 </span>            : 
+<span class="lineNum">     612 </span>            :             /* If we have options in option_length, return each sub-result
+<span class="lineNum">     613 </span>            :              * as a nested multi-bulk.  Add 1 to account for result value
+<span class="lineNum">     614 </span>            :              * itself. */
+<span class="lineNum">     615 </span><span class="lineCov">      51672 :             if (option_length)</span>
+<span class="lineNum">     616 </span><span class="lineCov">         18 :                 addReplyMultiBulkLen(c, option_length + 1);</span>
+<span class="lineNum">     617 </span>            : 
+<span class="lineNum">     618 </span><span class="lineCov">      51672 :             addReplyBulkSds(c,gp-&gt;member);</span>
+<span class="lineNum">     619 </span><span class="lineCov">      51672 :             gp-&gt;member = NULL;</span>
+<span class="lineNum">     620 </span>            : 
+<span class="lineNum">     621 </span><span class="lineCov">      51672 :             if (withdist)</span>
+<span class="lineNum">     622 </span><span class="lineCov">         16 :                 addReplyDoubleDistance(c, gp-&gt;dist);</span>
+<span class="lineNum">     623 </span>            : 
+<span class="lineNum">     624 </span><span class="lineCov">      51672 :             if (withhash)</span>
+<span class="lineNum">     625 </span><span class="lineNoCov">          0 :                 addReplyLongLong(c, gp-&gt;score);</span>
+<span class="lineNum">     626 </span>            : 
+<span class="lineNum">     627 </span><span class="lineCov">      51672 :             if (withcoords) {</span>
+<span class="lineNum">     628 </span><span class="lineCov">          2 :                 addReplyMultiBulkLen(c, 2);</span>
+<span class="lineNum">     629 </span><span class="lineCov">          2 :                 addReplyHumanLongDouble(c, gp-&gt;longitude);</span>
+<span class="lineNum">     630 </span><span class="lineCov">          2 :                 addReplyHumanLongDouble(c, gp-&gt;latitude);</span>
+<span class="lineNum">     631 </span>            :             }
+<span class="lineNum">     632 </span>            :         }
+<span class="lineNum">     633 </span>            :     } else {
+<span class="lineNum">     634 </span>            :         /* Target key, create a sorted set with the results. */
+<span class="lineNum">     635 </span><span class="lineCov">          8 :         robj *zobj;</span>
+<span class="lineNum">     636 </span><span class="lineCov">          8 :         zset *zs;</span>
+<span class="lineNum">     637 </span><span class="lineCov">          8 :         int i;</span>
+<span class="lineNum">     638 </span><span class="lineCov">          8 :         size_t maxelelen = 0;</span>
+<span class="lineNum">     639 </span>            : 
+<span class="lineNum">     640 </span><span class="lineCov">          8 :         if (returned_items) {</span>
+<span class="lineNum">     641 </span><span class="lineCov">          8 :             zobj = createZsetObject();</span>
+<span class="lineNum">     642 </span><span class="lineCov">          8 :             zs = zobj-&gt;ptr;</span>
+<span class="lineNum">     643 </span>            :         }
+<span class="lineNum">     644 </span>            : 
+<span class="lineNum">     645 </span><span class="lineCov">         20 :         for (i = 0; i &lt; returned_items; i++) {</span>
+<span class="lineNum">     646 </span><span class="lineCov">         12 :             zskiplistNode *znode;</span>
+<span class="lineNum">     647 </span><span class="lineCov">         12 :             geoPoint *gp = ga-&gt;array+i;</span>
+<span class="lineNum">     648 </span><span class="lineCov">         12 :             gp-&gt;dist /= conversion; /* Fix according to unit. */</span>
+<span class="lineNum">     649 </span><span class="lineCov">         12 :             double score = storedist ? gp-&gt;dist : gp-&gt;score;</span>
+<span class="lineNum">     650 </span><span class="lineCov">         12 :             size_t elelen = sdslen(gp-&gt;member);</span>
+<span class="lineNum">     651 </span>            : 
+<span class="lineNum">     652 </span><span class="lineCov">         12 :             if (maxelelen &lt; elelen) maxelelen = elelen;</span>
+<span class="lineNum">     653 </span><span class="lineCov">         12 :             znode = zslInsert(zs-&gt;zsl,score,gp-&gt;member);</span>
+<span class="lineNum">     654 </span><span class="lineCov">         12 :             serverAssert(dictAdd(zs-&gt;dict,gp-&gt;member,&amp;znode-&gt;score) == DICT_OK);</span>
+<span class="lineNum">     655 </span><span class="lineCov">         12 :             gp-&gt;member = NULL;</span>
+<span class="lineNum">     656 </span>            :         }
+<span class="lineNum">     657 </span>            : 
+<span class="lineNum">     658 </span><span class="lineCov">          8 :         if (returned_items) {</span>
+<span class="lineNum">     659 </span><span class="lineCov">          8 :             zsetConvertToZiplistIfNeeded(zobj,maxelelen);</span>
+<span class="lineNum">     660 </span><span class="lineCov">          8 :             setKey(c-&gt;db,storekey,zobj);</span>
+<span class="lineNum">     661 </span><span class="lineCov">          8 :             decrRefCount(zobj);</span>
+<span class="lineNum">     662 </span><span class="lineCov">         16 :             notifyKeyspaceEvent(NOTIFY_LIST,&quot;georadiusstore&quot;,storekey,</span>
+<span class="lineNum">     663 </span><span class="lineCov">          8 :                                 c-&gt;db-&gt;id);</span>
+<span class="lineNum">     664 </span><span class="lineCov">          8 :             server.dirty += returned_items;</span>
+<span class="lineNum">     665 </span><span class="lineNoCov">          0 :         } else if (dbDelete(c-&gt;db,storekey)) {</span>
+<span class="lineNum">     666 </span><span class="lineNoCov">          0 :             signalModifiedKey(c-&gt;db,storekey);</span>
+<span class="lineNum">     667 </span><span class="lineNoCov">          0 :             notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,storekey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     668 </span><span class="lineNoCov">          0 :             server.dirty++;</span>
+<span class="lineNum">     669 </span>            :         }
+<span class="lineNum">     670 </span><span class="lineCov">          8 :         addReplyLongLong(c, returned_items);</span>
+<span class="lineNum">     671 </span>            :     }
+<span class="lineNum">     672 </span><span class="lineCov">         68 :     geoArrayFree(ga);</span>
+<span class="lineNum">     673 </span>            : }
+<a name="674"><span class="lineNum">     674 </span>            : </a>
+<span class="lineNum">     675 </span>            : /* GEORADIUS wrapper function. */
+<span class="lineNum">     676 </span><span class="lineCov">         86 : void georadiusCommand(client *c) {</span>
+<span class="lineNum">     677 </span><span class="lineCov">         86 :     georadiusGeneric(c, RADIUS_COORDS);</span>
+<span class="lineNum">     678 </span><span class="lineCov">         86 : }</span>
+<a name="679"><span class="lineNum">     679 </span>            : </a>
+<span class="lineNum">     680 </span>            : /* GEORADIUSBYMEMBER wrapper function. */
+<span class="lineNum">     681 </span><span class="lineCov">          4 : void georadiusbymemberCommand(client *c) {</span>
+<span class="lineNum">     682 </span><span class="lineCov">          4 :     georadiusGeneric(c, RADIUS_MEMBER);</span>
+<span class="lineNum">     683 </span><span class="lineCov">          4 : }</span>
+<a name="684"><span class="lineNum">     684 </span>            : </a>
+<span class="lineNum">     685 </span>            : /* GEORADIUS_RO wrapper function. */
+<span class="lineNum">     686 </span><span class="lineNoCov">          0 : void georadiusroCommand(client *c) {</span>
+<span class="lineNum">     687 </span><span class="lineNoCov">          0 :     georadiusGeneric(c, RADIUS_COORDS|RADIUS_NOSTORE);</span>
+<span class="lineNum">     688 </span><span class="lineNoCov">          0 : }</span>
+<a name="689"><span class="lineNum">     689 </span>            : </a>
+<span class="lineNum">     690 </span>            : /* GEORADIUSBYMEMBER_RO wrapper function. */
+<span class="lineNum">     691 </span><span class="lineNoCov">          0 : void georadiusbymemberroCommand(client *c) {</span>
+<span class="lineNum">     692 </span><span class="lineNoCov">          0 :     georadiusGeneric(c, RADIUS_MEMBER|RADIUS_NOSTORE);</span>
+<span class="lineNum">     693 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     694 </span>            : 
+<span class="lineNum">     695 </span>            : /* GEOHASH key ele1 ele2 ... eleN
+<span class="lineNum">     696 </span>            :  *
+<a name="697"><span class="lineNum">     697 </span>            :  * Returns an array with an 11 characters geohash representation of the</a>
+<span class="lineNum">     698 </span>            :  * position of the specified elements. */
+<span class="lineNum">     699 </span><span class="lineCov">          2 : void geohashCommand(client *c) {</span>
+<span class="lineNum">     700 </span><span class="lineCov">          2 :     char *geoalphabet= &quot;0123456789bcdefghjkmnpqrstuvwxyz&quot;;</span>
+<span class="lineNum">     701 </span><span class="lineCov">          2 :     int j;</span>
+<span class="lineNum">     702 </span>            : 
+<span class="lineNum">     703 </span>            :     /* Look up the requested zset */
+<span class="lineNum">     704 </span><span class="lineCov">          2 :     robj *zobj = lookupKeyRead(c-&gt;db, c-&gt;argv[1]);</span>
+<span class="lineNum">     705 </span><span class="lineCov">          2 :     if (zobj &amp;&amp; checkType(c, zobj, OBJ_ZSET)) return;</span>
+<span class="lineNum">     706 </span>            : 
+<span class="lineNum">     707 </span>            :     /* Geohash elements one after the other, using a null bulk reply for
+<span class="lineNum">     708 </span>            :      * missing elements. */
+<span class="lineNum">     709 </span><span class="lineCov">          2 :     addReplyMultiBulkLen(c,c-&gt;argc-2);</span>
+<span class="lineNum">     710 </span><span class="lineCov">          4 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     711 </span><span class="lineCov">          2 :         double score;</span>
+<span class="lineNum">     712 </span><span class="lineCov">          2 :         if (!zobj || zsetScore(zobj, c-&gt;argv[j]-&gt;ptr, &amp;score) == C_ERR) {</span>
+<span class="lineNum">     713 </span><span class="lineNoCov">          0 :             addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     714 </span>            :         } else {
+<span class="lineNum">     715 </span>            :             /* The internal format we use for geocoding is a bit different
+<span class="lineNum">     716 </span>            :              * than the standard, since we use as initial latitude range
+<span class="lineNum">     717 </span>            :              * -85,85, while the normal geohashing algorithm uses -90,90.
+<span class="lineNum">     718 </span>            :              * So we have to decode our position and re-encode using the
+<span class="lineNum">     719 </span>            :              * standard ranges in order to output a valid geohash string. */
+<span class="lineNum">     720 </span>            : 
+<span class="lineNum">     721 </span>            :             /* Decode... */
+<span class="lineNum">     722 </span><span class="lineCov">          2 :             double xy[2];</span>
+<span class="lineNum">     723 </span><span class="lineCov">          2 :             if (!decodeGeohash(score,xy)) {</span>
+<span class="lineNum">     724 </span><span class="lineNoCov">          0 :                 addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     725 </span><span class="lineNoCov">          0 :                 continue;</span>
+<span class="lineNum">     726 </span>            :             }
+<span class="lineNum">     727 </span>            : 
+<span class="lineNum">     728 </span>            :             /* Re-encode */
+<span class="lineNum">     729 </span><span class="lineCov">          2 :             GeoHashRange r[2];</span>
+<span class="lineNum">     730 </span><span class="lineCov">          2 :             GeoHashBits hash;</span>
+<span class="lineNum">     731 </span><span class="lineCov">          2 :             r[0].min = -180;</span>
+<span class="lineNum">     732 </span><span class="lineCov">          2 :             r[0].max = 180;</span>
+<span class="lineNum">     733 </span><span class="lineCov">          2 :             r[1].min = -90;</span>
+<span class="lineNum">     734 </span><span class="lineCov">          2 :             r[1].max = 90;</span>
+<span class="lineNum">     735 </span><span class="lineCov">          2 :             geohashEncode(&amp;r[0],&amp;r[1],xy[0],xy[1],26,&amp;hash);</span>
+<span class="lineNum">     736 </span>            : 
+<span class="lineNum">     737 </span><span class="lineCov">          2 :             char buf[12];</span>
+<span class="lineNum">     738 </span><span class="lineCov">          2 :             int i;</span>
+<span class="lineNum">     739 </span><span class="lineCov">         24 :             for (i = 0; i &lt; 11; i++) {</span>
+<span class="lineNum">     740 </span><span class="lineCov">         22 :                 int idx = (hash.bits &gt;&gt; (52-((i+1)*5))) &amp; 0x1f;</span>
+<span class="lineNum">     741 </span><span class="lineCov">         22 :                 buf[i] = geoalphabet[idx];</span>
+<span class="lineNum">     742 </span>            :             }
+<span class="lineNum">     743 </span><span class="lineCov">          2 :             buf[11] = '\0';</span>
+<span class="lineNum">     744 </span><span class="lineCov">          2 :             addReplyBulkCBuffer(c,buf,11);</span>
+<span class="lineNum">     745 </span>            :         }
+<span class="lineNum">     746 </span>            :     }
+<span class="lineNum">     747 </span>            : }
+<span class="lineNum">     748 </span>            : 
+<span class="lineNum">     749 </span>            : /* GEOPOS key ele1 ele2 ... eleN
+<span class="lineNum">     750 </span>            :  *
+<a name="751"><span class="lineNum">     751 </span>            :  * Returns an array of two-items arrays representing the x,y position of each</a>
+<span class="lineNum">     752 </span>            :  * element specified in the arguments. For missing elements NULL is returned. */
+<span class="lineNum">     753 </span><span class="lineCov">          6 : void geoposCommand(client *c) {</span>
+<span class="lineNum">     754 </span><span class="lineCov">          6 :     int j;</span>
+<span class="lineNum">     755 </span>            : 
+<span class="lineNum">     756 </span>            :     /* Look up the requested zset */
+<span class="lineNum">     757 </span><span class="lineCov">          6 :     robj *zobj = lookupKeyRead(c-&gt;db, c-&gt;argv[1]);</span>
+<span class="lineNum">     758 </span><span class="lineCov">          6 :     if (zobj &amp;&amp; checkType(c, zobj, OBJ_ZSET)) return;</span>
+<span class="lineNum">     759 </span>            : 
+<span class="lineNum">     760 </span>            :     /* Report elements one after the other, using a null bulk reply for
+<span class="lineNum">     761 </span>            :      * missing elements. */
+<span class="lineNum">     762 </span><span class="lineCov">          6 :     addReplyMultiBulkLen(c,c-&gt;argc-2);</span>
+<span class="lineNum">     763 </span><span class="lineCov">         20 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     764 </span><span class="lineCov">         14 :         double score;</span>
+<span class="lineNum">     765 </span><span class="lineCov">         14 :         if (!zobj || zsetScore(zobj, c-&gt;argv[j]-&gt;ptr, &amp;score) == C_ERR) {</span>
+<span class="lineNum">     766 </span><span class="lineCov">          2 :             addReply(c,shared.nullmultibulk);</span>
+<span class="lineNum">     767 </span>            :         } else {
+<span class="lineNum">     768 </span>            :             /* Decode... */
+<span class="lineNum">     769 </span><span class="lineCov">         12 :             double xy[2];</span>
+<span class="lineNum">     770 </span><span class="lineCov">         12 :             if (!decodeGeohash(score,xy)) {</span>
+<span class="lineNum">     771 </span><span class="lineNoCov">          0 :                 addReply(c,shared.nullmultibulk);</span>
+<span class="lineNum">     772 </span><span class="lineNoCov">          0 :                 continue;</span>
+<span class="lineNum">     773 </span>            :             }
+<span class="lineNum">     774 </span><span class="lineCov">         12 :             addReplyMultiBulkLen(c,2);</span>
+<span class="lineNum">     775 </span><span class="lineCov">         12 :             addReplyHumanLongDouble(c,xy[0]);</span>
+<span class="lineNum">     776 </span><span class="lineCov">         12 :             addReplyHumanLongDouble(c,xy[1]);</span>
+<span class="lineNum">     777 </span>            :         }
+<span class="lineNum">     778 </span>            :     }
+<span class="lineNum">     779 </span>            : }
+<span class="lineNum">     780 </span>            : 
+<span class="lineNum">     781 </span>            : /* GEODIST key ele1 ele2 [unit]
+<span class="lineNum">     782 </span>            :  *
+<span class="lineNum">     783 </span>            :  * Return the distance, in meters by default, otherwise accordig to &quot;unit&quot;,
+<a name="784"><span class="lineNum">     784 </span>            :  * between points ele1 and ele2. If one or more elements are missing NULL</a>
+<span class="lineNum">     785 </span>            :  * is returned. */
+<span class="lineNum">     786 </span><span class="lineCov">         10 : void geodistCommand(client *c) {</span>
+<span class="lineNum">     787 </span><span class="lineCov">         10 :     double to_meter = 1;</span>
+<span class="lineNum">     788 </span>            : 
+<span class="lineNum">     789 </span>            :     /* Check if there is the unit to extract, otherwise assume meters. */
+<span class="lineNum">     790 </span><span class="lineCov">         10 :     if (c-&gt;argc == 5) {</span>
+<span class="lineNum">     791 </span><span class="lineCov">          2 :         to_meter = extractUnitOrReply(c,c-&gt;argv[4]);</span>
+<span class="lineNum">     792 </span><span class="lineCov">          8 :         if (to_meter &lt; 0) return;</span>
+<span class="lineNum">     793 </span><span class="lineCov">          8 :     } else if (c-&gt;argc &gt; 5) {</span>
+<span class="lineNum">     794 </span><span class="lineNoCov">          0 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     795 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     796 </span>            :     }
+<span class="lineNum">     797 </span>            : 
+<span class="lineNum">     798 </span>            :     /* Look up the requested zset */
+<span class="lineNum">     799 </span><span class="lineCov">         10 :     robj *zobj = NULL;</span>
+<span class="lineNum">     800 </span><span class="lineCov">         10 :     if ((zobj = lookupKeyReadOrReply(c, c-&gt;argv[1], shared.nullbulk))</span>
+<span class="lineNum">     801 </span><span class="lineCov">         10 :         == NULL || checkType(c, zobj, OBJ_ZSET)) return;</span>
+<span class="lineNum">     802 </span>            : 
+<span class="lineNum">     803 </span>            :     /* Get the scores. We need both otherwise NULL is returned. */
+<span class="lineNum">     804 </span><span class="lineCov">          8 :     double score1, score2, xyxy[4];</span>
+<span class="lineNum">     805 </span><span class="lineCov">         14 :     if (zsetScore(zobj, c-&gt;argv[2]-&gt;ptr, &amp;score1) == C_ERR ||</span>
+<span class="lineNum">     806 </span><span class="lineCov">          6 :         zsetScore(zobj, c-&gt;argv[3]-&gt;ptr, &amp;score2) == C_ERR)</span>
+<span class="lineNum">     807 </span>            :     {
+<span class="lineNum">     808 </span><span class="lineCov">          4 :         addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     809 </span><span class="lineCov">          4 :         return;</span>
+<span class="lineNum">     810 </span>            :     }
+<span class="lineNum">     811 </span>            : 
+<span class="lineNum">     812 </span>            :     /* Decode &amp; compute the distance. */
+<span class="lineNum">     813 </span><span class="lineCov">          4 :     if (!decodeGeohash(score1,xyxy) || !decodeGeohash(score2,xyxy+2))</span>
+<span class="lineNum">     814 </span><span class="lineNoCov">          0 :         addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     815 </span>            :     else
+<span class="lineNum">     816 </span><span class="lineCov">          4 :         addReplyDoubleDistance(c,</span>
+<span class="lineNum">     817 </span><span class="lineCov">          4 :             geohashGetDistance(xyxy[0],xyxy[1],xyxy[2],xyxy[3]) / to_meter);</span>
+<span class="lineNum">     818 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

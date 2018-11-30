@@ -1,0 +1,2016 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/ziplist.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - ziplist.c<span style="font-size: 80%;"> (source / <a href="ziplist.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">372</td>
+            <td class="headerCovTableEntry">422</td>
+            <td class="headerCovTableEntryMed">88.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntryMed">86.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* The ziplist is a specially encoded dually linked list that is designed</a>
+<span class="lineNum">       2 </span>            :  * to be very memory efficient. It stores both strings and integer values,
+<span class="lineNum">       3 </span>            :  * where integers are encoded as actual integers instead of a series of
+<span class="lineNum">       4 </span>            :  * characters. It allows push and pop operations on either side of the list
+<span class="lineNum">       5 </span>            :  * in O(1) time. However, because every operation requires a reallocation of
+<span class="lineNum">       6 </span>            :  * the memory used by the ziplist, the actual complexity is related to the
+<span class="lineNum">       7 </span>            :  * amount of memory used by the ziplist.
+<span class="lineNum">       8 </span>            :  *
+<span class="lineNum">       9 </span>            :  * ----------------------------------------------------------------------------
+<span class="lineNum">      10 </span>            :  *
+<span class="lineNum">      11 </span>            :  * ZIPLIST OVERALL LAYOUT
+<span class="lineNum">      12 </span>            :  * ======================
+<span class="lineNum">      13 </span>            :  *
+<span class="lineNum">      14 </span>            :  * The general layout of the ziplist is as follows:
+<span class="lineNum">      15 </span>            :  *
+<span class="lineNum">      16 </span>            :  * &lt;zlbytes&gt; &lt;zltail&gt; &lt;zllen&gt; &lt;entry&gt; &lt;entry&gt; ... &lt;entry&gt; &lt;zlend&gt;
+<span class="lineNum">      17 </span>            :  *
+<span class="lineNum">      18 </span>            :  * NOTE: all fields are stored in little endian, if not specified otherwise.
+<span class="lineNum">      19 </span>            :  *
+<span class="lineNum">      20 </span>            :  * &lt;uint32_t zlbytes&gt; is an unsigned integer to hold the number of bytes that
+<span class="lineNum">      21 </span>            :  * the ziplist occupies, including the four bytes of the zlbytes field itself.
+<span class="lineNum">      22 </span>            :  * This value needs to be stored to be able to resize the entire structure
+<span class="lineNum">      23 </span>            :  * without the need to traverse it first.
+<span class="lineNum">      24 </span>            :  *
+<span class="lineNum">      25 </span>            :  * &lt;uint32_t zltail&gt; is the offset to the last entry in the list. This allows
+<span class="lineNum">      26 </span>            :  * a pop operation on the far side of the list without the need for full
+<span class="lineNum">      27 </span>            :  * traversal.
+<span class="lineNum">      28 </span>            :  *
+<span class="lineNum">      29 </span>            :  * &lt;uint16_t zllen&gt; is the number of entries. When there are more than
+<span class="lineNum">      30 </span>            :  * 2^16-2 entries, this value is set to 2^16-1 and we need to traverse the
+<span class="lineNum">      31 </span>            :  * entire list to know how many items it holds.
+<span class="lineNum">      32 </span>            :  *
+<span class="lineNum">      33 </span>            :  * &lt;uint8_t zlend&gt; is a special entry representing the end of the ziplist.
+<span class="lineNum">      34 </span>            :  * Is encoded as a single byte equal to 255. No other normal entry starts
+<span class="lineNum">      35 </span>            :  * with a byte set to the value of 255.
+<span class="lineNum">      36 </span>            :  *
+<span class="lineNum">      37 </span>            :  * ZIPLIST ENTRIES
+<span class="lineNum">      38 </span>            :  * ===============
+<span class="lineNum">      39 </span>            :  *
+<span class="lineNum">      40 </span>            :  * Every entry in the ziplist is prefixed by metadata that contains two pieces
+<span class="lineNum">      41 </span>            :  * of information. First, the length of the previous entry is stored to be
+<span class="lineNum">      42 </span>            :  * able to traverse the list from back to front. Second, the entry encoding is
+<span class="lineNum">      43 </span>            :  * provided. It represents the entry type, integer or string, and in the case
+<span class="lineNum">      44 </span>            :  * of strings it also represents the length of the string payload.
+<span class="lineNum">      45 </span>            :  * So a complete entry is stored like this:
+<span class="lineNum">      46 </span>            :  *
+<span class="lineNum">      47 </span>            :  * &lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;
+<span class="lineNum">      48 </span>            :  *
+<span class="lineNum">      49 </span>            :  * Sometimes the encoding represents the entry itself, like for small integers
+<span class="lineNum">      50 </span>            :  * as we'll see later. In such a case the &lt;entry-data&gt; part is missing, and we
+<span class="lineNum">      51 </span>            :  * could have just:
+<span class="lineNum">      52 </span>            :  *
+<span class="lineNum">      53 </span>            :  * &lt;prevlen&gt; &lt;encoding&gt;
+<span class="lineNum">      54 </span>            :  *
+<span class="lineNum">      55 </span>            :  * The length of the previous entry, &lt;prevlen&gt;, is encoded in the following way:
+<span class="lineNum">      56 </span>            :  * If this length is smaller than 254 bytes, it will only consume a single
+<span class="lineNum">      57 </span>            :  * byte representing the length as an unsinged 8 bit integer. When the length
+<span class="lineNum">      58 </span>            :  * is greater than or equal to 254, it will consume 5 bytes. The first byte is
+<span class="lineNum">      59 </span>            :  * set to 254 (FE) to indicate a larger value is following. The remaining 4
+<span class="lineNum">      60 </span>            :  * bytes take the length of the previous entry as value.
+<span class="lineNum">      61 </span>            :  *
+<span class="lineNum">      62 </span>            :  * So practically an entry is encoded in the following way:
+<span class="lineNum">      63 </span>            :  *
+<span class="lineNum">      64 </span>            :  * &lt;prevlen from 0 to 253&gt; &lt;encoding&gt; &lt;entry&gt;
+<span class="lineNum">      65 </span>            :  *
+<span class="lineNum">      66 </span>            :  * Or alternatively if the previous entry length is greater than 253 bytes
+<span class="lineNum">      67 </span>            :  * the following encoding is used:
+<span class="lineNum">      68 </span>            :  *
+<span class="lineNum">      69 </span>            :  * 0xFE &lt;4 bytes unsigned little endian prevlen&gt; &lt;encoding&gt; &lt;entry&gt;
+<span class="lineNum">      70 </span>            :  *
+<span class="lineNum">      71 </span>            :  * The encoding field of the entry depends on the content of the
+<span class="lineNum">      72 </span>            :  * entry. When the entry is a string, the first 2 bits of the encoding first
+<span class="lineNum">      73 </span>            :  * byte will hold the type of encoding used to store the length of the string,
+<span class="lineNum">      74 </span>            :  * followed by the actual length of the string. When the entry is an integer
+<span class="lineNum">      75 </span>            :  * the first 2 bits are both set to 1. The following 2 bits are used to specify
+<span class="lineNum">      76 </span>            :  * what kind of integer will be stored after this header. An overview of the
+<span class="lineNum">      77 </span>            :  * different types and encodings is as follows. The first byte is always enough
+<span class="lineNum">      78 </span>            :  * to determine the kind of entry.
+<span class="lineNum">      79 </span>            :  *
+<span class="lineNum">      80 </span>            :  * |00pppppp| - 1 byte
+<span class="lineNum">      81 </span>            :  *      String value with length less than or equal to 63 bytes (6 bits).
+<span class="lineNum">      82 </span>            :  *      &quot;pppppp&quot; represents the unsigned 6 bit length.
+<span class="lineNum">      83 </span>            :  * |01pppppp|qqqqqqqq| - 2 bytes
+<span class="lineNum">      84 </span>            :  *      String value with length less than or equal to 16383 bytes (14 bits).
+<span class="lineNum">      85 </span>            :  *      IMPORTANT: The 14 bit number is stored in big endian.
+<span class="lineNum">      86 </span>            :  * |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5 bytes
+<span class="lineNum">      87 </span>            :  *      String value with length greater than or equal to 16384 bytes.
+<span class="lineNum">      88 </span>            :  *      Only the 4 bytes following the first byte represents the length
+<span class="lineNum">      89 </span>            :  *      up to 32^2-1. The 6 lower bits of the first byte are not used and
+<span class="lineNum">      90 </span>            :  *      are set to zero.
+<span class="lineNum">      91 </span>            :  *      IMPORTANT: The 32 bit number is stored in big endian.
+<span class="lineNum">      92 </span>            :  * |11000000| - 3 bytes
+<span class="lineNum">      93 </span>            :  *      Integer encoded as int16_t (2 bytes).
+<span class="lineNum">      94 </span>            :  * |11010000| - 5 bytes
+<span class="lineNum">      95 </span>            :  *      Integer encoded as int32_t (4 bytes).
+<span class="lineNum">      96 </span>            :  * |11100000| - 9 bytes
+<span class="lineNum">      97 </span>            :  *      Integer encoded as int64_t (8 bytes).
+<span class="lineNum">      98 </span>            :  * |11110000| - 4 bytes
+<span class="lineNum">      99 </span>            :  *      Integer encoded as 24 bit signed (3 bytes).
+<span class="lineNum">     100 </span>            :  * |11111110| - 2 bytes
+<span class="lineNum">     101 </span>            :  *      Integer encoded as 8 bit signed (1 byte).
+<span class="lineNum">     102 </span>            :  * |1111xxxx| - (with xxxx between 0000 and 1101) immediate 4 bit integer.
+<span class="lineNum">     103 </span>            :  *      Unsigned integer from 0 to 12. The encoded value is actually from
+<span class="lineNum">     104 </span>            :  *      1 to 13 because 0000 and 1111 can not be used, so 1 should be
+<span class="lineNum">     105 </span>            :  *      subtracted from the encoded 4 bit value to obtain the right value.
+<span class="lineNum">     106 </span>            :  * |11111111| - End of ziplist special entry.
+<span class="lineNum">     107 </span>            :  *
+<span class="lineNum">     108 </span>            :  * Like for the ziplist header, all the integers are represented in little
+<span class="lineNum">     109 </span>            :  * endian byte order, even when this code is compiled in big endian systems.
+<span class="lineNum">     110 </span>            :  *
+<span class="lineNum">     111 </span>            :  * EXAMPLES OF ACTUAL ZIPLISTS
+<span class="lineNum">     112 </span>            :  * ===========================
+<span class="lineNum">     113 </span>            :  *
+<span class="lineNum">     114 </span>            :  * The following is a ziplist containing the two elements representing
+<span class="lineNum">     115 </span>            :  * the strings &quot;2&quot; and &quot;5&quot;. It is composed of 15 bytes, that we visually
+<span class="lineNum">     116 </span>            :  * split into sections:
+<span class="lineNum">     117 </span>            :  *
+<span class="lineNum">     118 </span>            :  *  [0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
+<span class="lineNum">     119 </span>            :  *        |             |          |       |       |     |
+<span class="lineNum">     120 </span>            :  *     zlbytes        zltail    entries   &quot;2&quot;     &quot;5&quot;   end
+<span class="lineNum">     121 </span>            :  *
+<span class="lineNum">     122 </span>            :  * The first 4 bytes represent the number 15, that is the number of bytes
+<span class="lineNum">     123 </span>            :  * the whole ziplist is composed of. The second 4 bytes are the offset
+<span class="lineNum">     124 </span>            :  * at which the last ziplist entry is found, that is 12, in fact the
+<span class="lineNum">     125 </span>            :  * last entry, that is &quot;5&quot;, is at offset 12 inside the ziplist.
+<span class="lineNum">     126 </span>            :  * The next 16 bit integer represents the number of elements inside the
+<span class="lineNum">     127 </span>            :  * ziplist, its value is 2 since there are just two elements inside.
+<span class="lineNum">     128 </span>            :  * Finally &quot;00 f3&quot; is the first entry representing the number 2. It is
+<span class="lineNum">     129 </span>            :  * composed of the previous entry length, which is zero because this is
+<span class="lineNum">     130 </span>            :  * our first entry, and the byte F3 which corresponds to the encoding
+<span class="lineNum">     131 </span>            :  * |1111xxxx| with xxxx between 0001 and 1101. We need to remove the &quot;F&quot;
+<span class="lineNum">     132 </span>            :  * higher order bits 1111, and subtract 1 from the &quot;3&quot;, so the entry value
+<span class="lineNum">     133 </span>            :  * is &quot;2&quot;. The next entry has a prevlen of 02, since the first entry is
+<span class="lineNum">     134 </span>            :  * composed of exactly two bytes. The entry itself, F6, is encoded exactly
+<span class="lineNum">     135 </span>            :  * like the first entry, and 6-1 = 5, so the value of the entry is 5.
+<span class="lineNum">     136 </span>            :  * Finally the special entry FF signals the end of the ziplist.
+<span class="lineNum">     137 </span>            :  *
+<span class="lineNum">     138 </span>            :  * Adding another element to the above string with the value &quot;Hello World&quot;
+<span class="lineNum">     139 </span>            :  * allows us to show how the ziplist encodes small strings. We'll just show
+<span class="lineNum">     140 </span>            :  * the hex dump of the entry itself. Imagine the bytes as following the
+<span class="lineNum">     141 </span>            :  * entry that stores &quot;5&quot; in the ziplist above:
+<span class="lineNum">     142 </span>            :  *
+<span class="lineNum">     143 </span>            :  * [02] [0b] [48 65 6c 6c 6f 20 57 6f 72 6c 64]
+<span class="lineNum">     144 </span>            :  *
+<span class="lineNum">     145 </span>            :  * The first byte, 02, is the length of the previous entry. The next
+<span class="lineNum">     146 </span>            :  * byte represents the encoding in the pattern |00pppppp| that means
+<span class="lineNum">     147 </span>            :  * that the entry is a string of length &lt;pppppp&gt;, so 0B means that
+<span class="lineNum">     148 </span>            :  * an 11 bytes string follows. From the third byte (48) to the last (64)
+<span class="lineNum">     149 </span>            :  * there are just the ASCII characters for &quot;Hello World&quot;.
+<span class="lineNum">     150 </span>            :  *
+<span class="lineNum">     151 </span>            :  * ----------------------------------------------------------------------------
+<span class="lineNum">     152 </span>            :  *
+<span class="lineNum">     153 </span>            :  * Copyright (c) 2009-2012, Pieter Noordhuis &lt;pcnoordhuis at gmail dot com&gt;
+<span class="lineNum">     154 </span>            :  * Copyright (c) 2009-2017, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">     155 </span>            :  * All rights reserved.
+<span class="lineNum">     156 </span>            :  *
+<span class="lineNum">     157 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">     158 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">     159 </span>            :  *
+<span class="lineNum">     160 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">     161 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">     162 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">     163 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">     164 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">     165 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">     166 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">     167 </span>            :  *     specific prior written permission.
+<span class="lineNum">     168 </span>            :  *
+<span class="lineNum">     169 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">     170 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">     171 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">     172 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">     173 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">     174 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">     175 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">     176 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">     177 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">     178 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">     179 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">     180 </span>            :  */
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">     183 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">     184 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">     185 </span>            : #include &lt;stdint.h&gt;
+<span class="lineNum">     186 </span>            : #include &lt;limits.h&gt;
+<span class="lineNum">     187 </span>            : #include &quot;zmalloc.h&quot;
+<span class="lineNum">     188 </span>            : #include &quot;util.h&quot;
+<span class="lineNum">     189 </span>            : #include &quot;ziplist.h&quot;
+<span class="lineNum">     190 </span>            : #include &quot;endianconv.h&quot;
+<span class="lineNum">     191 </span>            : #include &quot;redisassert.h&quot;
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            : #define ZIP_END 255         /* Special &quot;end of ziplist&quot; entry. */
+<span class="lineNum">     194 </span>            : #define ZIP_BIG_PREVLEN 254 /* Max number of bytes of the previous entry, for
+<span class="lineNum">     195 </span>            :                                the &quot;prevlen&quot; field prefixing each entry, to be
+<span class="lineNum">     196 </span>            :                                represented with just a single byte. Otherwise
+<span class="lineNum">     197 </span>            :                                it is represented as FF AA BB CC DD, where
+<span class="lineNum">     198 </span>            :                                AA BB CC DD are a 4 bytes unsigned integer
+<span class="lineNum">     199 </span>            :                                representing the previous entry len. */
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span>            : /* Different encoding/length possibilities */
+<span class="lineNum">     202 </span>            : #define ZIP_STR_MASK 0xc0
+<span class="lineNum">     203 </span>            : #define ZIP_INT_MASK 0x30
+<span class="lineNum">     204 </span>            : #define ZIP_STR_06B (0 &lt;&lt; 6)
+<span class="lineNum">     205 </span>            : #define ZIP_STR_14B (1 &lt;&lt; 6)
+<span class="lineNum">     206 </span>            : #define ZIP_STR_32B (2 &lt;&lt; 6)
+<span class="lineNum">     207 </span>            : #define ZIP_INT_16B (0xc0 | 0&lt;&lt;4)
+<span class="lineNum">     208 </span>            : #define ZIP_INT_32B (0xc0 | 1&lt;&lt;4)
+<span class="lineNum">     209 </span>            : #define ZIP_INT_64B (0xc0 | 2&lt;&lt;4)
+<span class="lineNum">     210 </span>            : #define ZIP_INT_24B (0xc0 | 3&lt;&lt;4)
+<span class="lineNum">     211 </span>            : #define ZIP_INT_8B 0xfe
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            : /* 4 bit integer immediate encoding |1111xxxx| with xxxx between
+<span class="lineNum">     214 </span>            :  * 0001 and 1101. */
+<span class="lineNum">     215 </span>            : #define ZIP_INT_IMM_MASK 0x0f   /* Mask to extract the 4 bits value. To add
+<span class="lineNum">     216 </span>            :                                    one is needed to reconstruct the value. */
+<span class="lineNum">     217 </span>            : #define ZIP_INT_IMM_MIN 0xf1    /* 11110001 */
+<span class="lineNum">     218 </span>            : #define ZIP_INT_IMM_MAX 0xfd    /* 11111101 */
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            : #define INT24_MAX 0x7fffff
+<span class="lineNum">     221 </span>            : #define INT24_MIN (-INT24_MAX - 1)
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span>            : /* Macro to determine if the entry is a string. String entries never start
+<span class="lineNum">     224 </span>            :  * with &quot;11&quot; as most significant bits of the first byte. */
+<span class="lineNum">     225 </span>            : #define ZIP_IS_STR(enc) (((enc) &amp; ZIP_STR_MASK) &lt; ZIP_STR_MASK)
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : /* Utility macros.*/
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span>            : /* Return total bytes a ziplist is composed of. */
+<span class="lineNum">     230 </span>            : #define ZIPLIST_BYTES(zl)       (*((uint32_t*)(zl)))
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span>            : /* Return the offset of the last item inside the ziplist. */
+<span class="lineNum">     233 </span>            : #define ZIPLIST_TAIL_OFFSET(zl) (*((uint32_t*)((zl)+sizeof(uint32_t))))
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            : /* Return the length of a ziplist, or UINT16_MAX if the length cannot be
+<span class="lineNum">     236 </span>            :  * determined without scanning the whole ziplist. */
+<span class="lineNum">     237 </span>            : #define ZIPLIST_LENGTH(zl)      (*((uint16_t*)((zl)+sizeof(uint32_t)*2)))
+<span class="lineNum">     238 </span>            : 
+<span class="lineNum">     239 </span>            : /* The size of a ziplist header: two 32 bit integers for the total
+<span class="lineNum">     240 </span>            :  * bytes count and last item offset. One 16 bit integer for the number
+<span class="lineNum">     241 </span>            :  * of items field. */
+<span class="lineNum">     242 </span>            : #define ZIPLIST_HEADER_SIZE     (sizeof(uint32_t)*2+sizeof(uint16_t))
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span>            : /* Size of the &quot;end of ziplist&quot; entry. Just one byte. */
+<span class="lineNum">     245 </span>            : #define ZIPLIST_END_SIZE        (sizeof(uint8_t))
+<span class="lineNum">     246 </span>            : 
+<span class="lineNum">     247 </span>            : /* Return the pointer to the first entry of a ziplist. */
+<span class="lineNum">     248 </span>            : #define ZIPLIST_ENTRY_HEAD(zl)  ((zl)+ZIPLIST_HEADER_SIZE)
+<span class="lineNum">     249 </span>            : 
+<span class="lineNum">     250 </span>            : /* Return the pointer to the last entry of a ziplist, using the
+<span class="lineNum">     251 </span>            :  * last entry offset inside the ziplist header. */
+<span class="lineNum">     252 </span>            : #define ZIPLIST_ENTRY_TAIL(zl)  ((zl)+intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl)))
+<span class="lineNum">     253 </span>            : 
+<span class="lineNum">     254 </span>            : /* Return the pointer to the last byte of a ziplist, which is, the
+<span class="lineNum">     255 </span>            :  * end of ziplist FF entry. */
+<span class="lineNum">     256 </span>            : #define ZIPLIST_ENTRY_END(zl)   ((zl)+intrev32ifbe(ZIPLIST_BYTES(zl))-1)
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span>            : /* Increment the number of items field in the ziplist header. Note that this
+<span class="lineNum">     259 </span>            :  * macro should never overflow the unsigned 16 bit integer, since entries are
+<span class="lineNum">     260 </span>            :  * always pushed one at a time. When UINT16_MAX is reached we want the count
+<span class="lineNum">     261 </span>            :  * to stay there to signal that a full scan is needed to get the number of
+<span class="lineNum">     262 </span>            :  * items inside the ziplist. */
+<span class="lineNum">     263 </span>            : #define ZIPLIST_INCR_LENGTH(zl,incr) { \
+<span class="lineNum">     264 </span>            :     if (ZIPLIST_LENGTH(zl) &lt; UINT16_MAX) \
+<span class="lineNum">     265 </span>            :         ZIPLIST_LENGTH(zl) = intrev16ifbe(intrev16ifbe(ZIPLIST_LENGTH(zl))+incr); \
+<span class="lineNum">     266 </span>            : }
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span>            : /* We use this function to receive information about a ziplist entry.
+<span class="lineNum">     269 </span>            :  * Note that this is not how the data is actually encoded, is just what we
+<span class="lineNum">     270 </span>            :  * get filled by a function in order to operate more easily. */
+<span class="lineNum">     271 </span>            : typedef struct zlentry {
+<span class="lineNum">     272 </span>            :     unsigned int prevrawlensize; /* Bytes used to encode the previous entry len*/
+<span class="lineNum">     273 </span>            :     unsigned int prevrawlen;     /* Previous entry len. */
+<span class="lineNum">     274 </span>            :     unsigned int lensize;        /* Bytes used to encode this entry type/len.
+<span class="lineNum">     275 </span>            :                                     For example strings have a 1, 2 or 5 bytes
+<span class="lineNum">     276 </span>            :                                     header. Integers always use a single byte.*/
+<span class="lineNum">     277 </span>            :     unsigned int len;            /* Bytes used to represent the actual entry.
+<span class="lineNum">     278 </span>            :                                     For strings this is just the string length
+<span class="lineNum">     279 </span>            :                                     while for integers it is 1, 2, 3, 4, 8 or
+<span class="lineNum">     280 </span>            :                                     0 (for 4 bit immediate) depending on the
+<span class="lineNum">     281 </span>            :                                     number range. */
+<span class="lineNum">     282 </span>            :     unsigned int headersize;     /* prevrawlensize + lensize. */
+<span class="lineNum">     283 </span>            :     unsigned char encoding;      /* Set to ZIP_STR_* or ZIP_INT_* depending on
+<span class="lineNum">     284 </span>            :                                     the entry encoding. However for 4 bits
+<span class="lineNum">     285 </span>            :                                     immediate integers this can assume a range
+<span class="lineNum">     286 </span>            :                                     of values and must be range-checked. */
+<span class="lineNum">     287 </span>            :     unsigned char *p;            /* Pointer to the very start of the entry, that
+<span class="lineNum">     288 </span>            :                                     is, this points to prev-entry-len field. */
+<span class="lineNum">     289 </span>            : } zlentry;
+<span class="lineNum">     290 </span>            : 
+<span class="lineNum">     291 </span>            : #define ZIPLIST_ENTRY_ZERO(zle) { \
+<span class="lineNum">     292 </span>            :     (zle)-&gt;prevrawlensize = (zle)-&gt;prevrawlen = 0; \
+<span class="lineNum">     293 </span>            :     (zle)-&gt;lensize = (zle)-&gt;len = (zle)-&gt;headersize = 0; \
+<span class="lineNum">     294 </span>            :     (zle)-&gt;encoding = 0; \
+<span class="lineNum">     295 </span>            :     (zle)-&gt;p = NULL; \
+<span class="lineNum">     296 </span>            : }
+<span class="lineNum">     297 </span>            : 
+<span class="lineNum">     298 </span>            : /* Extract the encoding from the byte pointed by 'ptr' and set it into
+<span class="lineNum">     299 </span>            :  * 'encoding' field of the zlentry structure. */
+<span class="lineNum">     300 </span>            : #define ZIP_ENTRY_ENCODING(ptr, encoding) do {  \
+<span class="lineNum">     301 </span>            :     (encoding) = (ptr[0]); \
+<span class="lineNum">     302 </span>            :     if ((encoding) &lt; ZIP_STR_MASK) (encoding) &amp;= ZIP_STR_MASK; \
+<span class="lineNum">     303 </span>            : } while(0)
+<a name="304"><span class="lineNum">     304 </span>            : </a>
+<span class="lineNum">     305 </span>            : /* Return bytes needed to store integer encoded by 'encoding'. */
+<span class="lineNum">     306 </span><span class="lineCov">   50369220 : unsigned int zipIntSize(unsigned char encoding) {</span>
+<span class="lineNum">     307 </span><span class="lineCov">   50369220 :     switch(encoding) {</span>
+<span class="lineNum">     308 </span>            :     case ZIP_INT_8B:  return 1;
+<span class="lineNum">     309 </span><span class="lineCov">    5532998 :     case ZIP_INT_16B: return 2;</span>
+<span class="lineNum">     310 </span><span class="lineCov">     202713 :     case ZIP_INT_24B: return 3;</span>
+<span class="lineNum">     311 </span><span class="lineCov">   10083745 :     case ZIP_INT_32B: return 4;</span>
+<span class="lineNum">     312 </span><span class="lineCov">   17214197 :     case ZIP_INT_64B: return 8;</span>
+<span class="lineNum">     313 </span>            :     }
+<span class="lineNum">     314 </span><span class="lineCov">    4648009 :     if (encoding &gt;= ZIP_INT_IMM_MIN &amp;&amp; encoding &lt;= ZIP_INT_IMM_MAX)</span>
+<span class="lineNum">     315 </span>            :         return 0; /* 4 bit immediate */
+<span class="lineNum">     316 </span><span class="lineNoCov">          0 :     panic(&quot;Invalid integer encoding 0x%02X&quot;, encoding);</span>
+<span class="lineNum">     317 </span>            :     return 0;
+<span class="lineNum">     318 </span>            : }
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span>            : /* Write the encoidng header of the entry in 'p'. If p is NULL it just returns
+<span class="lineNum">     321 </span>            :  * the amount of bytes required to encode such a length. Arguments:
+<span class="lineNum">     322 </span>            :  *
+<span class="lineNum">     323 </span>            :  * 'encoding' is the encoding we are using for the entry. It could be
+<span class="lineNum">     324 </span>            :  * ZIP_INT_* or ZIP_STR_* or between ZIP_INT_IMM_MIN and ZIP_INT_IMM_MAX
+<span class="lineNum">     325 </span>            :  * for single-byte small immediate integers.
+<span class="lineNum">     326 </span>            :  *
+<span class="lineNum">     327 </span>            :  * 'rawlen' is only used for ZIP_STR_* encodings and is the length of the
+<span class="lineNum">     328 </span>            :  * srting that this entry represents.
+<span class="lineNum">     329 </span>            :  *
+<a name="330"><span class="lineNum">     330 </span>            :  * The function returns the number of bytes used by the encoding/length</a>
+<span class="lineNum">     331 </span>            :  * header stored in 'p'. */
+<span class="lineNum">     332 </span><span class="lineCov">    5647697 : unsigned int zipStoreEntryEncoding(unsigned char *p, unsigned char encoding, unsigned int rawlen) {</span>
+<span class="lineNum">     333 </span><span class="lineCov">   11295394 :     unsigned char len = 1, buf[5];</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span><span class="lineCov">    5647697 :     if (ZIP_IS_STR(encoding)) {</span>
+<span class="lineNum">     336 </span>            :         /* Although encoding is given it may not be set for strings,
+<span class="lineNum">     337 </span>            :          * so we determine it here using the raw length. */
+<span class="lineNum">     338 </span><span class="lineCov">    4657144 :         if (rawlen &lt;= 0x3f) {</span>
+<span class="lineNum">     339 </span><span class="lineCov">    2140012 :             if (!p) return len;</span>
+<span class="lineNum">     340 </span><span class="lineCov">    2140012 :             buf[0] = ZIP_STR_06B | rawlen;</span>
+<span class="lineNum">     341 </span><span class="lineCov">     377120 :         } else if (rawlen &lt;= 0x3fff) {</span>
+<span class="lineNum">     342 </span><span class="lineCov">     187268 :             len += 1;</span>
+<span class="lineNum">     343 </span><span class="lineCov">     187268 :             if (!p) return len;</span>
+<span class="lineNum">     344 </span><span class="lineCov">     187268 :             buf[0] = ZIP_STR_14B | ((rawlen &gt;&gt; 8) &amp; 0x3f);</span>
+<span class="lineNum">     345 </span><span class="lineCov">     187268 :             buf[1] = rawlen &amp; 0xff;</span>
+<span class="lineNum">     346 </span>            :         } else {
+<span class="lineNum">     347 </span><span class="lineCov">       2584 :             len += 4;</span>
+<span class="lineNum">     348 </span><span class="lineCov">       2584 :             if (!p) return len;</span>
+<span class="lineNum">     349 </span><span class="lineCov">       1292 :             buf[0] = ZIP_STR_32B;</span>
+<span class="lineNum">     350 </span><span class="lineCov">       1292 :             buf[1] = (rawlen &gt;&gt; 24) &amp; 0xff;</span>
+<span class="lineNum">     351 </span><span class="lineCov">       1292 :             buf[2] = (rawlen &gt;&gt; 16) &amp; 0xff;</span>
+<span class="lineNum">     352 </span><span class="lineCov">       1292 :             buf[3] = (rawlen &gt;&gt; 8) &amp; 0xff;</span>
+<span class="lineNum">     353 </span><span class="lineCov">       1292 :             buf[4] = rawlen &amp; 0xff;</span>
+<span class="lineNum">     354 </span>            :         }
+<span class="lineNum">     355 </span>            :     } else {
+<span class="lineNum">     356 </span>            :         /* Implies integer encoding, so length is always 1. */
+<span class="lineNum">     357 </span><span class="lineCov">    3319125 :         if (!p) return len;</span>
+<span class="lineNum">     358 </span><span class="lineCov">    3319125 :         buf[0] = encoding;</span>
+<span class="lineNum">     359 </span>            :     }
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            :     /* Store this length at p. */
+<span class="lineNum">     362 </span><span class="lineCov">    5647697 :     memcpy(p,buf,len);</span>
+<span class="lineNum">     363 </span><span class="lineCov">    5647697 :     return len;</span>
+<span class="lineNum">     364 </span>            : }
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span>            : /* Decode the entry encoding type and data length (string length for strings,
+<span class="lineNum">     367 </span>            :  * number of bytes used for the integer for integer entries) encoded in 'ptr'.
+<span class="lineNum">     368 </span>            :  * The 'encoding' variable will hold the entry encoding, the 'lensize'
+<span class="lineNum">     369 </span>            :  * variable will hold the number of bytes required to encode the entry
+<span class="lineNum">     370 </span>            :  * length, and the 'len' variable will hold the entry length. */
+<span class="lineNum">     371 </span>            : #define ZIP_DECODE_LENGTH(ptr, encoding, lensize, len) do {                    \
+<span class="lineNum">     372 </span>            :     ZIP_ENTRY_ENCODING((ptr), (encoding));                                     \
+<span class="lineNum">     373 </span>            :     if ((encoding) &lt; ZIP_STR_MASK) {                                           \
+<span class="lineNum">     374 </span>            :         if ((encoding) == ZIP_STR_06B) {                                       \
+<span class="lineNum">     375 </span>            :             (lensize) = 1;                                                     \
+<span class="lineNum">     376 </span>            :             (len) = (ptr)[0] &amp; 0x3f;                                           \
+<span class="lineNum">     377 </span>            :         } else if ((encoding) == ZIP_STR_14B) {                                \
+<span class="lineNum">     378 </span>            :             (lensize) = 2;                                                     \
+<span class="lineNum">     379 </span>            :             (len) = (((ptr)[0] &amp; 0x3f) &lt;&lt; 8) | (ptr)[1];                       \
+<span class="lineNum">     380 </span>            :         } else if ((encoding) == ZIP_STR_32B) {                                \
+<span class="lineNum">     381 </span>            :             (lensize) = 5;                                                     \
+<span class="lineNum">     382 </span>            :             (len) = ((ptr)[1] &lt;&lt; 24) |                                         \
+<span class="lineNum">     383 </span>            :                     ((ptr)[2] &lt;&lt; 16) |                                         \
+<span class="lineNum">     384 </span>            :                     ((ptr)[3] &lt;&lt;  8) |                                         \
+<span class="lineNum">     385 </span>            :                     ((ptr)[4]);                                                \
+<span class="lineNum">     386 </span>            :         } else {                                                               \
+<span class="lineNum">     387 </span>            :             panic(&quot;Invalid string encoding 0x%02X&quot;, (encoding));               \
+<span class="lineNum">     388 </span>            :         }                                                                      \
+<span class="lineNum">     389 </span>            :     } else {                                                                   \
+<span class="lineNum">     390 </span>            :         (lensize) = 1;                                                         \
+<span class="lineNum">     391 </span>            :         (len) = zipIntSize(encoding);                                          \
+<span class="lineNum">     392 </span>            :     }                                                                          \
+<span class="lineNum">     393 </span>            : } while(0);
+<span class="lineNum">     394 </span>            : 
+<a name="395"><span class="lineNum">     395 </span>            : /* Encode the length of the previous entry and write it to &quot;p&quot;. This only</a>
+<span class="lineNum">     396 </span>            :  * uses the larger encoding (required in __ziplistCascadeUpdate). */
+<span class="lineNum">     397 </span><span class="lineNoCov">          0 : int zipStorePrevEntryLengthLarge(unsigned char *p, unsigned int len) {</span>
+<span class="lineNum">     398 </span><span class="lineNoCov">          0 :     if (p != NULL) {</span>
+<span class="lineNum">     399 </span><span class="lineCov">      14533 :         p[0] = ZIP_BIG_PREVLEN;</span>
+<span class="lineNum">     400 </span><span class="lineNoCov">          0 :         memcpy(p+1,&amp;len,sizeof(len));</span>
+<span class="lineNum">     401 </span><span class="lineCov">      14533 :         memrev32ifbe(p+1);</span>
+<span class="lineNum">     402 </span>            :     }
+<span class="lineNum">     403 </span><span class="lineCov">      14533 :     return 1+sizeof(len);</span>
+<span class="lineNum">     404 </span>            : }
+<span class="lineNum">     405 </span>            : 
+<a name="406"><span class="lineNum">     406 </span>            : /* Encode the length of the previous entry and write it to &quot;p&quot;. Return the</a>
+<span class="lineNum">     407 </span>            :  * number of bytes needed to encode this length if &quot;p&quot; is NULL. */
+<span class="lineNum">     408 </span><span class="lineCov">    6338079 : unsigned int zipStorePrevEntryLength(unsigned char *p, unsigned int len) {</span>
+<span class="lineNum">     409 </span><span class="lineCov">    6338079 :     if (p == NULL) {</span>
+<span class="lineNum">     410 </span><span class="lineNoCov">          0 :         return (len &lt; ZIP_BIG_PREVLEN) ? 1 : sizeof(len)+1;</span>
+<span class="lineNum">     411 </span>            :     } else {
+<span class="lineNum">     412 </span><span class="lineCov">    6338079 :         if (len &lt; ZIP_BIG_PREVLEN) {</span>
+<span class="lineNum">     413 </span><span class="lineCov">    6323546 :             p[0] = len;</span>
+<span class="lineNum">     414 </span><span class="lineCov">    6323546 :             return 1;</span>
+<span class="lineNum">     415 </span>            :         } else {
+<span class="lineNum">     416 </span><span class="lineCov">      29066 :             return zipStorePrevEntryLengthLarge(p,len);</span>
+<span class="lineNum">     417 </span>            :         }
+<span class="lineNum">     418 </span>            :     }
+<span class="lineNum">     419 </span>            : }
+<span class="lineNum">     420 </span>            : 
+<span class="lineNum">     421 </span>            : /* Return the number of bytes used to encode the length of the previous
+<span class="lineNum">     422 </span>            :  * entry. The length is returned by setting the var 'prevlensize'. */
+<span class="lineNum">     423 </span>            : #define ZIP_DECODE_PREVLENSIZE(ptr, prevlensize) do {                          \
+<span class="lineNum">     424 </span>            :     if ((ptr)[0] &lt; ZIP_BIG_PREVLEN) {                                          \
+<span class="lineNum">     425 </span>            :         (prevlensize) = 1;                                                     \
+<span class="lineNum">     426 </span>            :     } else {                                                                   \
+<span class="lineNum">     427 </span>            :         (prevlensize) = 5;                                                     \
+<span class="lineNum">     428 </span>            :     }                                                                          \
+<span class="lineNum">     429 </span>            : } while(0);
+<span class="lineNum">     430 </span>            : 
+<span class="lineNum">     431 </span>            : /* Return the length of the previous element, and the number of bytes that
+<span class="lineNum">     432 </span>            :  * are used in order to encode the previous element length.
+<span class="lineNum">     433 </span>            :  * 'ptr' must point to the prevlen prefix of an entry (that encodes the
+<span class="lineNum">     434 </span>            :  * length of the previous entry in order to navigate the elements backward).
+<span class="lineNum">     435 </span>            :  * The length of the previous entry is stored in 'prevlen', the number of
+<span class="lineNum">     436 </span>            :  * bytes needed to encode the previous entry length are stored in
+<span class="lineNum">     437 </span>            :  * 'prevlensize'. */
+<span class="lineNum">     438 </span>            : #define ZIP_DECODE_PREVLEN(ptr, prevlensize, prevlen) do {                     \
+<span class="lineNum">     439 </span>            :     ZIP_DECODE_PREVLENSIZE(ptr, prevlensize);                                  \
+<span class="lineNum">     440 </span>            :     if ((prevlensize) == 1) {                                                  \
+<span class="lineNum">     441 </span>            :         (prevlen) = (ptr)[0];                                                  \
+<span class="lineNum">     442 </span>            :     } else if ((prevlensize) == 5) {                                           \
+<span class="lineNum">     443 </span>            :         assert(sizeof((prevlen)) == 4);                                    \
+<span class="lineNum">     444 </span>            :         memcpy(&amp;(prevlen), ((char*)(ptr)) + 1, 4);                             \
+<span class="lineNum">     445 </span>            :         memrev32ifbe(&amp;prevlen);                                                \
+<span class="lineNum">     446 </span>            :     }                                                                          \
+<span class="lineNum">     447 </span>            : } while(0);
+<span class="lineNum">     448 </span>            : 
+<span class="lineNum">     449 </span>            : /* Given a pointer 'p' to the prevlen info that prefixes an entry, this
+<span class="lineNum">     450 </span>            :  * function returns the difference in number of bytes needed to encode
+<span class="lineNum">     451 </span>            :  * the prevlen if the previous entry changes of size.
+<span class="lineNum">     452 </span>            :  *
+<span class="lineNum">     453 </span>            :  * So if A is the number of bytes used right now to encode the 'prevlen'
+<span class="lineNum">     454 </span>            :  * field.
+<span class="lineNum">     455 </span>            :  *
+<span class="lineNum">     456 </span>            :  * And B is the number of bytes that are needed in order to encode the
+<span class="lineNum">     457 </span>            :  * 'prevlen' if the previous element will be updated to one of size 'len'.
+<span class="lineNum">     458 </span>            :  *
+<span class="lineNum">     459 </span>            :  * Then the function returns B - A
+<span class="lineNum">     460 </span>            :  *
+<span class="lineNum">     461 </span>            :  * So the function returns a positive number if more space is needed,
+<a name="462"><span class="lineNum">     462 </span>            :  * a negative number if less space is needed, or zero if the same space</a>
+<span class="lineNum">     463 </span>            :  * is needed. */
+<span class="lineNum">     464 </span><span class="lineNoCov">          0 : int zipPrevLenByteDiff(unsigned char *p, unsigned int len) {</span>
+<span class="lineNum">     465 </span><span class="lineCov">     684480 :     unsigned int prevlensize;</span>
+<span class="lineNum">     466 </span><span class="lineCov">       5645 :     ZIP_DECODE_PREVLENSIZE(p, prevlensize);</span>
+<span class="lineNum">     467 </span><span class="lineCov">     684480 :     return zipStorePrevEntryLength(NULL, len) - prevlensize;</span>
+<span class="lineNum">     468 </span>            : }
+<a name="469"><span class="lineNum">     469 </span>            : </a>
+<span class="lineNum">     470 </span>            : /* Return the total number of bytes used by the entry pointed to by 'p'. */
+<span class="lineNum">     471 </span><span class="lineCov">   32254602 : unsigned int zipRawEntryLength(unsigned char *p) {</span>
+<span class="lineNum">     472 </span><span class="lineCov">   32254602 :     unsigned int prevlensize, encoding, lensize, len;</span>
+<span class="lineNum">     473 </span><span class="lineCov">   32254602 :     ZIP_DECODE_PREVLENSIZE(p, prevlensize);</span>
+<span class="lineNum">     474 </span><span class="lineCov">   32254602 :     ZIP_DECODE_LENGTH(p + prevlensize, encoding, lensize, len);</span>
+<span class="lineNum">     475 </span><span class="lineCov">   32254602 :     return prevlensize + lensize + len;</span>
+<span class="lineNum">     476 </span>            : }
+<span class="lineNum">     477 </span>            : 
+<a name="478"><span class="lineNum">     478 </span>            : /* Check if string pointed to by 'entry' can be encoded as an integer.</a>
+<span class="lineNum">     479 </span>            :  * Stores the integer value in 'v' and its encoding in 'encoding'. */
+<span class="lineNum">     480 </span><span class="lineCov">   12950621 : int zipTryEncoding(unsigned char *entry, unsigned int entrylen, long long *v, unsigned char *encoding) {</span>
+<span class="lineNum">     481 </span><span class="lineCov">   12950621 :     long long value;</span>
+<span class="lineNum">     482 </span>            : 
+<span class="lineNum">     483 </span><span class="lineCov">   12950621 :     if (entrylen &gt;= 32 || entrylen == 0) return 0;</span>
+<span class="lineNum">     484 </span><span class="lineCov">   12651034 :     if (string2ll((char*)entry,entrylen,&amp;value)) {</span>
+<span class="lineNum">     485 </span>            :         /* Great, the string can be encoded. Check what's the smallest
+<span class="lineNum">     486 </span>            :          * of our encoding types that can hold this value. */
+<span class="lineNum">     487 </span><span class="lineCov">   10465576 :         if (value &gt;= 0 &amp;&amp; value &lt;= 12) {</span>
+<span class="lineNum">     488 </span><span class="lineCov">    1797689 :             *encoding = ZIP_INT_IMM_MIN+value;</span>
+<span class="lineNum">     489 </span><span class="lineCov">    8667887 :         } else if (value &gt;= INT8_MIN &amp;&amp; value &lt;= INT8_MAX) {</span>
+<span class="lineNum">     490 </span><span class="lineCov">    5445398 :             *encoding = ZIP_INT_8B;</span>
+<span class="lineNum">     491 </span><span class="lineCov">    3222489 :         } else if (value &gt;= INT16_MIN &amp;&amp; value &lt;= INT16_MAX) {</span>
+<span class="lineNum">     492 </span><span class="lineCov">    1157645 :             *encoding = ZIP_INT_16B;</span>
+<span class="lineNum">     493 </span><span class="lineCov">    2064844 :         } else if (value &gt;= INT24_MIN &amp;&amp; value &lt;= INT24_MAX) {</span>
+<span class="lineNum">     494 </span><span class="lineCov">      38359 :             *encoding = ZIP_INT_24B;</span>
+<span class="lineNum">     495 </span><span class="lineCov">    2026485 :         } else if (value &gt;= INT32_MIN &amp;&amp; value &lt;= INT32_MAX) {</span>
+<span class="lineNum">     496 </span><span class="lineCov">     777198 :             *encoding = ZIP_INT_32B;</span>
+<span class="lineNum">     497 </span>            :         } else {
+<span class="lineNum">     498 </span><span class="lineCov">    1249287 :             *encoding = ZIP_INT_64B;</span>
+<span class="lineNum">     499 </span>            :         }
+<span class="lineNum">     500 </span><span class="lineCov">   10465576 :         *v = value;</span>
+<span class="lineNum">     501 </span><span class="lineCov">   10465576 :         return 1;</span>
+<span class="lineNum">     502 </span>            :     }
+<span class="lineNum">     503 </span>            :     return 0;
+<span class="lineNum">     504 </span>            : }
+<a name="505"><span class="lineNum">     505 </span>            : </a>
+<span class="lineNum">     506 </span>            : /* Store integer 'value' at 'p', encoded as 'encoding' */
+<span class="lineNum">     507 </span><span class="lineCov">    3319125 : void zipSaveInteger(unsigned char *p, int64_t value, unsigned char encoding) {</span>
+<span class="lineNum">     508 </span><span class="lineCov">    3319125 :     int16_t i16;</span>
+<span class="lineNum">     509 </span><span class="lineCov">    3319125 :     int32_t i32;</span>
+<span class="lineNum">     510 </span><span class="lineCov">    3319125 :     int64_t i64;</span>
+<span class="lineNum">     511 </span><span class="lineCov">    3319125 :     if (encoding == ZIP_INT_8B) {</span>
+<span class="lineNum">     512 </span><span class="lineCov">      82378 :         ((int8_t*)p)[0] = (int8_t)value;</span>
+<span class="lineNum">     513 </span><span class="lineCov">    3236747 :     } else if (encoding == ZIP_INT_16B) {</span>
+<span class="lineNum">     514 </span><span class="lineCov">     544765 :         i16 = value;</span>
+<span class="lineNum">     515 </span><span class="lineCov">     544765 :         memcpy(p,&amp;i16,sizeof(i16));</span>
+<span class="lineNum">     516 </span>            :         memrev16ifbe(p);
+<span class="lineNum">     517 </span><span class="lineCov">    2691982 :     } else if (encoding == ZIP_INT_24B) {</span>
+<span class="lineNum">     518 </span><span class="lineCov">      37111 :         i32 = value&lt;&lt;8;</span>
+<span class="lineNum">     519 </span><span class="lineCov">      37111 :         memrev32ifbe(&amp;i32);</span>
+<span class="lineNum">     520 </span><span class="lineCov">      37111 :         memcpy(p,((uint8_t*)&amp;i32)+1,sizeof(i32)-sizeof(uint8_t));</span>
+<span class="lineNum">     521 </span><span class="lineCov">    2654871 :     } else if (encoding == ZIP_INT_32B) {</span>
+<span class="lineNum">     522 </span><span class="lineCov">     510621 :         i32 = value;</span>
+<span class="lineNum">     523 </span><span class="lineCov">     510621 :         memcpy(p,&amp;i32,sizeof(i32));</span>
+<span class="lineNum">     524 </span>            :         memrev32ifbe(p);
+<span class="lineNum">     525 </span><span class="lineCov">    2144250 :     } else if (encoding == ZIP_INT_64B) {</span>
+<span class="lineNum">     526 </span><span class="lineCov">     896514 :         i64 = value;</span>
+<span class="lineNum">     527 </span><span class="lineCov">     896514 :         memcpy(p,&amp;i64,sizeof(i64));</span>
+<span class="lineNum">     528 </span>            :         memrev64ifbe(p);
+<span class="lineNum">     529 </span><span class="lineCov">    1247736 :     } else if (encoding &gt;= ZIP_INT_IMM_MIN &amp;&amp; encoding &lt;= ZIP_INT_IMM_MAX) {</span>
+<span class="lineNum">     530 </span>            :         /* Nothing to do, the value is stored in the encoding itself. */
+<span class="lineNum">     531 </span>            :     } else {
+<span class="lineNum">     532 </span><span class="lineNoCov">          0 :         assert(NULL);</span>
+<span class="lineNum">     533 </span>            :     }
+<span class="lineNum">     534 </span><span class="lineCov">    3319125 : }</span>
+<a name="535"><span class="lineNum">     535 </span>            : </a>
+<span class="lineNum">     536 </span>            : /* Read integer encoded as 'encoding' from 'p' */
+<span class="lineNum">     537 </span><span class="lineCov">   20717234 : int64_t zipLoadInteger(unsigned char *p, unsigned char encoding) {</span>
+<span class="lineNum">     538 </span><span class="lineCov">   20717234 :     int16_t i16;</span>
+<span class="lineNum">     539 </span><span class="lineCov">   20717234 :     int32_t i32;</span>
+<span class="lineNum">     540 </span><span class="lineCov">   20717234 :     int64_t i64, ret = 0;</span>
+<span class="lineNum">     541 </span><span class="lineCov">   20717234 :     if (encoding == ZIP_INT_8B) {</span>
+<span class="lineNum">     542 </span><span class="lineCov">    5769904 :         ret = ((int8_t*)p)[0];</span>
+<span class="lineNum">     543 </span><span class="lineCov">   14947330 :     } else if (encoding == ZIP_INT_16B) {</span>
+<span class="lineNum">     544 </span><span class="lineCov">    2241231 :         memcpy(&amp;i16,p,sizeof(i16));</span>
+<span class="lineNum">     545 </span><span class="lineCov">    2241231 :         memrev16ifbe(&amp;i16);</span>
+<span class="lineNum">     546 </span><span class="lineCov">    2241231 :         ret = i16;</span>
+<span class="lineNum">     547 </span><span class="lineCov">   12706099 :     } else if (encoding == ZIP_INT_32B) {</span>
+<span class="lineNum">     548 </span><span class="lineCov">    4398599 :         memcpy(&amp;i32,p,sizeof(i32));</span>
+<span class="lineNum">     549 </span><span class="lineCov">    4398599 :         memrev32ifbe(&amp;i32);</span>
+<span class="lineNum">     550 </span><span class="lineCov">    4398599 :         ret = i32;</span>
+<span class="lineNum">     551 </span><span class="lineCov">    8307500 :     } else if (encoding == ZIP_INT_24B) {</span>
+<span class="lineNum">     552 </span><span class="lineCov">      82825 :         i32 = 0;</span>
+<span class="lineNum">     553 </span><span class="lineCov">      82825 :         memcpy(((uint8_t*)&amp;i32)+1,p,sizeof(i32)-sizeof(uint8_t));</span>
+<span class="lineNum">     554 </span><span class="lineCov">      82825 :         memrev32ifbe(&amp;i32);</span>
+<span class="lineNum">     555 </span><span class="lineCov">      82825 :         ret = i32&gt;&gt;8;</span>
+<span class="lineNum">     556 </span><span class="lineCov">    8224675 :     } else if (encoding == ZIP_INT_64B) {</span>
+<span class="lineNum">     557 </span><span class="lineCov">    7416743 :         memcpy(&amp;i64,p,sizeof(i64));</span>
+<span class="lineNum">     558 </span><span class="lineCov">    7416743 :         memrev64ifbe(&amp;i64);</span>
+<span class="lineNum">     559 </span><span class="lineCov">    7416743 :         ret = i64;</span>
+<span class="lineNum">     560 </span><span class="lineCov">     807932 :     } else if (encoding &gt;= ZIP_INT_IMM_MIN &amp;&amp; encoding &lt;= ZIP_INT_IMM_MAX) {</span>
+<span class="lineNum">     561 </span><span class="lineCov">     807932 :         ret = (encoding &amp; ZIP_INT_IMM_MASK)-1;</span>
+<span class="lineNum">     562 </span>            :     } else {
+<span class="lineNum">     563 </span><span class="lineNoCov">          0 :         assert(NULL);</span>
+<span class="lineNum">     564 </span>            :     }
+<span class="lineNum">     565 </span><span class="lineCov">   20717234 :     return ret;</span>
+<span class="lineNum">     566 </span>            : }
+<a name="567"><span class="lineNum">     567 </span>            : </a>
+<span class="lineNum">     568 </span>            : /* Return a struct with all information about an entry. */
+<span class="lineNum">     569 </span><span class="lineCov">   21418696 : void zipEntry(unsigned char *p, zlentry *e) {</span>
+<span class="lineNum">     570 </span>            : 
+<span class="lineNum">     571 </span><span class="lineCov">   21418696 :     ZIP_DECODE_PREVLEN(p, e-&gt;prevrawlensize, e-&gt;prevrawlen);</span>
+<span class="lineNum">     572 </span><span class="lineCov">   21418696 :     ZIP_DECODE_LENGTH(p + e-&gt;prevrawlensize, e-&gt;encoding, e-&gt;lensize, e-&gt;len);</span>
+<span class="lineNum">     573 </span><span class="lineCov">   21418696 :     e-&gt;headersize = e-&gt;prevrawlensize + e-&gt;lensize;</span>
+<span class="lineNum">     574 </span><span class="lineCov">   21418696 :     e-&gt;p = p;</span>
+<span class="lineNum">     575 </span><span class="lineCov">   21418696 : }</span>
+<a name="576"><span class="lineNum">     576 </span>            : </a>
+<span class="lineNum">     577 </span>            : /* Create a new empty ziplist. */
+<span class="lineNum">     578 </span><span class="lineCov">    1363664 : unsigned char *ziplistNew(void) {</span>
+<span class="lineNum">     579 </span><span class="lineCov">    1363664 :     unsigned int bytes = ZIPLIST_HEADER_SIZE+1;</span>
+<span class="lineNum">     580 </span><span class="lineCov">    1363664 :     unsigned char *zl = zmalloc(bytes);</span>
+<span class="lineNum">     581 </span><span class="lineCov">    1363664 :     ZIPLIST_BYTES(zl) = intrev32ifbe(bytes);</span>
+<span class="lineNum">     582 </span><span class="lineCov">    1363664 :     ZIPLIST_TAIL_OFFSET(zl) = intrev32ifbe(ZIPLIST_HEADER_SIZE);</span>
+<span class="lineNum">     583 </span><span class="lineCov">    1363664 :     ZIPLIST_LENGTH(zl) = 0;</span>
+<span class="lineNum">     584 </span><span class="lineCov">    1363664 :     zl[bytes-1] = ZIP_END;</span>
+<span class="lineNum">     585 </span><span class="lineCov">    1363664 :     return zl;</span>
+<span class="lineNum">     586 </span>            : }
+<a name="587"><span class="lineNum">     587 </span>            : </a>
+<span class="lineNum">     588 </span>            : /* Resize the ziplist. */
+<span class="lineNum">     589 </span><span class="lineNoCov">          0 : unsigned char *ziplistResize(unsigned char *zl, unsigned int len) {</span>
+<span class="lineNum">     590 </span><span class="lineNoCov">          0 :     zl = zrealloc(zl,len);</span>
+<span class="lineNum">     591 </span><span class="lineCov">    6667055 :     ZIPLIST_BYTES(zl) = intrev32ifbe(len);</span>
+<span class="lineNum">     592 </span><span class="lineCov">    6667055 :     zl[len-1] = ZIP_END;</span>
+<span class="lineNum">     593 </span><span class="lineCov">    6667055 :     return zl;</span>
+<span class="lineNum">     594 </span>            : }
+<span class="lineNum">     595 </span>            : 
+<span class="lineNum">     596 </span>            : /* When an entry is inserted, we need to set the prevlen field of the next
+<span class="lineNum">     597 </span>            :  * entry to equal the length of the inserted entry. It can occur that this
+<span class="lineNum">     598 </span>            :  * length cannot be encoded in 1 byte and the next entry needs to be grow
+<span class="lineNum">     599 </span>            :  * a bit larger to hold the 5-byte encoded prevlen. This can be done for free,
+<span class="lineNum">     600 </span>            :  * because this only happens when an entry is already being inserted (which
+<span class="lineNum">     601 </span>            :  * causes a realloc and memmove). However, encoding the prevlen may require
+<span class="lineNum">     602 </span>            :  * that this entry is grown as well. This effect may cascade throughout
+<span class="lineNum">     603 </span>            :  * the ziplist when there are consecutive entries with a size close to
+<span class="lineNum">     604 </span>            :  * ZIP_BIG_PREVLEN, so we need to check that the prevlen can be encoded in
+<span class="lineNum">     605 </span>            :  * every consecutive entry.
+<span class="lineNum">     606 </span>            :  *
+<span class="lineNum">     607 </span>            :  * Note that this effect can also happen in reverse, where the bytes required
+<span class="lineNum">     608 </span>            :  * to encode the prevlen field can shrink. This effect is deliberately ignored,
+<span class="lineNum">     609 </span>            :  * because it can cause a &quot;flapping&quot; effect where a chain prevlen fields is
+<span class="lineNum">     610 </span>            :  * first grown and then shrunk again after consecutive inserts. Rather, the
+<span class="lineNum">     611 </span>            :  * field is allowed to stay larger than necessary, because a large prevlen
+<span class="lineNum">     612 </span>            :  * field implies the ziplist is holding large entries anyway.
+<span class="lineNum">     613 </span>            :  *
+<a name="614"><span class="lineNum">     614 </span>            :  * The pointer &quot;p&quot; points to the first entry that does NOT need to be</a>
+<span class="lineNum">     615 </span>            :  * updated, i.e. consecutive fields MAY need an update. */
+<span class="lineNum">     616 </span><span class="lineCov">      10495 : unsigned char *__ziplistCascadeUpdate(unsigned char *zl, unsigned char *p) {</span>
+<span class="lineNum">     617 </span><span class="lineCov">      10495 :     size_t curlen = intrev32ifbe(ZIPLIST_BYTES(zl)), rawlen, rawlensize;</span>
+<span class="lineNum">     618 </span><span class="lineCov">      10495 :     size_t offset, noffset, extra;</span>
+<span class="lineNum">     619 </span><span class="lineCov">      10495 :     unsigned char *np;</span>
+<span class="lineNum">     620 </span><span class="lineCov">      10495 :     zlentry cur, next;</span>
+<span class="lineNum">     621 </span>            : 
+<span class="lineNum">     622 </span><span class="lineCov">      10527 :     while (p[0] != ZIP_END) {</span>
+<span class="lineNum">     623 </span><span class="lineCov">      10527 :         zipEntry(p, &amp;cur);</span>
+<span class="lineNum">     624 </span><span class="lineCov">      10527 :         rawlen = cur.headersize + cur.len;</span>
+<span class="lineNum">     625 </span><span class="lineCov">      10527 :         rawlensize = zipStorePrevEntryLength(NULL,rawlen);</span>
+<span class="lineNum">     626 </span>            : 
+<span class="lineNum">     627 </span>            :         /* Abort if there is no next entry. */
+<span class="lineNum">     628 </span><span class="lineCov">      10527 :         if (p[rawlen] == ZIP_END) break;</span>
+<span class="lineNum">     629 </span><span class="lineCov">       5902 :         zipEntry(p+rawlen, &amp;next);</span>
+<span class="lineNum">     630 </span>            : 
+<span class="lineNum">     631 </span>            :         /* Abort when &quot;prevlen&quot; has not changed. */
+<span class="lineNum">     632 </span><span class="lineCov">       5902 :         if (next.prevrawlen == rawlen) break;</span>
+<span class="lineNum">     633 </span>            : 
+<span class="lineNum">     634 </span><span class="lineCov">       5902 :         if (next.prevrawlensize &lt; rawlensize) {</span>
+<span class="lineNum">     635 </span>            :             /* The &quot;prevlen&quot; field of &quot;next&quot; needs more bytes to hold
+<span class="lineNum">     636 </span>            :              * the raw length of &quot;cur&quot;. */
+<span class="lineNum">     637 </span><span class="lineCov">         32 :             offset = p-zl;</span>
+<span class="lineNum">     638 </span><span class="lineCov">         32 :             extra = rawlensize-next.prevrawlensize;</span>
+<span class="lineNum">     639 </span><span class="lineCov">         32 :             zl = ziplistResize(zl,curlen+extra);</span>
+<span class="lineNum">     640 </span><span class="lineCov">         32 :             p = zl+offset;</span>
+<span class="lineNum">     641 </span>            : 
+<span class="lineNum">     642 </span>            :             /* Current pointer and offset for next element. */
+<span class="lineNum">     643 </span><span class="lineCov">         32 :             np = p+rawlen;</span>
+<span class="lineNum">     644 </span><span class="lineCov">         32 :             noffset = np-zl;</span>
+<span class="lineNum">     645 </span>            : 
+<span class="lineNum">     646 </span>            :             /* Update tail offset when next element is not the tail element. */
+<span class="lineNum">     647 </span><span class="lineCov">         32 :             if ((zl+intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl))) != np) {</span>
+<span class="lineNum">     648 </span><span class="lineCov">         40 :                 ZIPLIST_TAIL_OFFSET(zl) =</span>
+<span class="lineNum">     649 </span><span class="lineCov">         20 :                     intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl))+extra);</span>
+<span class="lineNum">     650 </span>            :             }
+<span class="lineNum">     651 </span>            : 
+<span class="lineNum">     652 </span>            :             /* Move the tail to the back. */
+<span class="lineNum">     653 </span><span class="lineCov">        128 :             memmove(np+rawlensize,</span>
+<span class="lineNum">     654 </span><span class="lineCov">         32 :                 np+next.prevrawlensize,</span>
+<span class="lineNum">     655 </span><span class="lineCov">         32 :                 curlen-noffset-next.prevrawlensize-1);</span>
+<span class="lineNum">     656 </span><span class="lineCov">         32 :             zipStorePrevEntryLength(np,rawlen);</span>
+<span class="lineNum">     657 </span>            : 
+<span class="lineNum">     658 </span>            :             /* Advance the cursor */
+<span class="lineNum">     659 </span><span class="lineCov">         32 :             p += rawlen;</span>
+<span class="lineNum">     660 </span><span class="lineCov">         32 :             curlen += extra;</span>
+<span class="lineNum">     661 </span>            :         } else {
+<span class="lineNum">     662 </span><span class="lineCov">       5870 :             if (next.prevrawlensize &gt; rawlensize) {</span>
+<span class="lineNum">     663 </span>            :                 /* This would result in shrinking, which we want to avoid.
+<span class="lineNum">     664 </span>            :                  * So, set &quot;rawlen&quot; in the available bytes. */
+<span class="lineNum">     665 </span><span class="lineNoCov">          0 :                 zipStorePrevEntryLengthLarge(p+rawlen,rawlen);</span>
+<span class="lineNum">     666 </span>            :             } else {
+<span class="lineNum">     667 </span><span class="lineCov">       5870 :                 zipStorePrevEntryLength(p+rawlen,rawlen);</span>
+<span class="lineNum">     668 </span>            :             }
+<span class="lineNum">     669 </span>            : 
+<span class="lineNum">     670 </span>            :             /* Stop here, as the raw length of &quot;next&quot; has not changed. */
+<span class="lineNum">     671 </span>            :             break;
+<span class="lineNum">     672 </span>            :         }
+<span class="lineNum">     673 </span>            :     }
+<span class="lineNum">     674 </span><span class="lineCov">      10495 :     return zl;</span>
+<span class="lineNum">     675 </span>            : }
+<a name="676"><span class="lineNum">     676 </span>            : </a>
+<span class="lineNum">     677 </span>            : /* Delete &quot;num&quot; entries, starting at &quot;p&quot;. Returns pointer to the ziplist. */
+<span class="lineNum">     678 </span><span class="lineCov">    1019338 : unsigned char *__ziplistDelete(unsigned char *zl, unsigned char *p, unsigned int num) {</span>
+<span class="lineNum">     679 </span><span class="lineCov">    1019338 :     unsigned int i, totlen, deleted = 0;</span>
+<span class="lineNum">     680 </span><span class="lineCov">    1019338 :     size_t offset;</span>
+<span class="lineNum">     681 </span><span class="lineCov">    1019338 :     int nextdiff = 0;</span>
+<span class="lineNum">     682 </span><span class="lineCov">    1019338 :     zlentry first, tail;</span>
+<span class="lineNum">     683 </span>            : 
+<span class="lineNum">     684 </span><span class="lineCov">    1019338 :     zipEntry(p, &amp;first);</span>
+<span class="lineNum">     685 </span><span class="lineCov">    2047729 :     for (i = 0; p[0] != ZIP_END &amp;&amp; i &lt; num; i++) {</span>
+<span class="lineNum">     686 </span><span class="lineCov">    1028391 :         p += zipRawEntryLength(p);</span>
+<span class="lineNum">     687 </span><span class="lineCov">    1028391 :         deleted++;</span>
+<span class="lineNum">     688 </span>            :     }
+<span class="lineNum">     689 </span>            : 
+<span class="lineNum">     690 </span><span class="lineCov">    1019338 :     totlen = p-first.p; /* Bytes taken by the element(s) to delete. */</span>
+<span class="lineNum">     691 </span><span class="lineCov">    1019338 :     if (totlen &gt; 0) {</span>
+<span class="lineNum">     692 </span><span class="lineCov">    1019326 :         if (p[0] != ZIP_END) {</span>
+<span class="lineNum">     693 </span>            :             /* Storing `prevrawlen` in this entry may increase or decrease the
+<span class="lineNum">     694 </span>            :              * number of bytes required compare to the current `prevrawlen`.
+<span class="lineNum">     695 </span>            :              * There always is room to store this, because it was previously
+<span class="lineNum">     696 </span>            :              * stored by an entry that is now being deleted. */
+<span class="lineNum">     697 </span><span class="lineCov">     302017 :             nextdiff = zipPrevLenByteDiff(p,first.prevrawlen);</span>
+<span class="lineNum">     698 </span>            : 
+<span class="lineNum">     699 </span>            :             /* Note that there is always space when p jumps backward: if
+<span class="lineNum">     700 </span>            :              * the new previous entry is large, one of the deleted elements
+<span class="lineNum">     701 </span>            :              * had a 5 bytes prevlen header, so there is for sure at least
+<span class="lineNum">     702 </span>            :              * 5 bytes free and we need just 4. */
+<span class="lineNum">     703 </span><span class="lineCov">     302017 :             p -= nextdiff;</span>
+<span class="lineNum">     704 </span><span class="lineCov">     302017 :             zipStorePrevEntryLength(p,first.prevrawlen);</span>
+<span class="lineNum">     705 </span>            : 
+<span class="lineNum">     706 </span>            :             /* Update offset for tail */
+<span class="lineNum">     707 </span><span class="lineCov">     604034 :             ZIPLIST_TAIL_OFFSET(zl) =</span>
+<span class="lineNum">     708 </span><span class="lineCov">     302017 :                 intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl))-totlen);</span>
+<span class="lineNum">     709 </span>            : 
+<span class="lineNum">     710 </span>            :             /* When the tail contains more than one entry, we need to take
+<span class="lineNum">     711 </span>            :              * &quot;nextdiff&quot; in account as well. Otherwise, a change in the
+<span class="lineNum">     712 </span>            :              * size of prevlen doesn't have an effect on the *tail* offset. */
+<span class="lineNum">     713 </span><span class="lineCov">     302017 :             zipEntry(p, &amp;tail);</span>
+<span class="lineNum">     714 </span><span class="lineCov">     302017 :             if (p[tail.headersize+tail.len] != ZIP_END) {</span>
+<span class="lineNum">     715 </span><span class="lineCov">      69418 :                 ZIPLIST_TAIL_OFFSET(zl) =</span>
+<span class="lineNum">     716 </span><span class="lineCov">      34709 :                    intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl))+nextdiff);</span>
+<span class="lineNum">     717 </span>            :             }
+<span class="lineNum">     718 </span>            : 
+<span class="lineNum">     719 </span>            :             /* Move tail to the front of the ziplist */
+<span class="lineNum">     720 </span><span class="lineCov">     604034 :             memmove(first.p,p,</span>
+<span class="lineNum">     721 </span><span class="lineCov">     302017 :                 intrev32ifbe(ZIPLIST_BYTES(zl))-(p-zl)-1);</span>
+<span class="lineNum">     722 </span>            :         } else {
+<span class="lineNum">     723 </span>            :             /* The entire tail was deleted. No need to move memory. */
+<span class="lineNum">     724 </span><span class="lineCov">    1434618 :             ZIPLIST_TAIL_OFFSET(zl) =</span>
+<span class="lineNum">     725 </span><span class="lineCov">     717309 :                 intrev32ifbe((first.p-zl)-first.prevrawlen);</span>
+<span class="lineNum">     726 </span>            :         }
+<span class="lineNum">     727 </span>            : 
+<span class="lineNum">     728 </span>            :         /* Resize and update length */
+<span class="lineNum">     729 </span><span class="lineCov">    1019326 :         offset = first.p-zl;</span>
+<span class="lineNum">     730 </span><span class="lineCov">    1019326 :         zl = ziplistResize(zl, intrev32ifbe(ZIPLIST_BYTES(zl))-totlen+nextdiff);</span>
+<span class="lineNum">     731 </span><span class="lineCov">    1019326 :         ZIPLIST_INCR_LENGTH(zl,-deleted);</span>
+<span class="lineNum">     732 </span><span class="lineCov">    1019326 :         p = zl+offset;</span>
+<span class="lineNum">     733 </span>            : 
+<span class="lineNum">     734 </span>            :         /* When nextdiff != 0, the raw length of the next entry has changed, so
+<span class="lineNum">     735 </span>            :          * we need to cascade the update throughout the ziplist */
+<span class="lineNum">     736 </span><span class="lineCov">    1019326 :         if (nextdiff != 0)</span>
+<span class="lineNum">     737 </span><span class="lineCov">       4711 :             zl = __ziplistCascadeUpdate(zl,p);</span>
+<span class="lineNum">     738 </span>            :     }
+<span class="lineNum">     739 </span><span class="lineCov">    1019338 :     return zl;</span>
+<span class="lineNum">     740 </span>            : }
+<a name="741"><span class="lineNum">     741 </span>            : </a>
+<span class="lineNum">     742 </span>            : /* Insert item at &quot;p&quot;. */
+<span class="lineNum">     743 </span><span class="lineCov">    5647697 : unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char *s, unsigned int slen) {</span>
+<span class="lineNum">     744 </span><span class="lineCov">    5647697 :     size_t curlen = intrev32ifbe(ZIPLIST_BYTES(zl)), reqlen;</span>
+<span class="lineNum">     745 </span><span class="lineCov">    5647697 :     unsigned int prevlensize, prevlen = 0;</span>
+<span class="lineNum">     746 </span><span class="lineCov">    5647697 :     size_t offset;</span>
+<span class="lineNum">     747 </span><span class="lineCov">    5647697 :     int nextdiff = 0;</span>
+<span class="lineNum">     748 </span><span class="lineCov">    5647697 :     unsigned char encoding = 0;</span>
+<span class="lineNum">     749 </span><span class="lineCov">    5647697 :     long long value = 123456789; /* initialized to avoid warning. Using a value</span>
+<span class="lineNum">     750 </span>            :                                     that is easy to see if for some reason
+<span class="lineNum">     751 </span>            :                                     we use it uninitialized. */
+<span class="lineNum">     752 </span><span class="lineCov">    5647697 :     zlentry tail;</span>
+<span class="lineNum">     753 </span>            : 
+<span class="lineNum">     754 </span>            :     /* Find out prevlen for the entry that is inserted. */
+<span class="lineNum">     755 </span><span class="lineCov">    5647697 :     if (p[0] != ZIP_END) {</span>
+<span class="lineNum">     756 </span><span class="lineCov">     382463 :         ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);</span>
+<span class="lineNum">     757 </span>            :     } else {
+<span class="lineNum">     758 </span><span class="lineCov">    5265234 :         unsigned char *ptail = ZIPLIST_ENTRY_TAIL(zl);</span>
+<span class="lineNum">     759 </span><span class="lineCov">    5265234 :         if (ptail[0] != ZIP_END) {</span>
+<span class="lineNum">     760 </span><span class="lineCov">    4044026 :             prevlen = zipRawEntryLength(ptail);</span>
+<span class="lineNum">     761 </span>            :         }
+<span class="lineNum">     762 </span>            :     }
+<span class="lineNum">     763 </span>            : 
+<span class="lineNum">     764 </span>            :     /* See if the entry can be encoded */
+<span class="lineNum">     765 </span><span class="lineCov">    5647697 :     if (zipTryEncoding(s,slen,&amp;value,&amp;encoding)) {</span>
+<span class="lineNum">     766 </span>            :         /* 'encoding' is set to the appropriate integer encoding */
+<span class="lineNum">     767 </span><span class="lineCov">    3319125 :         reqlen = zipIntSize(encoding);</span>
+<span class="lineNum">     768 </span>            :     } else {
+<span class="lineNum">     769 </span>            :         /* 'encoding' is untouched, however zipStoreEntryEncoding will use the
+<span class="lineNum">     770 </span>            :          * string length to figure out how to encode it. */
+<span class="lineNum">     771 </span><span class="lineCov">    2328572 :         reqlen = slen;</span>
+<span class="lineNum">     772 </span>            :     }
+<span class="lineNum">     773 </span>            :     /* We need space for both the length of the previous entry and
+<span class="lineNum">     774 </span>            :      * the length of the payload. */
+<span class="lineNum">     775 </span><span class="lineCov">    5647697 :     reqlen += zipStorePrevEntryLength(NULL,prevlen);</span>
+<span class="lineNum">     776 </span><span class="lineCov">    5647697 :     reqlen += zipStoreEntryEncoding(NULL,encoding,slen);</span>
+<span class="lineNum">     777 </span>            : 
+<span class="lineNum">     778 </span>            :     /* When the insert position is not equal to the tail, we need to
+<span class="lineNum">     779 </span>            :      * make sure that the next entry can hold this entry's length in
+<span class="lineNum">     780 </span>            :      * its prevlen field. */
+<span class="lineNum">     781 </span><span class="lineCov">    5647697 :     int forcelarge = 0;</span>
+<span class="lineNum">     782 </span><span class="lineCov">    6030160 :     nextdiff = (p[0] != ZIP_END) ? zipPrevLenByteDiff(p,reqlen) : 0;</span>
+<span class="lineNum">     783 </span><span class="lineCov">    5647697 :     if (nextdiff == -4 &amp;&amp; reqlen &lt; 4) {</span>
+<span class="lineNum">     784 </span><span class="lineNoCov">          0 :         nextdiff = 0;</span>
+<span class="lineNum">     785 </span><span class="lineNoCov">          0 :         forcelarge = 1;</span>
+<span class="lineNum">     786 </span>            :     }
+<span class="lineNum">     787 </span>            : 
+<span class="lineNum">     788 </span>            :     /* Store offset because a realloc may change the address of zl. */
+<span class="lineNum">     789 </span><span class="lineCov">    5647697 :     offset = p-zl;</span>
+<span class="lineNum">     790 </span><span class="lineCov">    5647697 :     zl = ziplistResize(zl,curlen+reqlen+nextdiff);</span>
+<span class="lineNum">     791 </span><span class="lineCov">    5647697 :     p = zl+offset;</span>
+<span class="lineNum">     792 </span>            : 
+<span class="lineNum">     793 </span>            :     /* Apply memory move when necessary and update tail offset. */
+<span class="lineNum">     794 </span><span class="lineCov">    5647697 :     if (p[0] != ZIP_END) {</span>
+<span class="lineNum">     795 </span>            :         /* Subtract one because of the ZIP_END bytes */
+<span class="lineNum">     796 </span><span class="lineCov">     382463 :         memmove(p+reqlen,p-nextdiff,curlen-offset-1+nextdiff);</span>
+<span class="lineNum">     797 </span>            : 
+<span class="lineNum">     798 </span>            :         /* Encode this entry's raw length in the next entry. */
+<span class="lineNum">     799 </span><span class="lineCov">     382463 :         if (forcelarge)</span>
+<span class="lineNum">     800 </span><span class="lineNoCov">          0 :             zipStorePrevEntryLengthLarge(p+reqlen,reqlen);</span>
+<span class="lineNum">     801 </span>            :         else
+<span class="lineNum">     802 </span><span class="lineCov">     382463 :             zipStorePrevEntryLength(p+reqlen,reqlen);</span>
+<span class="lineNum">     803 </span>            : 
+<span class="lineNum">     804 </span>            :         /* Update offset for tail */
+<span class="lineNum">     805 </span><span class="lineCov">     764926 :         ZIPLIST_TAIL_OFFSET(zl) =</span>
+<span class="lineNum">     806 </span><span class="lineCov">     382463 :             intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl))+reqlen);</span>
+<span class="lineNum">     807 </span>            : 
+<span class="lineNum">     808 </span>            :         /* When the tail contains more than one entry, we need to take
+<span class="lineNum">     809 </span>            :          * &quot;nextdiff&quot; in account as well. Otherwise, a change in the
+<span class="lineNum">     810 </span>            :          * size of prevlen doesn't have an effect on the *tail* offset. */
+<span class="lineNum">     811 </span><span class="lineCov">     382463 :         zipEntry(p+reqlen, &amp;tail);</span>
+<span class="lineNum">     812 </span><span class="lineCov">     382463 :         if (p[reqlen+tail.headersize+tail.len] != ZIP_END) {</span>
+<span class="lineNum">     813 </span><span class="lineCov">     562510 :             ZIPLIST_TAIL_OFFSET(zl) =</span>
+<span class="lineNum">     814 </span><span class="lineCov">     281255 :                 intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl))+nextdiff);</span>
+<span class="lineNum">     815 </span>            :         }
+<span class="lineNum">     816 </span>            :     } else {
+<span class="lineNum">     817 </span>            :         /* This element will be the new tail. */
+<span class="lineNum">     818 </span><span class="lineCov">    5265234 :         ZIPLIST_TAIL_OFFSET(zl) = intrev32ifbe(p-zl);</span>
+<span class="lineNum">     819 </span>            :     }
+<span class="lineNum">     820 </span>            : 
+<span class="lineNum">     821 </span>            :     /* When nextdiff != 0, the raw length of the next entry has changed, so
+<span class="lineNum">     822 </span>            :      * we need to cascade the update throughout the ziplist */
+<span class="lineNum">     823 </span><span class="lineCov">    5647697 :     if (nextdiff != 0) {</span>
+<span class="lineNum">     824 </span><span class="lineCov">       5688 :         offset = p-zl;</span>
+<span class="lineNum">     825 </span><span class="lineCov">       5688 :         zl = __ziplistCascadeUpdate(zl,p+reqlen);</span>
+<span class="lineNum">     826 </span><span class="lineCov">       5688 :         p = zl+offset;</span>
+<span class="lineNum">     827 </span>            :     }
+<span class="lineNum">     828 </span>            : 
+<span class="lineNum">     829 </span>            :     /* Write the entry */
+<span class="lineNum">     830 </span><span class="lineCov">    5647697 :     p += zipStorePrevEntryLength(p,prevlen);</span>
+<span class="lineNum">     831 </span><span class="lineCov">    5647697 :     p += zipStoreEntryEncoding(p,encoding,slen);</span>
+<span class="lineNum">     832 </span><span class="lineCov">    5647697 :     if (ZIP_IS_STR(encoding)) {</span>
+<span class="lineNum">     833 </span><span class="lineCov">    2328572 :         memcpy(p,s,slen);</span>
+<span class="lineNum">     834 </span>            :     } else {
+<span class="lineNum">     835 </span><span class="lineCov">    3319125 :         zipSaveInteger(p,value,encoding);</span>
+<span class="lineNum">     836 </span>            :     }
+<span class="lineNum">     837 </span><span class="lineCov">    5647697 :     ZIPLIST_INCR_LENGTH(zl,1);</span>
+<span class="lineNum">     838 </span><span class="lineCov">    5647697 :     return zl;</span>
+<span class="lineNum">     839 </span>            : }
+<span class="lineNum">     840 </span>            : 
+<span class="lineNum">     841 </span>            : /* Merge ziplists 'first' and 'second' by appending 'second' to 'first'.
+<span class="lineNum">     842 </span>            :  *
+<span class="lineNum">     843 </span>            :  * NOTE: The larger ziplist is reallocated to contain the new merged ziplist.
+<span class="lineNum">     844 </span>            :  * Either 'first' or 'second' can be used for the result.  The parameter not
+<span class="lineNum">     845 </span>            :  * used will be free'd and set to NULL.
+<span class="lineNum">     846 </span>            :  *
+<span class="lineNum">     847 </span>            :  * After calling this function, the input parameters are no longer valid since
+<span class="lineNum">     848 </span>            :  * they are changed and free'd in-place.
+<span class="lineNum">     849 </span>            :  *
+<span class="lineNum">     850 </span>            :  * The result ziplist is the contents of 'first' followed by 'second'.
+<span class="lineNum">     851 </span>            :  *
+<span class="lineNum">     852 </span>            :  * On failure: returns NULL if the merge is impossible.
+<span class="lineNum">     853 </span>            :  * On success: returns the merged ziplist (which is expanded version of either
+<a name="854"><span class="lineNum">     854 </span>            :  * 'first' or 'second', also frees the other unused input ziplist, and sets the</a>
+<span class="lineNum">     855 </span>            :  * input ziplist argument equal to newly reallocated ziplist return value. */
+<span class="lineNum">     856 </span><span class="lineCov">         96 : unsigned char *ziplistMerge(unsigned char **first, unsigned char **second) {</span>
+<span class="lineNum">     857 </span>            :     /* If any params are null, we can't merge, so NULL. */
+<span class="lineNum">     858 </span><span class="lineCov">         96 :     if (first == NULL || *first == NULL || second == NULL || *second == NULL)</span>
+<span class="lineNum">     859 </span>            :         return NULL;
+<span class="lineNum">     860 </span>            : 
+<span class="lineNum">     861 </span>            :     /* Can't merge same list into itself. */
+<span class="lineNum">     862 </span><span class="lineCov">         96 :     if (*first == *second)</span>
+<span class="lineNum">     863 </span>            :         return NULL;
+<span class="lineNum">     864 </span>            : 
+<span class="lineNum">     865 </span><span class="lineCov">         96 :     size_t first_bytes = intrev32ifbe(ZIPLIST_BYTES(*first));</span>
+<span class="lineNum">     866 </span><span class="lineCov">         96 :     size_t first_len = intrev16ifbe(ZIPLIST_LENGTH(*first));</span>
+<span class="lineNum">     867 </span>            : 
+<span class="lineNum">     868 </span><span class="lineCov">         96 :     size_t second_bytes = intrev32ifbe(ZIPLIST_BYTES(*second));</span>
+<span class="lineNum">     869 </span><span class="lineCov">         96 :     size_t second_len = intrev16ifbe(ZIPLIST_LENGTH(*second));</span>
+<span class="lineNum">     870 </span>            : 
+<span class="lineNum">     871 </span><span class="lineCov">         96 :     int append;</span>
+<span class="lineNum">     872 </span><span class="lineCov">         96 :     unsigned char *source, *target;</span>
+<span class="lineNum">     873 </span><span class="lineCov">         96 :     size_t target_bytes, source_bytes;</span>
+<span class="lineNum">     874 </span>            :     /* Pick the largest ziplist so we can resize easily in-place.
+<span class="lineNum">     875 </span>            :      * We must also track if we are now appending or prepending to
+<span class="lineNum">     876 </span>            :      * the target ziplist. */
+<span class="lineNum">     877 </span><span class="lineCov">         96 :     if (first_len &gt;= second_len) {</span>
+<span class="lineNum">     878 </span>            :         /* retain first, append second to first. */
+<span class="lineNum">     879 </span>            :         target = *first;
+<span class="lineNum">     880 </span>            :         target_bytes = first_bytes;
+<span class="lineNum">     881 </span>            :         source = *second;
+<span class="lineNum">     882 </span>            :         source_bytes = second_bytes;
+<span class="lineNum">     883 </span>            :         append = 1;
+<span class="lineNum">     884 </span>            :     } else {
+<span class="lineNum">     885 </span>            :         /* else, retain second, prepend first to second. */
+<span class="lineNum">     886 </span><span class="lineCov">         50 :         target = *second;</span>
+<span class="lineNum">     887 </span><span class="lineCov">         50 :         target_bytes = second_bytes;</span>
+<span class="lineNum">     888 </span><span class="lineCov">         50 :         source = *first;</span>
+<span class="lineNum">     889 </span><span class="lineCov">         50 :         source_bytes = first_bytes;</span>
+<span class="lineNum">     890 </span><span class="lineCov">         50 :         append = 0;</span>
+<span class="lineNum">     891 </span>            :     }
+<span class="lineNum">     892 </span>            : 
+<span class="lineNum">     893 </span>            :     /* Calculate final bytes (subtract one pair of metadata) */
+<span class="lineNum">     894 </span><span class="lineCov">         96 :     size_t zlbytes = first_bytes + second_bytes -</span>
+<span class="lineNum">     895 </span>            :                      ZIPLIST_HEADER_SIZE - ZIPLIST_END_SIZE;
+<span class="lineNum">     896 </span><span class="lineCov">         96 :     size_t zllength = first_len + second_len;</span>
+<span class="lineNum">     897 </span>            : 
+<span class="lineNum">     898 </span>            :     /* Combined zl length should be limited within UINT16_MAX */
+<span class="lineNum">     899 </span><span class="lineCov">         96 :     zllength = zllength &lt; UINT16_MAX ? zllength : UINT16_MAX;</span>
+<span class="lineNum">     900 </span>            : 
+<span class="lineNum">     901 </span>            :     /* Save offset positions before we start ripping memory apart. */
+<span class="lineNum">     902 </span><span class="lineCov">         96 :     size_t first_offset = intrev32ifbe(ZIPLIST_TAIL_OFFSET(*first));</span>
+<span class="lineNum">     903 </span><span class="lineCov">         96 :     size_t second_offset = intrev32ifbe(ZIPLIST_TAIL_OFFSET(*second));</span>
+<span class="lineNum">     904 </span>            : 
+<span class="lineNum">     905 </span>            :     /* Extend target to new zlbytes then append or prepend source. */
+<span class="lineNum">     906 </span><span class="lineCov">         96 :     target = zrealloc(target, zlbytes);</span>
+<span class="lineNum">     907 </span><span class="lineCov">         96 :     if (append) {</span>
+<span class="lineNum">     908 </span>            :         /* append == appending to target */
+<span class="lineNum">     909 </span>            :         /* Copy source after target (copying over original [END]):
+<span class="lineNum">     910 </span>            :          *   [TARGET - END, SOURCE - HEADER] */
+<span class="lineNum">     911 </span><span class="lineCov">         92 :         memcpy(target + target_bytes - ZIPLIST_END_SIZE,</span>
+<span class="lineNum">     912 </span><span class="lineCov">         46 :                source + ZIPLIST_HEADER_SIZE,</span>
+<span class="lineNum">     913 </span>            :                source_bytes - ZIPLIST_HEADER_SIZE);
+<span class="lineNum">     914 </span>            :     } else {
+<span class="lineNum">     915 </span>            :         /* !append == prepending to target */
+<span class="lineNum">     916 </span>            :         /* Move target *contents* exactly size of (source - [END]),
+<span class="lineNum">     917 </span>            :          * then copy source into vacataed space (source - [END]):
+<span class="lineNum">     918 </span>            :          *   [SOURCE - END, TARGET - HEADER] */
+<span class="lineNum">     919 </span><span class="lineCov">        150 :         memmove(target + source_bytes - ZIPLIST_END_SIZE,</span>
+<span class="lineNum">     920 </span><span class="lineCov">         50 :                 target + ZIPLIST_HEADER_SIZE,</span>
+<span class="lineNum">     921 </span>            :                 target_bytes - ZIPLIST_HEADER_SIZE);
+<span class="lineNum">     922 </span><span class="lineCov">         50 :         memcpy(target, source, source_bytes - ZIPLIST_END_SIZE);</span>
+<span class="lineNum">     923 </span>            :     }
+<span class="lineNum">     924 </span>            : 
+<span class="lineNum">     925 </span>            :     /* Update header metadata. */
+<span class="lineNum">     926 </span><span class="lineCov">         96 :     ZIPLIST_BYTES(target) = intrev32ifbe(zlbytes);</span>
+<span class="lineNum">     927 </span><span class="lineCov">         96 :     ZIPLIST_LENGTH(target) = intrev16ifbe(zllength);</span>
+<span class="lineNum">     928 </span>            :     /* New tail offset is:
+<span class="lineNum">     929 </span>            :      *   + N bytes of first ziplist
+<span class="lineNum">     930 </span>            :      *   - 1 byte for [END] of first ziplist
+<span class="lineNum">     931 </span>            :      *   + M bytes for the offset of the original tail of the second ziplist
+<span class="lineNum">     932 </span>            :      *   - J bytes for HEADER because second_offset keeps no header. */
+<span class="lineNum">     933 </span><span class="lineCov">         96 :     ZIPLIST_TAIL_OFFSET(target) = intrev32ifbe(</span>
+<span class="lineNum">     934 </span>            :                                    (first_bytes - ZIPLIST_END_SIZE) +
+<span class="lineNum">     935 </span>            :                                    (second_offset - ZIPLIST_HEADER_SIZE));
+<span class="lineNum">     936 </span>            : 
+<span class="lineNum">     937 </span>            :     /* __ziplistCascadeUpdate just fixes the prev length values until it finds a
+<span class="lineNum">     938 </span>            :      * correct prev length value (then it assumes the rest of the list is okay).
+<span class="lineNum">     939 </span>            :      * We tell CascadeUpdate to start at the first ziplist's tail element to fix
+<span class="lineNum">     940 </span>            :      * the merge seam. */
+<span class="lineNum">     941 </span><span class="lineCov">         96 :     target = __ziplistCascadeUpdate(target, target+first_offset);</span>
+<span class="lineNum">     942 </span>            : 
+<span class="lineNum">     943 </span>            :     /* Now free and NULL out what we didn't realloc */
+<span class="lineNum">     944 </span><span class="lineCov">         96 :     if (append) {</span>
+<span class="lineNum">     945 </span><span class="lineCov">         46 :         zfree(*second);</span>
+<span class="lineNum">     946 </span><span class="lineCov">         46 :         *second = NULL;</span>
+<span class="lineNum">     947 </span><span class="lineCov">         46 :         *first = target;</span>
+<span class="lineNum">     948 </span>            :     } else {
+<span class="lineNum">     949 </span><span class="lineCov">         50 :         zfree(*first);</span>
+<span class="lineNum">     950 </span><span class="lineCov">         50 :         *first = NULL;</span>
+<span class="lineNum">     951 </span><span class="lineCov">         50 :         *second = target;</span>
+<span class="lineNum">     952 </span>            :     }
+<span class="lineNum">     953 </span>            :     return target;
+<a name="954"><span class="lineNum">     954 </span>            : }</a>
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span><span class="lineCov">    5389156 : unsigned char *ziplistPush(unsigned char *zl, unsigned char *s, unsigned int slen, int where) {</span>
+<span class="lineNum">     957 </span><span class="lineCov">    5389156 :     unsigned char *p;</span>
+<span class="lineNum">     958 </span><span class="lineCov">    5389156 :     p = (where == ZIPLIST_HEAD) ? ZIPLIST_ENTRY_HEAD(zl) : ZIPLIST_ENTRY_END(zl);</span>
+<span class="lineNum">     959 </span><span class="lineCov">    5389156 :     return __ziplistInsert(zl,p,s,slen);</span>
+<span class="lineNum">     960 </span>            : }
+<span class="lineNum">     961 </span>            : 
+<span class="lineNum">     962 </span>            : /* Returns an offset to use for iterating with ziplistNext. When the given
+<a name="963"><span class="lineNum">     963 </span>            :  * index is negative, the list is traversed back to front. When the list</a>
+<span class="lineNum">     964 </span>            :  * doesn't contain an element at the provided index, NULL is returned. */
+<span class="lineNum">     965 </span><span class="lineCov">    6140891 : unsigned char *ziplistIndex(unsigned char *zl, int index) {</span>
+<span class="lineNum">     966 </span><span class="lineCov">    6140891 :     unsigned char *p;</span>
+<span class="lineNum">     967 </span><span class="lineCov">    6140891 :     unsigned int prevlensize, prevlen = 0;</span>
+<span class="lineNum">     968 </span><span class="lineCov">    6140891 :     if (index &lt; 0) {</span>
+<span class="lineNum">     969 </span><span class="lineCov">     127019 :         index = (-index)-1;</span>
+<span class="lineNum">     970 </span><span class="lineCov">     127019 :         p = ZIPLIST_ENTRY_TAIL(zl);</span>
+<span class="lineNum">     971 </span><span class="lineCov">     127019 :         if (p[0] != ZIP_END) {</span>
+<span class="lineNum">     972 </span><span class="lineCov">     127019 :             ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);</span>
+<span class="lineNum">     973 </span><span class="lineCov">      62258 :             while (prevlen &gt; 0 &amp;&amp; index--) {</span>
+<span class="lineNum">     974 </span><span class="lineCov">      30107 :                 p -= prevlen;</span>
+<span class="lineNum">     975 </span><span class="lineCov">     187233 :                 ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);</span>
+<span class="lineNum">     976 </span>            :             }
+<span class="lineNum">     977 </span>            :         }
+<span class="lineNum">     978 </span>            :     } else {
+<span class="lineNum">     979 </span><span class="lineCov">    6013872 :         p = ZIPLIST_ENTRY_HEAD(zl);</span>
+<span class="lineNum">     980 </span><span class="lineCov">    7540983 :         while (p[0] != ZIP_END &amp;&amp; index--) {</span>
+<span class="lineNum">     981 </span><span class="lineCov">    1527111 :             p += zipRawEntryLength(p);</span>
+<span class="lineNum">     982 </span>            :         }
+<span class="lineNum">     983 </span>            :     }
+<span class="lineNum">     984 </span><span class="lineCov">    6140891 :     return (p[0] == ZIP_END || index &gt; 0) ? NULL : p;</span>
+<span class="lineNum">     985 </span>            : }
+<span class="lineNum">     986 </span>            : 
+<span class="lineNum">     987 </span>            : /* Return pointer to next entry in ziplist.
+<span class="lineNum">     988 </span>            :  *
+<span class="lineNum">     989 </span>            :  * zl is the pointer to the ziplist
+<span class="lineNum">     990 </span>            :  * p is the pointer to the current element
+<a name="991"><span class="lineNum">     991 </span>            :  *</a>
+<span class="lineNum">     992 </span>            :  * The element after 'p' is returned, otherwise NULL if we are at the end. */
+<span class="lineNum">     993 </span><span class="lineCov">   25655092 : unsigned char *ziplistNext(unsigned char *zl, unsigned char *p) {</span>
+<span class="lineNum">     994 </span><span class="lineCov">   25655092 :     ((void) zl);</span>
+<span class="lineNum">     995 </span>            : 
+<span class="lineNum">     996 </span>            :     /* &quot;p&quot; could be equal to ZIP_END, caused by ziplistDelete,
+<span class="lineNum">     997 </span>            :      * and we should return NULL. Otherwise, we should return NULL
+<span class="lineNum">     998 </span>            :      * when the *next* element is ZIP_END (there is no next entry). */
+<span class="lineNum">     999 </span><span class="lineCov">   25655092 :     if (p[0] == ZIP_END) {</span>
+<span class="lineNum">    1000 </span>            :         return NULL;
+<span class="lineNum">    1001 </span>            :     }
+<span class="lineNum">    1002 </span>            : 
+<span class="lineNum">    1003 </span><span class="lineCov">   25655074 :     p += zipRawEntryLength(p);</span>
+<span class="lineNum">    1004 </span><span class="lineCov">   25655074 :     if (p[0] == ZIP_END) {</span>
+<span class="lineNum">    1005 </span><span class="lineCov">    2883310 :         return NULL;</span>
+<span class="lineNum">    1006 </span>            :     }
+<span class="lineNum">    1007 </span>            : 
+<span class="lineNum">    1008 </span>            :     return p;
+<span class="lineNum">    1009 </span>            : }
+<a name="1010"><span class="lineNum">    1010 </span>            : </a>
+<span class="lineNum">    1011 </span>            : /* Return pointer to previous entry in ziplist. */
+<span class="lineNum">    1012 </span><span class="lineCov">      38394 : unsigned char *ziplistPrev(unsigned char *zl, unsigned char *p) {</span>
+<span class="lineNum">    1013 </span><span class="lineCov">      38394 :     unsigned int prevlensize, prevlen = 0;</span>
+<span class="lineNum">    1014 </span>            : 
+<span class="lineNum">    1015 </span>            :     /* Iterating backwards from ZIP_END should return the tail. When &quot;p&quot; is
+<span class="lineNum">    1016 </span>            :      * equal to the first element of the list, we're already at the head,
+<span class="lineNum">    1017 </span>            :      * and should return NULL. */
+<span class="lineNum">    1018 </span><span class="lineCov">      38394 :     if (p[0] == ZIP_END) {</span>
+<span class="lineNum">    1019 </span><span class="lineNoCov">          0 :         p = ZIPLIST_ENTRY_TAIL(zl);</span>
+<span class="lineNum">    1020 </span><span class="lineNoCov">          0 :         return (p[0] == ZIP_END) ? NULL : p;</span>
+<span class="lineNum">    1021 </span><span class="lineCov">      38394 :     } else if (p == ZIPLIST_ENTRY_HEAD(zl)) {</span>
+<span class="lineNum">    1022 </span>            :         return NULL;
+<span class="lineNum">    1023 </span>            :     } else {
+<span class="lineNum">    1024 </span><span class="lineCov">      38274 :         ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);</span>
+<span class="lineNum">    1025 </span><span class="lineCov">      38274 :         assert(prevlen &gt; 0);</span>
+<span class="lineNum">    1026 </span><span class="lineCov">      38274 :         return p-prevlen;</span>
+<span class="lineNum">    1027 </span>            :     }
+<span class="lineNum">    1028 </span>            : }
+<span class="lineNum">    1029 </span>            : 
+<span class="lineNum">    1030 </span>            : /* Get entry pointed to by 'p' and store in either '*sstr' or 'sval' depending
+<span class="lineNum">    1031 </span>            :  * on the encoding of the entry. '*sstr' is always set to NULL to be able
+<a name="1032"><span class="lineNum">    1032 </span>            :  * to find out whether the string pointer or the integer value was set.</a>
+<span class="lineNum">    1033 </span>            :  * Return 0 if 'p' points to the end of the ziplist, 1 otherwise. */
+<span class="lineNum">    1034 </span><span class="lineCov">   11320867 : unsigned int ziplistGet(unsigned char *p, unsigned char **sstr, unsigned int *slen, long long *sval) {</span>
+<span class="lineNum">    1035 </span><span class="lineCov">   11320867 :     zlentry entry;</span>
+<span class="lineNum">    1036 </span><span class="lineCov">   11320867 :     if (p == NULL || p[0] == ZIP_END) return 0;</span>
+<span class="lineNum">    1037 </span><span class="lineCov">   11320864 :     if (sstr) *sstr = NULL;</span>
+<span class="lineNum">    1038 </span>            : 
+<span class="lineNum">    1039 </span><span class="lineCov">   11320864 :     zipEntry(p, &amp;entry);</span>
+<span class="lineNum">    1040 </span><span class="lineCov">   11320864 :     if (ZIP_IS_STR(entry.encoding)) {</span>
+<span class="lineNum">    1041 </span><span class="lineCov">    3906719 :         if (sstr) {</span>
+<span class="lineNum">    1042 </span><span class="lineCov">    3906719 :             *slen = entry.len;</span>
+<span class="lineNum">    1043 </span><span class="lineCov">    3906719 :             *sstr = p+entry.headersize;</span>
+<span class="lineNum">    1044 </span>            :         }
+<span class="lineNum">    1045 </span>            :     } else {
+<span class="lineNum">    1046 </span><span class="lineCov">    7414145 :         if (sval) {</span>
+<span class="lineNum">    1047 </span><span class="lineCov">    7414145 :             *sval = zipLoadInteger(p+entry.headersize,entry.encoding);</span>
+<span class="lineNum">    1048 </span>            :         }
+<span class="lineNum">    1049 </span>            :     }
+<span class="lineNum">    1050 </span>            :     return 1;
+<span class="lineNum">    1051 </span>            : }
+<a name="1052"><span class="lineNum">    1052 </span>            : </a>
+<span class="lineNum">    1053 </span>            : /* Insert an entry at &quot;p&quot;. */
+<span class="lineNum">    1054 </span><span class="lineCov">     258541 : unsigned char *ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char *s, unsigned int slen) {</span>
+<span class="lineNum">    1055 </span><span class="lineCov">     258541 :     return __ziplistInsert(zl,p,s,slen);</span>
+<span class="lineNum">    1056 </span>            : }
+<span class="lineNum">    1057 </span>            : 
+<span class="lineNum">    1058 </span>            : /* Delete a single entry from the ziplist, pointed to by *p.
+<a name="1059"><span class="lineNum">    1059 </span>            :  * Also update *p in place, to be able to iterate over the</a>
+<span class="lineNum">    1060 </span>            :  * ziplist, while deleting entries. */
+<span class="lineNum">    1061 </span><span class="lineCov">    1011581 : unsigned char *ziplistDelete(unsigned char *zl, unsigned char **p) {</span>
+<span class="lineNum">    1062 </span><span class="lineCov">    1011581 :     size_t offset = *p-zl;</span>
+<span class="lineNum">    1063 </span><span class="lineCov">    1011581 :     zl = __ziplistDelete(zl,*p,1);</span>
+<span class="lineNum">    1064 </span>            : 
+<span class="lineNum">    1065 </span>            :     /* Store pointer to current element in p, because ziplistDelete will
+<span class="lineNum">    1066 </span>            :      * do a realloc which might result in a different &quot;zl&quot;-pointer.
+<span class="lineNum">    1067 </span>            :      * When the delete direction is back to front, we might delete the last
+<span class="lineNum">    1068 </span>            :      * entry and end up with &quot;p&quot; pointing to ZIP_END, so check this. */
+<span class="lineNum">    1069 </span><span class="lineCov">    1011581 :     *p = zl+offset;</span>
+<span class="lineNum">    1070 </span><span class="lineCov">    1011581 :     return zl;</span>
+<span class="lineNum">    1071 </span>            : }
+<a name="1072"><span class="lineNum">    1072 </span>            : </a>
+<span class="lineNum">    1073 </span>            : /* Delete a range of entries from the ziplist. */
+<span class="lineNum">    1074 </span><span class="lineCov">       7785 : unsigned char *ziplistDeleteRange(unsigned char *zl, int index, unsigned int num) {</span>
+<span class="lineNum">    1075 </span><span class="lineCov">       7785 :     unsigned char *p = ziplistIndex(zl,index);</span>
+<span class="lineNum">    1076 </span><span class="lineCov">       7785 :     return (p == NULL) ? zl : __ziplistDelete(zl,p,num);</span>
+<span class="lineNum">    1077 </span>            : }
+<span class="lineNum">    1078 </span>            : 
+<a name="1079"><span class="lineNum">    1079 </span>            : /* Compare entry pointer to by 'p' with 'sstr' of length 'slen'. */</a>
+<span class="lineNum">    1080 </span>            : /* Return 1 if equal. */
+<span class="lineNum">    1081 </span><span class="lineCov">    8377585 : unsigned int ziplistCompare(unsigned char *p, unsigned char *sstr, unsigned int slen) {</span>
+<span class="lineNum">    1082 </span><span class="lineCov">    8377585 :     zlentry entry;</span>
+<span class="lineNum">    1083 </span><span class="lineCov">    8377585 :     unsigned char sencoding;</span>
+<span class="lineNum">    1084 </span><span class="lineCov">    8377585 :     long long zval, sval;</span>
+<span class="lineNum">    1085 </span><span class="lineCov">    8377585 :     if (p[0] == ZIP_END) return 0;</span>
+<span class="lineNum">    1086 </span>            : 
+<span class="lineNum">    1087 </span><span class="lineCov">    8377585 :     zipEntry(p, &amp;entry);</span>
+<span class="lineNum">    1088 </span><span class="lineCov">    8377585 :     if (ZIP_IS_STR(entry.encoding)) {</span>
+<span class="lineNum">    1089 </span>            :         /* Raw compare */
+<span class="lineNum">    1090 </span><span class="lineCov">    1397443 :         if (entry.len == slen) {</span>
+<span class="lineNum">    1091 </span><span class="lineCov">     357263 :             return memcmp(p+entry.headersize,sstr,slen) == 0;</span>
+<span class="lineNum">    1092 </span>            :         } else {
+<span class="lineNum">    1093 </span>            :             return 0;
+<span class="lineNum">    1094 </span>            :         }
+<span class="lineNum">    1095 </span>            :     } else {
+<span class="lineNum">    1096 </span>            :         /* Try to compare encoded values. Don't compare encoding because
+<span class="lineNum">    1097 </span>            :          * different implementations may encoded integers differently. */
+<span class="lineNum">    1098 </span><span class="lineCov">    6980142 :         if (zipTryEncoding(sstr,slen,&amp;sval,&amp;sencoding)) {</span>
+<span class="lineNum">    1099 </span><span class="lineCov">    6846798 :           zval = zipLoadInteger(p+entry.headersize,entry.encoding);</span>
+<span class="lineNum">    1100 </span><span class="lineCov">    6846798 :           return zval == sval;</span>
+<span class="lineNum">    1101 </span>            :         }
+<span class="lineNum">    1102 </span>            :     }
+<span class="lineNum">    1103 </span>            :     return 0;
+<span class="lineNum">    1104 </span>            : }
+<span class="lineNum">    1105 </span>            : 
+<a name="1106"><span class="lineNum">    1106 </span>            : /* Find pointer to the entry equal to the specified entry. Skip 'skip' entries</a>
+<span class="lineNum">    1107 </span>            :  * between every comparison. Returns NULL when the field could not be found. */
+<span class="lineNum">    1108 </span><span class="lineCov">     489922 : unsigned char *ziplistFind(unsigned char *p, unsigned char *vstr, unsigned int vlen, unsigned int skip) {</span>
+<span class="lineNum">    1109 </span><span class="lineCov">     489922 :     int skipcnt = 0;</span>
+<span class="lineNum">    1110 </span><span class="lineCov">     489922 :     unsigned char vencoding = 0;</span>
+<span class="lineNum">    1111 </span><span class="lineCov">     489922 :     long long vll = 0;</span>
+<span class="lineNum">    1112 </span>            : 
+<span class="lineNum">    1113 </span><span class="lineCov">   29513500 :     while (p[0] != ZIP_END) {</span>
+<span class="lineNum">    1114 </span><span class="lineCov">   29437111 :         unsigned int prevlensize, encoding, lensize, len;</span>
+<span class="lineNum">    1115 </span><span class="lineCov">   29437111 :         unsigned char *q;</span>
+<span class="lineNum">    1116 </span>            : 
+<span class="lineNum">    1117 </span><span class="lineCov">   29437111 :         ZIP_DECODE_PREVLENSIZE(p, prevlensize);</span>
+<span class="lineNum">    1118 </span><span class="lineCov">   29437111 :         ZIP_DECODE_LENGTH(p + prevlensize, encoding, lensize, len);</span>
+<span class="lineNum">    1119 </span><span class="lineCov">   29437111 :         q = p + prevlensize + lensize;</span>
+<span class="lineNum">    1120 </span>            : 
+<span class="lineNum">    1121 </span><span class="lineCov">   29437111 :         if (skipcnt == 0) {</span>
+<span class="lineNum">    1122 </span>            :             /* Compare current entry with specified entry */
+<span class="lineNum">    1123 </span><span class="lineCov">   14925322 :             if (ZIP_IS_STR(encoding)) {</span>
+<span class="lineNum">    1124 </span><span class="lineCov">    8436251 :                 if (len == vlen &amp;&amp; memcmp(q, vstr, vlen) == 0) {</span>
+<span class="lineNum">    1125 </span><span class="lineCov">     153499 :                     return p;</span>
+<span class="lineNum">    1126 </span>            :                 }
+<span class="lineNum">    1127 </span>            :             } else {
+<span class="lineNum">    1128 </span>            :                 /* Find out if the searched field can be encoded. Note that
+<span class="lineNum">    1129 </span>            :                  * we do it only the first time, once done vencoding is set
+<span class="lineNum">    1130 </span>            :                  * to non-zero and vll is set to the integer value. */
+<span class="lineNum">    1131 </span><span class="lineCov">    6489071 :                 if (vencoding == 0) {</span>
+<span class="lineNum">    1132 </span><span class="lineCov">     322782 :                     if (!zipTryEncoding(vstr, vlen, &amp;vll, &amp;vencoding)) {</span>
+<span class="lineNum">    1133 </span>            :                         /* If the entry can't be encoded we set it to
+<span class="lineNum">    1134 </span>            :                          * UCHAR_MAX so that we don't retry again the next
+<span class="lineNum">    1135 </span>            :                          * time. */
+<span class="lineNum">    1136 </span><span class="lineCov">      23129 :                         vencoding = UCHAR_MAX;</span>
+<span class="lineNum">    1137 </span>            :                     }
+<span class="lineNum">    1138 </span>            :                     /* Must be non-zero by now */
+<span class="lineNum">    1139 </span><span class="lineCov">     322782 :                     assert(vencoding);</span>
+<span class="lineNum">    1140 </span>            :                 }
+<span class="lineNum">    1141 </span>            : 
+<span class="lineNum">    1142 </span>            :                 /* Compare current entry with specified entry, do it only
+<span class="lineNum">    1143 </span>            :                  * if vencoding != UCHAR_MAX because if there is no encoding
+<span class="lineNum">    1144 </span>            :                  * possible for the field it can't be a valid integer. */
+<span class="lineNum">    1145 </span><span class="lineCov">    6489071 :                 if (vencoding != UCHAR_MAX) {</span>
+<span class="lineNum">    1146 </span><span class="lineCov">    6456291 :                     long long ll = zipLoadInteger(q, encoding);</span>
+<span class="lineNum">    1147 </span><span class="lineCov">    6456291 :                     if (ll == vll) {</span>
+<span class="lineNum">    1148 </span><span class="lineCov">     260034 :                         return p;</span>
+<span class="lineNum">    1149 </span>            :                     }
+<span class="lineNum">    1150 </span>            :                 }
+<span class="lineNum">    1151 </span>            :             }
+<span class="lineNum">    1152 </span>            : 
+<span class="lineNum">    1153 </span>            :             /* Reset skip count */
+<span class="lineNum">    1154 </span><span class="lineCov">   14511789 :             skipcnt = skip;</span>
+<span class="lineNum">    1155 </span>            :         } else {
+<span class="lineNum">    1156 </span>            :             /* Skip entry */
+<span class="lineNum">    1157 </span><span class="lineCov">   14511789 :             skipcnt--;</span>
+<span class="lineNum">    1158 </span>            :         }
+<span class="lineNum">    1159 </span>            : 
+<span class="lineNum">    1160 </span>            :         /* Move to next entry */
+<span class="lineNum">    1161 </span><span class="lineCov">   29023578 :         p = q + len;</span>
+<span class="lineNum">    1162 </span>            :     }
+<span class="lineNum">    1163 </span>            : 
+<span class="lineNum">    1164 </span>            :     return NULL;
+<span class="lineNum">    1165 </span>            : }
+<a name="1166"><span class="lineNum">    1166 </span>            : </a>
+<span class="lineNum">    1167 </span>            : /* Return length of ziplist. */
+<span class="lineNum">    1168 </span><span class="lineCov">    1998844 : unsigned int ziplistLen(unsigned char *zl) {</span>
+<span class="lineNum">    1169 </span><span class="lineCov">    1998844 :     unsigned int len = 0;</span>
+<span class="lineNum">    1170 </span><span class="lineCov">    1998844 :     if (intrev16ifbe(ZIPLIST_LENGTH(zl)) &lt; UINT16_MAX) {</span>
+<span class="lineNum">    1171 </span><span class="lineCov">    1998844 :         len = intrev16ifbe(ZIPLIST_LENGTH(zl));</span>
+<span class="lineNum">    1172 </span>            :     } else {
+<span class="lineNum">    1173 </span><span class="lineNoCov">          0 :         unsigned char *p = zl+ZIPLIST_HEADER_SIZE;</span>
+<span class="lineNum">    1174 </span><span class="lineNoCov">          0 :         while (*p != ZIP_END) {</span>
+<span class="lineNum">    1175 </span><span class="lineNoCov">          0 :             p += zipRawEntryLength(p);</span>
+<span class="lineNum">    1176 </span><span class="lineNoCov">          0 :             len++;</span>
+<span class="lineNum">    1177 </span>            :         }
+<span class="lineNum">    1178 </span>            : 
+<span class="lineNum">    1179 </span>            :         /* Re-store length if small enough */
+<span class="lineNum">    1180 </span><span class="lineNoCov">          0 :         if (len &lt; UINT16_MAX) ZIPLIST_LENGTH(zl) = intrev16ifbe(len);</span>
+<span class="lineNum">    1181 </span>            :     }
+<span class="lineNum">    1182 </span><span class="lineCov">    1998844 :     return len;</span>
+<span class="lineNum">    1183 </span>            : }
+<a name="1184"><span class="lineNum">    1184 </span>            : </a>
+<span class="lineNum">    1185 </span>            : /* Return ziplist blob size in bytes. */
+<span class="lineNum">    1186 </span><span class="lineCov">    4130598 : size_t ziplistBlobLen(unsigned char *zl) {</span>
+<span class="lineNum">    1187 </span><span class="lineCov">    4130598 :     return intrev32ifbe(ZIPLIST_BYTES(zl));</span>
+<a name="1188"><span class="lineNum">    1188 </span>            : }</a>
+<span class="lineNum">    1189 </span>            : 
+<span class="lineNum">    1190 </span><span class="lineNoCov">          0 : void ziplistRepr(unsigned char *zl) {</span>
+<span class="lineNum">    1191 </span><span class="lineNoCov">          0 :     unsigned char *p;</span>
+<span class="lineNum">    1192 </span><span class="lineNoCov">          0 :     int index = 0;</span>
+<span class="lineNum">    1193 </span><span class="lineNoCov">          0 :     zlentry entry;</span>
+<span class="lineNum">    1194 </span>            : 
+<span class="lineNum">    1195 </span><span class="lineNoCov">          0 :     printf(</span>
+<span class="lineNum">    1196 </span>            :         &quot;{total bytes %d} &quot;
+<span class="lineNum">    1197 </span>            :         &quot;{num entries %u}\n&quot;
+<span class="lineNum">    1198 </span>            :         &quot;{tail offset %u}\n&quot;,
+<span class="lineNum">    1199 </span>            :         intrev32ifbe(ZIPLIST_BYTES(zl)),
+<span class="lineNum">    1200 </span><span class="lineNoCov">          0 :         intrev16ifbe(ZIPLIST_LENGTH(zl)),</span>
+<span class="lineNum">    1201 </span>            :         intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl)));
+<span class="lineNum">    1202 </span><span class="lineNoCov">          0 :     p = ZIPLIST_ENTRY_HEAD(zl);</span>
+<span class="lineNum">    1203 </span><span class="lineNoCov">          0 :     while(*p != ZIP_END) {</span>
+<span class="lineNum">    1204 </span><span class="lineNoCov">          0 :         zipEntry(p, &amp;entry);</span>
+<span class="lineNum">    1205 </span><span class="lineNoCov">          0 :         printf(</span>
+<span class="lineNum">    1206 </span>            :             &quot;{\n&quot;
+<span class="lineNum">    1207 </span>            :                 &quot;\taddr 0x%08lx,\n&quot;
+<span class="lineNum">    1208 </span>            :                 &quot;\tindex %2d,\n&quot;
+<span class="lineNum">    1209 </span>            :                 &quot;\toffset %5ld,\n&quot;
+<span class="lineNum">    1210 </span>            :                 &quot;\thdr+entry len: %5u,\n&quot;
+<span class="lineNum">    1211 </span>            :                 &quot;\thdr len%2u,\n&quot;
+<span class="lineNum">    1212 </span>            :                 &quot;\tprevrawlen: %5u,\n&quot;
+<span class="lineNum">    1213 </span>            :                 &quot;\tprevrawlensize: %2u,\n&quot;
+<span class="lineNum">    1214 </span>            :                 &quot;\tpayload %5u\n&quot;,
+<span class="lineNum">    1215 </span>            :             (long unsigned)p,
+<span class="lineNum">    1216 </span>            :             index,
+<span class="lineNum">    1217 </span><span class="lineNoCov">          0 :             (unsigned long) (p-zl),</span>
+<span class="lineNum">    1218 </span>            :             entry.headersize+entry.len,
+<span class="lineNum">    1219 </span>            :             entry.headersize,
+<span class="lineNum">    1220 </span>            :             entry.prevrawlen,
+<span class="lineNum">    1221 </span>            :             entry.prevrawlensize,
+<span class="lineNum">    1222 </span>            :             entry.len);
+<span class="lineNum">    1223 </span><span class="lineNoCov">          0 :         printf(&quot;\tbytes: &quot;);</span>
+<span class="lineNum">    1224 </span><span class="lineNoCov">          0 :         for (unsigned int i = 0; i &lt; entry.headersize+entry.len; i++) {</span>
+<span class="lineNum">    1225 </span><span class="lineNoCov">          0 :             printf(&quot;%02x|&quot;,p[i]);</span>
+<span class="lineNum">    1226 </span>            :         }
+<span class="lineNum">    1227 </span><span class="lineNoCov">          0 :         printf(&quot;\n&quot;);</span>
+<span class="lineNum">    1228 </span><span class="lineNoCov">          0 :         p += entry.headersize;</span>
+<span class="lineNum">    1229 </span><span class="lineNoCov">          0 :         if (ZIP_IS_STR(entry.encoding)) {</span>
+<span class="lineNum">    1230 </span><span class="lineNoCov">          0 :             printf(&quot;\t[str]&quot;);</span>
+<span class="lineNum">    1231 </span><span class="lineNoCov">          0 :             if (entry.len &gt; 40) {</span>
+<span class="lineNum">    1232 </span><span class="lineNoCov">          0 :                 if (fwrite(p,40,1,stdout) == 0) perror(&quot;fwrite&quot;);</span>
+<span class="lineNum">    1233 </span><span class="lineNoCov">          0 :                 printf(&quot;...&quot;);</span>
+<span class="lineNum">    1234 </span>            :             } else {
+<span class="lineNum">    1235 </span><span class="lineNoCov">          0 :                 if (entry.len &amp;&amp;</span>
+<span class="lineNum">    1236 </span><span class="lineNoCov">          0 :                     fwrite(p,entry.len,1,stdout) == 0) perror(&quot;fwrite&quot;);</span>
+<span class="lineNum">    1237 </span>            :             }
+<span class="lineNum">    1238 </span>            :         } else {
+<span class="lineNum">    1239 </span><span class="lineNoCov">          0 :             printf(&quot;\t[int]%lld&quot;, (long long) zipLoadInteger(p,entry.encoding));</span>
+<span class="lineNum">    1240 </span>            :         }
+<span class="lineNum">    1241 </span><span class="lineNoCov">          0 :         printf(&quot;\n}\n&quot;);</span>
+<span class="lineNum">    1242 </span><span class="lineNoCov">          0 :         p += entry.len;</span>
+<span class="lineNum">    1243 </span><span class="lineNoCov">          0 :         index++;</span>
+<span class="lineNum">    1244 </span>            :     }
+<span class="lineNum">    1245 </span><span class="lineNoCov">          0 :     printf(&quot;{end}\n\n&quot;);</span>
+<span class="lineNum">    1246 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1247 </span>            : 
+<span class="lineNum">    1248 </span>            : #ifdef REDIS_TEST
+<span class="lineNum">    1249 </span>            : #include &lt;sys/time.h&gt;
+<span class="lineNum">    1250 </span>            : #include &quot;adlist.h&quot;
+<span class="lineNum">    1251 </span>            : #include &quot;sds.h&quot;
+<span class="lineNum">    1252 </span>            : 
+<span class="lineNum">    1253 </span>            : #define debug(f, ...) { if (DEBUG) printf(f, __VA_ARGS__); }
+<span class="lineNum">    1254 </span>            : 
+<span class="lineNum">    1255 </span>            : static unsigned char *createList() {
+<span class="lineNum">    1256 </span>            :     unsigned char *zl = ziplistNew();
+<span class="lineNum">    1257 </span>            :     zl = ziplistPush(zl, (unsigned char*)&quot;foo&quot;, 3, ZIPLIST_TAIL);
+<span class="lineNum">    1258 </span>            :     zl = ziplistPush(zl, (unsigned char*)&quot;quux&quot;, 4, ZIPLIST_TAIL);
+<span class="lineNum">    1259 </span>            :     zl = ziplistPush(zl, (unsigned char*)&quot;hello&quot;, 5, ZIPLIST_HEAD);
+<span class="lineNum">    1260 </span>            :     zl = ziplistPush(zl, (unsigned char*)&quot;1024&quot;, 4, ZIPLIST_TAIL);
+<span class="lineNum">    1261 </span>            :     return zl;
+<span class="lineNum">    1262 </span>            : }
+<span class="lineNum">    1263 </span>            : 
+<span class="lineNum">    1264 </span>            : static unsigned char *createIntList() {
+<span class="lineNum">    1265 </span>            :     unsigned char *zl = ziplistNew();
+<span class="lineNum">    1266 </span>            :     char buf[32];
+<span class="lineNum">    1267 </span>            : 
+<span class="lineNum">    1268 </span>            :     sprintf(buf, &quot;100&quot;);
+<span class="lineNum">    1269 </span>            :     zl = ziplistPush(zl, (unsigned char*)buf, strlen(buf), ZIPLIST_TAIL);
+<span class="lineNum">    1270 </span>            :     sprintf(buf, &quot;128000&quot;);
+<span class="lineNum">    1271 </span>            :     zl = ziplistPush(zl, (unsigned char*)buf, strlen(buf), ZIPLIST_TAIL);
+<span class="lineNum">    1272 </span>            :     sprintf(buf, &quot;-100&quot;);
+<span class="lineNum">    1273 </span>            :     zl = ziplistPush(zl, (unsigned char*)buf, strlen(buf), ZIPLIST_HEAD);
+<span class="lineNum">    1274 </span>            :     sprintf(buf, &quot;4294967296&quot;);
+<span class="lineNum">    1275 </span>            :     zl = ziplistPush(zl, (unsigned char*)buf, strlen(buf), ZIPLIST_HEAD);
+<span class="lineNum">    1276 </span>            :     sprintf(buf, &quot;non integer&quot;);
+<span class="lineNum">    1277 </span>            :     zl = ziplistPush(zl, (unsigned char*)buf, strlen(buf), ZIPLIST_TAIL);
+<span class="lineNum">    1278 </span>            :     sprintf(buf, &quot;much much longer non integer&quot;);
+<span class="lineNum">    1279 </span>            :     zl = ziplistPush(zl, (unsigned char*)buf, strlen(buf), ZIPLIST_TAIL);
+<span class="lineNum">    1280 </span>            :     return zl;
+<span class="lineNum">    1281 </span>            : }
+<span class="lineNum">    1282 </span>            : 
+<span class="lineNum">    1283 </span>            : static long long usec(void) {
+<span class="lineNum">    1284 </span>            :     struct timeval tv;
+<span class="lineNum">    1285 </span>            :     gettimeofday(&amp;tv,NULL);
+<span class="lineNum">    1286 </span>            :     return (((long long)tv.tv_sec)*1000000)+tv.tv_usec;
+<span class="lineNum">    1287 </span>            : }
+<span class="lineNum">    1288 </span>            : 
+<span class="lineNum">    1289 </span>            : static void stress(int pos, int num, int maxsize, int dnum) {
+<span class="lineNum">    1290 </span>            :     int i,j,k;
+<span class="lineNum">    1291 </span>            :     unsigned char *zl;
+<span class="lineNum">    1292 </span>            :     char posstr[2][5] = { &quot;HEAD&quot;, &quot;TAIL&quot; };
+<span class="lineNum">    1293 </span>            :     long long start;
+<span class="lineNum">    1294 </span>            :     for (i = 0; i &lt; maxsize; i+=dnum) {
+<span class="lineNum">    1295 </span>            :         zl = ziplistNew();
+<span class="lineNum">    1296 </span>            :         for (j = 0; j &lt; i; j++) {
+<span class="lineNum">    1297 </span>            :             zl = ziplistPush(zl,(unsigned char*)&quot;quux&quot;,4,ZIPLIST_TAIL);
+<span class="lineNum">    1298 </span>            :         }
+<span class="lineNum">    1299 </span>            : 
+<span class="lineNum">    1300 </span>            :         /* Do num times a push+pop from pos */
+<span class="lineNum">    1301 </span>            :         start = usec();
+<span class="lineNum">    1302 </span>            :         for (k = 0; k &lt; num; k++) {
+<span class="lineNum">    1303 </span>            :             zl = ziplistPush(zl,(unsigned char*)&quot;quux&quot;,4,pos);
+<span class="lineNum">    1304 </span>            :             zl = ziplistDeleteRange(zl,0,1);
+<span class="lineNum">    1305 </span>            :         }
+<span class="lineNum">    1306 </span>            :         printf(&quot;List size: %8d, bytes: %8d, %dx push+pop (%s): %6lld usec\n&quot;,
+<span class="lineNum">    1307 </span>            :             i,intrev32ifbe(ZIPLIST_BYTES(zl)),num,posstr[pos],usec()-start);
+<span class="lineNum">    1308 </span>            :         zfree(zl);
+<span class="lineNum">    1309 </span>            :     }
+<span class="lineNum">    1310 </span>            : }
+<span class="lineNum">    1311 </span>            : 
+<span class="lineNum">    1312 </span>            : static unsigned char *pop(unsigned char *zl, int where) {
+<span class="lineNum">    1313 </span>            :     unsigned char *p, *vstr;
+<span class="lineNum">    1314 </span>            :     unsigned int vlen;
+<span class="lineNum">    1315 </span>            :     long long vlong;
+<span class="lineNum">    1316 </span>            : 
+<span class="lineNum">    1317 </span>            :     p = ziplistIndex(zl,where == ZIPLIST_HEAD ? 0 : -1);
+<span class="lineNum">    1318 </span>            :     if (ziplistGet(p,&amp;vstr,&amp;vlen,&amp;vlong)) {
+<span class="lineNum">    1319 </span>            :         if (where == ZIPLIST_HEAD)
+<span class="lineNum">    1320 </span>            :             printf(&quot;Pop head: &quot;);
+<span class="lineNum">    1321 </span>            :         else
+<span class="lineNum">    1322 </span>            :             printf(&quot;Pop tail: &quot;);
+<span class="lineNum">    1323 </span>            : 
+<span class="lineNum">    1324 </span>            :         if (vstr) {
+<span class="lineNum">    1325 </span>            :             if (vlen &amp;&amp; fwrite(vstr,vlen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1326 </span>            :         }
+<span class="lineNum">    1327 </span>            :         else {
+<span class="lineNum">    1328 </span>            :             printf(&quot;%lld&quot;, vlong);
+<span class="lineNum">    1329 </span>            :         }
+<span class="lineNum">    1330 </span>            : 
+<span class="lineNum">    1331 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1332 </span>            :         return ziplistDelete(zl,&amp;p);
+<span class="lineNum">    1333 </span>            :     } else {
+<span class="lineNum">    1334 </span>            :         printf(&quot;ERROR: Could not pop\n&quot;);
+<span class="lineNum">    1335 </span>            :         exit(1);
+<span class="lineNum">    1336 </span>            :     }
+<span class="lineNum">    1337 </span>            : }
+<span class="lineNum">    1338 </span>            : 
+<span class="lineNum">    1339 </span>            : static int randstring(char *target, unsigned int min, unsigned int max) {
+<span class="lineNum">    1340 </span>            :     int p = 0;
+<span class="lineNum">    1341 </span>            :     int len = min+rand()%(max-min+1);
+<span class="lineNum">    1342 </span>            :     int minval, maxval;
+<span class="lineNum">    1343 </span>            :     switch(rand() % 3) {
+<span class="lineNum">    1344 </span>            :     case 0:
+<span class="lineNum">    1345 </span>            :         minval = 0;
+<span class="lineNum">    1346 </span>            :         maxval = 255;
+<span class="lineNum">    1347 </span>            :     break;
+<span class="lineNum">    1348 </span>            :     case 1:
+<span class="lineNum">    1349 </span>            :         minval = 48;
+<span class="lineNum">    1350 </span>            :         maxval = 122;
+<span class="lineNum">    1351 </span>            :     break;
+<span class="lineNum">    1352 </span>            :     case 2:
+<span class="lineNum">    1353 </span>            :         minval = 48;
+<span class="lineNum">    1354 </span>            :         maxval = 52;
+<span class="lineNum">    1355 </span>            :     break;
+<span class="lineNum">    1356 </span>            :     default:
+<span class="lineNum">    1357 </span>            :         assert(NULL);
+<span class="lineNum">    1358 </span>            :     }
+<span class="lineNum">    1359 </span>            : 
+<span class="lineNum">    1360 </span>            :     while(p &lt; len)
+<span class="lineNum">    1361 </span>            :         target[p++] = minval+rand()%(maxval-minval+1);
+<span class="lineNum">    1362 </span>            :     return len;
+<span class="lineNum">    1363 </span>            : }
+<span class="lineNum">    1364 </span>            : 
+<span class="lineNum">    1365 </span>            : static void verify(unsigned char *zl, zlentry *e) {
+<span class="lineNum">    1366 </span>            :     int len = ziplistLen(zl);
+<span class="lineNum">    1367 </span>            :     zlentry _e;
+<span class="lineNum">    1368 </span>            : 
+<span class="lineNum">    1369 </span>            :     ZIPLIST_ENTRY_ZERO(&amp;_e);
+<span class="lineNum">    1370 </span>            : 
+<span class="lineNum">    1371 </span>            :     for (int i = 0; i &lt; len; i++) {
+<span class="lineNum">    1372 </span>            :         memset(&amp;e[i], 0, sizeof(zlentry));
+<span class="lineNum">    1373 </span>            :         zipEntry(ziplistIndex(zl, i), &amp;e[i]);
+<span class="lineNum">    1374 </span>            : 
+<span class="lineNum">    1375 </span>            :         memset(&amp;_e, 0, sizeof(zlentry));
+<span class="lineNum">    1376 </span>            :         zipEntry(ziplistIndex(zl, -len+i), &amp;_e);
+<span class="lineNum">    1377 </span>            : 
+<span class="lineNum">    1378 </span>            :         assert(memcmp(&amp;e[i], &amp;_e, sizeof(zlentry)) == 0);
+<span class="lineNum">    1379 </span>            :     }
+<span class="lineNum">    1380 </span>            : }
+<span class="lineNum">    1381 </span>            : 
+<span class="lineNum">    1382 </span>            : int ziplistTest(int argc, char **argv) {
+<span class="lineNum">    1383 </span>            :     unsigned char *zl, *p;
+<span class="lineNum">    1384 </span>            :     unsigned char *entry;
+<span class="lineNum">    1385 </span>            :     unsigned int elen;
+<span class="lineNum">    1386 </span>            :     long long value;
+<span class="lineNum">    1387 </span>            : 
+<span class="lineNum">    1388 </span>            :     /* If an argument is given, use it as the random seed. */
+<span class="lineNum">    1389 </span>            :     if (argc == 2)
+<span class="lineNum">    1390 </span>            :         srand(atoi(argv[1]));
+<span class="lineNum">    1391 </span>            : 
+<span class="lineNum">    1392 </span>            :     zl = createIntList();
+<span class="lineNum">    1393 </span>            :     ziplistRepr(zl);
+<span class="lineNum">    1394 </span>            : 
+<span class="lineNum">    1395 </span>            :     zfree(zl);
+<span class="lineNum">    1396 </span>            : 
+<span class="lineNum">    1397 </span>            :     zl = createList();
+<span class="lineNum">    1398 </span>            :     ziplistRepr(zl);
+<span class="lineNum">    1399 </span>            : 
+<span class="lineNum">    1400 </span>            :     zl = pop(zl,ZIPLIST_TAIL);
+<span class="lineNum">    1401 </span>            :     ziplistRepr(zl);
+<span class="lineNum">    1402 </span>            : 
+<span class="lineNum">    1403 </span>            :     zl = pop(zl,ZIPLIST_HEAD);
+<span class="lineNum">    1404 </span>            :     ziplistRepr(zl);
+<span class="lineNum">    1405 </span>            : 
+<span class="lineNum">    1406 </span>            :     zl = pop(zl,ZIPLIST_TAIL);
+<span class="lineNum">    1407 </span>            :     ziplistRepr(zl);
+<span class="lineNum">    1408 </span>            : 
+<span class="lineNum">    1409 </span>            :     zl = pop(zl,ZIPLIST_TAIL);
+<span class="lineNum">    1410 </span>            :     ziplistRepr(zl);
+<span class="lineNum">    1411 </span>            : 
+<span class="lineNum">    1412 </span>            :     zfree(zl);
+<span class="lineNum">    1413 </span>            : 
+<span class="lineNum">    1414 </span>            :     printf(&quot;Get element at index 3:\n&quot;);
+<span class="lineNum">    1415 </span>            :     {
+<span class="lineNum">    1416 </span>            :         zl = createList();
+<span class="lineNum">    1417 </span>            :         p = ziplistIndex(zl, 3);
+<span class="lineNum">    1418 </span>            :         if (!ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1419 </span>            :             printf(&quot;ERROR: Could not access index 3\n&quot;);
+<span class="lineNum">    1420 </span>            :             return 1;
+<span class="lineNum">    1421 </span>            :         }
+<span class="lineNum">    1422 </span>            :         if (entry) {
+<span class="lineNum">    1423 </span>            :             if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1424 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1425 </span>            :         } else {
+<span class="lineNum">    1426 </span>            :             printf(&quot;%lld\n&quot;, value);
+<span class="lineNum">    1427 </span>            :         }
+<span class="lineNum">    1428 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1429 </span>            :         zfree(zl);
+<span class="lineNum">    1430 </span>            :     }
+<span class="lineNum">    1431 </span>            : 
+<span class="lineNum">    1432 </span>            :     printf(&quot;Get element at index 4 (out of range):\n&quot;);
+<span class="lineNum">    1433 </span>            :     {
+<span class="lineNum">    1434 </span>            :         zl = createList();
+<span class="lineNum">    1435 </span>            :         p = ziplistIndex(zl, 4);
+<span class="lineNum">    1436 </span>            :         if (p == NULL) {
+<span class="lineNum">    1437 </span>            :             printf(&quot;No entry\n&quot;);
+<span class="lineNum">    1438 </span>            :         } else {
+<span class="lineNum">    1439 </span>            :             printf(&quot;ERROR: Out of range index should return NULL, returned offset: %ld\n&quot;, p-zl);
+<span class="lineNum">    1440 </span>            :             return 1;
+<span class="lineNum">    1441 </span>            :         }
+<span class="lineNum">    1442 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1443 </span>            :         zfree(zl);
+<span class="lineNum">    1444 </span>            :     }
+<span class="lineNum">    1445 </span>            : 
+<span class="lineNum">    1446 </span>            :     printf(&quot;Get element at index -1 (last element):\n&quot;);
+<span class="lineNum">    1447 </span>            :     {
+<span class="lineNum">    1448 </span>            :         zl = createList();
+<span class="lineNum">    1449 </span>            :         p = ziplistIndex(zl, -1);
+<span class="lineNum">    1450 </span>            :         if (!ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1451 </span>            :             printf(&quot;ERROR: Could not access index -1\n&quot;);
+<span class="lineNum">    1452 </span>            :             return 1;
+<span class="lineNum">    1453 </span>            :         }
+<span class="lineNum">    1454 </span>            :         if (entry) {
+<span class="lineNum">    1455 </span>            :             if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1456 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1457 </span>            :         } else {
+<span class="lineNum">    1458 </span>            :             printf(&quot;%lld\n&quot;, value);
+<span class="lineNum">    1459 </span>            :         }
+<span class="lineNum">    1460 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1461 </span>            :         zfree(zl);
+<span class="lineNum">    1462 </span>            :     }
+<span class="lineNum">    1463 </span>            : 
+<span class="lineNum">    1464 </span>            :     printf(&quot;Get element at index -4 (first element):\n&quot;);
+<span class="lineNum">    1465 </span>            :     {
+<span class="lineNum">    1466 </span>            :         zl = createList();
+<span class="lineNum">    1467 </span>            :         p = ziplistIndex(zl, -4);
+<span class="lineNum">    1468 </span>            :         if (!ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1469 </span>            :             printf(&quot;ERROR: Could not access index -4\n&quot;);
+<span class="lineNum">    1470 </span>            :             return 1;
+<span class="lineNum">    1471 </span>            :         }
+<span class="lineNum">    1472 </span>            :         if (entry) {
+<span class="lineNum">    1473 </span>            :             if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1474 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1475 </span>            :         } else {
+<span class="lineNum">    1476 </span>            :             printf(&quot;%lld\n&quot;, value);
+<span class="lineNum">    1477 </span>            :         }
+<span class="lineNum">    1478 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1479 </span>            :         zfree(zl);
+<span class="lineNum">    1480 </span>            :     }
+<span class="lineNum">    1481 </span>            : 
+<span class="lineNum">    1482 </span>            :     printf(&quot;Get element at index -5 (reverse out of range):\n&quot;);
+<span class="lineNum">    1483 </span>            :     {
+<span class="lineNum">    1484 </span>            :         zl = createList();
+<span class="lineNum">    1485 </span>            :         p = ziplistIndex(zl, -5);
+<span class="lineNum">    1486 </span>            :         if (p == NULL) {
+<span class="lineNum">    1487 </span>            :             printf(&quot;No entry\n&quot;);
+<span class="lineNum">    1488 </span>            :         } else {
+<span class="lineNum">    1489 </span>            :             printf(&quot;ERROR: Out of range index should return NULL, returned offset: %ld\n&quot;, p-zl);
+<span class="lineNum">    1490 </span>            :             return 1;
+<span class="lineNum">    1491 </span>            :         }
+<span class="lineNum">    1492 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1493 </span>            :         zfree(zl);
+<span class="lineNum">    1494 </span>            :     }
+<span class="lineNum">    1495 </span>            : 
+<span class="lineNum">    1496 </span>            :     printf(&quot;Iterate list from 0 to end:\n&quot;);
+<span class="lineNum">    1497 </span>            :     {
+<span class="lineNum">    1498 </span>            :         zl = createList();
+<span class="lineNum">    1499 </span>            :         p = ziplistIndex(zl, 0);
+<span class="lineNum">    1500 </span>            :         while (ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1501 </span>            :             printf(&quot;Entry: &quot;);
+<span class="lineNum">    1502 </span>            :             if (entry) {
+<span class="lineNum">    1503 </span>            :                 if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1504 </span>            :             } else {
+<span class="lineNum">    1505 </span>            :                 printf(&quot;%lld&quot;, value);
+<span class="lineNum">    1506 </span>            :             }
+<span class="lineNum">    1507 </span>            :             p = ziplistNext(zl,p);
+<span class="lineNum">    1508 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1509 </span>            :         }
+<span class="lineNum">    1510 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1511 </span>            :         zfree(zl);
+<span class="lineNum">    1512 </span>            :     }
+<span class="lineNum">    1513 </span>            : 
+<span class="lineNum">    1514 </span>            :     printf(&quot;Iterate list from 1 to end:\n&quot;);
+<span class="lineNum">    1515 </span>            :     {
+<span class="lineNum">    1516 </span>            :         zl = createList();
+<span class="lineNum">    1517 </span>            :         p = ziplistIndex(zl, 1);
+<span class="lineNum">    1518 </span>            :         while (ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1519 </span>            :             printf(&quot;Entry: &quot;);
+<span class="lineNum">    1520 </span>            :             if (entry) {
+<span class="lineNum">    1521 </span>            :                 if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1522 </span>            :             } else {
+<span class="lineNum">    1523 </span>            :                 printf(&quot;%lld&quot;, value);
+<span class="lineNum">    1524 </span>            :             }
+<span class="lineNum">    1525 </span>            :             p = ziplistNext(zl,p);
+<span class="lineNum">    1526 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1527 </span>            :         }
+<span class="lineNum">    1528 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1529 </span>            :         zfree(zl);
+<span class="lineNum">    1530 </span>            :     }
+<span class="lineNum">    1531 </span>            : 
+<span class="lineNum">    1532 </span>            :     printf(&quot;Iterate list from 2 to end:\n&quot;);
+<span class="lineNum">    1533 </span>            :     {
+<span class="lineNum">    1534 </span>            :         zl = createList();
+<span class="lineNum">    1535 </span>            :         p = ziplistIndex(zl, 2);
+<span class="lineNum">    1536 </span>            :         while (ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1537 </span>            :             printf(&quot;Entry: &quot;);
+<span class="lineNum">    1538 </span>            :             if (entry) {
+<span class="lineNum">    1539 </span>            :                 if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1540 </span>            :             } else {
+<span class="lineNum">    1541 </span>            :                 printf(&quot;%lld&quot;, value);
+<span class="lineNum">    1542 </span>            :             }
+<span class="lineNum">    1543 </span>            :             p = ziplistNext(zl,p);
+<span class="lineNum">    1544 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1545 </span>            :         }
+<span class="lineNum">    1546 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1547 </span>            :         zfree(zl);
+<span class="lineNum">    1548 </span>            :     }
+<span class="lineNum">    1549 </span>            : 
+<span class="lineNum">    1550 </span>            :     printf(&quot;Iterate starting out of range:\n&quot;);
+<span class="lineNum">    1551 </span>            :     {
+<span class="lineNum">    1552 </span>            :         zl = createList();
+<span class="lineNum">    1553 </span>            :         p = ziplistIndex(zl, 4);
+<span class="lineNum">    1554 </span>            :         if (!ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1555 </span>            :             printf(&quot;No entry\n&quot;);
+<span class="lineNum">    1556 </span>            :         } else {
+<span class="lineNum">    1557 </span>            :             printf(&quot;ERROR\n&quot;);
+<span class="lineNum">    1558 </span>            :         }
+<span class="lineNum">    1559 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1560 </span>            :         zfree(zl);
+<span class="lineNum">    1561 </span>            :     }
+<span class="lineNum">    1562 </span>            : 
+<span class="lineNum">    1563 </span>            :     printf(&quot;Iterate from back to front:\n&quot;);
+<span class="lineNum">    1564 </span>            :     {
+<span class="lineNum">    1565 </span>            :         zl = createList();
+<span class="lineNum">    1566 </span>            :         p = ziplistIndex(zl, -1);
+<span class="lineNum">    1567 </span>            :         while (ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1568 </span>            :             printf(&quot;Entry: &quot;);
+<span class="lineNum">    1569 </span>            :             if (entry) {
+<span class="lineNum">    1570 </span>            :                 if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1571 </span>            :             } else {
+<span class="lineNum">    1572 </span>            :                 printf(&quot;%lld&quot;, value);
+<span class="lineNum">    1573 </span>            :             }
+<span class="lineNum">    1574 </span>            :             p = ziplistPrev(zl,p);
+<span class="lineNum">    1575 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1576 </span>            :         }
+<span class="lineNum">    1577 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1578 </span>            :         zfree(zl);
+<span class="lineNum">    1579 </span>            :     }
+<span class="lineNum">    1580 </span>            : 
+<span class="lineNum">    1581 </span>            :     printf(&quot;Iterate from back to front, deleting all items:\n&quot;);
+<span class="lineNum">    1582 </span>            :     {
+<span class="lineNum">    1583 </span>            :         zl = createList();
+<span class="lineNum">    1584 </span>            :         p = ziplistIndex(zl, -1);
+<span class="lineNum">    1585 </span>            :         while (ziplistGet(p, &amp;entry, &amp;elen, &amp;value)) {
+<span class="lineNum">    1586 </span>            :             printf(&quot;Entry: &quot;);
+<span class="lineNum">    1587 </span>            :             if (entry) {
+<span class="lineNum">    1588 </span>            :                 if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0) perror(&quot;fwrite&quot;);
+<span class="lineNum">    1589 </span>            :             } else {
+<span class="lineNum">    1590 </span>            :                 printf(&quot;%lld&quot;, value);
+<span class="lineNum">    1591 </span>            :             }
+<span class="lineNum">    1592 </span>            :             zl = ziplistDelete(zl,&amp;p);
+<span class="lineNum">    1593 </span>            :             p = ziplistPrev(zl,p);
+<span class="lineNum">    1594 </span>            :             printf(&quot;\n&quot;);
+<span class="lineNum">    1595 </span>            :         }
+<span class="lineNum">    1596 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1597 </span>            :         zfree(zl);
+<span class="lineNum">    1598 </span>            :     }
+<span class="lineNum">    1599 </span>            : 
+<span class="lineNum">    1600 </span>            :     printf(&quot;Delete inclusive range 0,0:\n&quot;);
+<span class="lineNum">    1601 </span>            :     {
+<span class="lineNum">    1602 </span>            :         zl = createList();
+<span class="lineNum">    1603 </span>            :         zl = ziplistDeleteRange(zl, 0, 1);
+<span class="lineNum">    1604 </span>            :         ziplistRepr(zl);
+<span class="lineNum">    1605 </span>            :         zfree(zl);
+<span class="lineNum">    1606 </span>            :     }
+<span class="lineNum">    1607 </span>            : 
+<span class="lineNum">    1608 </span>            :     printf(&quot;Delete inclusive range 0,1:\n&quot;);
+<span class="lineNum">    1609 </span>            :     {
+<span class="lineNum">    1610 </span>            :         zl = createList();
+<span class="lineNum">    1611 </span>            :         zl = ziplistDeleteRange(zl, 0, 2);
+<span class="lineNum">    1612 </span>            :         ziplistRepr(zl);
+<span class="lineNum">    1613 </span>            :         zfree(zl);
+<span class="lineNum">    1614 </span>            :     }
+<span class="lineNum">    1615 </span>            : 
+<span class="lineNum">    1616 </span>            :     printf(&quot;Delete inclusive range 1,2:\n&quot;);
+<span class="lineNum">    1617 </span>            :     {
+<span class="lineNum">    1618 </span>            :         zl = createList();
+<span class="lineNum">    1619 </span>            :         zl = ziplistDeleteRange(zl, 1, 2);
+<span class="lineNum">    1620 </span>            :         ziplistRepr(zl);
+<span class="lineNum">    1621 </span>            :         zfree(zl);
+<span class="lineNum">    1622 </span>            :     }
+<span class="lineNum">    1623 </span>            : 
+<span class="lineNum">    1624 </span>            :     printf(&quot;Delete with start index out of range:\n&quot;);
+<span class="lineNum">    1625 </span>            :     {
+<span class="lineNum">    1626 </span>            :         zl = createList();
+<span class="lineNum">    1627 </span>            :         zl = ziplistDeleteRange(zl, 5, 1);
+<span class="lineNum">    1628 </span>            :         ziplistRepr(zl);
+<span class="lineNum">    1629 </span>            :         zfree(zl);
+<span class="lineNum">    1630 </span>            :     }
+<span class="lineNum">    1631 </span>            : 
+<span class="lineNum">    1632 </span>            :     printf(&quot;Delete with num overflow:\n&quot;);
+<span class="lineNum">    1633 </span>            :     {
+<span class="lineNum">    1634 </span>            :         zl = createList();
+<span class="lineNum">    1635 </span>            :         zl = ziplistDeleteRange(zl, 1, 5);
+<span class="lineNum">    1636 </span>            :         ziplistRepr(zl);
+<span class="lineNum">    1637 </span>            :         zfree(zl);
+<span class="lineNum">    1638 </span>            :     }
+<span class="lineNum">    1639 </span>            : 
+<span class="lineNum">    1640 </span>            :     printf(&quot;Delete foo while iterating:\n&quot;);
+<span class="lineNum">    1641 </span>            :     {
+<span class="lineNum">    1642 </span>            :         zl = createList();
+<span class="lineNum">    1643 </span>            :         p = ziplistIndex(zl,0);
+<span class="lineNum">    1644 </span>            :         while (ziplistGet(p,&amp;entry,&amp;elen,&amp;value)) {
+<span class="lineNum">    1645 </span>            :             if (entry &amp;&amp; strncmp(&quot;foo&quot;,(char*)entry,elen) == 0) {
+<span class="lineNum">    1646 </span>            :                 printf(&quot;Delete foo\n&quot;);
+<span class="lineNum">    1647 </span>            :                 zl = ziplistDelete(zl,&amp;p);
+<span class="lineNum">    1648 </span>            :             } else {
+<span class="lineNum">    1649 </span>            :                 printf(&quot;Entry: &quot;);
+<span class="lineNum">    1650 </span>            :                 if (entry) {
+<span class="lineNum">    1651 </span>            :                     if (elen &amp;&amp; fwrite(entry,elen,1,stdout) == 0)
+<span class="lineNum">    1652 </span>            :                         perror(&quot;fwrite&quot;);
+<span class="lineNum">    1653 </span>            :                 } else {
+<span class="lineNum">    1654 </span>            :                     printf(&quot;%lld&quot;,value);
+<span class="lineNum">    1655 </span>            :                 }
+<span class="lineNum">    1656 </span>            :                 p = ziplistNext(zl,p);
+<span class="lineNum">    1657 </span>            :                 printf(&quot;\n&quot;);
+<span class="lineNum">    1658 </span>            :             }
+<span class="lineNum">    1659 </span>            :         }
+<span class="lineNum">    1660 </span>            :         printf(&quot;\n&quot;);
+<span class="lineNum">    1661 </span>            :         ziplistRepr(zl);
+<span class="lineNum">    1662 </span>            :         zfree(zl);
+<span class="lineNum">    1663 </span>            :     }
+<span class="lineNum">    1664 </span>            : 
+<span class="lineNum">    1665 </span>            :     printf(&quot;Regression test for &gt;255 byte strings:\n&quot;);
+<span class="lineNum">    1666 </span>            :     {
+<span class="lineNum">    1667 </span>            :         char v1[257] = {0}, v2[257] = {0};
+<span class="lineNum">    1668 </span>            :         memset(v1,'x',256);
+<span class="lineNum">    1669 </span>            :         memset(v2,'y',256);
+<span class="lineNum">    1670 </span>            :         zl = ziplistNew();
+<span class="lineNum">    1671 </span>            :         zl = ziplistPush(zl,(unsigned char*)v1,strlen(v1),ZIPLIST_TAIL);
+<span class="lineNum">    1672 </span>            :         zl = ziplistPush(zl,(unsigned char*)v2,strlen(v2),ZIPLIST_TAIL);
+<span class="lineNum">    1673 </span>            : 
+<span class="lineNum">    1674 </span>            :         /* Pop values again and compare their value. */
+<span class="lineNum">    1675 </span>            :         p = ziplistIndex(zl,0);
+<span class="lineNum">    1676 </span>            :         assert(ziplistGet(p,&amp;entry,&amp;elen,&amp;value));
+<span class="lineNum">    1677 </span>            :         assert(strncmp(v1,(char*)entry,elen) == 0);
+<span class="lineNum">    1678 </span>            :         p = ziplistIndex(zl,1);
+<span class="lineNum">    1679 </span>            :         assert(ziplistGet(p,&amp;entry,&amp;elen,&amp;value));
+<span class="lineNum">    1680 </span>            :         assert(strncmp(v2,(char*)entry,elen) == 0);
+<span class="lineNum">    1681 </span>            :         printf(&quot;SUCCESS\n\n&quot;);
+<span class="lineNum">    1682 </span>            :         zfree(zl);
+<span class="lineNum">    1683 </span>            :     }
+<span class="lineNum">    1684 </span>            : 
+<span class="lineNum">    1685 </span>            :     printf(&quot;Regression test deleting next to last entries:\n&quot;);
+<span class="lineNum">    1686 </span>            :     {
+<span class="lineNum">    1687 </span>            :         char v[3][257] = {{0}};
+<span class="lineNum">    1688 </span>            :         zlentry e[3] = {{.prevrawlensize = 0, .prevrawlen = 0, .lensize = 0,
+<span class="lineNum">    1689 </span>            :                          .len = 0, .headersize = 0, .encoding = 0, .p = NULL}};
+<span class="lineNum">    1690 </span>            :         size_t i;
+<span class="lineNum">    1691 </span>            : 
+<span class="lineNum">    1692 </span>            :         for (i = 0; i &lt; (sizeof(v)/sizeof(v[0])); i++) {
+<span class="lineNum">    1693 </span>            :             memset(v[i], 'a' + i, sizeof(v[0]));
+<span class="lineNum">    1694 </span>            :         }
+<span class="lineNum">    1695 </span>            : 
+<span class="lineNum">    1696 </span>            :         v[0][256] = '\0';
+<span class="lineNum">    1697 </span>            :         v[1][  1] = '\0';
+<span class="lineNum">    1698 </span>            :         v[2][256] = '\0';
+<span class="lineNum">    1699 </span>            : 
+<span class="lineNum">    1700 </span>            :         zl = ziplistNew();
+<span class="lineNum">    1701 </span>            :         for (i = 0; i &lt; (sizeof(v)/sizeof(v[0])); i++) {
+<span class="lineNum">    1702 </span>            :             zl = ziplistPush(zl, (unsigned char *) v[i], strlen(v[i]), ZIPLIST_TAIL);
+<span class="lineNum">    1703 </span>            :         }
+<span class="lineNum">    1704 </span>            : 
+<span class="lineNum">    1705 </span>            :         verify(zl, e);
+<span class="lineNum">    1706 </span>            : 
+<span class="lineNum">    1707 </span>            :         assert(e[0].prevrawlensize == 1);
+<span class="lineNum">    1708 </span>            :         assert(e[1].prevrawlensize == 5);
+<span class="lineNum">    1709 </span>            :         assert(e[2].prevrawlensize == 1);
+<span class="lineNum">    1710 </span>            : 
+<span class="lineNum">    1711 </span>            :         /* Deleting entry 1 will increase `prevrawlensize` for entry 2 */
+<span class="lineNum">    1712 </span>            :         unsigned char *p = e[1].p;
+<span class="lineNum">    1713 </span>            :         zl = ziplistDelete(zl, &amp;p);
+<span class="lineNum">    1714 </span>            : 
+<span class="lineNum">    1715 </span>            :         verify(zl, e);
+<span class="lineNum">    1716 </span>            : 
+<span class="lineNum">    1717 </span>            :         assert(e[0].prevrawlensize == 1);
+<span class="lineNum">    1718 </span>            :         assert(e[1].prevrawlensize == 5);
+<span class="lineNum">    1719 </span>            : 
+<span class="lineNum">    1720 </span>            :         printf(&quot;SUCCESS\n\n&quot;);
+<span class="lineNum">    1721 </span>            :         zfree(zl);
+<span class="lineNum">    1722 </span>            :     }
+<span class="lineNum">    1723 </span>            : 
+<span class="lineNum">    1724 </span>            :     printf(&quot;Create long list and check indices:\n&quot;);
+<span class="lineNum">    1725 </span>            :     {
+<span class="lineNum">    1726 </span>            :         zl = ziplistNew();
+<span class="lineNum">    1727 </span>            :         char buf[32];
+<span class="lineNum">    1728 </span>            :         int i,len;
+<span class="lineNum">    1729 </span>            :         for (i = 0; i &lt; 1000; i++) {
+<span class="lineNum">    1730 </span>            :             len = sprintf(buf,&quot;%d&quot;,i);
+<span class="lineNum">    1731 </span>            :             zl = ziplistPush(zl,(unsigned char*)buf,len,ZIPLIST_TAIL);
+<span class="lineNum">    1732 </span>            :         }
+<span class="lineNum">    1733 </span>            :         for (i = 0; i &lt; 1000; i++) {
+<span class="lineNum">    1734 </span>            :             p = ziplistIndex(zl,i);
+<span class="lineNum">    1735 </span>            :             assert(ziplistGet(p,NULL,NULL,&amp;value));
+<span class="lineNum">    1736 </span>            :             assert(i == value);
+<span class="lineNum">    1737 </span>            : 
+<span class="lineNum">    1738 </span>            :             p = ziplistIndex(zl,-i-1);
+<span class="lineNum">    1739 </span>            :             assert(ziplistGet(p,NULL,NULL,&amp;value));
+<span class="lineNum">    1740 </span>            :             assert(999-i == value);
+<span class="lineNum">    1741 </span>            :         }
+<span class="lineNum">    1742 </span>            :         printf(&quot;SUCCESS\n\n&quot;);
+<span class="lineNum">    1743 </span>            :         zfree(zl);
+<span class="lineNum">    1744 </span>            :     }
+<span class="lineNum">    1745 </span>            : 
+<span class="lineNum">    1746 </span>            :     printf(&quot;Compare strings with ziplist entries:\n&quot;);
+<span class="lineNum">    1747 </span>            :     {
+<span class="lineNum">    1748 </span>            :         zl = createList();
+<span class="lineNum">    1749 </span>            :         p = ziplistIndex(zl,0);
+<span class="lineNum">    1750 </span>            :         if (!ziplistCompare(p,(unsigned char*)&quot;hello&quot;,5)) {
+<span class="lineNum">    1751 </span>            :             printf(&quot;ERROR: not \&quot;hello\&quot;\n&quot;);
+<span class="lineNum">    1752 </span>            :             return 1;
+<span class="lineNum">    1753 </span>            :         }
+<span class="lineNum">    1754 </span>            :         if (ziplistCompare(p,(unsigned char*)&quot;hella&quot;,5)) {
+<span class="lineNum">    1755 </span>            :             printf(&quot;ERROR: \&quot;hella\&quot;\n&quot;);
+<span class="lineNum">    1756 </span>            :             return 1;
+<span class="lineNum">    1757 </span>            :         }
+<span class="lineNum">    1758 </span>            : 
+<span class="lineNum">    1759 </span>            :         p = ziplistIndex(zl,3);
+<span class="lineNum">    1760 </span>            :         if (!ziplistCompare(p,(unsigned char*)&quot;1024&quot;,4)) {
+<span class="lineNum">    1761 </span>            :             printf(&quot;ERROR: not \&quot;1024\&quot;\n&quot;);
+<span class="lineNum">    1762 </span>            :             return 1;
+<span class="lineNum">    1763 </span>            :         }
+<span class="lineNum">    1764 </span>            :         if (ziplistCompare(p,(unsigned char*)&quot;1025&quot;,4)) {
+<span class="lineNum">    1765 </span>            :             printf(&quot;ERROR: \&quot;1025\&quot;\n&quot;);
+<span class="lineNum">    1766 </span>            :             return 1;
+<span class="lineNum">    1767 </span>            :         }
+<span class="lineNum">    1768 </span>            :         printf(&quot;SUCCESS\n\n&quot;);
+<span class="lineNum">    1769 </span>            :         zfree(zl);
+<span class="lineNum">    1770 </span>            :     }
+<span class="lineNum">    1771 </span>            : 
+<span class="lineNum">    1772 </span>            :     printf(&quot;Merge test:\n&quot;);
+<span class="lineNum">    1773 </span>            :     {
+<span class="lineNum">    1774 </span>            :         /* create list gives us: [hello, foo, quux, 1024] */
+<span class="lineNum">    1775 </span>            :         zl = createList();
+<span class="lineNum">    1776 </span>            :         unsigned char *zl2 = createList();
+<span class="lineNum">    1777 </span>            : 
+<span class="lineNum">    1778 </span>            :         unsigned char *zl3 = ziplistNew();
+<span class="lineNum">    1779 </span>            :         unsigned char *zl4 = ziplistNew();
+<span class="lineNum">    1780 </span>            : 
+<span class="lineNum">    1781 </span>            :         if (ziplistMerge(&amp;zl4, &amp;zl4)) {
+<span class="lineNum">    1782 </span>            :             printf(&quot;ERROR: Allowed merging of one ziplist into itself.\n&quot;);
+<span class="lineNum">    1783 </span>            :             return 1;
+<span class="lineNum">    1784 </span>            :         }
+<span class="lineNum">    1785 </span>            : 
+<span class="lineNum">    1786 </span>            :         /* Merge two empty ziplists, get empty result back. */
+<span class="lineNum">    1787 </span>            :         zl4 = ziplistMerge(&amp;zl3, &amp;zl4);
+<span class="lineNum">    1788 </span>            :         ziplistRepr(zl4);
+<span class="lineNum">    1789 </span>            :         if (ziplistLen(zl4)) {
+<span class="lineNum">    1790 </span>            :             printf(&quot;ERROR: Merging two empty ziplists created entries.\n&quot;);
+<span class="lineNum">    1791 </span>            :             return 1;
+<span class="lineNum">    1792 </span>            :         }
+<span class="lineNum">    1793 </span>            :         zfree(zl4);
+<span class="lineNum">    1794 </span>            : 
+<span class="lineNum">    1795 </span>            :         zl2 = ziplistMerge(&amp;zl, &amp;zl2);
+<span class="lineNum">    1796 </span>            :         /* merge gives us: [hello, foo, quux, 1024, hello, foo, quux, 1024] */
+<span class="lineNum">    1797 </span>            :         ziplistRepr(zl2);
+<span class="lineNum">    1798 </span>            : 
+<span class="lineNum">    1799 </span>            :         if (ziplistLen(zl2) != 8) {
+<span class="lineNum">    1800 </span>            :             printf(&quot;ERROR: Merged length not 8, but: %u\n&quot;, ziplistLen(zl2));
+<span class="lineNum">    1801 </span>            :             return 1;
+<span class="lineNum">    1802 </span>            :         }
+<span class="lineNum">    1803 </span>            : 
+<span class="lineNum">    1804 </span>            :         p = ziplistIndex(zl2,0);
+<span class="lineNum">    1805 </span>            :         if (!ziplistCompare(p,(unsigned char*)&quot;hello&quot;,5)) {
+<span class="lineNum">    1806 </span>            :             printf(&quot;ERROR: not \&quot;hello\&quot;\n&quot;);
+<span class="lineNum">    1807 </span>            :             return 1;
+<span class="lineNum">    1808 </span>            :         }
+<span class="lineNum">    1809 </span>            :         if (ziplistCompare(p,(unsigned char*)&quot;hella&quot;,5)) {
+<span class="lineNum">    1810 </span>            :             printf(&quot;ERROR: \&quot;hella\&quot;\n&quot;);
+<span class="lineNum">    1811 </span>            :             return 1;
+<span class="lineNum">    1812 </span>            :         }
+<span class="lineNum">    1813 </span>            : 
+<span class="lineNum">    1814 </span>            :         p = ziplistIndex(zl2,3);
+<span class="lineNum">    1815 </span>            :         if (!ziplistCompare(p,(unsigned char*)&quot;1024&quot;,4)) {
+<span class="lineNum">    1816 </span>            :             printf(&quot;ERROR: not \&quot;1024\&quot;\n&quot;);
+<span class="lineNum">    1817 </span>            :             return 1;
+<span class="lineNum">    1818 </span>            :         }
+<span class="lineNum">    1819 </span>            :         if (ziplistCompare(p,(unsigned char*)&quot;1025&quot;,4)) {
+<span class="lineNum">    1820 </span>            :             printf(&quot;ERROR: \&quot;1025\&quot;\n&quot;);
+<span class="lineNum">    1821 </span>            :             return 1;
+<span class="lineNum">    1822 </span>            :         }
+<span class="lineNum">    1823 </span>            : 
+<span class="lineNum">    1824 </span>            :         p = ziplistIndex(zl2,4);
+<span class="lineNum">    1825 </span>            :         if (!ziplistCompare(p,(unsigned char*)&quot;hello&quot;,5)) {
+<span class="lineNum">    1826 </span>            :             printf(&quot;ERROR: not \&quot;hello\&quot;\n&quot;);
+<span class="lineNum">    1827 </span>            :             return 1;
+<span class="lineNum">    1828 </span>            :         }
+<span class="lineNum">    1829 </span>            :         if (ziplistCompare(p,(unsigned char*)&quot;hella&quot;,5)) {
+<span class="lineNum">    1830 </span>            :             printf(&quot;ERROR: \&quot;hella\&quot;\n&quot;);
+<span class="lineNum">    1831 </span>            :             return 1;
+<span class="lineNum">    1832 </span>            :         }
+<span class="lineNum">    1833 </span>            : 
+<span class="lineNum">    1834 </span>            :         p = ziplistIndex(zl2,7);
+<span class="lineNum">    1835 </span>            :         if (!ziplistCompare(p,(unsigned char*)&quot;1024&quot;,4)) {
+<span class="lineNum">    1836 </span>            :             printf(&quot;ERROR: not \&quot;1024\&quot;\n&quot;);
+<span class="lineNum">    1837 </span>            :             return 1;
+<span class="lineNum">    1838 </span>            :         }
+<span class="lineNum">    1839 </span>            :         if (ziplistCompare(p,(unsigned char*)&quot;1025&quot;,4)) {
+<span class="lineNum">    1840 </span>            :             printf(&quot;ERROR: \&quot;1025\&quot;\n&quot;);
+<span class="lineNum">    1841 </span>            :             return 1;
+<span class="lineNum">    1842 </span>            :         }
+<span class="lineNum">    1843 </span>            :         printf(&quot;SUCCESS\n\n&quot;);
+<span class="lineNum">    1844 </span>            :         zfree(zl);
+<span class="lineNum">    1845 </span>            :     }
+<span class="lineNum">    1846 </span>            : 
+<span class="lineNum">    1847 </span>            :     printf(&quot;Stress with random payloads of different encoding:\n&quot;);
+<span class="lineNum">    1848 </span>            :     {
+<span class="lineNum">    1849 </span>            :         int i,j,len,where;
+<span class="lineNum">    1850 </span>            :         unsigned char *p;
+<span class="lineNum">    1851 </span>            :         char buf[1024];
+<span class="lineNum">    1852 </span>            :         int buflen;
+<span class="lineNum">    1853 </span>            :         list *ref;
+<span class="lineNum">    1854 </span>            :         listNode *refnode;
+<span class="lineNum">    1855 </span>            : 
+<span class="lineNum">    1856 </span>            :         /* Hold temp vars from ziplist */
+<span class="lineNum">    1857 </span>            :         unsigned char *sstr;
+<span class="lineNum">    1858 </span>            :         unsigned int slen;
+<span class="lineNum">    1859 </span>            :         long long sval;
+<span class="lineNum">    1860 </span>            : 
+<span class="lineNum">    1861 </span>            :         for (i = 0; i &lt; 20000; i++) {
+<span class="lineNum">    1862 </span>            :             zl = ziplistNew();
+<span class="lineNum">    1863 </span>            :             ref = listCreate();
+<span class="lineNum">    1864 </span>            :             listSetFreeMethod(ref,(void (*)(void*))sdsfree);
+<span class="lineNum">    1865 </span>            :             len = rand() % 256;
+<span class="lineNum">    1866 </span>            : 
+<span class="lineNum">    1867 </span>            :             /* Create lists */
+<span class="lineNum">    1868 </span>            :             for (j = 0; j &lt; len; j++) {
+<span class="lineNum">    1869 </span>            :                 where = (rand() &amp; 1) ? ZIPLIST_HEAD : ZIPLIST_TAIL;
+<span class="lineNum">    1870 </span>            :                 if (rand() % 2) {
+<span class="lineNum">    1871 </span>            :                     buflen = randstring(buf,1,sizeof(buf)-1);
+<span class="lineNum">    1872 </span>            :                 } else {
+<span class="lineNum">    1873 </span>            :                     switch(rand() % 3) {
+<span class="lineNum">    1874 </span>            :                     case 0:
+<span class="lineNum">    1875 </span>            :                         buflen = sprintf(buf,&quot;%lld&quot;,(0LL + rand()) &gt;&gt; 20);
+<span class="lineNum">    1876 </span>            :                         break;
+<span class="lineNum">    1877 </span>            :                     case 1:
+<span class="lineNum">    1878 </span>            :                         buflen = sprintf(buf,&quot;%lld&quot;,(0LL + rand()));
+<span class="lineNum">    1879 </span>            :                         break;
+<span class="lineNum">    1880 </span>            :                     case 2:
+<span class="lineNum">    1881 </span>            :                         buflen = sprintf(buf,&quot;%lld&quot;,(0LL + rand()) &lt;&lt; 20);
+<span class="lineNum">    1882 </span>            :                         break;
+<span class="lineNum">    1883 </span>            :                     default:
+<span class="lineNum">    1884 </span>            :                         assert(NULL);
+<span class="lineNum">    1885 </span>            :                     }
+<span class="lineNum">    1886 </span>            :                 }
+<span class="lineNum">    1887 </span>            : 
+<span class="lineNum">    1888 </span>            :                 /* Add to ziplist */
+<span class="lineNum">    1889 </span>            :                 zl = ziplistPush(zl, (unsigned char*)buf, buflen, where);
+<span class="lineNum">    1890 </span>            : 
+<span class="lineNum">    1891 </span>            :                 /* Add to reference list */
+<span class="lineNum">    1892 </span>            :                 if (where == ZIPLIST_HEAD) {
+<span class="lineNum">    1893 </span>            :                     listAddNodeHead(ref,sdsnewlen(buf, buflen));
+<span class="lineNum">    1894 </span>            :                 } else if (where == ZIPLIST_TAIL) {
+<span class="lineNum">    1895 </span>            :                     listAddNodeTail(ref,sdsnewlen(buf, buflen));
+<span class="lineNum">    1896 </span>            :                 } else {
+<span class="lineNum">    1897 </span>            :                     assert(NULL);
+<span class="lineNum">    1898 </span>            :                 }
+<span class="lineNum">    1899 </span>            :             }
+<span class="lineNum">    1900 </span>            : 
+<span class="lineNum">    1901 </span>            :             assert(listLength(ref) == ziplistLen(zl));
+<span class="lineNum">    1902 </span>            :             for (j = 0; j &lt; len; j++) {
+<span class="lineNum">    1903 </span>            :                 /* Naive way to get elements, but similar to the stresser
+<span class="lineNum">    1904 </span>            :                  * executed from the Tcl test suite. */
+<span class="lineNum">    1905 </span>            :                 p = ziplistIndex(zl,j);
+<span class="lineNum">    1906 </span>            :                 refnode = listIndex(ref,j);
+<span class="lineNum">    1907 </span>            : 
+<span class="lineNum">    1908 </span>            :                 assert(ziplistGet(p,&amp;sstr,&amp;slen,&amp;sval));
+<span class="lineNum">    1909 </span>            :                 if (sstr == NULL) {
+<span class="lineNum">    1910 </span>            :                     buflen = sprintf(buf,&quot;%lld&quot;,sval);
+<span class="lineNum">    1911 </span>            :                 } else {
+<span class="lineNum">    1912 </span>            :                     buflen = slen;
+<span class="lineNum">    1913 </span>            :                     memcpy(buf,sstr,buflen);
+<span class="lineNum">    1914 </span>            :                     buf[buflen] = '\0';
+<span class="lineNum">    1915 </span>            :                 }
+<span class="lineNum">    1916 </span>            :                 assert(memcmp(buf,listNodeValue(refnode),buflen) == 0);
+<span class="lineNum">    1917 </span>            :             }
+<span class="lineNum">    1918 </span>            :             zfree(zl);
+<span class="lineNum">    1919 </span>            :             listRelease(ref);
+<span class="lineNum">    1920 </span>            :         }
+<span class="lineNum">    1921 </span>            :         printf(&quot;SUCCESS\n\n&quot;);
+<span class="lineNum">    1922 </span>            :     }
+<span class="lineNum">    1923 </span>            : 
+<span class="lineNum">    1924 </span>            :     printf(&quot;Stress with variable ziplist size:\n&quot;);
+<span class="lineNum">    1925 </span>            :     {
+<span class="lineNum">    1926 </span>            :         stress(ZIPLIST_HEAD,100000,16384,256);
+<span class="lineNum">    1927 </span>            :         stress(ZIPLIST_TAIL,100000,16384,256);
+<span class="lineNum">    1928 </span>            :     }
+<span class="lineNum">    1929 </span>            : 
+<span class="lineNum">    1930 </span>            :     return 0;
+<span class="lineNum">    1931 </span>            : }
+<span class="lineNum">    1932 </span>            : #endif
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/siphash.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - siphash.c<span style="font-size: 80%;"> (source / <a href="siphash.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">73</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntryHi">97.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryLo">66.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :    SipHash reference C implementation
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            :    Copyright (c) 2012-2016 Jean-Philippe Aumasson
+<span class="lineNum">       5 </span>            :    &lt;jeanphilippe.aumasson@gmail.com&gt;
+<span class="lineNum">       6 </span>            :    Copyright (c) 2012-2014 Daniel J. Bernstein &lt;djb@cr.yp.to&gt;
+<span class="lineNum">       7 </span>            :    Copyright (c) 2017 Salvatore Sanfilippo &lt;antirez@gmail.com&gt;
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            :    To the extent possible under law, the author(s) have dedicated all copyright
+<span class="lineNum">      10 </span>            :    and related and neighboring rights to this software to the public domain
+<span class="lineNum">      11 </span>            :    worldwide. This software is distributed without any warranty.
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            :    You should have received a copy of the CC0 Public Domain Dedication along
+<span class="lineNum">      14 </span>            :    with this software. If not, see
+<span class="lineNum">      15 </span>            :    &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt;.
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            :    ----------------------------------------------------------------------------
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            :    This version was modified by Salvatore Sanfilippo &lt;antirez@gmail.com&gt;
+<span class="lineNum">      20 </span>            :    in the following ways:
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span>            :    1. We use SipHash 1-2. This is not believed to be as strong as the
+<span class="lineNum">      23 </span>            :       suggested 2-4 variant, but AFAIK there are not trivial attacks
+<span class="lineNum">      24 </span>            :       against this reduced-rounds version, and it runs at the same speed
+<span class="lineNum">      25 </span>            :       as Murmurhash2 that we used previously, why the 2-4 variant slowed
+<span class="lineNum">      26 </span>            :       down Redis by a 4% figure more or less.
+<span class="lineNum">      27 </span>            :    2. Hard-code rounds in the hope the compiler can optimize it more
+<span class="lineNum">      28 </span>            :       in this raw from. Anyway we always want the standard 2-4 variant.
+<span class="lineNum">      29 </span>            :    3. Modify the prototype and implementation so that the function directly
+<span class="lineNum">      30 </span>            :       returns an uint64_t value, the hash itself, instead of receiving an
+<span class="lineNum">      31 </span>            :       output buffer. This also means that the output size is set to 8 bytes
+<span class="lineNum">      32 </span>            :       and the 16 bytes output code handling was removed.
+<span class="lineNum">      33 </span>            :    4. Provide a case insensitive variant to be used when hashing strings that
+<span class="lineNum">      34 </span>            :       must be considered identical by the hash table regardless of the case.
+<span class="lineNum">      35 </span>            :       If we don't have directly a case insensitive hash function, we need to
+<span class="lineNum">      36 </span>            :       perform a text transformation in some temporary buffer, which is costly.
+<span class="lineNum">      37 </span>            :    5. Remove debugging code.
+<span class="lineNum">      38 </span>            :    6. Modified the original test.c file to be a stand-alone function testing
+<span class="lineNum">      39 </span>            :       the function in the new form (returing an uint64_t) using just the
+<span class="lineNum">      40 </span>            :       relevant test vector.
+<span class="lineNum">      41 </span>            :  */
+<span class="lineNum">      42 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      43 </span>            : #include &lt;stdint.h&gt;
+<span class="lineNum">      44 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      45 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      46 </span>            : #include &lt;ctype.h&gt;
+<span class="lineNum">      47 </span>            : 
+<a name="48"><span class="lineNum">      48 </span>            : /* Fast tolower() alike function that does not care about locale</a>
+<span class="lineNum">      49 </span>            :  * but just returns a-z insetad of A-Z. */
+<span class="lineNum">      50 </span><span class="lineNoCov">          0 : int siptlw(int c) {</span>
+<span class="lineNum">      51 </span><span class="lineNoCov">          0 :     if (c &gt;= 'A' &amp;&amp; c &lt;= 'Z') {</span>
+<span class="lineNum">      52 </span><span class="lineCov">   17263790 :         return c+('a'-'A');</span>
+<span class="lineNum">      53 </span>            :     } else {
+<span class="lineNum">      54 </span>            :         return c;
+<span class="lineNum">      55 </span>            :     }
+<span class="lineNum">      56 </span>            : }
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : /* Test of the CPU is Little Endian and supports not aligned accesses.
+<span class="lineNum">      59 </span>            :  * Two interesting conditions to speedup the function that happen to be
+<span class="lineNum">      60 </span>            :  * in most of x86 servers. */
+<span class="lineNum">      61 </span>            : #if defined(__X86_64__) || defined(__x86_64__) || defined (__i386__)
+<span class="lineNum">      62 </span>            : #define UNALIGNED_LE_CPU
+<span class="lineNum">      63 </span>            : #endif
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            : #define ROTL(x, b) (uint64_t)(((x) &lt;&lt; (b)) | ((x) &gt;&gt; (64 - (b))))
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span>            : #define U32TO8_LE(p, v)                                                        \
+<span class="lineNum">      68 </span>            :     (p)[0] = (uint8_t)((v));                                                   \
+<span class="lineNum">      69 </span>            :     (p)[1] = (uint8_t)((v) &gt;&gt; 8);                                              \
+<span class="lineNum">      70 </span>            :     (p)[2] = (uint8_t)((v) &gt;&gt; 16);                                             \
+<span class="lineNum">      71 </span>            :     (p)[3] = (uint8_t)((v) &gt;&gt; 24);
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : #define U64TO8_LE(p, v)                                                        \
+<span class="lineNum">      74 </span>            :     U32TO8_LE((p), (uint32_t)((v)));                                           \
+<span class="lineNum">      75 </span>            :     U32TO8_LE((p) + 4, (uint32_t)((v) &gt;&gt; 32));
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            : #ifdef UNALIGNED_LE_CPU
+<span class="lineNum">      78 </span>            : #define U8TO64_LE(p) (*((uint64_t*)(p)))
+<span class="lineNum">      79 </span>            : #else
+<span class="lineNum">      80 </span>            : #define U8TO64_LE(p)                                                           \
+<span class="lineNum">      81 </span>            :     (((uint64_t)((p)[0])) | ((uint64_t)((p)[1]) &lt;&lt; 8) |                        \
+<span class="lineNum">      82 </span>            :      ((uint64_t)((p)[2]) &lt;&lt; 16) | ((uint64_t)((p)[3]) &lt;&lt; 24) |                 \
+<span class="lineNum">      83 </span>            :      ((uint64_t)((p)[4]) &lt;&lt; 32) | ((uint64_t)((p)[5]) &lt;&lt; 40) |                 \
+<span class="lineNum">      84 </span>            :      ((uint64_t)((p)[6]) &lt;&lt; 48) | ((uint64_t)((p)[7]) &lt;&lt; 56))
+<span class="lineNum">      85 </span>            : #endif
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : #define U8TO64_LE_NOCASE(p)                                                    \
+<span class="lineNum">      88 </span>            :     (((uint64_t)(siptlw((p)[0]))) |                                           \
+<span class="lineNum">      89 </span>            :      ((uint64_t)(siptlw((p)[1])) &lt;&lt; 8) |                                      \
+<span class="lineNum">      90 </span>            :      ((uint64_t)(siptlw((p)[2])) &lt;&lt; 16) |                                     \
+<span class="lineNum">      91 </span>            :      ((uint64_t)(siptlw((p)[3])) &lt;&lt; 24) |                                     \
+<span class="lineNum">      92 </span>            :      ((uint64_t)(siptlw((p)[4])) &lt;&lt; 32) |                                              \
+<span class="lineNum">      93 </span>            :      ((uint64_t)(siptlw((p)[5])) &lt;&lt; 40) |                                              \
+<span class="lineNum">      94 </span>            :      ((uint64_t)(siptlw((p)[6])) &lt;&lt; 48) |                                              \
+<span class="lineNum">      95 </span>            :      ((uint64_t)(siptlw((p)[7])) &lt;&lt; 56))
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span>            : #define SIPROUND                                                               \
+<span class="lineNum">      98 </span>            :     do {                                                                       \
+<span class="lineNum">      99 </span>            :         v0 += v1;                                                              \
+<span class="lineNum">     100 </span>            :         v1 = ROTL(v1, 13);                                                     \
+<span class="lineNum">     101 </span>            :         v1 ^= v0;                                                              \
+<span class="lineNum">     102 </span>            :         v0 = ROTL(v0, 32);                                                     \
+<span class="lineNum">     103 </span>            :         v2 += v3;                                                              \
+<span class="lineNum">     104 </span>            :         v3 = ROTL(v3, 16);                                                     \
+<span class="lineNum">     105 </span>            :         v3 ^= v2;                                                              \
+<span class="lineNum">     106 </span>            :         v0 += v3;                                                              \
+<span class="lineNum">     107 </span>            :         v3 = ROTL(v3, 21);                                                     \
+<span class="lineNum">     108 </span>            :         v3 ^= v0;                                                              \
+<span class="lineNum">     109 </span>            :         v2 += v1;                                                              \
+<span class="lineNum">     110 </span>            :         v1 = ROTL(v1, 17);                                                     \
+<span class="lineNum">     111 </span>            :         v1 ^= v2;                                                              \
+<span class="lineNum">     112 </span>            :         v2 = ROTL(v2, 32);                                                     \
+<a name="113"><span class="lineNum">     113 </span>            :     } while (0)</a>
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span><span class="lineCov">  216835608 : uint64_t siphash(const uint8_t *in, const size_t inlen, const uint8_t *k) {</span>
+<span class="lineNum">     116 </span>            : #ifndef UNALIGNED_LE_CPU
+<span class="lineNum">     117 </span>            :     uint64_t hash;
+<span class="lineNum">     118 </span>            :     uint8_t *out = (uint8_t*) &amp;hash;
+<span class="lineNum">     119 </span>            : #endif
+<span class="lineNum">     120 </span><span class="lineCov">  216835608 :     uint64_t v0 = 0x736f6d6570736575ULL;</span>
+<span class="lineNum">     121 </span><span class="lineCov">  216835608 :     uint64_t v1 = 0x646f72616e646f6dULL;</span>
+<span class="lineNum">     122 </span><span class="lineCov">  216835608 :     uint64_t v2 = 0x6c7967656e657261ULL;</span>
+<span class="lineNum">     123 </span><span class="lineCov">  216835608 :     uint64_t v3 = 0x7465646279746573ULL;</span>
+<span class="lineNum">     124 </span><span class="lineCov">  216835608 :     uint64_t k0 = U8TO64_LE(k);</span>
+<span class="lineNum">     125 </span><span class="lineCov">  216835608 :     uint64_t k1 = U8TO64_LE(k + 8);</span>
+<span class="lineNum">     126 </span><span class="lineCov">  216835608 :     uint64_t m;</span>
+<span class="lineNum">     127 </span><span class="lineCov">  216835608 :     const uint8_t *end = in + inlen - (inlen % sizeof(uint64_t));</span>
+<span class="lineNum">     128 </span><span class="lineCov">  216835608 :     const int left = inlen &amp; 7;</span>
+<span class="lineNum">     129 </span><span class="lineCov">  216835608 :     uint64_t b = ((uint64_t)inlen) &lt;&lt; 56;</span>
+<span class="lineNum">     130 </span><span class="lineCov">  216835608 :     v3 ^= k1;</span>
+<span class="lineNum">     131 </span><span class="lineCov">  216835608 :     v2 ^= k0;</span>
+<span class="lineNum">     132 </span><span class="lineCov">  216835608 :     v1 ^= k1;</span>
+<span class="lineNum">     133 </span><span class="lineCov">  216835608 :     v0 ^= k0;</span>
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span><span class="lineCov">  657653130 :     for (; in != end; in += 8) {</span>
+<span class="lineNum">     136 </span><span class="lineCov">  440817522 :         m = U8TO64_LE(in);</span>
+<span class="lineNum">     137 </span><span class="lineCov">  440817522 :         v3 ^= m;</span>
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span><span class="lineCov">  440817522 :         SIPROUND;</span>
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span><span class="lineCov">  440817522 :         v0 ^= m;</span>
+<span class="lineNum">     142 </span>            :     }
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span><span class="lineCov">  216835608 :     switch (left) {</span>
+<span class="lineNum">     145 </span><span class="lineCov">    1615441 :     case 7: b |= ((uint64_t)in[6]) &lt;&lt; 48; /* fall-thru */</span>
+<span class="lineNum">     146 </span><span class="lineCov">    5478784 :     case 6: b |= ((uint64_t)in[5]) &lt;&lt; 40; /* fall-thru */</span>
+<span class="lineNum">     147 </span><span class="lineCov">   11091829 :     case 5: b |= ((uint64_t)in[4]) &lt;&lt; 32; /* fall-thru */</span>
+<span class="lineNum">     148 </span><span class="lineCov">   37563106 :     case 4: b |= ((uint64_t)in[3]) &lt;&lt; 24; /* fall-thru */</span>
+<span class="lineNum">     149 </span><span class="lineCov">   92638002 :     case 3: b |= ((uint64_t)in[2]) &lt;&lt; 16; /* fall-thru */</span>
+<span class="lineNum">     150 </span><span class="lineCov">  192703206 :     case 2: b |= ((uint64_t)in[1]) &lt;&lt; 8; /* fall-thru */</span>
+<span class="lineNum">     151 </span><span class="lineCov">  212576580 :     case 1: b |= ((uint64_t)in[0]); break;</span>
+<span class="lineNum">     152 </span>            :     case 0: break;
+<span class="lineNum">     153 </span>            :     }
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span><span class="lineCov">  216835608 :     v3 ^= b;</span>
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span><span class="lineCov">  216835608 :     SIPROUND;</span>
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span><span class="lineCov">  216835608 :     v0 ^= b;</span>
+<span class="lineNum">     160 </span><span class="lineCov">  216835608 :     v2 ^= 0xff;</span>
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span><span class="lineCov">  216835608 :     SIPROUND;</span>
+<span class="lineNum">     163 </span><span class="lineCov">  216835608 :     SIPROUND;</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span><span class="lineCov">  216835608 :     b = v0 ^ v1 ^ v2 ^ v3;</span>
+<span class="lineNum">     166 </span>            : #ifndef UNALIGNED_LE_CPU
+<span class="lineNum">     167 </span>            :     U64TO8_LE(out, b);
+<span class="lineNum">     168 </span>            :     return hash;
+<span class="lineNum">     169 </span>            : #else
+<span class="lineNum">     170 </span><span class="lineCov">  216835608 :     return b;</span>
+<span class="lineNum">     171 </span>            : #endif
+<a name="172"><span class="lineNum">     172 </span>            : }</a>
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span><span class="lineCov">   65224971 : uint64_t siphash_nocase(const uint8_t *in, const size_t inlen, const uint8_t *k)</span>
+<span class="lineNum">     175 </span>            : {
+<span class="lineNum">     176 </span>            : #ifndef UNALIGNED_LE_CPU
+<span class="lineNum">     177 </span>            :     uint64_t hash;
+<span class="lineNum">     178 </span>            :     uint8_t *out = (uint8_t*) &amp;hash;
+<span class="lineNum">     179 </span>            : #endif
+<span class="lineNum">     180 </span><span class="lineCov">   65224971 :     uint64_t v0 = 0x736f6d6570736575ULL;</span>
+<span class="lineNum">     181 </span><span class="lineCov">   65224971 :     uint64_t v1 = 0x646f72616e646f6dULL;</span>
+<span class="lineNum">     182 </span><span class="lineCov">   65224971 :     uint64_t v2 = 0x6c7967656e657261ULL;</span>
+<span class="lineNum">     183 </span><span class="lineCov">   65224971 :     uint64_t v3 = 0x7465646279746573ULL;</span>
+<span class="lineNum">     184 </span><span class="lineCov">   65224971 :     uint64_t k0 = U8TO64_LE(k);</span>
+<span class="lineNum">     185 </span><span class="lineCov">   65224971 :     uint64_t k1 = U8TO64_LE(k + 8);</span>
+<span class="lineNum">     186 </span><span class="lineCov">   65224971 :     uint64_t m;</span>
+<span class="lineNum">     187 </span><span class="lineCov">   65224971 :     const uint8_t *end = in + inlen - (inlen % sizeof(uint64_t));</span>
+<span class="lineNum">     188 </span><span class="lineCov">   65224971 :     const int left = inlen &amp; 7;</span>
+<span class="lineNum">     189 </span><span class="lineCov">   65224971 :     uint64_t b = ((uint64_t)inlen) &lt;&lt; 56;</span>
+<span class="lineNum">     190 </span><span class="lineCov">   65224971 :     v3 ^= k1;</span>
+<span class="lineNum">     191 </span><span class="lineCov">   65224971 :     v2 ^= k0;</span>
+<span class="lineNum">     192 </span><span class="lineCov">   65224971 :     v1 ^= k1;</span>
+<span class="lineNum">     193 </span><span class="lineCov">   65224971 :     v0 ^= k0;</span>
+<span class="lineNum">     194 </span>            : 
+<span class="lineNum">     195 </span><span class="lineCov">   76875612 :     for (; in != end; in += 8) {</span>
+<span class="lineNum">     196 </span><span class="lineCov">   11664382 :         m = U8TO64_LE_NOCASE(in);</span>
+<span class="lineNum">     197 </span><span class="lineCov">   11650641 :         v3 ^= m;</span>
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span><span class="lineCov">   11650641 :         SIPROUND;</span>
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span><span class="lineCov">   11650641 :         v0 ^= m;</span>
+<span class="lineNum">     202 </span>            :     }
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span><span class="lineCov">   65224971 :     switch (left) {</span>
+<span class="lineNum">     205 </span><span class="lineCov">    1246812 :     case 7: b |= ((uint64_t)siptlw(in[6])) &lt;&lt; 48; /* fall-thru */</span>
+<span class="lineNum">     206 </span><span class="lineCov">    3812167 :     case 6: b |= ((uint64_t)siptlw(in[5])) &lt;&lt; 40; /* fall-thru */</span>
+<span class="lineNum">     207 </span><span class="lineCov">    6351453 :     case 5: b |= ((uint64_t)siptlw(in[4])) &lt;&lt; 32; /* fall-thru */</span>
+<span class="lineNum">     208 </span><span class="lineCov">   27749682 :     case 4: b |= ((uint64_t)siptlw(in[3])) &lt;&lt; 24; /* fall-thru */</span>
+<span class="lineNum">     209 </span><span class="lineCov">   64004663 :     case 3: b |= ((uint64_t)siptlw(in[2])) &lt;&lt; 16; /* fall-thru */</span>
+<span class="lineNum">     210 </span><span class="lineCov">   64077531 :     case 2: b |= ((uint64_t)siptlw(in[1])) &lt;&lt; 8; /* fall-thru */</span>
+<span class="lineNum">     211 </span><span class="lineCov">   65219843 :     case 1: b |= ((uint64_t)siptlw(in[0])); break;</span>
+<span class="lineNum">     212 </span>            :     case 0: break;
+<span class="lineNum">     213 </span>            :     }
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span><span class="lineCov">   65224971 :     v3 ^= b;</span>
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span><span class="lineCov">   65224971 :     SIPROUND;</span>
+<span class="lineNum">     218 </span>            : 
+<span class="lineNum">     219 </span><span class="lineCov">   65224971 :     v0 ^= b;</span>
+<span class="lineNum">     220 </span><span class="lineCov">   65224971 :     v2 ^= 0xff;</span>
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span><span class="lineCov">   65224971 :     SIPROUND;</span>
+<span class="lineNum">     223 </span><span class="lineCov">   65224971 :     SIPROUND;</span>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span><span class="lineCov">   65224971 :     b = v0 ^ v1 ^ v2 ^ v3;</span>
+<span class="lineNum">     226 </span>            : #ifndef UNALIGNED_LE_CPU
+<span class="lineNum">     227 </span>            :     U64TO8_LE(out, b);
+<span class="lineNum">     228 </span>            :     return hash;
+<span class="lineNum">     229 </span>            : #else
+<span class="lineNum">     230 </span><span class="lineCov">   65224971 :     return b;</span>
+<span class="lineNum">     231 </span>            : #endif
+<span class="lineNum">     232 </span>            : }
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            : /* --------------------------------- TEST ------------------------------------ */
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            : #ifdef SIPHASH_TEST
+<span class="lineNum">     238 </span>            : 
+<span class="lineNum">     239 </span>            : const uint8_t vectors_sip64[64][8] = {
+<span class="lineNum">     240 </span>            :     { 0x31, 0x0e, 0x0e, 0xdd, 0x47, 0xdb, 0x6f, 0x72, },
+<span class="lineNum">     241 </span>            :     { 0xfd, 0x67, 0xdc, 0x93, 0xc5, 0x39, 0xf8, 0x74, },
+<span class="lineNum">     242 </span>            :     { 0x5a, 0x4f, 0xa9, 0xd9, 0x09, 0x80, 0x6c, 0x0d, },
+<span class="lineNum">     243 </span>            :     { 0x2d, 0x7e, 0xfb, 0xd7, 0x96, 0x66, 0x67, 0x85, },
+<span class="lineNum">     244 </span>            :     { 0xb7, 0x87, 0x71, 0x27, 0xe0, 0x94, 0x27, 0xcf, },
+<span class="lineNum">     245 </span>            :     { 0x8d, 0xa6, 0x99, 0xcd, 0x64, 0x55, 0x76, 0x18, },
+<span class="lineNum">     246 </span>            :     { 0xce, 0xe3, 0xfe, 0x58, 0x6e, 0x46, 0xc9, 0xcb, },
+<span class="lineNum">     247 </span>            :     { 0x37, 0xd1, 0x01, 0x8b, 0xf5, 0x00, 0x02, 0xab, },
+<span class="lineNum">     248 </span>            :     { 0x62, 0x24, 0x93, 0x9a, 0x79, 0xf5, 0xf5, 0x93, },
+<span class="lineNum">     249 </span>            :     { 0xb0, 0xe4, 0xa9, 0x0b, 0xdf, 0x82, 0x00, 0x9e, },
+<span class="lineNum">     250 </span>            :     { 0xf3, 0xb9, 0xdd, 0x94, 0xc5, 0xbb, 0x5d, 0x7a, },
+<span class="lineNum">     251 </span>            :     { 0xa7, 0xad, 0x6b, 0x22, 0x46, 0x2f, 0xb3, 0xf4, },
+<span class="lineNum">     252 </span>            :     { 0xfb, 0xe5, 0x0e, 0x86, 0xbc, 0x8f, 0x1e, 0x75, },
+<span class="lineNum">     253 </span>            :     { 0x90, 0x3d, 0x84, 0xc0, 0x27, 0x56, 0xea, 0x14, },
+<span class="lineNum">     254 </span>            :     { 0xee, 0xf2, 0x7a, 0x8e, 0x90, 0xca, 0x23, 0xf7, },
+<span class="lineNum">     255 </span>            :     { 0xe5, 0x45, 0xbe, 0x49, 0x61, 0xca, 0x29, 0xa1, },
+<span class="lineNum">     256 </span>            :     { 0xdb, 0x9b, 0xc2, 0x57, 0x7f, 0xcc, 0x2a, 0x3f, },
+<span class="lineNum">     257 </span>            :     { 0x94, 0x47, 0xbe, 0x2c, 0xf5, 0xe9, 0x9a, 0x69, },
+<span class="lineNum">     258 </span>            :     { 0x9c, 0xd3, 0x8d, 0x96, 0xf0, 0xb3, 0xc1, 0x4b, },
+<span class="lineNum">     259 </span>            :     { 0xbd, 0x61, 0x79, 0xa7, 0x1d, 0xc9, 0x6d, 0xbb, },
+<span class="lineNum">     260 </span>            :     { 0x98, 0xee, 0xa2, 0x1a, 0xf2, 0x5c, 0xd6, 0xbe, },
+<span class="lineNum">     261 </span>            :     { 0xc7, 0x67, 0x3b, 0x2e, 0xb0, 0xcb, 0xf2, 0xd0, },
+<span class="lineNum">     262 </span>            :     { 0x88, 0x3e, 0xa3, 0xe3, 0x95, 0x67, 0x53, 0x93, },
+<span class="lineNum">     263 </span>            :     { 0xc8, 0xce, 0x5c, 0xcd, 0x8c, 0x03, 0x0c, 0xa8, },
+<span class="lineNum">     264 </span>            :     { 0x94, 0xaf, 0x49, 0xf6, 0xc6, 0x50, 0xad, 0xb8, },
+<span class="lineNum">     265 </span>            :     { 0xea, 0xb8, 0x85, 0x8a, 0xde, 0x92, 0xe1, 0xbc, },
+<span class="lineNum">     266 </span>            :     { 0xf3, 0x15, 0xbb, 0x5b, 0xb8, 0x35, 0xd8, 0x17, },
+<span class="lineNum">     267 </span>            :     { 0xad, 0xcf, 0x6b, 0x07, 0x63, 0x61, 0x2e, 0x2f, },
+<span class="lineNum">     268 </span>            :     { 0xa5, 0xc9, 0x1d, 0xa7, 0xac, 0xaa, 0x4d, 0xde, },
+<span class="lineNum">     269 </span>            :     { 0x71, 0x65, 0x95, 0x87, 0x66, 0x50, 0xa2, 0xa6, },
+<span class="lineNum">     270 </span>            :     { 0x28, 0xef, 0x49, 0x5c, 0x53, 0xa3, 0x87, 0xad, },
+<span class="lineNum">     271 </span>            :     { 0x42, 0xc3, 0x41, 0xd8, 0xfa, 0x92, 0xd8, 0x32, },
+<span class="lineNum">     272 </span>            :     { 0xce, 0x7c, 0xf2, 0x72, 0x2f, 0x51, 0x27, 0x71, },
+<span class="lineNum">     273 </span>            :     { 0xe3, 0x78, 0x59, 0xf9, 0x46, 0x23, 0xf3, 0xa7, },
+<span class="lineNum">     274 </span>            :     { 0x38, 0x12, 0x05, 0xbb, 0x1a, 0xb0, 0xe0, 0x12, },
+<span class="lineNum">     275 </span>            :     { 0xae, 0x97, 0xa1, 0x0f, 0xd4, 0x34, 0xe0, 0x15, },
+<span class="lineNum">     276 </span>            :     { 0xb4, 0xa3, 0x15, 0x08, 0xbe, 0xff, 0x4d, 0x31, },
+<span class="lineNum">     277 </span>            :     { 0x81, 0x39, 0x62, 0x29, 0xf0, 0x90, 0x79, 0x02, },
+<span class="lineNum">     278 </span>            :     { 0x4d, 0x0c, 0xf4, 0x9e, 0xe5, 0xd4, 0xdc, 0xca, },
+<span class="lineNum">     279 </span>            :     { 0x5c, 0x73, 0x33, 0x6a, 0x76, 0xd8, 0xbf, 0x9a, },
+<span class="lineNum">     280 </span>            :     { 0xd0, 0xa7, 0x04, 0x53, 0x6b, 0xa9, 0x3e, 0x0e, },
+<span class="lineNum">     281 </span>            :     { 0x92, 0x59, 0x58, 0xfc, 0xd6, 0x42, 0x0c, 0xad, },
+<span class="lineNum">     282 </span>            :     { 0xa9, 0x15, 0xc2, 0x9b, 0xc8, 0x06, 0x73, 0x18, },
+<span class="lineNum">     283 </span>            :     { 0x95, 0x2b, 0x79, 0xf3, 0xbc, 0x0a, 0xa6, 0xd4, },
+<span class="lineNum">     284 </span>            :     { 0xf2, 0x1d, 0xf2, 0xe4, 0x1d, 0x45, 0x35, 0xf9, },
+<span class="lineNum">     285 </span>            :     { 0x87, 0x57, 0x75, 0x19, 0x04, 0x8f, 0x53, 0xa9, },
+<span class="lineNum">     286 </span>            :     { 0x10, 0xa5, 0x6c, 0xf5, 0xdf, 0xcd, 0x9a, 0xdb, },
+<span class="lineNum">     287 </span>            :     { 0xeb, 0x75, 0x09, 0x5c, 0xcd, 0x98, 0x6c, 0xd0, },
+<span class="lineNum">     288 </span>            :     { 0x51, 0xa9, 0xcb, 0x9e, 0xcb, 0xa3, 0x12, 0xe6, },
+<span class="lineNum">     289 </span>            :     { 0x96, 0xaf, 0xad, 0xfc, 0x2c, 0xe6, 0x66, 0xc7, },
+<span class="lineNum">     290 </span>            :     { 0x72, 0xfe, 0x52, 0x97, 0x5a, 0x43, 0x64, 0xee, },
+<span class="lineNum">     291 </span>            :     { 0x5a, 0x16, 0x45, 0xb2, 0x76, 0xd5, 0x92, 0xa1, },
+<span class="lineNum">     292 </span>            :     { 0xb2, 0x74, 0xcb, 0x8e, 0xbf, 0x87, 0x87, 0x0a, },
+<span class="lineNum">     293 </span>            :     { 0x6f, 0x9b, 0xb4, 0x20, 0x3d, 0xe7, 0xb3, 0x81, },
+<span class="lineNum">     294 </span>            :     { 0xea, 0xec, 0xb2, 0xa3, 0x0b, 0x22, 0xa8, 0x7f, },
+<span class="lineNum">     295 </span>            :     { 0x99, 0x24, 0xa4, 0x3c, 0xc1, 0x31, 0x57, 0x24, },
+<span class="lineNum">     296 </span>            :     { 0xbd, 0x83, 0x8d, 0x3a, 0xaf, 0xbf, 0x8d, 0xb7, },
+<span class="lineNum">     297 </span>            :     { 0x0b, 0x1a, 0x2a, 0x32, 0x65, 0xd5, 0x1a, 0xea, },
+<span class="lineNum">     298 </span>            :     { 0x13, 0x50, 0x79, 0xa3, 0x23, 0x1c, 0xe6, 0x60, },
+<span class="lineNum">     299 </span>            :     { 0x93, 0x2b, 0x28, 0x46, 0xe4, 0xd7, 0x06, 0x66, },
+<span class="lineNum">     300 </span>            :     { 0xe1, 0x91, 0x5f, 0x5c, 0xb1, 0xec, 0xa4, 0x6c, },
+<span class="lineNum">     301 </span>            :     { 0xf3, 0x25, 0x96, 0x5c, 0xa1, 0x6d, 0x62, 0x9f, },
+<span class="lineNum">     302 </span>            :     { 0x57, 0x5f, 0xf2, 0x8e, 0x60, 0x38, 0x1b, 0xe5, },
+<span class="lineNum">     303 </span>            :     { 0x72, 0x45, 0x06, 0xeb, 0x4c, 0x32, 0x8a, 0x95, },
+<span class="lineNum">     304 </span>            : };
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span>            : /* Test siphash using a test vector. Returns 0 if the function passed
+<span class="lineNum">     308 </span>            :  * all the tests, otherwise 1 is returned.
+<span class="lineNum">     309 </span>            :  *
+<span class="lineNum">     310 </span>            :  * IMPORTANT: The test vector is for SipHash 2-4. Before running
+<span class="lineNum">     311 </span>            :  * the test revert back the siphash() function to 2-4 rounds since
+<span class="lineNum">     312 </span>            :  * now it uses 1-2 rounds. */
+<span class="lineNum">     313 </span>            : int siphash_test(void) {
+<span class="lineNum">     314 </span>            :     uint8_t in[64], k[16];
+<span class="lineNum">     315 </span>            :     int i;
+<span class="lineNum">     316 </span>            :     int fails = 0;
+<span class="lineNum">     317 </span>            : 
+<span class="lineNum">     318 </span>            :     for (i = 0; i &lt; 16; ++i)
+<span class="lineNum">     319 </span>            :         k[i] = i;
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span>            :     for (i = 0; i &lt; 64; ++i) {
+<span class="lineNum">     322 </span>            :         in[i] = i;
+<span class="lineNum">     323 </span>            :         uint64_t hash = siphash(in, i, k);
+<span class="lineNum">     324 </span>            :         const uint8_t *v = NULL;
+<span class="lineNum">     325 </span>            :         v = (uint8_t *)vectors_sip64;
+<span class="lineNum">     326 </span>            :         if (memcmp(&amp;hash, v + (i * 8), 8)) {
+<span class="lineNum">     327 </span>            :             /* printf(&quot;fail for %d bytes\n&quot;, i); */
+<span class="lineNum">     328 </span>            :             fails++;
+<span class="lineNum">     329 </span>            :         }
+<span class="lineNum">     330 </span>            :     }
+<span class="lineNum">     331 </span>            : 
+<span class="lineNum">     332 </span>            :     /* Run a few basic tests with the case insensitive version. */
+<span class="lineNum">     333 </span>            :     uint64_t h1, h2;
+<span class="lineNum">     334 </span>            :     h1 = siphash((uint8_t*)&quot;hello world&quot;,11,(uint8_t*)&quot;1234567812345678&quot;);
+<span class="lineNum">     335 </span>            :     h2 = siphash_nocase((uint8_t*)&quot;hello world&quot;,11,(uint8_t*)&quot;1234567812345678&quot;);
+<span class="lineNum">     336 </span>            :     if (h1 != h2) fails++;
+<span class="lineNum">     337 </span>            : 
+<span class="lineNum">     338 </span>            :     h1 = siphash((uint8_t*)&quot;hello world&quot;,11,(uint8_t*)&quot;1234567812345678&quot;);
+<span class="lineNum">     339 </span>            :     h2 = siphash_nocase((uint8_t*)&quot;HELLO world&quot;,11,(uint8_t*)&quot;1234567812345678&quot;);
+<span class="lineNum">     340 </span>            :     if (h1 != h2) fails++;
+<span class="lineNum">     341 </span>            : 
+<span class="lineNum">     342 </span>            :     h1 = siphash((uint8_t*)&quot;HELLO world&quot;,11,(uint8_t*)&quot;1234567812345678&quot;);
+<span class="lineNum">     343 </span>            :     h2 = siphash_nocase((uint8_t*)&quot;HELLO world&quot;,11,(uint8_t*)&quot;1234567812345678&quot;);
+<span class="lineNum">     344 </span>            :     if (h1 == h2) fails++;
+<span class="lineNum">     345 </span>            : 
+<span class="lineNum">     346 </span>            :     if (!fails) return 0;
+<span class="lineNum">     347 </span>            :     return 1;
+<span class="lineNum">     348 </span>            : }
+<span class="lineNum">     349 </span>            : 
+<span class="lineNum">     350 </span>            : int main(void) {
+<span class="lineNum">     351 </span>            :     if (siphash_test() == 0) {
+<span class="lineNum">     352 </span>            :         printf(&quot;SipHash test: OK\n&quot;);
+<span class="lineNum">     353 </span>            :         return 0;
+<span class="lineNum">     354 </span>            :     } else {
+<span class="lineNum">     355 </span>            :         printf(&quot;SipHash test: FAILED\n&quot;);
+<span class="lineNum">     356 </span>            :         return 1;
+<span class="lineNum">     357 </span>            :     }
+<span class="lineNum">     358 </span>            : }
+<span class="lineNum">     359 </span>            : 
+<span class="lineNum">     360 </span>            : #endif
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

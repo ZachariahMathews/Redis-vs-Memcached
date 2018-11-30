@@ -1,0 +1,1209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/bitops.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - bitops.c<span style="font-size: 80%;"> (source / <a href="bitops.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">529</td>
+            <td class="headerCovTableEntry">573</td>
+            <td class="headerCovTableEntryHi">92.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntryMed">84.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Bit operations.</a>
+<span class="lineNum">       2 </span>            :  *
+<span class="lineNum">       3 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       4 </span>            :  * All rights reserved.
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       7 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       8 </span>            :  *
+<span class="lineNum">       9 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      10 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      11 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      12 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      13 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      14 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      15 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      16 </span>            :  *     specific prior written permission.
+<span class="lineNum">      17 </span>            :  *
+<span class="lineNum">      18 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      19 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      20 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      21 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      22 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      23 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      24 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      25 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      26 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      27 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      28 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            :  */
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : /* -----------------------------------------------------------------------------
+<span class="lineNum">      34 </span>            :  * Helpers and low level bit functions.
+<span class="lineNum">      35 </span>            :  * -------------------------------------------------------------------------- */
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : /* Count number of bits set in the binary array pointed by 's' and long
+<a name="38"><span class="lineNum">      38 </span>            :  * 'count' bytes. The implementation of this function is required to</a>
+<span class="lineNum">      39 </span>            :  * work with a input string length up to 512 MB. */
+<span class="lineNum">      40 </span><span class="lineCov">        420 : size_t redisPopcount(void *s, long count) {</span>
+<span class="lineNum">      41 </span><span class="lineCov">        420 :     size_t bits = 0;</span>
+<span class="lineNum">      42 </span><span class="lineCov">        420 :     unsigned char *p = s;</span>
+<span class="lineNum">      43 </span><span class="lineCov">        420 :     uint32_t *p4;</span>
+<span class="lineNum">      44 </span><span class="lineCov">        420 :     static const unsigned char bitsinbyte[256] = {0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,4,5,5,6,5,6,6,7,5,6,6,7,6,7,7,8};</span>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            :     /* Count initial bytes not aligned to 32 bit. */
+<span class="lineNum">      47 </span><span class="lineCov">       1253 :     while((unsigned long)p &amp; 3 &amp;&amp; count) {</span>
+<span class="lineNum">      48 </span><span class="lineCov">        833 :         bits += bitsinbyte[*p++];</span>
+<span class="lineNum">      49 </span><span class="lineCov">        833 :         count--;</span>
+<span class="lineNum">      50 </span>            :     }
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            :     /* Count bits 28 bytes at a time */
+<span class="lineNum">      53 </span>            :     p4 = (uint32_t*)p;
+<span class="lineNum">      54 </span><span class="lineCov">      13991 :     while(count&gt;=28) {</span>
+<span class="lineNum">      55 </span><span class="lineCov">      13571 :         uint32_t aux1, aux2, aux3, aux4, aux5, aux6, aux7;</span>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineCov">      13571 :         aux1 = *p4++;</span>
+<span class="lineNum">      58 </span><span class="lineCov">      13571 :         aux2 = *p4++;</span>
+<span class="lineNum">      59 </span><span class="lineCov">      13571 :         aux3 = *p4++;</span>
+<span class="lineNum">      60 </span><span class="lineCov">      13571 :         aux4 = *p4++;</span>
+<span class="lineNum">      61 </span><span class="lineCov">      13571 :         aux5 = *p4++;</span>
+<span class="lineNum">      62 </span><span class="lineCov">      13571 :         aux6 = *p4++;</span>
+<span class="lineNum">      63 </span><span class="lineCov">      13571 :         aux7 = *p4++;</span>
+<span class="lineNum">      64 </span><span class="lineCov">      13571 :         count -= 28;</span>
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span><span class="lineCov">      13571 :         aux1 = aux1 - ((aux1 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      67 </span><span class="lineCov">      13571 :         aux1 = (aux1 &amp; 0x33333333) + ((aux1 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      68 </span><span class="lineCov">      13571 :         aux2 = aux2 - ((aux2 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      69 </span><span class="lineCov">      13571 :         aux2 = (aux2 &amp; 0x33333333) + ((aux2 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      70 </span><span class="lineCov">      13571 :         aux3 = aux3 - ((aux3 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      71 </span><span class="lineCov">      13571 :         aux3 = (aux3 &amp; 0x33333333) + ((aux3 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      72 </span><span class="lineCov">      13571 :         aux4 = aux4 - ((aux4 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      73 </span><span class="lineCov">      13571 :         aux4 = (aux4 &amp; 0x33333333) + ((aux4 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      74 </span><span class="lineCov">      13571 :         aux5 = aux5 - ((aux5 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      75 </span><span class="lineCov">      13571 :         aux5 = (aux5 &amp; 0x33333333) + ((aux5 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      76 </span><span class="lineCov">      13571 :         aux6 = aux6 - ((aux6 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      77 </span><span class="lineCov">      13571 :         aux6 = (aux6 &amp; 0x33333333) + ((aux6 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      78 </span><span class="lineCov">      13571 :         aux7 = aux7 - ((aux7 &gt;&gt; 1) &amp; 0x55555555);</span>
+<span class="lineNum">      79 </span><span class="lineCov">      13571 :         aux7 = (aux7 &amp; 0x33333333) + ((aux7 &gt;&gt; 2) &amp; 0x33333333);</span>
+<span class="lineNum">      80 </span><span class="lineCov">      40713 :         bits += ((((aux1 + (aux1 &gt;&gt; 4)) &amp; 0x0F0F0F0F) +</span>
+<span class="lineNum">      81 </span><span class="lineCov">      27142 :                     ((aux2 + (aux2 &gt;&gt; 4)) &amp; 0x0F0F0F0F) +</span>
+<span class="lineNum">      82 </span><span class="lineCov">      27142 :                     ((aux3 + (aux3 &gt;&gt; 4)) &amp; 0x0F0F0F0F) +</span>
+<span class="lineNum">      83 </span><span class="lineCov">      27142 :                     ((aux4 + (aux4 &gt;&gt; 4)) &amp; 0x0F0F0F0F) +</span>
+<span class="lineNum">      84 </span><span class="lineCov">      27142 :                     ((aux5 + (aux5 &gt;&gt; 4)) &amp; 0x0F0F0F0F) +</span>
+<span class="lineNum">      85 </span><span class="lineCov">      27142 :                     ((aux6 + (aux6 &gt;&gt; 4)) &amp; 0x0F0F0F0F) +</span>
+<span class="lineNum">      86 </span><span class="lineCov">      13571 :                     ((aux7 + (aux7 &gt;&gt; 4)) &amp; 0x0F0F0F0F))* 0x01010101) &gt;&gt; 24;</span>
+<span class="lineNum">      87 </span>            :     }
+<span class="lineNum">      88 </span>            :     /* Count the remaining bytes. */
+<span class="lineNum">      89 </span>            :     p = (unsigned char*)p4;
+<span class="lineNum">      90 </span><span class="lineCov">       6130 :     while(count--) bits += bitsinbyte[*p++];</span>
+<span class="lineNum">      91 </span><span class="lineCov">        420 :     return bits;</span>
+<span class="lineNum">      92 </span>            : }
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : /* Return the position of the first bit set to one (if 'bit' is 1) or
+<span class="lineNum">      95 </span>            :  * zero (if 'bit' is 0) in the bitmap starting at 's' and long 'count' bytes.
+<span class="lineNum">      96 </span>            :  *
+<span class="lineNum">      97 </span>            :  * The function is guaranteed to return a value &gt;= 0 if 'bit' is 0 since if
+<span class="lineNum">      98 </span>            :  * no zero bit is found, it returns count*8 assuming the string is zero
+<a name="99"><span class="lineNum">      99 </span>            :  * padded on the right. However if 'bit' is 1 it is possible that there is</a>
+<span class="lineNum">     100 </span>            :  * not a single set bit in the bitmap. In this special case -1 is returned. */
+<span class="lineNum">     101 </span><span class="lineCov">       4106 : long redisBitpos(void *s, unsigned long count, int bit) {</span>
+<span class="lineNum">     102 </span><span class="lineCov">       4106 :     unsigned long *l;</span>
+<span class="lineNum">     103 </span><span class="lineCov">       4106 :     unsigned char *c;</span>
+<span class="lineNum">     104 </span><span class="lineCov">       4106 :     unsigned long skipval, word = 0, one;</span>
+<span class="lineNum">     105 </span><span class="lineCov">       4106 :     long pos = 0; /* Position of bit, to return to the caller. */</span>
+<span class="lineNum">     106 </span><span class="lineCov">       4106 :     unsigned long j;</span>
+<span class="lineNum">     107 </span><span class="lineCov">       4106 :     int found;</span>
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            :     /* Process whole words first, seeking for first word that is not
+<span class="lineNum">     110 </span>            :      * all ones or all zeros respectively if we are lookig for zeros
+<span class="lineNum">     111 </span>            :      * or ones. This is much faster with large strings having contiguous
+<span class="lineNum">     112 </span>            :      * blocks of 1 or 0 bits compared to the vanilla bit per bit processing.
+<span class="lineNum">     113 </span>            :      *
+<span class="lineNum">     114 </span>            :      * Note that if we start from an address that is not aligned
+<span class="lineNum">     115 </span>            :      * to sizeof(unsigned long) we consume it byte by byte until it is
+<span class="lineNum">     116 </span>            :      * aligned. */
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            :     /* Skip initial bits not aligned to sizeof(unsigned long) byte by byte. */
+<span class="lineNum">     119 </span><span class="lineCov">       4106 :     skipval = bit ? 0 : UCHAR_MAX;</span>
+<span class="lineNum">     120 </span><span class="lineCov">       4106 :     c = (unsigned char*) s;</span>
+<span class="lineNum">     121 </span><span class="lineCov">       4106 :     found = 0;</span>
+<span class="lineNum">     122 </span><span class="lineCov">      32402 :     while((unsigned long)c &amp; (sizeof(*l)-1) &amp;&amp; count) {</span>
+<span class="lineNum">     123 </span><span class="lineCov">      28318 :         if (*c != skipval) {</span>
+<span class="lineNum">     124 </span>            :             found = 1;
+<span class="lineNum">     125 </span>            :             break;
+<span class="lineNum">     126 </span>            :         }
+<span class="lineNum">     127 </span><span class="lineCov">      28296 :         c++;</span>
+<span class="lineNum">     128 </span><span class="lineCov">      28296 :         count--;</span>
+<span class="lineNum">     129 </span><span class="lineCov">      28296 :         pos += 8;</span>
+<span class="lineNum">     130 </span>            :     }
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            :     /* Skip bits with full word step. */
+<span class="lineNum">     133 </span><span class="lineCov">       4106 :     l = (unsigned long*) c;</span>
+<span class="lineNum">     134 </span><span class="lineCov">       4106 :     if (!found) {</span>
+<span class="lineNum">     135 </span><span class="lineCov">       4084 :         skipval = bit ? 0 : ULONG_MAX;</span>
+<span class="lineNum">     136 </span><span class="lineCov">     219242 :         while (count &gt;= sizeof(*l)) {</span>
+<span class="lineNum">     137 </span><span class="lineCov">     219152 :             if (*l != skipval) break;</span>
+<span class="lineNum">     138 </span><span class="lineCov">     215158 :             l++;</span>
+<span class="lineNum">     139 </span><span class="lineCov">     215158 :             count -= sizeof(*l);</span>
+<span class="lineNum">     140 </span><span class="lineCov">     215158 :             pos += sizeof(*l)*8;</span>
+<span class="lineNum">     141 </span>            :         }
+<span class="lineNum">     142 </span>            :     }
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span>            :     /* Load bytes into &quot;word&quot; considering the first byte as the most significant
+<span class="lineNum">     145 </span>            :      * (we basically consider it as written in big endian, since we consider the
+<span class="lineNum">     146 </span>            :      * string as a set of bits from left to right, with the first bit at position
+<span class="lineNum">     147 </span>            :      * zero.
+<span class="lineNum">     148 </span>            :      *
+<span class="lineNum">     149 </span>            :      * Note that the loading is designed to work even when the bytes left
+<span class="lineNum">     150 </span>            :      * (count) are less than a full word. We pad it with zero on the right. */
+<span class="lineNum">     151 </span><span class="lineCov">       4106 :     c = (unsigned char*)l;</span>
+<span class="lineNum">     152 </span><span class="lineCov">      36954 :     for (j = 0; j &lt; sizeof(*l); j++) {</span>
+<span class="lineNum">     153 </span><span class="lineCov">      32848 :         word &lt;&lt;= 8;</span>
+<span class="lineNum">     154 </span><span class="lineCov">      32848 :         if (count) {</span>
+<span class="lineNum">     155 </span><span class="lineCov">      32354 :             word |= *c;</span>
+<span class="lineNum">     156 </span><span class="lineCov">      32354 :             c++;</span>
+<span class="lineNum">     157 </span><span class="lineCov">      32354 :             count--;</span>
+<span class="lineNum">     158 </span>            :         }
+<span class="lineNum">     159 </span>            :     }
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span>            :     /* Special case:
+<span class="lineNum">     162 </span>            :      * If bits in the string are all zero and we are looking for one,
+<span class="lineNum">     163 </span>            :      * return -1 to signal that there is not a single &quot;1&quot; in the whole
+<span class="lineNum">     164 </span>            :      * string. This can't happen when we are looking for &quot;0&quot; as we assume
+<span class="lineNum">     165 </span>            :      * that the right of the string is zero padded. */
+<span class="lineNum">     166 </span><span class="lineCov">       4106 :     if (bit == 1 &amp;&amp; word == 0) return -1;</span>
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span>            :     /* Last word left, scan bit by bit. The first thing we need is to
+<span class="lineNum">     169 </span>            :      * have a single &quot;1&quot; set in the most significant position in an
+<span class="lineNum">     170 </span>            :      * unsigned long. We don't know the size of the long so we use a
+<span class="lineNum">     171 </span>            :      * simple trick. */
+<span class="lineNum">     172 </span>            :     one = ULONG_MAX; /* All bits set to 1.*/
+<span class="lineNum">     173 </span>            :     one &gt;&gt;= 1;       /* All bits set to 1 but the MSB. */
+<span class="lineNum">     174 </span>            :     one = ~one;      /* All bits set to 0 but the MSB. */
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span><span class="lineCov">     181524 :     while(one) {</span>
+<span class="lineNum">     177 </span><span class="lineCov">     181524 :         if (((one &amp; word) != 0) == bit) return pos;</span>
+<span class="lineNum">     178 </span><span class="lineCov">     177460 :         pos++;</span>
+<span class="lineNum">     179 </span><span class="lineCov">     177460 :         one &gt;&gt;= 1;</span>
+<span class="lineNum">     180 </span>            :     }
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            :     /* If we reached this point, there is a bug in the algorithm, since
+<span class="lineNum">     183 </span>            :      * the case of no match is handled as a special case before. */
+<span class="lineNum">     184 </span><span class="lineNoCov">          0 :     serverPanic(&quot;End of redisBitpos() reached.&quot;);</span>
+<span class="lineNum">     185 </span>            :     return 0; /* Just to avoid warnings. */
+<span class="lineNum">     186 </span>            : }
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span>            : /* The following set.*Bitfield and get.*Bitfield functions implement setting
+<span class="lineNum">     189 </span>            :  * and getting arbitrary size (up to 64 bits) signed and unsigned integers
+<span class="lineNum">     190 </span>            :  * at arbitrary positions into a bitmap.
+<span class="lineNum">     191 </span>            :  *
+<span class="lineNum">     192 </span>            :  * The representation considers the bitmap as having the bit number 0 to be
+<span class="lineNum">     193 </span>            :  * the most significant bit of the first byte, and so forth, so for example
+<span class="lineNum">     194 </span>            :  * setting a 5 bits unsigned integer to value 23 at offset 7 into a bitmap
+<span class="lineNum">     195 </span>            :  * previously set to all zeroes, will produce the following representation:
+<span class="lineNum">     196 </span>            :  *
+<span class="lineNum">     197 </span>            :  * +--------+--------+
+<span class="lineNum">     198 </span>            :  * |00000001|01110000|
+<span class="lineNum">     199 </span>            :  * +--------+--------+
+<span class="lineNum">     200 </span>            :  *
+<span class="lineNum">     201 </span>            :  * When offsets and integer sizes are aligned to bytes boundaries, this is the
+<span class="lineNum">     202 </span>            :  * same as big endian, however when such alignment does not exist, its important
+<span class="lineNum">     203 </span>            :  * to also understand how the bits inside a byte are ordered.
+<span class="lineNum">     204 </span>            :  *
+<span class="lineNum">     205 </span>            :  * Note that this format follows the same convention as SETBIT and related
+<span class="lineNum">     206 </span>            :  * commands.
+<a name="207"><span class="lineNum">     207 </span>            :  */</a>
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span><span class="lineCov">       6006 : void setUnsignedBitfield(unsigned char *p, uint64_t offset, uint64_t bits, uint64_t value) {</span>
+<span class="lineNum">     210 </span><span class="lineCov">       6006 :     uint64_t byte, bit, byteval, bitval, j;</span>
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span><span class="lineCov">     196493 :     for (j = 0; j &lt; bits; j++) {</span>
+<span class="lineNum">     213 </span><span class="lineCov">     190487 :         bitval = (value &amp; ((uint64_t)1&lt;&lt;(bits-1-j))) != 0;</span>
+<span class="lineNum">     214 </span><span class="lineCov">     190487 :         byte = offset &gt;&gt; 3;</span>
+<span class="lineNum">     215 </span><span class="lineCov">     190487 :         bit = 7 - (offset &amp; 0x7);</span>
+<span class="lineNum">     216 </span><span class="lineCov">     190487 :         byteval = p[byte];</span>
+<span class="lineNum">     217 </span><span class="lineCov">     190487 :         byteval &amp;= ~(1 &lt;&lt; bit);</span>
+<span class="lineNum">     218 </span><span class="lineCov">     190487 :         byteval |= bitval &lt;&lt; bit;</span>
+<span class="lineNum">     219 </span><span class="lineCov">     190487 :         p[byte] = byteval &amp; 0xff;</span>
+<span class="lineNum">     220 </span><span class="lineCov">     190487 :         offset++;</span>
+<span class="lineNum">     221 </span>            :     }
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">       6006 : }</span></a>
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 : void setSignedBitfield(unsigned char *p, uint64_t offset, uint64_t bits, int64_t value) {</span>
+<span class="lineNum">     225 </span><span class="lineCov">       3119 :     uint64_t uv = value; /* Casting will add UINT64_MAX + 1 if v is negative. */</span>
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :     setUnsignedBitfield(p,offset,bits,uv);</span>
+<a name="227"><span class="lineNum">     227 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 : uint64_t getUnsignedBitfield(unsigned char *p, uint64_t offset, uint64_t bits) {</span>
+<span class="lineNum">     230 </span><span class="lineCov">      10132 :     uint64_t byte, bit, byteval, bitval, j, value = 0;</span>
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span><span class="lineCov">     333866 :     for (j = 0; j &lt; bits; j++) {</span>
+<span class="lineNum">     233 </span><span class="lineCov">     323734 :         byte = offset &gt;&gt; 3;</span>
+<span class="lineNum">     234 </span><span class="lineCov">     323734 :         bit = 7 - (offset &amp; 0x7);</span>
+<span class="lineNum">     235 </span><span class="lineCov">     323734 :         byteval = p[byte];</span>
+<span class="lineNum">     236 </span><span class="lineCov">     323734 :         bitval = (byteval &gt;&gt; bit) &amp; 1;</span>
+<span class="lineNum">     237 </span><span class="lineCov">     323734 :         value = (value&lt;&lt;1) | bitval;</span>
+<span class="lineNum">     238 </span><span class="lineCov">     323734 :         offset++;</span>
+<span class="lineNum">     239 </span>            :     }
+<span class="lineNum">     240 </span><span class="lineCov">      10132 :     return value;</span>
+<a name="241"><span class="lineNum">     241 </span>            : }</a>
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span><span class="lineCov">       5129 : int64_t getSignedBitfield(unsigned char *p, uint64_t offset, uint64_t bits) {</span>
+<span class="lineNum">     244 </span><span class="lineCov">       5129 :     int64_t value;</span>
+<span class="lineNum">     245 </span><span class="lineCov">       5129 :     union {uint64_t u; int64_t i;} conv;</span>
+<span class="lineNum">     246 </span>            : 
+<span class="lineNum">     247 </span>            :     /* Converting from unsigned to signed is undefined when the value does
+<span class="lineNum">     248 </span>            :      * not fit, however here we assume two's complement and the original value
+<span class="lineNum">     249 </span>            :      * was obtained from signed -&gt; unsigned conversion, so we'll find the
+<span class="lineNum">     250 </span>            :      * most significant bit set if the original value was negative.
+<span class="lineNum">     251 </span>            :      *
+<span class="lineNum">     252 </span>            :      * Note that two's complement is mandatory for exact-width types
+<span class="lineNum">     253 </span>            :      * according to the C99 standard. */
+<span class="lineNum">     254 </span><span class="lineCov">       5129 :     conv.u = getUnsignedBitfield(p,offset,bits);</span>
+<span class="lineNum">     255 </span><span class="lineCov">       5129 :     value = conv.i;</span>
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span>            :     /* If the top significant bit is 1, propagate it to all the
+<span class="lineNum">     258 </span>            :      * higher bits for two's complement representation of signed
+<span class="lineNum">     259 </span>            :      * integers. */
+<span class="lineNum">     260 </span><span class="lineCov">       5129 :     if (value &amp; ((uint64_t)1 &lt;&lt; (bits-1)))</span>
+<span class="lineNum">     261 </span><span class="lineCov">       1326 :         value |= ((uint64_t)-1) &lt;&lt; bits;</span>
+<span class="lineNum">     262 </span><span class="lineCov">       5129 :     return value;</span>
+<span class="lineNum">     263 </span>            : }
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span>            : /* The following two functions detect overflow of a value in the context
+<span class="lineNum">     266 </span>            :  * of storing it as an unsigned or signed integer with the specified
+<span class="lineNum">     267 </span>            :  * number of bits. The functions both take the value and a possible increment.
+<span class="lineNum">     268 </span>            :  * If no overflow could happen and the value+increment fit inside the limits,
+<span class="lineNum">     269 </span>            :  * then zero is returned, otherwise in case of overflow, 1 is returned,
+<span class="lineNum">     270 </span>            :  * otherwise in case of underflow, -1 is returned.
+<span class="lineNum">     271 </span>            :  *
+<span class="lineNum">     272 </span>            :  * When non-zero is returned (oferflow or underflow), if not NULL, *limit is
+<span class="lineNum">     273 </span>            :  * set to the value the operation should result when an overflow happens,
+<span class="lineNum">     274 </span>            :  * depending on the specified overflow semantics:
+<span class="lineNum">     275 </span>            :  *
+<span class="lineNum">     276 </span>            :  * For BFOVERFLOW_SAT if 1 is returned, *limit it is set maximum value that
+<span class="lineNum">     277 </span>            :  * you can store in that integer. when -1 is returned, *limit is set to the
+<span class="lineNum">     278 </span>            :  * minimum value that an integer of that size can represent.
+<span class="lineNum">     279 </span>            :  *
+<span class="lineNum">     280 </span>            :  * For BFOVERFLOW_WRAP *limit is set by performing the operation in order to
+<span class="lineNum">     281 </span>            :  * &quot;wrap&quot; around towards zero for unsigned integers, or towards the most
+<span class="lineNum">     282 </span>            :  * negative number that is possible to represent for signed integers. */
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            : #define BFOVERFLOW_WRAP 0
+<span class="lineNum">     285 </span>            : #define BFOVERFLOW_SAT 1
+<a name="286"><span class="lineNum">     286 </span>            : #define BFOVERFLOW_FAIL 2 /* Used by the BITFIELD command implementation. */</a>
+<span class="lineNum">     287 </span>            : 
+<span class="lineNum">     288 </span><span class="lineCov">       3984 : int checkUnsignedBitfieldOverflow(uint64_t value, int64_t incr, uint64_t bits, int owtype, uint64_t *limit) {</span>
+<span class="lineNum">     289 </span><span class="lineCov">       3984 :     uint64_t max = (bits == 64) ? UINT64_MAX : (((uint64_t)1&lt;&lt;bits)-1);</span>
+<span class="lineNum">     290 </span><span class="lineCov">       3984 :     int64_t maxincr = max-value;</span>
+<span class="lineNum">     291 </span><span class="lineCov">       3984 :     int64_t minincr = -value;</span>
+<span class="lineNum">     292 </span>            : 
+<span class="lineNum">     293 </span><span class="lineCov">       3984 :     if (value &gt; max || (incr &gt; 0 &amp;&amp; incr &gt; maxincr)) {</span>
+<span class="lineNum">     294 </span><span class="lineCov">       2339 :         if (limit) {</span>
+<span class="lineNum">     295 </span><span class="lineCov">       2339 :             if (owtype == BFOVERFLOW_WRAP) {</span>
+<span class="lineNum">     296 </span>            :                 goto handle_wrap;
+<span class="lineNum">     297 </span><span class="lineCov">       1093 :             } else if (owtype == BFOVERFLOW_SAT) {</span>
+<span class="lineNum">     298 </span><span class="lineCov">          2 :                 *limit = max;</span>
+<span class="lineNum">     299 </span>            :             }
+<span class="lineNum">     300 </span>            :         }
+<span class="lineNum">     301 </span><span class="lineCov">       1093 :         return 1;</span>
+<span class="lineNum">     302 </span><span class="lineCov">       1645 :     } else if (incr &lt; 0 &amp;&amp; incr &lt; minincr) {</span>
+<span class="lineNum">     303 </span><span class="lineCov">         10 :         if (limit) {</span>
+<span class="lineNum">     304 </span><span class="lineCov">         10 :             if (owtype == BFOVERFLOW_WRAP) {</span>
+<span class="lineNum">     305 </span>            :                 goto handle_wrap;
+<span class="lineNum">     306 </span><span class="lineCov">          6 :             } else if (owtype == BFOVERFLOW_SAT) {</span>
+<span class="lineNum">     307 </span><span class="lineNoCov">          0 :                 *limit = 0;</span>
+<span class="lineNum">     308 </span>            :             }
+<span class="lineNum">     309 </span>            :         }
+<span class="lineNum">     310 </span><span class="lineCov">          6 :         return -1;</span>
+<span class="lineNum">     311 </span>            :     }
+<span class="lineNum">     312 </span>            :     return 0;
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span><span class="lineCov">       1250 : handle_wrap:</span>
+<span class="lineNum">     315 </span>            :     {
+<span class="lineNum">     316 </span><span class="lineCov">       1250 :         uint64_t mask = ((uint64_t)-1) &lt;&lt; bits;</span>
+<span class="lineNum">     317 </span><span class="lineCov">       1250 :         uint64_t res = value+incr;</span>
+<span class="lineNum">     318 </span>            : 
+<span class="lineNum">     319 </span><span class="lineCov">       1250 :         res &amp;= ~mask;</span>
+<span class="lineNum">     320 </span><span class="lineCov">       1250 :         *limit = res;</span>
+<span class="lineNum">     321 </span>            :     }
+<span class="lineNum">     322 </span><span class="lineCov">       1250 :     return 1;</span>
+<a name="323"><span class="lineNum">     323 </span>            : }</a>
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span><span class="lineCov">       4126 : int checkSignedBitfieldOverflow(int64_t value, int64_t incr, uint64_t bits, int owtype, int64_t *limit) {</span>
+<span class="lineNum">     326 </span><span class="lineCov">       4126 :     int64_t max = (bits == 64) ? INT64_MAX : (((int64_t)1&lt;&lt;(bits-1))-1);</span>
+<span class="lineNum">     327 </span><span class="lineCov">       4126 :     int64_t min = (-max)-1;</span>
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span>            :     /* Note that maxincr and minincr could overflow, but we use the values
+<span class="lineNum">     330 </span>            :      * only after checking 'value' range, so when we use it no overflow
+<span class="lineNum">     331 </span>            :      * happens. */
+<span class="lineNum">     332 </span><span class="lineCov">       4126 :     int64_t maxincr = max-value;</span>
+<span class="lineNum">     333 </span><span class="lineCov">       4126 :     int64_t minincr = min-value;</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span><span class="lineCov">       4126 :     if (value &gt; max || (bits != 64 &amp;&amp; incr &gt; maxincr) || (value &gt;= 0 &amp;&amp; incr &gt; 0 &amp;&amp; incr &gt; maxincr))</span>
+<span class="lineNum">     336 </span>            :     {
+<span class="lineNum">     337 </span><span class="lineCov">       1002 :         if (limit) {</span>
+<span class="lineNum">     338 </span><span class="lineCov">       1002 :             if (owtype == BFOVERFLOW_WRAP) {</span>
+<span class="lineNum">     339 </span>            :                 goto handle_wrap;
+<span class="lineNum">     340 </span><span class="lineCov">        496 :             } else if (owtype == BFOVERFLOW_SAT) {</span>
+<span class="lineNum">     341 </span><span class="lineCov">          2 :                 *limit = max;</span>
+<span class="lineNum">     342 </span>            :             }
+<span class="lineNum">     343 </span>            :         }
+<span class="lineNum">     344 </span><span class="lineCov">        496 :         return 1;</span>
+<span class="lineNum">     345 </span><span class="lineCov">       3124 :     } else if (value &lt; min || (bits != 64 &amp;&amp; incr &lt; minincr) || (value &lt; 0 &amp;&amp; incr &lt; 0 &amp;&amp; incr &lt; minincr)) {</span>
+<span class="lineNum">     346 </span><span class="lineCov">       1037 :         if (limit) {</span>
+<span class="lineNum">     347 </span><span class="lineCov">       1037 :             if (owtype == BFOVERFLOW_WRAP) {</span>
+<span class="lineNum">     348 </span>            :                 goto handle_wrap;
+<span class="lineNum">     349 </span><span class="lineCov">        513 :             } else if (owtype == BFOVERFLOW_SAT) {</span>
+<span class="lineNum">     350 </span><span class="lineNoCov">          0 :                 *limit = min;</span>
+<span class="lineNum">     351 </span>            :             }
+<span class="lineNum">     352 </span>            :         }
+<span class="lineNum">     353 </span><span class="lineCov">        513 :         return -1;</span>
+<span class="lineNum">     354 </span>            :     }
+<span class="lineNum">     355 </span>            :     return 0;
+<span class="lineNum">     356 </span>            : 
+<span class="lineNum">     357 </span><span class="lineCov">       1030 : handle_wrap:</span>
+<span class="lineNum">     358 </span>            :     {
+<span class="lineNum">     359 </span><span class="lineCov">       1030 :         uint64_t mask = ((uint64_t)-1) &lt;&lt; bits;</span>
+<span class="lineNum">     360 </span><span class="lineCov">       1030 :         uint64_t msb = (uint64_t)1 &lt;&lt; (bits-1);</span>
+<span class="lineNum">     361 </span><span class="lineCov">       1030 :         uint64_t a = value, b = incr, c;</span>
+<span class="lineNum">     362 </span><span class="lineCov">       1030 :         c = a+b; /* Perform addition as unsigned so that's defined. */</span>
+<span class="lineNum">     363 </span>            : 
+<span class="lineNum">     364 </span>            :         /* If the sign bit is set, propagate to all the higher order
+<span class="lineNum">     365 </span>            :          * bits, to cap the negative value. If it's clear, mask to
+<span class="lineNum">     366 </span>            :          * the positive integer limit. */
+<span class="lineNum">     367 </span><span class="lineCov">       1030 :         if (c &amp; msb) {</span>
+<span class="lineNum">     368 </span><span class="lineCov">        476 :             c |= mask;</span>
+<span class="lineNum">     369 </span>            :         } else {
+<span class="lineNum">     370 </span><span class="lineCov">        554 :             c &amp;= ~mask;</span>
+<span class="lineNum">     371 </span>            :         }
+<span class="lineNum">     372 </span><span class="lineCov">       1030 :         *limit = c;</span>
+<span class="lineNum">     373 </span>            :     }
+<span class="lineNum">     374 </span><span class="lineCov">       1030 :     return 1;</span>
+<span class="lineNum">     375 </span>            : }
+<span class="lineNum">     376 </span>            : 
+<a name="377"><span class="lineNum">     377 </span>            : /* Debugging function. Just show bits in the specified bitmap. Not used</a>
+<span class="lineNum">     378 </span>            :  * but here for not having to rewrite it when debugging is needed. */
+<span class="lineNum">     379 </span><span class="lineNoCov">          0 : void printBits(unsigned char *p, unsigned long count) {</span>
+<span class="lineNum">     380 </span><span class="lineNoCov">          0 :     unsigned long j, i, byte;</span>
+<span class="lineNum">     381 </span>            : 
+<span class="lineNum">     382 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; count; j++) {</span>
+<span class="lineNum">     383 </span><span class="lineNoCov">          0 :         byte = p[j];</span>
+<span class="lineNum">     384 </span><span class="lineNoCov">          0 :         for (i = 0x80; i &gt; 0; i /= 2)</span>
+<span class="lineNum">     385 </span><span class="lineNoCov">          0 :             printf(&quot;%c&quot;, (byte &amp; i) ? '1' : '0');</span>
+<span class="lineNum">     386 </span><span class="lineNoCov">          0 :         printf(&quot;|&quot;);</span>
+<span class="lineNum">     387 </span>            :     }
+<span class="lineNum">     388 </span><span class="lineNoCov">          0 :     printf(&quot;\n&quot;);</span>
+<span class="lineNum">     389 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     390 </span>            : 
+<span class="lineNum">     391 </span>            : /* -----------------------------------------------------------------------------
+<span class="lineNum">     392 </span>            :  * Bits related string commands: GETBIT, SETBIT, BITCOUNT, BITOP.
+<span class="lineNum">     393 </span>            :  * -------------------------------------------------------------------------- */
+<span class="lineNum">     394 </span>            : 
+<span class="lineNum">     395 </span>            : #define BITOP_AND   0
+<span class="lineNum">     396 </span>            : #define BITOP_OR    1
+<span class="lineNum">     397 </span>            : #define BITOP_XOR   2
+<span class="lineNum">     398 </span>            : #define BITOP_NOT   3
+<span class="lineNum">     399 </span>            : 
+<span class="lineNum">     400 </span>            : #define BITFIELDOP_GET 0
+<span class="lineNum">     401 </span>            : #define BITFIELDOP_SET 1
+<span class="lineNum">     402 </span>            : #define BITFIELDOP_INCRBY 2
+<span class="lineNum">     403 </span>            : 
+<span class="lineNum">     404 </span>            : /* This helper function used by GETBIT / SETBIT parses the bit offset argument
+<span class="lineNum">     405 </span>            :  * making sure an error is returned if it is negative or if it overflows
+<span class="lineNum">     406 </span>            :  * Redis 512 MB limit for the string value.
+<span class="lineNum">     407 </span>            :  *
+<span class="lineNum">     408 </span>            :  * If the 'hash' argument is true, and 'bits is positive, then the command
+<a name="409"><span class="lineNum">     409 </span>            :  * will also parse bit offsets prefixed by &quot;#&quot;. In such a case the offset</a>
+<span class="lineNum">     410 </span>            :  * is multiplied by 'bits'. This is useful for the BITFIELD command. */
+<span class="lineNum">     411 </span><span class="lineCov">      20215 : int getBitOffsetFromArgument(client *c, robj *o, size_t *offset, int hash, int bits) {</span>
+<span class="lineNum">     412 </span><span class="lineCov">      20215 :     long long loffset;</span>
+<span class="lineNum">     413 </span><span class="lineCov">      20215 :     char *err = &quot;bit offset is not an integer or out of range&quot;;</span>
+<span class="lineNum">     414 </span><span class="lineCov">      20215 :     char *p = o-&gt;ptr;</span>
+<span class="lineNum">     415 </span><span class="lineCov">      20215 :     size_t plen = sdslen(p);</span>
+<span class="lineNum">     416 </span><span class="lineCov">      20215 :     int usehash = 0;</span>
+<span class="lineNum">     417 </span>            : 
+<span class="lineNum">     418 </span>            :     /* Handle #&lt;offset&gt; form. */
+<span class="lineNum">     419 </span><span class="lineCov">      20215 :     if (p[0] == '#' &amp;&amp; hash &amp;&amp; bits &gt; 0) usehash = 1;</span>
+<span class="lineNum">     420 </span>            : 
+<span class="lineNum">     421 </span><span class="lineCov">      20215 :     if (string2ll(p+usehash,plen-usehash,&amp;loffset) == 0) {</span>
+<span class="lineNum">     422 </span><span class="lineNoCov">          0 :         addReplyError(c,err);</span>
+<span class="lineNum">     423 </span><span class="lineNoCov">          0 :         return C_ERR;</span>
+<span class="lineNum">     424 </span>            :     }
+<span class="lineNum">     425 </span>            : 
+<span class="lineNum">     426 </span>            :     /* Adjust the offset by 'bits' for #&lt;offset&gt; form. */
+<span class="lineNum">     427 </span><span class="lineCov">      20215 :     if (usehash) loffset *= bits;</span>
+<span class="lineNum">     428 </span>            : 
+<span class="lineNum">     429 </span>            :     /* Limit offset to 512MB in bytes */
+<span class="lineNum">     430 </span><span class="lineCov">      20215 :     if ((loffset &lt; 0) || ((unsigned long long)loffset &gt;&gt; 3) &gt;= (512*1024*1024))</span>
+<span class="lineNum">     431 </span>            :     {
+<span class="lineNum">     432 </span><span class="lineCov">          6 :         addReplyError(c,err);</span>
+<span class="lineNum">     433 </span><span class="lineCov">          6 :         return C_ERR;</span>
+<span class="lineNum">     434 </span>            :     }
+<span class="lineNum">     435 </span>            : 
+<span class="lineNum">     436 </span><span class="lineCov">      20209 :     *offset = (size_t)loffset;</span>
+<span class="lineNum">     437 </span><span class="lineCov">      20209 :     return C_OK;</span>
+<span class="lineNum">     438 </span>            : }
+<span class="lineNum">     439 </span>            : 
+<span class="lineNum">     440 </span>            : /* This helper function for BITFIELD parses a bitfield type in the form
+<span class="lineNum">     441 </span>            :  * &lt;sign&gt;&lt;bits&gt; where sign is 'u' or 'i' for unsigned and signed, and
+<span class="lineNum">     442 </span>            :  * the bits is a value between 1 and 64. However 64 bits unsigned integers
+<span class="lineNum">     443 </span>            :  * are reported as an error because of current limitations of Redis protocol
+<span class="lineNum">     444 </span>            :  * to return unsigned integer values greater than INT64_MAX.
+<a name="445"><span class="lineNum">     445 </span>            :  *</a>
+<span class="lineNum">     446 </span>            :  * On error C_ERR is returned and an error is sent to the client. */
+<span class="lineNum">     447 </span><span class="lineCov">      10132 : int getBitfieldTypeFromArgument(client *c, robj *o, int *sign, int *bits) {</span>
+<span class="lineNum">     448 </span><span class="lineCov">      10132 :     char *p = o-&gt;ptr;</span>
+<span class="lineNum">     449 </span><span class="lineCov">      10132 :     char *err = &quot;Invalid bitfield type. Use something like i16 u8. Note that u64 is not supported but i64 is.&quot;;</span>
+<span class="lineNum">     450 </span><span class="lineCov">      10132 :     long long llbits;</span>
+<span class="lineNum">     451 </span>            : 
+<span class="lineNum">     452 </span><span class="lineCov">      10132 :     if (p[0] == 'i') {</span>
+<span class="lineNum">     453 </span><span class="lineCov">       5129 :         *sign = 1;</span>
+<span class="lineNum">     454 </span><span class="lineCov">       5003 :     } else if (p[0] == 'u') {</span>
+<span class="lineNum">     455 </span><span class="lineCov">       5003 :         *sign = 0;</span>
+<span class="lineNum">     456 </span>            :     } else {
+<span class="lineNum">     457 </span><span class="lineNoCov">          0 :         addReplyError(c,err);</span>
+<span class="lineNum">     458 </span><span class="lineNoCov">          0 :         return C_ERR;</span>
+<span class="lineNum">     459 </span>            :     }
+<span class="lineNum">     460 </span>            : 
+<span class="lineNum">     461 </span><span class="lineCov">      10132 :     if ((string2ll(p+1,strlen(p+1),&amp;llbits)) == 0 ||</span>
+<span class="lineNum">     462 </span><span class="lineCov">      10132 :         llbits &lt; 1 ||</span>
+<span class="lineNum">     463 </span><span class="lineCov">      10132 :         (*sign == 1 &amp;&amp; llbits &gt; 64) ||</span>
+<span class="lineNum">     464 </span><span class="lineCov">       5003 :         (*sign == 0 &amp;&amp; llbits &gt; 63))</span>
+<span class="lineNum">     465 </span>            :     {
+<span class="lineNum">     466 </span><span class="lineNoCov">          0 :         addReplyError(c,err);</span>
+<span class="lineNum">     467 </span><span class="lineNoCov">          0 :         return C_ERR;</span>
+<span class="lineNum">     468 </span>            :     }
+<span class="lineNum">     469 </span><span class="lineCov">      10132 :     *bits = llbits;</span>
+<span class="lineNum">     470 </span><span class="lineCov">      10132 :     return C_OK;</span>
+<span class="lineNum">     471 </span>            : }
+<span class="lineNum">     472 </span>            : 
+<span class="lineNum">     473 </span>            : /* This is an helper function for commands implementations that need to write
+<span class="lineNum">     474 </span>            :  * bits to a string object. The command creates or pad with zeroes the string
+<span class="lineNum">     475 </span>            :  * so that the 'maxbit' bit can be addressed. The object is finally
+<a name="476"><span class="lineNum">     476 </span>            :  * returned. Otherwise if the key holds a wrong type NULL is returned and</a>
+<span class="lineNum">     477 </span>            :  * an error is sent to the client. */
+<span class="lineNum">     478 </span><span class="lineCov">      18088 : robj *lookupStringForBitCommand(client *c, size_t maxbit) {</span>
+<span class="lineNum">     479 </span><span class="lineCov">      18088 :     size_t byte = maxbit &gt;&gt; 3;</span>
+<span class="lineNum">     480 </span><span class="lineCov">      18088 :     robj *o = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     481 </span>            : 
+<span class="lineNum">     482 </span><span class="lineCov">      18088 :     if (o == NULL) {</span>
+<span class="lineNum">     483 </span><span class="lineCov">       4048 :         o = createObject(OBJ_STRING,sdsnewlen(NULL, byte+1));</span>
+<span class="lineNum">     484 </span><span class="lineCov">       4048 :         dbAdd(c-&gt;db,c-&gt;argv[1],o);</span>
+<span class="lineNum">     485 </span>            :     } else {
+<span class="lineNum">     486 </span><span class="lineCov">      14040 :         if (checkType(c,o,OBJ_STRING)) return NULL;</span>
+<span class="lineNum">     487 </span><span class="lineCov">      14037 :         o = dbUnshareStringValue(c-&gt;db,c-&gt;argv[1],o);</span>
+<span class="lineNum">     488 </span><span class="lineCov">      14037 :         o-&gt;ptr = sdsgrowzero(o-&gt;ptr,byte+1);</span>
+<span class="lineNum">     489 </span>            :     }
+<span class="lineNum">     490 </span>            :     return o;
+<span class="lineNum">     491 </span>            : }
+<span class="lineNum">     492 </span>            : 
+<span class="lineNum">     493 </span>            : /* Return a pointer to the string object content, and stores its length
+<span class="lineNum">     494 </span>            :  * in 'len'. The user is required to pass (likely stack allocated) buffer
+<span class="lineNum">     495 </span>            :  * 'llbuf' of at least LONG_STR_SIZE bytes. Such a buffer is used in the case
+<span class="lineNum">     496 </span>            :  * the object is integer encoded in order to provide the representation
+<span class="lineNum">     497 </span>            :  * without usign heap allocation.
+<span class="lineNum">     498 </span>            :  *
+<span class="lineNum">     499 </span>            :  * The function returns the pointer to the object array of bytes representing
+<span class="lineNum">     500 </span>            :  * the string it contains, that may be a pointer to 'llbuf' or to the
+<span class="lineNum">     501 </span>            :  * internal object representation. As a side effect 'len' is filled with
+<span class="lineNum">     502 </span>            :  * the length of such buffer.
+<span class="lineNum">     503 </span>            :  *
+<a name="504"><span class="lineNum">     504 </span>            :  * If the source object is NULL the function is guaranteed to return NULL</a>
+<span class="lineNum">     505 </span>            :  * and set 'len' to 0. */
+<span class="lineNum">     506 </span><span class="lineCov">       6560 : unsigned char *getObjectReadOnlyString(robj *o, long *len, char *llbuf) {</span>
+<span class="lineNum">     507 </span><span class="lineCov">       6560 :     serverAssert(o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     508 </span><span class="lineCov">       6560 :     unsigned char *p = NULL;</span>
+<span class="lineNum">     509 </span>            : 
+<span class="lineNum">     510 </span>            :     /* Set the 'p' pointer to the string, that can be just a stack allocated
+<span class="lineNum">     511 </span>            :      * array if our string was integer encoded. */
+<span class="lineNum">     512 </span><span class="lineCov">       6560 :     if (o &amp;&amp; o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     513 </span><span class="lineCov">          4 :         p = (unsigned char*) llbuf;</span>
+<span class="lineNum">     514 </span><span class="lineCov">          4 :         if (len) *len = ll2string(llbuf,LONG_STR_SIZE,(long)o-&gt;ptr);</span>
+<span class="lineNum">     515 </span><span class="lineCov">       6556 :     } else if (o) {</span>
+<span class="lineNum">     516 </span><span class="lineCov">       6556 :         p = (unsigned char*) o-&gt;ptr;</span>
+<span class="lineNum">     517 </span><span class="lineCov">      13112 :         if (len) *len = sdslen(o-&gt;ptr);</span>
+<span class="lineNum">     518 </span>            :     } else {
+<span class="lineNum">     519 </span>            :         if (len) *len = 0;
+<span class="lineNum">     520 </span>            :     }
+<span class="lineNum">     521 </span><span class="lineCov">       6560 :     return p;</span>
+<span class="lineNum">     522 </span>            : }
+<a name="523"><span class="lineNum">     523 </span>            : </a>
+<span class="lineNum">     524 </span>            : /* SETBIT key offset bitvalue */
+<span class="lineNum">     525 </span><span class="lineCov">      10038 : void setbitCommand(client *c) {</span>
+<span class="lineNum">     526 </span><span class="lineCov">      10038 :     robj *o;</span>
+<span class="lineNum">     527 </span><span class="lineCov">      10038 :     char *err = &quot;bit is not an integer or out of range&quot;;</span>
+<span class="lineNum">     528 </span><span class="lineCov">      10038 :     size_t bitoffset;</span>
+<span class="lineNum">     529 </span><span class="lineCov">      10038 :     ssize_t byte, bit;</span>
+<span class="lineNum">     530 </span><span class="lineCov">      10038 :     int byteval, bitval;</span>
+<span class="lineNum">     531 </span><span class="lineCov">      10038 :     long on;</span>
+<span class="lineNum">     532 </span>            : 
+<span class="lineNum">     533 </span><span class="lineCov">      10038 :     if (getBitOffsetFromArgument(c,c-&gt;argv[2],&amp;bitoffset,0,0) != C_OK)</span>
+<span class="lineNum">     534 </span><span class="lineCov">         21 :         return;</span>
+<span class="lineNum">     535 </span>            : 
+<span class="lineNum">     536 </span><span class="lineCov">      10032 :     if (getLongFromObjectOrReply(c,c-&gt;argv[3],&amp;on,err) != C_OK)</span>
+<span class="lineNum">     537 </span>            :         return;
+<span class="lineNum">     538 </span>            : 
+<span class="lineNum">     539 </span>            :     /* Bits can only be set or cleared... */
+<span class="lineNum">     540 </span><span class="lineCov">      10032 :     if (on &amp; ~1) {</span>
+<span class="lineNum">     541 </span><span class="lineCov">         12 :         addReplyError(c,err);</span>
+<span class="lineNum">     542 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">     543 </span>            :     }
+<span class="lineNum">     544 </span>            : 
+<span class="lineNum">     545 </span><span class="lineCov">      10020 :     if ((o = lookupStringForBitCommand(c,bitoffset)) == NULL) return;</span>
+<span class="lineNum">     546 </span>            : 
+<span class="lineNum">     547 </span>            :     /* Get current values */
+<span class="lineNum">     548 </span><span class="lineCov">      10017 :     byte = bitoffset &gt;&gt; 3;</span>
+<span class="lineNum">     549 </span><span class="lineCov">      10017 :     byteval = ((uint8_t*)o-&gt;ptr)[byte];</span>
+<span class="lineNum">     550 </span><span class="lineCov">      10017 :     bit = 7 - (bitoffset &amp; 0x7);</span>
+<span class="lineNum">     551 </span><span class="lineCov">      10017 :     bitval = byteval &amp; (1 &lt;&lt; bit);</span>
+<span class="lineNum">     552 </span>            : 
+<span class="lineNum">     553 </span>            :     /* Update byte with new bit value and return original value */
+<span class="lineNum">     554 </span><span class="lineCov">      10017 :     byteval &amp;= ~(1 &lt;&lt; bit);</span>
+<span class="lineNum">     555 </span><span class="lineCov">      10017 :     byteval |= ((on &amp; 0x1) &lt;&lt; bit);</span>
+<span class="lineNum">     556 </span><span class="lineCov">      10017 :     ((uint8_t*)o-&gt;ptr)[byte] = byteval;</span>
+<span class="lineNum">     557 </span><span class="lineCov">      10017 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     558 </span><span class="lineCov">      10017 :     notifyKeyspaceEvent(NOTIFY_STRING,&quot;setbit&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     559 </span><span class="lineCov">      10017 :     server.dirty++;</span>
+<span class="lineNum">     560 </span><span class="lineCov">      10017 :     addReply(c, bitval ? shared.cone : shared.czero);</span>
+<span class="lineNum">     561 </span>            : }
+<a name="562"><span class="lineNum">     562 </span>            : </a>
+<span class="lineNum">     563 </span>            : /* GETBIT key offset */
+<span class="lineNum">     564 </span><span class="lineCov">         45 : void getbitCommand(client *c) {</span>
+<span class="lineNum">     565 </span><span class="lineCov">         45 :     robj *o;</span>
+<span class="lineNum">     566 </span><span class="lineCov">         45 :     char llbuf[32];</span>
+<span class="lineNum">     567 </span><span class="lineCov">         45 :     size_t bitoffset;</span>
+<span class="lineNum">     568 </span><span class="lineCov">         45 :     size_t byte, bit;</span>
+<span class="lineNum">     569 </span><span class="lineCov">         45 :     size_t bitval = 0;</span>
+<span class="lineNum">     570 </span>            : 
+<span class="lineNum">     571 </span><span class="lineCov">         45 :     if (getBitOffsetFromArgument(c,c-&gt;argv[2],&amp;bitoffset,0,0) != C_OK)</span>
+<span class="lineNum">     572 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     573 </span>            : 
+<span class="lineNum">     574 </span><span class="lineCov">         87 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     575 </span><span class="lineCov">         45 :         checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     576 </span>            : 
+<span class="lineNum">     577 </span><span class="lineCov">         42 :     byte = bitoffset &gt;&gt; 3;</span>
+<span class="lineNum">     578 </span><span class="lineCov">         42 :     bit = 7 - (bitoffset &amp; 0x7);</span>
+<span class="lineNum">     579 </span><span class="lineCov">         42 :     if (sdsEncodedObject(o)) {</span>
+<span class="lineNum">     580 </span><span class="lineCov">         42 :         if (byte &lt; sdslen(o-&gt;ptr))</span>
+<span class="lineNum">     581 </span><span class="lineCov">         12 :             bitval = ((uint8_t*)o-&gt;ptr)[byte] &amp; (1 &lt;&lt; bit);</span>
+<span class="lineNum">     582 </span>            :     } else {
+<span class="lineNum">     583 </span><span class="lineCov">         21 :         if (byte &lt; (size_t)ll2string(llbuf,sizeof(llbuf),(long)o-&gt;ptr))</span>
+<span class="lineNum">     584 </span><span class="lineCov">         12 :             bitval = llbuf[byte] &amp; (1 &lt;&lt; bit);</span>
+<span class="lineNum">     585 </span>            :     }
+<span class="lineNum">     586 </span>            : 
+<span class="lineNum">     587 </span><span class="lineCov">         42 :     addReply(c, bitval ? shared.cone : shared.czero);</span>
+<span class="lineNum">     588 </span>            : }
+<a name="589"><span class="lineNum">     589 </span>            : </a>
+<span class="lineNum">     590 </span>            : /* BITOP op_name target_key src_key1 src_key2 src_key3 ... src_keyN */
+<span class="lineNum">     591 </span><span class="lineCov">        110 : void bitopCommand(client *c) {</span>
+<span class="lineNum">     592 </span><span class="lineCov">        110 :     char *opname = c-&gt;argv[1]-&gt;ptr;</span>
+<span class="lineNum">     593 </span><span class="lineCov">        110 :     robj *o, *targetkey = c-&gt;argv[2];</span>
+<span class="lineNum">     594 </span><span class="lineCov">        110 :     unsigned long op, j, numkeys;</span>
+<span class="lineNum">     595 </span><span class="lineCov">        110 :     robj **objects;      /* Array of source objects. */</span>
+<span class="lineNum">     596 </span><span class="lineCov">        110 :     unsigned char **src; /* Array of source strings pointers. */</span>
+<span class="lineNum">     597 </span><span class="lineCov">        110 :     unsigned long *len, maxlen = 0; /* Array of length of src strings,</span>
+<span class="lineNum">     598 </span>            :                                        and max len. */
+<span class="lineNum">     599 </span><span class="lineCov">        110 :     unsigned long minlen = 0;    /* Min len among the input keys. */</span>
+<span class="lineNum">     600 </span><span class="lineCov">        110 :     unsigned char *res = NULL; /* Resulting string. */</span>
+<span class="lineNum">     601 </span>            : 
+<span class="lineNum">     602 </span>            :     /* Parse the operation name. */
+<span class="lineNum">     603 </span><span class="lineCov">        110 :     if ((opname[0] == 'a' || opname[0] == 'A') &amp;&amp; !strcasecmp(opname,&quot;and&quot;))</span>
+<span class="lineNum">     604 </span>            :         op = BITOP_AND;
+<span class="lineNum">     605 </span><span class="lineCov">         84 :     else if((opname[0] == 'o' || opname[0] == 'O') &amp;&amp; !strcasecmp(opname,&quot;or&quot;))</span>
+<span class="lineNum">     606 </span>            :         op = BITOP_OR;
+<span class="lineNum">     607 </span><span class="lineCov">         56 :     else if((opname[0] == 'x' || opname[0] == 'X') &amp;&amp; !strcasecmp(opname,&quot;xor&quot;))</span>
+<span class="lineNum">     608 </span>            :         op = BITOP_XOR;
+<span class="lineNum">     609 </span><span class="lineCov">         26 :     else if((opname[0] == 'n' || opname[0] == 'N') &amp;&amp; !strcasecmp(opname,&quot;not&quot;))</span>
+<span class="lineNum">     610 </span>            :         op = BITOP_NOT;
+<span class="lineNum">     611 </span>            :     else {
+<span class="lineNum">     612 </span><span class="lineNoCov">          0 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     613 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     614 </span>            :     }
+<span class="lineNum">     615 </span>            : 
+<span class="lineNum">     616 </span>            :     /* Sanity check: NOT accepts only a single key argument. */
+<span class="lineNum">     617 </span><span class="lineCov">         26 :     if (op == BITOP_NOT &amp;&amp; c-&gt;argc != 4) {</span>
+<span class="lineNum">     618 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;BITOP NOT must be called with a single source key.&quot;);</span>
+<span class="lineNum">     619 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     620 </span>            :     }
+<span class="lineNum">     621 </span>            : 
+<span class="lineNum">     622 </span>            :     /* Lookup keys, and store pointers to the string objects into an array. */
+<span class="lineNum">     623 </span><span class="lineCov">        110 :     numkeys = c-&gt;argc - 3;</span>
+<span class="lineNum">     624 </span><span class="lineCov">        110 :     src = zmalloc(sizeof(unsigned char*) * numkeys);</span>
+<span class="lineNum">     625 </span><span class="lineCov">        110 :     len = zmalloc(sizeof(long) * numkeys);</span>
+<span class="lineNum">     626 </span><span class="lineCov">        110 :     objects = zmalloc(sizeof(robj*) * numkeys);</span>
+<span class="lineNum">     627 </span><span class="lineCov">        515 :     for (j = 0; j &lt; numkeys; j++) {</span>
+<span class="lineNum">     628 </span><span class="lineCov">        407 :         o = lookupKeyRead(c-&gt;db,c-&gt;argv[j+3]);</span>
+<span class="lineNum">     629 </span>            :         /* Handle non-existing keys as empty strings. */
+<span class="lineNum">     630 </span><span class="lineCov">        407 :         if (o == NULL) {</span>
+<span class="lineNum">     631 </span><span class="lineCov">         10 :             objects[j] = NULL;</span>
+<span class="lineNum">     632 </span><span class="lineCov">         10 :             src[j] = NULL;</span>
+<span class="lineNum">     633 </span><span class="lineCov">         10 :             len[j] = 0;</span>
+<span class="lineNum">     634 </span><span class="lineCov">         10 :             minlen = 0;</span>
+<span class="lineNum">     635 </span><span class="lineCov">         10 :             continue;</span>
+<span class="lineNum">     636 </span>            :         }
+<span class="lineNum">     637 </span>            :         /* Return an error if one of the keys is not a string. */
+<span class="lineNum">     638 </span><span class="lineCov">        397 :         if (checkType(c,o,OBJ_STRING)) {</span>
+<span class="lineNum">     639 </span>            :             unsigned long i;
+<span class="lineNum">     640 </span><span class="lineCov">          6 :             for (i = 0; i &lt; j; i++) {</span>
+<span class="lineNum">     641 </span><span class="lineCov">          4 :                 if (objects[i])</span>
+<span class="lineNum">     642 </span><span class="lineCov">          4 :                     decrRefCount(objects[i]);</span>
+<span class="lineNum">     643 </span>            :             }
+<span class="lineNum">     644 </span><span class="lineCov">          2 :             zfree(src);</span>
+<span class="lineNum">     645 </span><span class="lineCov">          2 :             zfree(len);</span>
+<span class="lineNum">     646 </span><span class="lineCov">          2 :             zfree(objects);</span>
+<span class="lineNum">     647 </span><span class="lineCov">          2 :             return;</span>
+<span class="lineNum">     648 </span>            :         }
+<span class="lineNum">     649 </span><span class="lineCov">        395 :         objects[j] = getDecodedObject(o);</span>
+<span class="lineNum">     650 </span><span class="lineCov">        395 :         src[j] = objects[j]-&gt;ptr;</span>
+<span class="lineNum">     651 </span><span class="lineCov">        395 :         len[j] = sdslen(objects[j]-&gt;ptr);</span>
+<span class="lineNum">     652 </span><span class="lineCov">        395 :         if (len[j] &gt; maxlen) maxlen = len[j];</span>
+<span class="lineNum">     653 </span><span class="lineCov">        395 :         if (j == 0 || len[j] &lt; minlen) minlen = len[j];</span>
+<span class="lineNum">     654 </span>            :     }
+<span class="lineNum">     655 </span>            : 
+<span class="lineNum">     656 </span>            :     /* Compute the bit operation, if at least one string is not empty. */
+<span class="lineNum">     657 </span><span class="lineCov">        108 :     if (maxlen) {</span>
+<span class="lineNum">     658 </span><span class="lineCov">        105 :         res = (unsigned char*) sdsnewlen(NULL,maxlen);</span>
+<span class="lineNum">     659 </span><span class="lineCov">        105 :         unsigned char output, byte;</span>
+<span class="lineNum">     660 </span><span class="lineCov">        105 :         unsigned long i;</span>
+<span class="lineNum">     661 </span>            : 
+<span class="lineNum">     662 </span>            :         /* Fast path: as far as we have data for all the input bitmaps we
+<span class="lineNum">     663 </span>            :          * can take a fast path that performs much better than the
+<span class="lineNum">     664 </span>            :          * vanilla algorithm. On ARM we skip the fast path since it will
+<span class="lineNum">     665 </span>            :          * result in GCC compiling the code using multiple-words load/store
+<span class="lineNum">     666 </span>            :          * operations that are not supported even in ARM &gt;= v6. */
+<span class="lineNum">     667 </span><span class="lineCov">        105 :         j = 0;</span>
+<span class="lineNum">     668 </span>            :         #ifndef USE_ALIGNED_ACCESS
+<span class="lineNum">     669 </span><span class="lineCov">        105 :         if (minlen &gt;= sizeof(unsigned long)*4 &amp;&amp; numkeys &lt;= 16) {</span>
+<span class="lineNum">     670 </span><span class="lineCov">         66 :             unsigned long *lp[16];</span>
+<span class="lineNum">     671 </span><span class="lineCov">         66 :             unsigned long *lres = (unsigned long*) res;</span>
+<span class="lineNum">     672 </span>            : 
+<span class="lineNum">     673 </span>            :             /* Note: sds pointer is always aligned to 8 byte boundary. */
+<span class="lineNum">     674 </span><span class="lineCov">         66 :             memcpy(lp,src,sizeof(unsigned long*)*numkeys);</span>
+<span class="lineNum">     675 </span><span class="lineCov">         66 :             memcpy(res,src[0],minlen);</span>
+<span class="lineNum">     676 </span>            : 
+<span class="lineNum">     677 </span>            :             /* Different branches per different operations for speed (sorry). */
+<span class="lineNum">     678 </span><span class="lineCov">         66 :             if (op == BITOP_AND) {</span>
+<span class="lineNum">     679 </span><span class="lineCov">        154 :                 while(minlen &gt;= sizeof(unsigned long)*4) {</span>
+<span class="lineNum">     680 </span><span class="lineCov">        396 :                     for (i = 1; i &lt; numkeys; i++) {</span>
+<span class="lineNum">     681 </span><span class="lineCov">        256 :                         lres[0] &amp;= lp[i][0];</span>
+<span class="lineNum">     682 </span><span class="lineCov">        256 :                         lres[1] &amp;= lp[i][1];</span>
+<span class="lineNum">     683 </span><span class="lineCov">        256 :                         lres[2] &amp;= lp[i][2];</span>
+<span class="lineNum">     684 </span><span class="lineCov">        256 :                         lres[3] &amp;= lp[i][3];</span>
+<span class="lineNum">     685 </span><span class="lineCov">        256 :                         lp[i]+=4;</span>
+<span class="lineNum">     686 </span>            :                     }
+<span class="lineNum">     687 </span><span class="lineCov">        140 :                     lres+=4;</span>
+<span class="lineNum">     688 </span><span class="lineCov">        140 :                     j += sizeof(unsigned long)*4;</span>
+<span class="lineNum">     689 </span><span class="lineCov">        140 :                     minlen -= sizeof(unsigned long)*4;</span>
+<span class="lineNum">     690 </span>            :                 }
+<span class="lineNum">     691 </span><span class="lineCov">         52 :             } else if (op == BITOP_OR) {</span>
+<span class="lineNum">     692 </span><span class="lineCov">        113 :                 while(minlen &gt;= sizeof(unsigned long)*4) {</span>
+<span class="lineNum">     693 </span><span class="lineCov">        423 :                     for (i = 1; i &lt; numkeys; i++) {</span>
+<span class="lineNum">     694 </span><span class="lineCov">        327 :                         lres[0] |= lp[i][0];</span>
+<span class="lineNum">     695 </span><span class="lineCov">        327 :                         lres[1] |= lp[i][1];</span>
+<span class="lineNum">     696 </span><span class="lineCov">        327 :                         lres[2] |= lp[i][2];</span>
+<span class="lineNum">     697 </span><span class="lineCov">        327 :                         lres[3] |= lp[i][3];</span>
+<span class="lineNum">     698 </span><span class="lineCov">        327 :                         lp[i]+=4;</span>
+<span class="lineNum">     699 </span>            :                     }
+<span class="lineNum">     700 </span><span class="lineCov">         96 :                     lres+=4;</span>
+<span class="lineNum">     701 </span><span class="lineCov">         96 :                     j += sizeof(unsigned long)*4;</span>
+<span class="lineNum">     702 </span><span class="lineCov">         96 :                     minlen -= sizeof(unsigned long)*4;</span>
+<span class="lineNum">     703 </span>            :                 }
+<span class="lineNum">     704 </span><span class="lineCov">         35 :             } else if (op == BITOP_XOR) {</span>
+<span class="lineNum">     705 </span><span class="lineCov">        126 :                 while(minlen &gt;= sizeof(unsigned long)*4) {</span>
+<span class="lineNum">     706 </span><span class="lineCov">        433 :                     for (i = 1; i &lt; numkeys; i++) {</span>
+<span class="lineNum">     707 </span><span class="lineCov">        323 :                         lres[0] ^= lp[i][0];</span>
+<span class="lineNum">     708 </span><span class="lineCov">        323 :                         lres[1] ^= lp[i][1];</span>
+<span class="lineNum">     709 </span><span class="lineCov">        323 :                         lres[2] ^= lp[i][2];</span>
+<span class="lineNum">     710 </span><span class="lineCov">        323 :                         lres[3] ^= lp[i][3];</span>
+<span class="lineNum">     711 </span><span class="lineCov">        323 :                         lp[i]+=4;</span>
+<span class="lineNum">     712 </span>            :                     }
+<span class="lineNum">     713 </span><span class="lineCov">        110 :                     lres+=4;</span>
+<span class="lineNum">     714 </span><span class="lineCov">        110 :                     j += sizeof(unsigned long)*4;</span>
+<span class="lineNum">     715 </span><span class="lineCov">        110 :                     minlen -= sizeof(unsigned long)*4;</span>
+<span class="lineNum">     716 </span>            :                 }
+<span class="lineNum">     717 </span>            :             } else if (op == BITOP_NOT) {
+<span class="lineNum">     718 </span><span class="lineCov">        322 :                 while(minlen &gt;= sizeof(unsigned long)*4) {</span>
+<span class="lineNum">     719 </span><span class="lineCov">        303 :                     lres[0] = ~lres[0];</span>
+<span class="lineNum">     720 </span><span class="lineCov">        303 :                     lres[1] = ~lres[1];</span>
+<span class="lineNum">     721 </span><span class="lineCov">        303 :                     lres[2] = ~lres[2];</span>
+<span class="lineNum">     722 </span><span class="lineCov">        303 :                     lres[3] = ~lres[3];</span>
+<span class="lineNum">     723 </span><span class="lineCov">        303 :                     lres+=4;</span>
+<span class="lineNum">     724 </span><span class="lineCov">        303 :                     j += sizeof(unsigned long)*4;</span>
+<span class="lineNum">     725 </span><span class="lineCov">        303 :                     minlen -= sizeof(unsigned long)*4;</span>
+<span class="lineNum">     726 </span>            :                 }
+<span class="lineNum">     727 </span>            :             }
+<span class="lineNum">     728 </span>            :         }
+<span class="lineNum">     729 </span>            :         #endif
+<span class="lineNum">     730 </span>            : 
+<span class="lineNum">     731 </span>            :         /* j is set to the next byte to process by the previous loop. */
+<span class="lineNum">     732 </span><span class="lineCov">      37289 :         for (; j &lt; maxlen; j++) {</span>
+<span class="lineNum">     733 </span><span class="lineCov">      37184 :             output = (len[0] &lt;= j) ? 0 : src[0][j];</span>
+<span class="lineNum">     734 </span><span class="lineCov">      37184 :             if (op == BITOP_NOT) output = ~output;</span>
+<span class="lineNum">     735 </span><span class="lineCov">     241478 :             for (i = 1; i &lt; numkeys; i++) {</span>
+<span class="lineNum">     736 </span><span class="lineCov">     204294 :                 byte = (len[i] &lt;= j) ? 0 : src[i][j];</span>
+<span class="lineNum">     737 </span><span class="lineCov">     204294 :                 switch(op) {</span>
+<span class="lineNum">     738 </span><span class="lineCov">      56280 :                 case BITOP_AND: output &amp;= byte; break;</span>
+<span class="lineNum">     739 </span><span class="lineCov">      74580 :                 case BITOP_OR:  output |= byte; break;</span>
+<span class="lineNum">     740 </span><span class="lineCov">      73434 :                 case BITOP_XOR: output ^= byte; break;</span>
+<span class="lineNum">     741 </span>            :                 }
+<span class="lineNum">     742 </span><span class="lineCov">     204294 :             }</span>
+<span class="lineNum">     743 </span><span class="lineCov">      37184 :             res[j] = output;</span>
+<span class="lineNum">     744 </span>            :         }
+<span class="lineNum">     745 </span>            :     }
+<span class="lineNum">     746 </span><span class="lineCov">        509 :     for (j = 0; j &lt; numkeys; j++) {</span>
+<span class="lineNum">     747 </span><span class="lineCov">        401 :         if (objects[j])</span>
+<span class="lineNum">     748 </span><span class="lineCov">        391 :             decrRefCount(objects[j]);</span>
+<span class="lineNum">     749 </span>            :     }
+<span class="lineNum">     750 </span><span class="lineCov">        108 :     zfree(src);</span>
+<span class="lineNum">     751 </span><span class="lineCov">        108 :     zfree(len);</span>
+<span class="lineNum">     752 </span><span class="lineCov">        108 :     zfree(objects);</span>
+<span class="lineNum">     753 </span>            : 
+<span class="lineNum">     754 </span>            :     /* Store the computed value into the target key */
+<span class="lineNum">     755 </span><span class="lineCov">        108 :     if (maxlen) {</span>
+<span class="lineNum">     756 </span><span class="lineCov">        105 :         o = createObject(OBJ_STRING,res);</span>
+<span class="lineNum">     757 </span><span class="lineCov">        105 :         setKey(c-&gt;db,targetkey,o);</span>
+<span class="lineNum">     758 </span><span class="lineCov">        105 :         notifyKeyspaceEvent(NOTIFY_STRING,&quot;set&quot;,targetkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     759 </span><span class="lineCov">        105 :         decrRefCount(o);</span>
+<span class="lineNum">     760 </span><span class="lineCov">          3 :     } else if (dbDelete(c-&gt;db,targetkey)) {</span>
+<span class="lineNum">     761 </span><span class="lineNoCov">          0 :         signalModifiedKey(c-&gt;db,targetkey);</span>
+<span class="lineNum">     762 </span><span class="lineNoCov">          0 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,targetkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     763 </span>            :     }
+<span class="lineNum">     764 </span><span class="lineCov">        108 :     server.dirty++;</span>
+<span class="lineNum">     765 </span><span class="lineCov">        108 :     addReplyLongLong(c,maxlen); /* Return the output string length in bytes. */</span>
+<span class="lineNum">     766 </span>            : }
+<a name="767"><span class="lineNum">     767 </span>            : </a>
+<span class="lineNum">     768 </span>            : /* BITCOUNT key [start end] */
+<span class="lineNum">     769 </span><span class="lineCov">        432 : void bitcountCommand(client *c) {</span>
+<span class="lineNum">     770 </span><span class="lineCov">        432 :     robj *o;</span>
+<span class="lineNum">     771 </span><span class="lineCov">        432 :     long start, end, strlen;</span>
+<span class="lineNum">     772 </span><span class="lineCov">        432 :     unsigned char *p;</span>
+<span class="lineNum">     773 </span><span class="lineCov">        432 :     char llbuf[LONG_STR_SIZE];</span>
+<span class="lineNum">     774 </span>            : 
+<span class="lineNum">     775 </span>            :     /* Lookup, check for type, and return 0 for non existing keys. */
+<span class="lineNum">     776 </span><span class="lineCov">        862 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     777 </span><span class="lineCov">        436 :         checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     778 </span><span class="lineCov">        430 :     p = getObjectReadOnlyString(o,&amp;strlen,llbuf);</span>
+<span class="lineNum">     779 </span>            : 
+<span class="lineNum">     780 </span>            :     /* Parse start/end range if any. */
+<span class="lineNum">     781 </span><span class="lineCov">        430 :     if (c-&gt;argc == 4) {</span>
+<span class="lineNum">     782 </span><span class="lineCov">        218 :         if (getLongFromObjectOrReply(c,c-&gt;argv[2],&amp;start,NULL) != C_OK)</span>
+<span class="lineNum">     783 </span>            :             return;
+<span class="lineNum">     784 </span><span class="lineCov">        218 :         if (getLongFromObjectOrReply(c,c-&gt;argv[3],&amp;end,NULL) != C_OK)</span>
+<span class="lineNum">     785 </span>            :             return;
+<span class="lineNum">     786 </span>            :         /* Convert negative indexes */
+<span class="lineNum">     787 </span><span class="lineCov">        218 :         if (start &lt; 0 &amp;&amp; end &lt; 0 &amp;&amp; start &gt; end) {</span>
+<span class="lineNum">     788 </span><span class="lineCov">          2 :             addReply(c,shared.czero);</span>
+<span class="lineNum">     789 </span><span class="lineCov">          2 :             return;</span>
+<span class="lineNum">     790 </span>            :         }
+<span class="lineNum">     791 </span><span class="lineCov">        216 :         if (start &lt; 0) start = strlen+start;</span>
+<span class="lineNum">     792 </span><span class="lineCov">        216 :         if (end &lt; 0) end = strlen+end;</span>
+<span class="lineNum">     793 </span><span class="lineCov">        216 :         if (start &lt; 0) start = 0;</span>
+<span class="lineNum">     794 </span><span class="lineCov">        216 :         if (end &lt; 0) end = 0;</span>
+<span class="lineNum">     795 </span><span class="lineCov">        216 :         if (end &gt;= strlen) end = strlen-1;</span>
+<span class="lineNum">     796 </span><span class="lineCov">        212 :     } else if (c-&gt;argc == 2) {</span>
+<span class="lineNum">     797 </span>            :         /* The whole string. */
+<span class="lineNum">     798 </span><span class="lineCov">        210 :         start = 0;</span>
+<span class="lineNum">     799 </span><span class="lineCov">        210 :         end = strlen-1;</span>
+<span class="lineNum">     800 </span>            :     } else {
+<span class="lineNum">     801 </span>            :         /* Syntax error. */
+<span class="lineNum">     802 </span><span class="lineCov">          2 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     803 </span><span class="lineCov">          2 :         return;</span>
+<span class="lineNum">     804 </span>            :     }
+<span class="lineNum">     805 </span>            : 
+<span class="lineNum">     806 </span>            :     /* Precondition: end &gt;= 0 &amp;&amp; end &lt; strlen, so the only condition where
+<span class="lineNum">     807 </span>            :      * zero can be returned is: start &gt; end. */
+<span class="lineNum">     808 </span><span class="lineCov">        426 :     if (start &gt; end) {</span>
+<span class="lineNum">     809 </span><span class="lineCov">          6 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     810 </span>            :     } else {
+<span class="lineNum">     811 </span><span class="lineCov">        420 :         long bytes = end-start+1;</span>
+<span class="lineNum">     812 </span>            : 
+<span class="lineNum">     813 </span><span class="lineCov">        420 :         addReplyLongLong(c,redisPopcount(p+start,bytes));</span>
+<span class="lineNum">     814 </span>            :     }
+<span class="lineNum">     815 </span>            : }
+<a name="816"><span class="lineNum">     816 </span>            : </a>
+<span class="lineNum">     817 </span>            : /* BITPOS key bit [start [end]] */
+<span class="lineNum">     818 </span><span class="lineCov">       4114 : void bitposCommand(client *c) {</span>
+<span class="lineNum">     819 </span><span class="lineCov">       4114 :     robj *o;</span>
+<span class="lineNum">     820 </span><span class="lineCov">       4114 :     long bit, start, end, strlen;</span>
+<span class="lineNum">     821 </span><span class="lineCov">       4114 :     unsigned char *p;</span>
+<span class="lineNum">     822 </span><span class="lineCov">       4114 :     char llbuf[LONG_STR_SIZE];</span>
+<span class="lineNum">     823 </span><span class="lineCov">       4114 :     int end_given = 0;</span>
+<span class="lineNum">     824 </span>            : 
+<span class="lineNum">     825 </span>            :     /* Parse the bit argument to understand what we are looking for, set
+<span class="lineNum">     826 </span>            :      * or clear bits. */
+<span class="lineNum">     827 </span><span class="lineCov">       4114 :     if (getLongFromObjectOrReply(c,c-&gt;argv[2],&amp;bit,NULL) != C_OK)</span>
+<span class="lineNum">     828 </span><span class="lineCov">         10 :         return;</span>
+<span class="lineNum">     829 </span><span class="lineCov">       4114 :     if (bit != 0 &amp;&amp; bit != 1) {</span>
+<span class="lineNum">     830 </span><span class="lineNoCov">          0 :         addReplyError(c, &quot;The bit argument must be 1 or 0.&quot;);</span>
+<span class="lineNum">     831 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     832 </span>            :     }
+<span class="lineNum">     833 </span>            : 
+<span class="lineNum">     834 </span>            :     /* If the key does not exist, from our point of view it is an infinite
+<span class="lineNum">     835 </span>            :      * array of 0 bits. If the user is looking for the fist clear bit return 0,
+<span class="lineNum">     836 </span>            :      * If the user is looking for the first set bit, return -1. */
+<span class="lineNum">     837 </span><span class="lineCov">       4114 :     if ((o = lookupKeyRead(c-&gt;db,c-&gt;argv[1])) == NULL) {</span>
+<span class="lineNum">     838 </span><span class="lineCov">          6 :         addReplyLongLong(c, bit ? -1 : 0);</span>
+<span class="lineNum">     839 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     840 </span>            :     }
+<span class="lineNum">     841 </span><span class="lineCov">       4108 :     if (checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     842 </span><span class="lineCov">       4108 :     p = getObjectReadOnlyString(o,&amp;strlen,llbuf);</span>
+<span class="lineNum">     843 </span>            : 
+<span class="lineNum">     844 </span>            :     /* Parse start/end range if any. */
+<span class="lineNum">     845 </span><span class="lineCov">       4108 :     if (c-&gt;argc == 4 || c-&gt;argc == 5) {</span>
+<span class="lineNum">     846 </span><span class="lineCov">         60 :         if (getLongFromObjectOrReply(c,c-&gt;argv[3],&amp;start,NULL) != C_OK)</span>
+<span class="lineNum">     847 </span>            :             return;
+<span class="lineNum">     848 </span><span class="lineCov">         60 :         if (c-&gt;argc == 5) {</span>
+<span class="lineNum">     849 </span><span class="lineCov">         22 :             if (getLongFromObjectOrReply(c,c-&gt;argv[4],&amp;end,NULL) != C_OK)</span>
+<span class="lineNum">     850 </span>            :                 return;
+<span class="lineNum">     851 </span>            :             end_given = 1;
+<span class="lineNum">     852 </span>            :         } else {
+<span class="lineNum">     853 </span><span class="lineCov">         38 :             end = strlen-1;</span>
+<span class="lineNum">     854 </span>            :         }
+<span class="lineNum">     855 </span>            :         /* Convert negative indexes */
+<span class="lineNum">     856 </span><span class="lineCov">         60 :         if (start &lt; 0) start = strlen+start;</span>
+<span class="lineNum">     857 </span><span class="lineCov">         60 :         if (end &lt; 0) end = strlen+end;</span>
+<span class="lineNum">     858 </span><span class="lineCov">         60 :         if (start &lt; 0) start = 0;</span>
+<span class="lineNum">     859 </span><span class="lineCov">         60 :         if (end &lt; 0) end = 0;</span>
+<span class="lineNum">     860 </span><span class="lineCov">         60 :         if (end &gt;= strlen) end = strlen-1;</span>
+<span class="lineNum">     861 </span><span class="lineCov">       4048 :     } else if (c-&gt;argc == 3) {</span>
+<span class="lineNum">     862 </span>            :         /* The whole string. */
+<span class="lineNum">     863 </span><span class="lineCov">       4048 :         start = 0;</span>
+<span class="lineNum">     864 </span><span class="lineCov">       4048 :         end = strlen-1;</span>
+<span class="lineNum">     865 </span>            :     } else {
+<span class="lineNum">     866 </span>            :         /* Syntax error. */
+<span class="lineNum">     867 </span><span class="lineNoCov">          0 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     868 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     869 </span>            :     }
+<span class="lineNum">     870 </span>            : 
+<span class="lineNum">     871 </span>            :     /* For empty ranges (start &gt; end) we return -1 as an empty range does
+<span class="lineNum">     872 </span>            :      * not contain a 0 nor a 1. */
+<span class="lineNum">     873 </span><span class="lineCov">       4108 :     if (start &gt; end) {</span>
+<span class="lineNum">     874 </span><span class="lineCov">          2 :         addReplyLongLong(c, -1);</span>
+<span class="lineNum">     875 </span>            :     } else {
+<span class="lineNum">     876 </span><span class="lineCov">       4106 :         long bytes = end-start+1;</span>
+<span class="lineNum">     877 </span><span class="lineCov">       4106 :         long pos = redisBitpos(p+start,bytes,bit);</span>
+<span class="lineNum">     878 </span>            : 
+<span class="lineNum">     879 </span>            :         /* If we are looking for clear bits, and the user specified an exact
+<span class="lineNum">     880 </span>            :          * range with start-end, we can't consider the right of the range as
+<span class="lineNum">     881 </span>            :          * zero padded (as we do when no explicit end is given).
+<span class="lineNum">     882 </span>            :          *
+<span class="lineNum">     883 </span>            :          * So if redisBitpos() returns the first bit outside the range,
+<span class="lineNum">     884 </span>            :          * we return -1 to the caller, to mean, in the specified range there
+<span class="lineNum">     885 </span>            :          * is not a single &quot;0&quot; bit. */
+<span class="lineNum">     886 </span><span class="lineCov">       4106 :         if (end_given &amp;&amp; bit == 0 &amp;&amp; pos == bytes*8) {</span>
+<span class="lineNum">     887 </span><span class="lineCov">          4 :             addReplyLongLong(c,-1);</span>
+<span class="lineNum">     888 </span><span class="lineCov">          4 :             return;</span>
+<span class="lineNum">     889 </span>            :         }
+<span class="lineNum">     890 </span><span class="lineCov">       4102 :         if (pos != -1) pos += start*8; /* Adjust for the bytes we skipped. */</span>
+<span class="lineNum">     891 </span><span class="lineCov">       4102 :         addReplyLongLong(c,pos);</span>
+<span class="lineNum">     892 </span>            :     }
+<span class="lineNum">     893 </span>            : }
+<span class="lineNum">     894 </span>            : 
+<span class="lineNum">     895 </span>            : /* BITFIELD key subcommmand-1 arg ... subcommand-2 arg ... subcommand-N ...
+<span class="lineNum">     896 </span>            :  *
+<span class="lineNum">     897 </span>            :  * Supported subcommands:
+<span class="lineNum">     898 </span>            :  *
+<span class="lineNum">     899 </span>            :  * GET &lt;type&gt; &lt;offset&gt;
+<span class="lineNum">     900 </span>            :  * SET &lt;type&gt; &lt;offset&gt; &lt;value&gt;
+<span class="lineNum">     901 </span>            :  * INCRBY &lt;type&gt; &lt;offset&gt; &lt;increment&gt;
+<span class="lineNum">     902 </span>            :  * OVERFLOW [WRAP|SAT|FAIL]
+<span class="lineNum">     903 </span>            :  */
+<span class="lineNum">     904 </span>            : 
+<span class="lineNum">     905 </span>            : struct bitfieldOp {
+<span class="lineNum">     906 </span>            :     uint64_t offset;    /* Bitfield offset. */
+<span class="lineNum">     907 </span>            :     int64_t i64;        /* Increment amount (INCRBY) or SET value */
+<span class="lineNum">     908 </span>            :     int opcode;         /* Operation id. */
+<span class="lineNum">     909 </span>            :     int owtype;         /* Overflow type to use. */
+<span class="lineNum">     910 </span>            :     int bits;           /* Integer bitfield bits width. */
+<span class="lineNum">     911 </span>            :     int sign;           /* True if signed, otherwise unsigned op. */
+<a name="912"><span class="lineNum">     912 </span>            : };</a>
+<span class="lineNum">     913 </span>            : 
+<span class="lineNum">     914 </span><span class="lineCov">      10090 : void bitfieldCommand(client *c) {</span>
+<span class="lineNum">     915 </span><span class="lineCov">      10090 :     robj *o;</span>
+<span class="lineNum">     916 </span><span class="lineCov">      10090 :     size_t bitoffset;</span>
+<span class="lineNum">     917 </span><span class="lineCov">      10090 :     int j, numops = 0, changes = 0;</span>
+<span class="lineNum">     918 </span><span class="lineCov">      10090 :     struct bitfieldOp *ops = NULL; /* Array of ops to execute at end. */</span>
+<span class="lineNum">     919 </span><span class="lineCov">      10090 :     int owtype = BFOVERFLOW_WRAP; /* Overflow type. */</span>
+<span class="lineNum">     920 </span><span class="lineCov">      10090 :     int readonly = 1;</span>
+<span class="lineNum">     921 </span><span class="lineCov">      10090 :     size_t highest_write_offset = 0;</span>
+<span class="lineNum">     922 </span>            : 
+<span class="lineNum">     923 </span><span class="lineCov">      28238 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     924 </span><span class="lineCov">      18148 :         int remargs = c-&gt;argc-j-1; /* Remaining args other than current. */</span>
+<span class="lineNum">     925 </span><span class="lineCov">      18148 :         char *subcmd = c-&gt;argv[j]-&gt;ptr; /* Current command name. */</span>
+<span class="lineNum">     926 </span><span class="lineCov">      18148 :         int opcode; /* Current operation code. */</span>
+<span class="lineNum">     927 </span><span class="lineCov">      18148 :         long long i64 = 0;  /* Signed SET value. */</span>
+<span class="lineNum">     928 </span><span class="lineCov">      18148 :         int sign = 0; /* Signed or unsigned type? */</span>
+<span class="lineNum">     929 </span><span class="lineCov">      18148 :         int bits = 0; /* Bitfield width in bits. */</span>
+<span class="lineNum">     930 </span>            : 
+<span class="lineNum">     931 </span><span class="lineCov">      18148 :         if (!strcasecmp(subcmd,&quot;get&quot;) &amp;&amp; remargs &gt;= 2)</span>
+<span class="lineNum">     932 </span>            :             opcode = BITFIELDOP_GET;
+<span class="lineNum">     933 </span><span class="lineCov">      16126 :         else if (!strcasecmp(subcmd,&quot;set&quot;) &amp;&amp; remargs &gt;= 3)</span>
+<span class="lineNum">     934 </span>            :             opcode = BITFIELDOP_SET;
+<span class="lineNum">     935 </span><span class="lineCov">      12060 :         else if (!strcasecmp(subcmd,&quot;incrby&quot;) &amp;&amp; remargs &gt;= 3)</span>
+<span class="lineNum">     936 </span>            :             opcode = BITFIELDOP_INCRBY;
+<span class="lineNum">     937 </span><span class="lineCov">       8016 :         else if (!strcasecmp(subcmd,&quot;overflow&quot;) &amp;&amp; remargs &gt;= 1) {</span>
+<span class="lineNum">     938 </span><span class="lineCov">       8016 :             char *owtypename = c-&gt;argv[j+1]-&gt;ptr;</span>
+<span class="lineNum">     939 </span><span class="lineCov">       8016 :             j++;</span>
+<span class="lineNum">     940 </span><span class="lineCov">       8016 :             if (!strcasecmp(owtypename,&quot;wrap&quot;))</span>
+<span class="lineNum">     941 </span>            :                 owtype = BFOVERFLOW_WRAP;
+<span class="lineNum">     942 </span><span class="lineCov">       4008 :             else if (!strcasecmp(owtypename,&quot;sat&quot;))</span>
+<span class="lineNum">     943 </span>            :                 owtype = BFOVERFLOW_SAT;
+<span class="lineNum">     944 </span><span class="lineCov">       4000 :             else if (!strcasecmp(owtypename,&quot;fail&quot;))</span>
+<span class="lineNum">     945 </span>            :                 owtype = BFOVERFLOW_FAIL;
+<span class="lineNum">     946 </span>            :             else {
+<span class="lineNum">     947 </span><span class="lineNoCov">          0 :                 addReplyError(c,&quot;Invalid OVERFLOW type specified&quot;);</span>
+<span class="lineNum">     948 </span><span class="lineNoCov">          0 :                 zfree(ops);</span>
+<span class="lineNum">     949 </span><span class="lineNoCov">          0 :                 return;</span>
+<span class="lineNum">     950 </span>            :             }
+<span class="lineNum">     951 </span><span class="lineCov">       8016 :             continue;</span>
+<span class="lineNum">     952 </span>            :         } else {
+<span class="lineNum">     953 </span><span class="lineNoCov">          0 :             addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     954 </span><span class="lineNoCov">          0 :             zfree(ops);</span>
+<span class="lineNum">     955 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     956 </span>            :         }
+<span class="lineNum">     957 </span>            : 
+<span class="lineNum">     958 </span>            :         /* Get the type and offset arguments, common to all the ops. */
+<span class="lineNum">     959 </span><span class="lineCov">      10132 :         if (getBitfieldTypeFromArgument(c,c-&gt;argv[j+1],&amp;sign,&amp;bits) != C_OK) {</span>
+<span class="lineNum">     960 </span><span class="lineNoCov">          0 :             zfree(ops);</span>
+<span class="lineNum">     961 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     962 </span>            :         }
+<span class="lineNum">     963 </span>            : 
+<span class="lineNum">     964 </span><span class="lineCov">      10132 :         if (getBitOffsetFromArgument(c,c-&gt;argv[j+2],&amp;bitoffset,1,bits) != C_OK){</span>
+<span class="lineNum">     965 </span><span class="lineNoCov">          0 :             zfree(ops);</span>
+<span class="lineNum">     966 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     967 </span>            :         }
+<span class="lineNum">     968 </span>            : 
+<span class="lineNum">     969 </span><span class="lineCov">      10132 :         if (opcode != BITFIELDOP_GET) {</span>
+<span class="lineNum">     970 </span><span class="lineCov">       8110 :             readonly = 0;</span>
+<span class="lineNum">     971 </span><span class="lineCov">       8110 :             if (highest_write_offset &lt; bitoffset + bits - 1)</span>
+<span class="lineNum">     972 </span><span class="lineCov">       7956 :                 highest_write_offset = bitoffset + bits - 1;</span>
+<span class="lineNum">     973 </span>            :             /* INCRBY and SET require another argument. */
+<span class="lineNum">     974 </span><span class="lineCov">       8110 :             if (getLongLongFromObjectOrReply(c,c-&gt;argv[j+3],&amp;i64,NULL) != C_OK){</span>
+<span class="lineNum">     975 </span><span class="lineNoCov">          0 :                 zfree(ops);</span>
+<span class="lineNum">     976 </span><span class="lineNoCov">          0 :                 return;</span>
+<span class="lineNum">     977 </span>            :             }
+<span class="lineNum">     978 </span>            :         }
+<span class="lineNum">     979 </span>            : 
+<span class="lineNum">     980 </span>            :         /* Populate the array of operations we'll process. */
+<span class="lineNum">     981 </span><span class="lineCov">      10132 :         ops = zrealloc(ops,sizeof(*ops)*(numops+1));</span>
+<span class="lineNum">     982 </span><span class="lineCov">      10132 :         ops[numops].offset = bitoffset;</span>
+<span class="lineNum">     983 </span><span class="lineCov">      10132 :         ops[numops].i64 = i64;</span>
+<span class="lineNum">     984 </span><span class="lineCov">      10132 :         ops[numops].opcode = opcode;</span>
+<span class="lineNum">     985 </span><span class="lineCov">      10132 :         ops[numops].owtype = owtype;</span>
+<span class="lineNum">     986 </span><span class="lineCov">      10132 :         ops[numops].bits = bits;</span>
+<span class="lineNum">     987 </span><span class="lineCov">      10132 :         ops[numops].sign = sign;</span>
+<span class="lineNum">     988 </span><span class="lineCov">      10132 :         numops++;</span>
+<span class="lineNum">     989 </span>            : 
+<span class="lineNum">     990 </span><span class="lineCov">      18242 :         j += 3 - (opcode == BITFIELDOP_GET);</span>
+<span class="lineNum">     991 </span>            :     }
+<span class="lineNum">     992 </span>            : 
+<span class="lineNum">     993 </span><span class="lineCov">      10090 :     if (readonly) {</span>
+<span class="lineNum">     994 </span>            :         /* Lookup for read is ok if key doesn't exit, but errors
+<span class="lineNum">     995 </span>            :          * if it's not a string. */
+<span class="lineNum">     996 </span><span class="lineCov">       2022 :         o = lookupKeyRead(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     997 </span><span class="lineCov">       2022 :         if (o != NULL &amp;&amp; checkType(c,o,OBJ_STRING)) return;</span>
+<span class="lineNum">     998 </span>            :     } else {
+<span class="lineNum">     999 </span>            :         /* Lookup by making room up to the farest bit reached by
+<span class="lineNum">    1000 </span>            :          * this operation. */
+<span class="lineNum">    1001 </span><span class="lineCov">       8068 :         if ((o = lookupStringForBitCommand(c,</span>
+<span class="lineNum">    1002 </span>            :             highest_write_offset)) == NULL) return;
+<span class="lineNum">    1003 </span>            :     }
+<span class="lineNum">    1004 </span>            : 
+<span class="lineNum">    1005 </span><span class="lineCov">      10090 :     addReplyMultiBulkLen(c,numops);</span>
+<span class="lineNum">    1006 </span>            : 
+<span class="lineNum">    1007 </span>            :     /* Actually process the operations. */
+<span class="lineNum">    1008 </span><span class="lineCov">      20222 :     for (j = 0; j &lt; numops; j++) {</span>
+<span class="lineNum">    1009 </span><span class="lineCov">      10132 :         struct bitfieldOp *thisop = ops+j;</span>
+<span class="lineNum">    1010 </span>            : 
+<span class="lineNum">    1011 </span>            :         /* Execute the operation. */
+<span class="lineNum">    1012 </span><span class="lineCov">      10132 :         if (thisop-&gt;opcode == BITFIELDOP_SET ||</span>
+<span class="lineNum">    1013 </span>            :             thisop-&gt;opcode == BITFIELDOP_INCRBY)
+<span class="lineNum">    1014 </span>            :         {
+<span class="lineNum">    1015 </span>            :             /* SET and INCRBY: We handle both with the same code path
+<span class="lineNum">    1016 </span>            :              * for simplicity. SET return value is the previous value so
+<span class="lineNum">    1017 </span>            :              * we need fetch &amp; store as well. */
+<span class="lineNum">    1018 </span>            : 
+<span class="lineNum">    1019 </span>            :             /* We need two different but very similar code paths for signed
+<span class="lineNum">    1020 </span>            :              * and unsigned operations, since the set of functions to get/set
+<span class="lineNum">    1021 </span>            :              * the integers and the used variables types are different. */
+<span class="lineNum">    1022 </span><span class="lineCov">       8110 :             if (thisop-&gt;sign) {</span>
+<span class="lineNum">    1023 </span><span class="lineCov">       4126 :                 int64_t oldval, newval, wrapped, retval;</span>
+<span class="lineNum">    1024 </span><span class="lineCov">       4126 :                 int overflow;</span>
+<span class="lineNum">    1025 </span>            : 
+<span class="lineNum">    1026 </span><span class="lineCov">       8252 :                 oldval = getSignedBitfield(o-&gt;ptr,thisop-&gt;offset,</span>
+<span class="lineNum">    1027 </span><span class="lineCov">       4126 :                         thisop-&gt;bits);</span>
+<span class="lineNum">    1028 </span>            : 
+<span class="lineNum">    1029 </span><span class="lineCov">       4126 :                 if (thisop-&gt;opcode == BITFIELDOP_INCRBY) {</span>
+<span class="lineNum">    1030 </span><span class="lineCov">       2054 :                     newval = oldval + thisop-&gt;i64;</span>
+<span class="lineNum">    1031 </span><span class="lineCov">       2054 :                     overflow = checkSignedBitfieldOverflow(oldval,</span>
+<span class="lineNum">    1032 </span>            :                             thisop-&gt;i64,thisop-&gt;bits,thisop-&gt;owtype,&amp;wrapped);
+<span class="lineNum">    1033 </span><span class="lineCov">       2054 :                     if (overflow) newval = wrapped;</span>
+<span class="lineNum">    1034 </span>            :                     retval = newval;
+<span class="lineNum">    1035 </span>            :                 } else {
+<span class="lineNum">    1036 </span><span class="lineCov">       2072 :                     newval = thisop-&gt;i64;</span>
+<span class="lineNum">    1037 </span><span class="lineCov">       2072 :                     overflow = checkSignedBitfieldOverflow(newval,</span>
+<span class="lineNum">    1038 </span>            :                             0,thisop-&gt;bits,thisop-&gt;owtype,&amp;wrapped);
+<span class="lineNum">    1039 </span><span class="lineCov">       2072 :                     if (overflow) newval = wrapped;</span>
+<span class="lineNum">    1040 </span>            :                     retval = oldval;
+<span class="lineNum">    1041 </span>            :                 }
+<span class="lineNum">    1042 </span>            : 
+<span class="lineNum">    1043 </span>            :                 /* On overflow of type is &quot;FAIL&quot;, don't write and return
+<span class="lineNum">    1044 </span>            :                  * NULL to signal the condition. */
+<span class="lineNum">    1045 </span><span class="lineCov">       4126 :                 if (!(overflow &amp;&amp; thisop-&gt;owtype == BFOVERFLOW_FAIL)) {</span>
+<span class="lineNum">    1046 </span><span class="lineCov">       3119 :                     addReplyLongLong(c,retval);</span>
+<span class="lineNum">    1047 </span><span class="lineCov">       6238 :                     setSignedBitfield(o-&gt;ptr,thisop-&gt;offset,</span>
+<span class="lineNum">    1048 </span><span class="lineCov">       3119 :                                       thisop-&gt;bits,newval);</span>
+<span class="lineNum">    1049 </span>            :                 } else {
+<span class="lineNum">    1050 </span><span class="lineCov">       1007 :                     addReply(c,shared.nullbulk);</span>
+<span class="lineNum">    1051 </span>            :                 }
+<span class="lineNum">    1052 </span>            :             } else {
+<span class="lineNum">    1053 </span><span class="lineCov">       3984 :                 uint64_t oldval, newval, wrapped, retval;</span>
+<span class="lineNum">    1054 </span><span class="lineCov">       3984 :                 int overflow;</span>
+<span class="lineNum">    1055 </span>            : 
+<span class="lineNum">    1056 </span><span class="lineCov">      11952 :                 oldval = getUnsignedBitfield(o-&gt;ptr,thisop-&gt;offset,</span>
+<span class="lineNum">    1057 </span><span class="lineCov">       3984 :                         thisop-&gt;bits);</span>
+<span class="lineNum">    1058 </span>            : 
+<span class="lineNum">    1059 </span><span class="lineCov">       3984 :                 if (thisop-&gt;opcode == BITFIELDOP_INCRBY) {</span>
+<span class="lineNum">    1060 </span><span class="lineCov">       1990 :                     newval = oldval + thisop-&gt;i64;</span>
+<span class="lineNum">    1061 </span><span class="lineCov">       1990 :                     overflow = checkUnsignedBitfieldOverflow(oldval,</span>
+<span class="lineNum">    1062 </span>            :                             thisop-&gt;i64,thisop-&gt;bits,thisop-&gt;owtype,&amp;wrapped);
+<span class="lineNum">    1063 </span><span class="lineCov">       1990 :                     if (overflow) newval = wrapped;</span>
+<span class="lineNum">    1064 </span>            :                     retval = newval;
+<span class="lineNum">    1065 </span>            :                 } else {
+<span class="lineNum">    1066 </span><span class="lineCov">       1994 :                     newval = thisop-&gt;i64;</span>
+<span class="lineNum">    1067 </span><span class="lineCov">       1994 :                     overflow = checkUnsignedBitfieldOverflow(newval,</span>
+<span class="lineNum">    1068 </span>            :                             0,thisop-&gt;bits,thisop-&gt;owtype,&amp;wrapped);
+<span class="lineNum">    1069 </span><span class="lineCov">       1994 :                     if (overflow) newval = wrapped;</span>
+<span class="lineNum">    1070 </span>            :                     retval = oldval;
+<span class="lineNum">    1071 </span>            :                 }
+<span class="lineNum">    1072 </span>            :                 /* On overflow of type is &quot;FAIL&quot;, don't write and return
+<span class="lineNum">    1073 </span>            :                  * NULL to signal the condition. */
+<span class="lineNum">    1074 </span><span class="lineCov">       3984 :                 if (!(overflow &amp;&amp; thisop-&gt;owtype == BFOVERFLOW_FAIL)) {</span>
+<span class="lineNum">    1075 </span><span class="lineCov">       2887 :                     addReplyLongLong(c,retval);</span>
+<span class="lineNum">    1076 </span><span class="lineCov">       5774 :                     setUnsignedBitfield(o-&gt;ptr,thisop-&gt;offset,</span>
+<span class="lineNum">    1077 </span><span class="lineCov">       2887 :                                         thisop-&gt;bits,newval);</span>
+<span class="lineNum">    1078 </span>            :                 } else {
+<span class="lineNum">    1079 </span><span class="lineCov">       1097 :                     addReply(c,shared.nullbulk);</span>
+<span class="lineNum">    1080 </span>            :                 }
+<span class="lineNum">    1081 </span>            :             }
+<span class="lineNum">    1082 </span><span class="lineCov">       8110 :             changes++;</span>
+<span class="lineNum">    1083 </span>            :         } else {
+<span class="lineNum">    1084 </span>            :             /* GET */
+<span class="lineNum">    1085 </span><span class="lineCov">       2022 :             unsigned char buf[9];</span>
+<span class="lineNum">    1086 </span><span class="lineCov">       2022 :             long strlen = 0;</span>
+<span class="lineNum">    1087 </span><span class="lineCov">       2022 :             unsigned char *src = NULL;</span>
+<span class="lineNum">    1088 </span><span class="lineCov">       2022 :             char llbuf[LONG_STR_SIZE];</span>
+<span class="lineNum">    1089 </span>            : 
+<span class="lineNum">    1090 </span><span class="lineCov">       2022 :             if (o != NULL)</span>
+<span class="lineNum">    1091 </span><span class="lineCov">       2022 :                 src = getObjectReadOnlyString(o,&amp;strlen,llbuf);</span>
+<span class="lineNum">    1092 </span>            : 
+<span class="lineNum">    1093 </span>            :             /* For GET we use a trick: before executing the operation
+<span class="lineNum">    1094 </span>            :              * copy up to 9 bytes to a local buffer, so that we can easily
+<span class="lineNum">    1095 </span>            :              * execute up to 64 bit operations that are at actual string
+<span class="lineNum">    1096 </span>            :              * object boundaries. */
+<span class="lineNum">    1097 </span><span class="lineCov">       2022 :             memset(buf,0,9);</span>
+<span class="lineNum">    1098 </span><span class="lineCov">       2022 :             int i;</span>
+<span class="lineNum">    1099 </span><span class="lineCov">       2022 :             size_t byte = thisop-&gt;offset &gt;&gt; 3;</span>
+<span class="lineNum">    1100 </span><span class="lineCov">      10939 :             for (i = 0; i &lt; 9; i++) {</span>
+<span class="lineNum">    1101 </span><span class="lineCov">      10939 :                 if (src == NULL || i+byte &gt;= (size_t)strlen) break;</span>
+<span class="lineNum">    1102 </span><span class="lineCov">       8917 :                 buf[i] = src[i+byte];</span>
+<span class="lineNum">    1103 </span>            :             }
+<span class="lineNum">    1104 </span>            : 
+<span class="lineNum">    1105 </span>            :             /* Now operate on the copied buffer which is guaranteed
+<span class="lineNum">    1106 </span>            :              * to be zero-padded. */
+<span class="lineNum">    1107 </span><span class="lineCov">       2022 :             if (thisop-&gt;sign) {</span>
+<span class="lineNum">    1108 </span><span class="lineCov">       2006 :                 int64_t val = getSignedBitfield(buf,thisop-&gt;offset-(byte*8),</span>
+<span class="lineNum">    1109 </span><span class="lineCov">       1003 :                                             thisop-&gt;bits);</span>
+<span class="lineNum">    1110 </span><span class="lineCov">       1003 :                 addReplyLongLong(c,val);</span>
+<span class="lineNum">    1111 </span>            :             } else {
+<span class="lineNum">    1112 </span><span class="lineCov">       3057 :                 uint64_t val = getUnsignedBitfield(buf,thisop-&gt;offset-(byte*8),</span>
+<span class="lineNum">    1113 </span><span class="lineCov">       1019 :                                             thisop-&gt;bits);</span>
+<span class="lineNum">    1114 </span><span class="lineCov">       1019 :                 addReplyLongLong(c,val);</span>
+<span class="lineNum">    1115 </span>            :             }
+<span class="lineNum">    1116 </span>            :         }
+<span class="lineNum">    1117 </span>            :     }
+<span class="lineNum">    1118 </span>            : 
+<span class="lineNum">    1119 </span><span class="lineCov">      10090 :     if (changes) {</span>
+<span class="lineNum">    1120 </span><span class="lineCov">       8068 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">    1121 </span><span class="lineCov">       8068 :         notifyKeyspaceEvent(NOTIFY_STRING,&quot;setbit&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">    1122 </span><span class="lineCov">       8068 :         server.dirty += changes;</span>
+<span class="lineNum">    1123 </span>            :     }
+<span class="lineNum">    1124 </span><span class="lineCov">      10090 :     zfree(ops);</span>
+<span class="lineNum">    1125 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/t_zset.c - functions</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - t_zset.c<span style="font-size: 80%;"> (<a href="t_zset.c.gcov.html">source</a> / functions)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1624</td>
+            <td class="headerCovTableEntry">1735</td>
+            <td class="headerCovTableEntryHi">93.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">95</td>
+            <td class="headerCovTableEntry">102</td>
+            <td class="headerCovTableEntryHi">93.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <center>
+  <table width="60%" cellpadding=1 cellspacing=1 border=0>
+    <tr><td><br></td></tr>
+    <tr>
+      <td width="80%" class="tableHead">Function Name <span class="tableHeadSort"><img src="../glass.png" width=10 height=14 alt="Sort by function name" title="Sort by function name" border=0></span></td>
+      <td width="20%" class="tableHead">Hit count <span class="tableHeadSort"><a href="t_zset.c.func-sort-c.html"><img src="../updown.png" width=10 height=14 alt="Sort by hit count" title="Sort by hit count" border=0></a></span></td>
+    </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3252">blockingGenericZpopCommand</a></td>
+              <td class="coverFnHi">214</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3297">bzpopmaxCommand</a></td>
+              <td class="coverFnHi">76</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3292">bzpopminCommand</a></td>
+              <td class="coverFnHi">138</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3130">genericZpopCommand</a></td>
+              <td class="coverFnHi">294</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2876">genericZrangebylexCommand</a></td>
+              <td class="coverFnHi">1386</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2520">genericZrangebyscoreCommand</a></td>
+              <td class="coverFnHi">3882</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#629">sdscmplex</a></td>
+              <td class="coverFnHi">97298</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1653">zaddCommand</a></td>
+              <td class="coverFnHi">666224</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1531">zaddGenericCommand</a></td>
+              <td class="coverFnHi">666278</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3060">zcardCommand</a></td>
+              <td class="coverFnHi">12076</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2719">zcountCommand</a></td>
+              <td class="coverFnHi">3612</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1657">zincrbyCommand</a></td>
+              <td class="coverFnHi">54</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2405">zinterstoreCommand</a></td>
+              <td class="coverFnHi">69691</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#742">ziplistGetObject</a></td>
+              <td class="coverFnHi">61837</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2796">zlexcountCommand</a></td>
+              <td class="coverFnHi">1278</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3242">zpopmaxCommand</a></td>
+              <td class="coverFnHi">51</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3232">zpopminCommand</a></td>
+              <td class="coverFnHi">75</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2511">zrangeCommand</a></td>
+              <td class="coverFnHi">14184</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2409">zrangeGenericCommand</a></td>
+              <td class="coverFnHi">14441</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3052">zrangebylexCommand</a></td>
+              <td class="coverFnHi">1017</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2711">zrangebyscoreCommand</a></td>
+              <td class="coverFnHi">3774</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3103">zrankCommand</a></td>
+              <td class="coverFnHi">12036</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3085">zrankGenericCommand</a></td>
+              <td class="coverFnHi">12060</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1661">zremCommand</a></td>
+              <td class="coverFnHi">168699</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1692">zremrangeGenericCommand</a></td>
+              <td class="coverFnHi">732</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1800">zremrangebylexCommand</a></td>
+              <td class="coverFnHi">600</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1792">zremrangebyrankCommand</a></td>
+              <td class="coverFnHi">36</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1796">zremrangebyscoreCommand</a></td>
+              <td class="coverFnHi">96</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2515">zrevrangeCommand</a></td>
+              <td class="coverFnHi">257</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3056">zrevrangebylexCommand</a></td>
+              <td class="coverFnHi">369</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2715">zrevrangebyscoreCommand</a></td>
+              <td class="coverFnHi">108</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3107">zrevrankCommand</a></td>
+              <td class="coverFnHi">24</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3111">zscanCommand</a></td>
+              <td class="coverFnHi">296</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#3070">zscoreCommand</a></td>
+              <td class="coverFnHi">138276</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1312">zsetAdd</a></td>
+              <td class="coverFnHi">1858436</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1166">zsetConvert</a></td>
+              <td class="coverFnHi">58059</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1240">zsetConvertToZiplistIfNeeded</a></td>
+              <td class="coverFnHi">87989</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1422">zsetDel</a></td>
+              <td class="coverFnHi">169023</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1154">zsetLength</a></td>
+              <td class="coverFnHi">423390</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1471">zsetRank</a></td>
+              <td class="coverFnHi">12060</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1253">zsetScore</a></td>
+              <td class="coverFnHi">138310</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#78">zslCreate</a></td>
+              <td class="coverFnHi">271768</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#69">zslCreateNode</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#216">zslDelete</a></td>
+              <td class="coverFnHi">27465</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#188">zslDeleteNode</a></td>
+              <td class="coverFnHi">64153</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#411">zslDeleteRangeByLex</a></td>
+              <td class="coverFnHi">300</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#442">zslDeleteRangeByRank</a></td>
+              <td class="coverFnHi">12</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#380">zslDeleteRangeByScore</a></td>
+              <td class="coverFnHi">39</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#667">zslFirstInLexRange</a></td>
+              <td class="coverFnHi">1142</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#327">zslFirstInRange</a></td>
+              <td class="coverFnHi">3946</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#104">zslFree</a></td>
+              <td class="coverFnHi">112921</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#598">zslFreeLexRange</a></td>
+              <td class="coverFnHi">3264</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#98">zslFreeNode</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#498">zslGetElementByRank</a></td>
+              <td class="coverFnHi">3</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#474">zslGetRank</a></td>
+              <td class="coverFnHi">10272</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#130">zslInsert</a></td>
+              <td class="coverFnHi">1729540</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#649">zslIsInLexRange</a></td>
+              <td class="coverFnHi">1653</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#309">zslIsInRange</a></td>
+              <td class="coverFnHi">5788</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#693">zslLastInLexRange</a></td>
+              <td class="coverFnHi">511</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#353">zslLastInRange</a></td>
+              <td class="coverFnHi">1842</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#636">zslLexValueGteMin</a></td>
+              <td class="coverFnHi">41833</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#642">zslLexValueLteMax</a></td>
+              <td class="coverFnHi">52195</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#610">zslParseLexRange</a></td>
+              <td class="coverFnHi">3264</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#569">zslParseLexRangeItem</a></td>
+              <td class="coverFnHi">6504</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#518">zslParseRange</a></td>
+              <td class="coverFnHi">7590</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#120">zslRandomLevel</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#256">zslUpdateScore</a></td>
+              <td class="coverFnHi">36231</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#300">zslValueGteMin</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#304">zslValueLteMax</a></td>
+              <td class="coverFnHi">161105</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2064">zuiBufferFromValue</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1899">zuiClearIterator</a></td>
+              <td class="coverFnHi">243978</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2132">zuiCompareByCardinality</a></td>
+              <td class="coverFnHi">156536</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2079">zuiFind</a></td>
+              <td class="coverFnHi">71246</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1863">zuiInitIterator</a></td>
+              <td class="coverFnHi">243978</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1926">zuiLength</a></td>
+              <td class="coverFnHi">644519</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2016">zuiLongLongFromValue</a></td>
+              <td class="coverFnHi">15</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2048">zuiNewSdsFromValue</a></td>
+              <td class="coverFnHi">286384</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1956">zuiNext</a></td>
+              <td class="coverFnHi">603289</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2034">zuiSdsFromValue</a></td>
+              <td class="coverFnHi">358853</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2145">zunionInterAggregate</a></td>
+              <td class="coverFnHi">2395</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2174">zunionInterGenericCommand</a></td>
+              <td class="coverFnHi">157154</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#2401">zunionstoreCommand</a></td>
+              <td class="coverFnHi">87463</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#758">zzlCompareElements</a></td>
+              <td class="coverFnHi">41683</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1018">zzlDelete</a></td>
+              <td class="coverFnHi">120663</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1114">zzlDeleteRangeByLex</a></td>
+              <td class="coverFnHi">300</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1143">zzlDeleteRangeByRank</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1085">zzlDeleteRangeByScore</a></td>
+              <td class="coverFnHi">39</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#997">zzlFind</a></td>
+              <td class="coverFnHi">747236</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#946">zzlFirstInLexRange</a></td>
+              <td class="coverFnHi">1423</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#848">zzlFirstInRange</a></td>
+              <td class="coverFnHi">3827</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#720">zzlGetScore</a></td>
+              <td class="coverFnHi">2654160</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1052">zzlInsert</a></td>
+              <td class="coverFnHi">393222</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#1027">zzlInsertAt</a></td>
+              <td class="coverFnHi">556171</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#923">zzlIsInLexRange</a></td>
+              <td class="coverFnHi">1617</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#822">zzlIsInRange</a></td>
+              <td class="coverFnHi">3881</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#971">zzlLastInLexRange</a></td>
+              <td class="coverFnHi">194</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#876">zzlLastInRange</a></td>
+              <td class="coverFnHi">54</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#778">zzlLength</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#907">zzlLexValueGteMin</a></td>
+              <td class="coverFnHi">28547</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#914">zzlLexValueLteMax</a></td>
+              <td class="coverFnHi">33290</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#784">zzlNext</a></td>
+              <td class="coverFnHi">1824402</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_zset.c.gcov.html#803">zzlPrev</a></td>
+              <td class="coverFnHi">15212</td>
+            </tr>
+  </table>
+  <br>
+  </center>
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
