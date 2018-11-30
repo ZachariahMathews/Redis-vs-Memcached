@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/geohash.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - geohash.c<span style="font-size: 80%;"> (source / <a href="geohash.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">135</td>
+            <td class="headerCovTableEntry">146</td>
+            <td class="headerCovTableEntryHi">92.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryLo">69.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2013-2014, yinqiwen &lt;yinqiwen@gmail.com&gt;
+<span class="lineNum">       3 </span>            :  * Copyright (c) 2014, Matt Stancliff &lt;matt@genges.com&gt;.
+<span class="lineNum">       4 </span>            :  * Copyright (c) 2015-2016, Salvatore Sanfilippo &lt;antirez@gmail.com&gt;.
+<span class="lineNum">       5 </span>            :  * All rights reserved.
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       8 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       9 </span>            :  *
+<span class="lineNum">      10 </span>            :  *  * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      11 </span>            :  *    this list of conditions and the following disclaimer.
+<span class="lineNum">      12 </span>            :  *  * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      13 </span>            :  *    notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      14 </span>            :  *    documentation and/or other materials provided with the distribution.
+<span class="lineNum">      15 </span>            :  *  * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      16 </span>            :  *    to endorse or promote products derived from this software without
+<span class="lineNum">      17 </span>            :  *    specific prior written permission.
+<span class="lineNum">      18 </span>            :  *
+<span class="lineNum">      19 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      20 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      21 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      22 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+<span class="lineNum">      23 </span>            :  * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      24 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      25 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      26 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      27 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      28 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+<span class="lineNum">      29 </span>            :  * THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      30 </span>            :  */
+<span class="lineNum">      31 </span>            : #include &quot;geohash.h&quot;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : /**
+<span class="lineNum">      34 </span>            :  * Hashing works like this:
+<span class="lineNum">      35 </span>            :  * Divide the world into 4 buckets.  Label each one as such:
+<span class="lineNum">      36 </span>            :  *  -----------------
+<span class="lineNum">      37 </span>            :  *  |       |       |
+<span class="lineNum">      38 </span>            :  *  |       |       |
+<span class="lineNum">      39 </span>            :  *  | 0,1   | 1,1   |
+<span class="lineNum">      40 </span>            :  *  -----------------
+<span class="lineNum">      41 </span>            :  *  |       |       |
+<span class="lineNum">      42 </span>            :  *  |       |       |
+<span class="lineNum">      43 </span>            :  *  | 0,0   | 1,0   |
+<span class="lineNum">      44 </span>            :  *  -----------------
+<span class="lineNum">      45 </span>            :  */
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : /* Interleave lower bits of x and y, so the bits of x
+<span class="lineNum">      48 </span>            :  * are in the even positions and bits from y in the odd;
+<span class="lineNum">      49 </span>            :  * x and y must initially be less than 2**32 (65536).
+<a name="50"><span class="lineNum">      50 </span>            :  * From:  https://graphics.stanford.edu/~seander/bithacks.html#InterleaveBMN</a>
+<span class="lineNum">      51 </span>            :  */
+<span class="lineNum">      52 </span><span class="lineCov">    1160158 : static inline uint64_t interleave64(uint32_t xlo, uint32_t ylo) {</span>
+<span class="lineNum">      53 </span><span class="lineCov">    1160158 :     static const uint64_t B[] = {0x5555555555555555ULL, 0x3333333333333333ULL,</span>
+<span class="lineNum">      54 </span>            :                                  0x0F0F0F0F0F0F0F0FULL, 0x00FF00FF00FF00FFULL,
+<span class="lineNum">      55 </span>            :                                  0x0000FFFF0000FFFFULL};
+<span class="lineNum">      56 </span><span class="lineCov">    1160158 :     static const unsigned int S[] = {1, 2, 4, 8, 16};</span>
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span><span class="lineCov">    1160158 :     uint64_t x = xlo;</span>
+<span class="lineNum">      59 </span><span class="lineCov">    1160158 :     uint64_t y = ylo;</span>
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span><span class="lineCov">    1160158 :     x = (x | (x &lt;&lt; S[4])) &amp; B[4];</span>
+<span class="lineNum">      62 </span><span class="lineCov">    1160158 :     y = (y | (y &lt;&lt; S[4])) &amp; B[4];</span>
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span><span class="lineCov">    1160158 :     x = (x | (x &lt;&lt; S[3])) &amp; B[3];</span>
+<span class="lineNum">      65 </span><span class="lineCov">    1160158 :     y = (y | (y &lt;&lt; S[3])) &amp; B[3];</span>
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span><span class="lineCov">    1160158 :     x = (x | (x &lt;&lt; S[2])) &amp; B[2];</span>
+<span class="lineNum">      68 </span><span class="lineCov">    1160158 :     y = (y | (y &lt;&lt; S[2])) &amp; B[2];</span>
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span><span class="lineCov">    1160158 :     x = (x | (x &lt;&lt; S[1])) &amp; B[1];</span>
+<span class="lineNum">      71 </span><span class="lineCov">    1160158 :     y = (y | (y &lt;&lt; S[1])) &amp; B[1];</span>
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span><span class="lineCov">    1160158 :     x = (x | (x &lt;&lt; S[0])) &amp; B[0];</span>
+<span class="lineNum">      74 </span><span class="lineCov">    1160158 :     y = (y | (y &lt;&lt; S[0])) &amp; B[0];</span>
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span><span class="lineCov">    1160158 :     return x | (y &lt;&lt; 1);</span>
+<span class="lineNum">      77 </span>            : }
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            : /* reverse the interleave process
+<a name="80"><span class="lineNum">      80 </span>            :  * derived from http://stackoverflow.com/questions/4909263</a>
+<span class="lineNum">      81 </span>            :  */
+<span class="lineNum">      82 </span><span class="lineCov">     161332 : static inline uint64_t deinterleave64(uint64_t interleaved) {</span>
+<span class="lineNum">      83 </span><span class="lineCov">     161332 :     static const uint64_t B[] = {0x5555555555555555ULL, 0x3333333333333333ULL,</span>
+<span class="lineNum">      84 </span>            :                                  0x0F0F0F0F0F0F0F0FULL, 0x00FF00FF00FF00FFULL,
+<span class="lineNum">      85 </span>            :                                  0x0000FFFF0000FFFFULL, 0x00000000FFFFFFFFULL};
+<span class="lineNum">      86 </span><span class="lineCov">     161332 :     static const unsigned int S[] = {0, 1, 2, 4, 8, 16};</span>
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span><span class="lineCov">     161332 :     uint64_t x = interleaved;</span>
+<span class="lineNum">      89 </span><span class="lineCov">     161332 :     uint64_t y = interleaved &gt;&gt; 1;</span>
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span><span class="lineCov">     161332 :     x = (x | (x &gt;&gt; S[0])) &amp; B[0];</span>
+<span class="lineNum">      92 </span><span class="lineCov">     161332 :     y = (y | (y &gt;&gt; S[0])) &amp; B[0];</span>
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span><span class="lineCov">     161332 :     x = (x | (x &gt;&gt; S[1])) &amp; B[1];</span>
+<span class="lineNum">      95 </span><span class="lineCov">     161332 :     y = (y | (y &gt;&gt; S[1])) &amp; B[1];</span>
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span><span class="lineCov">     161332 :     x = (x | (x &gt;&gt; S[2])) &amp; B[2];</span>
+<span class="lineNum">      98 </span><span class="lineCov">     161332 :     y = (y | (y &gt;&gt; S[2])) &amp; B[2];</span>
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span><span class="lineCov">     161332 :     x = (x | (x &gt;&gt; S[3])) &amp; B[3];</span>
+<span class="lineNum">     101 </span><span class="lineCov">     161332 :     y = (y | (y &gt;&gt; S[3])) &amp; B[3];</span>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span><span class="lineCov">     161332 :     x = (x | (x &gt;&gt; S[4])) &amp; B[4];</span>
+<span class="lineNum">     104 </span><span class="lineCov">     161332 :     y = (y | (y &gt;&gt; S[4])) &amp; B[4];</span>
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span><span class="lineCov">     161332 :     x = (x | (x &gt;&gt; S[5])) &amp; B[5];</span>
+<span class="lineNum">     107 </span><span class="lineCov">     161332 :     y = (y | (y &gt;&gt; S[5])) &amp; B[5];</span>
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span><span class="lineCov">     161332 :     return x | (y &lt;&lt; 32);</span>
+<a name="110"><span class="lineNum">     110 </span>            : }</a>
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span><span class="lineCov">         80 : void geohashGetCoordRange(GeoHashRange *long_range, GeoHashRange *lat_range) {</span>
+<span class="lineNum">     113 </span>            :     /* These are constraints from EPSG:900913 / EPSG:3785 / OSGEO:41001 */
+<span class="lineNum">     114 </span>            :     /* We can't geocode at the north/south pole. */
+<span class="lineNum">     115 </span><span class="lineCov">    1321064 :     long_range-&gt;max = GEO_LONG_MAX;</span>
+<span class="lineNum">     116 </span><span class="lineCov">    1321064 :     long_range-&gt;min = GEO_LONG_MIN;</span>
+<span class="lineNum">     117 </span><span class="lineCov">    1321064 :     lat_range-&gt;max = GEO_LAT_MAX;</span>
+<span class="lineNum">     118 </span><span class="lineCov">    1321064 :     lat_range-&gt;min = GEO_LAT_MIN;</span>
+<a name="119"><span class="lineNum">     119 </span><span class="lineCov">         80 : }</span></a>
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span><span class="lineCov">    1160158 : int geohashEncode(const GeoHashRange *long_range, const GeoHashRange *lat_range,</span>
+<span class="lineNum">     122 </span>            :                   double longitude, double latitude, uint8_t step,
+<span class="lineNum">     123 </span>            :                   GeoHashBits *hash) {
+<span class="lineNum">     124 </span>            :     /* Check basic arguments sanity. */
+<span class="lineNum">     125 </span><span class="lineCov">    1160158 :     if (hash == NULL || step &gt; 32 || step == 0 ||</span>
+<span class="lineNum">     126 </span><span class="lineCov">    1160158 :         RANGEPISZERO(lat_range) || RANGEPISZERO(long_range)) return 0;</span>
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            :     /* Return an error when trying to index outside the supported
+<span class="lineNum">     129 </span>            :      * constraints. */
+<span class="lineNum">     130 </span><span class="lineCov">    1160158 :     if (longitude &gt; GEO_LONG_MAX || longitude &lt; GEO_LONG_MIN ||</span>
+<span class="lineNum">     131 </span><span class="lineCov">    1160158 :         latitude &gt; GEO_LAT_MAX || latitude &lt; GEO_LAT_MIN) return 0;</span>
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span><span class="lineCov">    1160158 :     hash-&gt;bits = 0;</span>
+<span class="lineNum">     134 </span><span class="lineCov">    1160158 :     hash-&gt;step = step;</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span><span class="lineCov">    1160158 :     if (latitude &lt; lat_range-&gt;min || latitude &gt; lat_range-&gt;max ||</span>
+<span class="lineNum">     137 </span><span class="lineCov">    1160158 :         longitude &lt; long_range-&gt;min || longitude &gt; long_range-&gt;max) {</span>
+<span class="lineNum">     138 </span>            :         return 0;
+<span class="lineNum">     139 </span>            :     }
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span><span class="lineCov">    2320316 :     double lat_offset =</span>
+<span class="lineNum">     142 </span><span class="lineCov">    1160158 :         (latitude - lat_range-&gt;min) / (lat_range-&gt;max - lat_range-&gt;min);</span>
+<span class="lineNum">     143 </span><span class="lineCov">    2320316 :     double long_offset =</span>
+<span class="lineNum">     144 </span><span class="lineCov">    1160158 :         (longitude - long_range-&gt;min) / (long_range-&gt;max - long_range-&gt;min);</span>
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            :     /* convert to fixed point based on the step size */
+<span class="lineNum">     147 </span><span class="lineCov">    1160158 :     lat_offset *= (1ULL &lt;&lt; step);</span>
+<span class="lineNum">     148 </span><span class="lineCov">    1160158 :     long_offset *= (1ULL &lt;&lt; step);</span>
+<span class="lineNum">     149 </span><span class="lineCov">    1160158 :     hash-&gt;bits = interleave64(lat_offset, long_offset);</span>
+<span class="lineNum">     150 </span><span class="lineCov">    1160158 :     return 1;</span>
+<a name="151"><span class="lineNum">     151 </span>            : }</a>
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 : int geohashEncodeType(double longitude, double latitude, uint8_t step, GeoHashBits *hash) {</span>
+<span class="lineNum">     154 </span><span class="lineCov">    1160064 :     GeoHashRange r[2] = {{0}};</span>
+<span class="lineNum">     155 </span><span class="lineCov">    2320128 :     geohashGetCoordRange(&amp;r[0], &amp;r[1]);</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :     return geohashEncode(&amp;r[0], &amp;r[1], longitude, latitude, step, hash);</span>
+<a name="157"><span class="lineNum">     157 </span>            : }</a>
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span><span class="lineCov">    1160064 : int geohashEncodeWGS84(double longitude, double latitude, uint8_t step,</span>
+<span class="lineNum">     160 </span>            :                        GeoHashBits *hash) {
+<span class="lineNum">     161 </span><span class="lineCov">    1160064 :     return geohashEncodeType(longitude, latitude, step, hash);</span>
+<a name="162"><span class="lineNum">     162 </span>            : }</a>
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span><span class="lineCov">     161332 : int geohashDecode(const GeoHashRange long_range, const GeoHashRange lat_range,</span>
+<span class="lineNum">     165 </span>            :                    const GeoHashBits hash, GeoHashArea *area) {
+<span class="lineNum">     166 </span><span class="lineCov">     161332 :     if (HASHISZERO(hash) || NULL == area || RANGEISZERO(lat_range) ||</span>
+<span class="lineNum">     167 </span><span class="lineNoCov">          0 :         RANGEISZERO(long_range)) {</span>
+<span class="lineNum">     168 </span>            :         return 0;
+<span class="lineNum">     169 </span>            :     }
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span><span class="lineCov">     161332 :     area-&gt;hash = hash;</span>
+<span class="lineNum">     172 </span><span class="lineCov">     161332 :     uint8_t step = hash.step;</span>
+<span class="lineNum">     173 </span><span class="lineCov">     161332 :     uint64_t hash_sep = deinterleave64(hash.bits); /* hash = [LAT][LONG] */</span>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span><span class="lineCov">     161332 :     double lat_scale = lat_range.max - lat_range.min;</span>
+<span class="lineNum">     176 </span><span class="lineCov">     161332 :     double long_scale = long_range.max - long_range.min;</span>
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span><span class="lineCov">     161332 :     uint32_t ilato = hash_sep;       /* get lat part of deinterleaved hash */</span>
+<span class="lineNum">     179 </span><span class="lineCov">     161332 :     uint32_t ilono = hash_sep &gt;&gt; 32; /* shift over to get long part of hash */</span>
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span>            :     /* divide by 2**step.
+<span class="lineNum">     182 </span>            :      * Then, for 0-1 coordinate, multiply times scale and add
+<span class="lineNum">     183 </span>            :        to the min to get the absolute coordinate. */
+<span class="lineNum">     184 </span><span class="lineCov">     322664 :     area-&gt;latitude.min =</span>
+<span class="lineNum">     185 </span><span class="lineCov">     161332 :         lat_range.min + (ilato * 1.0 / (1ull &lt;&lt; step)) * lat_scale;</span>
+<span class="lineNum">     186 </span><span class="lineCov">     322664 :     area-&gt;latitude.max =</span>
+<span class="lineNum">     187 </span><span class="lineCov">     161332 :         lat_range.min + ((ilato + 1) * 1.0 / (1ull &lt;&lt; step)) * lat_scale;</span>
+<span class="lineNum">     188 </span><span class="lineCov">     322664 :     area-&gt;longitude.min =</span>
+<span class="lineNum">     189 </span><span class="lineCov">     161332 :         long_range.min + (ilono * 1.0 / (1ull &lt;&lt; step)) * long_scale;</span>
+<span class="lineNum">     190 </span><span class="lineCov">     322664 :     area-&gt;longitude.max =</span>
+<span class="lineNum">     191 </span><span class="lineCov">     161332 :         long_range.min + ((ilono + 1) * 1.0 / (1ull &lt;&lt; step)) * long_scale;</span>
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span><span class="lineCov">     161332 :     return 1;</span>
+<a name="194"><span class="lineNum">     194 </span>            : }</a>
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span><span class="lineNoCov">          0 : int geohashDecodeType(const GeoHashBits hash, GeoHashArea *area) {</span>
+<span class="lineNum">     197 </span><span class="lineCov">     160920 :     GeoHashRange r[2] = {{0}};</span>
+<span class="lineNum">     198 </span><span class="lineCov">     321840 :     geohashGetCoordRange(&amp;r[0], &amp;r[1]);</span>
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 :     return geohashDecode(r[0], r[1], hash, area);</span>
+<a name="200"><span class="lineNum">     200 </span>            : }</a>
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span><span class="lineNoCov">          0 : int geohashDecodeWGS84(const GeoHashBits hash, GeoHashArea *area) {</span>
+<span class="lineNum">     203 </span><span class="lineNoCov">          0 :     return geohashDecodeType(hash, area);</span>
+<a name="204"><span class="lineNum">     204 </span>            : }</a>
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span><span class="lineNoCov">          0 : int geohashDecodeAreaToLongLat(const GeoHashArea *area, double *xy) {</span>
+<span class="lineNum">     207 </span><span class="lineNoCov">          0 :     if (!xy) return 0;</span>
+<span class="lineNum">     208 </span><span class="lineCov">     160920 :     xy[0] = (area-&gt;longitude.min + area-&gt;longitude.max) / 2;</span>
+<span class="lineNum">     209 </span><span class="lineCov">     160920 :     xy[1] = (area-&gt;latitude.min + area-&gt;latitude.max) / 2;</span>
+<span class="lineNum">     210 </span><span class="lineNoCov">          0 :     return 1;</span>
+<a name="211"><span class="lineNum">     211 </span>            : }</a>
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span><span class="lineCov">     160920 : int geohashDecodeToLongLatType(const GeoHashBits hash, double *xy) {</span>
+<span class="lineNum">     214 </span><span class="lineCov">     160920 :     GeoHashArea area = {{0}};</span>
+<span class="lineNum">     215 </span><span class="lineCov">     160920 :     if (!xy || !geohashDecodeType(hash, &amp;area))</span>
+<span class="lineNum">     216 </span><span class="lineNoCov">          0 :         return 0;</span>
+<span class="lineNum">     217 </span><span class="lineCov">     160920 :     return geohashDecodeAreaToLongLat(&amp;area, xy);</span>
+<a name="218"><span class="lineNum">     218 </span>            : }</a>
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span><span class="lineCov">     160920 : int geohashDecodeToLongLatWGS84(const GeoHashBits hash, double *xy) {</span>
+<span class="lineNum">     221 </span><span class="lineCov">     160920 :     return geohashDecodeToLongLatType(hash, xy);</span>
+<span class="lineNum">     222 </span>            : }
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span>            : static void geohash_move_x(GeoHashBits *hash, int8_t d) {
+<span class="lineNum">     225 </span><span class="lineCov">        736 :     if (d == 0)</span>
+<span class="lineNum">     226 </span>            :         return;
+<span class="lineNum">     227 </span>            : 
+<span class="lineNum">     228 </span><span class="lineCov">        552 :     uint64_t x = hash-&gt;bits &amp; 0xaaaaaaaaaaaaaaaaULL;</span>
+<span class="lineNum">     229 </span><span class="lineCov">        552 :     uint64_t y = hash-&gt;bits &amp; 0x5555555555555555ULL;</span>
+<span class="lineNum">     230 </span>            : 
+<span class="lineNum">     231 </span><span class="lineCov">        552 :     uint64_t zz = 0x5555555555555555ULL &gt;&gt; (64 - hash-&gt;step * 2);</span>
+<span class="lineNum">     232 </span>            : 
+<span class="lineNum">     233 </span><span class="lineCov">        552 :     if (d &gt; 0) {</span>
+<span class="lineNum">     234 </span><span class="lineCov">        276 :         x = x + (zz + 1);</span>
+<span class="lineNum">     235 </span>            :     } else {
+<span class="lineNum">     236 </span><span class="lineCov">        276 :         x = x | zz;</span>
+<span class="lineNum">     237 </span><span class="lineCov">        276 :         x = x - (zz + 1);</span>
+<span class="lineNum">     238 </span>            :     }
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span><span class="lineCov">        552 :     x &amp;= (0xaaaaaaaaaaaaaaaaULL &gt;&gt; (64 - hash-&gt;step * 2));</span>
+<span class="lineNum">     241 </span><span class="lineCov">        552 :     hash-&gt;bits = (x | y);</span>
+<span class="lineNum">     242 </span>            : }
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span>            : static void geohash_move_y(GeoHashBits *hash, int8_t d) {
+<span class="lineNum">     245 </span><span class="lineCov">        736 :     if (d == 0)</span>
+<span class="lineNum">     246 </span>            :         return;
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span><span class="lineCov">        552 :     uint64_t x = hash-&gt;bits &amp; 0xaaaaaaaaaaaaaaaaULL;</span>
+<span class="lineNum">     249 </span><span class="lineCov">        552 :     uint64_t y = hash-&gt;bits &amp; 0x5555555555555555ULL;</span>
+<span class="lineNum">     250 </span>            : 
+<span class="lineNum">     251 </span><span class="lineCov">        552 :     uint64_t zz = 0xaaaaaaaaaaaaaaaaULL &gt;&gt; (64 - hash-&gt;step * 2);</span>
+<span class="lineNum">     252 </span><span class="lineCov">        552 :     if (d &gt; 0) {</span>
+<span class="lineNum">     253 </span><span class="lineCov">        276 :         y = y + (zz + 1);</span>
+<span class="lineNum">     254 </span>            :     } else {
+<span class="lineNum">     255 </span><span class="lineCov">        276 :         y = y | zz;</span>
+<span class="lineNum">     256 </span><span class="lineCov">        276 :         y = y - (zz + 1);</span>
+<span class="lineNum">     257 </span>            :     }
+<span class="lineNum">     258 </span><span class="lineCov">        552 :     y &amp;= (0x5555555555555555ULL &gt;&gt; (64 - hash-&gt;step * 2));</span>
+<span class="lineNum">     259 </span><span class="lineCov">        552 :     hash-&gt;bits = (x | y);</span>
+<a name="260"><span class="lineNum">     260 </span>            : }</a>
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span><span class="lineCov">         92 : void geohashNeighbors(const GeoHashBits *hash, GeoHashNeighbors *neighbors) {</span>
+<span class="lineNum">     263 </span><span class="lineCov">         92 :     neighbors-&gt;east = *hash;</span>
+<span class="lineNum">     264 </span><span class="lineCov">         92 :     neighbors-&gt;west = *hash;</span>
+<span class="lineNum">     265 </span><span class="lineCov">         92 :     neighbors-&gt;north = *hash;</span>
+<span class="lineNum">     266 </span><span class="lineCov">         92 :     neighbors-&gt;south = *hash;</span>
+<span class="lineNum">     267 </span><span class="lineCov">         92 :     neighbors-&gt;south_east = *hash;</span>
+<span class="lineNum">     268 </span><span class="lineCov">         92 :     neighbors-&gt;south_west = *hash;</span>
+<span class="lineNum">     269 </span><span class="lineCov">         92 :     neighbors-&gt;north_east = *hash;</span>
+<span class="lineNum">     270 </span><span class="lineCov">         92 :     neighbors-&gt;north_west = *hash;</span>
+<span class="lineNum">     271 </span>            : 
+<span class="lineNum">     272 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;east, 1);</span>
+<span class="lineNum">     273 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;east, 0);</span>
+<span class="lineNum">     274 </span>            : 
+<span class="lineNum">     275 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;west, -1);</span>
+<span class="lineNum">     276 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;west, 0);</span>
+<span class="lineNum">     277 </span>            : 
+<span class="lineNum">     278 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;south, 0);</span>
+<span class="lineNum">     279 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;south, -1);</span>
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;north, 0);</span>
+<span class="lineNum">     282 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;north, 1);</span>
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;north_west, -1);</span>
+<span class="lineNum">     285 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;north_west, 1);</span>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;north_east, 1);</span>
+<span class="lineNum">     288 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;north_east, 1);</span>
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;south_east, 1);</span>
+<span class="lineNum">     291 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;south_east, -1);</span>
+<span class="lineNum">     292 </span>            : 
+<span class="lineNum">     293 </span><span class="lineCov">        184 :     geohash_move_x(&amp;neighbors-&gt;south_west, -1);</span>
+<span class="lineNum">     294 </span><span class="lineCov">        184 :     geohash_move_y(&amp;neighbors-&gt;south_west, -1);</span>
+<span class="lineNum">     295 </span><span class="lineCov">         92 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

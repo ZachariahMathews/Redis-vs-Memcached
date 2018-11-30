@@ -1,0 +1,721 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/latency.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - latency.c<span style="font-size: 80%;"> (source / <a href="latency.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntry">335</td>
+            <td class="headerCovTableEntryLo">22.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryLo">61.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* The latency monitor allows to easily observe the sources of latency</a>
+<span class="lineNum">       2 </span>            :  * in a Redis instance using the LATENCY command. Different latency
+<span class="lineNum">       3 </span>            :  * sources are monitored, like disk I/O, execution of commands, fork
+<span class="lineNum">       4 </span>            :  * system call, and so forth.
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * ----------------------------------------------------------------------------
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  * Copyright (c) 2014, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       9 </span>            :  * All rights reserved.
+<span class="lineNum">      10 </span>            :  *
+<span class="lineNum">      11 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">      12 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">      13 </span>            :  *
+<span class="lineNum">      14 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      15 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      16 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      17 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      18 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      19 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      20 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      21 </span>            :  *     specific prior written permission.
+<span class="lineNum">      22 </span>            :  *
+<span class="lineNum">      23 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      24 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      25 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      26 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      27 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      28 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      29 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      30 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      31 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      32 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      33 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      34 </span>            :  */
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : #include &quot;server.h&quot;
+<a name="37"><span class="lineNum">      37 </span>            : </a>
+<span class="lineNum">      38 </span>            : /* Dictionary type for latency events. */
+<span class="lineNum">      39 </span><span class="lineCov">      15097 : int dictStringKeyCompare(void *privdata, const void *key1, const void *key2) {</span>
+<span class="lineNum">      40 </span><span class="lineCov">      15097 :     UNUSED(privdata);</span>
+<span class="lineNum">      41 </span><span class="lineCov">      15097 :     return strcmp(key1,key2) == 0;</span>
+<a name="42"><span class="lineNum">      42 </span>            : }</a>
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span><span class="lineCov">      13978 : uint64_t dictStringHash(const void *key) {</span>
+<span class="lineNum">      45 </span><span class="lineCov">      13978 :     return dictGenHashFunction(key, strlen(key));</span>
+<span class="lineNum">      46 </span>            : }
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : void dictVanillaFree(void *privdata, void *val);
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : dictType latencyTimeSeriesDictType = {
+<span class="lineNum">      51 </span>            :     dictStringHash,             /* hash function */
+<span class="lineNum">      52 </span>            :     NULL,                       /* key dup */
+<span class="lineNum">      53 </span>            :     NULL,                       /* val dup */
+<span class="lineNum">      54 </span>            :     dictStringKeyCompare,       /* key compare */
+<span class="lineNum">      55 </span>            :     dictVanillaFree,            /* key destructor */
+<span class="lineNum">      56 </span>            :     dictVanillaFree             /* val destructor */
+<span class="lineNum">      57 </span>            : };
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span>            : /* ------------------------- Utility functions ------------------------------ */
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : #ifdef __linux__
+<a name="62"><span class="lineNum">      62 </span>            : /* Returns 1 if Transparent Huge Pages support is enabled in the kernel.</a>
+<span class="lineNum">      63 </span>            :  * Otherwise (or if we are unable to check) 0 is returned. */
+<span class="lineNum">      64 </span><span class="lineCov">        656 : int THPIsEnabled(void) {</span>
+<span class="lineNum">      65 </span><span class="lineCov">        656 :     char buf[1024];</span>
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span><span class="lineCov">        656 :     FILE *fp = fopen(&quot;/sys/kernel/mm/transparent_hugepage/enabled&quot;,&quot;r&quot;);</span>
+<span class="lineNum">      68 </span><span class="lineCov">        656 :     if (!fp) return 0;</span>
+<span class="lineNum">      69 </span><span class="lineCov">        656 :     if (fgets(buf,sizeof(buf),fp) == NULL) {</span>
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :         fclose(fp);</span>
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 :         return 0;</span>
+<span class="lineNum">      72 </span>            :     }
+<span class="lineNum">      73 </span><span class="lineCov">        656 :     fclose(fp);</span>
+<span class="lineNum">      74 </span><span class="lineCov">        656 :     return (strstr(buf,&quot;[never]&quot;) == NULL) ? 1 : 0;</span>
+<span class="lineNum">      75 </span>            : }
+<span class="lineNum">      76 </span>            : #endif
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            : /* Report the amount of AnonHugePages in smap, in bytes. If the return
+<a name="79"><span class="lineNum">      79 </span>            :  * value of the function is non-zero, the process is being targeted by</a>
+<span class="lineNum">      80 </span>            :  * THP support, and is likely to have memory usage / latency issues. */
+<span class="lineNum">      81 </span><span class="lineNoCov">          0 : int THPGetAnonHugePagesSize(void) {</span>
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 :     return zmalloc_get_smap_bytes_by_field(&quot;AnonHugePages:&quot;,-1);</span>
+<span class="lineNum">      83 </span>            : }
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span>            : /* ---------------------------- Latency API --------------------------------- */
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : /* Latency monitor initialization. We just need to create the dictionary
+<a name="88"><span class="lineNum">      88 </span>            :  * of time series, each time serie is craeted on demand in order to avoid</a>
+<span class="lineNum">      89 </span>            :  * having a fixed list to maintain. */
+<span class="lineNum">      90 </span><span class="lineCov">        656 : void latencyMonitorInit(void) {</span>
+<span class="lineNum">      91 </span><span class="lineCov">        656 :     server.latency_events = dictCreate(&amp;latencyTimeSeriesDictType,NULL);</span>
+<span class="lineNum">      92 </span><span class="lineCov">        656 : }</span>
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : /* Add the specified sample to the specified time series &quot;event&quot;.
+<span class="lineNum">      95 </span>            :  * This function is usually called via latencyAddSampleIfNeeded(), that
+<a name="96"><span class="lineNum">      96 </span>            :  * is a macro that only adds the sample if the latency is higher than</a>
+<span class="lineNum">      97 </span>            :  * server.latency_monitor_threshold. */
+<span class="lineNum">      98 </span><span class="lineCov">      13739 : void latencyAddSample(char *event, mstime_t latency) {</span>
+<span class="lineNum">      99 </span><span class="lineCov">      13739 :     struct latencyTimeSeries *ts = dictFetchValue(server.latency_events,event);</span>
+<span class="lineNum">     100 </span><span class="lineCov">      13739 :     time_t now = time(NULL);</span>
+<span class="lineNum">     101 </span><span class="lineCov">      13739 :     int prev;</span>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            :     /* Create the time series if it does not exist. */
+<span class="lineNum">     104 </span><span class="lineCov">      13739 :     if (ts == NULL) {</span>
+<span class="lineNum">     105 </span><span class="lineCov">        581 :         ts = zmalloc(sizeof(*ts));</span>
+<span class="lineNum">     106 </span><span class="lineCov">        581 :         ts-&gt;idx = 0;</span>
+<span class="lineNum">     107 </span><span class="lineCov">        581 :         ts-&gt;max = 0;</span>
+<span class="lineNum">     108 </span><span class="lineCov">        581 :         memset(ts-&gt;samples,0,sizeof(ts-&gt;samples));</span>
+<span class="lineNum">     109 </span><span class="lineCov">        581 :         dictAdd(server.latency_events,zstrdup(event),ts);</span>
+<span class="lineNum">     110 </span>            :     }
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span><span class="lineCov">      13739 :     if (latency &gt; ts-&gt;max) ts-&gt;max = latency;</span>
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            :     /* If the previous sample is in the same second, we update our old sample
+<span class="lineNum">     115 </span>            :      * if this latency is &gt; of the old one, or just return. */
+<span class="lineNum">     116 </span><span class="lineCov">      13739 :     prev = (ts-&gt;idx + LATENCY_TS_LEN - 1) % LATENCY_TS_LEN;</span>
+<span class="lineNum">     117 </span><span class="lineCov">      13739 :     if (ts-&gt;samples[prev].time == now) {</span>
+<span class="lineNum">     118 </span><span class="lineCov">      11734 :         if (latency &gt; ts-&gt;samples[prev].latency)</span>
+<span class="lineNum">     119 </span><span class="lineCov">       1174 :             ts-&gt;samples[prev].latency = latency;</span>
+<span class="lineNum">     120 </span><span class="lineCov">      11734 :         return;</span>
+<span class="lineNum">     121 </span>            :     }
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span><span class="lineCov">       2005 :     ts-&gt;samples[ts-&gt;idx].time = time(NULL);</span>
+<span class="lineNum">     124 </span><span class="lineCov">       2005 :     ts-&gt;samples[ts-&gt;idx].latency = latency;</span>
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span><span class="lineCov">       2005 :     ts-&gt;idx++;</span>
+<span class="lineNum">     127 </span><span class="lineCov">       2005 :     if (ts-&gt;idx == LATENCY_TS_LEN) ts-&gt;idx = 0;</span>
+<span class="lineNum">     128 </span>            : }
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span>            : /* Reset data for the specified event, or all the events data if 'event' is
+<span class="lineNum">     131 </span>            :  * NULL.
+<span class="lineNum">     132 </span>            :  *
+<a name="133"><span class="lineNum">     133 </span>            :  * Note: this is O(N) even when event_to_reset is not NULL because makes</a>
+<span class="lineNum">     134 </span>            :  * the code simpler and we have a small fixed max number of events. */
+<span class="lineNum">     135 </span><span class="lineCov">          2 : int latencyResetEvent(char *event_to_reset) {</span>
+<span class="lineNum">     136 </span><span class="lineCov">          2 :     dictIterator *di;</span>
+<span class="lineNum">     137 </span><span class="lineCov">          2 :     dictEntry *de;</span>
+<span class="lineNum">     138 </span><span class="lineCov">          2 :     int resets = 0;</span>
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span><span class="lineCov">          2 :     di = dictGetSafeIterator(server.latency_events);</span>
+<span class="lineNum">     141 </span><span class="lineCov">         11 :     while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     142 </span><span class="lineCov">          9 :         char *event = dictGetKey(de);</span>
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span><span class="lineCov">          9 :         if (event_to_reset == NULL || strcasecmp(event,event_to_reset) == 0) {</span>
+<span class="lineNum">     145 </span><span class="lineCov">          9 :             dictDelete(server.latency_events, event);</span>
+<span class="lineNum">     146 </span><span class="lineCov">          9 :             resets++;</span>
+<span class="lineNum">     147 </span>            :         }
+<span class="lineNum">     148 </span>            :     }
+<span class="lineNum">     149 </span><span class="lineCov">          2 :     dictReleaseIterator(di);</span>
+<span class="lineNum">     150 </span><span class="lineCov">          2 :     return resets;</span>
+<span class="lineNum">     151 </span>            : }
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span>            : /* ------------------------ Latency reporting (doctor) ---------------------- */
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span>            : /* Analyze the samples available for a given event and return a structure
+<span class="lineNum">     156 </span>            :  * populate with different metrics, average, MAD, min, max, and so forth.
+<span class="lineNum">     157 </span>            :  * Check latency.h definition of struct latenctStat for more info.
+<a name="158"><span class="lineNum">     158 </span>            :  * If the specified event has no elements the structure is populate with</a>
+<span class="lineNum">     159 </span>            :  * zero values. */
+<span class="lineNum">     160 </span><span class="lineNoCov">          0 : void analyzeLatencyForEvent(char *event, struct latencyStats *ls) {</span>
+<span class="lineNum">     161 </span><span class="lineNoCov">          0 :     struct latencyTimeSeries *ts = dictFetchValue(server.latency_events,event);</span>
+<span class="lineNum">     162 </span><span class="lineNoCov">          0 :     int j;</span>
+<span class="lineNum">     163 </span><span class="lineNoCov">          0 :     uint64_t sum;</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 :     ls-&gt;all_time_high = ts ? ts-&gt;max : 0;</span>
+<span class="lineNum">     166 </span><span class="lineNoCov">          0 :     ls-&gt;avg = 0;</span>
+<span class="lineNum">     167 </span><span class="lineNoCov">          0 :     ls-&gt;min = 0;</span>
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 :     ls-&gt;max = 0;</span>
+<span class="lineNum">     169 </span><span class="lineNoCov">          0 :     ls-&gt;mad = 0;</span>
+<span class="lineNum">     170 </span><span class="lineNoCov">          0 :     ls-&gt;samples = 0;</span>
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :     ls-&gt;period = 0;</span>
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :     if (!ts) return;</span>
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            :     /* First pass, populate everything but the MAD. */
+<span class="lineNum">     175 </span>            :     sum = 0;
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; LATENCY_TS_LEN; j++) {</span>
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :         if (ts-&gt;samples[j].time == 0) continue;</span>
+<span class="lineNum">     178 </span><span class="lineNoCov">          0 :         ls-&gt;samples++;</span>
+<span class="lineNum">     179 </span><span class="lineNoCov">          0 :         if (ls-&gt;samples == 1) {</span>
+<span class="lineNum">     180 </span><span class="lineNoCov">          0 :             ls-&gt;min = ls-&gt;max = ts-&gt;samples[j].latency;</span>
+<span class="lineNum">     181 </span>            :         } else {
+<span class="lineNum">     182 </span><span class="lineNoCov">          0 :             if (ls-&gt;min &gt; ts-&gt;samples[j].latency)</span>
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 :                 ls-&gt;min = ts-&gt;samples[j].latency;</span>
+<span class="lineNum">     184 </span><span class="lineNoCov">          0 :             if (ls-&gt;max &lt; ts-&gt;samples[j].latency)</span>
+<span class="lineNum">     185 </span><span class="lineNoCov">          0 :                 ls-&gt;max = ts-&gt;samples[j].latency;</span>
+<span class="lineNum">     186 </span>            :         }
+<span class="lineNum">     187 </span><span class="lineNoCov">          0 :         sum += ts-&gt;samples[j].latency;</span>
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span>            :         /* Track the oldest event time in ls-&gt;period. */
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :         if (ls-&gt;period == 0 || ts-&gt;samples[j].time &lt; ls-&gt;period)</span>
+<span class="lineNum">     191 </span><span class="lineNoCov">          0 :             ls-&gt;period = ts-&gt;samples[j].time;</span>
+<span class="lineNum">     192 </span>            :     }
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span>            :     /* So far avg is actually the sum of the latencies, and period is
+<span class="lineNum">     195 </span>            :      * the oldest event time. We need to make the first an average and
+<span class="lineNum">     196 </span>            :      * the second a range of seconds. */
+<span class="lineNum">     197 </span><span class="lineNoCov">          0 :     if (ls-&gt;samples) {</span>
+<span class="lineNum">     198 </span><span class="lineNoCov">          0 :         ls-&gt;avg = sum / ls-&gt;samples;</span>
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 :         ls-&gt;period = time(NULL) - ls-&gt;period;</span>
+<span class="lineNum">     200 </span><span class="lineNoCov">          0 :         if (ls-&gt;period == 0) ls-&gt;period = 1;</span>
+<span class="lineNum">     201 </span>            :     }
+<span class="lineNum">     202 </span>            : 
+<span class="lineNum">     203 </span>            :     /* Second pass, compute MAD. */
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 :     sum = 0;</span>
+<span class="lineNum">     205 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; LATENCY_TS_LEN; j++) {</span>
+<span class="lineNum">     206 </span><span class="lineNoCov">          0 :         int64_t delta;</span>
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span><span class="lineNoCov">          0 :         if (ts-&gt;samples[j].time == 0) continue;</span>
+<span class="lineNum">     209 </span><span class="lineNoCov">          0 :         delta = (int64_t)ls-&gt;avg - ts-&gt;samples[j].latency;</span>
+<span class="lineNum">     210 </span><span class="lineNoCov">          0 :         if (delta &lt; 0) delta = -delta;</span>
+<span class="lineNum">     211 </span><span class="lineNoCov">          0 :         sum += delta;</span>
+<span class="lineNum">     212 </span>            :     }
+<span class="lineNum">     213 </span><span class="lineNoCov">          0 :     if (ls-&gt;samples) ls-&gt;mad = sum / ls-&gt;samples;</span>
+<span class="lineNum">     214 </span>            : }
+<a name="215"><span class="lineNum">     215 </span>            : </a>
+<span class="lineNum">     216 </span>            : /* Create a human readable report of latency events for this Redis instance. */
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 : sds createLatencyReport(void) {</span>
+<span class="lineNum">     218 </span><span class="lineNoCov">          0 :     sds report = sdsempty();</span>
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :     int advise_better_vm = 0;       /* Better virtual machines. */</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :     int advise_slowlog_enabled = 0; /* Enable slowlog. */</span>
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 :     int advise_slowlog_tuning = 0;  /* Reconfigure slowlog. */</span>
+<span class="lineNum">     222 </span><span class="lineNoCov">          0 :     int advise_slowlog_inspect = 0; /* Check your slowlog. */</span>
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :     int advise_disk_contention = 0; /* Try to lower disk contention. */</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :     int advise_scheduler = 0;       /* Intrinsic latency. */</span>
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :     int advise_data_writeback = 0;  /* data=writeback. */</span>
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :     int advise_no_appendfsync = 0;  /* don't fsync during rewrites. */</span>
+<span class="lineNum">     227 </span><span class="lineNoCov">          0 :     int advise_local_disk = 0;      /* Avoid remote disks. */</span>
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :     int advise_ssd = 0;             /* Use an SSD drive. */</span>
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 :     int advise_write_load_info = 0; /* Print info about AOF and write load. */</span>
+<span class="lineNum">     230 </span><span class="lineNoCov">          0 :     int advise_hz = 0;              /* Use higher HZ. */</span>
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :     int advise_large_objects = 0;   /* Deletion of large objects. */</span>
+<span class="lineNum">     232 </span><span class="lineNoCov">          0 :     int advise_mass_eviction = 0;   /* Avoid mass eviction of keys. */</span>
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 :     int advise_relax_fsync_policy = 0; /* appendfsync always is slow. */</span>
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 :     int advise_disable_thp = 0;     /* AnonHugePages detected. */</span>
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 :     int advices = 0;</span>
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            :     /* Return ASAP if the latency engine is disabled and it looks like it
+<span class="lineNum">     238 </span>            :      * was never enabled so far. */
+<span class="lineNum">     239 </span><span class="lineNoCov">          0 :     if (dictSize(server.latency_events) == 0 &amp;&amp;</span>
+<span class="lineNum">     240 </span><span class="lineNoCov">          0 :         server.latency_monitor_threshold == 0)</span>
+<span class="lineNum">     241 </span>            :     {
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :         report = sdscat(report,&quot;I'm sorry, Dave, I can't do that. Latency monitoring is disabled in this Redis instance. You may use \&quot;CONFIG SET latency-monitor-threshold &lt;milliseconds&gt;.\&quot; in order to enable it. If we weren't in a deep space mission I'd suggest to take a look at http://redis.io/topics/latency-monitor.\n&quot;);</span>
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 :         return report;</span>
+<span class="lineNum">     244 </span>            :     }
+<span class="lineNum">     245 </span>            : 
+<span class="lineNum">     246 </span>            :     /* Show all the events stats and add for each event some event-related
+<span class="lineNum">     247 </span>            :      * comment depending on the values. */
+<span class="lineNum">     248 </span><span class="lineNoCov">          0 :     dictIterator *di;</span>
+<span class="lineNum">     249 </span><span class="lineNoCov">          0 :     dictEntry *de;</span>
+<span class="lineNum">     250 </span><span class="lineNoCov">          0 :     int eventnum = 0;</span>
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span><span class="lineNoCov">          0 :     di = dictGetSafeIterator(server.latency_events);</span>
+<span class="lineNum">     253 </span><span class="lineNoCov">          0 :     while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     254 </span><span class="lineNoCov">          0 :         char *event = dictGetKey(de);</span>
+<span class="lineNum">     255 </span><span class="lineNoCov">          0 :         struct latencyTimeSeries *ts = dictGetVal(de);</span>
+<span class="lineNum">     256 </span><span class="lineNoCov">          0 :         struct latencyStats ls;</span>
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span><span class="lineNoCov">          0 :         if (ts == NULL) continue;</span>
+<span class="lineNum">     259 </span><span class="lineNoCov">          0 :         eventnum++;</span>
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :         if (eventnum == 1) {</span>
+<span class="lineNum">     261 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;Dave, I have observed latency spikes in this Redis instance. You don't mind talking about it, do you Dave?\n\n&quot;);</span>
+<span class="lineNum">     262 </span>            :         }
+<span class="lineNum">     263 </span><span class="lineNoCov">          0 :         analyzeLatencyForEvent(event,&amp;ls);</span>
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span><span class="lineNoCov">          0 :         report = sdscatprintf(report,</span>
+<span class="lineNum">     266 </span>            :             &quot;%d. %s: %d latency spikes (average %lums, mean deviation %lums, period %.2f sec). Worst all time event %lums.&quot;,
+<span class="lineNum">     267 </span>            :             eventnum, event,
+<span class="lineNum">     268 </span>            :             ls.samples,
+<span class="lineNum">     269 </span><span class="lineNoCov">          0 :             (unsigned long) ls.avg,</span>
+<span class="lineNum">     270 </span><span class="lineNoCov">          0 :             (unsigned long) ls.mad,</span>
+<span class="lineNum">     271 </span><span class="lineNoCov">          0 :             (double) ls.period/ls.samples,</span>
+<span class="lineNum">     272 </span><span class="lineNoCov">          0 :             (unsigned long) ts-&gt;max);</span>
+<span class="lineNum">     273 </span>            : 
+<span class="lineNum">     274 </span>            :         /* Fork */
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;fork&quot;)) {</span>
+<span class="lineNum">     276 </span><span class="lineNoCov">          0 :             char *fork_quality;</span>
+<span class="lineNum">     277 </span><span class="lineNoCov">          0 :             if (server.stat_fork_rate &lt; 10) {</span>
+<span class="lineNum">     278 </span><span class="lineNoCov">          0 :                 fork_quality = &quot;terrible&quot;;</span>
+<span class="lineNum">     279 </span><span class="lineNoCov">          0 :                 advise_better_vm = 1;</span>
+<span class="lineNum">     280 </span><span class="lineNoCov">          0 :                 advices++;</span>
+<span class="lineNum">     281 </span><span class="lineNoCov">          0 :             } else if (server.stat_fork_rate &lt; 25) {</span>
+<span class="lineNum">     282 </span><span class="lineNoCov">          0 :                 fork_quality = &quot;poor&quot;;</span>
+<span class="lineNum">     283 </span><span class="lineNoCov">          0 :                 advise_better_vm = 1;</span>
+<span class="lineNum">     284 </span><span class="lineNoCov">          0 :                 advices++;</span>
+<span class="lineNum">     285 </span><span class="lineNoCov">          0 :             } else if (server.stat_fork_rate &lt; 100) {</span>
+<span class="lineNum">     286 </span>            :                 fork_quality = &quot;good&quot;;
+<span class="lineNum">     287 </span>            :             } else {
+<span class="lineNum">     288 </span><span class="lineNoCov">          0 :                 fork_quality = &quot;excellent&quot;;</span>
+<span class="lineNum">     289 </span>            :             }
+<span class="lineNum">     290 </span><span class="lineNoCov">          0 :             report = sdscatprintf(report,</span>
+<span class="lineNum">     291 </span>            :                 &quot; Fork rate is %.2f GB/sec (%s).&quot;, server.stat_fork_rate,
+<span class="lineNum">     292 </span>            :                 fork_quality);
+<span class="lineNum">     293 </span>            :         }
+<span class="lineNum">     294 </span>            : 
+<span class="lineNum">     295 </span>            :         /* Potentially commands. */
+<span class="lineNum">     296 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;command&quot;)) {</span>
+<span class="lineNum">     297 </span><span class="lineNoCov">          0 :             if (server.slowlog_log_slower_than &lt; 0) {</span>
+<span class="lineNum">     298 </span><span class="lineNoCov">          0 :                 advise_slowlog_enabled = 1;</span>
+<span class="lineNum">     299 </span><span class="lineNoCov">          0 :                 advices++;</span>
+<span class="lineNum">     300 </span><span class="lineNoCov">          0 :             } else if (server.slowlog_log_slower_than/1000 &gt;</span>
+<span class="lineNum">     301 </span><span class="lineNoCov">          0 :                        server.latency_monitor_threshold)</span>
+<span class="lineNum">     302 </span>            :             {
+<span class="lineNum">     303 </span><span class="lineNoCov">          0 :                 advise_slowlog_tuning = 1;</span>
+<span class="lineNum">     304 </span><span class="lineNoCov">          0 :                 advices++;</span>
+<span class="lineNum">     305 </span>            :             }
+<span class="lineNum">     306 </span><span class="lineNoCov">          0 :             advise_slowlog_inspect = 1;</span>
+<span class="lineNum">     307 </span><span class="lineNoCov">          0 :             advise_large_objects = 1;</span>
+<span class="lineNum">     308 </span><span class="lineNoCov">          0 :             advices += 2;</span>
+<span class="lineNum">     309 </span>            :         }
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span>            :         /* fast-command. */
+<span class="lineNum">     312 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;fast-command&quot;)) {</span>
+<span class="lineNum">     313 </span><span class="lineNoCov">          0 :             advise_scheduler = 1;</span>
+<span class="lineNum">     314 </span><span class="lineNoCov">          0 :             advices++;</span>
+<span class="lineNum">     315 </span>            :         }
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span>            :         /* AOF and I/O. */
+<span class="lineNum">     318 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;aof-write-pending-fsync&quot;)) {</span>
+<span class="lineNum">     319 </span><span class="lineNoCov">          0 :             advise_local_disk = 1;</span>
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :             advise_disk_contention = 1;</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :             advise_ssd = 1;</span>
+<span class="lineNum">     322 </span><span class="lineNoCov">          0 :             advise_data_writeback = 1;</span>
+<span class="lineNum">     323 </span><span class="lineNoCov">          0 :             advices += 4;</span>
+<span class="lineNum">     324 </span>            :         }
+<span class="lineNum">     325 </span>            : 
+<span class="lineNum">     326 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;aof-write-active-child&quot;)) {</span>
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 :             advise_no_appendfsync = 1;</span>
+<span class="lineNum">     328 </span><span class="lineNoCov">          0 :             advise_data_writeback = 1;</span>
+<span class="lineNum">     329 </span><span class="lineNoCov">          0 :             advise_ssd = 1;</span>
+<span class="lineNum">     330 </span><span class="lineNoCov">          0 :             advices += 3;</span>
+<span class="lineNum">     331 </span>            :         }
+<span class="lineNum">     332 </span>            : 
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;aof-write-alone&quot;)) {</span>
+<span class="lineNum">     334 </span><span class="lineNoCov">          0 :             advise_local_disk = 1;</span>
+<span class="lineNum">     335 </span><span class="lineNoCov">          0 :             advise_data_writeback = 1;</span>
+<span class="lineNum">     336 </span><span class="lineNoCov">          0 :             advise_ssd = 1;</span>
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 :             advices += 3;</span>
+<span class="lineNum">     338 </span>            :         }
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;aof-fsync-always&quot;)) {</span>
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :             advise_relax_fsync_policy = 1;</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :             advices++;</span>
+<span class="lineNum">     343 </span>            :         }
+<span class="lineNum">     344 </span>            : 
+<span class="lineNum">     345 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;aof-fstat&quot;) ||</span>
+<span class="lineNum">     346 </span><span class="lineNoCov">          0 :             !strcasecmp(event,&quot;rdb-unlik-temp-file&quot;)) {</span>
+<span class="lineNum">     347 </span><span class="lineNoCov">          0 :             advise_disk_contention = 1;</span>
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :             advise_local_disk = 1;</span>
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 :             advices += 2;</span>
+<span class="lineNum">     350 </span>            :         }
+<span class="lineNum">     351 </span>            : 
+<span class="lineNum">     352 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;aof-rewrite-diff-write&quot;) ||</span>
+<span class="lineNum">     353 </span><span class="lineNoCov">          0 :             !strcasecmp(event,&quot;aof-rename&quot;)) {</span>
+<span class="lineNum">     354 </span><span class="lineNoCov">          0 :             advise_write_load_info = 1;</span>
+<span class="lineNum">     355 </span><span class="lineNoCov">          0 :             advise_data_writeback = 1;</span>
+<span class="lineNum">     356 </span><span class="lineNoCov">          0 :             advise_ssd = 1;</span>
+<span class="lineNum">     357 </span><span class="lineNoCov">          0 :             advise_local_disk = 1;</span>
+<span class="lineNum">     358 </span><span class="lineNoCov">          0 :             advices += 4;</span>
+<span class="lineNum">     359 </span>            :         }
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            :         /* Expire cycle. */
+<span class="lineNum">     362 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;expire-cycle&quot;)) {</span>
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :             advise_hz = 1;</span>
+<span class="lineNum">     364 </span><span class="lineNoCov">          0 :             advise_large_objects = 1;</span>
+<span class="lineNum">     365 </span><span class="lineNoCov">          0 :             advices += 2;</span>
+<span class="lineNum">     366 </span>            :         }
+<span class="lineNum">     367 </span>            : 
+<span class="lineNum">     368 </span>            :         /* Eviction cycle. */
+<span class="lineNum">     369 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;eviction-del&quot;)) {</span>
+<span class="lineNum">     370 </span><span class="lineNoCov">          0 :             advise_large_objects = 1;</span>
+<span class="lineNum">     371 </span><span class="lineNoCov">          0 :             advices++;</span>
+<span class="lineNum">     372 </span>            :         }
+<span class="lineNum">     373 </span>            : 
+<span class="lineNum">     374 </span><span class="lineNoCov">          0 :         if (!strcasecmp(event,&quot;eviction-cycle&quot;)) {</span>
+<span class="lineNum">     375 </span><span class="lineNoCov">          0 :             advise_mass_eviction = 1;</span>
+<span class="lineNum">     376 </span><span class="lineNoCov">          0 :             advices++;</span>
+<span class="lineNum">     377 </span>            :         }
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span><span class="lineNoCov">          0 :         report = sdscatlen(report,&quot;\n&quot;,1);</span>
+<span class="lineNum">     380 </span>            :     }
+<span class="lineNum">     381 </span><span class="lineNoCov">          0 :     dictReleaseIterator(di);</span>
+<span class="lineNum">     382 </span>            : 
+<span class="lineNum">     383 </span>            :     /* Add non event based advices. */
+<span class="lineNum">     384 </span><span class="lineNoCov">          0 :     if (THPGetAnonHugePagesSize() &gt; 0) {</span>
+<span class="lineNum">     385 </span><span class="lineNoCov">          0 :         advise_disable_thp = 1;</span>
+<span class="lineNum">     386 </span><span class="lineNoCov">          0 :         advices++;</span>
+<span class="lineNum">     387 </span>            :     }
+<span class="lineNum">     388 </span>            : 
+<span class="lineNum">     389 </span><span class="lineNoCov">          0 :     if (eventnum == 0 &amp;&amp; advices == 0) {</span>
+<span class="lineNum">     390 </span><span class="lineNoCov">          0 :         report = sdscat(report,&quot;Dave, no latency spike was observed during the lifetime of this Redis instance, not in the slightest bit. I honestly think you ought to sit down calmly, take a stress pill, and think things over.\n&quot;);</span>
+<span class="lineNum">     391 </span><span class="lineNoCov">          0 :     } else if (eventnum &gt; 0 &amp;&amp; advices == 0) {</span>
+<span class="lineNum">     392 </span><span class="lineNoCov">          0 :         report = sdscat(report,&quot;\nWhile there are latency events logged, I'm not able to suggest any easy fix. Please use the Redis community to get some help, providing this report in your help request.\n&quot;);</span>
+<span class="lineNum">     393 </span>            :     } else {
+<span class="lineNum">     394 </span>            :         /* Add all the suggestions accumulated so far. */
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span>            :         /* Better VM. */
+<span class="lineNum">     397 </span><span class="lineNoCov">          0 :         report = sdscat(report,&quot;\nI have a few advices for you:\n\n&quot;);</span>
+<span class="lineNum">     398 </span><span class="lineNoCov">          0 :         if (advise_better_vm) {</span>
+<span class="lineNum">     399 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- If you are using a virtual machine, consider upgrading it with a faster one using an hypervisior that provides less latency during fork() calls. Xen is known to have poor fork() performance. Even in the context of the same VM provider, certain kinds of instances can execute fork faster than others.\n&quot;);</span>
+<span class="lineNum">     400 </span>            :         }
+<span class="lineNum">     401 </span>            : 
+<span class="lineNum">     402 </span>            :         /* Slow log. */
+<span class="lineNum">     403 </span><span class="lineNoCov">          0 :         if (advise_slowlog_enabled) {</span>
+<span class="lineNum">     404 </span><span class="lineNoCov">          0 :             report = sdscatprintf(report,&quot;- There are latency issues with potentially slow commands you are using. Try to enable the Slow Log Redis feature using the command 'CONFIG SET slowlog-log-slower-than %llu'. If the Slow log is disabled Redis is not able to log slow commands execution for you.\n&quot;, (unsigned long long)server.latency_monitor_threshold*1000);</span>
+<span class="lineNum">     405 </span>            :         }
+<span class="lineNum">     406 </span>            : 
+<span class="lineNum">     407 </span><span class="lineNoCov">          0 :         if (advise_slowlog_tuning) {</span>
+<span class="lineNum">     408 </span><span class="lineNoCov">          0 :             report = sdscatprintf(report,&quot;- Your current Slow Log configuration only logs events that are slower than your configured latency monitor threshold. Please use 'CONFIG SET slowlog-log-slower-than %llu'.\n&quot;, (unsigned long long)server.latency_monitor_threshold*1000);</span>
+<span class="lineNum">     409 </span>            :         }
+<span class="lineNum">     410 </span>            : 
+<span class="lineNum">     411 </span><span class="lineNoCov">          0 :         if (advise_slowlog_inspect) {</span>
+<span class="lineNum">     412 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Check your Slow Log to understand what are the commands you are running which are too slow to execute. Please check http://redis.io/commands/slowlog for more information.\n&quot;);</span>
+<span class="lineNum">     413 </span>            :         }
+<span class="lineNum">     414 </span>            : 
+<span class="lineNum">     415 </span>            :         /* Intrinsic latency. */
+<span class="lineNum">     416 </span><span class="lineNoCov">          0 :         if (advise_scheduler) {</span>
+<span class="lineNum">     417 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- The system is slow to execute Redis code paths not containing system calls. This usually means the system does not provide Redis CPU time to run for long periods. You should try to:\n&quot;</span>
+<span class="lineNum">     418 </span>            :             &quot;  1) Lower the system load.\n&quot;
+<span class="lineNum">     419 </span>            :             &quot;  2) Use a computer / VM just for Redis if you are running other softawre in the same system.\n&quot;
+<span class="lineNum">     420 </span>            :             &quot;  3) Check if you have a \&quot;noisy neighbour\&quot; problem.\n&quot;
+<span class="lineNum">     421 </span>            :             &quot;  4) Check with 'redis-cli --intrinsic-latency 100' what is the intrinsic latency in your system.\n&quot;
+<span class="lineNum">     422 </span>            :             &quot;  5) Check if the problem is allocator-related by recompiling Redis with MALLOC=libc, if you are using Jemalloc. However this may create fragmentation problems.\n&quot;);
+<span class="lineNum">     423 </span>            :         }
+<span class="lineNum">     424 </span>            : 
+<span class="lineNum">     425 </span>            :         /* AOF / Disk latency. */
+<span class="lineNum">     426 </span><span class="lineNoCov">          0 :         if (advise_local_disk) {</span>
+<span class="lineNum">     427 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- It is strongly advised to use local disks for persistence, especially if you are using AOF. Remote disks provided by platform-as-a-service providers are known to be slow.\n&quot;);</span>
+<span class="lineNum">     428 </span>            :         }
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span><span class="lineNoCov">          0 :         if (advise_ssd) {</span>
+<span class="lineNum">     431 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- SSD disks are able to reduce fsync latency, and total time needed for snapshotting and AOF log rewriting (resulting in smaller memory usage and smaller final AOF rewrite buffer flushes). With extremely high write load SSD disks can be a good option. However Redis should perform reasonably with high load using normal disks. Use this advice as a last resort.\n&quot;);</span>
+<span class="lineNum">     432 </span>            :         }
+<span class="lineNum">     433 </span>            : 
+<span class="lineNum">     434 </span><span class="lineNoCov">          0 :         if (advise_data_writeback) {</span>
+<span class="lineNum">     435 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Mounting ext3/4 filesystems with data=writeback can provide a performance boost compared to data=ordered, however this mode of operation provides less guarantees, and sometimes it can happen that after a hard crash the AOF file will have an half-written command at the end and will require to be repaired before Redis restarts.\n&quot;);</span>
+<span class="lineNum">     436 </span>            :         }
+<span class="lineNum">     437 </span>            : 
+<span class="lineNum">     438 </span><span class="lineNoCov">          0 :         if (advise_disk_contention) {</span>
+<span class="lineNum">     439 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Try to lower the disk contention. This is often caused by other disk intensive processes running in the same computer (including other Redis instances).\n&quot;);</span>
+<span class="lineNum">     440 </span>            :         }
+<span class="lineNum">     441 </span>            : 
+<span class="lineNum">     442 </span><span class="lineNoCov">          0 :         if (advise_no_appendfsync) {</span>
+<span class="lineNum">     443 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Assuming from the point of view of data safety this is viable in your environment, you could try to enable the 'no-appendfsync-on-rewrite' option, so that fsync will not be performed while there is a child rewriting the AOF file or producing an RDB file (the moment where there is high disk contention).\n&quot;);</span>
+<span class="lineNum">     444 </span>            :         }
+<span class="lineNum">     445 </span>            : 
+<span class="lineNum">     446 </span><span class="lineNoCov">          0 :         if (advise_relax_fsync_policy &amp;&amp; server.aof_fsync == AOF_FSYNC_ALWAYS) {</span>
+<span class="lineNum">     447 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Your fsync policy is set to 'always'. It is very hard to get good performances with such a setup, if possible try to relax the fsync policy to 'onesec'.\n&quot;);</span>
+<span class="lineNum">     448 </span>            :         }
+<span class="lineNum">     449 </span>            : 
+<span class="lineNum">     450 </span><span class="lineNoCov">          0 :         if (advise_write_load_info) {</span>
+<span class="lineNum">     451 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Latency during the AOF atomic rename operation or when the final difference is flushed to the AOF file at the end of the rewrite, sometimes is caused by very high write load, causing the AOF buffer to get very large. If possible try to send less commands to accomplish the same work, or use Lua scripts to group multiple operations into a single EVALSHA call.\n&quot;);</span>
+<span class="lineNum">     452 </span>            :         }
+<span class="lineNum">     453 </span>            : 
+<span class="lineNum">     454 </span><span class="lineNoCov">          0 :         if (advise_hz &amp;&amp; server.hz &lt; 100) {</span>
+<span class="lineNum">     455 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- In order to make the Redis keys expiring process more incremental, try to set the 'hz' configuration parameter to 100 using 'CONFIG SET hz 100'.\n&quot;);</span>
+<span class="lineNum">     456 </span>            :         }
+<span class="lineNum">     457 </span>            : 
+<span class="lineNum">     458 </span><span class="lineNoCov">          0 :         if (advise_large_objects) {</span>
+<span class="lineNum">     459 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Deleting, expiring or evicting (because of maxmemory policy) large objects is a blocking operation. If you have very large objects that are often deleted, expired, or evicted, try to fragment those objects into multiple smaller objects.\n&quot;);</span>
+<span class="lineNum">     460 </span>            :         }
+<span class="lineNum">     461 </span>            : 
+<span class="lineNum">     462 </span><span class="lineNoCov">          0 :         if (advise_mass_eviction) {</span>
+<span class="lineNum">     463 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- Sudden changes to the 'maxmemory' setting via 'CONFIG SET', or allocation of large objects via sets or sorted sets intersections, STORE option of SORT, Redis Cluster large keys migrations (RESTORE command), may create sudden memory pressure forcing the server to block trying to evict keys. \n&quot;);</span>
+<span class="lineNum">     464 </span>            :         }
+<span class="lineNum">     465 </span>            : 
+<span class="lineNum">     466 </span><span class="lineNoCov">          0 :         if (advise_disable_thp) {</span>
+<span class="lineNum">     467 </span><span class="lineNoCov">          0 :             report = sdscat(report,&quot;- I detected a non zero amount of anonymous huge pages used by your process. This creates very serious latency events in different conditions, especially when Redis is persisting on disk. To disable THP support use the command 'echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled', make sure to also add it into /etc/rc.local so that the command will be executed again after a reboot. Note that even if you have already disabled THP, you still need to restart the Redis process to get rid of the huge pages already created.\n&quot;);</span>
+<span class="lineNum">     468 </span>            :         }
+<span class="lineNum">     469 </span>            :     }
+<span class="lineNum">     470 </span>            : 
+<span class="lineNum">     471 </span>            :     return report;
+<span class="lineNum">     472 </span>            : }
+<span class="lineNum">     473 </span>            : 
+<span class="lineNum">     474 </span>            : /* ---------------------- Latency command implementation -------------------- */
+<span class="lineNum">     475 </span>            : 
+<a name="476"><span class="lineNum">     476 </span>            : /* latencyCommand() helper to produce a time-delay reply for all the samples</a>
+<span class="lineNum">     477 </span>            :  * in memory for the specified time series. */
+<span class="lineNum">     478 </span><span class="lineNoCov">          0 : void latencyCommandReplyWithSamples(client *c, struct latencyTimeSeries *ts) {</span>
+<span class="lineNum">     479 </span><span class="lineNoCov">          0 :     void *replylen = addDeferredMultiBulkLength(c);</span>
+<span class="lineNum">     480 </span><span class="lineNoCov">          0 :     int samples = 0, j;</span>
+<span class="lineNum">     481 </span>            : 
+<span class="lineNum">     482 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; LATENCY_TS_LEN; j++) {</span>
+<span class="lineNum">     483 </span><span class="lineNoCov">          0 :         int i = (ts-&gt;idx + j) % LATENCY_TS_LEN;</span>
+<span class="lineNum">     484 </span>            : 
+<span class="lineNum">     485 </span><span class="lineNoCov">          0 :         if (ts-&gt;samples[i].time == 0) continue;</span>
+<span class="lineNum">     486 </span><span class="lineNoCov">          0 :         addReplyMultiBulkLen(c,2);</span>
+<span class="lineNum">     487 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,ts-&gt;samples[i].time);</span>
+<span class="lineNum">     488 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,ts-&gt;samples[i].latency);</span>
+<span class="lineNum">     489 </span><span class="lineNoCov">          0 :         samples++;</span>
+<span class="lineNum">     490 </span>            :     }
+<span class="lineNum">     491 </span><span class="lineNoCov">          0 :     setDeferredMultiBulkLength(c,replylen,samples);</span>
+<span class="lineNum">     492 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     493 </span>            : 
+<a name="494"><span class="lineNum">     494 </span>            : /* latencyCommand() helper to produce the reply for the LATEST subcommand,</a>
+<span class="lineNum">     495 </span>            :  * listing the last latency sample for every event type registered so far. */
+<span class="lineNum">     496 </span><span class="lineCov">          2 : void latencyCommandReplyWithLatestEvents(client *c) {</span>
+<span class="lineNum">     497 </span><span class="lineCov">          2 :     dictIterator *di;</span>
+<span class="lineNum">     498 </span><span class="lineCov">          2 :     dictEntry *de;</span>
+<span class="lineNum">     499 </span>            : 
+<span class="lineNum">     500 </span><span class="lineCov">          2 :     addReplyMultiBulkLen(c,dictSize(server.latency_events));</span>
+<span class="lineNum">     501 </span><span class="lineCov">          2 :     di = dictGetIterator(server.latency_events);</span>
+<span class="lineNum">     502 </span><span class="lineCov">          6 :     while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     503 </span><span class="lineCov">          4 :         char *event = dictGetKey(de);</span>
+<span class="lineNum">     504 </span><span class="lineCov">          4 :         struct latencyTimeSeries *ts = dictGetVal(de);</span>
+<span class="lineNum">     505 </span><span class="lineCov">          4 :         int last = (ts-&gt;idx + LATENCY_TS_LEN - 1) % LATENCY_TS_LEN;</span>
+<span class="lineNum">     506 </span>            : 
+<span class="lineNum">     507 </span><span class="lineCov">          4 :         addReplyMultiBulkLen(c,4);</span>
+<span class="lineNum">     508 </span><span class="lineCov">          4 :         addReplyBulkCString(c,event);</span>
+<span class="lineNum">     509 </span><span class="lineCov">          4 :         addReplyLongLong(c,ts-&gt;samples[last].time);</span>
+<span class="lineNum">     510 </span><span class="lineCov">          4 :         addReplyLongLong(c,ts-&gt;samples[last].latency);</span>
+<span class="lineNum">     511 </span><span class="lineCov">          4 :         addReplyLongLong(c,ts-&gt;max);</span>
+<span class="lineNum">     512 </span>            :     }
+<span class="lineNum">     513 </span><span class="lineCov">          2 :     dictReleaseIterator(di);</span>
+<span class="lineNum">     514 </span><span class="lineCov">          2 : }</span>
+<a name="515"><span class="lineNum">     515 </span>            : </a>
+<span class="lineNum">     516 </span>            : #define LATENCY_GRAPH_COLS 80
+<span class="lineNum">     517 </span><span class="lineNoCov">          0 : sds latencyCommandGenSparkeline(char *event, struct latencyTimeSeries *ts) {</span>
+<span class="lineNum">     518 </span><span class="lineNoCov">          0 :     int j;</span>
+<span class="lineNum">     519 </span><span class="lineNoCov">          0 :     struct sequence *seq = createSparklineSequence();</span>
+<span class="lineNum">     520 </span><span class="lineNoCov">          0 :     sds graph = sdsempty();</span>
+<span class="lineNum">     521 </span><span class="lineNoCov">          0 :     uint32_t min = 0, max = 0;</span>
+<span class="lineNum">     522 </span>            : 
+<span class="lineNum">     523 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; LATENCY_TS_LEN; j++) {</span>
+<span class="lineNum">     524 </span><span class="lineNoCov">          0 :         int i = (ts-&gt;idx + j) % LATENCY_TS_LEN;</span>
+<span class="lineNum">     525 </span><span class="lineNoCov">          0 :         int elapsed;</span>
+<span class="lineNum">     526 </span><span class="lineNoCov">          0 :         char buf[64];</span>
+<span class="lineNum">     527 </span>            : 
+<span class="lineNum">     528 </span><span class="lineNoCov">          0 :         if (ts-&gt;samples[i].time == 0) continue;</span>
+<span class="lineNum">     529 </span>            :         /* Update min and max. */
+<span class="lineNum">     530 </span><span class="lineNoCov">          0 :         if (seq-&gt;length == 0) {</span>
+<span class="lineNum">     531 </span><span class="lineNoCov">          0 :             min = max = ts-&gt;samples[i].latency;</span>
+<span class="lineNum">     532 </span>            :         } else {
+<span class="lineNum">     533 </span><span class="lineNoCov">          0 :             if (ts-&gt;samples[i].latency &gt; max) max = ts-&gt;samples[i].latency;</span>
+<span class="lineNum">     534 </span><span class="lineNoCov">          0 :             if (ts-&gt;samples[i].latency &lt; min) min = ts-&gt;samples[i].latency;</span>
+<span class="lineNum">     535 </span>            :         }
+<span class="lineNum">     536 </span>            :         /* Use as label the number of seconds / minutes / hours / days
+<span class="lineNum">     537 </span>            :          * ago the event happened. */
+<span class="lineNum">     538 </span><span class="lineNoCov">          0 :         elapsed = time(NULL) - ts-&gt;samples[i].time;</span>
+<span class="lineNum">     539 </span><span class="lineNoCov">          0 :         if (elapsed &lt; 60)</span>
+<span class="lineNum">     540 </span><span class="lineNoCov">          0 :             snprintf(buf,sizeof(buf),&quot;%ds&quot;,elapsed);</span>
+<span class="lineNum">     541 </span><span class="lineNoCov">          0 :         else if (elapsed &lt; 3600)</span>
+<span class="lineNum">     542 </span><span class="lineNoCov">          0 :             snprintf(buf,sizeof(buf),&quot;%dm&quot;,elapsed/60);</span>
+<span class="lineNum">     543 </span><span class="lineNoCov">          0 :         else if (elapsed &lt; 3600*24)</span>
+<span class="lineNum">     544 </span><span class="lineNoCov">          0 :             snprintf(buf,sizeof(buf),&quot;%dh&quot;,elapsed/3600);</span>
+<span class="lineNum">     545 </span>            :         else
+<span class="lineNum">     546 </span><span class="lineNoCov">          0 :             snprintf(buf,sizeof(buf),&quot;%dd&quot;,elapsed/(3600*24));</span>
+<span class="lineNum">     547 </span><span class="lineNoCov">          0 :         sparklineSequenceAddSample(seq,ts-&gt;samples[i].latency,buf);</span>
+<span class="lineNum">     548 </span>            :     }
+<span class="lineNum">     549 </span>            : 
+<span class="lineNum">     550 </span><span class="lineNoCov">          0 :     graph = sdscatprintf(graph,</span>
+<span class="lineNum">     551 </span>            :         &quot;%s - high %lu ms, low %lu ms (all time high %lu ms)\n&quot;, event,
+<span class="lineNum">     552 </span><span class="lineNoCov">          0 :         (unsigned long) max, (unsigned long) min, (unsigned long) ts-&gt;max);</span>
+<span class="lineNum">     553 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; LATENCY_GRAPH_COLS; j++)</span>
+<span class="lineNum">     554 </span><span class="lineNoCov">          0 :         graph = sdscatlen(graph,&quot;-&quot;,1);</span>
+<span class="lineNum">     555 </span><span class="lineNoCov">          0 :     graph = sdscatlen(graph,&quot;\n&quot;,1);</span>
+<span class="lineNum">     556 </span><span class="lineNoCov">          0 :     graph = sparklineRender(graph,seq,LATENCY_GRAPH_COLS,4,SPARKLINE_FILL);</span>
+<span class="lineNum">     557 </span><span class="lineNoCov">          0 :     freeSparklineSequence(seq);</span>
+<span class="lineNum">     558 </span><span class="lineNoCov">          0 :     return graph;</span>
+<span class="lineNum">     559 </span>            : }
+<span class="lineNum">     560 </span>            : 
+<span class="lineNum">     561 </span>            : /* LATENCY command implementations.
+<span class="lineNum">     562 </span>            :  *
+<span class="lineNum">     563 </span>            :  * LATENCY HISTORY: return time-latency samples for the specified event.
+<span class="lineNum">     564 </span>            :  * LATENCY LATEST: return the latest latency for all the events classes.
+<span class="lineNum">     565 </span>            :  * LATENCY DOCTOR: returns a human readable analysis of instance latency.
+<span class="lineNum">     566 </span>            :  * LATENCY GRAPH: provide an ASCII graph of the latency of the specified event.
+<a name="567"><span class="lineNum">     567 </span>            :  * LATENCY RESET: reset data of a specified event or all the data if no event provided.</a>
+<span class="lineNum">     568 </span>            :  */
+<span class="lineNum">     569 </span><span class="lineCov">          4 : void latencyCommand(client *c) {</span>
+<span class="lineNum">     570 </span><span class="lineCov">          4 :     const char *help[] = {</span>
+<span class="lineNum">     571 </span>            : &quot;DOCTOR              -- Returns a human readable latency analysis report.&quot;,
+<span class="lineNum">     572 </span>            : &quot;GRAPH   &lt;event&gt;     -- Returns an ASCII latency graph for the event class.&quot;,
+<span class="lineNum">     573 </span>            : &quot;HISTORY &lt;event&gt;     -- Returns time-latency samples for the event class.&quot;,
+<span class="lineNum">     574 </span>            : &quot;LATEST              -- Returns the latest latency samples for all events.&quot;,
+<span class="lineNum">     575 </span>            : &quot;RESET   [event ...] -- Resets latency data of one or more event classes.&quot;,
+<span class="lineNum">     576 </span>            : &quot;                       (default: reset all data for all event classes)&quot;,
+<span class="lineNum">     577 </span>            : &quot;HELP                -- Prints this help.&quot;,
+<span class="lineNum">     578 </span>            : NULL
+<span class="lineNum">     579 </span>            :     };
+<span class="lineNum">     580 </span><span class="lineCov">          4 :     struct latencyTimeSeries *ts;</span>
+<span class="lineNum">     581 </span>            : 
+<span class="lineNum">     582 </span><span class="lineCov">          4 :     if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;history&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     583 </span>            :         /* LATENCY HISTORY &lt;event&gt; */
+<span class="lineNum">     584 </span><span class="lineNoCov">          0 :         ts = dictFetchValue(server.latency_events,c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     585 </span><span class="lineNoCov">          0 :         if (ts == NULL) {</span>
+<span class="lineNum">     586 </span><span class="lineNoCov">          0 :             addReplyMultiBulkLen(c,0);</span>
+<span class="lineNum">     587 </span>            :         } else {
+<span class="lineNum">     588 </span><span class="lineNoCov">          0 :             latencyCommandReplyWithSamples(c,ts);</span>
+<span class="lineNum">     589 </span>            :         }
+<span class="lineNum">     590 </span><span class="lineCov">          4 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;graph&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     591 </span>            :         /* LATENCY GRAPH &lt;event&gt; */
+<span class="lineNum">     592 </span><span class="lineNoCov">          0 :         sds graph;</span>
+<span class="lineNum">     593 </span><span class="lineNoCov">          0 :         dictEntry *de;</span>
+<span class="lineNum">     594 </span><span class="lineNoCov">          0 :         char *event;</span>
+<span class="lineNum">     595 </span>            : 
+<span class="lineNum">     596 </span><span class="lineNoCov">          0 :         de = dictFind(server.latency_events,c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     597 </span><span class="lineNoCov">          0 :         if (de == NULL) goto nodataerr;</span>
+<span class="lineNum">     598 </span><span class="lineNoCov">          0 :         ts = dictGetVal(de);</span>
+<span class="lineNum">     599 </span><span class="lineNoCov">          0 :         event = dictGetKey(de);</span>
+<span class="lineNum">     600 </span>            : 
+<span class="lineNum">     601 </span><span class="lineNoCov">          0 :         graph = latencyCommandGenSparkeline(event,ts);</span>
+<span class="lineNum">     602 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,graph);</span>
+<span class="lineNum">     603 </span><span class="lineNoCov">          0 :         sdsfree(graph);</span>
+<span class="lineNum">     604 </span><span class="lineCov">          4 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;latest&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">     605 </span>            :         /* LATENCY LATEST */
+<span class="lineNum">     606 </span><span class="lineCov">          2 :         latencyCommandReplyWithLatestEvents(c);</span>
+<span class="lineNum">     607 </span><span class="lineCov">          2 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;doctor&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">     608 </span>            :         /* LATENCY DOCTOR */
+<span class="lineNum">     609 </span><span class="lineNoCov">          0 :         sds report = createLatencyReport();</span>
+<span class="lineNum">     610 </span>            : 
+<span class="lineNum">     611 </span><span class="lineNoCov">          0 :         addReplyBulkCBuffer(c,report,sdslen(report));</span>
+<span class="lineNum">     612 </span><span class="lineNoCov">          0 :         sdsfree(report);</span>
+<span class="lineNum">     613 </span><span class="lineCov">          2 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;reset&quot;) &amp;&amp; c-&gt;argc &gt;= 2) {</span>
+<span class="lineNum">     614 </span>            :         /* LATENCY RESET */
+<span class="lineNum">     615 </span><span class="lineCov">          2 :         if (c-&gt;argc == 2) {</span>
+<span class="lineNum">     616 </span><span class="lineCov">          2 :             addReplyLongLong(c,latencyResetEvent(NULL));</span>
+<span class="lineNum">     617 </span>            :         } else {
+<span class="lineNum">     618 </span>            :             int j, resets = 0;
+<span class="lineNum">     619 </span>            : 
+<span class="lineNum">     620 </span><span class="lineNoCov">          0 :             for (j = 2; j &lt; c-&gt;argc; j++)</span>
+<span class="lineNum">     621 </span><span class="lineNoCov">          0 :                 resets += latencyResetEvent(c-&gt;argv[j]-&gt;ptr);</span>
+<span class="lineNum">     622 </span><span class="lineNoCov">          0 :             addReplyLongLong(c,resets);</span>
+<span class="lineNum">     623 </span>            :         }
+<span class="lineNum">     624 </span><span class="lineNoCov">          0 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;help&quot;) &amp;&amp; c-&gt;argc &gt;= 2) {</span>
+<span class="lineNum">     625 </span><span class="lineNoCov">          0 :         addReplyHelp(c, help);</span>
+<span class="lineNum">     626 </span>            :     } else {
+<span class="lineNum">     627 </span><span class="lineNoCov">          0 :         addReplySubcommandSyntaxError(c);</span>
+<span class="lineNum">     628 </span>            :     }
+<span class="lineNum">     629 </span><span class="lineCov">          4 :     return;</span>
+<span class="lineNum">     630 </span>            : 
+<span class="lineNum">     631 </span><span class="lineNoCov">          0 : nodataerr:</span>
+<span class="lineNum">     632 </span>            :     /* Common error when the user asks for an event we have no latency
+<span class="lineNum">     633 </span>            :      * information about. */
+<span class="lineNum">     634 </span><span class="lineNoCov">          0 :     addReplyErrorFormat(c,</span>
+<span class="lineNum">     635 </span><span class="lineNoCov">          0 :         &quot;No samples available for event '%s'&quot;, (char*) c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     636 </span>            : }
+<span class="lineNum">     637 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

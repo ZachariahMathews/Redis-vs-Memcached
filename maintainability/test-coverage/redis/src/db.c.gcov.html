@@ -1,0 +1,1633 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/db.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - db.c<span style="font-size: 80%;"> (source / <a href="db.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">493</td>
+            <td class="headerCovTableEntry">740</td>
+            <td class="headerCovTableEntryLo">66.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">48</td>
+            <td class="headerCovTableEntry">66</td>
+            <td class="headerCovTableEntryLo">72.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : #include &quot;cluster.h&quot;
+<span class="lineNum">      32 </span>            : #include &quot;atomicvar.h&quot;
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : #include &lt;signal.h&gt;
+<span class="lineNum">      35 </span>            : #include &lt;ctype.h&gt;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">      38 </span>            :  * C-level DB API
+<span class="lineNum">      39 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : int keyIsExpired(redisDb *db, robj *key);
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : /* Update LFU when an object is accessed.
+<a name="44"><span class="lineNum">      44 </span>            :  * Firstly, decrement the counter if the decrement time is reached.</a>
+<span class="lineNum">      45 </span>            :  * Then logarithmically increment the counter, and update the access time. */
+<span class="lineNum">      46 </span><span class="lineCov">     241429 : void updateLFU(robj *val) {</span>
+<span class="lineNum">      47 </span><span class="lineCov">     241429 :     unsigned long counter = LFUDecrAndReturn(val);</span>
+<span class="lineNum">      48 </span><span class="lineCov">     241429 :     counter = LFULogIncr(counter);</span>
+<span class="lineNum">      49 </span><span class="lineCov">     241429 :     val-&gt;lru = (LFUGetTimeInMinutes()&lt;&lt;8) | counter;</span>
+<span class="lineNum">      50 </span><span class="lineCov">     241429 : }</span>
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : /* Low level key lookup API, not actually called directly from commands
+<a name="53"><span class="lineNum">      53 </span>            :  * implementations that should instead rely on lookupKeyRead(),</a>
+<span class="lineNum">      54 </span>            :  * lookupKeyWrite() and lookupKeyReadWithFlags(). */
+<span class="lineNum">      55 </span><span class="lineCov">   60360407 : robj *lookupKey(redisDb *db, robj *key, int flags) {</span>
+<span class="lineNum">      56 </span><span class="lineCov">   60360407 :     dictEntry *de = dictFind(db-&gt;dict,key-&gt;ptr);</span>
+<span class="lineNum">      57 </span><span class="lineCov">   60360407 :     if (de) {</span>
+<span class="lineNum">      58 </span><span class="lineCov">   21701888 :         robj *val = dictGetVal(de);</span>
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            :         /* Update the access time for the ageing algorithm.
+<span class="lineNum">      61 </span>            :          * Don't do it if we have a saving child, as this will trigger
+<span class="lineNum">      62 </span>            :          * a copy on write madness. */
+<span class="lineNum">      63 </span><span class="lineCov">   21701888 :         if (server.rdb_child_pid == -1 &amp;&amp;</span>
+<span class="lineNum">      64 </span><span class="lineCov">   21610881 :             server.aof_child_pid == -1 &amp;&amp;</span>
+<span class="lineNum">      65 </span><span class="lineCov">   21515388 :             !(flags &amp; LOOKUP_NOTOUCH))</span>
+<span class="lineNum">      66 </span>            :         {
+<span class="lineNum">      67 </span><span class="lineCov">   18521508 :             if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) {</span>
+<span class="lineNum">      68 </span><span class="lineCov">     241429 :                 updateLFU(val);</span>
+<span class="lineNum">      69 </span>            :             } else {
+<span class="lineNum">      70 </span><span class="lineCov">   18280079 :                 val-&gt;lru = LRU_CLOCK();</span>
+<span class="lineNum">      71 </span>            :             }
+<span class="lineNum">      72 </span>            :         }
+<span class="lineNum">      73 </span><span class="lineCov">   21701888 :         return val;</span>
+<span class="lineNum">      74 </span>            :     } else {
+<span class="lineNum">      75 </span>            :         return NULL;
+<span class="lineNum">      76 </span>            :     }
+<span class="lineNum">      77 </span>            : }
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            : /* Lookup a key for read operations, or return NULL if the key is not found
+<span class="lineNum">      80 </span>            :  * in the specified DB.
+<span class="lineNum">      81 </span>            :  *
+<span class="lineNum">      82 </span>            :  * As a side effect of calling this function:
+<span class="lineNum">      83 </span>            :  * 1. A key gets expired if it reached it's TTL.
+<span class="lineNum">      84 </span>            :  * 2. The key last access time is updated.
+<span class="lineNum">      85 </span>            :  * 3. The global keys hits/misses stats are updated (reported in INFO).
+<span class="lineNum">      86 </span>            :  *
+<span class="lineNum">      87 </span>            :  * This API should not be used when we write to the key after obtaining
+<span class="lineNum">      88 </span>            :  * the object linked to the key, but only for read only operations.
+<span class="lineNum">      89 </span>            :  *
+<span class="lineNum">      90 </span>            :  * Flags change the behavior of this command:
+<span class="lineNum">      91 </span>            :  *
+<span class="lineNum">      92 </span>            :  *  LOOKUP_NONE (or zero): no special flags are passed.
+<span class="lineNum">      93 </span>            :  *  LOOKUP_NOTOUCH: don't alter the last access time of the key.
+<span class="lineNum">      94 </span>            :  *
+<span class="lineNum">      95 </span>            :  * Note: this function also returns NULL if the key is logically expired
+<span class="lineNum">      96 </span>            :  * but still existing, in case this is a slave, since this API is called only
+<span class="lineNum">      97 </span>            :  * for read operations. Even if the key expiry is master-driven, we can
+<a name="98"><span class="lineNum">      98 </span>            :  * correctly report a key is expired on slaves even if the master is lagging</a>
+<span class="lineNum">      99 </span>            :  * expiring our key via DELs in the replication link. */
+<span class="lineNum">     100 </span><span class="lineCov">    6607447 : robj *lookupKeyReadWithFlags(redisDb *db, robj *key, int flags) {</span>
+<span class="lineNum">     101 </span><span class="lineCov">    6607447 :     robj *val;</span>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span><span class="lineCov">    6607447 :     if (expireIfNeeded(db,key) == 1) {</span>
+<span class="lineNum">     104 </span>            :         /* Key expired. If we are in the context of a master, expireIfNeeded()
+<span class="lineNum">     105 </span>            :          * returns 0 only when the key does not exist at all, so it's safe
+<span class="lineNum">     106 </span>            :          * to return NULL ASAP. */
+<span class="lineNum">     107 </span><span class="lineCov">         22 :         if (server.masterhost == NULL) {</span>
+<span class="lineNum">     108 </span><span class="lineCov">         22 :             server.stat_keyspace_misses++;</span>
+<span class="lineNum">     109 </span><span class="lineCov">         22 :             return NULL;</span>
+<span class="lineNum">     110 </span>            :         }
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            :         /* However if we are in the context of a slave, expireIfNeeded() will
+<span class="lineNum">     113 </span>            :          * not really try to expire the key, it only returns information
+<span class="lineNum">     114 </span>            :          * about the &quot;logical&quot; status of the key: key expiring is up to the
+<span class="lineNum">     115 </span>            :          * master in order to have a consistent view of master's data set.
+<span class="lineNum">     116 </span>            :          *
+<span class="lineNum">     117 </span>            :          * However, if the command caller is not the master, and as additional
+<span class="lineNum">     118 </span>            :          * safety measure, the command invoked is a read-only command, we can
+<span class="lineNum">     119 </span>            :          * safely return NULL here, and provide a more consistent behavior
+<span class="lineNum">     120 </span>            :          * to clients accessign expired values in a read-only fashion, that
+<span class="lineNum">     121 </span>            :          * will say the key as non existing.
+<span class="lineNum">     122 </span>            :          *
+<span class="lineNum">     123 </span>            :          * Notably this covers GETs when slaves are used to scale reads. */
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 :         if (server.current_client &amp;&amp;</span>
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 :             server.current_client != server.master &amp;&amp;</span>
+<span class="lineNum">     126 </span><span class="lineNoCov">          0 :             server.current_client-&gt;cmd &amp;&amp;</span>
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 :             server.current_client-&gt;cmd-&gt;flags &amp; CMD_READONLY)</span>
+<span class="lineNum">     128 </span>            :         {
+<span class="lineNum">     129 </span><span class="lineNoCov">          0 :             server.stat_keyspace_misses++;</span>
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :             return NULL;</span>
+<span class="lineNum">     131 </span>            :         }
+<span class="lineNum">     132 </span>            :     }
+<span class="lineNum">     133 </span><span class="lineCov">    6607425 :     val = lookupKey(db,key,flags);</span>
+<span class="lineNum">     134 </span><span class="lineCov">    6607425 :     if (val == NULL)</span>
+<span class="lineNum">     135 </span><span class="lineCov">    2313025 :         server.stat_keyspace_misses++;</span>
+<span class="lineNum">     136 </span>            :     else
+<span class="lineNum">     137 </span><span class="lineCov">    4294400 :         server.stat_keyspace_hits++;</span>
+<span class="lineNum">     138 </span>            :     return val;
+<span class="lineNum">     139 </span>            : }
+<span class="lineNum">     140 </span>            : 
+<a name="141"><span class="lineNum">     141 </span>            : /* Like lookupKeyReadWithFlags(), but does not use any flag, which is the</a>
+<span class="lineNum">     142 </span>            :  * common case. */
+<span class="lineNum">     143 </span><span class="lineCov">     329436 : robj *lookupKeyRead(redisDb *db, robj *key) {</span>
+<span class="lineNum">     144 </span><span class="lineCov">     329436 :     return lookupKeyReadWithFlags(db,key,LOOKUP_NONE);</span>
+<span class="lineNum">     145 </span>            : }
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : /* Lookup a key for write operations, and as a side effect, if needed, expires
+<span class="lineNum">     148 </span>            :  * the key if its TTL is reached.
+<span class="lineNum">     149 </span>            :  *
+<a name="150"><span class="lineNum">     150 </span>            :  * Returns the linked value object if the key exists or NULL if the key</a>
+<span class="lineNum">     151 </span>            :  * does not exist in the specified DB. */
+<span class="lineNum">     152 </span><span class="lineCov">   20783960 : robj *lookupKeyWrite(redisDb *db, robj *key) {</span>
+<span class="lineNum">     153 </span><span class="lineCov">   20783960 :     expireIfNeeded(db,key);</span>
+<span class="lineNum">     154 </span><span class="lineCov">   53752982 :     return lookupKey(db,key,LOOKUP_NONE);</span>
+<a name="155"><span class="lineNum">     155 </span>            : }</a>
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span><span class="lineCov">     910671 : robj *lookupKeyReadOrReply(client *c, robj *key, robj *reply) {</span>
+<span class="lineNum">     158 </span><span class="lineCov">     910671 :     robj *o = lookupKeyRead(c-&gt;db, key);</span>
+<span class="lineNum">     159 </span><span class="lineCov">     910671 :     if (!o) addReply(c,reply);</span>
+<span class="lineNum">     160 </span><span class="lineCov">     910671 :     return o;</span>
+<a name="161"><span class="lineNum">     161 </span>            : }</a>
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span><span class="lineCov">     934281 : robj *lookupKeyWriteOrReply(client *c, robj *key, robj *reply) {</span>
+<span class="lineNum">     164 </span><span class="lineCov">     934281 :     robj *o = lookupKeyWrite(c-&gt;db, key);</span>
+<span class="lineNum">     165 </span><span class="lineCov">     934281 :     if (!o) addReply(c,reply);</span>
+<span class="lineNum">     166 </span><span class="lineCov">     934281 :     return o;</span>
+<span class="lineNum">     167 </span>            : }
+<span class="lineNum">     168 </span>            : 
+<span class="lineNum">     169 </span>            : /* Add the key to the DB. It's up to the caller to increment the reference
+<span class="lineNum">     170 </span>            :  * counter of the value if needed.
+<a name="171"><span class="lineNum">     171 </span>            :  *</a>
+<span class="lineNum">     172 </span>            :  * The program is aborted if the key already exists. */
+<span class="lineNum">     173 </span><span class="lineCov">   48771084 : void dbAdd(redisDb *db, robj *key, robj *val) {</span>
+<span class="lineNum">     174 </span><span class="lineCov">   48771084 :     sds copy = sdsdup(key-&gt;ptr);</span>
+<span class="lineNum">     175 </span><span class="lineCov">   48771084 :     int retval = dictAdd(db-&gt;dict, copy, val);</span>
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span><span class="lineCov">   48771084 :     serverAssertWithInfo(NULL,key,retval == DICT_OK);</span>
+<span class="lineNum">     178 </span><span class="lineCov">   48771084 :     if (val-&gt;type == OBJ_LIST ||</span>
+<span class="lineNum">     179 </span>            :         val-&gt;type == OBJ_ZSET)
+<span class="lineNum">     180 </span><span class="lineCov">    1125759 :         signalKeyAsReady(db, key);</span>
+<span class="lineNum">     181 </span><span class="lineCov">   48771084 :     if (server.cluster_enabled) slotToKeyAdd(key);</span>
+<span class="lineNum">     182 </span><span class="lineCov">   48771084 : }</span>
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span>            : /* Overwrite an existing key with a new value. Incrementing the reference
+<span class="lineNum">     185 </span>            :  * count of the new value is up to the caller.
+<span class="lineNum">     186 </span>            :  * This function does not modify the expire time of the existing key.
+<a name="187"><span class="lineNum">     187 </span>            :  *</a>
+<span class="lineNum">     188 </span>            :  * The program is aborted if the key was not already present. */
+<span class="lineNum">     189 </span><span class="lineCov">    8318393 : void dbOverwrite(redisDb *db, robj *key, robj *val) {</span>
+<span class="lineNum">     190 </span><span class="lineCov">    8318393 :     dictEntry *de = dictFind(db-&gt;dict,key-&gt;ptr);</span>
+<span class="lineNum">     191 </span>            : 
+<span class="lineNum">     192 </span><span class="lineCov">    8318393 :     serverAssertWithInfo(NULL,key,de != NULL);</span>
+<span class="lineNum">     193 </span><span class="lineCov">    8318393 :     dictEntry auxentry = *de;</span>
+<span class="lineNum">     194 </span><span class="lineCov">    8318393 :     robj *old = dictGetVal(de);</span>
+<span class="lineNum">     195 </span><span class="lineCov">    8318393 :     if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) {</span>
+<span class="lineNum">     196 </span><span class="lineCov">        198 :         val-&gt;lru = old-&gt;lru;</span>
+<span class="lineNum">     197 </span>            :     }
+<span class="lineNum">     198 </span><span class="lineCov">    8318393 :     dictSetVal(db-&gt;dict, de, val);</span>
+<span class="lineNum">     199 </span>            : 
+<span class="lineNum">     200 </span><span class="lineCov">    8318393 :     if (server.lazyfree_lazy_server_del) {</span>
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :         freeObjAsync(old);</span>
+<span class="lineNum">     202 </span><span class="lineNoCov">          0 :         dictSetVal(db-&gt;dict, &amp;auxentry, NULL);</span>
+<span class="lineNum">     203 </span>            :     }
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span><span class="lineCov">    8318393 :     dictFreeVal(db-&gt;dict, &amp;auxentry);</span>
+<span class="lineNum">     206 </span><span class="lineCov">    8318393 : }</span>
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span>            : /* High level Set operation. This function can be used in order to set
+<span class="lineNum">     209 </span>            :  * a key, whatever it was existing or not, to a new object.
+<span class="lineNum">     210 </span>            :  *
+<span class="lineNum">     211 </span>            :  * 1) The ref count of the value object is incremented.
+<span class="lineNum">     212 </span>            :  * 2) clients WATCHing for the destination key notified.
+<span class="lineNum">     213 </span>            :  * 3) The expire time of the key is reset (the key is made persistent).
+<a name="214"><span class="lineNum">     214 </span>            :  *</a>
+<span class="lineNum">     215 </span>            :  * All the new keys in the database should be creted via this interface. */
+<span class="lineNum">     216 </span><span class="lineCov">   32034693 : void setKey(redisDb *db, robj *key, robj *val) {</span>
+<span class="lineNum">     217 </span><span class="lineCov">   64069386 :     if (lookupKeyWrite(db,key) == NULL) {</span>
+<span class="lineNum">     218 </span><span class="lineCov">   31811692 :         dbAdd(db,key,val);</span>
+<span class="lineNum">     219 </span>            :     } else {
+<span class="lineNum">     220 </span><span class="lineCov">     223001 :         dbOverwrite(db,key,val);</span>
+<span class="lineNum">     221 </span>            :     }
+<span class="lineNum">     222 </span><span class="lineCov">   32034693 :     incrRefCount(val);</span>
+<span class="lineNum">     223 </span><span class="lineCov">   32034693 :     removeExpire(db,key);</span>
+<span class="lineNum">     224 </span><span class="lineCov">   64069386 :     signalModifiedKey(db,key);</span>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">   32034693 : }</span></a>
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span><span class="lineNoCov">          0 : int dbExists(redisDb *db, robj *key) {</span>
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :     return dictFind(db-&gt;dict,key-&gt;ptr) != NULL;</span>
+<span class="lineNum">     229 </span>            : }
+<span class="lineNum">     230 </span>            : 
+<span class="lineNum">     231 </span>            : /* Return a random key, in form of a Redis object.
+<span class="lineNum">     232 </span>            :  * If there are no keys, NULL is returned.
+<a name="233"><span class="lineNum">     233 </span>            :  *</a>
+<span class="lineNum">     234 </span>            :  * The function makes sure to return keys not already expired. */
+<span class="lineNum">     235 </span><span class="lineCov">    1114492 : robj *dbRandomKey(redisDb *db) {</span>
+<span class="lineNum">     236 </span><span class="lineCov">    1114492 :     dictEntry *de;</span>
+<span class="lineNum">     237 </span><span class="lineCov">    1114492 :     int maxtries = 100;</span>
+<span class="lineNum">     238 </span><span class="lineCov">    1114492 :     int allvolatile = dictSize(db-&gt;dict) == dictSize(db-&gt;expires);</span>
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span><span class="lineCov">          2 :     while(1) {</span>
+<span class="lineNum">     241 </span><span class="lineCov">    1114494 :         sds key;</span>
+<span class="lineNum">     242 </span><span class="lineCov">    1114494 :         robj *keyobj;</span>
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span><span class="lineCov">    1114494 :         de = dictGetRandomKey(db-&gt;dict);</span>
+<span class="lineNum">     245 </span><span class="lineCov">    1114494 :         if (de == NULL) return NULL;</span>
+<span class="lineNum">     246 </span>            : 
+<span class="lineNum">     247 </span><span class="lineCov">    1114488 :         key = dictGetKey(de);</span>
+<span class="lineNum">     248 </span><span class="lineCov">    2228976 :         keyobj = createStringObject(key,sdslen(key));</span>
+<span class="lineNum">     249 </span><span class="lineCov">    1114488 :         if (dictFind(db-&gt;expires,key)) {</span>
+<span class="lineNum">     250 </span><span class="lineCov">         33 :             if (allvolatile &amp;&amp; server.masterhost &amp;&amp; --maxtries == 0) {</span>
+<span class="lineNum">     251 </span>            :                 /* If the DB is composed only of keys with an expire set,
+<span class="lineNum">     252 </span>            :                  * it could happen that all the keys are already logically
+<span class="lineNum">     253 </span>            :                  * expired in the slave, so the function cannot stop because
+<span class="lineNum">     254 </span>            :                  * expireIfNeeded() is false, nor it can stop because
+<span class="lineNum">     255 </span>            :                  * dictGetRandomKey() returns NULL (there are keys to return).
+<span class="lineNum">     256 </span>            :                  * To prevent the infinite loop we do some tries, but if there
+<span class="lineNum">     257 </span>            :                  * are the conditions for an infinite loop, eventually we
+<span class="lineNum">     258 </span>            :                  * return a key name that may be already expired. */
+<span class="lineNum">     259 </span><span class="lineNoCov">          0 :                 return keyobj;</span>
+<span class="lineNum">     260 </span>            :             }
+<span class="lineNum">     261 </span><span class="lineCov">         33 :             if (expireIfNeeded(db,keyobj)) {</span>
+<span class="lineNum">     262 </span><span class="lineCov">          2 :                 decrRefCount(keyobj);</span>
+<span class="lineNum">     263 </span><span class="lineCov">          2 :                 continue; /* search for another key. This expired. */</span>
+<span class="lineNum">     264 </span>            :             }
+<span class="lineNum">     265 </span>            :         }
+<span class="lineNum">     266 </span>            :         return keyobj;
+<span class="lineNum">     267 </span>            :     }
+<span class="lineNum">     268 </span>            : }
+<a name="269"><span class="lineNum">     269 </span>            : </a>
+<span class="lineNum">     270 </span>            : /* Delete a key, value, and associated expiration entry if any, from the DB */
+<span class="lineNum">     271 </span><span class="lineCov">    2634536 : int dbSyncDelete(redisDb *db, robj *key) {</span>
+<span class="lineNum">     272 </span>            :     /* Deleting an entry from the expires dict will not free the sds of
+<span class="lineNum">     273 </span>            :      * the key, because it is shared with the main dictionary. */
+<span class="lineNum">     274 </span><span class="lineCov">    2634536 :     if (dictSize(db-&gt;expires) &gt; 0) dictDelete(db-&gt;expires,key-&gt;ptr);</span>
+<span class="lineNum">     275 </span><span class="lineCov">    2634536 :     if (dictDelete(db-&gt;dict,key-&gt;ptr) == DICT_OK) {</span>
+<span class="lineNum">     276 </span><span class="lineCov">    2017379 :         if (server.cluster_enabled) slotToKeyDel(key);</span>
+<span class="lineNum">     277 </span><span class="lineCov">    2017379 :         return 1;</span>
+<span class="lineNum">     278 </span>            :     } else {
+<span class="lineNum">     279 </span>            :         return 0;
+<span class="lineNum">     280 </span>            :     }
+<span class="lineNum">     281 </span>            : }
+<span class="lineNum">     282 </span>            : 
+<a name="283"><span class="lineNum">     283 </span>            : /* This is a wrapper whose behavior depends on the Redis lazy free</a>
+<span class="lineNum">     284 </span>            :  * configuration. Deletes the key synchronously or asynchronously. */
+<span class="lineNum">     285 </span><span class="lineCov">    1087375 : int dbDelete(redisDb *db, robj *key) {</span>
+<span class="lineNum">     286 </span><span class="lineCov">    1087375 :     return server.lazyfree_lazy_server_del ? dbAsyncDelete(db,key) :</span>
+<span class="lineNum">     287 </span><span class="lineCov">    1087375 :                                              dbSyncDelete(db,key);</span>
+<span class="lineNum">     288 </span>            : }
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span>            : /* Prepare the string object stored at 'key' to be modified destructively
+<span class="lineNum">     291 </span>            :  * to implement commands like SETBIT or APPEND.
+<span class="lineNum">     292 </span>            :  *
+<span class="lineNum">     293 </span>            :  * An object is usually ready to be modified unless one of the two conditions
+<span class="lineNum">     294 </span>            :  * are true:
+<span class="lineNum">     295 </span>            :  *
+<span class="lineNum">     296 </span>            :  * 1) The object 'o' is shared (refcount &gt; 1), we don't want to affect
+<span class="lineNum">     297 </span>            :  *    other users.
+<span class="lineNum">     298 </span>            :  * 2) The object encoding is not &quot;RAW&quot;.
+<span class="lineNum">     299 </span>            :  *
+<span class="lineNum">     300 </span>            :  * If the object is found in one of the above conditions (or both) by the
+<span class="lineNum">     301 </span>            :  * function, an unshared / not-encoded copy of the string object is stored
+<span class="lineNum">     302 </span>            :  * at 'key' in the specified 'db'. Otherwise the object 'o' itself is
+<span class="lineNum">     303 </span>            :  * returned.
+<span class="lineNum">     304 </span>            :  *
+<span class="lineNum">     305 </span>            :  * USAGE:
+<span class="lineNum">     306 </span>            :  *
+<span class="lineNum">     307 </span>            :  * The object 'o' is what the caller already obtained by looking up 'key'
+<span class="lineNum">     308 </span>            :  * in 'db', the usage pattern looks like this:
+<span class="lineNum">     309 </span>            :  *
+<span class="lineNum">     310 </span>            :  * o = lookupKeyWrite(db,key);
+<span class="lineNum">     311 </span>            :  * if (checkType(c,o,OBJ_STRING)) return;
+<span class="lineNum">     312 </span>            :  * o = dbUnshareStringValue(db,key,o);
+<span class="lineNum">     313 </span>            :  *
+<span class="lineNum">     314 </span>            :  * At this point the caller is ready to modify the object, for example
+<a name="315"><span class="lineNum">     315 </span>            :  * using an sdscat() call to append some data, or anything else.</a>
+<span class="lineNum">     316 </span>            :  */
+<span class="lineNum">     317 </span><span class="lineCov">    2514064 : robj *dbUnshareStringValue(redisDb *db, robj *key, robj *o) {</span>
+<span class="lineNum">     318 </span><span class="lineCov">    2514064 :     serverAssert(o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     319 </span><span class="lineCov">    2514064 :     if (o-&gt;refcount != 1 || o-&gt;encoding != OBJ_ENCODING_RAW) {</span>
+<span class="lineNum">     320 </span><span class="lineCov">         51 :         robj *decoded = getDecodedObject(o);</span>
+<span class="lineNum">     321 </span><span class="lineCov">        102 :         o = createRawStringObject(decoded-&gt;ptr, sdslen(decoded-&gt;ptr));</span>
+<span class="lineNum">     322 </span><span class="lineCov">         51 :         decrRefCount(decoded);</span>
+<span class="lineNum">     323 </span><span class="lineCov">         51 :         dbOverwrite(db,key,o);</span>
+<span class="lineNum">     324 </span>            :     }
+<span class="lineNum">     325 </span><span class="lineCov">    2514064 :     return o;</span>
+<span class="lineNum">     326 </span>            : }
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span>            : /* Remove all keys from all the databases in a Redis server.
+<span class="lineNum">     329 </span>            :  * If callback is given the function is called from time to time to
+<span class="lineNum">     330 </span>            :  * signal that work is in progress.
+<span class="lineNum">     331 </span>            :  *
+<span class="lineNum">     332 </span>            :  * The dbnum can be -1 if all the DBs should be flushed, or the specified
+<span class="lineNum">     333 </span>            :  * DB number if we want to flush only a single Redis database number.
+<span class="lineNum">     334 </span>            :  *
+<span class="lineNum">     335 </span>            :  * Flags are be EMPTYDB_NO_FLAGS if no special flags are specified or
+<span class="lineNum">     336 </span>            :  * EMPTYDB_ASYNC if we want the memory to be freed in a different thread
+<span class="lineNum">     337 </span>            :  * and the function to return ASAP.
+<span class="lineNum">     338 </span>            :  *
+<span class="lineNum">     339 </span>            :  * On success the fuction returns the number of keys removed from the
+<a name="340"><span class="lineNum">     340 </span>            :  * database(s). Otherwise -1 is returned in the specific case the</a>
+<span class="lineNum">     341 </span>            :  * DB number is out of range, and errno is set to EINVAL. */
+<span class="lineNum">     342 </span><span class="lineCov">       1405 : long long emptyDb(int dbnum, int flags, void(callback)(void*)) {</span>
+<span class="lineNum">     343 </span><span class="lineCov">       1405 :     int async = (flags &amp; EMPTYDB_ASYNC);</span>
+<span class="lineNum">     344 </span><span class="lineCov">       1405 :     long long removed = 0;</span>
+<span class="lineNum">     345 </span>            : 
+<span class="lineNum">     346 </span><span class="lineCov">       1405 :     if (dbnum &lt; -1 || dbnum &gt;= server.dbnum) {</span>
+<span class="lineNum">     347 </span><span class="lineNoCov">          0 :         errno = EINVAL;</span>
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">     349 </span>            :     }
+<span class="lineNum">     350 </span>            : 
+<span class="lineNum">     351 </span><span class="lineCov">       1405 :     int startdb, enddb;</span>
+<span class="lineNum">     352 </span><span class="lineCov">       1405 :     if (dbnum == -1) {</span>
+<span class="lineNum">     353 </span><span class="lineCov">       1245 :         startdb = 0;</span>
+<span class="lineNum">     354 </span><span class="lineCov">       1245 :         enddb = server.dbnum-1;</span>
+<span class="lineNum">     355 </span>            :     } else {
+<span class="lineNum">     356 </span>            :         startdb = enddb = dbnum;
+<span class="lineNum">     357 </span>            :     }
+<span class="lineNum">     358 </span>            : 
+<span class="lineNum">     359 </span><span class="lineCov">      21485 :     for (int j = startdb; j &lt;= enddb; j++) {</span>
+<span class="lineNum">     360 </span><span class="lineCov">      20080 :         removed += dictSize(server.db[j].dict);</span>
+<span class="lineNum">     361 </span><span class="lineCov">      20080 :         if (async) {</span>
+<span class="lineNum">     362 </span><span class="lineCov">          2 :             emptyDbAsync(&amp;server.db[j]);</span>
+<span class="lineNum">     363 </span>            :         } else {
+<span class="lineNum">     364 </span><span class="lineCov">      20078 :             dictEmpty(server.db[j].dict,callback);</span>
+<span class="lineNum">     365 </span><span class="lineCov">      20078 :             dictEmpty(server.db[j].expires,callback);</span>
+<span class="lineNum">     366 </span>            :         }
+<span class="lineNum">     367 </span>            :     }
+<span class="lineNum">     368 </span><span class="lineCov">       1405 :     if (server.cluster_enabled) {</span>
+<span class="lineNum">     369 </span><span class="lineNoCov">          0 :         if (async) {</span>
+<span class="lineNum">     370 </span><span class="lineNoCov">          0 :             slotToKeyFlushAsync();</span>
+<span class="lineNum">     371 </span>            :         } else {
+<span class="lineNum">     372 </span><span class="lineNoCov">          0 :             slotToKeyFlush();</span>
+<span class="lineNum">     373 </span>            :         }
+<span class="lineNum">     374 </span>            :     }
+<span class="lineNum">     375 </span><span class="lineCov">       1405 :     if (dbnum == -1) flushSlaveKeysWithExpireList();</span>
+<span class="lineNum">     376 </span>            :     return removed;
+<a name="377"><span class="lineNum">     377 </span>            : }</a>
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span><span class="lineCov">     645330 : int selectDb(client *c, int id) {</span>
+<span class="lineNum">     380 </span><span class="lineCov">    1196161 :     if (id &lt; 0 || id &gt;= server.dbnum)</span>
+<span class="lineNum">     381 </span>            :         return C_ERR;
+<span class="lineNum">     382 </span><span class="lineCov">    1196152 :     c-&gt;db = &amp;server.db[id];</span>
+<span class="lineNum">     383 </span><span class="lineCov">     645342 :     return C_OK;</span>
+<span class="lineNum">     384 </span>            : }
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     387 </span>            :  * Hooks for key space changes.
+<span class="lineNum">     388 </span>            :  *
+<span class="lineNum">     389 </span>            :  * Every time a key in the database is modified the function
+<span class="lineNum">     390 </span>            :  * signalModifiedKey() is called.
+<span class="lineNum">     391 </span>            :  *
+<span class="lineNum">     392 </span>            :  * Every time a DB is flushed the function signalFlushDb() is called.
+<a name="393"><span class="lineNum">     393 </span>            :  *----------------------------------------------------------------------------*/</a>
+<span class="lineNum">     394 </span>            : 
+<span class="lineNum">     395 </span><span class="lineCov">   20731619 : void signalModifiedKey(redisDb *db, robj *key) {</span>
+<span class="lineNum">     396 </span><span class="lineCov">   52766312 :     touchWatchedKey(db,key);</span>
+<a name="397"><span class="lineNum">     397 </span><span class="lineCov">   20731619 : }</span></a>
+<span class="lineNum">     398 </span>            : 
+<span class="lineNum">     399 </span><span class="lineCov">        143 : void signalFlushedDb(int dbid) {</span>
+<span class="lineNum">     400 </span><span class="lineCov">        143 :     touchWatchedKeysOnFlush(dbid);</span>
+<span class="lineNum">     401 </span><span class="lineCov">        143 : }</span>
+<span class="lineNum">     402 </span>            : 
+<span class="lineNum">     403 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     404 </span>            :  * Type agnostic commands operating on the key space
+<span class="lineNum">     405 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">     406 </span>            : 
+<span class="lineNum">     407 </span>            : /* Return the set of flags to use for the emptyDb() call for FLUSHALL
+<span class="lineNum">     408 </span>            :  * and FLUSHDB commands.
+<span class="lineNum">     409 </span>            :  *
+<span class="lineNum">     410 </span>            :  * Currently the command just attempts to parse the &quot;ASYNC&quot; option. It
+<span class="lineNum">     411 </span>            :  * also checks if the command arity is wrong.
+<span class="lineNum">     412 </span>            :  *
+<a name="413"><span class="lineNum">     413 </span>            :  * On success C_OK is returned and the flags are stored in *flags, otherwise</a>
+<span class="lineNum">     414 </span>            :  * C_ERR is returned and the function sends an error to the client. */
+<span class="lineNum">     415 </span><span class="lineCov">        769 : int getFlushCommandFlags(client *c, int *flags) {</span>
+<span class="lineNum">     416 </span>            :     /* Parse the optional ASYNC option. */
+<span class="lineNum">     417 </span><span class="lineCov">        769 :     if (c-&gt;argc &gt; 1) {</span>
+<span class="lineNum">     418 </span><span class="lineCov">          2 :         if (c-&gt;argc &gt; 2 || strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;async&quot;)) {</span>
+<span class="lineNum">     419 </span><span class="lineNoCov">          0 :             addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     420 </span><span class="lineNoCov">          0 :             return C_ERR;</span>
+<span class="lineNum">     421 </span>            :         }
+<span class="lineNum">     422 </span><span class="lineCov">          2 :         *flags = EMPTYDB_ASYNC;</span>
+<span class="lineNum">     423 </span>            :     } else {
+<span class="lineNum">     424 </span><span class="lineCov">        767 :         *flags = EMPTYDB_NO_FLAGS;</span>
+<span class="lineNum">     425 </span>            :     }
+<span class="lineNum">     426 </span>            :     return C_OK;
+<span class="lineNum">     427 </span>            : }
+<span class="lineNum">     428 </span>            : 
+<span class="lineNum">     429 </span>            : /* FLUSHDB [ASYNC]
+<a name="430"><span class="lineNum">     430 </span>            :  *</a>
+<span class="lineNum">     431 </span>            :  * Flushes the currently SELECTed Redis DB. */
+<span class="lineNum">     432 </span><span class="lineCov">        160 : void flushdbCommand(client *c) {</span>
+<span class="lineNum">     433 </span><span class="lineCov">        160 :     int flags;</span>
+<span class="lineNum">     434 </span>            : 
+<span class="lineNum">     435 </span><span class="lineCov">        160 :     if (getFlushCommandFlags(c,&amp;flags) == C_ERR) return;</span>
+<span class="lineNum">     436 </span><span class="lineCov">        160 :     signalFlushedDb(c-&gt;db-&gt;id);</span>
+<span class="lineNum">     437 </span><span class="lineCov">        160 :     server.dirty += emptyDb(c-&gt;db-&gt;id,flags,NULL);</span>
+<span class="lineNum">     438 </span><span class="lineCov">        160 :     addReply(c,shared.ok);</span>
+<span class="lineNum">     439 </span>            : }
+<span class="lineNum">     440 </span>            : 
+<span class="lineNum">     441 </span>            : /* FLUSHALL [ASYNC]
+<a name="442"><span class="lineNum">     442 </span>            :  *</a>
+<span class="lineNum">     443 </span>            :  * Flushes the whole server data set. */
+<span class="lineNum">     444 </span><span class="lineCov">        609 : void flushallCommand(client *c) {</span>
+<span class="lineNum">     445 </span><span class="lineCov">        609 :     int flags;</span>
+<span class="lineNum">     446 </span>            : 
+<span class="lineNum">     447 </span><span class="lineCov">        609 :     if (getFlushCommandFlags(c,&amp;flags) == C_ERR) return;</span>
+<span class="lineNum">     448 </span><span class="lineCov">        609 :     signalFlushedDb(-1);</span>
+<span class="lineNum">     449 </span><span class="lineCov">        609 :     server.dirty += emptyDb(-1,flags,NULL);</span>
+<span class="lineNum">     450 </span><span class="lineCov">        609 :     addReply(c,shared.ok);</span>
+<span class="lineNum">     451 </span><span class="lineCov">        609 :     if (server.rdb_child_pid != -1) {</span>
+<span class="lineNum">     452 </span><span class="lineNoCov">          0 :         kill(server.rdb_child_pid,SIGUSR1);</span>
+<span class="lineNum">     453 </span><span class="lineNoCov">          0 :         rdbRemoveTempFile(server.rdb_child_pid);</span>
+<span class="lineNum">     454 </span>            :     }
+<span class="lineNum">     455 </span><span class="lineCov">        609 :     if (server.saveparamslen &gt; 0) {</span>
+<span class="lineNum">     456 </span>            :         /* Normally rdbSave() will reset dirty, but we don't want this here
+<span class="lineNum">     457 </span>            :          * as otherwise FLUSHALL will not be replicated nor put into the AOF. */
+<span class="lineNum">     458 </span><span class="lineCov">        609 :         int saved_dirty = server.dirty;</span>
+<span class="lineNum">     459 </span><span class="lineCov">        609 :         rdbSaveInfo rsi, *rsiptr;</span>
+<span class="lineNum">     460 </span><span class="lineCov">        609 :         rsiptr = rdbPopulateSaveInfo(&amp;rsi);</span>
+<span class="lineNum">     461 </span><span class="lineCov">        609 :         rdbSave(server.rdb_filename,rsiptr);</span>
+<span class="lineNum">     462 </span><span class="lineCov">        609 :         server.dirty = saved_dirty;</span>
+<span class="lineNum">     463 </span>            :     }
+<span class="lineNum">     464 </span><span class="lineCov">        609 :     server.dirty++;</span>
+<span class="lineNum">     465 </span>            : }
+<a name="466"><span class="lineNum">     466 </span>            : </a>
+<span class="lineNum">     467 </span>            : /* This command implements DEL and LAZYDEL. */
+<span class="lineNum">     468 </span><span class="lineCov">     840653 : void delGenericCommand(client *c, int lazy) {</span>
+<span class="lineNum">     469 </span><span class="lineCov">     840653 :     int numdel = 0, j;</span>
+<span class="lineNum">     470 </span>            : 
+<span class="lineNum">     471 </span><span class="lineCov">    1683650 :     for (j = 1; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     472 </span><span class="lineCov">     842997 :         expireIfNeeded(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     473 </span><span class="lineCov">     842997 :         int deleted  = lazy ? dbAsyncDelete(c-&gt;db,c-&gt;argv[j]) :</span>
+<span class="lineNum">     474 </span><span class="lineCov">     842995 :                               dbSyncDelete(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     475 </span><span class="lineCov">     842997 :         if (deleted) {</span>
+<span class="lineNum">     476 </span><span class="lineCov">     512312 :             signalModifiedKey(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     477 </span><span class="lineCov">    1536936 :             notifyKeyspaceEvent(NOTIFY_GENERIC,</span>
+<span class="lineNum">     478 </span><span class="lineCov">     512312 :                 &quot;del&quot;,c-&gt;argv[j],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     479 </span><span class="lineCov">     512312 :             server.dirty++;</span>
+<span class="lineNum">     480 </span><span class="lineCov">     512312 :             numdel++;</span>
+<span class="lineNum">     481 </span>            :         }
+<span class="lineNum">     482 </span>            :     }
+<span class="lineNum">     483 </span><span class="lineCov">     840653 :     addReplyLongLong(c,numdel);</span>
+<a name="484"><span class="lineNum">     484 </span><span class="lineCov">     840653 : }</span></a>
+<span class="lineNum">     485 </span>            : 
+<span class="lineNum">     486 </span><span class="lineCov">     840651 : void delCommand(client *c) {</span>
+<span class="lineNum">     487 </span><span class="lineCov">     840651 :     delGenericCommand(c,0);</span>
+<a name="488"><span class="lineNum">     488 </span><span class="lineCov">     840651 : }</span></a>
+<span class="lineNum">     489 </span>            : 
+<span class="lineNum">     490 </span><span class="lineCov">          2 : void unlinkCommand(client *c) {</span>
+<span class="lineNum">     491 </span><span class="lineCov">          2 :     delGenericCommand(c,1);</span>
+<span class="lineNum">     492 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     493 </span>            : 
+<a name="494"><span class="lineNum">     494 </span>            : /* EXISTS key1 key2 ... key_N.</a>
+<span class="lineNum">     495 </span>            :  * Return value is the number of keys existing. */
+<span class="lineNum">     496 </span><span class="lineCov">       4576 : void existsCommand(client *c) {</span>
+<span class="lineNum">     497 </span><span class="lineCov">       4576 :     long long count = 0;</span>
+<span class="lineNum">     498 </span><span class="lineCov">       4576 :     int j;</span>
+<span class="lineNum">     499 </span>            : 
+<span class="lineNum">     500 </span><span class="lineCov">       9152 :     for (j = 1; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     501 </span><span class="lineCov">       4576 :         if (lookupKeyRead(c-&gt;db,c-&gt;argv[j])) count++;</span>
+<span class="lineNum">     502 </span>            :     }
+<span class="lineNum">     503 </span><span class="lineCov">       4576 :     addReplyLongLong(c,count);</span>
+<a name="504"><span class="lineNum">     504 </span><span class="lineCov">       4576 : }</span></a>
+<span class="lineNum">     505 </span>            : 
+<span class="lineNum">     506 </span><span class="lineCov">     550807 : void selectCommand(client *c) {</span>
+<span class="lineNum">     507 </span><span class="lineCov">     550807 :     long id;</span>
+<span class="lineNum">     508 </span>            : 
+<span class="lineNum">     509 </span><span class="lineCov">     550807 :     if (getLongFromObjectOrReply(c, c-&gt;argv[1], &amp;id,</span>
+<span class="lineNum">     510 </span>            :         &quot;invalid DB index&quot;) != C_OK)
+<span class="lineNum">     511 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     512 </span>            : 
+<span class="lineNum">     513 </span><span class="lineCov">     550807 :     if (server.cluster_enabled &amp;&amp; id != 0) {</span>
+<span class="lineNum">     514 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;SELECT is not allowed in cluster mode&quot;);</span>
+<span class="lineNum">     515 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     516 </span>            :     }
+<span class="lineNum">     517 </span><span class="lineCov">     550807 :     if (selectDb(c,id) == C_ERR) {</span>
+<span class="lineNum">     518 </span><span class="lineCov">          9 :         addReplyError(c,&quot;DB index is out of range&quot;);</span>
+<span class="lineNum">     519 </span>            :     } else {
+<span class="lineNum">     520 </span><span class="lineCov">     550798 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     521 </span>            :     }
+<a name="522"><span class="lineNum">     522 </span>            : }</a>
+<span class="lineNum">     523 </span>            : 
+<span class="lineNum">     524 </span><span class="lineCov">    1114492 : void randomkeyCommand(client *c) {</span>
+<span class="lineNum">     525 </span><span class="lineCov">    1114492 :     robj *key;</span>
+<span class="lineNum">     526 </span>            : 
+<span class="lineNum">     527 </span><span class="lineCov">    1114492 :     if ((key = dbRandomKey(c-&gt;db)) == NULL) {</span>
+<span class="lineNum">     528 </span><span class="lineCov">          6 :         addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     529 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     530 </span>            :     }
+<span class="lineNum">     531 </span>            : 
+<span class="lineNum">     532 </span><span class="lineCov">    1114486 :     addReplyBulk(c,key);</span>
+<span class="lineNum">     533 </span><span class="lineCov">    1114486 :     decrRefCount(key);</span>
+<a name="534"><span class="lineNum">     534 </span>            : }</a>
+<span class="lineNum">     535 </span>            : 
+<span class="lineNum">     536 </span><span class="lineCov">         78 : void keysCommand(client *c) {</span>
+<span class="lineNum">     537 </span><span class="lineCov">         78 :     dictIterator *di;</span>
+<span class="lineNum">     538 </span><span class="lineCov">         78 :     dictEntry *de;</span>
+<span class="lineNum">     539 </span><span class="lineCov">         78 :     sds pattern = c-&gt;argv[1]-&gt;ptr;</span>
+<span class="lineNum">     540 </span><span class="lineCov">         78 :     int plen = sdslen(pattern), allkeys;</span>
+<span class="lineNum">     541 </span><span class="lineCov">         78 :     unsigned long numkeys = 0;</span>
+<span class="lineNum">     542 </span><span class="lineCov">         78 :     void *replylen = addDeferredMultiBulkLength(c);</span>
+<span class="lineNum">     543 </span>            : 
+<span class="lineNum">     544 </span><span class="lineCov">         78 :     di = dictGetSafeIterator(c-&gt;db-&gt;dict);</span>
+<span class="lineNum">     545 </span><span class="lineCov">         78 :     allkeys = (pattern[0] == '*' &amp;&amp; pattern[1] == '\0');</span>
+<span class="lineNum">     546 </span><span class="lineCov">       8581 :     while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     547 </span><span class="lineCov">       8503 :         sds key = dictGetKey(de);</span>
+<span class="lineNum">     548 </span><span class="lineCov">       8503 :         robj *keyobj;</span>
+<span class="lineNum">     549 </span>            : 
+<span class="lineNum">     550 </span><span class="lineCov">       8521 :         if (allkeys || stringmatchlen(pattern,plen,key,sdslen(key),0)) {</span>
+<span class="lineNum">     551 </span><span class="lineCov">      16988 :             keyobj = createStringObject(key,sdslen(key));</span>
+<span class="lineNum">     552 </span><span class="lineCov">       8494 :             if (!keyIsExpired(c-&gt;db,keyobj)) {</span>
+<span class="lineNum">     553 </span><span class="lineCov">       8494 :                 addReplyBulk(c,keyobj);</span>
+<span class="lineNum">     554 </span><span class="lineCov">       8494 :                 numkeys++;</span>
+<span class="lineNum">     555 </span>            :             }
+<span class="lineNum">     556 </span><span class="lineCov">       8494 :             decrRefCount(keyobj);</span>
+<span class="lineNum">     557 </span>            :         }
+<span class="lineNum">     558 </span>            :     }
+<span class="lineNum">     559 </span><span class="lineCov">         78 :     dictReleaseIterator(di);</span>
+<span class="lineNum">     560 </span><span class="lineCov">         78 :     setDeferredMultiBulkLength(c,replylen,numkeys);</span>
+<span class="lineNum">     561 </span><span class="lineCov">         78 : }</span>
+<span class="lineNum">     562 </span>            : 
+<a name="563"><span class="lineNum">     563 </span>            : /* This callback is used by scanGenericCommand in order to collect elements</a>
+<span class="lineNum">     564 </span>            :  * returned by the dictionary iterator into a list. */
+<span class="lineNum">     565 </span><span class="lineCov">      72953 : void scanCallback(void *privdata, const dictEntry *de) {</span>
+<span class="lineNum">     566 </span><span class="lineCov">      72953 :     void **pd = (void**) privdata;</span>
+<span class="lineNum">     567 </span><span class="lineCov">      72953 :     list *keys = pd[0];</span>
+<span class="lineNum">     568 </span><span class="lineCov">      72953 :     robj *o = pd[1];</span>
+<span class="lineNum">     569 </span><span class="lineCov">      72953 :     robj *key, *val = NULL;</span>
+<span class="lineNum">     570 </span>            : 
+<span class="lineNum">     571 </span><span class="lineCov">      72953 :     if (o == NULL) {</span>
+<span class="lineNum">     572 </span><span class="lineCov">       9453 :         sds sdskey = dictGetKey(de);</span>
+<span class="lineNum">     573 </span><span class="lineCov">      18906 :         key = createStringObject(sdskey, sdslen(sdskey));</span>
+<span class="lineNum">     574 </span><span class="lineCov">      63500 :     } else if (o-&gt;type == OBJ_SET) {</span>
+<span class="lineNum">     575 </span><span class="lineCov">      57468 :         sds keysds = dictGetKey(de);</span>
+<span class="lineNum">     576 </span><span class="lineCov">     114936 :         key = createStringObject(keysds,sdslen(keysds));</span>
+<span class="lineNum">     577 </span><span class="lineCov">       6032 :     } else if (o-&gt;type == OBJ_HASH) {</span>
+<span class="lineNum">     578 </span><span class="lineCov">       3000 :         sds sdskey = dictGetKey(de);</span>
+<span class="lineNum">     579 </span><span class="lineCov">       3000 :         sds sdsval = dictGetVal(de);</span>
+<span class="lineNum">     580 </span><span class="lineCov">       6000 :         key = createStringObject(sdskey,sdslen(sdskey));</span>
+<span class="lineNum">     581 </span><span class="lineCov">       6000 :         val = createStringObject(sdsval,sdslen(sdsval));</span>
+<span class="lineNum">     582 </span><span class="lineCov">       3032 :     } else if (o-&gt;type == OBJ_ZSET) {</span>
+<span class="lineNum">     583 </span><span class="lineCov">       3032 :         sds sdskey = dictGetKey(de);</span>
+<span class="lineNum">     584 </span><span class="lineCov">       6064 :         key = createStringObject(sdskey,sdslen(sdskey));</span>
+<span class="lineNum">     585 </span><span class="lineCov">       3032 :         val = createStringObjectFromLongDouble(*(double*)dictGetVal(de),0);</span>
+<span class="lineNum">     586 </span>            :     } else {
+<span class="lineNum">     587 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Type not handled in SCAN callback.&quot;);</span>
+<span class="lineNum">     588 </span>            :     }
+<span class="lineNum">     589 </span>            : 
+<span class="lineNum">     590 </span><span class="lineCov">      72953 :     listAddNodeTail(keys, key);</span>
+<span class="lineNum">     591 </span><span class="lineCov">      72953 :     if (val) listAddNodeTail(keys, val);</span>
+<span class="lineNum">     592 </span><span class="lineCov">      72953 : }</span>
+<span class="lineNum">     593 </span>            : 
+<span class="lineNum">     594 </span>            : /* Try to parse a SCAN cursor stored at object 'o':
+<span class="lineNum">     595 </span>            :  * if the cursor is valid, store it as unsigned integer into *cursor and
+<a name="596"><span class="lineNum">     596 </span>            :  * returns C_OK. Otherwise return C_ERR and send an error to the</a>
+<span class="lineNum">     597 </span>            :  * client. */
+<span class="lineNum">     598 </span><span class="lineCov">       7404 : int parseScanCursorOrReply(client *c, robj *o, unsigned long *cursor) {</span>
+<span class="lineNum">     599 </span><span class="lineCov">       7404 :     char *eptr;</span>
+<span class="lineNum">     600 </span>            : 
+<span class="lineNum">     601 </span>            :     /* Use strtoul() because we need an *unsigned* long, so
+<span class="lineNum">     602 </span>            :      * getLongLongFromObject() does not cover the whole cursor space. */
+<span class="lineNum">     603 </span><span class="lineCov">       7404 :     errno = 0;</span>
+<span class="lineNum">     604 </span><span class="lineCov">       7404 :     *cursor = strtoul(o-&gt;ptr, &amp;eptr, 10);</span>
+<span class="lineNum">     605 </span><span class="lineCov">       7404 :     if (isspace(((char*)o-&gt;ptr)[0]) || eptr[0] != '\0' || errno == ERANGE)</span>
+<span class="lineNum">     606 </span>            :     {
+<span class="lineNum">     607 </span><span class="lineNoCov">          0 :         addReplyError(c, &quot;invalid cursor&quot;);</span>
+<span class="lineNum">     608 </span><span class="lineNoCov">          0 :         return C_ERR;</span>
+<span class="lineNum">     609 </span>            :     }
+<span class="lineNum">     610 </span>            :     return C_OK;
+<span class="lineNum">     611 </span>            : }
+<span class="lineNum">     612 </span>            : 
+<span class="lineNum">     613 </span>            : /* This command implements SCAN, HSCAN and SSCAN commands.
+<span class="lineNum">     614 </span>            :  * If object 'o' is passed, then it must be a Hash or Set object, otherwise
+<span class="lineNum">     615 </span>            :  * if 'o' is NULL the command will operate on the dictionary associated with
+<span class="lineNum">     616 </span>            :  * the current database.
+<span class="lineNum">     617 </span>            :  *
+<span class="lineNum">     618 </span>            :  * When 'o' is not NULL the function assumes that the first argument in
+<span class="lineNum">     619 </span>            :  * the client arguments vector is a key so it skips it before iterating
+<span class="lineNum">     620 </span>            :  * in order to parse options.
+<span class="lineNum">     621 </span>            :  *
+<a name="622"><span class="lineNum">     622 </span>            :  * In the case of a Hash object the function returns both the field and value</a>
+<span class="lineNum">     623 </span>            :  * of every element on the Hash. */
+<span class="lineNum">     624 </span><span class="lineCov">       7404 : void scanGenericCommand(client *c, robj *o, unsigned long cursor) {</span>
+<span class="lineNum">     625 </span><span class="lineCov">       7404 :     int i, j;</span>
+<span class="lineNum">     626 </span><span class="lineCov">       7404 :     list *keys = listCreate();</span>
+<span class="lineNum">     627 </span><span class="lineCov">       7404 :     listNode *node, *nextnode;</span>
+<span class="lineNum">     628 </span><span class="lineCov">       7404 :     long count = 10;</span>
+<span class="lineNum">     629 </span><span class="lineCov">       7404 :     sds pat = NULL;</span>
+<span class="lineNum">     630 </span><span class="lineCov">       7404 :     int patlen = 0, use_pattern = 0;</span>
+<span class="lineNum">     631 </span><span class="lineCov">       7404 :     dict *ht;</span>
+<span class="lineNum">     632 </span>            : 
+<span class="lineNum">     633 </span>            :     /* Object must be NULL (to iterate keys names), or the type of the object
+<span class="lineNum">     634 </span>            :      * must be Set, Sorted Set, or Hash. */
+<span class="lineNum">     635 </span><span class="lineCov">       7404 :     serverAssert(o == NULL || o-&gt;type == OBJ_SET || o-&gt;type == OBJ_HASH ||</span>
+<span class="lineNum">     636 </span>            :                 o-&gt;type == OBJ_ZSET);
+<span class="lineNum">     637 </span>            : 
+<span class="lineNum">     638 </span>            :     /* Set i to the first option argument. The previous one is the cursor. */
+<span class="lineNum">     639 </span><span class="lineCov">       7404 :     i = (o == NULL) ? 2 : 3; /* Skip the key argument if needed. */</span>
+<span class="lineNum">     640 </span>            : 
+<span class="lineNum">     641 </span>            :     /* Step 1: Parse options. */
+<span class="lineNum">     642 </span><span class="lineCov">       8267 :     while (i &lt; c-&gt;argc) {</span>
+<span class="lineNum">     643 </span><span class="lineCov">        863 :         j = c-&gt;argc - i;</span>
+<span class="lineNum">     644 </span><span class="lineCov">        863 :         if (!strcasecmp(c-&gt;argv[i]-&gt;ptr, &quot;count&quot;) &amp;&amp; j &gt;= 2) {</span>
+<span class="lineNum">     645 </span><span class="lineCov">        561 :             if (getLongFromObjectOrReply(c, c-&gt;argv[i+1], &amp;count, NULL)</span>
+<span class="lineNum">     646 </span>            :                 != C_OK)
+<span class="lineNum">     647 </span>            :             {
+<span class="lineNum">     648 </span>            :                 goto cleanup;
+<span class="lineNum">     649 </span>            :             }
+<span class="lineNum">     650 </span>            : 
+<span class="lineNum">     651 </span><span class="lineCov">        561 :             if (count &lt; 1) {</span>
+<span class="lineNum">     652 </span><span class="lineNoCov">          0 :                 addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     653 </span><span class="lineNoCov">          0 :                 goto cleanup;</span>
+<span class="lineNum">     654 </span>            :             }
+<span class="lineNum">     655 </span>            : 
+<span class="lineNum">     656 </span><span class="lineCov">        561 :             i += 2;</span>
+<span class="lineNum">     657 </span><span class="lineCov">        302 :         } else if (!strcasecmp(c-&gt;argv[i]-&gt;ptr, &quot;match&quot;) &amp;&amp; j &gt;= 2) {</span>
+<span class="lineNum">     658 </span><span class="lineCov">        302 :             pat = c-&gt;argv[i+1]-&gt;ptr;</span>
+<span class="lineNum">     659 </span><span class="lineCov">        302 :             patlen = sdslen(pat);</span>
+<span class="lineNum">     660 </span>            : 
+<span class="lineNum">     661 </span>            :             /* The pattern always matches if it is exactly &quot;*&quot;, so it is
+<span class="lineNum">     662 </span>            :              * equivalent to disabling it. */
+<span class="lineNum">     663 </span><span class="lineCov">        302 :             use_pattern = !(pat[0] == '*' &amp;&amp; patlen == 1);</span>
+<span class="lineNum">     664 </span>            : 
+<span class="lineNum">     665 </span><span class="lineCov">        302 :             i += 2;</span>
+<span class="lineNum">     666 </span>            :         } else {
+<span class="lineNum">     667 </span><span class="lineNoCov">          0 :             addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     668 </span><span class="lineNoCov">          0 :             goto cleanup;</span>
+<span class="lineNum">     669 </span>            :         }
+<span class="lineNum">     670 </span>            :     }
+<span class="lineNum">     671 </span>            : 
+<span class="lineNum">     672 </span>            :     /* Step 2: Iterate the collection.
+<span class="lineNum">     673 </span>            :      *
+<span class="lineNum">     674 </span>            :      * Note that if the object is encoded with a ziplist, intset, or any other
+<span class="lineNum">     675 </span>            :      * representation that is not a hash table, we are sure that it is also
+<span class="lineNum">     676 </span>            :      * composed of a small number of elements. So to avoid taking state we
+<span class="lineNum">     677 </span>            :      * just return everything inside the object in a single call, setting the
+<span class="lineNum">     678 </span>            :      * cursor to zero to signal the end of the iteration. */
+<span class="lineNum">     679 </span>            : 
+<span class="lineNum">     680 </span>            :     /* Handle the case of a hash table. */
+<span class="lineNum">     681 </span><span class="lineCov">       7404 :     ht = NULL;</span>
+<span class="lineNum">     682 </span><span class="lineCov">       7404 :     if (o == NULL) {</span>
+<span class="lineNum">     683 </span><span class="lineCov">       1165 :         ht = c-&gt;db-&gt;dict;</span>
+<span class="lineNum">     684 </span><span class="lineCov">       6239 :     } else if (o-&gt;type == OBJ_SET &amp;&amp; o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     685 </span><span class="lineCov">       5647 :         ht = o-&gt;ptr;</span>
+<span class="lineNum">     686 </span><span class="lineCov">        592 :     } else if (o-&gt;type == OBJ_HASH &amp;&amp; o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     687 </span><span class="lineCov">        287 :         ht = o-&gt;ptr;</span>
+<span class="lineNum">     688 </span><span class="lineCov">        287 :         count *= 2; /* We return key / value for this type. */</span>
+<span class="lineNum">     689 </span><span class="lineCov">        305 :     } else if (o-&gt;type == OBJ_ZSET &amp;&amp; o-&gt;encoding == OBJ_ENCODING_SKIPLIST) {</span>
+<span class="lineNum">     690 </span><span class="lineCov">        290 :         zset *zs = o-&gt;ptr;</span>
+<span class="lineNum">     691 </span><span class="lineCov">        290 :         ht = zs-&gt;dict;</span>
+<span class="lineNum">     692 </span><span class="lineCov">        290 :         count *= 2; /* We return key / value for this type. */</span>
+<span class="lineNum">     693 </span>            :     }
+<span class="lineNum">     694 </span>            : 
+<span class="lineNum">     695 </span><span class="lineCov">       7389 :     if (ht) {</span>
+<span class="lineNum">     696 </span><span class="lineCov">       7389 :         void *privdata[2];</span>
+<span class="lineNum">     697 </span>            :         /* We set the max number of iterations to ten times the specified
+<span class="lineNum">     698 </span>            :          * COUNT, so if the hash table is in a pathological state (very
+<span class="lineNum">     699 </span>            :          * sparsely populated) we avoid to block too much time at the cost
+<span class="lineNum">     700 </span>            :          * of returning no or very few elements. */
+<span class="lineNum">     701 </span><span class="lineCov">       7389 :         long maxiterations = count*10;</span>
+<span class="lineNum">     702 </span>            : 
+<span class="lineNum">     703 </span>            :         /* We pass two pointers to the callback: the list to which it will
+<span class="lineNum">     704 </span>            :          * add new elements, and the object containing the dictionary so that
+<span class="lineNum">     705 </span>            :          * it is possible to fetch more data in a type-dependent way. */
+<span class="lineNum">     706 </span><span class="lineCov">       7389 :         privdata[0] = keys;</span>
+<span class="lineNum">     707 </span><span class="lineCov">       7389 :         privdata[1] = o;</span>
+<span class="lineNum">     708 </span><span class="lineCov">     108589 :         do {</span>
+<span class="lineNum">     709 </span><span class="lineCov">     108589 :             cursor = dictScan(ht, cursor, scanCallback, NULL, privdata);</span>
+<span class="lineNum">     710 </span><span class="lineCov">     108259 :         } while (cursor &amp;&amp;</span>
+<span class="lineNum">     711 </span><span class="lineCov">     108259 :               maxiterations-- &amp;&amp;</span>
+<span class="lineNum">     712 </span><span class="lineCov">     216837 :               listLength(keys) &lt; (unsigned long)count);</span>
+<span class="lineNum">     713 </span><span class="lineCov">         15 :     } else if (o-&gt;type == OBJ_SET) {</span>
+<span class="lineNum">     714 </span>            :         int pos = 0;
+<span class="lineNum">     715 </span>            :         int64_t ll;
+<span class="lineNum">     716 </span>            : 
+<span class="lineNum">     717 </span><span class="lineCov">        303 :         while(intsetGet(o-&gt;ptr,pos++,&amp;ll))</span>
+<span class="lineNum">     718 </span><span class="lineCov">        300 :             listAddNodeTail(keys,createStringObjectFromLongLong(ll));</span>
+<span class="lineNum">     719 </span><span class="lineCov">          3 :         cursor = 0;</span>
+<span class="lineNum">     720 </span><span class="lineCov">         12 :     } else if (o-&gt;type == OBJ_HASH || o-&gt;type == OBJ_ZSET) {</span>
+<span class="lineNum">     721 </span><span class="lineCov">         12 :         unsigned char *p = ziplistIndex(o-&gt;ptr,0);</span>
+<span class="lineNum">     722 </span><span class="lineCov">         12 :         unsigned char *vstr;</span>
+<span class="lineNum">     723 </span><span class="lineCov">         12 :         unsigned int vlen;</span>
+<span class="lineNum">     724 </span><span class="lineCov">         12 :         long long vll;</span>
+<span class="lineNum">     725 </span>            : 
+<span class="lineNum">     726 </span><span class="lineCov">        444 :         while(p) {</span>
+<span class="lineNum">     727 </span><span class="lineCov">        432 :             ziplistGet(p,&amp;vstr,&amp;vlen,&amp;vll);</span>
+<span class="lineNum">     728 </span><span class="lineCov">        432 :             listAddNodeTail(keys,</span>
+<span class="lineNum">     729 </span><span class="lineCov">        432 :                 (vstr != NULL) ? createStringObject((char*)vstr,vlen) :</span>
+<span class="lineNum">     730 </span><span class="lineCov">        216 :                                  createStringObjectFromLongLong(vll));</span>
+<span class="lineNum">     731 </span><span class="lineCov">        432 :             p = ziplistNext(o-&gt;ptr,p);</span>
+<span class="lineNum">     732 </span>            :         }
+<span class="lineNum">     733 </span><span class="lineCov">         12 :         cursor = 0;</span>
+<span class="lineNum">     734 </span>            :     } else {
+<span class="lineNum">     735 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Not handled encoding in SCAN.&quot;);</span>
+<span class="lineNum">     736 </span>            :     }
+<span class="lineNum">     737 </span>            : 
+<span class="lineNum">     738 </span>            :     /* Step 3: Filter elements. */
+<span class="lineNum">     739 </span><span class="lineCov">       7404 :     node = listFirst(keys);</span>
+<span class="lineNum">     740 </span><span class="lineCov">      80873 :     while (node) {</span>
+<span class="lineNum">     741 </span><span class="lineCov">      73469 :         robj *kobj = listNodeValue(node);</span>
+<span class="lineNum">     742 </span><span class="lineCov">      73469 :         nextnode = listNextNode(node);</span>
+<span class="lineNum">     743 </span><span class="lineCov">      73469 :         int filter = 0;</span>
+<span class="lineNum">     744 </span>            : 
+<span class="lineNum">     745 </span>            :         /* Filter element if it does not match the pattern. */
+<span class="lineNum">     746 </span><span class="lineCov">      73469 :         if (!filter &amp;&amp; use_pattern) {</span>
+<span class="lineNum">     747 </span><span class="lineCov">       3072 :             if (sdsEncodedObject(kobj)) {</span>
+<span class="lineNum">     748 </span><span class="lineCov">       6120 :                 if (!stringmatchlen(pat, patlen, kobj-&gt;ptr, sdslen(kobj-&gt;ptr), 0))</span>
+<span class="lineNum">     749 </span><span class="lineCov">       2736 :                     filter = 1;</span>
+<span class="lineNum">     750 </span>            :             } else {
+<span class="lineNum">     751 </span><span class="lineCov">         12 :                 char buf[LONG_STR_SIZE];</span>
+<span class="lineNum">     752 </span><span class="lineCov">         12 :                 int len;</span>
+<span class="lineNum">     753 </span>            : 
+<span class="lineNum">     754 </span><span class="lineCov">         12 :                 serverAssert(kobj-&gt;encoding == OBJ_ENCODING_INT);</span>
+<span class="lineNum">     755 </span><span class="lineCov">         12 :                 len = ll2string(buf,sizeof(buf),(long)kobj-&gt;ptr);</span>
+<span class="lineNum">     756 </span><span class="lineCov">         12 :                 if (!stringmatchlen(pat, patlen, buf, len, 0)) filter = 1;</span>
+<span class="lineNum">     757 </span>            :             }
+<span class="lineNum">     758 </span>            :         }
+<span class="lineNum">     759 </span>            : 
+<span class="lineNum">     760 </span>            :         /* Filter element if it is an expired key. */
+<span class="lineNum">     761 </span><span class="lineCov">      73469 :         if (!filter &amp;&amp; o == NULL &amp;&amp; expireIfNeeded(c-&gt;db, kobj)) filter = 1;</span>
+<span class="lineNum">     762 </span>            : 
+<span class="lineNum">     763 </span>            :         /* Remove the element and its associted value if needed. */
+<span class="lineNum">     764 </span><span class="lineCov">      73469 :         if (filter) {</span>
+<span class="lineNum">     765 </span><span class="lineCov">       2748 :             decrRefCount(kobj);</span>
+<span class="lineNum">     766 </span><span class="lineCov">       2748 :             listDelNode(keys, node);</span>
+<span class="lineNum">     767 </span>            :         }
+<span class="lineNum">     768 </span>            : 
+<span class="lineNum">     769 </span>            :         /* If this is a hash or a sorted set, we have a flat list of
+<span class="lineNum">     770 </span>            :          * key-value elements, so if this element was filtered, remove the
+<span class="lineNum">     771 </span>            :          * value, or skip it if it was not filtered: we only match keys. */
+<span class="lineNum">     772 </span><span class="lineCov">      73469 :         if (o &amp;&amp; (o-&gt;type == OBJ_ZSET || o-&gt;type == OBJ_HASH)) {</span>
+<span class="lineNum">     773 </span><span class="lineCov">       6248 :             node = nextnode;</span>
+<span class="lineNum">     774 </span><span class="lineCov">       6248 :             nextnode = listNextNode(node);</span>
+<span class="lineNum">     775 </span><span class="lineCov">       6248 :             if (filter) {</span>
+<span class="lineNum">     776 </span><span class="lineCov">         24 :                 kobj = listNodeValue(node);</span>
+<span class="lineNum">     777 </span><span class="lineCov">         24 :                 decrRefCount(kobj);</span>
+<span class="lineNum">     778 </span><span class="lineCov">         24 :                 listDelNode(keys, node);</span>
+<span class="lineNum">     779 </span>            :             }
+<span class="lineNum">     780 </span>            :         }
+<span class="lineNum">     781 </span>            :         node = nextnode;
+<span class="lineNum">     782 </span>            :     }
+<span class="lineNum">     783 </span>            : 
+<span class="lineNum">     784 </span>            :     /* Step 4: Reply to the client. */
+<span class="lineNum">     785 </span><span class="lineCov">       7404 :     addReplyMultiBulkLen(c, 2);</span>
+<span class="lineNum">     786 </span><span class="lineCov">       7404 :     addReplyBulkLongLong(c,cursor);</span>
+<span class="lineNum">     787 </span>            : 
+<span class="lineNum">     788 </span><span class="lineCov">       7404 :     addReplyMultiBulkLen(c, listLength(keys));</span>
+<span class="lineNum">     789 </span><span class="lineCov">      84349 :     while ((node = listFirst(keys)) != NULL) {</span>
+<span class="lineNum">     790 </span><span class="lineCov">      76945 :         robj *kobj = listNodeValue(node);</span>
+<span class="lineNum">     791 </span><span class="lineCov">      76945 :         addReplyBulk(c, kobj);</span>
+<span class="lineNum">     792 </span><span class="lineCov">      76945 :         decrRefCount(kobj);</span>
+<span class="lineNum">     793 </span><span class="lineCov">      76945 :         listDelNode(keys, node);</span>
+<span class="lineNum">     794 </span>            :     }
+<span class="lineNum">     795 </span>            : 
+<span class="lineNum">     796 </span><span class="lineCov">       7404 : cleanup:</span>
+<span class="lineNum">     797 </span><span class="lineCov">       7404 :     listSetFreeMethod(keys,decrRefCountVoid);</span>
+<span class="lineNum">     798 </span><span class="lineCov">       7404 :     listRelease(keys);</span>
+<span class="lineNum">     799 </span><span class="lineCov">       7404 : }</span>
+<a name="800"><span class="lineNum">     800 </span>            : </a>
+<span class="lineNum">     801 </span>            : /* The SCAN command completely relies on scanGenericCommand. */
+<span class="lineNum">     802 </span><span class="lineCov">       1165 : void scanCommand(client *c) {</span>
+<span class="lineNum">     803 </span><span class="lineCov">       1165 :     unsigned long cursor;</span>
+<span class="lineNum">     804 </span><span class="lineCov">       1165 :     if (parseScanCursorOrReply(c,c-&gt;argv[1],&amp;cursor) == C_ERR) return;</span>
+<span class="lineNum">     805 </span><span class="lineCov">       1165 :     scanGenericCommand(c,NULL,cursor);</span>
+<a name="806"><span class="lineNum">     806 </span>            : }</a>
+<span class="lineNum">     807 </span>            : 
+<span class="lineNum">     808 </span><span class="lineCov">        531 : void dbsizeCommand(client *c) {</span>
+<span class="lineNum">     809 </span><span class="lineCov">        531 :     addReplyLongLong(c,dictSize(c-&gt;db-&gt;dict));</span>
+<a name="810"><span class="lineNum">     810 </span><span class="lineCov">        531 : }</span></a>
+<span class="lineNum">     811 </span>            : 
+<span class="lineNum">     812 </span><span class="lineNoCov">          0 : void lastsaveCommand(client *c) {</span>
+<span class="lineNum">     813 </span><span class="lineNoCov">          0 :     addReplyLongLong(c,server.lastsave);</span>
+<a name="814"><span class="lineNum">     814 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     815 </span>            : 
+<span class="lineNum">     816 </span><span class="lineCov">    5362579 : void typeCommand(client *c) {</span>
+<span class="lineNum">     817 </span><span class="lineCov">    5362579 :     robj *o;</span>
+<span class="lineNum">     818 </span><span class="lineCov">    5362579 :     char *type;</span>
+<span class="lineNum">     819 </span>            : 
+<span class="lineNum">     820 </span><span class="lineCov">    5362579 :     o = lookupKeyReadWithFlags(c-&gt;db,c-&gt;argv[1],LOOKUP_NOTOUCH);</span>
+<span class="lineNum">     821 </span><span class="lineCov">    5362579 :     if (o == NULL) {</span>
+<span class="lineNum">     822 </span>            :         type = &quot;none&quot;;
+<span class="lineNum">     823 </span>            :     } else {
+<span class="lineNum">     824 </span><span class="lineCov">    3050471 :         switch(o-&gt;type) {</span>
+<span class="lineNum">     825 </span>            :         case OBJ_STRING: type = &quot;string&quot;; break;
+<span class="lineNum">     826 </span><span class="lineCov">     478044 :         case OBJ_LIST: type = &quot;list&quot;; break;</span>
+<span class="lineNum">     827 </span><span class="lineCov">     687287 :         case OBJ_SET: type = &quot;set&quot;; break;</span>
+<span class="lineNum">     828 </span><span class="lineCov">     662086 :         case OBJ_ZSET: type = &quot;zset&quot;; break;</span>
+<span class="lineNum">     829 </span><span class="lineCov">     517884 :         case OBJ_HASH: type = &quot;hash&quot;; break;</span>
+<span class="lineNum">     830 </span><span class="lineNoCov">          0 :         case OBJ_STREAM: type = &quot;stream&quot;; break;</span>
+<span class="lineNum">     831 </span><span class="lineNoCov">          0 :         case OBJ_MODULE: {</span>
+<span class="lineNum">     832 </span><span class="lineNoCov">          0 :             moduleValue *mv = o-&gt;ptr;</span>
+<span class="lineNum">     833 </span><span class="lineNoCov">          0 :             type = mv-&gt;type-&gt;name;</span>
+<span class="lineNum">     834 </span><span class="lineNoCov">          0 :         }; break;</span>
+<span class="lineNum">     835 </span><span class="lineNoCov">          0 :         default: type = &quot;unknown&quot;; break;</span>
+<span class="lineNum">     836 </span>            :         }
+<span class="lineNum">     837 </span>            :     }
+<span class="lineNum">     838 </span><span class="lineCov">    5362579 :     addReplyStatus(c,type);</span>
+<a name="839"><span class="lineNum">     839 </span><span class="lineCov">    5362579 : }</span></a>
+<span class="lineNum">     840 </span>            : 
+<span class="lineNum">     841 </span><span class="lineCov">          2 : void shutdownCommand(client *c) {</span>
+<span class="lineNum">     842 </span><span class="lineCov">          2 :     int flags = 0;</span>
+<span class="lineNum">     843 </span>            : 
+<span class="lineNum">     844 </span><span class="lineCov">          2 :     if (c-&gt;argc &gt; 2) {</span>
+<span class="lineNum">     845 </span><span class="lineNoCov">          0 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     846 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     847 </span><span class="lineCov">          2 :     } else if (c-&gt;argc == 2) {</span>
+<span class="lineNum">     848 </span><span class="lineCov">          2 :         if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;nosave&quot;)) {</span>
+<span class="lineNum">     849 </span>            :             flags |= SHUTDOWN_NOSAVE;
+<span class="lineNum">     850 </span><span class="lineNoCov">          0 :         } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;save&quot;)) {</span>
+<span class="lineNum">     851 </span>            :             flags |= SHUTDOWN_SAVE;
+<span class="lineNum">     852 </span>            :         } else {
+<span class="lineNum">     853 </span><span class="lineNoCov">          0 :             addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     854 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     855 </span>            :         }
+<span class="lineNum">     856 </span>            :     }
+<span class="lineNum">     857 </span>            :     /* When SHUTDOWN is called while the server is loading a dataset in
+<span class="lineNum">     858 </span>            :      * memory we need to make sure no attempt is performed to save
+<span class="lineNum">     859 </span>            :      * the dataset on shutdown (otherwise it could overwrite the current DB
+<span class="lineNum">     860 </span>            :      * with half-read data).
+<span class="lineNum">     861 </span>            :      *
+<span class="lineNum">     862 </span>            :      * Also when in Sentinel mode clear the SAVE flag and force NOSAVE. */
+<span class="lineNum">     863 </span><span class="lineCov">          2 :     if (server.loading || server.sentinel_mode)</span>
+<span class="lineNum">     864 </span><span class="lineNoCov">          0 :         flags = (flags &amp; ~SHUTDOWN_SAVE) | SHUTDOWN_NOSAVE;</span>
+<span class="lineNum">     865 </span><span class="lineCov">          2 :     if (prepareForShutdown(flags) == C_OK) exit(0);</span>
+<span class="lineNum">     866 </span><span class="lineNoCov">          0 :     addReplyError(c,&quot;Errors trying to SHUTDOWN. Check logs.&quot;);</span>
+<a name="867"><span class="lineNum">     867 </span>            : }</a>
+<span class="lineNum">     868 </span>            : 
+<span class="lineNum">     869 </span><span class="lineCov">         36 : void renameGenericCommand(client *c, int nx) {</span>
+<span class="lineNum">     870 </span><span class="lineCov">         36 :     robj *o;</span>
+<span class="lineNum">     871 </span><span class="lineCov">         36 :     long long expire;</span>
+<span class="lineNum">     872 </span><span class="lineCov">         36 :     int samekey = 0;</span>
+<span class="lineNum">     873 </span>            : 
+<span class="lineNum">     874 </span>            :     /* When source and dest key is the same, no operation is performed,
+<span class="lineNum">     875 </span>            :      * if the key exists, however we still return an error on unexisting key. */
+<span class="lineNum">     876 </span><span class="lineCov">         36 :     if (sdscmp(c-&gt;argv[1]-&gt;ptr,c-&gt;argv[2]-&gt;ptr) == 0) samekey = 1;</span>
+<span class="lineNum">     877 </span>            : 
+<span class="lineNum">     878 </span><span class="lineCov">         36 :     if ((o = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.nokeyerr)) == NULL)</span>
+<span class="lineNum">     879 </span>            :         return;
+<span class="lineNum">     880 </span>            : 
+<span class="lineNum">     881 </span><span class="lineCov">         30 :     if (samekey) {</span>
+<span class="lineNum">     882 </span><span class="lineCov">          6 :         addReply(c,nx ? shared.czero : shared.ok);</span>
+<span class="lineNum">     883 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     884 </span>            :     }
+<span class="lineNum">     885 </span>            : 
+<span class="lineNum">     886 </span><span class="lineCov">         24 :     incrRefCount(o);</span>
+<span class="lineNum">     887 </span><span class="lineCov">         24 :     expire = getExpire(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     888 </span><span class="lineCov">         48 :     if (lookupKeyWrite(c-&gt;db,c-&gt;argv[2]) != NULL) {</span>
+<span class="lineNum">     889 </span><span class="lineCov">          9 :         if (nx) {</span>
+<span class="lineNum">     890 </span><span class="lineCov">          3 :             decrRefCount(o);</span>
+<span class="lineNum">     891 </span><span class="lineCov">          3 :             addReply(c,shared.czero);</span>
+<span class="lineNum">     892 </span><span class="lineCov">          3 :             return;</span>
+<span class="lineNum">     893 </span>            :         }
+<span class="lineNum">     894 </span>            :         /* Overwrite: delete the old key before creating the new one
+<span class="lineNum">     895 </span>            :          * with the same name. */
+<span class="lineNum">     896 </span><span class="lineCov">          6 :         dbDelete(c-&gt;db,c-&gt;argv[2]);</span>
+<span class="lineNum">     897 </span>            :     }
+<span class="lineNum">     898 </span><span class="lineCov">         21 :     dbAdd(c-&gt;db,c-&gt;argv[2],o);</span>
+<span class="lineNum">     899 </span><span class="lineCov">         21 :     if (expire != -1) setExpire(c,c-&gt;db,c-&gt;argv[2],expire);</span>
+<span class="lineNum">     900 </span><span class="lineCov">         21 :     dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     901 </span><span class="lineCov">         21 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     902 </span><span class="lineCov">         21 :     signalModifiedKey(c-&gt;db,c-&gt;argv[2]);</span>
+<span class="lineNum">     903 </span><span class="lineCov">         63 :     notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;rename_from&quot;,</span>
+<span class="lineNum">     904 </span><span class="lineCov">         21 :         c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     905 </span><span class="lineCov">         63 :     notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;rename_to&quot;,</span>
+<span class="lineNum">     906 </span><span class="lineCov">         21 :         c-&gt;argv[2],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     907 </span><span class="lineCov">         21 :     server.dirty++;</span>
+<span class="lineNum">     908 </span><span class="lineCov">         21 :     addReply(c,nx ? shared.cone : shared.ok);</span>
+<a name="909"><span class="lineNum">     909 </span>            : }</a>
+<span class="lineNum">     910 </span>            : 
+<span class="lineNum">     911 </span><span class="lineCov">         27 : void renameCommand(client *c) {</span>
+<span class="lineNum">     912 </span><span class="lineCov">         27 :     renameGenericCommand(c,0);</span>
+<a name="913"><span class="lineNum">     913 </span><span class="lineCov">         27 : }</span></a>
+<span class="lineNum">     914 </span>            : 
+<span class="lineNum">     915 </span><span class="lineCov">          9 : void renamenxCommand(client *c) {</span>
+<span class="lineNum">     916 </span><span class="lineCov">          9 :     renameGenericCommand(c,1);</span>
+<a name="917"><span class="lineNum">     917 </span><span class="lineCov">          9 : }</span></a>
+<span class="lineNum">     918 </span>            : 
+<span class="lineNum">     919 </span><span class="lineCov">         15 : void moveCommand(client *c) {</span>
+<span class="lineNum">     920 </span><span class="lineCov">         15 :     robj *o;</span>
+<span class="lineNum">     921 </span><span class="lineCov">         15 :     redisDb *src, *dst;</span>
+<span class="lineNum">     922 </span><span class="lineCov">         15 :     int srcid;</span>
+<span class="lineNum">     923 </span><span class="lineCov">         15 :     long long dbid, expire;</span>
+<span class="lineNum">     924 </span>            : 
+<span class="lineNum">     925 </span><span class="lineCov">         15 :     if (server.cluster_enabled) {</span>
+<span class="lineNum">     926 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;MOVE is not allowed in cluster mode&quot;);</span>
+<span class="lineNum">     927 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     928 </span>            :     }
+<span class="lineNum">     929 </span>            : 
+<span class="lineNum">     930 </span>            :     /* Obtain source and target DB pointers */
+<span class="lineNum">     931 </span><span class="lineCov">         15 :     src = c-&gt;db;</span>
+<span class="lineNum">     932 </span><span class="lineCov">         15 :     srcid = c-&gt;db-&gt;id;</span>
+<span class="lineNum">     933 </span>            : 
+<span class="lineNum">     934 </span><span class="lineCov">         15 :     if (getLongLongFromObject(c-&gt;argv[2],&amp;dbid) == C_ERR ||</span>
+<span class="lineNum">     935 </span><span class="lineCov">         12 :         dbid &lt; INT_MIN || dbid &gt; INT_MAX ||</span>
+<span class="lineNum">     936 </span><span class="lineCov">         12 :         selectDb(c,dbid) == C_ERR)</span>
+<span class="lineNum">     937 </span>            :     {
+<span class="lineNum">     938 </span><span class="lineCov">          3 :         addReply(c,shared.outofrangeerr);</span>
+<span class="lineNum">     939 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     940 </span>            :     }
+<span class="lineNum">     941 </span><span class="lineCov">         12 :     dst = c-&gt;db;</span>
+<span class="lineNum">     942 </span><span class="lineCov">         12 :     selectDb(c,srcid); /* Back to the source DB */</span>
+<span class="lineNum">     943 </span>            : 
+<span class="lineNum">     944 </span>            :     /* If the user is moving using as target the same
+<span class="lineNum">     945 </span>            :      * DB as the source DB it is probably an error. */
+<span class="lineNum">     946 </span><span class="lineCov">         12 :     if (src == dst) {</span>
+<span class="lineNum">     947 </span><span class="lineNoCov">          0 :         addReply(c,shared.sameobjecterr);</span>
+<span class="lineNum">     948 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     949 </span>            :     }
+<span class="lineNum">     950 </span>            : 
+<span class="lineNum">     951 </span>            :     /* Check if the element exists and get a reference */
+<span class="lineNum">     952 </span><span class="lineCov">         12 :     o = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     953 </span><span class="lineCov">         12 :     if (!o) {</span>
+<span class="lineNum">     954 </span><span class="lineNoCov">          0 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     955 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     956 </span>            :     }
+<span class="lineNum">     957 </span><span class="lineCov">         12 :     expire = getExpire(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     958 </span>            : 
+<span class="lineNum">     959 </span>            :     /* Return zero if the key already exists in the target DB */
+<span class="lineNum">     960 </span><span class="lineCov">         24 :     if (lookupKeyWrite(dst,c-&gt;argv[1]) != NULL) {</span>
+<span class="lineNum">     961 </span><span class="lineCov">          3 :         addReply(c,shared.czero);</span>
+<span class="lineNum">     962 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     963 </span>            :     }
+<span class="lineNum">     964 </span><span class="lineCov">          9 :     dbAdd(dst,c-&gt;argv[1],o);</span>
+<span class="lineNum">     965 </span><span class="lineCov">          9 :     if (expire != -1) setExpire(c,dst,c-&gt;argv[1],expire);</span>
+<span class="lineNum">     966 </span><span class="lineCov">          9 :     incrRefCount(o);</span>
+<span class="lineNum">     967 </span>            : 
+<span class="lineNum">     968 </span>            :     /* OK! key moved, free the entry in the source DB */
+<span class="lineNum">     969 </span><span class="lineCov">          9 :     dbDelete(src,c-&gt;argv[1]);</span>
+<span class="lineNum">     970 </span><span class="lineCov">          9 :     server.dirty++;</span>
+<span class="lineNum">     971 </span><span class="lineCov">          9 :     addReply(c,shared.cone);</span>
+<span class="lineNum">     972 </span>            : }
+<span class="lineNum">     973 </span>            : 
+<span class="lineNum">     974 </span>            : /* Helper function for dbSwapDatabases(): scans the list of keys that have
+<span class="lineNum">     975 </span>            :  * one or more blocked clients for B[LR]POP or other blocking commands
+<a name="976"><span class="lineNum">     976 </span>            :  * and signal the keys as ready if they are of the right type. See the comment</a>
+<span class="lineNum">     977 </span>            :  * where the function is used for more info. */
+<span class="lineNum">     978 </span><span class="lineNoCov">          0 : void scanDatabaseForReadyLists(redisDb *db) {</span>
+<span class="lineNum">     979 </span><span class="lineNoCov">          0 :     dictEntry *de;</span>
+<span class="lineNum">     980 </span><span class="lineNoCov">          0 :     dictIterator *di = dictGetSafeIterator(db-&gt;blocking_keys);</span>
+<span class="lineNum">     981 </span><span class="lineNoCov">          0 :     while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     982 </span><span class="lineNoCov">          0 :         robj *key = dictGetKey(de);</span>
+<span class="lineNum">     983 </span><span class="lineNoCov">          0 :         robj *value = lookupKey(db,key,LOOKUP_NOTOUCH);</span>
+<span class="lineNum">     984 </span><span class="lineNoCov">          0 :         if (value &amp;&amp; (value-&gt;type == OBJ_LIST ||</span>
+<span class="lineNum">     985 </span><span class="lineNoCov">          0 :                       value-&gt;type == OBJ_STREAM ||</span>
+<span class="lineNum">     986 </span>            :                       value-&gt;type == OBJ_ZSET))
+<span class="lineNum">     987 </span><span class="lineNoCov">          0 :             signalKeyAsReady(db, key);</span>
+<span class="lineNum">     988 </span>            :     }
+<span class="lineNum">     989 </span><span class="lineNoCov">          0 :     dictReleaseIterator(di);</span>
+<span class="lineNum">     990 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     991 </span>            : 
+<span class="lineNum">     992 </span>            : /* Swap two databases at runtime so that all clients will magically see
+<span class="lineNum">     993 </span>            :  * the new database even if already connected. Note that the client
+<span class="lineNum">     994 </span>            :  * structure c-&gt;db points to a given DB, so we need to be smarter and
+<span class="lineNum">     995 </span>            :  * swap the underlying referenced structures, otherwise we would need
+<span class="lineNum">     996 </span>            :  * to fix all the references to the Redis DB structure.
+<span class="lineNum">     997 </span>            :  *
+<a name="998"><span class="lineNum">     998 </span>            :  * Returns C_ERR if at least one of the DB ids are out of range, otherwise</a>
+<span class="lineNum">     999 </span>            :  * C_OK is returned. */
+<span class="lineNum">    1000 </span><span class="lineNoCov">          0 : int dbSwapDatabases(int id1, int id2) {</span>
+<span class="lineNum">    1001 </span><span class="lineNoCov">          0 :     if (id1 &lt; 0 || id1 &gt;= server.dbnum ||</span>
+<span class="lineNum">    1002 </span><span class="lineNoCov">          0 :         id2 &lt; 0 || id2 &gt;= server.dbnum) return C_ERR;</span>
+<span class="lineNum">    1003 </span><span class="lineNoCov">          0 :     if (id1 == id2) return C_OK;</span>
+<span class="lineNum">    1004 </span><span class="lineNoCov">          0 :     redisDb aux = server.db[id1];</span>
+<span class="lineNum">    1005 </span><span class="lineNoCov">          0 :     redisDb *db1 = &amp;server.db[id1], *db2 = &amp;server.db[id2];</span>
+<span class="lineNum">    1006 </span>            : 
+<span class="lineNum">    1007 </span>            :     /* Swap hash tables. Note that we don't swap blocking_keys,
+<span class="lineNum">    1008 </span>            :      * ready_keys and watched_keys, since we want clients to
+<span class="lineNum">    1009 </span>            :      * remain in the same DB they were. */
+<span class="lineNum">    1010 </span><span class="lineNoCov">          0 :     db1-&gt;dict = db2-&gt;dict;</span>
+<span class="lineNum">    1011 </span><span class="lineNoCov">          0 :     db1-&gt;expires = db2-&gt;expires;</span>
+<span class="lineNum">    1012 </span><span class="lineNoCov">          0 :     db1-&gt;avg_ttl = db2-&gt;avg_ttl;</span>
+<span class="lineNum">    1013 </span>            : 
+<span class="lineNum">    1014 </span><span class="lineNoCov">          0 :     db2-&gt;dict = aux.dict;</span>
+<span class="lineNum">    1015 </span><span class="lineNoCov">          0 :     db2-&gt;expires = aux.expires;</span>
+<span class="lineNum">    1016 </span><span class="lineNoCov">          0 :     db2-&gt;avg_ttl = aux.avg_ttl;</span>
+<span class="lineNum">    1017 </span>            : 
+<span class="lineNum">    1018 </span>            :     /* Now we need to handle clients blocked on lists: as an effect
+<span class="lineNum">    1019 </span>            :      * of swapping the two DBs, a client that was waiting for list
+<span class="lineNum">    1020 </span>            :      * X in a given DB, may now actually be unblocked if X happens
+<span class="lineNum">    1021 </span>            :      * to exist in the new version of the DB, after the swap.
+<span class="lineNum">    1022 </span>            :      *
+<span class="lineNum">    1023 </span>            :      * However normally we only do this check for efficiency reasons
+<span class="lineNum">    1024 </span>            :      * in dbAdd() when a list is created. So here we need to rescan
+<span class="lineNum">    1025 </span>            :      * the list of clients blocked on lists and signal lists as ready
+<span class="lineNum">    1026 </span>            :      * if needed. */
+<span class="lineNum">    1027 </span><span class="lineNoCov">          0 :     scanDatabaseForReadyLists(db1);</span>
+<span class="lineNum">    1028 </span><span class="lineNoCov">          0 :     scanDatabaseForReadyLists(db2);</span>
+<span class="lineNum">    1029 </span><span class="lineNoCov">          0 :     return C_OK;</span>
+<span class="lineNum">    1030 </span>            : }
+<a name="1031"><span class="lineNum">    1031 </span>            : </a>
+<span class="lineNum">    1032 </span>            : /* SWAPDB db1 db2 */
+<span class="lineNum">    1033 </span><span class="lineNoCov">          0 : void swapdbCommand(client *c) {</span>
+<span class="lineNum">    1034 </span><span class="lineNoCov">          0 :     long id1, id2;</span>
+<span class="lineNum">    1035 </span>            : 
+<span class="lineNum">    1036 </span>            :     /* Not allowed in cluster mode: we have just DB 0 there. */
+<span class="lineNum">    1037 </span><span class="lineNoCov">          0 :     if (server.cluster_enabled) {</span>
+<span class="lineNum">    1038 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;SWAPDB is not allowed in cluster mode&quot;);</span>
+<span class="lineNum">    1039 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">    1040 </span>            :     }
+<span class="lineNum">    1041 </span>            : 
+<span class="lineNum">    1042 </span>            :     /* Get the two DBs indexes. */
+<span class="lineNum">    1043 </span><span class="lineNoCov">          0 :     if (getLongFromObjectOrReply(c, c-&gt;argv[1], &amp;id1,</span>
+<span class="lineNum">    1044 </span>            :         &quot;invalid first DB index&quot;) != C_OK)
+<span class="lineNum">    1045 </span>            :         return;
+<span class="lineNum">    1046 </span>            : 
+<span class="lineNum">    1047 </span><span class="lineNoCov">          0 :     if (getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;id2,</span>
+<span class="lineNum">    1048 </span>            :         &quot;invalid second DB index&quot;) != C_OK)
+<span class="lineNum">    1049 </span>            :         return;
+<span class="lineNum">    1050 </span>            : 
+<span class="lineNum">    1051 </span>            :     /* Swap... */
+<span class="lineNum">    1052 </span><span class="lineNoCov">          0 :     if (dbSwapDatabases(id1,id2) == C_ERR) {</span>
+<span class="lineNum">    1053 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;DB index is out of range&quot;);</span>
+<span class="lineNum">    1054 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">    1055 </span>            :     } else {
+<span class="lineNum">    1056 </span><span class="lineNoCov">          0 :         server.dirty++;</span>
+<span class="lineNum">    1057 </span><span class="lineNoCov">          0 :         addReply(c,shared.ok);</span>
+<span class="lineNum">    1058 </span>            :     }
+<span class="lineNum">    1059 </span>            : }
+<span class="lineNum">    1060 </span>            : 
+<span class="lineNum">    1061 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">    1062 </span>            :  * Expires API
+<a name="1063"><span class="lineNum">    1063 </span>            :  *----------------------------------------------------------------------------*/</a>
+<span class="lineNum">    1064 </span>            : 
+<span class="lineNum">    1065 </span><span class="lineCov">   32034699 : int removeExpire(redisDb *db, robj *key) {</span>
+<span class="lineNum">    1066 </span>            :     /* An expire may only be removed if there is a corresponding entry in the
+<span class="lineNum">    1067 </span>            :      * main dict. Otherwise, the key will never be freed. */
+<span class="lineNum">    1068 </span><span class="lineCov">   32034699 :     serverAssertWithInfo(NULL,key,dictFind(db-&gt;dict,key-&gt;ptr) != NULL);</span>
+<span class="lineNum">    1069 </span><span class="lineCov">   32034699 :     return dictDelete(db-&gt;expires,key-&gt;ptr) == DICT_OK;</span>
+<span class="lineNum">    1070 </span>            : }
+<span class="lineNum">    1071 </span>            : 
+<span class="lineNum">    1072 </span>            : /* Set an expire to the specified key. If the expire is set in the context
+<span class="lineNum">    1073 </span>            :  * of an user calling a command 'c' is the client, otherwise 'c' is set
+<a name="1074"><span class="lineNum">    1074 </span>            :  * to NULL. The 'when' parameter is the absolute unix time in milliseconds</a>
+<span class="lineNum">    1075 </span>            :  * after which the key will no longer be considered valid. */
+<span class="lineNum">    1076 </span><span class="lineCov">      62256 : void setExpire(client *c, redisDb *db, robj *key, long long when) {</span>
+<span class="lineNum">    1077 </span><span class="lineCov">      62256 :     dictEntry *kde, *de;</span>
+<span class="lineNum">    1078 </span>            : 
+<span class="lineNum">    1079 </span>            :     /* Reuse the sds from the main dict in the expire dict */
+<span class="lineNum">    1080 </span><span class="lineCov">      62256 :     kde = dictFind(db-&gt;dict,key-&gt;ptr);</span>
+<span class="lineNum">    1081 </span><span class="lineCov">      62256 :     serverAssertWithInfo(NULL,key,kde != NULL);</span>
+<span class="lineNum">    1082 </span><span class="lineCov">      62256 :     de = dictAddOrFind(db-&gt;expires,dictGetKey(kde));</span>
+<span class="lineNum">    1083 </span><span class="lineCov">      62256 :     dictSetSignedIntegerVal(de,when);</span>
+<span class="lineNum">    1084 </span>            : 
+<span class="lineNum">    1085 </span><span class="lineCov">      62256 :     int writable_slave = server.masterhost &amp;&amp; server.repl_slave_ro == 0;</span>
+<span class="lineNum">    1086 </span><span class="lineCov">      62256 :     if (c &amp;&amp; writable_slave &amp;&amp; !(c-&gt;flags &amp; CLIENT_MASTER))</span>
+<span class="lineNum">    1087 </span><span class="lineCov">          9 :         rememberSlaveKeyWithExpire(db,key);</span>
+<span class="lineNum">    1088 </span><span class="lineCov">      62256 : }</span>
+<span class="lineNum">    1089 </span>            : 
+<a name="1090"><span class="lineNum">    1090 </span>            : /* Return the expire time of the specified key, or -1 if no expire</a>
+<span class="lineNum">    1091 </span>            :  * is associated with this key (i.e. the key is non volatile) */
+<span class="lineNum">    1092 </span><span class="lineCov">  143385895 : long long getExpire(redisDb *db, robj *key) {</span>
+<span class="lineNum">    1093 </span><span class="lineCov">  143385895 :     dictEntry *de;</span>
+<span class="lineNum">    1094 </span>            : 
+<span class="lineNum">    1095 </span>            :     /* No expire? return ASAP */
+<span class="lineNum">    1096 </span><span class="lineCov">  143385895 :     if (dictSize(db-&gt;expires) == 0 ||</span>
+<span class="lineNum">    1097 </span><span class="lineCov">  143385895 :        (de = dictFind(db-&gt;expires,key-&gt;ptr)) == NULL) return -1;</span>
+<span class="lineNum">    1098 </span>            : 
+<span class="lineNum">    1099 </span>            :     /* The entry was found in the expire dict, this means it should also
+<span class="lineNum">    1100 </span>            :      * be present in the main dict (safety check). */
+<span class="lineNum">    1101 </span><span class="lineCov">       2382 :     serverAssertWithInfo(NULL,key,dictFind(db-&gt;dict,key-&gt;ptr) != NULL);</span>
+<span class="lineNum">    1102 </span><span class="lineCov">       2382 :     return dictGetSignedIntegerVal(de);</span>
+<span class="lineNum">    1103 </span>            : }
+<span class="lineNum">    1104 </span>            : 
+<span class="lineNum">    1105 </span>            : /* Propagate expires into slaves and the AOF file.
+<span class="lineNum">    1106 </span>            :  * When a key expires in the master, a DEL operation for this key is sent
+<span class="lineNum">    1107 </span>            :  * to all the slaves and the AOF file if enabled.
+<span class="lineNum">    1108 </span>            :  *
+<span class="lineNum">    1109 </span>            :  * This way the key expiry is centralized in one place, and since both
+<span class="lineNum">    1110 </span>            :  * AOF and the master-&gt;slave link guarantee operation ordering, everything
+<a name="1111"><span class="lineNum">    1111 </span>            :  * will be consistent even if we allow write operations against expiring</a>
+<span class="lineNum">    1112 </span>            :  * keys. */
+<span class="lineNum">    1113 </span><span class="lineCov">     704072 : void propagateExpire(redisDb *db, robj *key, int lazy) {</span>
+<span class="lineNum">    1114 </span><span class="lineCov">     704072 :     robj *argv[2];</span>
+<span class="lineNum">    1115 </span>            : 
+<span class="lineNum">    1116 </span><span class="lineCov">     704072 :     argv[0] = lazy ? shared.unlink : shared.del;</span>
+<span class="lineNum">    1117 </span><span class="lineCov">     704072 :     argv[1] = key;</span>
+<span class="lineNum">    1118 </span><span class="lineCov">     704072 :     incrRefCount(argv[0]);</span>
+<span class="lineNum">    1119 </span><span class="lineCov">     704072 :     incrRefCount(argv[1]);</span>
+<span class="lineNum">    1120 </span>            : 
+<span class="lineNum">    1121 </span><span class="lineCov">     704072 :     if (server.aof_state != AOF_OFF)</span>
+<span class="lineNum">    1122 </span><span class="lineCov">          3 :         feedAppendOnlyFile(server.delCommand,db-&gt;id,argv,2);</span>
+<span class="lineNum">    1123 </span><span class="lineCov">     704072 :     replicationFeedSlaves(server.slaves,db-&gt;id,argv,2);</span>
+<span class="lineNum">    1124 </span>            : 
+<span class="lineNum">    1125 </span><span class="lineCov">     704072 :     decrRefCount(argv[0]);</span>
+<span class="lineNum">    1126 </span><span class="lineCov">     704072 :     decrRefCount(argv[1]);</span>
+<span class="lineNum">    1127 </span><span class="lineCov">     704072 : }</span>
+<a name="1128"><span class="lineNum">    1128 </span>            : </a>
+<span class="lineNum">    1129 </span>            : /* Check if the key is expired. */
+<span class="lineNum">    1130 </span><span class="lineCov">   61218706 : int keyIsExpired(redisDb *db, robj *key) {</span>
+<span class="lineNum">    1131 </span><span class="lineCov">   61218706 :     mstime_t when = getExpire(db,key);</span>
+<span class="lineNum">    1132 </span>            : 
+<span class="lineNum">    1133 </span><span class="lineCov">   61218706 :     if (when &lt; 0) return 0; /* No expire for this key */</span>
+<span class="lineNum">    1134 </span>            : 
+<span class="lineNum">    1135 </span>            :     /* Don't expire anything while loading. It will be done later. */
+<span class="lineNum">    1136 </span><span class="lineCov">       1154 :     if (server.loading) return 0;</span>
+<span class="lineNum">    1137 </span>            : 
+<span class="lineNum">    1138 </span>            :     /* If we are in the context of a Lua script, we pretend that time is
+<span class="lineNum">    1139 </span>            :      * blocked to when the Lua script started. This way a key can expire
+<span class="lineNum">    1140 </span>            :      * only the first time it is accessed and not in the middle of the
+<span class="lineNum">    1141 </span>            :      * script execution, making propagation to slaves / AOF consistent.
+<span class="lineNum">    1142 </span>            :      * See issue #1525 on Github for more information. */
+<span class="lineNum">    1143 </span><span class="lineCov">       1148 :     mstime_t now = server.lua_caller ? server.lua_time_start : mstime();</span>
+<span class="lineNum">    1144 </span>            : 
+<span class="lineNum">    1145 </span><span class="lineCov">       1148 :     return now &gt; when;</span>
+<span class="lineNum">    1146 </span>            : }
+<span class="lineNum">    1147 </span>            : 
+<span class="lineNum">    1148 </span>            : /* This function is called when we are going to perform some operation
+<span class="lineNum">    1149 </span>            :  * in a given key, but such key may be already logically expired even if
+<span class="lineNum">    1150 </span>            :  * it still exists in the database. The main way this function is called
+<span class="lineNum">    1151 </span>            :  * is via lookupKey*() family of functions.
+<span class="lineNum">    1152 </span>            :  *
+<span class="lineNum">    1153 </span>            :  * The behavior of the function depends on the replication role of the
+<span class="lineNum">    1154 </span>            :  * instance, because slave instances do not expire keys, they wait
+<span class="lineNum">    1155 </span>            :  * for DELs from the master for consistency matters. However even
+<span class="lineNum">    1156 </span>            :  * slaves will try to have a coherent return value for the function,
+<span class="lineNum">    1157 </span>            :  * so that read commands executed in the slave side will be able to
+<span class="lineNum">    1158 </span>            :  * behave like if the key is expired even if still present (because the
+<span class="lineNum">    1159 </span>            :  * master has yet to propagate the DEL).
+<span class="lineNum">    1160 </span>            :  *
+<span class="lineNum">    1161 </span>            :  * In masters as a side effect of finding a key which is expired, such
+<span class="lineNum">    1162 </span>            :  * key will be evicted from the database. Also this may trigger the
+<span class="lineNum">    1163 </span>            :  * propagation of a DEL/UNLINK command in AOF / replication stream.
+<span class="lineNum">    1164 </span>            :  *
+<a name="1165"><span class="lineNum">    1165 </span>            :  * The return value of the function is 0 if the key is still valid,</a>
+<span class="lineNum">    1166 </span>            :  * otherwise the function returns 1 if the key is expired. */
+<span class="lineNum">    1167 </span><span class="lineCov">   61210212 : int expireIfNeeded(redisDb *db, robj *key) {</span>
+<span class="lineNum">    1168 </span><span class="lineCov">   61210212 :     if (!keyIsExpired(db,key)) return 0;</span>
+<span class="lineNum">    1169 </span>            : 
+<span class="lineNum">    1170 </span>            :     /* If we are running in the context of a slave, instead of
+<span class="lineNum">    1171 </span>            :      * evicting the expired key from the database, we return ASAP:
+<span class="lineNum">    1172 </span>            :      * the slave key expiration is controlled by the master that will
+<span class="lineNum">    1173 </span>            :      * send us synthesized DEL operations for expired keys.
+<span class="lineNum">    1174 </span>            :      *
+<span class="lineNum">    1175 </span>            :      * Still we try to return the right information to the caller,
+<span class="lineNum">    1176 </span>            :      * that is, 0 if we think the key should be still valid, 1 if
+<span class="lineNum">    1177 </span>            :      * we think the key is expired at this time. */
+<span class="lineNum">    1178 </span><span class="lineCov">         89 :     if (server.masterhost != NULL) return 1;</span>
+<span class="lineNum">    1179 </span>            : 
+<span class="lineNum">    1180 </span>            :     /* Delete the key */
+<span class="lineNum">    1181 </span><span class="lineCov">         36 :     server.stat_expiredkeys++;</span>
+<span class="lineNum">    1182 </span><span class="lineCov">         36 :     propagateExpire(db,key,server.lazyfree_lazy_expire);</span>
+<span class="lineNum">    1183 </span><span class="lineCov">         36 :     notifyKeyspaceEvent(NOTIFY_EXPIRED,</span>
+<span class="lineNum">    1184 </span>            :         &quot;expired&quot;,key,db-&gt;id);
+<span class="lineNum">    1185 </span><span class="lineCov">         36 :     return server.lazyfree_lazy_expire ? dbAsyncDelete(db,key) :</span>
+<span class="lineNum">    1186 </span><span class="lineCov">         36 :                                          dbSyncDelete(db,key);</span>
+<span class="lineNum">    1187 </span>            : }
+<span class="lineNum">    1188 </span>            : 
+<span class="lineNum">    1189 </span>            : /* -----------------------------------------------------------------------------
+<span class="lineNum">    1190 </span>            :  * API to get key arguments from commands
+<span class="lineNum">    1191 </span>            :  * ---------------------------------------------------------------------------*/
+<span class="lineNum">    1192 </span>            : 
+<a name="1193"><span class="lineNum">    1193 </span>            : /* The base case is to use the keys position as given in the command table</a>
+<span class="lineNum">    1194 </span>            :  * (firstkey, lastkey, step). */
+<span class="lineNum">    1195 </span><span class="lineNoCov">          0 : int *getKeysUsingCommandTable(struct redisCommand *cmd,robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1196 </span><span class="lineNoCov">          0 :     int j, i = 0, last, *keys;</span>
+<span class="lineNum">    1197 </span><span class="lineNoCov">          0 :     UNUSED(argv);</span>
+<span class="lineNum">    1198 </span>            : 
+<span class="lineNum">    1199 </span><span class="lineNoCov">          0 :     if (cmd-&gt;firstkey == 0) {</span>
+<span class="lineNum">    1200 </span><span class="lineNoCov">          0 :         *numkeys = 0;</span>
+<span class="lineNum">    1201 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">    1202 </span>            :     }
+<span class="lineNum">    1203 </span>            : 
+<span class="lineNum">    1204 </span><span class="lineNoCov">          0 :     last = cmd-&gt;lastkey;</span>
+<span class="lineNum">    1205 </span><span class="lineNoCov">          0 :     if (last &lt; 0) last = argc+last;</span>
+<span class="lineNum">    1206 </span><span class="lineNoCov">          0 :     keys = zmalloc(sizeof(int)*((last - cmd-&gt;firstkey)+1));</span>
+<span class="lineNum">    1207 </span><span class="lineNoCov">          0 :     for (j = cmd-&gt;firstkey; j &lt;= last; j += cmd-&gt;keystep) {</span>
+<span class="lineNum">    1208 </span><span class="lineNoCov">          0 :         if (j &gt;= argc) {</span>
+<span class="lineNum">    1209 </span>            :             /* Modules commands, and standard commands with a not fixed number
+<span class="lineNum">    1210 </span>            :              * of arguments (negative arity parameter) do not have dispatch
+<span class="lineNum">    1211 </span>            :              * time arity checks, so we need to handle the case where the user
+<span class="lineNum">    1212 </span>            :              * passed an invalid number of arguments here. In this case we
+<span class="lineNum">    1213 </span>            :              * return no keys and expect the command implementation to report
+<span class="lineNum">    1214 </span>            :              * an arity or syntax error. */
+<span class="lineNum">    1215 </span><span class="lineNoCov">          0 :             if (cmd-&gt;flags &amp; CMD_MODULE || cmd-&gt;arity &lt; 0) {</span>
+<span class="lineNum">    1216 </span><span class="lineNoCov">          0 :                 zfree(keys);</span>
+<span class="lineNum">    1217 </span><span class="lineNoCov">          0 :                 *numkeys = 0;</span>
+<span class="lineNum">    1218 </span><span class="lineNoCov">          0 :                 return NULL;</span>
+<span class="lineNum">    1219 </span>            :             } else {
+<span class="lineNum">    1220 </span><span class="lineNoCov">          0 :                 serverPanic(&quot;Redis built-in command declared keys positions not matching the arity requirements.&quot;);</span>
+<span class="lineNum">    1221 </span>            :             }
+<span class="lineNum">    1222 </span>            :         }
+<span class="lineNum">    1223 </span><span class="lineNoCov">          0 :         keys[i++] = j;</span>
+<span class="lineNum">    1224 </span>            :     }
+<span class="lineNum">    1225 </span><span class="lineNoCov">          0 :     *numkeys = i;</span>
+<span class="lineNum">    1226 </span><span class="lineNoCov">          0 :     return keys;</span>
+<span class="lineNum">    1227 </span>            : }
+<span class="lineNum">    1228 </span>            : 
+<span class="lineNum">    1229 </span>            : /* Return all the arguments that are keys in the command passed via argc / argv.
+<span class="lineNum">    1230 </span>            :  *
+<span class="lineNum">    1231 </span>            :  * The command returns the positions of all the key arguments inside the array,
+<span class="lineNum">    1232 </span>            :  * so the actual return value is an heap allocated array of integers. The
+<span class="lineNum">    1233 </span>            :  * length of the array is returned by reference into *numkeys.
+<span class="lineNum">    1234 </span>            :  *
+<span class="lineNum">    1235 </span>            :  * 'cmd' must be point to the corresponding entry into the redisCommand
+<span class="lineNum">    1236 </span>            :  * table, according to the command name in argv[0].
+<span class="lineNum">    1237 </span>            :  *
+<a name="1238"><span class="lineNum">    1238 </span>            :  * This function uses the command table if a command-specific helper function</a>
+<span class="lineNum">    1239 </span>            :  * is not required, otherwise it calls the command-specific function. */
+<span class="lineNum">    1240 </span><span class="lineCov">          6 : int *getKeysFromCommand(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1241 </span><span class="lineCov">          6 :     if (cmd-&gt;flags &amp; CMD_MODULE_GETKEYS) {</span>
+<span class="lineNum">    1242 </span><span class="lineNoCov">          0 :         return moduleGetCommandKeysViaAPI(cmd,argv,argc,numkeys);</span>
+<span class="lineNum">    1243 </span><span class="lineCov">          6 :     } else if (!(cmd-&gt;flags &amp; CMD_MODULE) &amp;&amp; cmd-&gt;getkeys_proc) {</span>
+<span class="lineNum">    1244 </span><span class="lineCov">          6 :         return cmd-&gt;getkeys_proc(cmd,argv,argc,numkeys);</span>
+<span class="lineNum">    1245 </span>            :     } else {
+<span class="lineNum">    1246 </span><span class="lineNoCov">          0 :         return getKeysUsingCommandTable(cmd,argv,argc,numkeys);</span>
+<span class="lineNum">    1247 </span>            :     }
+<span class="lineNum">    1248 </span>            : }
+<a name="1249"><span class="lineNum">    1249 </span>            : </a>
+<span class="lineNum">    1250 </span>            : /* Free the result of getKeysFromCommand. */
+<span class="lineNum">    1251 </span><span class="lineCov">          6 : void getKeysFreeResult(int *result) {</span>
+<span class="lineNum">    1252 </span><span class="lineCov">          6 :     zfree(result);</span>
+<span class="lineNum">    1253 </span><span class="lineCov">          6 : }</span>
+<span class="lineNum">    1254 </span>            : 
+<span class="lineNum">    1255 </span>            : /* Helper function to extract keys from following commands:
+<a name="1256"><span class="lineNum">    1256 </span>            :  * ZUNIONSTORE &lt;destkey&gt; &lt;num-keys&gt; &lt;key&gt; &lt;key&gt; ... &lt;key&gt; &lt;options&gt;</a>
+<span class="lineNum">    1257 </span>            :  * ZINTERSTORE &lt;destkey&gt; &lt;num-keys&gt; &lt;key&gt; &lt;key&gt; ... &lt;key&gt; &lt;options&gt; */
+<span class="lineNum">    1258 </span><span class="lineNoCov">          0 : int *zunionInterGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1259 </span><span class="lineNoCov">          0 :     int i, num, *keys;</span>
+<span class="lineNum">    1260 </span><span class="lineNoCov">          0 :     UNUSED(cmd);</span>
+<span class="lineNum">    1261 </span>            : 
+<span class="lineNum">    1262 </span><span class="lineNoCov">          0 :     num = atoi(argv[2]-&gt;ptr);</span>
+<span class="lineNum">    1263 </span>            :     /* Sanity check. Don't return any key if the command is going to
+<span class="lineNum">    1264 </span>            :      * reply with syntax error. */
+<span class="lineNum">    1265 </span><span class="lineNoCov">          0 :     if (num &lt; 1 || num &gt; (argc-3)) {</span>
+<span class="lineNum">    1266 </span><span class="lineNoCov">          0 :         *numkeys = 0;</span>
+<span class="lineNum">    1267 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">    1268 </span>            :     }
+<span class="lineNum">    1269 </span>            : 
+<span class="lineNum">    1270 </span>            :     /* Keys in z{union,inter}store come from two places:
+<span class="lineNum">    1271 </span>            :      * argv[1] = storage key,
+<span class="lineNum">    1272 </span>            :      * argv[3...n] = keys to intersect */
+<span class="lineNum">    1273 </span><span class="lineNoCov">          0 :     keys = zmalloc(sizeof(int)*(num+1));</span>
+<span class="lineNum">    1274 </span>            : 
+<span class="lineNum">    1275 </span>            :     /* Add all key positions for argv[3...n] to keys[] */
+<span class="lineNum">    1276 </span><span class="lineNoCov">          0 :     for (i = 0; i &lt; num; i++) keys[i] = 3+i;</span>
+<span class="lineNum">    1277 </span>            : 
+<span class="lineNum">    1278 </span>            :     /* Finally add the argv[1] key position (the storage key target). */
+<span class="lineNum">    1279 </span><span class="lineNoCov">          0 :     keys[num] = 1;</span>
+<span class="lineNum">    1280 </span><span class="lineNoCov">          0 :     *numkeys = num+1;  /* Total keys = {union,inter} keys + storage key */</span>
+<span class="lineNum">    1281 </span><span class="lineNoCov">          0 :     return keys;</span>
+<span class="lineNum">    1282 </span>            : }
+<span class="lineNum">    1283 </span>            : 
+<span class="lineNum">    1284 </span>            : /* Helper function to extract keys from the following commands:
+<a name="1285"><span class="lineNum">    1285 </span>            :  * EVAL &lt;script&gt; &lt;num-keys&gt; &lt;key&gt; &lt;key&gt; ... &lt;key&gt; [more stuff]</a>
+<span class="lineNum">    1286 </span>            :  * EVALSHA &lt;script&gt; &lt;num-keys&gt; &lt;key&gt; &lt;key&gt; ... &lt;key&gt; [more stuff] */
+<span class="lineNum">    1287 </span><span class="lineNoCov">          0 : int *evalGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1288 </span><span class="lineNoCov">          0 :     int i, num, *keys;</span>
+<span class="lineNum">    1289 </span><span class="lineNoCov">          0 :     UNUSED(cmd);</span>
+<span class="lineNum">    1290 </span>            : 
+<span class="lineNum">    1291 </span><span class="lineNoCov">          0 :     num = atoi(argv[2]-&gt;ptr);</span>
+<span class="lineNum">    1292 </span>            :     /* Sanity check. Don't return any key if the command is going to
+<span class="lineNum">    1293 </span>            :      * reply with syntax error. */
+<span class="lineNum">    1294 </span><span class="lineNoCov">          0 :     if (num &lt;= 0 || num &gt; (argc-3)) {</span>
+<span class="lineNum">    1295 </span><span class="lineNoCov">          0 :         *numkeys = 0;</span>
+<span class="lineNum">    1296 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">    1297 </span>            :     }
+<span class="lineNum">    1298 </span>            : 
+<span class="lineNum">    1299 </span><span class="lineNoCov">          0 :     keys = zmalloc(sizeof(int)*num);</span>
+<span class="lineNum">    1300 </span><span class="lineNoCov">          0 :     *numkeys = num;</span>
+<span class="lineNum">    1301 </span>            : 
+<span class="lineNum">    1302 </span>            :     /* Add all key positions for argv[3...n] to keys[] */
+<span class="lineNum">    1303 </span><span class="lineNoCov">          0 :     for (i = 0; i &lt; num; i++) keys[i] = 3+i;</span>
+<span class="lineNum">    1304 </span>            : 
+<span class="lineNum">    1305 </span>            :     return keys;
+<span class="lineNum">    1306 </span>            : }
+<span class="lineNum">    1307 </span>            : 
+<span class="lineNum">    1308 </span>            : /* Helper function to extract keys from the SORT command.
+<span class="lineNum">    1309 </span>            :  *
+<span class="lineNum">    1310 </span>            :  * SORT &lt;sort-key&gt; ... STORE &lt;store-key&gt; ...
+<span class="lineNum">    1311 </span>            :  *
+<span class="lineNum">    1312 </span>            :  * The first argument of SORT is always a key, however a list of options
+<a name="1313"><span class="lineNum">    1313 </span>            :  * follow in SQL-alike style. Here we parse just the minimum in order to</a>
+<span class="lineNum">    1314 </span>            :  * correctly identify keys in the &quot;STORE&quot; option. */
+<span class="lineNum">    1315 </span><span class="lineCov">          6 : int *sortGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1316 </span><span class="lineCov">          6 :     int i, j, num, *keys, found_store = 0;</span>
+<span class="lineNum">    1317 </span><span class="lineCov">          6 :     UNUSED(cmd);</span>
+<span class="lineNum">    1318 </span>            : 
+<span class="lineNum">    1319 </span><span class="lineCov">          6 :     num = 0;</span>
+<span class="lineNum">    1320 </span><span class="lineCov">          6 :     keys = zmalloc(sizeof(int)*2); /* Alloc 2 places for the worst case. */</span>
+<span class="lineNum">    1321 </span>            : 
+<span class="lineNum">    1322 </span><span class="lineCov">          6 :     keys[num++] = 1; /* &lt;sort-key&gt; is always present. */</span>
+<span class="lineNum">    1323 </span>            : 
+<span class="lineNum">    1324 </span>            :     /* Search for STORE option. By default we consider options to don't
+<span class="lineNum">    1325 </span>            :      * have arguments, so if we find an unknown option name we scan the
+<span class="lineNum">    1326 </span>            :      * next. However there are options with 1 or 2 arguments, so we
+<span class="lineNum">    1327 </span>            :      * provide a list here in order to skip the right number of args. */
+<span class="lineNum">    1328 </span><span class="lineCov">          6 :     struct {</span>
+<span class="lineNum">    1329 </span>            :         char *name;
+<span class="lineNum">    1330 </span>            :         int skip;
+<span class="lineNum">    1331 </span><span class="lineCov">          6 :     } skiplist[] = {</span>
+<span class="lineNum">    1332 </span>            :         {&quot;limit&quot;, 2},
+<span class="lineNum">    1333 </span>            :         {&quot;get&quot;, 1},
+<span class="lineNum">    1334 </span>            :         {&quot;by&quot;, 1},
+<span class="lineNum">    1335 </span>            :         {NULL, 0} /* End of elements. */
+<span class="lineNum">    1336 </span>            :     };
+<span class="lineNum">    1337 </span>            : 
+<span class="lineNum">    1338 </span><span class="lineCov">         30 :     for (i = 2; i &lt; argc; i++) {</span>
+<span class="lineNum">    1339 </span><span class="lineCov">         60 :         for (j = 0; skiplist[j].name != NULL; j++) {</span>
+<span class="lineNum">    1340 </span><span class="lineCov">         48 :             if (!strcasecmp(argv[i]-&gt;ptr,skiplist[j].name)) {</span>
+<span class="lineNum">    1341 </span><span class="lineNoCov">          0 :                 i += skiplist[j].skip;</span>
+<span class="lineNum">    1342 </span><span class="lineNoCov">          0 :                 break;</span>
+<span class="lineNum">    1343 </span><span class="lineCov">         48 :             } else if (!strcasecmp(argv[i]-&gt;ptr,&quot;store&quot;) &amp;&amp; i+1 &lt; argc) {</span>
+<span class="lineNum">    1344 </span>            :                 /* Note: we don't increment &quot;num&quot; here and continue the loop
+<span class="lineNum">    1345 </span>            :                  * to be sure to process the *last* &quot;STORE&quot; option if multiple
+<span class="lineNum">    1346 </span>            :                  * ones are provided. This is same behavior as SORT. */
+<span class="lineNum">    1347 </span><span class="lineCov">         12 :                 found_store = 1;</span>
+<span class="lineNum">    1348 </span><span class="lineCov">         12 :                 keys[num] = i+1; /* &lt;store-key&gt; */</span>
+<span class="lineNum">    1349 </span><span class="lineCov">         12 :                 break;</span>
+<span class="lineNum">    1350 </span>            :             }
+<span class="lineNum">    1351 </span>            :         }
+<span class="lineNum">    1352 </span>            :     }
+<span class="lineNum">    1353 </span><span class="lineCov">          6 :     *numkeys = num + found_store;</span>
+<span class="lineNum">    1354 </span><span class="lineCov">          6 :     return keys;</span>
+<a name="1355"><span class="lineNum">    1355 </span>            : }</a>
+<span class="lineNum">    1356 </span>            : 
+<span class="lineNum">    1357 </span><span class="lineNoCov">          0 : int *migrateGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1358 </span><span class="lineNoCov">          0 :     int i, num, first, *keys;</span>
+<span class="lineNum">    1359 </span><span class="lineNoCov">          0 :     UNUSED(cmd);</span>
+<span class="lineNum">    1360 </span>            : 
+<span class="lineNum">    1361 </span>            :     /* Assume the obvious form. */
+<span class="lineNum">    1362 </span><span class="lineNoCov">          0 :     first = 3;</span>
+<span class="lineNum">    1363 </span><span class="lineNoCov">          0 :     num = 1;</span>
+<span class="lineNum">    1364 </span>            : 
+<span class="lineNum">    1365 </span>            :     /* But check for the extended one with the KEYS option. */
+<span class="lineNum">    1366 </span><span class="lineNoCov">          0 :     if (argc &gt; 6) {</span>
+<span class="lineNum">    1367 </span><span class="lineNoCov">          0 :         for (i = 6; i &lt; argc; i++) {</span>
+<span class="lineNum">    1368 </span><span class="lineNoCov">          0 :             if (!strcasecmp(argv[i]-&gt;ptr,&quot;keys&quot;) &amp;&amp;</span>
+<span class="lineNum">    1369 </span><span class="lineNoCov">          0 :                 sdslen(argv[3]-&gt;ptr) == 0)</span>
+<span class="lineNum">    1370 </span>            :             {
+<span class="lineNum">    1371 </span><span class="lineNoCov">          0 :                 first = i+1;</span>
+<span class="lineNum">    1372 </span><span class="lineNoCov">          0 :                 num = argc-first;</span>
+<span class="lineNum">    1373 </span><span class="lineNoCov">          0 :                 break;</span>
+<span class="lineNum">    1374 </span>            :             }
+<span class="lineNum">    1375 </span>            :         }
+<span class="lineNum">    1376 </span>            :     }
+<span class="lineNum">    1377 </span>            : 
+<span class="lineNum">    1378 </span><span class="lineNoCov">          0 :     keys = zmalloc(sizeof(int)*num);</span>
+<span class="lineNum">    1379 </span><span class="lineNoCov">          0 :     for (i = 0; i &lt; num; i++) keys[i] = first+i;</span>
+<span class="lineNum">    1380 </span><span class="lineNoCov">          0 :     *numkeys = num;</span>
+<span class="lineNum">    1381 </span><span class="lineNoCov">          0 :     return keys;</span>
+<span class="lineNum">    1382 </span>            : }
+<span class="lineNum">    1383 </span>            : 
+<span class="lineNum">    1384 </span>            : /* Helper function to extract keys from following commands:
+<span class="lineNum">    1385 </span>            :  * GEORADIUS key x y radius unit [WITHDIST] [WITHHASH] [WITHCOORD] [ASC|DESC]
+<a name="1386"><span class="lineNum">    1386 </span>            :  *                             [COUNT count] [STORE key] [STOREDIST key]</a>
+<span class="lineNum">    1387 </span>            :  * GEORADIUSBYMEMBER key member radius unit ... options ... */
+<span class="lineNum">    1388 </span><span class="lineNoCov">          0 : int *georadiusGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1389 </span><span class="lineNoCov">          0 :     int i, num, *keys;</span>
+<span class="lineNum">    1390 </span><span class="lineNoCov">          0 :     UNUSED(cmd);</span>
+<span class="lineNum">    1391 </span>            : 
+<span class="lineNum">    1392 </span>            :     /* Check for the presence of the stored key in the command */
+<span class="lineNum">    1393 </span><span class="lineNoCov">          0 :     int stored_key = -1;</span>
+<span class="lineNum">    1394 </span><span class="lineNoCov">          0 :     for (i = 5; i &lt; argc; i++) {</span>
+<span class="lineNum">    1395 </span><span class="lineNoCov">          0 :         char *arg = argv[i]-&gt;ptr;</span>
+<span class="lineNum">    1396 </span>            :         /* For the case when user specifies both &quot;store&quot; and &quot;storedist&quot; options, the
+<span class="lineNum">    1397 </span>            :          * second key specified would override the first key. This behavior is kept
+<span class="lineNum">    1398 </span>            :          * the same as in georadiusCommand method.
+<span class="lineNum">    1399 </span>            :          */
+<span class="lineNum">    1400 </span><span class="lineNoCov">          0 :         if ((!strcasecmp(arg, &quot;store&quot;) || !strcasecmp(arg, &quot;storedist&quot;)) &amp;&amp; ((i+1) &lt; argc)) {</span>
+<span class="lineNum">    1401 </span><span class="lineNoCov">          0 :             stored_key = i+1;</span>
+<span class="lineNum">    1402 </span><span class="lineNoCov">          0 :             i++;</span>
+<span class="lineNum">    1403 </span>            :         }
+<span class="lineNum">    1404 </span>            :     }
+<span class="lineNum">    1405 </span><span class="lineNoCov">          0 :     num = 1 + (stored_key == -1 ? 0 : 1);</span>
+<span class="lineNum">    1406 </span>            : 
+<span class="lineNum">    1407 </span>            :     /* Keys in the command come from two places:
+<span class="lineNum">    1408 </span>            :      * argv[1] = key,
+<span class="lineNum">    1409 </span>            :      * argv[5...n] = stored key if present
+<span class="lineNum">    1410 </span>            :      */
+<span class="lineNum">    1411 </span><span class="lineNoCov">          0 :     keys = zmalloc(sizeof(int) * num);</span>
+<span class="lineNum">    1412 </span>            : 
+<span class="lineNum">    1413 </span>            :     /* Add all key positions to keys[] */
+<span class="lineNum">    1414 </span><span class="lineNoCov">          0 :     keys[0] = 1;</span>
+<span class="lineNum">    1415 </span><span class="lineNoCov">          0 :     if(num &gt; 1) {</span>
+<span class="lineNum">    1416 </span><span class="lineNoCov">          0 :          keys[1] = stored_key;</span>
+<span class="lineNum">    1417 </span>            :     }
+<span class="lineNum">    1418 </span><span class="lineNoCov">          0 :     *numkeys = num;</span>
+<span class="lineNum">    1419 </span><span class="lineNoCov">          0 :     return keys;</span>
+<span class="lineNum">    1420 </span>            : }
+<span class="lineNum">    1421 </span>            : 
+<a name="1422"><span class="lineNum">    1422 </span>            : /* XREAD [BLOCK &lt;milliseconds&gt;] [COUNT &lt;count&gt;] [GROUP &lt;groupname&gt; &lt;ttl&gt;]</a>
+<span class="lineNum">    1423 </span>            :  *       STREAMS key_1 key_2 ... key_N ID_1 ID_2 ... ID_N */
+<span class="lineNum">    1424 </span><span class="lineNoCov">          0 : int *xreadGetKeys(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {</span>
+<span class="lineNum">    1425 </span><span class="lineNoCov">          0 :     int i, num = 0, *keys;</span>
+<span class="lineNum">    1426 </span><span class="lineNoCov">          0 :     UNUSED(cmd);</span>
+<span class="lineNum">    1427 </span>            : 
+<span class="lineNum">    1428 </span>            :     /* We need to parse the options of the command in order to seek the first
+<span class="lineNum">    1429 </span>            :      * &quot;STREAMS&quot; string which is actually the option. This is needed because
+<span class="lineNum">    1430 </span>            :      * &quot;STREAMS&quot; could also be the name of the consumer group and even the
+<span class="lineNum">    1431 </span>            :      * name of the stream key. */
+<span class="lineNum">    1432 </span><span class="lineNoCov">          0 :     int streams_pos = -1;</span>
+<span class="lineNum">    1433 </span><span class="lineNoCov">          0 :     for (i = 1; i &lt; argc; i++) {</span>
+<span class="lineNum">    1434 </span><span class="lineNoCov">          0 :         char *arg = argv[i]-&gt;ptr;</span>
+<span class="lineNum">    1435 </span><span class="lineNoCov">          0 :         if (!strcasecmp(arg, &quot;block&quot;)) {</span>
+<span class="lineNum">    1436 </span><span class="lineNoCov">          0 :             i++; /* Skip option argument. */</span>
+<span class="lineNum">    1437 </span><span class="lineNoCov">          0 :         } else if (!strcasecmp(arg, &quot;count&quot;)) {</span>
+<span class="lineNum">    1438 </span><span class="lineNoCov">          0 :             i++; /* Skip option argument. */</span>
+<span class="lineNum">    1439 </span><span class="lineNoCov">          0 :         } else if (!strcasecmp(arg, &quot;group&quot;)) {</span>
+<span class="lineNum">    1440 </span><span class="lineNoCov">          0 :             i += 2; /* Skip option argument. */</span>
+<span class="lineNum">    1441 </span><span class="lineNoCov">          0 :         } else if (!strcasecmp(arg, &quot;noack&quot;)) {</span>
+<span class="lineNum">    1442 </span>            :             /* Nothing to do. */
+<span class="lineNum">    1443 </span><span class="lineNoCov">          0 :         } else if (!strcasecmp(arg, &quot;streams&quot;)) {</span>
+<span class="lineNum">    1444 </span>            :             streams_pos = i;
+<span class="lineNum">    1445 </span>            :             break;
+<span class="lineNum">    1446 </span>            :         } else {
+<span class="lineNum">    1447 </span>            :             break; /* Syntax error. */
+<span class="lineNum">    1448 </span>            :         }
+<span class="lineNum">    1449 </span>            :     }
+<span class="lineNum">    1450 </span><span class="lineNoCov">          0 :     if (streams_pos != -1) num = argc - streams_pos - 1;</span>
+<span class="lineNum">    1451 </span>            : 
+<span class="lineNum">    1452 </span>            :     /* Syntax error. */
+<span class="lineNum">    1453 </span><span class="lineNoCov">          0 :     if (streams_pos == -1 || num == 0 || num % 2 != 0) {</span>
+<span class="lineNum">    1454 </span><span class="lineNoCov">          0 :         *numkeys = 0;</span>
+<span class="lineNum">    1455 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">    1456 </span>            :     }
+<span class="lineNum">    1457 </span><span class="lineNoCov">          0 :     num /= 2; /* We have half the keys as there are arguments because</span>
+<span class="lineNum">    1458 </span>            :                  there are also the IDs, one per key. */
+<span class="lineNum">    1459 </span>            : 
+<span class="lineNum">    1460 </span><span class="lineNoCov">          0 :     keys = zmalloc(sizeof(int) * num);</span>
+<span class="lineNum">    1461 </span><span class="lineNoCov">          0 :     for (i = streams_pos+1; i &lt; argc-num; i++) keys[i-streams_pos-1] = i;</span>
+<span class="lineNum">    1462 </span><span class="lineNoCov">          0 :     *numkeys = num;</span>
+<span class="lineNum">    1463 </span><span class="lineNoCov">          0 :     return keys;</span>
+<span class="lineNum">    1464 </span>            : }
+<span class="lineNum">    1465 </span>            : 
+<span class="lineNum">    1466 </span>            : /* Slot to Key API. This is used by Redis Cluster in order to obtain in
+<span class="lineNum">    1467 </span>            :  * a fast way a key that belongs to a specified hash slot. This is useful
+<a name="1468"><span class="lineNum">    1468 </span>            :  * while rehashing the cluster and in other conditions when we need to</a>
+<span class="lineNum">    1469 </span>            :  * understand if we have keys for a given hash slot. */
+<span class="lineNum">    1470 </span><span class="lineNoCov">          0 : void slotToKeyUpdateKey(robj *key, int add) {</span>
+<span class="lineNum">    1471 </span><span class="lineNoCov">          0 :     unsigned int hashslot = keyHashSlot(key-&gt;ptr,sdslen(key-&gt;ptr));</span>
+<span class="lineNum">    1472 </span><span class="lineNoCov">          0 :     unsigned char buf[64];</span>
+<span class="lineNum">    1473 </span><span class="lineNoCov">          0 :     unsigned char *indexed = buf;</span>
+<span class="lineNum">    1474 </span><span class="lineNoCov">          0 :     size_t keylen = sdslen(key-&gt;ptr);</span>
+<span class="lineNum">    1475 </span>            : 
+<span class="lineNum">    1476 </span><span class="lineNoCov">          0 :     server.cluster-&gt;slots_keys_count[hashslot] += add ? 1 : -1;</span>
+<span class="lineNum">    1477 </span><span class="lineNoCov">          0 :     if (keylen+2 &gt; 64) indexed = zmalloc(keylen+2);</span>
+<span class="lineNum">    1478 </span><span class="lineNoCov">          0 :     indexed[0] = (hashslot &gt;&gt; 8) &amp; 0xff;</span>
+<span class="lineNum">    1479 </span><span class="lineNoCov">          0 :     indexed[1] = hashslot &amp; 0xff;</span>
+<span class="lineNum">    1480 </span><span class="lineNoCov">          0 :     memcpy(indexed+2,key-&gt;ptr,keylen);</span>
+<span class="lineNum">    1481 </span><span class="lineNoCov">          0 :     if (add) {</span>
+<span class="lineNum">    1482 </span><span class="lineNoCov">          0 :         raxInsert(server.cluster-&gt;slots_to_keys,indexed,keylen+2,NULL,NULL);</span>
+<span class="lineNum">    1483 </span>            :     } else {
+<span class="lineNum">    1484 </span><span class="lineNoCov">          0 :         raxRemove(server.cluster-&gt;slots_to_keys,indexed,keylen+2,NULL);</span>
+<span class="lineNum">    1485 </span>            :     }
+<span class="lineNum">    1486 </span><span class="lineNoCov">          0 :     if (indexed != buf) zfree(indexed);</span>
+<a name="1487"><span class="lineNum">    1487 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">    1488 </span>            : 
+<span class="lineNum">    1489 </span><span class="lineNoCov">          0 : void slotToKeyAdd(robj *key) {</span>
+<span class="lineNum">    1490 </span><span class="lineNoCov">          0 :     slotToKeyUpdateKey(key,1);</span>
+<a name="1491"><span class="lineNum">    1491 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">    1492 </span>            : 
+<span class="lineNum">    1493 </span><span class="lineNoCov">          0 : void slotToKeyDel(robj *key) {</span>
+<span class="lineNum">    1494 </span><span class="lineNoCov">          0 :     slotToKeyUpdateKey(key,0);</span>
+<a name="1495"><span class="lineNum">    1495 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">    1496 </span>            : 
+<span class="lineNum">    1497 </span><span class="lineNoCov">          0 : void slotToKeyFlush(void) {</span>
+<span class="lineNum">    1498 </span><span class="lineNoCov">          0 :     raxFree(server.cluster-&gt;slots_to_keys);</span>
+<span class="lineNum">    1499 </span><span class="lineNoCov">          0 :     server.cluster-&gt;slots_to_keys = raxNew();</span>
+<span class="lineNum">    1500 </span><span class="lineNoCov">          0 :     memset(server.cluster-&gt;slots_keys_count,0,</span>
+<span class="lineNum">    1501 </span>            :            sizeof(server.cluster-&gt;slots_keys_count));
+<span class="lineNum">    1502 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1503 </span>            : 
+<span class="lineNum">    1504 </span>            : /* Pupulate the specified array of objects with keys in the specified slot.
+<a name="1505"><span class="lineNum">    1505 </span>            :  * New objects are returned to represent keys, it's up to the caller to</a>
+<span class="lineNum">    1506 </span>            :  * decrement the reference count to release the keys names. */
+<span class="lineNum">    1507 </span><span class="lineNoCov">          0 : unsigned int getKeysInSlot(unsigned int hashslot, robj **keys, unsigned int count) {</span>
+<span class="lineNum">    1508 </span><span class="lineNoCov">          0 :     raxIterator iter;</span>
+<span class="lineNum">    1509 </span><span class="lineNoCov">          0 :     int j = 0;</span>
+<span class="lineNum">    1510 </span><span class="lineNoCov">          0 :     unsigned char indexed[2];</span>
+<span class="lineNum">    1511 </span>            : 
+<span class="lineNum">    1512 </span><span class="lineNoCov">          0 :     indexed[0] = (hashslot &gt;&gt; 8) &amp; 0xff;</span>
+<span class="lineNum">    1513 </span><span class="lineNoCov">          0 :     indexed[1] = hashslot &amp; 0xff;</span>
+<span class="lineNum">    1514 </span><span class="lineNoCov">          0 :     raxStart(&amp;iter,server.cluster-&gt;slots_to_keys);</span>
+<span class="lineNum">    1515 </span><span class="lineNoCov">          0 :     raxSeek(&amp;iter,&quot;&gt;=&quot;,indexed,2);</span>
+<span class="lineNum">    1516 </span><span class="lineNoCov">          0 :     while(count-- &amp;&amp; raxNext(&amp;iter)) {</span>
+<span class="lineNum">    1517 </span><span class="lineNoCov">          0 :         if (iter.key[0] != indexed[0] || iter.key[1] != indexed[1]) break;</span>
+<span class="lineNum">    1518 </span><span class="lineNoCov">          0 :         keys[j++] = createStringObject((char*)iter.key+2,iter.key_len-2);</span>
+<span class="lineNum">    1519 </span>            :     }
+<span class="lineNum">    1520 </span><span class="lineNoCov">          0 :     raxStop(&amp;iter);</span>
+<span class="lineNum">    1521 </span><span class="lineNoCov">          0 :     return j;</span>
+<span class="lineNum">    1522 </span>            : }
+<span class="lineNum">    1523 </span>            : 
+<a name="1524"><span class="lineNum">    1524 </span>            : /* Remove all the keys in the specified hash slot.</a>
+<span class="lineNum">    1525 </span>            :  * The number of removed items is returned. */
+<span class="lineNum">    1526 </span><span class="lineNoCov">          0 : unsigned int delKeysInSlot(unsigned int hashslot) {</span>
+<span class="lineNum">    1527 </span><span class="lineNoCov">          0 :     raxIterator iter;</span>
+<span class="lineNum">    1528 </span><span class="lineNoCov">          0 :     int j = 0;</span>
+<span class="lineNum">    1529 </span><span class="lineNoCov">          0 :     unsigned char indexed[2];</span>
+<span class="lineNum">    1530 </span>            : 
+<span class="lineNum">    1531 </span><span class="lineNoCov">          0 :     indexed[0] = (hashslot &gt;&gt; 8) &amp; 0xff;</span>
+<span class="lineNum">    1532 </span><span class="lineNoCov">          0 :     indexed[1] = hashslot &amp; 0xff;</span>
+<span class="lineNum">    1533 </span><span class="lineNoCov">          0 :     raxStart(&amp;iter,server.cluster-&gt;slots_to_keys);</span>
+<span class="lineNum">    1534 </span><span class="lineNoCov">          0 :     while(server.cluster-&gt;slots_keys_count[hashslot]) {</span>
+<span class="lineNum">    1535 </span><span class="lineNoCov">          0 :         raxSeek(&amp;iter,&quot;&gt;=&quot;,indexed,2);</span>
+<span class="lineNum">    1536 </span><span class="lineNoCov">          0 :         raxNext(&amp;iter);</span>
+<span class="lineNum">    1537 </span>            : 
+<span class="lineNum">    1538 </span><span class="lineNoCov">          0 :         robj *key = createStringObject((char*)iter.key+2,iter.key_len-2);</span>
+<span class="lineNum">    1539 </span><span class="lineNoCov">          0 :         dbDelete(&amp;server.db[0],key);</span>
+<span class="lineNum">    1540 </span><span class="lineNoCov">          0 :         decrRefCount(key);</span>
+<span class="lineNum">    1541 </span><span class="lineNoCov">          0 :         j++;</span>
+<span class="lineNum">    1542 </span>            :     }
+<span class="lineNum">    1543 </span><span class="lineNoCov">          0 :     raxStop(&amp;iter);</span>
+<span class="lineNum">    1544 </span><span class="lineNoCov">          0 :     return j;</span>
+<a name="1545"><span class="lineNum">    1545 </span>            : }</a>
+<span class="lineNum">    1546 </span>            : 
+<span class="lineNum">    1547 </span><span class="lineNoCov">          0 : unsigned int countKeysInSlot(unsigned int hashslot) {</span>
+<span class="lineNum">    1548 </span><span class="lineNoCov">          0 :     return server.cluster-&gt;slots_keys_count[hashslot];</span>
+<span class="lineNum">    1549 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

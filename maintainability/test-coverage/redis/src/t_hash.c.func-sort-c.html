@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/t_hash.c - functions</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - t_hash.c<span style="font-size: 80%;"> (<a href="t_hash.c.gcov.html">source</a> / functions)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">425</td>
+            <td class="headerCovTableEntry">450</td>
+            <td class="headerCovTableEntryHi">94.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <center>
+  <table width="60%" cellpadding=1 cellspacing=1 border=0>
+    <tr><td><br></td></tr>
+    <tr>
+      <td width="80%" class="tableHead">Function Name <span class="tableHeadSort"><a href="t_hash.c.func.html"><img src="../updown.png" width=10 height=14 alt="Sort by function name" title="Sort by function name" border=0></a></span></td>
+      <td width="20%" class="tableHead">Hit count <span class="tableHeadSort"><img src="../glass.png" width=10 height=14 alt="Sort by hit count" title="Sort by hit count" border=0></span></td>
+    </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#795">hkeysCommand</a></td>
+              <td class="coverFnHi">6</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#799">hvalsCommand</a></td>
+              <td class="coverFnHi">6</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#807">hexistsCommand</a></td>
+              <td class="coverFnHi">12</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#512">hsetnxCommand</a></td>
+              <td class="coverFnHi">12</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#803">hgetallCommand</a></td>
+              <td class="coverFnHi">15</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#164">hashTypeExists</a></td>
+              <td class="coverFnHi">24</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#764">genericHgetallCommand</a></td>
+              <td class="coverFnHi">27</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#682">hmgetCommand</a></td>
+              <td class="coverFnHi">27</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#557">hincrbyCommand</a></td>
+              <td class="coverFnHi">53</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#592">hincrbyfloatCommand</a></td>
+              <td class="coverFnHi">54</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#728">hlenCommand</a></td>
+              <td class="coverFnHi">135</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#815">hscanCommand</a></td>
+              <td class="coverFnHi">293</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#142">hashTypeGetValueLength</a></td>
+              <td class="coverFnHi">3138</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#737">hstrlenCommand</a></td>
+              <td class="coverFnHi">3138</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#745">addHashIteratorCursorToReply</a></td>
+              <td class="coverFnHi">12474</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#673">hgetCommand</a></td>
+              <td class="coverFnHi">28511</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#638">addHashFieldToReply</a></td>
+              <td class="coverFnHi">31643</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#88">hashTypeGetFromHashTable</a></td>
+              <td class="coverFnHi">34752</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#129">hashTypeGetValueObject</a></td>
+              <td class="coverFnHi">96192</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#107">hashTypeGetValue</a></td>
+              <td class="coverFnHi">96299</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#55">hashTypeGetFromZiplist</a></td>
+              <td class="coverFnHi">96346</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#498">hashTypeConvert</a></td>
+              <td class="coverFnHi">176000</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#463">hashTypeConvertZiplist</a></td>
+              <td class="coverFnHi">176000</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#277">hashTypeDelete</a></td>
+              <td class="coverFnHi">235515</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#700">hdelCommand</a></td>
+              <td class="coverFnHi">235543</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#322">hashTypeInitIterator</a></td>
+              <td class="coverFnHi">734380</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#338">hashTypeReleaseIterator</a></td>
+              <td class="coverFnHi">734380</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#404">hashTypeCurrentFromHashTable</a></td>
+              <td class="coverFnHi">787808</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#309">hashTypeLength</a></td>
+              <td class="coverFnHi">814226</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#528">hsetCommand</a></td>
+              <td class="coverFnHi">851248</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#38">hashTypeTryConversion</a></td>
+              <td class="coverFnHi">851257</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#449">hashTypeLookupWriteOrCreate</a></td>
+              <td class="coverFnHi">851364</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#200">hashTypeSet</a></td>
+              <td class="coverFnHi">903207</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#383">hashTypeCurrentFromZiplist</a></td>
+              <td class="coverFnHi">931454</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#346">hashTypeNext</a></td>
+              <td class="coverFnHi">1597107</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#424">hashTypeCurrentObject</a></td>
+              <td class="coverFnHi">1695134</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="t_hash.c.gcov.html#439">hashTypeCurrentObjectNewSds</a></td>
+              <td class="coverFnHi">1695134</td>
+            </tr>
+  </table>
+  <br>
+  </center>
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

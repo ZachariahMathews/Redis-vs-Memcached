@@ -1,0 +1,1885 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - memcached/items.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">memcached</a> - items.c<span style="font-size: 80%;"> (source / <a href="items.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">914</td>
+            <td class="headerCovTableEntry">1063</td>
+            <td class="headerCovTableEntryMed">86.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:48:59</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">45</td>
+            <td class="headerCovTableEntry">53</td>
+            <td class="headerCovTableEntryMed">84.9 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* -*- Mode: C; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*- */</a>
+<span class="lineNum">       2 </span>            : #include &quot;memcached.h&quot;
+<span class="lineNum">       3 </span>            : #include &quot;bipbuffer.h&quot;
+<span class="lineNum">       4 </span>            : #include &quot;slab_automove.h&quot;
+<span class="lineNum">       5 </span>            : #ifdef EXTSTORE
+<span class="lineNum">       6 </span>            : #include &quot;storage.h&quot;
+<span class="lineNum">       7 </span>            : #include &quot;slab_automove_extstore.h&quot;
+<span class="lineNum">       8 </span>            : #endif
+<span class="lineNum">       9 </span>            : #include &lt;sys/stat.h&gt;
+<span class="lineNum">      10 </span>            : #include &lt;sys/socket.h&gt;
+<span class="lineNum">      11 </span>            : #include &lt;sys/resource.h&gt;
+<span class="lineNum">      12 </span>            : #include &lt;fcntl.h&gt;
+<span class="lineNum">      13 </span>            : #include &lt;netinet/in.h&gt;
+<span class="lineNum">      14 </span>            : #include &lt;errno.h&gt;
+<span class="lineNum">      15 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      16 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      17 </span>            : #include &lt;signal.h&gt;
+<span class="lineNum">      18 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      19 </span>            : #include &lt;time.h&gt;
+<span class="lineNum">      20 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      21 </span>            : #include &lt;unistd.h&gt;
+<span class="lineNum">      22 </span>            : #include &lt;poll.h&gt;
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : /* Forward Declarations */
+<span class="lineNum">      25 </span>            : static void item_link_q(item *it);
+<span class="lineNum">      26 </span>            : static void item_unlink_q(item *it);
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : static unsigned int lru_type_map[4] = {HOT_LRU, WARM_LRU, COLD_LRU, TEMP_LRU};
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #define LARGEST_ID POWER_LARGEST
+<span class="lineNum">      31 </span>            : typedef struct {
+<span class="lineNum">      32 </span>            :     uint64_t evicted;
+<span class="lineNum">      33 </span>            :     uint64_t evicted_nonzero;
+<span class="lineNum">      34 </span>            :     uint64_t reclaimed;
+<span class="lineNum">      35 </span>            :     uint64_t outofmemory;
+<span class="lineNum">      36 </span>            :     uint64_t tailrepairs;
+<span class="lineNum">      37 </span>            :     uint64_t expired_unfetched; /* items reclaimed but never touched */
+<span class="lineNum">      38 </span>            :     uint64_t evicted_unfetched; /* items evicted but never touched */
+<span class="lineNum">      39 </span>            :     uint64_t evicted_active; /* items evicted that should have been shuffled */
+<span class="lineNum">      40 </span>            :     uint64_t crawler_reclaimed;
+<span class="lineNum">      41 </span>            :     uint64_t crawler_items_checked;
+<span class="lineNum">      42 </span>            :     uint64_t lrutail_reflocked;
+<span class="lineNum">      43 </span>            :     uint64_t moves_to_cold;
+<span class="lineNum">      44 </span>            :     uint64_t moves_to_warm;
+<span class="lineNum">      45 </span>            :     uint64_t moves_within_lru;
+<span class="lineNum">      46 </span>            :     uint64_t direct_reclaims;
+<span class="lineNum">      47 </span>            :     uint64_t hits_to_hot;
+<span class="lineNum">      48 </span>            :     uint64_t hits_to_warm;
+<span class="lineNum">      49 </span>            :     uint64_t hits_to_cold;
+<span class="lineNum">      50 </span>            :     uint64_t hits_to_temp;
+<span class="lineNum">      51 </span>            :     rel_time_t evicted_time;
+<span class="lineNum">      52 </span>            : } itemstats_t;
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : static item *heads[LARGEST_ID];
+<span class="lineNum">      55 </span>            : static item *tails[LARGEST_ID];
+<span class="lineNum">      56 </span>            : static itemstats_t itemstats[LARGEST_ID];
+<span class="lineNum">      57 </span>            : static unsigned int sizes[LARGEST_ID];
+<span class="lineNum">      58 </span>            : static uint64_t sizes_bytes[LARGEST_ID];
+<span class="lineNum">      59 </span>            : static unsigned int *stats_sizes_hist = NULL;
+<span class="lineNum">      60 </span>            : static uint64_t stats_sizes_cas_min = 0;
+<span class="lineNum">      61 </span>            : static int stats_sizes_buckets = 0;
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            : static volatile int do_run_lru_maintainer_thread = 0;
+<span class="lineNum">      64 </span>            : static int lru_maintainer_initialized = 0;
+<span class="lineNum">      65 </span>            : static pthread_mutex_t lru_maintainer_lock = PTHREAD_MUTEX_INITIALIZER;
+<span class="lineNum">      66 </span>            : static pthread_mutex_t cas_id_lock = PTHREAD_MUTEX_INITIALIZER;
+<a name="67"><span class="lineNum">      67 </span>            : static pthread_mutex_t stats_sizes_lock = PTHREAD_MUTEX_INITIALIZER;</a>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span><span class="lineCov">          3 : void item_stats_reset(void) {</span>
+<span class="lineNum">      70 </span><span class="lineCov">          3 :     int i;</span>
+<span class="lineNum">      71 </span><span class="lineCov">        771 :     for (i = 0; i &lt; LARGEST_ID; i++) {</span>
+<span class="lineNum">      72 </span><span class="lineCov">        768 :         pthread_mutex_lock(&amp;lru_locks[i]);</span>
+<span class="lineNum">      73 </span><span class="lineCov">        768 :         memset(&amp;itemstats[i], 0, sizeof(itemstats_t));</span>
+<span class="lineNum">      74 </span><span class="lineCov">        768 :         pthread_mutex_unlock(&amp;lru_locks[i]);</span>
+<span class="lineNum">      75 </span>            :     }
+<span class="lineNum">      76 </span><span class="lineCov">          3 : }</span>
+<a name="77"><span class="lineNum">      77 </span>            : </a>
+<span class="lineNum">      78 </span>            : /* called with class lru lock held */
+<span class="lineNum">      79 </span><span class="lineCov">      22703 : void do_item_stats_add_crawl(const int i, const uint64_t reclaimed,</span>
+<span class="lineNum">      80 </span>            :         const uint64_t unfetched, const uint64_t checked) {
+<span class="lineNum">      81 </span><span class="lineCov">      22703 :     itemstats[i].crawler_reclaimed += reclaimed;</span>
+<span class="lineNum">      82 </span><span class="lineCov">      22703 :     itemstats[i].expired_unfetched += unfetched;</span>
+<span class="lineNum">      83 </span><span class="lineCov">      22703 :     itemstats[i].crawler_items_checked += checked;</span>
+<span class="lineNum">      84 </span><span class="lineCov">      22703 : }</span>
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            : typedef struct _lru_bump_buf {
+<span class="lineNum">      87 </span>            :     struct _lru_bump_buf *prev;
+<span class="lineNum">      88 </span>            :     struct _lru_bump_buf *next;
+<span class="lineNum">      89 </span>            :     pthread_mutex_t mutex;
+<span class="lineNum">      90 </span>            :     bipbuf_t *buf;
+<span class="lineNum">      91 </span>            :     uint64_t dropped;
+<span class="lineNum">      92 </span>            : } lru_bump_buf;
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : typedef struct {
+<span class="lineNum">      95 </span>            :     item *it;
+<span class="lineNum">      96 </span>            :     uint32_t hv;
+<span class="lineNum">      97 </span>            : } lru_bump_entry;
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            : static lru_bump_buf *bump_buf_head = NULL;
+<span class="lineNum">     100 </span>            : static lru_bump_buf *bump_buf_tail = NULL;
+<span class="lineNum">     101 </span>            : static pthread_mutex_t bump_buf_lock = PTHREAD_MUTEX_INITIALIZER;
+<span class="lineNum">     102 </span>            : /* TODO: tunable? Need bench results */
+<span class="lineNum">     103 </span>            : #define LRU_BUMP_BUF_SIZE 8192
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            : static bool lru_bump_async(lru_bump_buf *b, item *it, uint32_t hv);
+<span class="lineNum">     106 </span>            : static uint64_t lru_total_bumps_dropped(void);
+<span class="lineNum">     107 </span>            : 
+<a name="108"><span class="lineNum">     108 </span>            : /* Get the next CAS id for a new item. */</a>
+<span class="lineNum">     109 </span>            : /* TODO: refactor some atomics for this. */
+<span class="lineNum">     110 </span><span class="lineCov">     104350 : uint64_t get_cas_id(void) {</span>
+<span class="lineNum">     111 </span><span class="lineCov">     104350 :     static uint64_t cas_id = 0;</span>
+<span class="lineNum">     112 </span><span class="lineCov">     104350 :     pthread_mutex_lock(&amp;cas_id_lock);</span>
+<span class="lineNum">     113 </span><span class="lineCov">     104350 :     uint64_t next_id = ++cas_id;</span>
+<span class="lineNum">     114 </span><span class="lineCov">     104350 :     pthread_mutex_unlock(&amp;cas_id_lock);</span>
+<span class="lineNum">     115 </span><span class="lineCov">     104350 :     return next_id;</span>
+<a name="116"><span class="lineNum">     116 </span>            : }</a>
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span><span class="lineCov">     182078 : int item_is_flushed(item *it) {</span>
+<span class="lineNum">     119 </span><span class="lineCov">     182078 :     rel_time_t oldest_live = settings.oldest_live;</span>
+<span class="lineNum">     120 </span><span class="lineCov">     182078 :     uint64_t cas = ITEM_get_cas(it);</span>
+<span class="lineNum">     121 </span><span class="lineCov">     182078 :     uint64_t oldest_cas = settings.oldest_cas;</span>
+<span class="lineNum">     122 </span><span class="lineCov">     182078 :     if (oldest_live == 0 || oldest_live &gt; current_time)</span>
+<span class="lineNum">     123 </span>            :         return 0;
+<span class="lineNum">     124 </span><span class="lineCov">      61808 :     if ((it-&gt;time &lt;= oldest_live)</span>
+<span class="lineNum">     125 </span><span class="lineCov">      54875 :             || (oldest_cas != 0 &amp;&amp; cas != 0 &amp;&amp; cas &lt; oldest_cas)) {</span>
+<span class="lineNum">     126 </span><span class="lineCov">       7055 :         return 1;</span>
+<span class="lineNum">     127 </span>            :     }
+<span class="lineNum">     128 </span>            :     return 0;
+<span class="lineNum">     129 </span>            : }
+<span class="lineNum">     130 </span>            : 
+<span class="lineNum">     131 </span>            : static unsigned int temp_lru_size(int slabs_clsid) {
+<span class="lineNum">     132 </span><span class="lineCov">       2882 :     int id = CLEAR_LRU(slabs_clsid);</span>
+<span class="lineNum">     133 </span><span class="lineCov">       2882 :     id |= TEMP_LRU;</span>
+<span class="lineNum">     134 </span><span class="lineCov">       2882 :     unsigned int ret;</span>
+<span class="lineNum">     135 </span><span class="lineCov">       2882 :     pthread_mutex_lock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     136 </span><span class="lineCov">       2882 :     ret = sizes_bytes[id];</span>
+<span class="lineNum">     137 </span><span class="lineCov">       2882 :     pthread_mutex_unlock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     138 </span><span class="lineCov">       2882 :     return ret;</span>
+<span class="lineNum">     139 </span>            : }
+<a name="140"><span class="lineNum">     140 </span>            : </a>
+<span class="lineNum">     141 </span>            : /* must be locked before call */
+<span class="lineNum">     142 </span><span class="lineCov">        255 : unsigned int do_get_lru_size(uint32_t id) {</span>
+<span class="lineNum">     143 </span><span class="lineCov">        255 :     return sizes[id];</span>
+<span class="lineNum">     144 </span>            : }
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            : /* Enable this for reference-count debugging. */
+<span class="lineNum">     147 </span>            : #if 0
+<span class="lineNum">     148 </span>            : # define DEBUG_REFCNT(it,op) \
+<span class="lineNum">     149 </span>            :                 fprintf(stderr, &quot;item %x refcnt(%c) %d %c%c%c\n&quot;, \
+<span class="lineNum">     150 </span>            :                         it, op, it-&gt;refcount, \
+<span class="lineNum">     151 </span>            :                         (it-&gt;it_flags &amp; ITEM_LINKED) ? 'L' : ' ', \
+<span class="lineNum">     152 </span>            :                         (it-&gt;it_flags &amp; ITEM_SLABBED) ? 'S' : ' ')
+<span class="lineNum">     153 </span>            : #else
+<span class="lineNum">     154 </span>            : # define DEBUG_REFCNT(it,op) while(0)
+<span class="lineNum">     155 </span>            : #endif
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span>            : /**
+<span class="lineNum">     158 </span>            :  * Generates the variable-sized part of the header for an object.
+<span class="lineNum">     159 </span>            :  *
+<span class="lineNum">     160 </span>            :  * key     - The key
+<span class="lineNum">     161 </span>            :  * nkey    - The length of the key
+<span class="lineNum">     162 </span>            :  * flags   - key flags
+<span class="lineNum">     163 </span>            :  * nbytes  - Number of bytes to hold value and addition CRLF terminator
+<span class="lineNum">     164 </span>            :  * suffix  - Buffer for the &quot;VALUE&quot; line suffix (flags, size).
+<span class="lineNum">     165 </span>            :  * nsuffix - The length of the suffix is stored here.
+<span class="lineNum">     166 </span>            :  *
+<a name="167"><span class="lineNum">     167 </span>            :  * Returns the total size of the header.</a>
+<span class="lineNum">     168 </span>            :  */
+<span class="lineNum">     169 </span><span class="lineCov">     119221 : static size_t item_make_header(const uint8_t nkey, const unsigned int flags, const int nbytes,</span>
+<span class="lineNum">     170 </span>            :                      char *suffix, uint8_t *nsuffix) {
+<span class="lineNum">     171 </span><span class="lineCov">     119221 :     if (settings.inline_ascii_response) {</span>
+<span class="lineNum">     172 </span>            :         /* suffix is defined at 40 chars elsewhere.. */
+<span class="lineNum">     173 </span><span class="lineCov">      40882 :         *nsuffix = (uint8_t) snprintf(suffix, 40, &quot; %u %d\r\n&quot;, flags, nbytes - 2);</span>
+<span class="lineNum">     174 </span>            :     } else {
+<span class="lineNum">     175 </span><span class="lineCov">      98780 :         if (flags == 0) {</span>
+<span class="lineNum">     176 </span><span class="lineCov">      98772 :             *nsuffix = 0;</span>
+<span class="lineNum">     177 </span>            :         } else {
+<span class="lineNum">     178 </span><span class="lineCov">          8 :             *nsuffix = sizeof(flags);</span>
+<span class="lineNum">     179 </span>            :         }
+<span class="lineNum">     180 </span>            :     }
+<span class="lineNum">     181 </span><span class="lineCov">     119221 :     return sizeof(item) + nkey + *nsuffix + nbytes;</span>
+<a name="182"><span class="lineNum">     182 </span>            : }</a>
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span><span class="lineCov">     255379 : item *do_item_alloc_pull(const size_t ntotal, const unsigned int id) {</span>
+<span class="lineNum">     185 </span><span class="lineCov">     255379 :     item *it = NULL;</span>
+<span class="lineNum">     186 </span><span class="lineCov">     255379 :     int i;</span>
+<span class="lineNum">     187 </span>            :     /* If no memory is available, attempt a direct LRU juggle/eviction */
+<span class="lineNum">     188 </span>            :     /* This is a race in order to simplify lru_pull_tail; in cases where
+<span class="lineNum">     189 </span>            :      * locked items are on the tail, you want them to fall out and cause
+<span class="lineNum">     190 </span>            :      * occasional OOM's, rather than internally work around them.
+<span class="lineNum">     191 </span>            :      * This also gives one fewer code path for slab alloc/free
+<span class="lineNum">     192 </span>            :      */
+<span class="lineNum">     193 </span><span class="lineCov">     283015 :     for (i = 0; i &lt; 10; i++) {</span>
+<span class="lineNum">     194 </span><span class="lineCov">     283010 :         uint64_t total_bytes;</span>
+<span class="lineNum">     195 </span>            :         /* Try to reclaim memory first */
+<span class="lineNum">     196 </span><span class="lineCov">     283010 :         if (!settings.lru_segmented) {</span>
+<span class="lineNum">     197 </span><span class="lineCov">      20893 :             lru_pull_tail(id, COLD_LRU, 0, 0, 0, NULL);</span>
+<span class="lineNum">     198 </span>            :         }
+<span class="lineNum">     199 </span><span class="lineCov">     283010 :         it = slabs_alloc(ntotal, id, &amp;total_bytes, 0);</span>
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span><span class="lineCov">     283010 :         if (settings.temp_lru)</span>
+<span class="lineNum">     202 </span><span class="lineCov">        472 :             total_bytes -= temp_lru_size(id);</span>
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span><span class="lineCov">     283010 :         if (it == NULL) {</span>
+<span class="lineNum">     205 </span><span class="lineCov">      27636 :             if (lru_pull_tail(id, COLD_LRU, total_bytes, LRU_PULL_EVICT, 0, NULL) &lt;= 0) {</span>
+<span class="lineNum">     206 </span><span class="lineCov">      10182 :                 if (settings.lru_segmented) {</span>
+<span class="lineNum">     207 </span><span class="lineCov">      10182 :                     lru_pull_tail(id, HOT_LRU, total_bytes, 0, 0, NULL);</span>
+<span class="lineNum">     208 </span>            :                 } else {
+<span class="lineNum">     209 </span>            :                     break;
+<span class="lineNum">     210 </span>            :                 }
+<span class="lineNum">     211 </span>            :             }
+<span class="lineNum">     212 </span>            :         } else {
+<span class="lineNum">     213 </span>            :             break;
+<span class="lineNum">     214 </span>            :         }
+<span class="lineNum">     215 </span>            :     }
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span><span class="lineCov">     255379 :     if (i &gt; 0) {</span>
+<span class="lineNum">     218 </span><span class="lineCov">      17459 :         pthread_mutex_lock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     219 </span><span class="lineCov">      17459 :         itemstats[id].direct_reclaims += i;</span>
+<span class="lineNum">     220 </span><span class="lineCov">      17459 :         pthread_mutex_unlock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     221 </span>            :     }
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span><span class="lineCov">     255379 :     return it;</span>
+<span class="lineNum">     224 </span>            : }
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span>            : /* Chain another chunk onto this chunk. */
+<span class="lineNum">     227 </span>            : /* slab mover: if it finds a chunk without ITEM_CHUNK flag, and no ITEM_LINKED
+<span class="lineNum">     228 </span>            :  * flag, it counts as busy and skips.
+<a name="229"><span class="lineNum">     229 </span>            :  * I think it might still not be safe to do linking outside of the slab lock</a>
+<span class="lineNum">     230 </span>            :  */
+<span class="lineNum">     231 </span><span class="lineCov">     136171 : item_chunk *do_item_alloc_chunk(item_chunk *ch, const size_t bytes_remain) {</span>
+<span class="lineNum">     232 </span>            :     // TODO: Should be a cleaner way of finding real size with slabber calls
+<span class="lineNum">     233 </span><span class="lineCov">     136171 :     size_t size = bytes_remain + sizeof(item_chunk);</span>
+<span class="lineNum">     234 </span><span class="lineCov">     136171 :     if (size &gt; settings.slab_chunk_size_max)</span>
+<span class="lineNum">     235 </span><span class="lineCov">      75990 :         size = settings.slab_chunk_size_max;</span>
+<span class="lineNum">     236 </span><span class="lineCov">     136171 :     unsigned int id = slabs_clsid(size);</span>
+<span class="lineNum">     237 </span>            : 
+<span class="lineNum">     238 </span><span class="lineCov">     136171 :     item_chunk *nch = (item_chunk *) do_item_alloc_pull(size, id);</span>
+<span class="lineNum">     239 </span><span class="lineCov">     136171 :     if (nch == NULL)</span>
+<span class="lineNum">     240 </span>            :         return NULL;
+<span class="lineNum">     241 </span>            : 
+<span class="lineNum">     242 </span>            :     // link in.
+<span class="lineNum">     243 </span>            :     // ITEM_CHUNK[ED] bits need to be protected by the slabs lock.
+<span class="lineNum">     244 </span><span class="lineCov">     136171 :     slabs_mlock();</span>
+<span class="lineNum">     245 </span><span class="lineCov">     136171 :     nch-&gt;head = ch-&gt;head;</span>
+<span class="lineNum">     246 </span><span class="lineCov">     136171 :     ch-&gt;next = nch;</span>
+<span class="lineNum">     247 </span><span class="lineCov">     136171 :     nch-&gt;prev = ch;</span>
+<span class="lineNum">     248 </span><span class="lineCov">     136171 :     nch-&gt;next = 0;</span>
+<span class="lineNum">     249 </span><span class="lineCov">     136171 :     nch-&gt;used = 0;</span>
+<span class="lineNum">     250 </span><span class="lineCov">     136171 :     nch-&gt;slabs_clsid = id;</span>
+<span class="lineNum">     251 </span><span class="lineCov">     136171 :     nch-&gt;size = size - sizeof(item_chunk);</span>
+<span class="lineNum">     252 </span><span class="lineCov">     136171 :     nch-&gt;it_flags |= ITEM_CHUNK;</span>
+<span class="lineNum">     253 </span><span class="lineCov">     136171 :     slabs_munlock();</span>
+<span class="lineNum">     254 </span><span class="lineCov">     136171 :     return nch;</span>
+<a name="255"><span class="lineNum">     255 </span>            : }</a>
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span><span class="lineCov">     119213 : item *do_item_alloc(char *key, const size_t nkey, const unsigned int flags,</span>
+<span class="lineNum">     258 </span>            :                     const rel_time_t exptime, const int nbytes) {
+<span class="lineNum">     259 </span><span class="lineCov">     119213 :     uint8_t nsuffix;</span>
+<span class="lineNum">     260 </span><span class="lineCov">     119213 :     item *it = NULL;</span>
+<span class="lineNum">     261 </span><span class="lineCov">     119213 :     char suffix[40];</span>
+<span class="lineNum">     262 </span>            :     // Avoid potential underflows.
+<span class="lineNum">     263 </span><span class="lineCov">     119213 :     if (nbytes &lt; 2)</span>
+<span class="lineNum">     264 </span>            :         return 0;
+<span class="lineNum">     265 </span>            : 
+<span class="lineNum">     266 </span><span class="lineCov">     119212 :     size_t ntotal = item_make_header(nkey + 1, flags, nbytes, suffix, &amp;nsuffix);</span>
+<span class="lineNum">     267 </span><span class="lineCov">     119212 :     if (settings.use_cas) {</span>
+<span class="lineNum">     268 </span><span class="lineCov">     119211 :         ntotal += sizeof(uint64_t);</span>
+<span class="lineNum">     269 </span>            :     }
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span><span class="lineCov">     119212 :     unsigned int id = slabs_clsid(ntotal);</span>
+<span class="lineNum">     272 </span><span class="lineCov">     119212 :     unsigned int hdr_id = 0;</span>
+<span class="lineNum">     273 </span><span class="lineCov">     119212 :     if (id == 0)</span>
+<span class="lineNum">     274 </span>            :         return 0;
+<span class="lineNum">     275 </span>            : 
+<span class="lineNum">     276 </span>            :     /* This is a large item. Allocate a header object now, lazily allocate
+<span class="lineNum">     277 </span>            :      *  chunks while reading the upload.
+<span class="lineNum">     278 </span>            :      */
+<span class="lineNum">     279 </span><span class="lineCov">     119208 :     if (ntotal &gt; settings.slab_chunk_size_max) {</span>
+<span class="lineNum">     280 </span>            :         /* We still link this item into the LRU for the larger slab class, but
+<span class="lineNum">     281 </span>            :          * we're pulling a header from an entirely different slab class. The
+<span class="lineNum">     282 </span>            :          * free routines handle large items specifically.
+<span class="lineNum">     283 </span>            :          */
+<span class="lineNum">     284 </span><span class="lineCov">      19633 :         int htotal = nkey + 1 + nsuffix + sizeof(item) + sizeof(item_chunk);</span>
+<span class="lineNum">     285 </span><span class="lineCov">      19633 :         if (settings.use_cas) {</span>
+<span class="lineNum">     286 </span><span class="lineCov">      19633 :             htotal += sizeof(uint64_t);</span>
+<span class="lineNum">     287 </span>            :         }
+<span class="lineNum">     288 </span>            : #ifdef NEED_ALIGN
+<span class="lineNum">     289 </span>            :         // header chunk needs to be padded on some systems
+<span class="lineNum">     290 </span>            :         int remain = htotal % 8;
+<span class="lineNum">     291 </span>            :         if (remain != 0) {
+<span class="lineNum">     292 </span>            :             htotal += 8 - remain;
+<span class="lineNum">     293 </span>            :         }
+<span class="lineNum">     294 </span>            : #endif
+<span class="lineNum">     295 </span><span class="lineCov">      19633 :         hdr_id = slabs_clsid(htotal);</span>
+<span class="lineNum">     296 </span><span class="lineCov">      19633 :         it = do_item_alloc_pull(htotal, hdr_id);</span>
+<span class="lineNum">     297 </span>            :         /* setting ITEM_CHUNKED is fine here because we aren't LINKED yet. */
+<span class="lineNum">     298 </span><span class="lineCov">      19633 :         if (it != NULL)</span>
+<span class="lineNum">     299 </span><span class="lineCov">      19633 :             it-&gt;it_flags |= ITEM_CHUNKED;</span>
+<span class="lineNum">     300 </span>            :     } else {
+<span class="lineNum">     301 </span><span class="lineCov">      99575 :         it = do_item_alloc_pull(ntotal, id);</span>
+<span class="lineNum">     302 </span>            :     }
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span><span class="lineCov">     119208 :     if (it == NULL) {</span>
+<span class="lineNum">     305 </span><span class="lineCov">          5 :         pthread_mutex_lock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     306 </span><span class="lineCov">          5 :         itemstats[id].outofmemory++;</span>
+<span class="lineNum">     307 </span><span class="lineCov">          5 :         pthread_mutex_unlock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     308 </span><span class="lineCov">          5 :         return NULL;</span>
+<span class="lineNum">     309 </span>            :     }
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span><span class="lineCov">     119203 :     assert(it-&gt;slabs_clsid == 0);</span>
+<span class="lineNum">     312 </span>            :     //assert(it != heads[id]);
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            :     /* Refcount is seeded to 1 by slabs_alloc() */
+<span class="lineNum">     315 </span><span class="lineCov">     119203 :     it-&gt;next = it-&gt;prev = 0;</span>
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span>            :     /* Items are initially loaded into the HOT_LRU. This is '0' but I want at
+<span class="lineNum">     318 </span>            :      * least a note here. Compiler (hopefully?) optimizes this out.
+<span class="lineNum">     319 </span>            :      */
+<span class="lineNum">     320 </span><span class="lineCov">     119203 :     if (settings.temp_lru &amp;&amp;</span>
+<span class="lineNum">     321 </span><span class="lineCov">        101 :             exptime - current_time &lt;= settings.temporary_ttl) {</span>
+<span class="lineNum">     322 </span><span class="lineCov">          1 :         id |= TEMP_LRU;</span>
+<span class="lineNum">     323 </span><span class="lineCov">     119202 :     } else if (settings.lru_segmented) {</span>
+<span class="lineNum">     324 </span>            :         id |= HOT_LRU;
+<span class="lineNum">     325 </span>            :     } else {
+<span class="lineNum">     326 </span>            :         /* There is only COLD in compat-mode */
+<span class="lineNum">     327 </span><span class="lineCov">      20445 :         id |= COLD_LRU;</span>
+<span class="lineNum">     328 </span>            :     }
+<span class="lineNum">     329 </span><span class="lineCov">     119203 :     it-&gt;slabs_clsid = id;</span>
+<span class="lineNum">     330 </span>            : 
+<span class="lineNum">     331 </span><span class="lineCov">     119203 :     DEBUG_REFCNT(it, '*');</span>
+<span class="lineNum">     332 </span><span class="lineCov">     119203 :     it-&gt;it_flags |= settings.use_cas ? ITEM_CAS : 0;</span>
+<span class="lineNum">     333 </span><span class="lineCov">     119203 :     it-&gt;nkey = nkey;</span>
+<span class="lineNum">     334 </span><span class="lineCov">     119203 :     it-&gt;nbytes = nbytes;</span>
+<span class="lineNum">     335 </span><span class="lineCov">     119203 :     memcpy(ITEM_key(it), key, nkey);</span>
+<span class="lineNum">     336 </span><span class="lineCov">     119203 :     it-&gt;exptime = exptime;</span>
+<span class="lineNum">     337 </span><span class="lineCov">     119203 :     if (settings.inline_ascii_response) {</span>
+<span class="lineNum">     338 </span><span class="lineCov">      20437 :         memcpy(ITEM_suffix(it), suffix, (size_t)nsuffix);</span>
+<span class="lineNum">     339 </span><span class="lineCov">      98766 :     } else if (nsuffix &gt; 0) {</span>
+<span class="lineNum">     340 </span><span class="lineCov">          8 :         memcpy(ITEM_suffix(it), &amp;flags, sizeof(flags));</span>
+<span class="lineNum">     341 </span>            :     }
+<span class="lineNum">     342 </span><span class="lineCov">     119203 :     it-&gt;nsuffix = nsuffix;</span>
+<span class="lineNum">     343 </span>            : 
+<span class="lineNum">     344 </span>            :     /* Initialize internal chunk. */
+<span class="lineNum">     345 </span><span class="lineCov">     119203 :     if (it-&gt;it_flags &amp; ITEM_CHUNKED) {</span>
+<span class="lineNum">     346 </span><span class="lineCov">      19633 :         item_chunk *chunk = (item_chunk *) ITEM_schunk(it);</span>
+<span class="lineNum">     347 </span>            : 
+<span class="lineNum">     348 </span><span class="lineCov">      19633 :         chunk-&gt;next = 0;</span>
+<span class="lineNum">     349 </span><span class="lineCov">      19633 :         chunk-&gt;prev = 0;</span>
+<span class="lineNum">     350 </span><span class="lineCov">      19633 :         chunk-&gt;used = 0;</span>
+<span class="lineNum">     351 </span><span class="lineCov">      19633 :         chunk-&gt;size = 0;</span>
+<span class="lineNum">     352 </span><span class="lineCov">      19633 :         chunk-&gt;head = it;</span>
+<span class="lineNum">     353 </span><span class="lineCov">      19633 :         chunk-&gt;orig_clsid = hdr_id;</span>
+<span class="lineNum">     354 </span>            :     }
+<span class="lineNum">     355 </span><span class="lineCov">     119203 :     it-&gt;h_next = 0;</span>
+<span class="lineNum">     356 </span>            : 
+<span class="lineNum">     357 </span><span class="lineCov">     119203 :     return it;</span>
+<a name="358"><span class="lineNum">     358 </span>            : }</a>
+<span class="lineNum">     359 </span>            : 
+<span class="lineNum">     360 </span><span class="lineCov">      79403 : void item_free(item *it) {</span>
+<span class="lineNum">     361 </span><span class="lineCov">      79403 :     size_t ntotal = ITEM_ntotal(it);</span>
+<span class="lineNum">     362 </span><span class="lineCov">      79403 :     unsigned int clsid;</span>
+<span class="lineNum">     363 </span><span class="lineCov">      79403 :     assert((it-&gt;it_flags &amp; ITEM_LINKED) == 0);</span>
+<span class="lineNum">     364 </span><span class="lineCov">      79403 :     assert(it != heads[it-&gt;slabs_clsid]);</span>
+<span class="lineNum">     365 </span><span class="lineCov">      79403 :     assert(it != tails[it-&gt;slabs_clsid]);</span>
+<span class="lineNum">     366 </span><span class="lineCov">      79403 :     assert(it-&gt;refcount == 0);</span>
+<span class="lineNum">     367 </span>            : 
+<span class="lineNum">     368 </span>            :     /* so slab size changer can tell later if item is already free or not */
+<span class="lineNum">     369 </span><span class="lineCov">      79403 :     clsid = ITEM_clsid(it);</span>
+<span class="lineNum">     370 </span><span class="lineCov">      79403 :     DEBUG_REFCNT(it, 'F');</span>
+<span class="lineNum">     371 </span><span class="lineCov">      79403 :     slabs_free(it, ntotal, clsid);</span>
+<span class="lineNum">     372 </span><span class="lineCov">      79403 : }</span>
+<span class="lineNum">     373 </span>            : 
+<span class="lineNum">     374 </span>            : /**
+<span class="lineNum">     375 </span>            :  * Returns true if an item will fit in the cache (its size does not exceed
+<a name="376"><span class="lineNum">     376 </span>            :  * the maximum for a cache entry.)</a>
+<span class="lineNum">     377 </span>            :  */
+<span class="lineNum">     378 </span><span class="lineCov">         10 : bool item_size_ok(const size_t nkey, const int flags, const int nbytes) {</span>
+<span class="lineNum">     379 </span><span class="lineCov">         10 :     char prefix[40];</span>
+<span class="lineNum">     380 </span><span class="lineCov">         10 :     uint8_t nsuffix;</span>
+<span class="lineNum">     381 </span><span class="lineCov">         10 :     if (nbytes &lt; 2)</span>
+<span class="lineNum">     382 </span>            :         return false;
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span><span class="lineCov">          9 :     size_t ntotal = item_make_header(nkey + 1, flags, nbytes,</span>
+<span class="lineNum">     385 </span>            :                                      prefix, &amp;nsuffix);
+<span class="lineNum">     386 </span><span class="lineCov">          9 :     if (settings.use_cas) {</span>
+<span class="lineNum">     387 </span><span class="lineCov">          9 :         ntotal += sizeof(uint64_t);</span>
+<span class="lineNum">     388 </span>            :     }
+<span class="lineNum">     389 </span>            : 
+<span class="lineNum">     390 </span><span class="lineCov">          9 :     return slabs_clsid(ntotal) != 0;</span>
+<a name="391"><span class="lineNum">     391 </span>            : }</a>
+<span class="lineNum">     392 </span>            : 
+<span class="lineNum">     393 </span><span class="lineCov">     139311 : static void do_item_link_q(item *it) { /* item is the new head */</span>
+<span class="lineNum">     394 </span><span class="lineCov">     139311 :     item **head, **tail;</span>
+<span class="lineNum">     395 </span><span class="lineCov">     139311 :     assert((it-&gt;it_flags &amp; ITEM_SLABBED) == 0);</span>
+<span class="lineNum">     396 </span>            : 
+<span class="lineNum">     397 </span><span class="lineCov">     139311 :     head = &amp;heads[it-&gt;slabs_clsid];</span>
+<span class="lineNum">     398 </span><span class="lineCov">     139311 :     tail = &amp;tails[it-&gt;slabs_clsid];</span>
+<span class="lineNum">     399 </span><span class="lineCov">     139311 :     assert(it != *head);</span>
+<span class="lineNum">     400 </span><span class="lineCov">     139311 :     assert((*head &amp;&amp; *tail) || (*head == 0 &amp;&amp; *tail == 0));</span>
+<span class="lineNum">     401 </span><span class="lineCov">     139311 :     it-&gt;prev = 0;</span>
+<span class="lineNum">     402 </span><span class="lineCov">     139311 :     it-&gt;next = *head;</span>
+<span class="lineNum">     403 </span><span class="lineCov">     139311 :     if (it-&gt;next) it-&gt;next-&gt;prev = it;</span>
+<span class="lineNum">     404 </span><span class="lineCov">     139311 :     *head = it;</span>
+<span class="lineNum">     405 </span><span class="lineCov">     139311 :     if (*tail == 0) *tail = it;</span>
+<span class="lineNum">     406 </span><span class="lineCov">     139311 :     sizes[it-&gt;slabs_clsid]++;</span>
+<span class="lineNum">     407 </span>            : #ifdef EXTSTORE
+<span class="lineNum">     408 </span>            :     if (it-&gt;it_flags &amp; ITEM_HDR) {
+<span class="lineNum">     409 </span>            :         sizes_bytes[it-&gt;slabs_clsid] += (ITEM_ntotal(it) - it-&gt;nbytes) + sizeof(item_hdr);
+<span class="lineNum">     410 </span>            :     } else {
+<span class="lineNum">     411 </span>            :         sizes_bytes[it-&gt;slabs_clsid] += ITEM_ntotal(it);
+<span class="lineNum">     412 </span>            :     }
+<span class="lineNum">     413 </span>            : #else
+<span class="lineNum">     414 </span><span class="lineCov">     139311 :     sizes_bytes[it-&gt;slabs_clsid] += ITEM_ntotal(it);</span>
+<span class="lineNum">     415 </span>            : #endif
+<span class="lineNum">     416 </span>            : 
+<span class="lineNum">     417 </span><span class="lineCov">     139311 :     return;</span>
+<a name="418"><span class="lineNum">     418 </span>            : }</a>
+<span class="lineNum">     419 </span>            : 
+<span class="lineNum">     420 </span><span class="lineCov">     139311 : static void item_link_q(item *it) {</span>
+<span class="lineNum">     421 </span><span class="lineCov">     139311 :     pthread_mutex_lock(&amp;lru_locks[it-&gt;slabs_clsid]);</span>
+<span class="lineNum">     422 </span><span class="lineCov">     139311 :     do_item_link_q(it);</span>
+<span class="lineNum">     423 </span><span class="lineCov">     139311 :     pthread_mutex_unlock(&amp;lru_locks[it-&gt;slabs_clsid]);</span>
+<a name="424"><span class="lineNum">     424 </span><span class="lineCov">     139311 : }</span></a>
+<span class="lineNum">     425 </span>            : 
+<span class="lineNum">     426 </span><span class="lineNoCov">          0 : static void item_link_q_warm(item *it) {</span>
+<span class="lineNum">     427 </span><span class="lineNoCov">          0 :     pthread_mutex_lock(&amp;lru_locks[it-&gt;slabs_clsid]);</span>
+<span class="lineNum">     428 </span><span class="lineNoCov">          0 :     do_item_link_q(it);</span>
+<span class="lineNum">     429 </span><span class="lineNoCov">          0 :     itemstats[it-&gt;slabs_clsid].moves_to_warm++;</span>
+<span class="lineNum">     430 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;lru_locks[it-&gt;slabs_clsid]);</span>
+<a name="431"><span class="lineNum">     431 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     432 </span>            : 
+<span class="lineNum">     433 </span><span class="lineCov">      99931 : static void do_item_unlink_q(item *it) {</span>
+<span class="lineNum">     434 </span><span class="lineCov">      99931 :     item **head, **tail;</span>
+<span class="lineNum">     435 </span><span class="lineCov">      99931 :     head = &amp;heads[it-&gt;slabs_clsid];</span>
+<span class="lineNum">     436 </span><span class="lineCov">      99931 :     tail = &amp;tails[it-&gt;slabs_clsid];</span>
+<span class="lineNum">     437 </span>            : 
+<span class="lineNum">     438 </span><span class="lineCov">      99931 :     if (*head == it) {</span>
+<span class="lineNum">     439 </span><span class="lineCov">      46551 :         assert(it-&gt;prev == 0);</span>
+<span class="lineNum">     440 </span><span class="lineCov">      46551 :         *head = it-&gt;next;</span>
+<span class="lineNum">     441 </span>            :     }
+<span class="lineNum">     442 </span><span class="lineCov">      99931 :     if (*tail == it) {</span>
+<span class="lineNum">     443 </span><span class="lineCov">      75163 :         assert(it-&gt;next == 0);</span>
+<span class="lineNum">     444 </span><span class="lineCov">      75163 :         *tail = it-&gt;prev;</span>
+<span class="lineNum">     445 </span>            :     }
+<span class="lineNum">     446 </span><span class="lineCov">      99931 :     assert(it-&gt;next != it);</span>
+<span class="lineNum">     447 </span><span class="lineCov">      99931 :     assert(it-&gt;prev != it);</span>
+<span class="lineNum">     448 </span>            : 
+<span class="lineNum">     449 </span><span class="lineCov">      99931 :     if (it-&gt;next) it-&gt;next-&gt;prev = it-&gt;prev;</span>
+<span class="lineNum">     450 </span><span class="lineCov">      99931 :     if (it-&gt;prev) it-&gt;prev-&gt;next = it-&gt;next;</span>
+<span class="lineNum">     451 </span><span class="lineCov">      99931 :     sizes[it-&gt;slabs_clsid]--;</span>
+<span class="lineNum">     452 </span>            : #ifdef EXTSTORE
+<span class="lineNum">     453 </span>            :     if (it-&gt;it_flags &amp; ITEM_HDR) {
+<span class="lineNum">     454 </span>            :         sizes_bytes[it-&gt;slabs_clsid] -= (ITEM_ntotal(it) - it-&gt;nbytes) + sizeof(item_hdr);
+<span class="lineNum">     455 </span>            :     } else {
+<span class="lineNum">     456 </span>            :         sizes_bytes[it-&gt;slabs_clsid] -= ITEM_ntotal(it);
+<span class="lineNum">     457 </span>            :     }
+<span class="lineNum">     458 </span>            : #else
+<span class="lineNum">     459 </span><span class="lineCov">      99931 :     sizes_bytes[it-&gt;slabs_clsid] -= ITEM_ntotal(it);</span>
+<span class="lineNum">     460 </span>            : #endif
+<span class="lineNum">     461 </span>            : 
+<span class="lineNum">     462 </span><span class="lineCov">      99931 :     return;</span>
+<a name="463"><span class="lineNum">     463 </span>            : }</a>
+<span class="lineNum">     464 </span>            : 
+<span class="lineNum">     465 </span><span class="lineCov">      40307 : static void item_unlink_q(item *it) {</span>
+<span class="lineNum">     466 </span><span class="lineCov">      40307 :     pthread_mutex_lock(&amp;lru_locks[it-&gt;slabs_clsid]);</span>
+<span class="lineNum">     467 </span><span class="lineCov">      40307 :     do_item_unlink_q(it);</span>
+<span class="lineNum">     468 </span><span class="lineCov">      40307 :     pthread_mutex_unlock(&amp;lru_locks[it-&gt;slabs_clsid]);</span>
+<a name="469"><span class="lineNum">     469 </span><span class="lineCov">      40307 : }</span></a>
+<span class="lineNum">     470 </span>            : 
+<span class="lineNum">     471 </span><span class="lineCov">     104236 : int do_item_link(item *it, const uint32_t hv) {</span>
+<span class="lineNum">     472 </span><span class="lineCov">     104236 :     MEMCACHED_ITEM_LINK(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes);</span>
+<span class="lineNum">     473 </span><span class="lineCov">     104236 :     assert((it-&gt;it_flags &amp; (ITEM_LINKED|ITEM_SLABBED)) == 0);</span>
+<span class="lineNum">     474 </span><span class="lineCov">     104236 :     it-&gt;it_flags |= ITEM_LINKED;</span>
+<span class="lineNum">     475 </span><span class="lineCov">     104236 :     it-&gt;time = current_time;</span>
+<span class="lineNum">     476 </span>            : 
+<span class="lineNum">     477 </span><span class="lineCov">     104236 :     STATS_LOCK();</span>
+<span class="lineNum">     478 </span><span class="lineCov">     104236 :     stats_state.curr_bytes += ITEM_ntotal(it);</span>
+<span class="lineNum">     479 </span><span class="lineCov">     104236 :     stats_state.curr_items += 1;</span>
+<span class="lineNum">     480 </span><span class="lineCov">     104236 :     stats.total_items += 1;</span>
+<span class="lineNum">     481 </span><span class="lineCov">     104236 :     STATS_UNLOCK();</span>
+<span class="lineNum">     482 </span>            : 
+<span class="lineNum">     483 </span>            :     /* Allocate a new CAS ID on link. */
+<span class="lineNum">     484 </span><span class="lineCov">     104236 :     ITEM_set_cas(it, (settings.use_cas) ? get_cas_id() : 0);</span>
+<span class="lineNum">     485 </span><span class="lineCov">     104236 :     assoc_insert(it, hv);</span>
+<span class="lineNum">     486 </span><span class="lineCov">     104236 :     item_link_q(it);</span>
+<span class="lineNum">     487 </span><span class="lineCov">     104236 :     refcount_incr(it);</span>
+<span class="lineNum">     488 </span><span class="lineCov">     104236 :     item_stats_sizes_add(it);</span>
+<span class="lineNum">     489 </span>            : 
+<span class="lineNum">     490 </span><span class="lineCov">     104236 :     return 1;</span>
+<a name="491"><span class="lineNum">     491 </span>            : }</a>
+<span class="lineNum">     492 </span>            : 
+<span class="lineNum">     493 </span><span class="lineCov">      40307 : void do_item_unlink(item *it, const uint32_t hv) {</span>
+<span class="lineNum">     494 </span><span class="lineCov">      40307 :     MEMCACHED_ITEM_UNLINK(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes);</span>
+<span class="lineNum">     495 </span><span class="lineCov">      40307 :     if ((it-&gt;it_flags &amp; ITEM_LINKED) != 0) {</span>
+<span class="lineNum">     496 </span><span class="lineCov">      40307 :         it-&gt;it_flags &amp;= ~ITEM_LINKED;</span>
+<span class="lineNum">     497 </span><span class="lineCov">      40307 :         STATS_LOCK();</span>
+<span class="lineNum">     498 </span><span class="lineCov">      40307 :         stats_state.curr_bytes -= ITEM_ntotal(it);</span>
+<span class="lineNum">     499 </span><span class="lineCov">      40307 :         stats_state.curr_items -= 1;</span>
+<span class="lineNum">     500 </span><span class="lineCov">      40307 :         STATS_UNLOCK();</span>
+<span class="lineNum">     501 </span><span class="lineCov">      40307 :         item_stats_sizes_remove(it);</span>
+<span class="lineNum">     502 </span><span class="lineCov">      40307 :         assoc_delete(ITEM_key(it), it-&gt;nkey, hv);</span>
+<span class="lineNum">     503 </span><span class="lineCov">      40307 :         item_unlink_q(it);</span>
+<span class="lineNum">     504 </span><span class="lineCov">      40307 :         do_item_remove(it);</span>
+<span class="lineNum">     505 </span>            :     }
+<span class="lineNum">     506 </span><span class="lineCov">      40307 : }</span>
+<a name="507"><span class="lineNum">     507 </span>            : </a>
+<span class="lineNum">     508 </span>            : /* FIXME: Is it necessary to keep this copy/pasted code? */
+<span class="lineNum">     509 </span><span class="lineCov">      24549 : void do_item_unlink_nolock(item *it, const uint32_t hv) {</span>
+<span class="lineNum">     510 </span><span class="lineCov">      24549 :     MEMCACHED_ITEM_UNLINK(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes);</span>
+<span class="lineNum">     511 </span><span class="lineCov">      24549 :     if ((it-&gt;it_flags &amp; ITEM_LINKED) != 0) {</span>
+<span class="lineNum">     512 </span><span class="lineCov">      24549 :         it-&gt;it_flags &amp;= ~ITEM_LINKED;</span>
+<span class="lineNum">     513 </span><span class="lineCov">      24549 :         STATS_LOCK();</span>
+<span class="lineNum">     514 </span><span class="lineCov">      24549 :         stats_state.curr_bytes -= ITEM_ntotal(it);</span>
+<span class="lineNum">     515 </span><span class="lineCov">      24549 :         stats_state.curr_items -= 1;</span>
+<span class="lineNum">     516 </span><span class="lineCov">      24549 :         STATS_UNLOCK();</span>
+<span class="lineNum">     517 </span><span class="lineCov">      24549 :         item_stats_sizes_remove(it);</span>
+<span class="lineNum">     518 </span><span class="lineCov">      24549 :         assoc_delete(ITEM_key(it), it-&gt;nkey, hv);</span>
+<span class="lineNum">     519 </span><span class="lineCov">      24549 :         do_item_unlink_q(it);</span>
+<span class="lineNum">     520 </span><span class="lineCov">      24549 :         do_item_remove(it);</span>
+<span class="lineNum">     521 </span>            :     }
+<a name="522"><span class="lineNum">     522 </span><span class="lineCov">      24549 : }</span></a>
+<span class="lineNum">     523 </span>            : 
+<span class="lineNum">     524 </span><span class="lineCov">     364257 : void do_item_remove(item *it) {</span>
+<span class="lineNum">     525 </span><span class="lineCov">     364257 :     MEMCACHED_ITEM_REMOVE(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes);</span>
+<span class="lineNum">     526 </span><span class="lineCov">     364257 :     assert((it-&gt;it_flags &amp; ITEM_SLABBED) == 0);</span>
+<span class="lineNum">     527 </span><span class="lineCov">     364257 :     assert(it-&gt;refcount &gt; 0);</span>
+<span class="lineNum">     528 </span>            : 
+<span class="lineNum">     529 </span><span class="lineCov">     364257 :     if (refcount_decr(it) == 0) {</span>
+<span class="lineNum">     530 </span><span class="lineCov">      79403 :         item_free(it);</span>
+<span class="lineNum">     531 </span>            :     }
+<span class="lineNum">     532 </span><span class="lineCov">     364257 : }</span>
+<span class="lineNum">     533 </span>            : 
+<a name="534"><span class="lineNum">     534 </span>            : /* Copy/paste to avoid adding two extra branches for all common calls, since</a>
+<span class="lineNum">     535 </span>            :  * _nolock is only used in an uncommon case where we want to relink. */
+<span class="lineNum">     536 </span><span class="lineCov">          1 : void do_item_update_nolock(item *it) {</span>
+<span class="lineNum">     537 </span><span class="lineCov">          1 :     MEMCACHED_ITEM_UPDATE(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes);</span>
+<span class="lineNum">     538 </span><span class="lineCov">          1 :     if (it-&gt;time &lt; current_time - ITEM_UPDATE_INTERVAL) {</span>
+<span class="lineNum">     539 </span><span class="lineNoCov">          0 :         assert((it-&gt;it_flags &amp; ITEM_SLABBED) == 0);</span>
+<span class="lineNum">     540 </span>            : 
+<span class="lineNum">     541 </span><span class="lineNoCov">          0 :         if ((it-&gt;it_flags &amp; ITEM_LINKED) != 0) {</span>
+<span class="lineNum">     542 </span><span class="lineNoCov">          0 :             do_item_unlink_q(it);</span>
+<span class="lineNum">     543 </span><span class="lineNoCov">          0 :             it-&gt;time = current_time;</span>
+<span class="lineNum">     544 </span><span class="lineNoCov">          0 :             do_item_link_q(it);</span>
+<span class="lineNum">     545 </span>            :         }
+<span class="lineNum">     546 </span>            :     }
+<span class="lineNum">     547 </span><span class="lineCov">          1 : }</span>
+<a name="548"><span class="lineNum">     548 </span>            : </a>
+<span class="lineNum">     549 </span>            : /* Bump the last accessed time, or relink if we're in compat mode */
+<span class="lineNum">     550 </span><span class="lineCov">        926 : void do_item_update(item *it) {</span>
+<span class="lineNum">     551 </span><span class="lineCov">        926 :     MEMCACHED_ITEM_UPDATE(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes);</span>
+<span class="lineNum">     552 </span>            : 
+<span class="lineNum">     553 </span>            :     /* Hits to COLD_LRU immediately move to WARM. */
+<span class="lineNum">     554 </span><span class="lineCov">        926 :     if (settings.lru_segmented) {</span>
+<span class="lineNum">     555 </span><span class="lineCov">        103 :         assert((it-&gt;it_flags &amp; ITEM_SLABBED) == 0);</span>
+<span class="lineNum">     556 </span><span class="lineCov">        103 :         if ((it-&gt;it_flags &amp; ITEM_LINKED) != 0) {</span>
+<span class="lineNum">     557 </span><span class="lineCov">        103 :             if (ITEM_lruid(it) == COLD_LRU &amp;&amp; (it-&gt;it_flags &amp; ITEM_ACTIVE)) {</span>
+<span class="lineNum">     558 </span><span class="lineNoCov">          0 :                 it-&gt;time = current_time;</span>
+<span class="lineNum">     559 </span><span class="lineNoCov">          0 :                 item_unlink_q(it);</span>
+<span class="lineNum">     560 </span><span class="lineNoCov">          0 :                 it-&gt;slabs_clsid = ITEM_clsid(it);</span>
+<span class="lineNum">     561 </span><span class="lineNoCov">          0 :                 it-&gt;slabs_clsid |= WARM_LRU;</span>
+<span class="lineNum">     562 </span><span class="lineNoCov">          0 :                 it-&gt;it_flags &amp;= ~ITEM_ACTIVE;</span>
+<span class="lineNum">     563 </span><span class="lineNoCov">          0 :                 item_link_q_warm(it);</span>
+<span class="lineNum">     564 </span><span class="lineCov">        103 :             } else if (it-&gt;time &lt; current_time - ITEM_UPDATE_INTERVAL) {</span>
+<span class="lineNum">     565 </span><span class="lineNoCov">          0 :                 it-&gt;time = current_time;</span>
+<span class="lineNum">     566 </span>            :             }
+<span class="lineNum">     567 </span>            :         }
+<span class="lineNum">     568 </span><span class="lineCov">        823 :     } else if (it-&gt;time &lt; current_time - ITEM_UPDATE_INTERVAL) {</span>
+<span class="lineNum">     569 </span><span class="lineNoCov">          0 :         assert((it-&gt;it_flags &amp; ITEM_SLABBED) == 0);</span>
+<span class="lineNum">     570 </span>            : 
+<span class="lineNum">     571 </span><span class="lineNoCov">          0 :         if ((it-&gt;it_flags &amp; ITEM_LINKED) != 0) {</span>
+<span class="lineNum">     572 </span><span class="lineNoCov">          0 :             it-&gt;time = current_time;</span>
+<span class="lineNum">     573 </span><span class="lineNoCov">          0 :             item_unlink_q(it);</span>
+<span class="lineNum">     574 </span><span class="lineNoCov">          0 :             item_link_q(it);</span>
+<span class="lineNum">     575 </span>            :         }
+<span class="lineNum">     576 </span>            :     }
+<a name="577"><span class="lineNum">     577 </span><span class="lineCov">        926 : }</span></a>
+<span class="lineNum">     578 </span>            : 
+<span class="lineNum">     579 </span><span class="lineCov">      37168 : int do_item_replace(item *it, item *new_it, const uint32_t hv) {</span>
+<span class="lineNum">     580 </span>            :     MEMCACHED_ITEM_REPLACE(ITEM_key(it), it-&gt;nkey, it-&gt;nbytes,
+<span class="lineNum">     581 </span><span class="lineCov">      37168 :                            ITEM_key(new_it), new_it-&gt;nkey, new_it-&gt;nbytes);</span>
+<span class="lineNum">     582 </span><span class="lineCov">      37168 :     assert((it-&gt;it_flags &amp; ITEM_SLABBED) == 0);</span>
+<span class="lineNum">     583 </span>            : 
+<span class="lineNum">     584 </span><span class="lineCov">      37168 :     do_item_unlink(it, hv);</span>
+<span class="lineNum">     585 </span><span class="lineCov">      37168 :     return do_item_link(new_it, hv);</span>
+<span class="lineNum">     586 </span>            : }
+<span class="lineNum">     587 </span>            : 
+<span class="lineNum">     588 </span>            : /*@null@*/
+<span class="lineNum">     589 </span>            : /* This is walking the line of violating lock order, but I think it's safe.
+<span class="lineNum">     590 </span>            :  * If the LRU lock is held, an item in the LRU cannot be wiped and freed.
+<span class="lineNum">     591 </span>            :  * The data could possibly be overwritten, but this is only accessing the
+<span class="lineNum">     592 </span>            :  * headers.
+<a name="593"><span class="lineNum">     593 </span>            :  * It may not be the best idea to leave it like this, but for now it's safe.</a>
+<span class="lineNum">     594 </span>            :  */
+<span class="lineNum">     595 </span><span class="lineCov">          2 : char *item_cachedump(const unsigned int slabs_clsid, const unsigned int limit, unsigned int *bytes) {</span>
+<span class="lineNum">     596 </span><span class="lineCov">          2 :     unsigned int memlimit = 2 * 1024 * 1024;   /* 2MB max response size */</span>
+<span class="lineNum">     597 </span><span class="lineCov">          2 :     char *buffer;</span>
+<span class="lineNum">     598 </span><span class="lineCov">          2 :     unsigned int bufcurr;</span>
+<span class="lineNum">     599 </span><span class="lineCov">          2 :     item *it;</span>
+<span class="lineNum">     600 </span><span class="lineCov">          2 :     unsigned int len;</span>
+<span class="lineNum">     601 </span><span class="lineCov">          2 :     unsigned int shown = 0;</span>
+<span class="lineNum">     602 </span><span class="lineCov">          2 :     char key_temp[KEY_MAX_LENGTH + 1];</span>
+<span class="lineNum">     603 </span><span class="lineCov">          2 :     char temp[512];</span>
+<span class="lineNum">     604 </span><span class="lineCov">          2 :     unsigned int id = slabs_clsid;</span>
+<span class="lineNum">     605 </span><span class="lineCov">          2 :     id |= COLD_LRU;</span>
+<span class="lineNum">     606 </span>            : 
+<span class="lineNum">     607 </span><span class="lineCov">          2 :     pthread_mutex_lock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     608 </span><span class="lineCov">          2 :     it = heads[id];</span>
+<span class="lineNum">     609 </span>            : 
+<span class="lineNum">     610 </span><span class="lineCov">          2 :     buffer = malloc((size_t)memlimit);</span>
+<span class="lineNum">     611 </span><span class="lineCov">          2 :     if (buffer == 0) {</span>
+<span class="lineNum">     612 </span>            :         return NULL;
+<span class="lineNum">     613 </span>            :     }
+<span class="lineNum">     614 </span>            :     bufcurr = 0;
+<span class="lineNum">     615 </span>            : 
+<span class="lineNum">     616 </span><span class="lineCov">          3 :     while (it != NULL &amp;&amp; (limit == 0 || shown &lt; limit)) {</span>
+<span class="lineNum">     617 </span><span class="lineCov">          1 :         assert(it-&gt;nkey &lt;= KEY_MAX_LENGTH);</span>
+<span class="lineNum">     618 </span><span class="lineCov">          1 :         if (it-&gt;nbytes == 0 &amp;&amp; it-&gt;nkey == 0) {</span>
+<span class="lineNum">     619 </span><span class="lineNoCov">          0 :             it = it-&gt;next;</span>
+<span class="lineNum">     620 </span><span class="lineNoCov">          0 :             continue;</span>
+<span class="lineNum">     621 </span>            :         }
+<span class="lineNum">     622 </span>            :         /* Copy the key since it may not be null-terminated in the struct */
+<span class="lineNum">     623 </span><span class="lineCov">          1 :         strncpy(key_temp, ITEM_key(it), it-&gt;nkey);</span>
+<span class="lineNum">     624 </span><span class="lineCov">          1 :         key_temp[it-&gt;nkey] = 0x00; /* terminate */</span>
+<span class="lineNum">     625 </span><span class="lineCov">          4 :         len = snprintf(temp, sizeof(temp), &quot;ITEM %s [%d b; %llu s]\r\n&quot;,</span>
+<span class="lineNum">     626 </span><span class="lineCov">          1 :                        key_temp, it-&gt;nbytes - 2,</span>
+<span class="lineNum">     627 </span><span class="lineCov">          1 :                        it-&gt;exptime == 0 ? 0 :</span>
+<span class="lineNum">     628 </span><span class="lineNoCov">          0 :                        (unsigned long long)it-&gt;exptime + process_started);</span>
+<span class="lineNum">     629 </span><span class="lineCov">          1 :         if (bufcurr + len + 6 &gt; memlimit)  /* 6 is END\r\n\0 */</span>
+<span class="lineNum">     630 </span>            :             break;
+<span class="lineNum">     631 </span><span class="lineCov">          1 :         memcpy(buffer + bufcurr, temp, len);</span>
+<span class="lineNum">     632 </span><span class="lineCov">          1 :         bufcurr += len;</span>
+<span class="lineNum">     633 </span><span class="lineCov">          1 :         shown++;</span>
+<span class="lineNum">     634 </span><span class="lineCov">          1 :         it = it-&gt;next;</span>
+<span class="lineNum">     635 </span>            :     }
+<span class="lineNum">     636 </span>            : 
+<span class="lineNum">     637 </span><span class="lineCov">          2 :     memcpy(buffer + bufcurr, &quot;END\r\n&quot;, 6);</span>
+<span class="lineNum">     638 </span><span class="lineCov">          2 :     bufcurr += 5;</span>
+<span class="lineNum">     639 </span>            : 
+<span class="lineNum">     640 </span><span class="lineCov">          2 :     *bytes = bufcurr;</span>
+<span class="lineNum">     641 </span><span class="lineCov">          2 :     pthread_mutex_unlock(&amp;lru_locks[id]);</span>
+<span class="lineNum">     642 </span><span class="lineCov">          2 :     return buffer;</span>
+<span class="lineNum">     643 </span>            : }
+<span class="lineNum">     644 </span>            : 
+<span class="lineNum">     645 </span>            : /* With refactoring of the various stats code the automover won't need a
+<a name="646"><span class="lineNum">     646 </span>            :  * custom function here.</a>
+<span class="lineNum">     647 </span>            :  */
+<span class="lineNum">     648 </span><span class="lineCov">        356 : void fill_item_stats_automove(item_stats_automove *am) {</span>
+<span class="lineNum">     649 </span><span class="lineCov">        356 :     int n;</span>
+<span class="lineNum">     650 </span><span class="lineCov">      23140 :     for (n = 0; n &lt; MAX_NUMBER_OF_SLAB_CLASSES; n++) {</span>
+<span class="lineNum">     651 </span><span class="lineCov">      22784 :         item_stats_automove *cur = &amp;am[n];</span>
+<span class="lineNum">     652 </span>            : 
+<span class="lineNum">     653 </span>            :         // outofmemory records into HOT
+<span class="lineNum">     654 </span><span class="lineCov">      22784 :         int i = n | HOT_LRU;</span>
+<span class="lineNum">     655 </span><span class="lineCov">      22784 :         pthread_mutex_lock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     656 </span><span class="lineCov">      22784 :         cur-&gt;outofmemory = itemstats[i].outofmemory;</span>
+<span class="lineNum">     657 </span><span class="lineCov">      22784 :         pthread_mutex_unlock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     658 </span>            : 
+<span class="lineNum">     659 </span>            :         // evictions and tail age are from COLD
+<span class="lineNum">     660 </span><span class="lineCov">      22784 :         i = n | COLD_LRU;</span>
+<span class="lineNum">     661 </span><span class="lineCov">      22784 :         pthread_mutex_lock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     662 </span><span class="lineCov">      22784 :         cur-&gt;evicted = itemstats[i].evicted;</span>
+<span class="lineNum">     663 </span><span class="lineCov">      22784 :         if (tails[i]) {</span>
+<span class="lineNum">     664 </span><span class="lineCov">       3432 :             cur-&gt;age = current_time - tails[i]-&gt;time;</span>
+<span class="lineNum">     665 </span>            :         } else {
+<span class="lineNum">     666 </span><span class="lineCov">      19352 :             cur-&gt;age = 0;</span>
+<span class="lineNum">     667 </span>            :         }
+<span class="lineNum">     668 </span><span class="lineCov">      22784 :         pthread_mutex_unlock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     669 </span>            :      }
+<a name="670"><span class="lineNum">     670 </span><span class="lineCov">        356 : }</span></a>
+<span class="lineNum">     671 </span>            : 
+<span class="lineNum">     672 </span><span class="lineCov">       2753 : void item_stats_totals(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     673 </span><span class="lineCov">       2753 :     itemstats_t totals;</span>
+<span class="lineNum">     674 </span><span class="lineCov">       2753 :     memset(&amp;totals, 0, sizeof(itemstats_t));</span>
+<span class="lineNum">     675 </span><span class="lineCov">       2753 :     int n;</span>
+<span class="lineNum">     676 </span><span class="lineCov">     178945 :     for (n = 0; n &lt; MAX_NUMBER_OF_SLAB_CLASSES; n++) {</span>
+<span class="lineNum">     677 </span>            :         int x;
+<span class="lineNum">     678 </span>            :         int i;
+<span class="lineNum">     679 </span><span class="lineCov">     880960 :         for (x = 0; x &lt; 4; x++) {</span>
+<span class="lineNum">     680 </span><span class="lineCov">     704768 :             i = n | lru_type_map[x];</span>
+<span class="lineNum">     681 </span><span class="lineCov">     704768 :             pthread_mutex_lock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     682 </span><span class="lineCov">     704768 :             totals.expired_unfetched += itemstats[i].expired_unfetched;</span>
+<span class="lineNum">     683 </span><span class="lineCov">     704768 :             totals.evicted_unfetched += itemstats[i].evicted_unfetched;</span>
+<span class="lineNum">     684 </span><span class="lineCov">     704768 :             totals.evicted_active += itemstats[i].evicted_active;</span>
+<span class="lineNum">     685 </span><span class="lineCov">     704768 :             totals.evicted += itemstats[i].evicted;</span>
+<span class="lineNum">     686 </span><span class="lineCov">     704768 :             totals.reclaimed += itemstats[i].reclaimed;</span>
+<span class="lineNum">     687 </span><span class="lineCov">     704768 :             totals.crawler_reclaimed += itemstats[i].crawler_reclaimed;</span>
+<span class="lineNum">     688 </span><span class="lineCov">     704768 :             totals.crawler_items_checked += itemstats[i].crawler_items_checked;</span>
+<span class="lineNum">     689 </span><span class="lineCov">     704768 :             totals.lrutail_reflocked += itemstats[i].lrutail_reflocked;</span>
+<span class="lineNum">     690 </span><span class="lineCov">     704768 :             totals.moves_to_cold += itemstats[i].moves_to_cold;</span>
+<span class="lineNum">     691 </span><span class="lineCov">     704768 :             totals.moves_to_warm += itemstats[i].moves_to_warm;</span>
+<span class="lineNum">     692 </span><span class="lineCov">     704768 :             totals.moves_within_lru += itemstats[i].moves_within_lru;</span>
+<span class="lineNum">     693 </span><span class="lineCov">     704768 :             totals.direct_reclaims += itemstats[i].direct_reclaims;</span>
+<span class="lineNum">     694 </span><span class="lineCov">     704768 :             pthread_mutex_unlock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     695 </span>            :         }
+<span class="lineNum">     696 </span>            :     }
+<span class="lineNum">     697 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;expired_unfetched&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     698 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.expired_unfetched);</span>
+<span class="lineNum">     699 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;evicted_unfetched&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     700 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.evicted_unfetched);</span>
+<span class="lineNum">     701 </span><span class="lineCov">       2753 :     if (settings.lru_maintainer_thread) {</span>
+<span class="lineNum">     702 </span><span class="lineCov">       2727 :         APPEND_STAT(&quot;evicted_active&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     703 </span><span class="lineCov">       2753 :                     (unsigned long long)totals.evicted_active);</span>
+<span class="lineNum">     704 </span>            :     }
+<span class="lineNum">     705 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;evictions&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     706 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.evicted);</span>
+<span class="lineNum">     707 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;reclaimed&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     708 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.reclaimed);</span>
+<span class="lineNum">     709 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;crawler_reclaimed&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     710 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.crawler_reclaimed);</span>
+<span class="lineNum">     711 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;crawler_items_checked&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     712 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.crawler_items_checked);</span>
+<span class="lineNum">     713 </span><span class="lineCov">       2753 :     APPEND_STAT(&quot;lrutail_reflocked&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     714 </span><span class="lineCov">       2753 :                 (unsigned long long)totals.lrutail_reflocked);</span>
+<span class="lineNum">     715 </span><span class="lineCov">       2753 :     if (settings.lru_maintainer_thread) {</span>
+<span class="lineNum">     716 </span><span class="lineCov">       2727 :         APPEND_STAT(&quot;moves_to_cold&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     717 </span><span class="lineCov">       2727 :                     (unsigned long long)totals.moves_to_cold);</span>
+<span class="lineNum">     718 </span><span class="lineCov">       2727 :         APPEND_STAT(&quot;moves_to_warm&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     719 </span><span class="lineCov">       2727 :                     (unsigned long long)totals.moves_to_warm);</span>
+<span class="lineNum">     720 </span><span class="lineCov">       2727 :         APPEND_STAT(&quot;moves_within_lru&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     721 </span><span class="lineCov">       2727 :                     (unsigned long long)totals.moves_within_lru);</span>
+<span class="lineNum">     722 </span><span class="lineCov">       2727 :         APPEND_STAT(&quot;direct_reclaims&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     723 </span><span class="lineCov">       2727 :                     (unsigned long long)totals.direct_reclaims);</span>
+<span class="lineNum">     724 </span><span class="lineCov">       2727 :         APPEND_STAT(&quot;lru_bumps_dropped&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     725 </span><span class="lineCov">       2753 :                     (unsigned long long)lru_total_bumps_dropped());</span>
+<span class="lineNum">     726 </span>            :     }
+<a name="727"><span class="lineNum">     727 </span><span class="lineCov">       2753 : }</span></a>
+<span class="lineNum">     728 </span>            : 
+<span class="lineNum">     729 </span><span class="lineCov">         11 : void item_stats(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     730 </span><span class="lineCov">         11 :     struct thread_stats thread_stats;</span>
+<span class="lineNum">     731 </span><span class="lineCov">         11 :     threadlocal_stats_aggregate(&amp;thread_stats);</span>
+<span class="lineNum">     732 </span><span class="lineCov">         11 :     itemstats_t totals;</span>
+<span class="lineNum">     733 </span><span class="lineCov">         11 :     int n;</span>
+<span class="lineNum">     734 </span><span class="lineCov">        715 :     for (n = 0; n &lt; MAX_NUMBER_OF_SLAB_CLASSES; n++) {</span>
+<span class="lineNum">     735 </span><span class="lineCov">        704 :         memset(&amp;totals, 0, sizeof(itemstats_t));</span>
+<span class="lineNum">     736 </span><span class="lineCov">        704 :         int x;</span>
+<span class="lineNum">     737 </span><span class="lineCov">        704 :         int i;</span>
+<span class="lineNum">     738 </span><span class="lineCov">        704 :         unsigned int size = 0;</span>
+<span class="lineNum">     739 </span><span class="lineCov">        704 :         unsigned int age  = 0;</span>
+<span class="lineNum">     740 </span><span class="lineCov">        704 :         unsigned int age_hot = 0;</span>
+<span class="lineNum">     741 </span><span class="lineCov">        704 :         unsigned int age_warm = 0;</span>
+<span class="lineNum">     742 </span><span class="lineCov">        704 :         unsigned int lru_size_map[4];</span>
+<span class="lineNum">     743 </span><span class="lineCov">        704 :         const char *fmt = &quot;items:%d:%s&quot;;</span>
+<span class="lineNum">     744 </span><span class="lineCov">        704 :         char key_str[STAT_KEY_LEN];</span>
+<span class="lineNum">     745 </span><span class="lineCov">        704 :         char val_str[STAT_VAL_LEN];</span>
+<span class="lineNum">     746 </span><span class="lineCov">        704 :         int klen = 0, vlen = 0;</span>
+<span class="lineNum">     747 </span><span class="lineCov">       3520 :         for (x = 0; x &lt; 4; x++) {</span>
+<span class="lineNum">     748 </span><span class="lineCov">       2816 :             i = n | lru_type_map[x];</span>
+<span class="lineNum">     749 </span><span class="lineCov">       2816 :             pthread_mutex_lock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     750 </span><span class="lineCov">       2816 :             totals.evicted += itemstats[i].evicted;</span>
+<span class="lineNum">     751 </span><span class="lineCov">       2816 :             totals.evicted_nonzero += itemstats[i].evicted_nonzero;</span>
+<span class="lineNum">     752 </span><span class="lineCov">       2816 :             totals.outofmemory += itemstats[i].outofmemory;</span>
+<span class="lineNum">     753 </span><span class="lineCov">       2816 :             totals.tailrepairs += itemstats[i].tailrepairs;</span>
+<span class="lineNum">     754 </span><span class="lineCov">       2816 :             totals.reclaimed += itemstats[i].reclaimed;</span>
+<span class="lineNum">     755 </span><span class="lineCov">       2816 :             totals.expired_unfetched += itemstats[i].expired_unfetched;</span>
+<span class="lineNum">     756 </span><span class="lineCov">       2816 :             totals.evicted_unfetched += itemstats[i].evicted_unfetched;</span>
+<span class="lineNum">     757 </span><span class="lineCov">       2816 :             totals.evicted_active += itemstats[i].evicted_active;</span>
+<span class="lineNum">     758 </span><span class="lineCov">       2816 :             totals.crawler_reclaimed += itemstats[i].crawler_reclaimed;</span>
+<span class="lineNum">     759 </span><span class="lineCov">       2816 :             totals.crawler_items_checked += itemstats[i].crawler_items_checked;</span>
+<span class="lineNum">     760 </span><span class="lineCov">       2816 :             totals.lrutail_reflocked += itemstats[i].lrutail_reflocked;</span>
+<span class="lineNum">     761 </span><span class="lineCov">       2816 :             totals.moves_to_cold += itemstats[i].moves_to_cold;</span>
+<span class="lineNum">     762 </span><span class="lineCov">       2816 :             totals.moves_to_warm += itemstats[i].moves_to_warm;</span>
+<span class="lineNum">     763 </span><span class="lineCov">       2816 :             totals.moves_within_lru += itemstats[i].moves_within_lru;</span>
+<span class="lineNum">     764 </span><span class="lineCov">       2816 :             totals.direct_reclaims += itemstats[i].direct_reclaims;</span>
+<span class="lineNum">     765 </span><span class="lineCov">       2816 :             size += sizes[i];</span>
+<span class="lineNum">     766 </span><span class="lineCov">       2816 :             lru_size_map[x] = sizes[i];</span>
+<span class="lineNum">     767 </span><span class="lineCov">       2816 :             if (lru_type_map[x] == COLD_LRU &amp;&amp; tails[i] != NULL) {</span>
+<span class="lineNum">     768 </span><span class="lineCov">          6 :                 age = current_time - tails[i]-&gt;time;</span>
+<span class="lineNum">     769 </span><span class="lineCov">       2810 :             } else if (lru_type_map[x] == HOT_LRU &amp;&amp; tails[i] != NULL) {</span>
+<span class="lineNum">     770 </span><span class="lineCov">          9 :                 age_hot = current_time - tails[i]-&gt;time;</span>
+<span class="lineNum">     771 </span><span class="lineCov">       2801 :             } else if (lru_type_map[x] == WARM_LRU &amp;&amp; tails[i] != NULL) {</span>
+<span class="lineNum">     772 </span><span class="lineCov">          1 :                 age_warm = current_time - tails[i]-&gt;time;</span>
+<span class="lineNum">     773 </span>            :             }
+<span class="lineNum">     774 </span><span class="lineCov">       2816 :             if (lru_type_map[x] == COLD_LRU)</span>
+<span class="lineNum">     775 </span><span class="lineCov">        704 :                 totals.evicted_time = itemstats[i].evicted_time;</span>
+<span class="lineNum">     776 </span><span class="lineCov">       2816 :             switch (lru_type_map[x]) {</span>
+<span class="lineNum">     777 </span><span class="lineCov">        704 :                 case HOT_LRU:</span>
+<span class="lineNum">     778 </span><span class="lineCov">        704 :                     totals.hits_to_hot = thread_stats.lru_hits[i];</span>
+<span class="lineNum">     779 </span><span class="lineCov">        704 :                     break;</span>
+<span class="lineNum">     780 </span><span class="lineCov">        704 :                 case WARM_LRU:</span>
+<span class="lineNum">     781 </span><span class="lineCov">        704 :                     totals.hits_to_warm = thread_stats.lru_hits[i];</span>
+<span class="lineNum">     782 </span><span class="lineCov">        704 :                     break;</span>
+<span class="lineNum">     783 </span><span class="lineCov">        704 :                 case COLD_LRU:</span>
+<span class="lineNum">     784 </span><span class="lineCov">        704 :                     totals.hits_to_cold = thread_stats.lru_hits[i];</span>
+<span class="lineNum">     785 </span><span class="lineCov">        704 :                     break;</span>
+<span class="lineNum">     786 </span><span class="lineCov">        704 :                 case TEMP_LRU:</span>
+<span class="lineNum">     787 </span><span class="lineCov">        704 :                     totals.hits_to_temp = thread_stats.lru_hits[i];</span>
+<span class="lineNum">     788 </span><span class="lineCov">        704 :                     break;</span>
+<span class="lineNum">     789 </span>            :             }
+<span class="lineNum">     790 </span><span class="lineCov">       2816 :             pthread_mutex_unlock(&amp;lru_locks[i]);</span>
+<span class="lineNum">     791 </span>            :         }
+<span class="lineNum">     792 </span><span class="lineCov">        704 :         if (size == 0)</span>
+<span class="lineNum">     793 </span><span class="lineCov">        692 :             continue;</span>
+<span class="lineNum">     794 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;number&quot;, &quot;%u&quot;, size);</span>
+<span class="lineNum">     795 </span><span class="lineCov">         12 :         if (settings.lru_maintainer_thread) {</span>
+<span class="lineNum">     796 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;number_hot&quot;, &quot;%u&quot;, lru_size_map[0]);</span>
+<span class="lineNum">     797 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;number_warm&quot;, &quot;%u&quot;, lru_size_map[1]);</span>
+<span class="lineNum">     798 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;number_cold&quot;, &quot;%u&quot;, lru_size_map[2]);</span>
+<span class="lineNum">     799 </span><span class="lineCov">         11 :             if (settings.temp_lru) {</span>
+<span class="lineNum">     800 </span><span class="lineCov">          6 :                 APPEND_NUM_FMT_STAT(fmt, n, &quot;number_temp&quot;, &quot;%u&quot;, lru_size_map[3]);</span>
+<span class="lineNum">     801 </span>            :             }
+<span class="lineNum">     802 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;age_hot&quot;, &quot;%u&quot;, age_hot);</span>
+<span class="lineNum">     803 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;age_warm&quot;, &quot;%u&quot;, age_warm);</span>
+<span class="lineNum">     804 </span>            :         }
+<span class="lineNum">     805 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;age&quot;, &quot;%u&quot;, age);</span>
+<span class="lineNum">     806 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;evicted&quot;,</span>
+<span class="lineNum">     807 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.evicted);</span>
+<span class="lineNum">     808 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;evicted_nonzero&quot;,</span>
+<span class="lineNum">     809 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.evicted_nonzero);</span>
+<span class="lineNum">     810 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;evicted_time&quot;,</span>
+<span class="lineNum">     811 </span><span class="lineCov">         12 :                             &quot;%u&quot;, totals.evicted_time);</span>
+<span class="lineNum">     812 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;outofmemory&quot;,</span>
+<span class="lineNum">     813 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.outofmemory);</span>
+<span class="lineNum">     814 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;tailrepairs&quot;,</span>
+<span class="lineNum">     815 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.tailrepairs);</span>
+<span class="lineNum">     816 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;reclaimed&quot;,</span>
+<span class="lineNum">     817 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.reclaimed);</span>
+<span class="lineNum">     818 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;expired_unfetched&quot;,</span>
+<span class="lineNum">     819 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.expired_unfetched);</span>
+<span class="lineNum">     820 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;evicted_unfetched&quot;,</span>
+<span class="lineNum">     821 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.evicted_unfetched);</span>
+<span class="lineNum">     822 </span><span class="lineCov">         12 :         if (settings.lru_maintainer_thread) {</span>
+<span class="lineNum">     823 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;evicted_active&quot;,</span>
+<span class="lineNum">     824 </span><span class="lineCov">         12 :                                 &quot;%llu&quot;, (unsigned long long)totals.evicted_active);</span>
+<span class="lineNum">     825 </span>            :         }
+<span class="lineNum">     826 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;crawler_reclaimed&quot;,</span>
+<span class="lineNum">     827 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.crawler_reclaimed);</span>
+<span class="lineNum">     828 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;crawler_items_checked&quot;,</span>
+<span class="lineNum">     829 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.crawler_items_checked);</span>
+<span class="lineNum">     830 </span><span class="lineCov">         36 :         APPEND_NUM_FMT_STAT(fmt, n, &quot;lrutail_reflocked&quot;,</span>
+<span class="lineNum">     831 </span><span class="lineCov">         12 :                             &quot;%llu&quot;, (unsigned long long)totals.lrutail_reflocked);</span>
+<span class="lineNum">     832 </span><span class="lineCov">         12 :         if (settings.lru_maintainer_thread) {</span>
+<span class="lineNum">     833 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;moves_to_cold&quot;,</span>
+<span class="lineNum">     834 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.moves_to_cold);</span>
+<span class="lineNum">     835 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;moves_to_warm&quot;,</span>
+<span class="lineNum">     836 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.moves_to_warm);</span>
+<span class="lineNum">     837 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;moves_within_lru&quot;,</span>
+<span class="lineNum">     838 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.moves_within_lru);</span>
+<span class="lineNum">     839 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;direct_reclaims&quot;,</span>
+<span class="lineNum">     840 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.direct_reclaims);</span>
+<span class="lineNum">     841 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;hits_to_hot&quot;,</span>
+<span class="lineNum">     842 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.hits_to_hot);</span>
+<span class="lineNum">     843 </span>            : 
+<span class="lineNum">     844 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;hits_to_warm&quot;,</span>
+<span class="lineNum">     845 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.hits_to_warm);</span>
+<span class="lineNum">     846 </span>            : 
+<span class="lineNum">     847 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;hits_to_cold&quot;,</span>
+<span class="lineNum">     848 </span><span class="lineCov">         11 :                                 &quot;%llu&quot;, (unsigned long long)totals.hits_to_cold);</span>
+<span class="lineNum">     849 </span>            : 
+<span class="lineNum">     850 </span><span class="lineCov">         33 :             APPEND_NUM_FMT_STAT(fmt, n, &quot;hits_to_temp&quot;,</span>
+<span class="lineNum">     851 </span><span class="lineCov">         12 :                                 &quot;%llu&quot;, (unsigned long long)totals.hits_to_temp);</span>
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span>            :         }
+<span class="lineNum">     854 </span>            :     }
+<span class="lineNum">     855 </span>            : 
+<span class="lineNum">     856 </span>            :     /* getting here means both ascii and binary terminators fit */
+<span class="lineNum">     857 </span><span class="lineCov">         11 :     add_stats(NULL, 0, NULL, 0, c);</span>
+<a name="858"><span class="lineNum">     858 </span><span class="lineCov">         11 : }</span></a>
+<span class="lineNum">     859 </span>            : 
+<span class="lineNum">     860 </span><span class="lineCov">         18 : bool item_stats_sizes_status(void) {</span>
+<span class="lineNum">     861 </span><span class="lineCov">         18 :     bool ret = false;</span>
+<span class="lineNum">     862 </span><span class="lineCov">         18 :     mutex_lock(&amp;stats_sizes_lock);</span>
+<span class="lineNum">     863 </span><span class="lineCov">         18 :     if (stats_sizes_hist != NULL)</span>
+<span class="lineNum">     864 </span><span class="lineNoCov">          0 :         ret = true;</span>
+<span class="lineNum">     865 </span><span class="lineCov">         18 :     mutex_unlock(&amp;stats_sizes_lock);</span>
+<span class="lineNum">     866 </span><span class="lineCov">         18 :     return ret;</span>
+<a name="867"><span class="lineNum">     867 </span>            : }</a>
+<span class="lineNum">     868 </span>            : 
+<span class="lineNum">     869 </span><span class="lineNoCov">          0 : void item_stats_sizes_init(void) {</span>
+<span class="lineNum">     870 </span><span class="lineNoCov">          0 :     if (stats_sizes_hist != NULL)</span>
+<span class="lineNum">     871 </span>            :         return;
+<span class="lineNum">     872 </span><span class="lineNoCov">          0 :     stats_sizes_buckets = settings.item_size_max / 32 + 1;</span>
+<span class="lineNum">     873 </span><span class="lineNoCov">          0 :     stats_sizes_hist = calloc(stats_sizes_buckets, sizeof(int));</span>
+<span class="lineNum">     874 </span><span class="lineNoCov">          0 :     stats_sizes_cas_min = (settings.use_cas) ? get_cas_id() : 0;</span>
+<a name="875"><span class="lineNum">     875 </span>            : }</a>
+<span class="lineNum">     876 </span>            : 
+<span class="lineNum">     877 </span><span class="lineNoCov">          0 : void item_stats_sizes_enable(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     878 </span><span class="lineNoCov">          0 :     mutex_lock(&amp;stats_sizes_lock);</span>
+<span class="lineNum">     879 </span><span class="lineNoCov">          0 :     if (!settings.use_cas) {</span>
+<span class="lineNum">     880 </span><span class="lineNoCov">          0 :         APPEND_STAT(&quot;sizes_status&quot;, &quot;error&quot;, &quot;&quot;);</span>
+<span class="lineNum">     881 </span><span class="lineNoCov">          0 :         APPEND_STAT(&quot;sizes_error&quot;, &quot;cas_support_disabled&quot;, &quot;&quot;);</span>
+<span class="lineNum">     882 </span><span class="lineNoCov">          0 :     } else if (stats_sizes_hist == NULL) {</span>
+<span class="lineNum">     883 </span><span class="lineNoCov">          0 :         item_stats_sizes_init();</span>
+<span class="lineNum">     884 </span><span class="lineNoCov">          0 :         if (stats_sizes_hist != NULL) {</span>
+<span class="lineNum">     885 </span><span class="lineNoCov">          0 :             APPEND_STAT(&quot;sizes_status&quot;, &quot;enabled&quot;, &quot;&quot;);</span>
+<span class="lineNum">     886 </span>            :         } else {
+<span class="lineNum">     887 </span><span class="lineNoCov">          0 :             APPEND_STAT(&quot;sizes_status&quot;, &quot;error&quot;, &quot;&quot;);</span>
+<span class="lineNum">     888 </span><span class="lineNoCov">          0 :             APPEND_STAT(&quot;sizes_error&quot;, &quot;no_memory&quot;, &quot;&quot;);</span>
+<span class="lineNum">     889 </span>            :         }
+<span class="lineNum">     890 </span>            :     } else {
+<span class="lineNum">     891 </span><span class="lineNoCov">          0 :         APPEND_STAT(&quot;sizes_status&quot;, &quot;enabled&quot;, &quot;&quot;);</span>
+<span class="lineNum">     892 </span>            :     }
+<span class="lineNum">     893 </span><span class="lineNoCov">          0 :     mutex_unlock(&amp;stats_sizes_lock);</span>
+<a name="894"><span class="lineNum">     894 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     895 </span>            : 
+<span class="lineNum">     896 </span><span class="lineNoCov">          0 : void item_stats_sizes_disable(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     897 </span><span class="lineNoCov">          0 :     mutex_lock(&amp;stats_sizes_lock);</span>
+<span class="lineNum">     898 </span><span class="lineNoCov">          0 :     if (stats_sizes_hist != NULL) {</span>
+<span class="lineNum">     899 </span><span class="lineNoCov">          0 :         free(stats_sizes_hist);</span>
+<span class="lineNum">     900 </span><span class="lineNoCov">          0 :         stats_sizes_hist = NULL;</span>
+<span class="lineNum">     901 </span>            :     }
+<span class="lineNum">     902 </span><span class="lineNoCov">          0 :     APPEND_STAT(&quot;sizes_status&quot;, &quot;disabled&quot;, &quot;&quot;);</span>
+<span class="lineNum">     903 </span><span class="lineNoCov">          0 :     mutex_unlock(&amp;stats_sizes_lock);</span>
+<a name="904"><span class="lineNum">     904 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     905 </span>            : 
+<span class="lineNum">     906 </span><span class="lineCov">     104305 : void item_stats_sizes_add(item *it) {</span>
+<span class="lineNum">     907 </span><span class="lineCov">     104305 :     if (stats_sizes_hist == NULL || stats_sizes_cas_min &gt; ITEM_get_cas(it))</span>
+<span class="lineNum">     908 </span>            :         return;
+<span class="lineNum">     909 </span><span class="lineNoCov">          0 :     int ntotal = ITEM_ntotal(it);</span>
+<span class="lineNum">     910 </span><span class="lineNoCov">          0 :     int bucket = ntotal / 32;</span>
+<span class="lineNum">     911 </span><span class="lineNoCov">          0 :     if ((ntotal % 32) != 0) bucket++;</span>
+<span class="lineNum">     912 </span><span class="lineNoCov">          0 :     if (bucket &lt; stats_sizes_buckets) stats_sizes_hist[bucket]++;</span>
+<span class="lineNum">     913 </span>            : }
+<span class="lineNum">     914 </span>            : 
+<span class="lineNum">     915 </span>            : /* I think there's no way for this to be accurate without using the CAS value.
+<a name="916"><span class="lineNum">     916 </span>            :  * Since items getting their time value bumped will pass this validation.</a>
+<span class="lineNum">     917 </span>            :  */
+<span class="lineNum">     918 </span><span class="lineCov">      64925 : void item_stats_sizes_remove(item *it) {</span>
+<span class="lineNum">     919 </span><span class="lineCov">      64925 :     if (stats_sizes_hist == NULL || stats_sizes_cas_min &gt; ITEM_get_cas(it))</span>
+<span class="lineNum">     920 </span>            :         return;
+<span class="lineNum">     921 </span><span class="lineNoCov">          0 :     int ntotal = ITEM_ntotal(it);</span>
+<span class="lineNum">     922 </span><span class="lineNoCov">          0 :     int bucket = ntotal / 32;</span>
+<span class="lineNum">     923 </span><span class="lineNoCov">          0 :     if ((ntotal % 32) != 0) bucket++;</span>
+<span class="lineNum">     924 </span><span class="lineNoCov">          0 :     if (bucket &lt; stats_sizes_buckets) stats_sizes_hist[bucket]--;</span>
+<span class="lineNum">     925 </span>            : }
+<span class="lineNum">     926 </span>            : 
+<span class="lineNum">     927 </span>            : /** dumps out a list of objects of each size, with granularity of 32 bytes */
+<span class="lineNum">     928 </span>            : /*@null@*/
+<span class="lineNum">     929 </span>            : /* Locks are correct based on a technicality. Holds LRU lock while doing the
+<span class="lineNum">     930 </span>            :  * work, so items can't go invalid, and it's only looking at header sizes
+<a name="931"><span class="lineNum">     931 </span>            :  * which don't change.</a>
+<span class="lineNum">     932 </span>            :  */
+<span class="lineNum">     933 </span><span class="lineNoCov">          0 : void item_stats_sizes(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     934 </span><span class="lineNoCov">          0 :     mutex_lock(&amp;stats_sizes_lock);</span>
+<span class="lineNum">     935 </span>            : 
+<span class="lineNum">     936 </span><span class="lineNoCov">          0 :     if (stats_sizes_hist != NULL) {</span>
+<span class="lineNum">     937 </span>            :         int i;
+<span class="lineNum">     938 </span><span class="lineNoCov">          0 :         for (i = 0; i &lt; stats_sizes_buckets; i++) {</span>
+<span class="lineNum">     939 </span><span class="lineNoCov">          0 :             if (stats_sizes_hist[i] != 0) {</span>
+<span class="lineNum">     940 </span><span class="lineNoCov">          0 :                 char key[12];</span>
+<span class="lineNum">     941 </span><span class="lineNoCov">          0 :                 snprintf(key, sizeof(key), &quot;%d&quot;, i * 32);</span>
+<span class="lineNum">     942 </span><span class="lineNoCov">          0 :                 APPEND_STAT(key, &quot;%u&quot;, stats_sizes_hist[i]);</span>
+<span class="lineNum">     943 </span>            :             }
+<span class="lineNum">     944 </span>            :         }
+<span class="lineNum">     945 </span>            :     } else {
+<span class="lineNum">     946 </span><span class="lineNoCov">          0 :         APPEND_STAT(&quot;sizes_status&quot;, &quot;disabled&quot;, &quot;&quot;);</span>
+<span class="lineNum">     947 </span>            :     }
+<span class="lineNum">     948 </span>            : 
+<span class="lineNum">     949 </span><span class="lineNoCov">          0 :     add_stats(NULL, 0, NULL, 0, c);</span>
+<span class="lineNum">     950 </span><span class="lineNoCov">          0 :     mutex_unlock(&amp;stats_sizes_lock);</span>
+<span class="lineNum">     951 </span><span class="lineNoCov">          0 : }</span>
+<a name="952"><span class="lineNum">     952 </span>            : </a>
+<span class="lineNum">     953 </span>            : /** wrapper around assoc_find which does the lazy expiration logic */
+<span class="lineNum">     954 </span><span class="lineCov">     220015 : item *do_item_get(const char *key, const size_t nkey, const uint32_t hv, conn *c, const bool do_update) {</span>
+<span class="lineNum">     955 </span><span class="lineCov">     220015 :     item *it = assoc_find(key, nkey, hv);</span>
+<span class="lineNum">     956 </span><span class="lineCov">     220015 :     if (it != NULL) {</span>
+<span class="lineNum">     957 </span><span class="lineCov">      71040 :         refcount_incr(it);</span>
+<span class="lineNum">     958 </span>            :         /* Optimization for slab reassignment. prevents popular items from
+<span class="lineNum">     959 </span>            :          * jamming in busy wait. Can only do this here to satisfy lock order
+<span class="lineNum">     960 </span>            :          * of item_lock, slabs_lock. */
+<span class="lineNum">     961 </span>            :         /* This was made unsafe by removal of the cache_lock:
+<span class="lineNum">     962 </span>            :          * slab_rebalance_signal and slab_rebal.* are modified in a separate
+<span class="lineNum">     963 </span>            :          * thread under slabs_lock. If slab_rebalance_signal = 1, slab_start =
+<span class="lineNum">     964 </span>            :          * NULL (0), but slab_end is still equal to some value, this would end
+<span class="lineNum">     965 </span>            :          * up unlinking every item fetched.
+<span class="lineNum">     966 </span>            :          * This is either an acceptable loss, or if slab_rebalance_signal is
+<span class="lineNum">     967 </span>            :          * true, slab_start/slab_end should be put behind the slabs_lock.
+<span class="lineNum">     968 </span>            :          * Which would cause a huge potential slowdown.
+<span class="lineNum">     969 </span>            :          * Could also use a specific lock for slab_rebal.* and
+<span class="lineNum">     970 </span>            :          * slab_rebalance_signal (shorter lock?)
+<span class="lineNum">     971 </span>            :          */
+<span class="lineNum">     972 </span>            :         /*if (slab_rebalance_signal &amp;&amp;
+<span class="lineNum">     973 </span>            :             ((void *)it &gt;= slab_rebal.slab_start &amp;&amp; (void *)it &lt; slab_rebal.slab_end)) {
+<span class="lineNum">     974 </span>            :             do_item_unlink(it, hv);
+<span class="lineNum">     975 </span>            :             do_item_remove(it);
+<span class="lineNum">     976 </span>            :             it = NULL;
+<span class="lineNum">     977 </span>            :         }*/
+<span class="lineNum">     978 </span>            :     }
+<span class="lineNum">     979 </span><span class="lineCov">     220015 :     int was_found = 0;</span>
+<span class="lineNum">     980 </span>            : 
+<span class="lineNum">     981 </span><span class="lineCov">     220015 :     if (settings.verbose &gt; 2) {</span>
+<span class="lineNum">     982 </span><span class="lineNoCov">          0 :         int ii;</span>
+<span class="lineNum">     983 </span><span class="lineNoCov">          0 :         if (it == NULL) {</span>
+<span class="lineNum">     984 </span><span class="lineNoCov">          0 :             fprintf(stderr, &quot;&gt; NOT FOUND &quot;);</span>
+<span class="lineNum">     985 </span>            :         } else {
+<span class="lineNum">     986 </span><span class="lineNoCov">          0 :             fprintf(stderr, &quot;&gt; FOUND KEY &quot;);</span>
+<span class="lineNum">     987 </span>            :         }
+<span class="lineNum">     988 </span><span class="lineNoCov">          0 :         for (ii = 0; ii &lt; nkey; ++ii) {</span>
+<span class="lineNum">     989 </span><span class="lineNoCov">          0 :             fprintf(stderr, &quot;%c&quot;, key[ii]);</span>
+<span class="lineNum">     990 </span>            :         }
+<span class="lineNum">     991 </span>            :     }
+<span class="lineNum">     992 </span>            : 
+<span class="lineNum">     993 </span><span class="lineCov">     220015 :     if (it != NULL) {</span>
+<span class="lineNum">     994 </span><span class="lineCov">      71040 :         was_found = 1;</span>
+<span class="lineNum">     995 </span><span class="lineCov">      71040 :         if (item_is_flushed(it)) {</span>
+<span class="lineNum">     996 </span><span class="lineCov">         44 :             do_item_unlink(it, hv);</span>
+<span class="lineNum">     997 </span><span class="lineCov">         44 :             STORAGE_delete(c-&gt;thread-&gt;storage, it);</span>
+<span class="lineNum">     998 </span><span class="lineCov">         44 :             do_item_remove(it);</span>
+<span class="lineNum">     999 </span><span class="lineCov">         44 :             it = NULL;</span>
+<span class="lineNum">    1000 </span><span class="lineCov">         44 :             pthread_mutex_lock(&amp;c-&gt;thread-&gt;stats.mutex);</span>
+<span class="lineNum">    1001 </span><span class="lineCov">         44 :             c-&gt;thread-&gt;stats.get_flushed++;</span>
+<span class="lineNum">    1002 </span><span class="lineCov">         44 :             pthread_mutex_unlock(&amp;c-&gt;thread-&gt;stats.mutex);</span>
+<span class="lineNum">    1003 </span><span class="lineCov">         44 :             if (settings.verbose &gt; 2) {</span>
+<span class="lineNum">    1004 </span><span class="lineNoCov">          0 :                 fprintf(stderr, &quot; -nuked by flush&quot;);</span>
+<span class="lineNum">    1005 </span>            :             }
+<span class="lineNum">    1006 </span>            :             was_found = 2;
+<span class="lineNum">    1007 </span><span class="lineCov">      70996 :         } else if (it-&gt;exptime != 0 &amp;&amp; it-&gt;exptime &lt;= current_time) {</span>
+<span class="lineNum">    1008 </span><span class="lineCov">          7 :             do_item_unlink(it, hv);</span>
+<span class="lineNum">    1009 </span><span class="lineCov">          7 :             STORAGE_delete(c-&gt;thread-&gt;storage, it);</span>
+<span class="lineNum">    1010 </span><span class="lineCov">          7 :             do_item_remove(it);</span>
+<span class="lineNum">    1011 </span><span class="lineCov">          7 :             it = NULL;</span>
+<span class="lineNum">    1012 </span><span class="lineCov">          7 :             pthread_mutex_lock(&amp;c-&gt;thread-&gt;stats.mutex);</span>
+<span class="lineNum">    1013 </span><span class="lineCov">          7 :             c-&gt;thread-&gt;stats.get_expired++;</span>
+<span class="lineNum">    1014 </span><span class="lineCov">          7 :             pthread_mutex_unlock(&amp;c-&gt;thread-&gt;stats.mutex);</span>
+<span class="lineNum">    1015 </span><span class="lineCov">          7 :             if (settings.verbose &gt; 2) {</span>
+<span class="lineNum">    1016 </span><span class="lineNoCov">          0 :                 fprintf(stderr, &quot; -nuked by expire&quot;);</span>
+<span class="lineNum">    1017 </span>            :             }
+<span class="lineNum">    1018 </span>            :             was_found = 3;
+<span class="lineNum">    1019 </span>            :         } else {
+<span class="lineNum">    1020 </span><span class="lineCov">      70989 :             if (do_update) {</span>
+<span class="lineNum">    1021 </span>            :                 /* We update the hit markers only during fetches.
+<span class="lineNum">    1022 </span>            :                  * An item needs to be hit twice overall to be considered
+<span class="lineNum">    1023 </span>            :                  * ACTIVE, but only needs a single hit to maintain activity
+<span class="lineNum">    1024 </span>            :                  * afterward.
+<span class="lineNum">    1025 </span>            :                  * FETCHED tells if an item has ever been active.
+<span class="lineNum">    1026 </span>            :                  */
+<span class="lineNum">    1027 </span><span class="lineCov">      32226 :                 if (settings.lru_segmented) {</span>
+<span class="lineNum">    1028 </span><span class="lineCov">      31419 :                     if ((it-&gt;it_flags &amp; ITEM_ACTIVE) == 0) {</span>
+<span class="lineNum">    1029 </span><span class="lineCov">      31373 :                         if ((it-&gt;it_flags &amp; ITEM_FETCHED) == 0) {</span>
+<span class="lineNum">    1030 </span><span class="lineCov">      31342 :                             it-&gt;it_flags |= ITEM_FETCHED;</span>
+<span class="lineNum">    1031 </span>            :                         } else {
+<span class="lineNum">    1032 </span><span class="lineCov">         31 :                             it-&gt;it_flags |= ITEM_ACTIVE;</span>
+<span class="lineNum">    1033 </span><span class="lineCov">         31 :                             if (ITEM_lruid(it) != COLD_LRU) {</span>
+<span class="lineNum">    1034 </span><span class="lineCov">         27 :                                 do_item_update(it); // bump LA time</span>
+<span class="lineNum">    1035 </span><span class="lineCov">          4 :                             } else if (!lru_bump_async(c-&gt;thread-&gt;lru_bump_buf, it, hv)) {</span>
+<span class="lineNum">    1036 </span>            :                                 // add flag before async bump to avoid race.
+<span class="lineNum">    1037 </span><span class="lineNoCov">          0 :                                 it-&gt;it_flags &amp;= ~ITEM_ACTIVE;</span>
+<span class="lineNum">    1038 </span>            :                             }
+<span class="lineNum">    1039 </span>            :                         }
+<span class="lineNum">    1040 </span>            :                     }
+<span class="lineNum">    1041 </span>            :                 } else {
+<span class="lineNum">    1042 </span><span class="lineCov">        807 :                     it-&gt;it_flags |= ITEM_FETCHED;</span>
+<span class="lineNum">    1043 </span><span class="lineCov">        807 :                     do_item_update(it);</span>
+<span class="lineNum">    1044 </span>            :                 }
+<span class="lineNum">    1045 </span>            :             }
+<span class="lineNum">    1046 </span><span class="lineCov">     220015 :             DEBUG_REFCNT(it, '+');</span>
+<span class="lineNum">    1047 </span>            :         }
+<span class="lineNum">    1048 </span>            :     }
+<span class="lineNum">    1049 </span>            : 
+<span class="lineNum">    1050 </span><span class="lineCov">     220015 :     if (settings.verbose &gt; 2)</span>
+<span class="lineNum">    1051 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;\n&quot;);</span>
+<span class="lineNum">    1052 </span>            :     /* For now this is in addition to the above verbose logging. */
+<span class="lineNum">    1053 </span><span class="lineCov">     220015 :     LOGGER_LOG(c-&gt;thread-&gt;l, LOG_FETCHERS, LOGGER_ITEM_GET, NULL, was_found, key, nkey,</span>
+<span class="lineNum">    1054 </span>            :                (it) ? ITEM_clsid(it) : 0);
+<span class="lineNum">    1055 </span>            : 
+<span class="lineNum">    1056 </span><span class="lineCov">     220015 :     return it;</span>
+<a name="1057"><span class="lineNum">    1057 </span>            : }</a>
+<span class="lineNum">    1058 </span>            : 
+<span class="lineNum">    1059 </span><span class="lineCov">         96 : item *do_item_touch(const char *key, size_t nkey, uint32_t exptime,</span>
+<span class="lineNum">    1060 </span>            :                     const uint32_t hv, conn *c) {
+<span class="lineNum">    1061 </span><span class="lineCov">         96 :     item *it = do_item_get(key, nkey, hv, c, DO_UPDATE);</span>
+<span class="lineNum">    1062 </span><span class="lineCov">         96 :     if (it != NULL) {</span>
+<span class="lineNum">    1063 </span><span class="lineCov">         31 :         it-&gt;exptime = exptime;</span>
+<span class="lineNum">    1064 </span>            :     }
+<span class="lineNum">    1065 </span><span class="lineCov">         96 :     return it;</span>
+<span class="lineNum">    1066 </span>            : }
+<span class="lineNum">    1067 </span>            : 
+<span class="lineNum">    1068 </span>            : /*** LRU MAINTENANCE THREAD ***/
+<span class="lineNum">    1069 </span>            : 
+<a name="1070"><span class="lineNum">    1070 </span>            : /* Returns number of items remove, expired, or evicted.</a>
+<span class="lineNum">    1071 </span>            :  * Callable from worker threads or the LRU maintainer thread */
+<span class="lineNum">    1072 </span><span class="lineCov">     786836 : int lru_pull_tail(const int orig_id, const int cur_lru,</span>
+<span class="lineNum">    1073 </span>            :         const uint64_t total_bytes, const uint8_t flags, const rel_time_t max_age,
+<span class="lineNum">    1074 </span>            :         struct lru_pull_tail_return *ret_it) {
+<span class="lineNum">    1075 </span><span class="lineCov">     786836 :     item *it = NULL;</span>
+<span class="lineNum">    1076 </span><span class="lineCov">     786836 :     int id = orig_id;</span>
+<span class="lineNum">    1077 </span><span class="lineCov">     786836 :     int removed = 0;</span>
+<span class="lineNum">    1078 </span><span class="lineCov">     786836 :     if (id == 0)</span>
+<span class="lineNum">    1079 </span>            :         return 0;
+<span class="lineNum">    1080 </span>            : 
+<span class="lineNum">    1081 </span><span class="lineCov">     786836 :     int tries = 5;</span>
+<span class="lineNum">    1082 </span><span class="lineCov">     786836 :     item *search;</span>
+<span class="lineNum">    1083 </span><span class="lineCov">     786836 :     item *next_it;</span>
+<span class="lineNum">    1084 </span><span class="lineCov">     786836 :     void *hold_lock = NULL;</span>
+<span class="lineNum">    1085 </span><span class="lineCov">     786836 :     unsigned int move_to_lru = 0;</span>
+<span class="lineNum">    1086 </span><span class="lineCov">     786836 :     uint64_t limit = 0;</span>
+<span class="lineNum">    1087 </span>            : 
+<span class="lineNum">    1088 </span><span class="lineCov">     786836 :     id |= cur_lru;</span>
+<span class="lineNum">    1089 </span><span class="lineCov">     786836 :     pthread_mutex_lock(&amp;lru_locks[id]);</span>
+<span class="lineNum">    1090 </span><span class="lineCov">     786836 :     search = tails[id];</span>
+<span class="lineNum">    1091 </span>            :     /* We walk up *only* for locked items, and if bottom is expired. */
+<span class="lineNum">    1092 </span><span class="lineCov">     794225 :     for (; tries &gt; 0 &amp;&amp; search != NULL; tries--, search=next_it) {</span>
+<span class="lineNum">    1093 </span>            :         /* we might relink search mid-loop, so search-&gt;prev isn't reliable */
+<span class="lineNum">    1094 </span><span class="lineCov">     109452 :         next_it = search-&gt;prev;</span>
+<span class="lineNum">    1095 </span><span class="lineCov">     109452 :         if (search-&gt;nbytes == 0 &amp;&amp; search-&gt;nkey == 0 &amp;&amp; search-&gt;it_flags == 1) {</span>
+<span class="lineNum">    1096 </span>            :             /* We are a crawler, ignore it. */
+<span class="lineNum">    1097 </span><span class="lineNoCov">          0 :             if (flags &amp; LRU_PULL_CRAWL_BLOCKS) {</span>
+<span class="lineNum">    1098 </span><span class="lineNoCov">          0 :                 pthread_mutex_unlock(&amp;lru_locks[id]);</span>
+<span class="lineNum">    1099 </span><span class="lineNoCov">          0 :                 return 0;</span>
+<span class="lineNum">    1100 </span>            :             }
+<span class="lineNum">    1101 </span><span class="lineNoCov">          0 :             tries++;</span>
+<span class="lineNum">    1102 </span><span class="lineNoCov">          0 :             continue;</span>
+<span class="lineNum">    1103 </span>            :         }
+<span class="lineNum">    1104 </span><span class="lineCov">     109452 :         uint32_t hv = hash(ITEM_key(search), search-&gt;nkey);</span>
+<span class="lineNum">    1105 </span>            :         /* Attempt to hash item lock the &quot;search&quot; item. If locked, no
+<span class="lineNum">    1106 </span>            :          * other callers can incr the refcount. Also skip ourselves. */
+<span class="lineNum">    1107 </span><span class="lineCov">     109452 :         if ((hold_lock = item_trylock(hv)) == NULL)</span>
+<span class="lineNum">    1108 </span>            :             continue;
+<span class="lineNum">    1109 </span>            :         /* Now see if the item is refcount locked */
+<span class="lineNum">    1110 </span><span class="lineCov">     109099 :         if (refcount_incr(search) != 2) {</span>
+<span class="lineNum">    1111 </span>            :             /* Note pathological case with ref'ed items in tail.
+<span class="lineNum">    1112 </span>            :              * Can still unlink the item, but it won't be reusable yet */
+<span class="lineNum">    1113 </span><span class="lineCov">          2 :             itemstats[id].lrutail_reflocked++;</span>
+<span class="lineNum">    1114 </span>            :             /* In case of refcount leaks, enable for quick workaround. */
+<span class="lineNum">    1115 </span>            :             /* WARNING: This can cause terrible corruption */
+<span class="lineNum">    1116 </span><span class="lineCov">          2 :             if (settings.tail_repair_time &amp;&amp;</span>
+<span class="lineNum">    1117 </span><span class="lineNoCov">          0 :                     search-&gt;time + settings.tail_repair_time &lt; current_time) {</span>
+<span class="lineNum">    1118 </span><span class="lineNoCov">          0 :                 itemstats[id].tailrepairs++;</span>
+<span class="lineNum">    1119 </span><span class="lineNoCov">          0 :                 search-&gt;refcount = 1;</span>
+<span class="lineNum">    1120 </span>            :                 /* This will call item_remove -&gt; item_free since refcnt is 1 */
+<span class="lineNum">    1121 </span><span class="lineNoCov">          0 :                 STORAGE_delete(ext_storage, search);</span>
+<span class="lineNum">    1122 </span><span class="lineNoCov">          0 :                 do_item_unlink_nolock(search, hv);</span>
+<span class="lineNum">    1123 </span><span class="lineNoCov">          0 :                 item_trylock_unlock(hold_lock);</span>
+<span class="lineNum">    1124 </span><span class="lineNoCov">          0 :                 continue;</span>
+<span class="lineNum">    1125 </span>            :             }
+<span class="lineNum">    1126 </span>            :         }
+<span class="lineNum">    1127 </span>            : 
+<span class="lineNum">    1128 </span>            :         /* Expired or flushed */
+<span class="lineNum">    1129 </span><span class="lineCov">     109099 :         if ((search-&gt;exptime != 0 &amp;&amp; search-&gt;exptime &lt; current_time)</span>
+<span class="lineNum">    1130 </span><span class="lineCov">     109075 :             || item_is_flushed(search)) {</span>
+<span class="lineNum">    1131 </span><span class="lineCov">       7035 :             itemstats[id].reclaimed++;</span>
+<span class="lineNum">    1132 </span><span class="lineCov">       7035 :             if ((search-&gt;it_flags &amp; ITEM_FETCHED) == 0) {</span>
+<span class="lineNum">    1133 </span><span class="lineCov">       2595 :                 itemstats[id].expired_unfetched++;</span>
+<span class="lineNum">    1134 </span>            :             }
+<span class="lineNum">    1135 </span>            :             /* refcnt 2 -&gt; 1 */
+<span class="lineNum">    1136 </span><span class="lineCov">       7035 :             do_item_unlink_nolock(search, hv);</span>
+<span class="lineNum">    1137 </span><span class="lineCov">       7035 :             STORAGE_delete(ext_storage, search);</span>
+<span class="lineNum">    1138 </span>            :             /* refcnt 1 -&gt; 0 -&gt; item_free */
+<span class="lineNum">    1139 </span><span class="lineCov">       7035 :             do_item_remove(search);</span>
+<span class="lineNum">    1140 </span><span class="lineCov">       7035 :             item_trylock_unlock(hold_lock);</span>
+<span class="lineNum">    1141 </span><span class="lineCov">       7035 :             removed++;</span>
+<span class="lineNum">    1142 </span>            : 
+<span class="lineNum">    1143 </span>            :             /* If all we're finding are expired, can keep going */
+<span class="lineNum">    1144 </span><span class="lineCov">       7035 :             continue;</span>
+<span class="lineNum">    1145 </span>            :         }
+<span class="lineNum">    1146 </span>            : 
+<span class="lineNum">    1147 </span>            :         /* If we're HOT_LRU or WARM_LRU and over size limit, send to COLD_LRU.
+<span class="lineNum">    1148 </span>            :          * If we're COLD_LRU, send to WARM_LRU unless we need to evict
+<span class="lineNum">    1149 </span>            :          */
+<span class="lineNum">    1150 </span><span class="lineCov">     102064 :         switch (cur_lru) {</span>
+<span class="lineNum">    1151 </span><span class="lineCov">      36618 :             case HOT_LRU:</span>
+<span class="lineNum">    1152 </span><span class="lineCov">      36618 :                 limit = total_bytes * settings.hot_lru_pct / 100;</span>
+<span class="lineNum">    1153 </span><span class="lineCov">      36886 :             case WARM_LRU:</span>
+<span class="lineNum">    1154 </span><span class="lineCov">      36886 :                 if (limit == 0)</span>
+<span class="lineNum">    1155 </span><span class="lineCov">        268 :                     limit = total_bytes * settings.warm_lru_pct / 100;</span>
+<span class="lineNum">    1156 </span>            :                 /* Rescue ACTIVE items aggressively */
+<span class="lineNum">    1157 </span><span class="lineCov">      36886 :                 if ((search-&gt;it_flags &amp; ITEM_ACTIVE) != 0) {</span>
+<span class="lineNum">    1158 </span><span class="lineCov">         12 :                     search-&gt;it_flags &amp;= ~ITEM_ACTIVE;</span>
+<span class="lineNum">    1159 </span><span class="lineCov">         12 :                     removed++;</span>
+<span class="lineNum">    1160 </span><span class="lineCov">         12 :                     if (cur_lru == WARM_LRU) {</span>
+<span class="lineNum">    1161 </span><span class="lineCov">          1 :                         itemstats[id].moves_within_lru++;</span>
+<span class="lineNum">    1162 </span><span class="lineCov">          1 :                         do_item_update_nolock(search);</span>
+<span class="lineNum">    1163 </span><span class="lineCov">          1 :                         do_item_remove(search);</span>
+<span class="lineNum">    1164 </span><span class="lineCov">          1 :                         item_trylock_unlock(hold_lock);</span>
+<span class="lineNum">    1165 </span>            :                     } else {
+<span class="lineNum">    1166 </span>            :                         /* Active HOT_LRU items flow to WARM */
+<span class="lineNum">    1167 </span><span class="lineCov">         11 :                         itemstats[id].moves_to_warm++;</span>
+<span class="lineNum">    1168 </span><span class="lineCov">         11 :                         move_to_lru = WARM_LRU;</span>
+<span class="lineNum">    1169 </span><span class="lineCov">         11 :                         do_item_unlink_q(search);</span>
+<span class="lineNum">    1170 </span><span class="lineCov">         11 :                         it = search;</span>
+<span class="lineNum">    1171 </span>            :                     }
+<span class="lineNum">    1172 </span><span class="lineCov">      36874 :                 } else if (sizes_bytes[id] &gt; limit ||</span>
+<span class="lineNum">    1173 </span><span class="lineCov">       3443 :                            current_time - search-&gt;time &gt; max_age) {</span>
+<span class="lineNum">    1174 </span><span class="lineCov">      35063 :                     itemstats[id].moves_to_cold++;</span>
+<span class="lineNum">    1175 </span><span class="lineCov">      35063 :                     move_to_lru = COLD_LRU;</span>
+<span class="lineNum">    1176 </span><span class="lineCov">      35063 :                     do_item_unlink_q(search);</span>
+<span class="lineNum">    1177 </span><span class="lineCov">      35063 :                     it = search;</span>
+<span class="lineNum">    1178 </span><span class="lineCov">      35063 :                     removed++;</span>
+<span class="lineNum">    1179 </span><span class="lineCov">      35063 :                     break;</span>
+<span class="lineNum">    1180 </span>            :                 } else {
+<span class="lineNum">    1181 </span>            :                     /* Don't want to move to COLD, not active, bail out */
+<span class="lineNum">    1182 </span>            :                     it = search;
+<span class="lineNum">    1183 </span>            :                 }
+<span class="lineNum">    1184 </span>            :                 break;
+<span class="lineNum">    1185 </span><span class="lineCov">      65177 :             case COLD_LRU:</span>
+<span class="lineNum">    1186 </span><span class="lineCov">      65177 :                 it = search; /* No matter what, we're stopping */</span>
+<span class="lineNum">    1187 </span><span class="lineCov">      65177 :                 if (flags &amp; LRU_PULL_EVICT) {</span>
+<span class="lineNum">    1188 </span><span class="lineCov">      17502 :                     if (settings.evict_to_free == 0) {</span>
+<span class="lineNum">    1189 </span>            :                         /* Don't think we need a counter for this. It'll OOM.  */
+<span class="lineNum">    1190 </span>            :                         break;
+<span class="lineNum">    1191 </span>            :                     }
+<span class="lineNum">    1192 </span><span class="lineCov">      17454 :                     itemstats[id].evicted++;</span>
+<span class="lineNum">    1193 </span><span class="lineCov">      17454 :                     itemstats[id].evicted_time = current_time - search-&gt;time;</span>
+<span class="lineNum">    1194 </span><span class="lineCov">      17454 :                     if (search-&gt;exptime != 0)</span>
+<span class="lineNum">    1195 </span><span class="lineCov">         91 :                         itemstats[id].evicted_nonzero++;</span>
+<span class="lineNum">    1196 </span><span class="lineCov">      17454 :                     if ((search-&gt;it_flags &amp; ITEM_FETCHED) == 0) {</span>
+<span class="lineNum">    1197 </span><span class="lineCov">      15908 :                         itemstats[id].evicted_unfetched++;</span>
+<span class="lineNum">    1198 </span>            :                     }
+<span class="lineNum">    1199 </span><span class="lineCov">      17454 :                     if ((search-&gt;it_flags &amp; ITEM_ACTIVE)) {</span>
+<span class="lineNum">    1200 </span><span class="lineNoCov">          0 :                         itemstats[id].evicted_active++;</span>
+<span class="lineNum">    1201 </span>            :                     }
+<span class="lineNum">    1202 </span><span class="lineCov">      17454 :                     LOGGER_LOG(NULL, LOG_EVICTIONS, LOGGER_EVICTION, search);</span>
+<span class="lineNum">    1203 </span><span class="lineCov">      17454 :                     STORAGE_delete(ext_storage, search);</span>
+<span class="lineNum">    1204 </span><span class="lineCov">      17454 :                     do_item_unlink_nolock(search, hv);</span>
+<span class="lineNum">    1205 </span><span class="lineCov">      17454 :                     removed++;</span>
+<span class="lineNum">    1206 </span><span class="lineCov">      17454 :                     if (settings.slab_automove == 2) {</span>
+<span class="lineNum">    1207 </span><span class="lineNoCov">          0 :                         slabs_reassign(-1, orig_id);</span>
+<span class="lineNum">    1208 </span>            :                     }
+<span class="lineNum">    1209 </span><span class="lineCov">      47675 :                 } else if (flags &amp; LRU_PULL_RETURN_ITEM) {</span>
+<span class="lineNum">    1210 </span>            :                     /* Keep a reference to this item and return it. */
+<span class="lineNum">    1211 </span><span class="lineNoCov">          0 :                     ret_it-&gt;it = it;</span>
+<span class="lineNum">    1212 </span><span class="lineNoCov">          0 :                     ret_it-&gt;hv = hv;</span>
+<span class="lineNum">    1213 </span><span class="lineCov">      47675 :                 } else if ((search-&gt;it_flags &amp; ITEM_ACTIVE) != 0</span>
+<span class="lineNum">    1214 </span><span class="lineCov">          1 :                         &amp;&amp; settings.lru_segmented) {</span>
+<span class="lineNum">    1215 </span><span class="lineCov">          1 :                     itemstats[id].moves_to_warm++;</span>
+<span class="lineNum">    1216 </span><span class="lineCov">          1 :                     search-&gt;it_flags &amp;= ~ITEM_ACTIVE;</span>
+<span class="lineNum">    1217 </span><span class="lineCov">          1 :                     move_to_lru = WARM_LRU;</span>
+<span class="lineNum">    1218 </span><span class="lineCov">          1 :                     do_item_unlink_q(search);</span>
+<span class="lineNum">    1219 </span><span class="lineCov">          1 :                     removed++;</span>
+<span class="lineNum">    1220 </span>            :                 }
+<span class="lineNum">    1221 </span>            :                 break;
+<span class="lineNum">    1222 </span><span class="lineCov">          1 :             case TEMP_LRU:</span>
+<span class="lineNum">    1223 </span><span class="lineCov">          1 :                 it = search; /* Kill the loop. Parent only interested in reclaims */</span>
+<span class="lineNum">    1224 </span><span class="lineCov">          1 :                 break;</span>
+<span class="lineNum">    1225 </span>            :         }
+<span class="lineNum">    1226 </span><span class="lineCov">     102064 :         if (it != NULL)</span>
+<span class="lineNum">    1227 </span>            :             break;
+<span class="lineNum">    1228 </span>            :     }
+<span class="lineNum">    1229 </span>            : 
+<span class="lineNum">    1230 </span><span class="lineCov">     786836 :     pthread_mutex_unlock(&amp;lru_locks[id]);</span>
+<span class="lineNum">    1231 </span>            : 
+<span class="lineNum">    1232 </span><span class="lineCov">     786836 :     if (it != NULL) {</span>
+<span class="lineNum">    1233 </span><span class="lineCov">     102063 :         if (move_to_lru) {</span>
+<span class="lineNum">    1234 </span><span class="lineCov">      35075 :             it-&gt;slabs_clsid = ITEM_clsid(it);</span>
+<span class="lineNum">    1235 </span><span class="lineCov">      35075 :             it-&gt;slabs_clsid |= move_to_lru;</span>
+<span class="lineNum">    1236 </span><span class="lineCov">      35075 :             item_link_q(it);</span>
+<span class="lineNum">    1237 </span>            :         }
+<span class="lineNum">    1238 </span><span class="lineCov">     102063 :         if ((flags &amp; LRU_PULL_RETURN_ITEM) == 0) {</span>
+<span class="lineNum">    1239 </span><span class="lineCov">     102063 :             do_item_remove(it);</span>
+<span class="lineNum">    1240 </span><span class="lineCov">     102063 :             item_trylock_unlock(hold_lock);</span>
+<span class="lineNum">    1241 </span>            :         }
+<span class="lineNum">    1242 </span>            :     }
+<span class="lineNum">    1243 </span>            : 
+<span class="lineNum">    1244 </span>            :     return removed;
+<span class="lineNum">    1245 </span>            : }
+<span class="lineNum">    1246 </span>            : 
+<a name="1247"><span class="lineNum">    1247 </span>            : </a>
+<span class="lineNum">    1248 </span>            : /* TODO: Third place this code needs to be deduped */
+<span class="lineNum">    1249 </span><span class="lineCov">        384 : static void lru_bump_buf_link_q(lru_bump_buf *b) {</span>
+<span class="lineNum">    1250 </span><span class="lineCov">        384 :     pthread_mutex_lock(&amp;bump_buf_lock);</span>
+<span class="lineNum">    1251 </span><span class="lineCov">        384 :     assert(b != bump_buf_head);</span>
+<span class="lineNum">    1252 </span>            : 
+<span class="lineNum">    1253 </span><span class="lineCov">        384 :     b-&gt;prev = 0;</span>
+<span class="lineNum">    1254 </span><span class="lineCov">        384 :     b-&gt;next = bump_buf_head;</span>
+<span class="lineNum">    1255 </span><span class="lineCov">        384 :     if (b-&gt;next) b-&gt;next-&gt;prev = b;</span>
+<span class="lineNum">    1256 </span><span class="lineCov">        384 :     bump_buf_head = b;</span>
+<span class="lineNum">    1257 </span><span class="lineCov">        384 :     if (bump_buf_tail == 0) bump_buf_tail = b;</span>
+<span class="lineNum">    1258 </span><span class="lineCov">        384 :     pthread_mutex_unlock(&amp;bump_buf_lock);</span>
+<span class="lineNum">    1259 </span><span class="lineCov">        384 :     return;</span>
+<a name="1260"><span class="lineNum">    1260 </span>            : }</a>
+<span class="lineNum">    1261 </span>            : 
+<span class="lineNum">    1262 </span><span class="lineCov">        384 : void *item_lru_bump_buf_create(void) {</span>
+<span class="lineNum">    1263 </span><span class="lineCov">        384 :     lru_bump_buf *b = calloc(1, sizeof(lru_bump_buf));</span>
+<span class="lineNum">    1264 </span><span class="lineCov">        384 :     if (b == NULL) {</span>
+<span class="lineNum">    1265 </span>            :         return NULL;
+<span class="lineNum">    1266 </span>            :     }
+<span class="lineNum">    1267 </span>            : 
+<span class="lineNum">    1268 </span><span class="lineCov">        384 :     b-&gt;buf = bipbuf_new(sizeof(lru_bump_entry) * LRU_BUMP_BUF_SIZE);</span>
+<span class="lineNum">    1269 </span><span class="lineCov">        384 :     if (b-&gt;buf == NULL) {</span>
+<span class="lineNum">    1270 </span><span class="lineNoCov">          0 :         free(b);</span>
+<span class="lineNum">    1271 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">    1272 </span>            :     }
+<span class="lineNum">    1273 </span>            : 
+<span class="lineNum">    1274 </span><span class="lineCov">        384 :     pthread_mutex_init(&amp;b-&gt;mutex, NULL);</span>
+<span class="lineNum">    1275 </span>            : 
+<span class="lineNum">    1276 </span><span class="lineCov">        384 :     lru_bump_buf_link_q(b);</span>
+<span class="lineNum">    1277 </span><span class="lineCov">        384 :     return b;</span>
+<a name="1278"><span class="lineNum">    1278 </span>            : }</a>
+<span class="lineNum">    1279 </span>            : 
+<span class="lineNum">    1280 </span><span class="lineCov">          4 : static bool lru_bump_async(lru_bump_buf *b, item *it, uint32_t hv) {</span>
+<span class="lineNum">    1281 </span><span class="lineCov">          4 :     bool ret = true;</span>
+<span class="lineNum">    1282 </span><span class="lineCov">          4 :     refcount_incr(it);</span>
+<span class="lineNum">    1283 </span><span class="lineCov">          4 :     pthread_mutex_lock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1284 </span><span class="lineCov">          4 :     lru_bump_entry *be = (lru_bump_entry *) bipbuf_request(b-&gt;buf, sizeof(lru_bump_entry));</span>
+<span class="lineNum">    1285 </span><span class="lineCov">          4 :     if (be != NULL) {</span>
+<span class="lineNum">    1286 </span><span class="lineCov">          4 :         be-&gt;it = it;</span>
+<span class="lineNum">    1287 </span><span class="lineCov">          4 :         be-&gt;hv = hv;</span>
+<span class="lineNum">    1288 </span><span class="lineCov">          4 :         if (bipbuf_push(b-&gt;buf, sizeof(lru_bump_entry)) == 0) {</span>
+<span class="lineNum">    1289 </span><span class="lineNoCov">          0 :             ret = false;</span>
+<span class="lineNum">    1290 </span><span class="lineNoCov">          0 :             b-&gt;dropped++;</span>
+<span class="lineNum">    1291 </span>            :         }
+<span class="lineNum">    1292 </span>            :     } else {
+<span class="lineNum">    1293 </span><span class="lineNoCov">          0 :         ret = false;</span>
+<span class="lineNum">    1294 </span><span class="lineNoCov">          0 :         b-&gt;dropped++;</span>
+<span class="lineNum">    1295 </span>            :     }
+<span class="lineNum">    1296 </span><span class="lineNoCov">          0 :     if (!ret) {</span>
+<span class="lineNum">    1297 </span><span class="lineNoCov">          0 :         refcount_decr(it);</span>
+<span class="lineNum">    1298 </span>            :     }
+<span class="lineNum">    1299 </span><span class="lineCov">          4 :     pthread_mutex_unlock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1300 </span><span class="lineCov">          4 :     return ret;</span>
+<span class="lineNum">    1301 </span>            : }
+<span class="lineNum">    1302 </span>            : 
+<span class="lineNum">    1303 </span>            : /* TODO: Might be worth a micro-optimization of having bump buffers link
+<span class="lineNum">    1304 </span>            :  * themselves back into the central queue when queue goes from zero to
+<span class="lineNum">    1305 </span>            :  * non-zero, then remove from list if zero more than N times.
+<span class="lineNum">    1306 </span>            :  * If very few hits on cold this would avoid extra memory barriers from LRU
+<a name="1307"><span class="lineNum">    1307 </span>            :  * maintainer thread. If many hits, they'll just stay in the list.</a>
+<span class="lineNum">    1308 </span>            :  */
+<span class="lineNum">    1309 </span><span class="lineCov">       5669 : static bool lru_maintainer_bumps(void) {</span>
+<span class="lineNum">    1310 </span><span class="lineCov">       5669 :     lru_bump_buf *b;</span>
+<span class="lineNum">    1311 </span><span class="lineCov">       5669 :     lru_bump_entry *be;</span>
+<span class="lineNum">    1312 </span><span class="lineCov">       5669 :     unsigned int size;</span>
+<span class="lineNum">    1313 </span><span class="lineCov">       5669 :     unsigned int todo;</span>
+<span class="lineNum">    1314 </span><span class="lineCov">       5669 :     bool bumped = false;</span>
+<span class="lineNum">    1315 </span><span class="lineCov">       5669 :     pthread_mutex_lock(&amp;bump_buf_lock);</span>
+<span class="lineNum">    1316 </span><span class="lineCov">      28345 :     for (b = bump_buf_head; b != NULL; b=b-&gt;next) {</span>
+<span class="lineNum">    1317 </span><span class="lineCov">      22676 :         pthread_mutex_lock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1318 </span><span class="lineCov">      22676 :         be = (lru_bump_entry *) bipbuf_peek_all(b-&gt;buf, &amp;size);</span>
+<span class="lineNum">    1319 </span><span class="lineCov">      22676 :         pthread_mutex_unlock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1320 </span>            : 
+<span class="lineNum">    1321 </span><span class="lineCov">      22676 :         if (be == NULL) {</span>
+<span class="lineNum">    1322 </span>            :             continue;
+<span class="lineNum">    1323 </span>            :         }
+<span class="lineNum">    1324 </span><span class="lineCov">          1 :         todo = size;</span>
+<span class="lineNum">    1325 </span><span class="lineCov">          1 :         bumped = true;</span>
+<span class="lineNum">    1326 </span>            : 
+<span class="lineNum">    1327 </span><span class="lineCov">          2 :         while (todo) {</span>
+<span class="lineNum">    1328 </span><span class="lineCov">          1 :             item_lock(be-&gt;hv);</span>
+<span class="lineNum">    1329 </span><span class="lineCov">          1 :             do_item_update(be-&gt;it);</span>
+<span class="lineNum">    1330 </span><span class="lineCov">          1 :             do_item_remove(be-&gt;it);</span>
+<span class="lineNum">    1331 </span><span class="lineCov">          1 :             item_unlock(be-&gt;hv);</span>
+<span class="lineNum">    1332 </span><span class="lineCov">          1 :             be++;</span>
+<span class="lineNum">    1333 </span><span class="lineCov">          1 :             todo -= sizeof(lru_bump_entry);</span>
+<span class="lineNum">    1334 </span>            :         }
+<span class="lineNum">    1335 </span>            : 
+<span class="lineNum">    1336 </span><span class="lineCov">          1 :         pthread_mutex_lock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1337 </span><span class="lineCov">          1 :         be = (lru_bump_entry *) bipbuf_poll(b-&gt;buf, size);</span>
+<span class="lineNum">    1338 </span><span class="lineCov">          1 :         pthread_mutex_unlock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1339 </span>            :     }
+<span class="lineNum">    1340 </span><span class="lineCov">       5669 :     pthread_mutex_unlock(&amp;bump_buf_lock);</span>
+<span class="lineNum">    1341 </span><span class="lineCov">       5669 :     return bumped;</span>
+<a name="1342"><span class="lineNum">    1342 </span>            : }</a>
+<span class="lineNum">    1343 </span>            : 
+<span class="lineNum">    1344 </span><span class="lineCov">       2727 : static uint64_t lru_total_bumps_dropped(void) {</span>
+<span class="lineNum">    1345 </span><span class="lineCov">       2727 :     uint64_t total = 0;</span>
+<span class="lineNum">    1346 </span><span class="lineCov">       2727 :     lru_bump_buf *b;</span>
+<span class="lineNum">    1347 </span><span class="lineCov">       2727 :     pthread_mutex_lock(&amp;bump_buf_lock);</span>
+<span class="lineNum">    1348 </span><span class="lineCov">      13635 :     for (b = bump_buf_head; b != NULL; b=b-&gt;next) {</span>
+<span class="lineNum">    1349 </span><span class="lineCov">      10908 :         pthread_mutex_lock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1350 </span><span class="lineCov">      10908 :         total += b-&gt;dropped;</span>
+<span class="lineNum">    1351 </span><span class="lineCov">      10908 :         pthread_mutex_unlock(&amp;b-&gt;mutex);</span>
+<span class="lineNum">    1352 </span>            :     }
+<span class="lineNum">    1353 </span><span class="lineCov">       2727 :     pthread_mutex_unlock(&amp;bump_buf_lock);</span>
+<span class="lineNum">    1354 </span><span class="lineCov">       2727 :     return total;</span>
+<span class="lineNum">    1355 </span>            : }
+<span class="lineNum">    1356 </span>            : 
+<span class="lineNum">    1357 </span>            : /* Loop up to N times:
+<span class="lineNum">    1358 </span>            :  * If too many items are in HOT_LRU, push to COLD_LRU
+<span class="lineNum">    1359 </span>            :  * If too many items are in WARM_LRU, push to COLD_LRU
+<span class="lineNum">    1360 </span>            :  * If too many items are in COLD_LRU, poke COLD_LRU tail
+<span class="lineNum">    1361 </span>            :  * 1000 loops with 1ms min sleep gives us under 1m items shifted/sec. The
+<span class="lineNum">    1362 </span>            :  * locks can't handle much more than that. Leaving a TODO for how to
+<a name="1363"><span class="lineNum">    1363 </span>            :  * autoadjust in the future.</a>
+<span class="lineNum">    1364 </span>            :  */
+<span class="lineNum">    1365 </span><span class="lineCov">     224322 : static int lru_maintainer_juggle(const int slabs_clsid) {</span>
+<span class="lineNum">    1366 </span><span class="lineCov">     224322 :     int i;</span>
+<span class="lineNum">    1367 </span><span class="lineCov">     224322 :     int did_moves = 0;</span>
+<span class="lineNum">    1368 </span><span class="lineCov">     224322 :     uint64_t total_bytes = 0;</span>
+<span class="lineNum">    1369 </span><span class="lineCov">     224322 :     unsigned int chunks_perslab = 0;</span>
+<span class="lineNum">    1370 </span>            :     //unsigned int chunks_free = 0;
+<span class="lineNum">    1371 </span>            :     /* TODO: if free_chunks below high watermark, increase aggressiveness */
+<span class="lineNum">    1372 </span><span class="lineCov">     224322 :     slabs_available_chunks(slabs_clsid, NULL,</span>
+<span class="lineNum">    1373 </span>            :             &amp;total_bytes, &amp;chunks_perslab);
+<span class="lineNum">    1374 </span><span class="lineCov">     224322 :     if (settings.temp_lru) {</span>
+<span class="lineNum">    1375 </span>            :         /* Only looking for reclaims. Run before we size the LRU. */
+<span class="lineNum">    1376 </span><span class="lineCov">       2646 :         for (i = 0; i &lt; 500; i++) {</span>
+<span class="lineNum">    1377 </span><span class="lineCov">       2646 :             if (lru_pull_tail(slabs_clsid, TEMP_LRU, 0, 0, 0, NULL) &lt;= 0) {</span>
+<span class="lineNum">    1378 </span>            :                 break;
+<span class="lineNum">    1379 </span>            :             } else {
+<span class="lineNum">    1380 </span><span class="lineNoCov">          0 :                 did_moves++;</span>
+<span class="lineNum">    1381 </span>            :             }
+<span class="lineNum">    1382 </span>            :         }
+<span class="lineNum">    1383 </span><span class="lineCov">       5292 :         total_bytes -= temp_lru_size(slabs_clsid);</span>
+<span class="lineNum">    1384 </span>            :     }
+<span class="lineNum">    1385 </span>            : 
+<span class="lineNum">    1386 </span><span class="lineCov">     224322 :     rel_time_t cold_age = 0;</span>
+<span class="lineNum">    1387 </span><span class="lineCov">     224322 :     rel_time_t hot_age = 0;</span>
+<span class="lineNum">    1388 </span><span class="lineCov">     224322 :     rel_time_t warm_age = 0;</span>
+<span class="lineNum">    1389 </span>            :     /* If LRU is in flat mode, force items to drain into COLD via max age */
+<span class="lineNum">    1390 </span><span class="lineCov">     224322 :     if (settings.lru_segmented) {</span>
+<span class="lineNum">    1391 </span><span class="lineCov">     224322 :         pthread_mutex_lock(&amp;lru_locks[slabs_clsid|COLD_LRU]);</span>
+<span class="lineNum">    1392 </span><span class="lineCov">     224322 :         if (tails[slabs_clsid|COLD_LRU]) {</span>
+<span class="lineNum">    1393 </span><span class="lineCov">       1955 :             cold_age = current_time - tails[slabs_clsid|COLD_LRU]-&gt;time;</span>
+<span class="lineNum">    1394 </span>            :         }
+<span class="lineNum">    1395 </span><span class="lineCov">     224322 :         pthread_mutex_unlock(&amp;lru_locks[slabs_clsid|COLD_LRU]);</span>
+<span class="lineNum">    1396 </span><span class="lineCov">     224322 :         hot_age = cold_age * settings.hot_max_factor;</span>
+<span class="lineNum">    1397 </span><span class="lineCov">     224322 :         warm_age = cold_age * settings.warm_max_factor;</span>
+<span class="lineNum">    1398 </span>            :     }
+<span class="lineNum">    1399 </span>            : 
+<span class="lineNum">    1400 </span>            :     /* Juggle HOT/WARM up to N times */
+<span class="lineNum">    1401 </span><span class="lineCov">     250351 :     for (i = 0; i &lt; 500; i++) {</span>
+<span class="lineNum">    1402 </span><span class="lineCov">     250330 :         int do_more = 0;</span>
+<span class="lineNum">    1403 </span><span class="lineCov">     475149 :         if (lru_pull_tail(slabs_clsid, HOT_LRU, total_bytes, LRU_PULL_CRAWL_BLOCKS, hot_age, NULL) ||</span>
+<span class="lineNum">    1404 </span><span class="lineCov">     224819 :             lru_pull_tail(slabs_clsid, WARM_LRU, total_bytes, LRU_PULL_CRAWL_BLOCKS, warm_age, NULL)) {</span>
+<span class="lineNum">    1405 </span>            :             do_more++;
+<span class="lineNum">    1406 </span>            :         }
+<span class="lineNum">    1407 </span><span class="lineCov">     250330 :         if (settings.lru_segmented) {</span>
+<span class="lineNum">    1408 </span><span class="lineCov">     250330 :             do_more += lru_pull_tail(slabs_clsid, COLD_LRU, total_bytes, LRU_PULL_CRAWL_BLOCKS, 0, NULL);</span>
+<span class="lineNum">    1409 </span>            :         }
+<span class="lineNum">    1410 </span><span class="lineCov">     250330 :         if (do_more == 0)</span>
+<span class="lineNum">    1411 </span>            :             break;
+<span class="lineNum">    1412 </span><span class="lineCov">      26029 :         did_moves++;</span>
+<span class="lineNum">    1413 </span>            :     }
+<span class="lineNum">    1414 </span><span class="lineCov">     224322 :     return did_moves;</span>
+<span class="lineNum">    1415 </span>            : }
+<span class="lineNum">    1416 </span>            : 
+<span class="lineNum">    1417 </span>            : /* Will crawl all slab classes a minimum of once per hour */
+<span class="lineNum">    1418 </span>            : #define MAX_MAINTCRAWL_WAIT 60 * 60
+<span class="lineNum">    1419 </span>            : 
+<span class="lineNum">    1420 </span>            : /* Hoping user input will improve this function. This is all a wild guess.
+<span class="lineNum">    1421 </span>            :  * Operation: Kicks crawler for each slab id. Crawlers take some statistics as
+<span class="lineNum">    1422 </span>            :  * to items with nonzero expirations. It then buckets how many items will
+<span class="lineNum">    1423 </span>            :  * expire per minute for the next hour.
+<span class="lineNum">    1424 </span>            :  * This function checks the results of a run, and if it things more than 1% of
+<span class="lineNum">    1425 </span>            :  * expirable objects are ready to go, kick the crawler again to reap.
+<span class="lineNum">    1426 </span>            :  * It will also kick the crawler once per minute regardless, waiting a minute
+<span class="lineNum">    1427 </span>            :  * longer for each time it has no work to do, up to an hour wait time.
+<span class="lineNum">    1428 </span>            :  * The latter is to avoid newly started daemons from waiting too long before
+<a name="1429"><span class="lineNum">    1429 </span>            :  * retrying a crawl.</a>
+<span class="lineNum">    1430 </span>            :  */
+<span class="lineNum">    1431 </span><span class="lineCov">        177 : static void lru_maintainer_crawler_check(struct crawler_expired_data *cdata, logger *l) {</span>
+<span class="lineNum">    1432 </span><span class="lineCov">        177 :     int i;</span>
+<span class="lineNum">    1433 </span><span class="lineCov">        177 :     static rel_time_t next_crawls[POWER_LARGEST];</span>
+<span class="lineNum">    1434 </span><span class="lineCov">        177 :     static rel_time_t next_crawl_wait[POWER_LARGEST];</span>
+<span class="lineNum">    1435 </span><span class="lineCov">        177 :     uint8_t todo[POWER_LARGEST];</span>
+<span class="lineNum">    1436 </span><span class="lineCov">        177 :     memset(todo, 0, sizeof(uint8_t) * POWER_LARGEST);</span>
+<span class="lineNum">    1437 </span><span class="lineCov">        177 :     bool do_run = false;</span>
+<span class="lineNum">    1438 </span><span class="lineCov">        177 :     unsigned int tocrawl_limit = 0;</span>
+<span class="lineNum">    1439 </span>            : 
+<span class="lineNum">    1440 </span>            :     // TODO: If not segmented LRU, skip non-cold
+<span class="lineNum">    1441 </span><span class="lineCov">      45312 :     for (i = POWER_SMALLEST; i &lt; POWER_LARGEST; i++) {</span>
+<span class="lineNum">    1442 </span><span class="lineCov">      45135 :         crawlerstats_t *s = &amp;cdata-&gt;crawlerstats[i];</span>
+<span class="lineNum">    1443 </span>            :         /* We've not successfully kicked off a crawl yet. */
+<span class="lineNum">    1444 </span><span class="lineCov">      45135 :         if (s-&gt;run_complete) {</span>
+<span class="lineNum">    1445 </span><span class="lineCov">       7650 :             char *lru_name = &quot;na&quot;;</span>
+<span class="lineNum">    1446 </span><span class="lineCov">       7650 :             pthread_mutex_lock(&amp;cdata-&gt;lock);</span>
+<span class="lineNum">    1447 </span><span class="lineCov">       7650 :             int x;</span>
+<span class="lineNum">    1448 </span>            :             /* Should we crawl again? */
+<span class="lineNum">    1449 </span><span class="lineCov">       7650 :             uint64_t possible_reclaims = s-&gt;seen - s-&gt;noexp;</span>
+<span class="lineNum">    1450 </span><span class="lineCov">       7650 :             uint64_t available_reclaims = 0;</span>
+<span class="lineNum">    1451 </span>            :             /* Need to think we can free at least 1% of the items before
+<span class="lineNum">    1452 </span>            :              * crawling. */
+<span class="lineNum">    1453 </span>            :             /* FIXME: Configurable? */
+<span class="lineNum">    1454 </span><span class="lineCov">       7650 :             uint64_t low_watermark = (possible_reclaims / 100) + 1;</span>
+<span class="lineNum">    1455 </span><span class="lineCov">       7650 :             rel_time_t since_run = current_time - s-&gt;end_time;</span>
+<span class="lineNum">    1456 </span>            :             /* Don't bother if the payoff is too low. */
+<span class="lineNum">    1457 </span><span class="lineCov">     466650 :             for (x = 0; x &lt; 60; x++) {</span>
+<span class="lineNum">    1458 </span><span class="lineCov">     459000 :                 available_reclaims += s-&gt;histo[x];</span>
+<span class="lineNum">    1459 </span><span class="lineCov">     459000 :                 if (available_reclaims &gt; low_watermark) {</span>
+<span class="lineNum">    1460 </span><span class="lineNoCov">          0 :                     if (next_crawl_wait[i] &lt; (x * 60)) {</span>
+<span class="lineNum">    1461 </span><span class="lineNoCov">          0 :                         next_crawl_wait[i] += 60;</span>
+<span class="lineNum">    1462 </span><span class="lineNoCov">          0 :                     } else if (next_crawl_wait[i] &gt;= 60) {</span>
+<span class="lineNum">    1463 </span><span class="lineNoCov">          0 :                         next_crawl_wait[i] -= 60;</span>
+<span class="lineNum">    1464 </span>            :                     }
+<span class="lineNum">    1465 </span>            :                     break;
+<span class="lineNum">    1466 </span>            :                 }
+<span class="lineNum">    1467 </span>            :             }
+<span class="lineNum">    1468 </span>            : 
+<span class="lineNum">    1469 </span><span class="lineCov">       7650 :             if (available_reclaims == 0) {</span>
+<span class="lineNum">    1470 </span><span class="lineCov">       7650 :                 next_crawl_wait[i] += 60;</span>
+<span class="lineNum">    1471 </span>            :             }
+<span class="lineNum">    1472 </span>            : 
+<span class="lineNum">    1473 </span><span class="lineCov">       7650 :             if (next_crawl_wait[i] &gt; MAX_MAINTCRAWL_WAIT) {</span>
+<span class="lineNum">    1474 </span><span class="lineNoCov">          0 :                 next_crawl_wait[i] = MAX_MAINTCRAWL_WAIT;</span>
+<span class="lineNum">    1475 </span>            :             }
+<span class="lineNum">    1476 </span>            : 
+<span class="lineNum">    1477 </span><span class="lineCov">       7650 :             next_crawls[i] = current_time + next_crawl_wait[i] + 5;</span>
+<span class="lineNum">    1478 </span><span class="lineCov">       7650 :             switch (GET_LRU(i)) {</span>
+<span class="lineNum">    1479 </span><span class="lineCov">       1890 :                 case HOT_LRU:</span>
+<span class="lineNum">    1480 </span><span class="lineCov">       1890 :                     lru_name = &quot;hot&quot;;</span>
+<span class="lineNum">    1481 </span><span class="lineCov">       1890 :                     break;</span>
+<span class="lineNum">    1482 </span><span class="lineCov">       1920 :                 case WARM_LRU:</span>
+<span class="lineNum">    1483 </span><span class="lineCov">       1920 :                     lru_name = &quot;warm&quot;;</span>
+<span class="lineNum">    1484 </span><span class="lineCov">       1920 :                     break;</span>
+<span class="lineNum">    1485 </span><span class="lineCov">       1920 :                 case COLD_LRU:</span>
+<span class="lineNum">    1486 </span><span class="lineCov">       1920 :                     lru_name = &quot;cold&quot;;</span>
+<span class="lineNum">    1487 </span><span class="lineCov">       1920 :                     break;</span>
+<span class="lineNum">    1488 </span><span class="lineCov">       1920 :                 case TEMP_LRU:</span>
+<span class="lineNum">    1489 </span><span class="lineCov">       1920 :                     lru_name = &quot;temp&quot;;</span>
+<span class="lineNum">    1490 </span><span class="lineCov">       1920 :                     break;</span>
+<span class="lineNum">    1491 </span>            :             }
+<span class="lineNum">    1492 </span><span class="lineCov">       7650 :             LOGGER_LOG(l, LOG_SYSEVENTS, LOGGER_CRAWLER_STATUS, NULL,</span>
+<span class="lineNum">    1493 </span>            :                     CLEAR_LRU(i),
+<span class="lineNum">    1494 </span>            :                     lru_name,
+<span class="lineNum">    1495 </span>            :                     (unsigned long long)low_watermark,
+<span class="lineNum">    1496 </span>            :                     (unsigned long long)available_reclaims,
+<span class="lineNum">    1497 </span>            :                     (unsigned int)since_run,
+<span class="lineNum">    1498 </span>            :                     next_crawls[i] - current_time,
+<span class="lineNum">    1499 </span>            :                     s-&gt;end_time - s-&gt;start_time,
+<span class="lineNum">    1500 </span>            :                     s-&gt;seen,
+<span class="lineNum">    1501 </span>            :                     s-&gt;reclaimed);
+<span class="lineNum">    1502 </span>            :             // Got our calculation, avoid running until next actual run.
+<span class="lineNum">    1503 </span><span class="lineCov">       7650 :             s-&gt;run_complete = false;</span>
+<span class="lineNum">    1504 </span><span class="lineCov">       7650 :             pthread_mutex_unlock(&amp;cdata-&gt;lock);</span>
+<span class="lineNum">    1505 </span>            :         }
+<span class="lineNum">    1506 </span><span class="lineCov">      45135 :         if (current_time &gt; next_crawls[i]) {</span>
+<span class="lineNum">    1507 </span><span class="lineCov">      22440 :             pthread_mutex_lock(&amp;lru_locks[i]);</span>
+<span class="lineNum">    1508 </span><span class="lineCov">      22440 :             if (sizes[i] &gt; tocrawl_limit) {</span>
+<span class="lineNum">    1509 </span><span class="lineNoCov">          0 :                 tocrawl_limit = sizes[i];</span>
+<span class="lineNum">    1510 </span>            :             }
+<span class="lineNum">    1511 </span><span class="lineCov">      22440 :             pthread_mutex_unlock(&amp;lru_locks[i]);</span>
+<span class="lineNum">    1512 </span><span class="lineCov">      22440 :             todo[i] = 1;</span>
+<span class="lineNum">    1513 </span><span class="lineCov">      22440 :             do_run = true;</span>
+<span class="lineNum">    1514 </span><span class="lineCov">      22440 :             next_crawls[i] = current_time + 5; // minimum retry wait.</span>
+<span class="lineNum">    1515 </span>            :         }
+<span class="lineNum">    1516 </span>            :     }
+<span class="lineNum">    1517 </span><span class="lineCov">        177 :     if (do_run) {</span>
+<span class="lineNum">    1518 </span><span class="lineCov">         88 :         if (settings.lru_crawler_tocrawl &amp;&amp; settings.lru_crawler_tocrawl &lt; tocrawl_limit) {</span>
+<span class="lineNum">    1519 </span><span class="lineNoCov">          0 :             tocrawl_limit = settings.lru_crawler_tocrawl;</span>
+<span class="lineNum">    1520 </span>            :         }
+<span class="lineNum">    1521 </span><span class="lineCov">         88 :         lru_crawler_start(todo, tocrawl_limit, CRAWLER_AUTOEXPIRE, cdata, NULL, 0);</span>
+<span class="lineNum">    1522 </span>            :     }
+<span class="lineNum">    1523 </span><span class="lineCov">        177 : }</span>
+<span class="lineNum">    1524 </span>            : 
+<span class="lineNum">    1525 </span>            : slab_automove_reg_t slab_automove_default = {
+<span class="lineNum">    1526 </span>            :     .init = slab_automove_init,
+<span class="lineNum">    1527 </span>            :     .free = slab_automove_free,
+<span class="lineNum">    1528 </span>            :     .run = slab_automove_run
+<span class="lineNum">    1529 </span>            : };
+<span class="lineNum">    1530 </span>            : #ifdef EXTSTORE
+<span class="lineNum">    1531 </span>            : slab_automove_reg_t slab_automove_extstore = {
+<span class="lineNum">    1532 </span>            :     .init = slab_automove_extstore_init,
+<span class="lineNum">    1533 </span>            :     .free = slab_automove_extstore_free,
+<span class="lineNum">    1534 </span>            :     .run = slab_automove_extstore_run
+<span class="lineNum">    1535 </span>            : };
+<span class="lineNum">    1536 </span>            : #endif
+<span class="lineNum">    1537 </span>            : static pthread_t lru_maintainer_tid;
+<span class="lineNum">    1538 </span>            : 
+<span class="lineNum">    1539 </span>            : #define MAX_LRU_MAINTAINER_SLEEP 1000000
+<a name="1540"><span class="lineNum">    1540 </span>            : #define MIN_LRU_MAINTAINER_SLEEP 1000</a>
+<span class="lineNum">    1541 </span>            : 
+<span class="lineNum">    1542 </span><span class="lineCov">         88 : static void *lru_maintainer_thread(void *arg) {</span>
+<span class="lineNum">    1543 </span><span class="lineCov">         88 :     slab_automove_reg_t *sam = &amp;slab_automove_default;</span>
+<span class="lineNum">    1544 </span>            : #ifdef EXTSTORE
+<span class="lineNum">    1545 </span>            :     void *storage = arg;
+<span class="lineNum">    1546 </span>            :     if (storage != NULL)
+<span class="lineNum">    1547 </span>            :         sam = &amp;slab_automove_extstore;
+<span class="lineNum">    1548 </span>            : #endif
+<span class="lineNum">    1549 </span><span class="lineCov">         88 :     int i;</span>
+<span class="lineNum">    1550 </span><span class="lineCov">         88 :     useconds_t to_sleep = MIN_LRU_MAINTAINER_SLEEP;</span>
+<span class="lineNum">    1551 </span><span class="lineCov">         88 :     useconds_t last_sleep = MIN_LRU_MAINTAINER_SLEEP;</span>
+<span class="lineNum">    1552 </span><span class="lineCov">         88 :     rel_time_t last_crawler_check = 0;</span>
+<span class="lineNum">    1553 </span><span class="lineCov">         88 :     rel_time_t last_automove_check = 0;</span>
+<span class="lineNum">    1554 </span><span class="lineCov">         88 :     useconds_t next_juggles[MAX_NUMBER_OF_SLAB_CLASSES] = {0};</span>
+<span class="lineNum">    1555 </span><span class="lineCov">         88 :     useconds_t backoff_juggles[MAX_NUMBER_OF_SLAB_CLASSES] = {0};</span>
+<span class="lineNum">    1556 </span><span class="lineCov">         88 :     struct crawler_expired_data *cdata =</span>
+<span class="lineNum">    1557 </span><span class="lineCov">         88 :         calloc(1, sizeof(struct crawler_expired_data));</span>
+<span class="lineNum">    1558 </span><span class="lineCov">         88 :     if (cdata == NULL) {</span>
+<span class="lineNum">    1559 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to allocate crawler data for LRU maintainer thread\n&quot;);</span>
+<span class="lineNum">    1560 </span><span class="lineNoCov">          0 :         abort();</span>
+<span class="lineNum">    1561 </span>            :     }
+<span class="lineNum">    1562 </span><span class="lineCov">         88 :     pthread_mutex_init(&amp;cdata-&gt;lock, NULL);</span>
+<span class="lineNum">    1563 </span><span class="lineCov">         88 :     cdata-&gt;crawl_complete = true; // kick off the crawler.</span>
+<span class="lineNum">    1564 </span><span class="lineCov">         88 :     logger *l = logger_create();</span>
+<span class="lineNum">    1565 </span><span class="lineCov">         88 :     if (l == NULL) {</span>
+<span class="lineNum">    1566 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to allocate logger for LRU maintainer thread\n&quot;);</span>
+<span class="lineNum">    1567 </span><span class="lineNoCov">          0 :         abort();</span>
+<span class="lineNum">    1568 </span>            :     }
+<span class="lineNum">    1569 </span>            : 
+<span class="lineNum">    1570 </span><span class="lineCov">         88 :     double last_ratio = settings.slab_automove_ratio;</span>
+<span class="lineNum">    1571 </span><span class="lineCov">         88 :     void *am = sam-&gt;init(&amp;settings);</span>
+<span class="lineNum">    1572 </span>            : 
+<span class="lineNum">    1573 </span><span class="lineCov">         88 :     pthread_mutex_lock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1574 </span><span class="lineCov">         88 :     if (settings.verbose &gt; 2)</span>
+<span class="lineNum">    1575 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Starting LRU maintainer background thread\n&quot;);</span>
+<span class="lineNum">    1576 </span><span class="lineCov">       5757 :     while (do_run_lru_maintainer_thread) {</span>
+<span class="lineNum">    1577 </span><span class="lineCov">       5757 :         pthread_mutex_unlock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1578 </span><span class="lineCov">       5757 :         if (to_sleep)</span>
+<span class="lineNum">    1579 </span><span class="lineCov">       5442 :             usleep(to_sleep);</span>
+<span class="lineNum">    1580 </span><span class="lineCov">       5669 :         pthread_mutex_lock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1581 </span>            :         /* A sleep of zero counts as a minimum of a 1ms wait */
+<span class="lineNum">    1582 </span><span class="lineCov">       5669 :         last_sleep = to_sleep &gt; 1000 ? to_sleep : 1000;</span>
+<span class="lineNum">    1583 </span><span class="lineCov">       5669 :         to_sleep = MAX_LRU_MAINTAINER_SLEEP;</span>
+<span class="lineNum">    1584 </span>            : 
+<span class="lineNum">    1585 </span><span class="lineCov">       5669 :         STATS_LOCK();</span>
+<span class="lineNum">    1586 </span><span class="lineCov">       5669 :         stats.lru_maintainer_juggles++;</span>
+<span class="lineNum">    1587 </span><span class="lineCov">       5669 :         STATS_UNLOCK();</span>
+<span class="lineNum">    1588 </span>            : 
+<span class="lineNum">    1589 </span>            :         /* Each slab class gets its own sleep to avoid hammering locks */
+<span class="lineNum">    1590 </span><span class="lineCov">     362816 :         for (i = POWER_SMALLEST; i &lt; MAX_NUMBER_OF_SLAB_CLASSES; i++) {</span>
+<span class="lineNum">    1591 </span><span class="lineCov">     357147 :             next_juggles[i] = next_juggles[i] &gt; last_sleep ? next_juggles[i] - last_sleep : 0;</span>
+<span class="lineNum">    1592 </span>            : 
+<span class="lineNum">    1593 </span><span class="lineCov">     357147 :             if (next_juggles[i] &gt; 0) {</span>
+<span class="lineNum">    1594 </span>            :                 // Sleep the thread just for the minimum amount (or not at all)
+<span class="lineNum">    1595 </span><span class="lineCov">     132825 :                 if (next_juggles[i] &lt; to_sleep)</span>
+<span class="lineNum">    1596 </span><span class="lineCov">       2719 :                     to_sleep = next_juggles[i];</span>
+<span class="lineNum">    1597 </span><span class="lineCov">     132825 :                 continue;</span>
+<span class="lineNum">    1598 </span>            :             }
+<span class="lineNum">    1599 </span>            : 
+<span class="lineNum">    1600 </span><span class="lineCov">     224322 :             int did_moves = lru_maintainer_juggle(i);</span>
+<span class="lineNum">    1601 </span><span class="lineCov">     224322 :             if (did_moves == 0) {</span>
+<span class="lineNum">    1602 </span><span class="lineCov">     223745 :                 if (backoff_juggles[i] != 0) {</span>
+<span class="lineNum">    1603 </span><span class="lineCov">     217887 :                     backoff_juggles[i] += backoff_juggles[i] / 8;</span>
+<span class="lineNum">    1604 </span>            :                 } else {
+<span class="lineNum">    1605 </span><span class="lineCov">       5858 :                     backoff_juggles[i] = MIN_LRU_MAINTAINER_SLEEP;</span>
+<span class="lineNum">    1606 </span>            :                 }
+<span class="lineNum">    1607 </span><span class="lineCov">     223745 :                 if (backoff_juggles[i] &gt; MAX_LRU_MAINTAINER_SLEEP)</span>
+<span class="lineNum">    1608 </span><span class="lineCov">        246 :                     backoff_juggles[i] = MAX_LRU_MAINTAINER_SLEEP;</span>
+<span class="lineNum">    1609 </span><span class="lineCov">        577 :             } else if (backoff_juggles[i] &gt; 0) {</span>
+<span class="lineNum">    1610 </span><span class="lineCov">        576 :                 backoff_juggles[i] /= 2;</span>
+<span class="lineNum">    1611 </span><span class="lineCov">        576 :                 if (backoff_juggles[i] &lt; MIN_LRU_MAINTAINER_SLEEP) {</span>
+<span class="lineNum">    1612 </span><span class="lineCov">        314 :                     backoff_juggles[i] = 0;</span>
+<span class="lineNum">    1613 </span>            :                 }
+<span class="lineNum">    1614 </span>            :             }
+<span class="lineNum">    1615 </span><span class="lineCov">     224322 :             next_juggles[i] = backoff_juggles[i];</span>
+<span class="lineNum">    1616 </span><span class="lineCov">     224322 :             if (next_juggles[i] &lt; to_sleep)</span>
+<span class="lineNum">    1617 </span><span class="lineCov">       5302 :                 to_sleep = next_juggles[i];</span>
+<span class="lineNum">    1618 </span>            :         }
+<span class="lineNum">    1619 </span>            : 
+<span class="lineNum">    1620 </span>            :         /* Minimize the sleep if we had async LRU bumps to process */
+<span class="lineNum">    1621 </span><span class="lineCov">       5669 :         if (settings.lru_segmented &amp;&amp; lru_maintainer_bumps() &amp;&amp; to_sleep &gt; 1000) {</span>
+<span class="lineNum">    1622 </span><span class="lineCov">          1 :             to_sleep = 1000;</span>
+<span class="lineNum">    1623 </span>            :         }
+<span class="lineNum">    1624 </span>            : 
+<span class="lineNum">    1625 </span>            :         /* Once per second at most */
+<span class="lineNum">    1626 </span><span class="lineCov">       5669 :         if (settings.lru_crawler &amp;&amp; last_crawler_check != current_time) {</span>
+<span class="lineNum">    1627 </span><span class="lineCov">        177 :             lru_maintainer_crawler_check(cdata, l);</span>
+<span class="lineNum">    1628 </span><span class="lineCov">        177 :             last_crawler_check = current_time;</span>
+<span class="lineNum">    1629 </span>            :         }
+<span class="lineNum">    1630 </span>            : 
+<span class="lineNum">    1631 </span><span class="lineCov">       5669 :         if (settings.slab_automove == 1 &amp;&amp; last_automove_check != current_time) {</span>
+<span class="lineNum">    1632 </span><span class="lineCov">        268 :             if (last_ratio != settings.slab_automove_ratio) {</span>
+<span class="lineNum">    1633 </span><span class="lineNoCov">          0 :                 sam-&gt;free(am);</span>
+<span class="lineNum">    1634 </span><span class="lineNoCov">          0 :                 am = sam-&gt;init(&amp;settings);</span>
+<span class="lineNum">    1635 </span><span class="lineNoCov">          0 :                 last_ratio = settings.slab_automove_ratio;</span>
+<span class="lineNum">    1636 </span>            :             }
+<span class="lineNum">    1637 </span><span class="lineCov">        268 :             int src, dst;</span>
+<span class="lineNum">    1638 </span><span class="lineCov">        268 :             sam-&gt;run(am, &amp;src, &amp;dst);</span>
+<span class="lineNum">    1639 </span><span class="lineCov">        268 :             if (src != -1 &amp;&amp; dst != -1) {</span>
+<span class="lineNum">    1640 </span><span class="lineCov">         91 :                 slabs_reassign(src, dst);</span>
+<span class="lineNum">    1641 </span><span class="lineCov">         91 :                 LOGGER_LOG(l, LOG_SYSEVENTS, LOGGER_SLAB_MOVE, NULL,</span>
+<span class="lineNum">    1642 </span>            :                         src, dst);
+<span class="lineNum">    1643 </span>            :             }
+<span class="lineNum">    1644 </span>            :             // dst == 0 means reclaim to global pool, be more aggressive
+<span class="lineNum">    1645 </span><span class="lineCov">        268 :             if (dst != 0) {</span>
+<span class="lineNum">    1646 </span><span class="lineCov">        177 :                 last_automove_check = current_time;</span>
+<span class="lineNum">    1647 </span>            :             } else if (dst == 0) {
+<span class="lineNum">    1648 </span>            :                 // also ensure we minimize the thread sleep
+<span class="lineNum">    1649 </span>            :                 to_sleep = 1000;
+<span class="lineNum">    1650 </span>            :             }
+<span class="lineNum">    1651 </span>            :         }
+<span class="lineNum">    1652 </span>            :     }
+<span class="lineNum">    1653 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1654 </span><span class="lineNoCov">          0 :     sam-&gt;free(am);</span>
+<span class="lineNum">    1655 </span>            :     // LRU crawler *must* be stopped.
+<span class="lineNum">    1656 </span><span class="lineNoCov">          0 :     free(cdata);</span>
+<span class="lineNum">    1657 </span><span class="lineNoCov">          0 :     if (settings.verbose &gt; 2)</span>
+<span class="lineNum">    1658 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;LRU maintainer thread stopping\n&quot;);</span>
+<span class="lineNum">    1659 </span>            : 
+<span class="lineNum">    1660 </span><span class="lineNoCov">          0 :     return NULL;</span>
+<a name="1661"><span class="lineNum">    1661 </span>            : }</a>
+<span class="lineNum">    1662 </span>            : 
+<span class="lineNum">    1663 </span><span class="lineNoCov">          0 : int stop_lru_maintainer_thread(void) {</span>
+<span class="lineNum">    1664 </span><span class="lineNoCov">          0 :     int ret;</span>
+<span class="lineNum">    1665 </span><span class="lineNoCov">          0 :     pthread_mutex_lock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1666 </span>            :     /* LRU thread is a sleep loop, will die on its own */
+<span class="lineNum">    1667 </span><span class="lineNoCov">          0 :     do_run_lru_maintainer_thread = 0;</span>
+<span class="lineNum">    1668 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1669 </span><span class="lineNoCov">          0 :     if ((ret = pthread_join(lru_maintainer_tid, NULL)) != 0) {</span>
+<span class="lineNum">    1670 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to stop LRU maintainer thread: %s\n&quot;, strerror(ret));</span>
+<span class="lineNum">    1671 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">    1672 </span>            :     }
+<span class="lineNum">    1673 </span><span class="lineNoCov">          0 :     settings.lru_maintainer_thread = false;</span>
+<span class="lineNum">    1674 </span><span class="lineNoCov">          0 :     return 0;</span>
+<a name="1675"><span class="lineNum">    1675 </span>            : }</a>
+<span class="lineNum">    1676 </span>            : 
+<span class="lineNum">    1677 </span><span class="lineCov">         88 : int start_lru_maintainer_thread(void *arg) {</span>
+<span class="lineNum">    1678 </span><span class="lineCov">         88 :     int ret;</span>
+<span class="lineNum">    1679 </span>            : 
+<span class="lineNum">    1680 </span><span class="lineCov">         88 :     pthread_mutex_lock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1681 </span><span class="lineCov">         88 :     do_run_lru_maintainer_thread = 1;</span>
+<span class="lineNum">    1682 </span><span class="lineCov">         88 :     settings.lru_maintainer_thread = true;</span>
+<span class="lineNum">    1683 </span><span class="lineCov">         88 :     if ((ret = pthread_create(&amp;lru_maintainer_tid, NULL,</span>
+<span class="lineNum">    1684 </span>            :         lru_maintainer_thread, arg)) != 0) {
+<span class="lineNum">    1685 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Can't create LRU maintainer thread: %s\n&quot;,</span>
+<span class="lineNum">    1686 </span>            :             strerror(ret));
+<span class="lineNum">    1687 </span><span class="lineNoCov">          0 :         pthread_mutex_unlock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1688 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">    1689 </span>            :     }
+<span class="lineNum">    1690 </span><span class="lineCov">         88 :     pthread_mutex_unlock(&amp;lru_maintainer_lock);</span>
+<span class="lineNum">    1691 </span>            : 
+<span class="lineNum">    1692 </span><span class="lineCov">         88 :     return 0;</span>
+<span class="lineNum">    1693 </span>            : }
+<a name="1694"><span class="lineNum">    1694 </span>            : </a>
+<span class="lineNum">    1695 </span>            : /* If we hold this lock, crawler can't wake up or move */
+<span class="lineNum">    1696 </span><span class="lineNoCov">          0 : void lru_maintainer_pause(void) {</span>
+<span class="lineNum">    1697 </span><span class="lineNoCov">          0 :     pthread_mutex_lock(&amp;lru_maintainer_lock);</span>
+<a name="1698"><span class="lineNum">    1698 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">    1699 </span>            : 
+<span class="lineNum">    1700 </span><span class="lineNoCov">          0 : void lru_maintainer_resume(void) {</span>
+<span class="lineNum">    1701 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;lru_maintainer_lock);</span>
+<a name="1702"><span class="lineNum">    1702 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">    1703 </span>            : 
+<span class="lineNum">    1704 </span><span class="lineCov">        120 : int init_lru_maintainer(void) {</span>
+<span class="lineNum">    1705 </span><span class="lineCov">        120 :     if (lru_maintainer_initialized == 0) {</span>
+<span class="lineNum">    1706 </span><span class="lineCov">        120 :         pthread_mutex_init(&amp;lru_maintainer_lock, NULL);</span>
+<span class="lineNum">    1707 </span><span class="lineCov">        120 :         lru_maintainer_initialized = 1;</span>
+<span class="lineNum">    1708 </span>            :     }
+<span class="lineNum">    1709 </span><span class="lineCov">        120 :     return 0;</span>
+<span class="lineNum">    1710 </span>            : }
+<a name="1711"><span class="lineNum">    1711 </span>            : </a>
+<span class="lineNum">    1712 </span>            : /* Tail linkers and crawler for the LRU crawler. */
+<span class="lineNum">    1713 </span><span class="lineCov">      22703 : void do_item_linktail_q(item *it) { /* item is the new tail */</span>
+<span class="lineNum">    1714 </span><span class="lineCov">      22703 :     item **head, **tail;</span>
+<span class="lineNum">    1715 </span><span class="lineCov">      22703 :     assert(it-&gt;it_flags == 1);</span>
+<span class="lineNum">    1716 </span><span class="lineCov">      22703 :     assert(it-&gt;nbytes == 0);</span>
+<span class="lineNum">    1717 </span>            : 
+<span class="lineNum">    1718 </span><span class="lineCov">      22703 :     head = &amp;heads[it-&gt;slabs_clsid];</span>
+<span class="lineNum">    1719 </span><span class="lineCov">      22703 :     tail = &amp;tails[it-&gt;slabs_clsid];</span>
+<span class="lineNum">    1720 </span>            :     //assert(*tail != 0);
+<span class="lineNum">    1721 </span><span class="lineCov">      22703 :     assert(it != *tail);</span>
+<span class="lineNum">    1722 </span><span class="lineCov">      22703 :     assert((*head &amp;&amp; *tail) || (*head == 0 &amp;&amp; *tail == 0));</span>
+<span class="lineNum">    1723 </span><span class="lineCov">      22703 :     it-&gt;prev = *tail;</span>
+<span class="lineNum">    1724 </span><span class="lineCov">      22703 :     it-&gt;next = 0;</span>
+<span class="lineNum">    1725 </span><span class="lineCov">      22703 :     if (it-&gt;prev) {</span>
+<span class="lineNum">    1726 </span><span class="lineCov">          3 :         assert(it-&gt;prev-&gt;next == 0);</span>
+<span class="lineNum">    1727 </span><span class="lineCov">          3 :         it-&gt;prev-&gt;next = it;</span>
+<span class="lineNum">    1728 </span>            :     }
+<span class="lineNum">    1729 </span><span class="lineCov">      22703 :     *tail = it;</span>
+<span class="lineNum">    1730 </span><span class="lineCov">      22703 :     if (*head == 0) *head = it;</span>
+<span class="lineNum">    1731 </span><span class="lineCov">      22703 :     return;</span>
+<a name="1732"><span class="lineNum">    1732 </span>            : }</a>
+<span class="lineNum">    1733 </span>            : 
+<span class="lineNum">    1734 </span><span class="lineCov">      22703 : void do_item_unlinktail_q(item *it) {</span>
+<span class="lineNum">    1735 </span><span class="lineCov">      22703 :     item **head, **tail;</span>
+<span class="lineNum">    1736 </span><span class="lineCov">      22703 :     head = &amp;heads[it-&gt;slabs_clsid];</span>
+<span class="lineNum">    1737 </span><span class="lineCov">      22703 :     tail = &amp;tails[it-&gt;slabs_clsid];</span>
+<span class="lineNum">    1738 </span>            : 
+<span class="lineNum">    1739 </span><span class="lineCov">      22703 :     if (*head == it) {</span>
+<span class="lineNum">    1740 </span><span class="lineCov">      22701 :         assert(it-&gt;prev == 0);</span>
+<span class="lineNum">    1741 </span><span class="lineCov">      22701 :         *head = it-&gt;next;</span>
+<span class="lineNum">    1742 </span>            :     }
+<span class="lineNum">    1743 </span><span class="lineCov">      22703 :     if (*tail == it) {</span>
+<span class="lineNum">    1744 </span><span class="lineCov">      22701 :         assert(it-&gt;next == 0);</span>
+<span class="lineNum">    1745 </span><span class="lineCov">      22701 :         *tail = it-&gt;prev;</span>
+<span class="lineNum">    1746 </span>            :     }
+<span class="lineNum">    1747 </span><span class="lineCov">      22703 :     assert(it-&gt;next != it);</span>
+<span class="lineNum">    1748 </span><span class="lineCov">      22703 :     assert(it-&gt;prev != it);</span>
+<span class="lineNum">    1749 </span>            : 
+<span class="lineNum">    1750 </span><span class="lineCov">      22703 :     if (it-&gt;next) it-&gt;next-&gt;prev = it-&gt;prev;</span>
+<span class="lineNum">    1751 </span><span class="lineCov">      22703 :     if (it-&gt;prev) it-&gt;prev-&gt;next = it-&gt;next;</span>
+<span class="lineNum">    1752 </span><span class="lineCov">      22703 :     return;</span>
+<span class="lineNum">    1753 </span>            : }
+<span class="lineNum">    1754 </span>            : 
+<a name="1755"><span class="lineNum">    1755 </span>            : /* This is too convoluted, but it's a difficult shuffle. Try to rewrite it</a>
+<span class="lineNum">    1756 </span>            :  * more clearly. */
+<span class="lineNum">    1757 </span><span class="lineCov">      22883 : item *do_item_crawl_q(item *it) {</span>
+<span class="lineNum">    1758 </span><span class="lineCov">      22883 :     item **head, **tail;</span>
+<span class="lineNum">    1759 </span><span class="lineCov">      22883 :     assert(it-&gt;it_flags == 1);</span>
+<span class="lineNum">    1760 </span><span class="lineCov">      22883 :     assert(it-&gt;nbytes == 0);</span>
+<span class="lineNum">    1761 </span><span class="lineCov">      22883 :     head = &amp;heads[it-&gt;slabs_clsid];</span>
+<span class="lineNum">    1762 </span><span class="lineCov">      22883 :     tail = &amp;tails[it-&gt;slabs_clsid];</span>
+<span class="lineNum">    1763 </span>            : 
+<span class="lineNum">    1764 </span>            :     /* We've hit the head, pop off */
+<span class="lineNum">    1765 </span><span class="lineCov">      22883 :     if (it-&gt;prev == 0) {</span>
+<span class="lineNum">    1766 </span><span class="lineCov">      22703 :         assert(*head == it);</span>
+<span class="lineNum">    1767 </span><span class="lineCov">      22703 :         if (it-&gt;next) {</span>
+<span class="lineNum">    1768 </span><span class="lineCov">          2 :             *head = it-&gt;next;</span>
+<span class="lineNum">    1769 </span><span class="lineCov">          2 :             assert(it-&gt;next-&gt;prev == it);</span>
+<span class="lineNum">    1770 </span><span class="lineCov">          2 :             it-&gt;next-&gt;prev = 0;</span>
+<span class="lineNum">    1771 </span>            :         }
+<span class="lineNum">    1772 </span><span class="lineCov">      22703 :         return NULL; /* Done */</span>
+<span class="lineNum">    1773 </span>            :     }
+<span class="lineNum">    1774 </span>            : 
+<span class="lineNum">    1775 </span>            :     /* Swing ourselves in front of the next item */
+<span class="lineNum">    1776 </span>            :     /* NB: If there is a prev, we can't be the head */
+<span class="lineNum">    1777 </span><span class="lineCov">        180 :     assert(it-&gt;prev != it);</span>
+<span class="lineNum">    1778 </span><span class="lineCov">        180 :     if (it-&gt;prev) {</span>
+<span class="lineNum">    1779 </span><span class="lineCov">        180 :         if (*head == it-&gt;prev) {</span>
+<span class="lineNum">    1780 </span>            :             /* Prev was the head, now we're the head */
+<span class="lineNum">    1781 </span><span class="lineCov">          3 :             *head = it;</span>
+<span class="lineNum">    1782 </span>            :         }
+<span class="lineNum">    1783 </span><span class="lineCov">        180 :         if (*tail == it) {</span>
+<span class="lineNum">    1784 </span>            :             /* We are the tail, now they are the tail */
+<span class="lineNum">    1785 </span><span class="lineCov">         32 :             *tail = it-&gt;prev;</span>
+<span class="lineNum">    1786 </span>            :         }
+<span class="lineNum">    1787 </span><span class="lineCov">        180 :         assert(it-&gt;next != it);</span>
+<span class="lineNum">    1788 </span><span class="lineCov">        180 :         if (it-&gt;next) {</span>
+<span class="lineNum">    1789 </span><span class="lineCov">        148 :             assert(it-&gt;prev-&gt;next == it);</span>
+<span class="lineNum">    1790 </span><span class="lineCov">        148 :             it-&gt;prev-&gt;next = it-&gt;next;</span>
+<span class="lineNum">    1791 </span><span class="lineCov">        148 :             it-&gt;next-&gt;prev = it-&gt;prev;</span>
+<span class="lineNum">    1792 </span>            :         } else {
+<span class="lineNum">    1793 </span>            :             /* Tail. Move this above? */
+<span class="lineNum">    1794 </span><span class="lineCov">         32 :             it-&gt;prev-&gt;next = 0;</span>
+<span class="lineNum">    1795 </span>            :         }
+<span class="lineNum">    1796 </span>            :         /* prev-&gt;prev's next is it-&gt;prev */
+<span class="lineNum">    1797 </span><span class="lineCov">        180 :         it-&gt;next = it-&gt;prev;</span>
+<span class="lineNum">    1798 </span><span class="lineCov">        180 :         it-&gt;prev = it-&gt;next-&gt;prev;</span>
+<span class="lineNum">    1799 </span><span class="lineCov">        180 :         it-&gt;next-&gt;prev = it;</span>
+<span class="lineNum">    1800 </span>            :         /* New it-&gt;prev now, if we're not at the head. */
+<span class="lineNum">    1801 </span><span class="lineCov">        180 :         if (it-&gt;prev) {</span>
+<span class="lineNum">    1802 </span><span class="lineCov">        177 :             it-&gt;prev-&gt;next = it;</span>
+<span class="lineNum">    1803 </span>            :         }
+<span class="lineNum">    1804 </span>            :     }
+<span class="lineNum">    1805 </span><span class="lineCov">        180 :     assert(it-&gt;next != it);</span>
+<span class="lineNum">    1806 </span><span class="lineCov">        180 :     assert(it-&gt;prev != it);</span>
+<span class="lineNum">    1807 </span>            : 
+<span class="lineNum">    1808 </span>            :     return it-&gt;next; /* success */
+<span class="lineNum">    1809 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

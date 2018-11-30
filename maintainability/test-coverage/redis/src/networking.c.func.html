@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/networking.c - functions</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - networking.c<span style="font-size: 80%;"> (<a href="networking.c.gcov.html">source</a> / functions)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">908</td>
+            <td class="headerCovTableEntry">1109</td>
+            <td class="headerCovTableEntryMed">81.9 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntry">79</td>
+            <td class="headerCovTableEntryMed">87.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <center>
+  <table width="60%" cellpadding=1 cellspacing=1 border=0>
+    <tr><td><br></td></tr>
+    <tr>
+      <td width="80%" class="tableHead">Function Name <span class="tableHeadSort"><img src="../glass.png" width=10 height=14 alt="Sort by function name" title="Sort by function name" border=0></span></td>
+      <td width="20%" class="tableHead">Hit count <span class="tableHeadSort"><a href="networking.c.func-sort-c.html"><img src="../updown.png" width=10 height=14 alt="Sort by hit count" title="Sort by hit count" border=0></a></span></td>
+    </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#253">_addReplyStringToList</a></td>
+              <td class="coverFnHi">104918312</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#236">_addReplyToBuffer</a></td>
+              <td class="coverFnHi">236133681</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#654">acceptCommonHandler</a></td>
+              <td class="coverFnHi">2766</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#724">acceptTcpHandler</a></td>
+              <td class="coverFnHi">2757</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#744">acceptUnixHandler</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#423">addDeferredMultiBulkLength</a></td>
+              <td class="coverFnHi">6222</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#295">addReply</a></td>
+              <td class="coverFnHi">243457839</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#565">addReplyBulk</a></td>
+              <td class="coverFnHi">46694694</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#572">addReplyBulkCBuffer</a></td>
+              <td class="coverFnHi">5962545</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#586">addReplyBulkCString</a></td>
+              <td class="coverFnHi">47647</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#539">addReplyBulkLen</a></td>
+              <td class="coverFnHi">46694694</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#595">addReplyBulkLongLong</a></td>
+              <td class="coverFnHi">2762429</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#579">addReplyBulkSds</a></td>
+              <td class="coverFnHi">961193</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#475">addReplyDouble</a></td>
+              <td class="coverFnHi">141914</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#382">addReplyError</a></td>
+              <td class="coverFnHi">90298</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#386">addReplyErrorFormat</a></td>
+              <td class="coverFnHi">107</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#349">addReplyErrorLength</a></td>
+              <td class="coverFnHi">90437</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#607">addReplyHelp</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#492">addReplyHumanLongDouble</a></td>
+              <td class="coverFnHi">28</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#522">addReplyLongLong</a></td>
+              <td class="coverFnHi">10369079</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#500">addReplyLongLongWithPrefix</a></td>
+              <td class="coverFnHi">12789246</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#531">addReplyMultiBulkLen</a></td>
+              <td class="coverFnHi">17971195</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#316">addReplySds</a></td>
+              <td class="coverFnHi">961383</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#408">addReplyStatus</a></td>
+              <td class="coverFnHi">5370139</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#412">addReplyStatusFormat</a></td>
+              <td class="coverFnHi">10164</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#402">addReplyStatusLength</a></td>
+              <td class="coverFnHi">5380303</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#335">addReplyString</a></td>
+              <td class="coverFnHi">29961643</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#626">addReplySubcommandSyntaxError</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2109">asyncCloseClientOnOutputBufferLimitReached</a></td>
+              <td class="coverFnHi">104924468</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1626">catClientInfoString</a></td>
+              <td class="coverFnHi">1675407</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2064">checkClientOutputBufferLimits</a></td>
+              <td class="coverFnHi">104885936</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1693">clientCommand</a></td>
+              <td class="coverFnHi">837760</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#649">clientHasPendingReplies</a></td>
+              <td class="coverFnHi">637</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#168">clientInstallWriteHandler</a></td>
+              <td class="coverFnHi">25402795</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2176">clientsArePaused</a></td>
+              <td class="coverFnHi">75419155</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#638">copyClientOutputBuffer</a></td>
+              <td class="coverFnHi">6</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#83">createClient</a></td>
+              <td class="coverFnHi">4363</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#774">disconnectSlaves</a></td>
+              <td class="coverFnHi">358</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#56">dupClientReplyValue</a></td>
+              <td class="coverFnHi">252</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2126">flushSlavesOutputBuffers</a></td>
+              <td class="coverFnHi">411</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#827">freeClient</a></td>
+              <td class="coverFnHi">1736</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#763">freeClientArgv</a></td>
+              <td class="coverFnHi">55432301</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#931">freeClientAsync</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#63">freeClientReplyValue</a></td>
+              <td class="coverFnHi">46658</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#937">freeClientsInAsyncFreeQueue</a></td>
+              <td class="coverFnHi">42507</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1599">genClientPeerId</a></td>
+              <td class="coverFnHi">616</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1677">getAllClientsInfoString</a></td>
+              <td class="coverFnHi">837599</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2017">getClientOutputBufferMemoryUsage</a></td>
+              <td class="coverFnHi">277410</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1614">getClientPeerId</a></td>
+              <td class="coverFnHi">1680208</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2031">getClientType</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2039">getClientTypeByName</a></td>
+              <td class="coverFnHi">115</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2048">getClientTypeName</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1570">getClientsMaxBuffers</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#46">getStringObjectSdsUsedMemory</a></td>
+              <td class="coverFnHi">420273</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1062">handleClientsWithPendingWrites</a></td>
+              <td class="coverFnHi">22808544</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#73">linkClient</a></td>
+              <td class="coverFnHi">3034</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#67">listMatchObjects</a></td>
+              <td class="coverFnHi">48</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#951">lookupClientByID</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2168">pauseClients</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#209">prepareClientToWrite</a></td>
+              <td class="coverFnHi">274387087</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#2213">processEventsWhileBlocked</a></td>
+              <td class="coverFnHi">96236</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1163">processInlineBuffer</a></td>
+              <td class="coverFnHi">635085</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1404">processInputBuffer</a></td>
+              <td class="coverFnHi">24400235</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1483">processInputBufferAndReplicate</a></td>
+              <td class="coverFnHi">24400235</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1265">processMultibulkBuffer</a></td>
+              <td class="coverFnHi">55000058</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1141">protectClient</a></td>
+              <td class="coverFnHi">502</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1498">readQueryFromClient</a></td>
+              <td class="coverFnHi">24401504</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1964">replaceClientCommandVector</a></td>
+              <td class="coverFnHi">122</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1105">resetClient</a></td>
+              <td class="coverFnHi">55430626</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1984">rewriteClientCommandArgument</a></td>
+              <td class="coverFnHi">64356</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1936">rewriteClientCommandVector</a></td>
+              <td class="coverFnHi">27080</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#39">sdsZmallocSize</a></td>
+              <td class="coverFnHi">420273</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1922">securityWarningCommand</a></td>
+              <td class="coverFnLo">0</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1052">sendReplyToClient</a></td>
+              <td class="coverFnHi">909</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#433">setDeferredMultiBulkLength</a></td>
+              <td class="coverFnHi">6222</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1227">setProtocolError</a></td>
+              <td class="coverFnHi">30</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#784">unlinkClient</a></td>
+              <td class="coverFnHi">1872</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#1148">unprotectClient</a></td>
+              <td class="coverFnHi">500</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="networking.c.gcov.html#959">writeToClient</a></td>
+              <td class="coverFnHi">25403484</td>
+            </tr>
+  </table>
+  <br>
+  </center>
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

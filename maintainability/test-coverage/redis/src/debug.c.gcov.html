@@ -1,0 +1,1501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/debug.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - debug.c<span style="font-size: 80%;"> (source / <a href="debug.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">310</td>
+            <td class="headerCovTableEntry">707</td>
+            <td class="headerCovTableEntryLo">43.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">28</td>
+            <td class="headerCovTableEntryLo">32.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : #include &quot;sha1.h&quot;   /* SHA1 is used for DEBUG DIGEST */
+<span class="lineNum">      32 </span>            : #include &quot;crc64.h&quot;
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : #include &lt;arpa/inet.h&gt;
+<span class="lineNum">      35 </span>            : #include &lt;signal.h&gt;
+<span class="lineNum">      36 </span>            : #include &lt;dlfcn.h&gt;
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : #ifdef HAVE_BACKTRACE
+<span class="lineNum">      39 </span>            : #include &lt;execinfo.h&gt;
+<span class="lineNum">      40 </span>            : #ifndef __OpenBSD__
+<span class="lineNum">      41 </span>            : #include &lt;ucontext.h&gt;
+<span class="lineNum">      42 </span>            : #else
+<span class="lineNum">      43 </span>            : typedef ucontext_t sigcontext_t;
+<span class="lineNum">      44 </span>            : #endif
+<span class="lineNum">      45 </span>            : #include &lt;fcntl.h&gt;
+<span class="lineNum">      46 </span>            : #include &quot;bio.h&quot;
+<span class="lineNum">      47 </span>            : #include &lt;unistd.h&gt;
+<span class="lineNum">      48 </span>            : #endif /* HAVE_BACKTRACE */
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : #ifdef __CYGWIN__
+<span class="lineNum">      51 </span>            : #ifndef SA_ONSTACK
+<span class="lineNum">      52 </span>            : #define SA_ONSTACK 0x08000000
+<span class="lineNum">      53 </span>            : #endif
+<span class="lineNum">      54 </span>            : #endif
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : /* ================================= Debugging ============================== */
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : /* Compute the sha1 of string at 's' with 'len' bytes long.
+<span class="lineNum">      59 </span>            :  * The SHA1 is then xored against the string pointed by digest.
+<span class="lineNum">      60 </span>            :  * Since xor is commutative, this operation is used in order to
+<span class="lineNum">      61 </span>            :  * &quot;add&quot; digests relative to unordered elements.
+<a name="62"><span class="lineNum">      62 </span>            :  *</a>
+<span class="lineNum">      63 </span>            :  * So digest(a,b,c,d) will be the same of digest(b,a,c,d) */
+<span class="lineNum">      64 </span><span class="lineCov">  188321200 : void xorDigest(unsigned char *digest, void *ptr, size_t len) {</span>
+<span class="lineNum">      65 </span><span class="lineCov">  188321200 :     SHA1_CTX ctx;</span>
+<span class="lineNum">      66 </span><span class="lineCov">  188321200 :     unsigned char hash[20], *s = ptr;</span>
+<span class="lineNum">      67 </span><span class="lineCov">  188321200 :     int j;</span>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span><span class="lineCov">  188321200 :     SHA1Init(&amp;ctx);</span>
+<span class="lineNum">      70 </span><span class="lineCov">  188321200 :     SHA1Update(&amp;ctx,s,len);</span>
+<span class="lineNum">      71 </span><span class="lineCov">  188321200 :     SHA1Final(hash,&amp;ctx);</span>
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span><span class="lineCov"> 3954745200 :     for (j = 0; j &lt; 20; j++)</span>
+<span class="lineNum">      74 </span><span class="lineCov"> 3766424000 :         digest[j] ^= hash[j];</span>
+<a name="75"><span class="lineNum">      75 </span><span class="lineCov">  188321200 : }</span></a>
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 : void xorObjectDigest(unsigned char *digest, robj *o) {</span>
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 :     o = getDecodedObject(o);</span>
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 :     xorDigest(digest,o-&gt;ptr,sdslen(o-&gt;ptr));</span>
+<span class="lineNum">      80 </span><span class="lineNoCov">          0 :     decrRefCount(o);</span>
+<span class="lineNum">      81 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      82 </span>            : 
+<span class="lineNum">      83 </span>            : /* This function instead of just computing the SHA1 and xoring it
+<span class="lineNum">      84 </span>            :  * against digest, also perform the digest of &quot;digest&quot; itself and
+<span class="lineNum">      85 </span>            :  * replace the old value with the new one.
+<span class="lineNum">      86 </span>            :  *
+<span class="lineNum">      87 </span>            :  * So the final digest will be:
+<span class="lineNum">      88 </span>            :  *
+<span class="lineNum">      89 </span>            :  * digest = SHA1(digest xor SHA1(data))
+<span class="lineNum">      90 </span>            :  *
+<span class="lineNum">      91 </span>            :  * This function is used every time we want to preserve the order so
+<span class="lineNum">      92 </span>            :  * that digest(a,b,c,d) will be different than digest(b,c,d,a)
+<span class="lineNum">      93 </span>            :  *
+<span class="lineNum">      94 </span>            :  * Also note that mixdigest(&quot;foo&quot;) followed by mixdigest(&quot;bar&quot;)
+<a name="95"><span class="lineNum">      95 </span>            :  * will lead to a different digest compared to &quot;fo&quot;, &quot;obar&quot;.</a>
+<span class="lineNum">      96 </span>            :  */
+<span class="lineNum">      97 </span><span class="lineCov">  139084662 : void mixDigest(unsigned char *digest, void *ptr, size_t len) {</span>
+<span class="lineNum">      98 </span><span class="lineCov">  139084662 :     SHA1_CTX ctx;</span>
+<span class="lineNum">      99 </span><span class="lineCov">  139084662 :     char *s = ptr;</span>
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span><span class="lineCov">  139084662 :     xorDigest(digest,s,len);</span>
+<span class="lineNum">     102 </span><span class="lineCov">  139084662 :     SHA1Init(&amp;ctx);</span>
+<span class="lineNum">     103 </span><span class="lineCov">  139084662 :     SHA1Update(&amp;ctx,digest,20);</span>
+<span class="lineNum">     104 </span><span class="lineCov">  139084662 :     SHA1Final(digest,&amp;ctx);</span>
+<a name="105"><span class="lineNum">     105 </span><span class="lineCov">  139084662 : }</span></a>
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span><span class="lineCov">   43525603 : void mixObjectDigest(unsigned char *digest, robj *o) {</span>
+<span class="lineNum">     108 </span><span class="lineCov">   43525603 :     o = getDecodedObject(o);</span>
+<span class="lineNum">     109 </span><span class="lineCov">   87051206 :     mixDigest(digest,o-&gt;ptr,sdslen(o-&gt;ptr));</span>
+<span class="lineNum">     110 </span><span class="lineCov">   43525603 :     decrRefCount(o);</span>
+<span class="lineNum">     111 </span><span class="lineCov">   43525603 : }</span>
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            : /* Compute the dataset digest. Since keys, sets elements, hashes elements
+<span class="lineNum">     114 </span>            :  * are not ordered, we use a trick: every aggregate digest is the xor
+<span class="lineNum">     115 </span>            :  * of the digests of their elements. This way the order will not change
+<span class="lineNum">     116 </span>            :  * the result. For list instead we use a feedback entering the output digest
+<a name="117"><span class="lineNum">     117 </span>            :  * as input in order to ensure that a different ordered list will result in</a>
+<span class="lineNum">     118 </span>            :  * a different digest. */
+<span class="lineNum">     119 </span><span class="lineCov">       1241 : void computeDatasetDigest(unsigned char *final) {</span>
+<span class="lineNum">     120 </span><span class="lineCov">       1241 :     unsigned char digest[20];</span>
+<span class="lineNum">     121 </span><span class="lineCov">       1241 :     char buf[128];</span>
+<span class="lineNum">     122 </span><span class="lineCov">       1241 :     dictIterator *di = NULL;</span>
+<span class="lineNum">     123 </span><span class="lineCov">       1241 :     dictEntry *de;</span>
+<span class="lineNum">     124 </span><span class="lineCov">       1241 :     int j;</span>
+<span class="lineNum">     125 </span><span class="lineCov">       1241 :     uint32_t aux;</span>
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span><span class="lineCov">       1241 :     memset(final,0,20); /* Start with a clean result */</span>
+<span class="lineNum">     128 </span>            : 
+<span class="lineNum">     129 </span><span class="lineCov">      21097 :     for (j = 0; j &lt; server.dbnum; j++) {</span>
+<span class="lineNum">     130 </span><span class="lineCov">      19856 :         redisDb *db = server.db+j;</span>
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span><span class="lineCov">      19856 :         if (dictSize(db-&gt;dict) == 0) continue;</span>
+<span class="lineNum">     133 </span><span class="lineCov">       1687 :         di = dictGetSafeIterator(db-&gt;dict);</span>
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span>            :         /* hash the DB id, so the same dataset moved in a different
+<span class="lineNum">     136 </span>            :          * DB will lead to a different digest */
+<span class="lineNum">     137 </span><span class="lineCov">       1687 :         aux = htonl(j);</span>
+<span class="lineNum">     138 </span><span class="lineCov">       1687 :         mixDigest(final,&amp;aux,sizeof(aux));</span>
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span>            :         /* Iterate this DB writing every entry */
+<span class="lineNum">     141 </span><span class="lineCov">   45427745 :         while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     142 </span><span class="lineCov">   45426058 :             sds key;</span>
+<span class="lineNum">     143 </span><span class="lineCov">   45426058 :             robj *keyobj, *o;</span>
+<span class="lineNum">     144 </span><span class="lineCov">   45426058 :             long long expiretime;</span>
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span><span class="lineCov">   45426058 :             memset(digest,0,20); /* This key-val digest */</span>
+<span class="lineNum">     147 </span><span class="lineCov">   45426058 :             key = dictGetKey(de);</span>
+<span class="lineNum">     148 </span><span class="lineCov">   90852116 :             keyobj = createStringObject(key,sdslen(key));</span>
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span><span class="lineCov">   90852116 :             mixDigest(digest,key,sdslen(key));</span>
+<span class="lineNum">     151 </span>            : 
+<span class="lineNum">     152 </span><span class="lineCov">   45426058 :             o = dictGetVal(de);</span>
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span><span class="lineCov">   45426058 :             aux = htonl(o-&gt;type);</span>
+<span class="lineNum">     155 </span><span class="lineCov">   45426058 :             mixDigest(digest,&amp;aux,sizeof(aux));</span>
+<span class="lineNum">     156 </span><span class="lineCov">   45426058 :             expiretime = getExpire(db,keyobj);</span>
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            :             /* Save the key and associated value */
+<span class="lineNum">     159 </span><span class="lineCov">   45426058 :             if (o-&gt;type == OBJ_STRING) {</span>
+<span class="lineNum">     160 </span><span class="lineCov">   42396976 :                 mixObjectDigest(digest,o);</span>
+<span class="lineNum">     161 </span><span class="lineCov">    3029082 :             } else if (o-&gt;type == OBJ_LIST) {</span>
+<span class="lineNum">     162 </span><span class="lineCov">     442506 :                 listTypeIterator *li = listTypeInitIterator(o,0,LIST_TAIL);</span>
+<span class="lineNum">     163 </span><span class="lineCov">     442506 :                 listTypeEntry entry;</span>
+<span class="lineNum">     164 </span><span class="lineCov">    1571133 :                 while(listTypeNext(li,&amp;entry)) {</span>
+<span class="lineNum">     165 </span><span class="lineCov">    1128627 :                     robj *eleobj = listTypeGet(&amp;entry);</span>
+<span class="lineNum">     166 </span><span class="lineCov">    1128627 :                     mixObjectDigest(digest,eleobj);</span>
+<span class="lineNum">     167 </span><span class="lineCov">    1128627 :                     decrRefCount(eleobj);</span>
+<span class="lineNum">     168 </span>            :                 }
+<span class="lineNum">     169 </span><span class="lineCov">     442506 :                 listTypeReleaseIterator(li);</span>
+<span class="lineNum">     170 </span><span class="lineCov">    2586576 :             } else if (o-&gt;type == OBJ_SET) {</span>
+<span class="lineNum">     171 </span><span class="lineCov">    1055640 :                 setTypeIterator *si = setTypeInitIterator(o);</span>
+<span class="lineNum">     172 </span><span class="lineCov">    1055640 :                 sds sdsele;</span>
+<span class="lineNum">     173 </span><span class="lineCov">    2622512 :                 while((sdsele = setTypeNextObject(si)) != NULL) {</span>
+<span class="lineNum">     174 </span><span class="lineCov">    3133744 :                     xorDigest(digest,sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     175 </span><span class="lineCov">    1566872 :                     sdsfree(sdsele);</span>
+<span class="lineNum">     176 </span>            :                 }
+<span class="lineNum">     177 </span><span class="lineCov">    1055640 :                 setTypeReleaseIterator(si);</span>
+<span class="lineNum">     178 </span><span class="lineCov">    1530936 :             } else if (o-&gt;type == OBJ_ZSET) {</span>
+<span class="lineNum">     179 </span><span class="lineCov">     972581 :                 unsigned char eledigest[20];</span>
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span><span class="lineCov">     972581 :                 if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     182 </span><span class="lineCov">     733366 :                     unsigned char *zl = o-&gt;ptr;</span>
+<span class="lineNum">     183 </span><span class="lineCov">     733366 :                     unsigned char *eptr, *sptr;</span>
+<span class="lineNum">     184 </span><span class="lineCov">     733366 :                     unsigned char *vstr;</span>
+<span class="lineNum">     185 </span><span class="lineCov">     733366 :                     unsigned int vlen;</span>
+<span class="lineNum">     186 </span><span class="lineCov">     733366 :                     long long vll;</span>
+<span class="lineNum">     187 </span><span class="lineCov">     733366 :                     double score;</span>
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span><span class="lineCov">     733366 :                     eptr = ziplistIndex(zl,0);</span>
+<span class="lineNum">     190 </span><span class="lineCov">     733366 :                     serverAssert(eptr != NULL);</span>
+<span class="lineNum">     191 </span><span class="lineCov">     733366 :                     sptr = ziplistNext(zl,eptr);</span>
+<span class="lineNum">     192 </span><span class="lineCov">     733366 :                     serverAssert(sptr != NULL);</span>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span><span class="lineCov">    1693209 :                     while (eptr != NULL) {</span>
+<span class="lineNum">     195 </span><span class="lineCov">     959843 :                         serverAssert(ziplistGet(eptr,&amp;vstr,&amp;vlen,&amp;vll));</span>
+<span class="lineNum">     196 </span><span class="lineCov">     959843 :                         score = zzlGetScore(sptr);</span>
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span><span class="lineCov">     959843 :                         memset(eledigest,0,20);</span>
+<span class="lineNum">     199 </span><span class="lineCov">     959843 :                         if (vstr != NULL) {</span>
+<span class="lineNum">     200 </span><span class="lineCov">      69282 :                             mixDigest(eledigest,vstr,vlen);</span>
+<span class="lineNum">     201 </span>            :                         } else {
+<span class="lineNum">     202 </span><span class="lineCov">     890561 :                             ll2string(buf,sizeof(buf),vll);</span>
+<span class="lineNum">     203 </span><span class="lineCov">     890561 :                             mixDigest(eledigest,buf,strlen(buf));</span>
+<span class="lineNum">     204 </span>            :                         }
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span><span class="lineCov">     959843 :                         snprintf(buf,sizeof(buf),&quot;%.17g&quot;,score);</span>
+<span class="lineNum">     207 </span><span class="lineCov">     959843 :                         mixDigest(eledigest,buf,strlen(buf));</span>
+<span class="lineNum">     208 </span><span class="lineCov">     959843 :                         xorDigest(digest,eledigest,20);</span>
+<span class="lineNum">     209 </span><span class="lineCov">     959843 :                         zzlNext(zl,&amp;eptr,&amp;sptr);</span>
+<span class="lineNum">     210 </span>            :                     }
+<span class="lineNum">     211 </span><span class="lineCov">     239215 :                 } else if (o-&gt;encoding == OBJ_ENCODING_SKIPLIST) {</span>
+<span class="lineNum">     212 </span><span class="lineCov">     239215 :                     zset *zs = o-&gt;ptr;</span>
+<span class="lineNum">     213 </span><span class="lineCov">     239215 :                     dictIterator *di = dictGetIterator(zs-&gt;dict);</span>
+<span class="lineNum">     214 </span><span class="lineCov">     239215 :                     dictEntry *de;</span>
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span><span class="lineCov">     767099 :                     while((de = dictNext(di)) != NULL) {</span>
+<span class="lineNum">     217 </span><span class="lineCov">     527884 :                         sds sdsele = dictGetKey(de);</span>
+<span class="lineNum">     218 </span><span class="lineCov">     527884 :                         double *score = dictGetVal(de);</span>
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span><span class="lineCov">     527884 :                         snprintf(buf,sizeof(buf),&quot;%.17g&quot;,*score);</span>
+<span class="lineNum">     221 </span><span class="lineCov">     527884 :                         memset(eledigest,0,20);</span>
+<span class="lineNum">     222 </span><span class="lineCov">    1055768 :                         mixDigest(eledigest,sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     223 </span><span class="lineCov">     527884 :                         mixDigest(eledigest,buf,strlen(buf));</span>
+<span class="lineNum">     224 </span><span class="lineCov">     527884 :                         xorDigest(digest,eledigest,20);</span>
+<span class="lineNum">     225 </span>            :                     }
+<span class="lineNum">     226 </span><span class="lineCov">     239215 :                     dictReleaseIterator(di);</span>
+<span class="lineNum">     227 </span>            :                 } else {
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :                     serverPanic(&quot;Unknown sorted set encoding&quot;);</span>
+<span class="lineNum">     229 </span>            :                 }
+<span class="lineNum">     230 </span><span class="lineCov">     558355 :             } else if (o-&gt;type == OBJ_HASH) {</span>
+<span class="lineNum">     231 </span><span class="lineCov">     558341 :                 hashTypeIterator *hi = hashTypeInitIterator(o);</span>
+<span class="lineNum">     232 </span><span class="lineCov">    1314222 :                 while (hashTypeNext(hi) != C_ERR) {</span>
+<span class="lineNum">     233 </span><span class="lineCov">     755881 :                     unsigned char eledigest[20];</span>
+<span class="lineNum">     234 </span><span class="lineCov">     755881 :                     sds sdsele;</span>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span><span class="lineCov">     755881 :                     memset(eledigest,0,20);</span>
+<span class="lineNum">     237 </span><span class="lineCov">     755881 :                     sdsele = hashTypeCurrentObjectNewSds(hi,OBJ_HASH_KEY);</span>
+<span class="lineNum">     238 </span><span class="lineCov">    1511762 :                     mixDigest(eledigest,sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     239 </span><span class="lineCov">     755881 :                     sdsfree(sdsele);</span>
+<span class="lineNum">     240 </span><span class="lineCov">     755881 :                     sdsele = hashTypeCurrentObjectNewSds(hi,OBJ_HASH_VALUE);</span>
+<span class="lineNum">     241 </span><span class="lineCov">    1511762 :                     mixDigest(eledigest,sdsele,sdslen(sdsele));</span>
+<span class="lineNum">     242 </span><span class="lineCov">     755881 :                     sdsfree(sdsele);</span>
+<span class="lineNum">     243 </span><span class="lineCov">     755881 :                     xorDigest(digest,eledigest,20);</span>
+<span class="lineNum">     244 </span>            :                 }
+<span class="lineNum">     245 </span><span class="lineCov">     558341 :                 hashTypeReleaseIterator(hi);</span>
+<span class="lineNum">     246 </span><span class="lineCov">         14 :             } else if (o-&gt;type == OBJ_STREAM) {</span>
+<span class="lineNum">     247 </span><span class="lineCov">         14 :                 streamIterator si;</span>
+<span class="lineNum">     248 </span><span class="lineCov">         14 :                 streamIteratorStart(&amp;si,o-&gt;ptr,NULL,NULL,0);</span>
+<span class="lineNum">     249 </span><span class="lineCov">         14 :                 streamID id;</span>
+<span class="lineNum">     250 </span><span class="lineCov">         14 :                 int64_t numfields;</span>
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span><span class="lineCov">      46022 :                 while(streamIteratorGetID(&amp;si,&amp;id,&amp;numfields)) {</span>
+<span class="lineNum">     253 </span><span class="lineCov">      46008 :                     sds itemid = sdscatfmt(sdsempty(),&quot;%U.%U&quot;,id.ms,id.seq);</span>
+<span class="lineNum">     254 </span><span class="lineCov">      92016 :                     mixDigest(digest,itemid,sdslen(itemid));</span>
+<span class="lineNum">     255 </span><span class="lineCov">      46008 :                     sdsfree(itemid);</span>
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span><span class="lineCov">     132024 :                     while(numfields--) {</span>
+<span class="lineNum">     258 </span><span class="lineCov">      86016 :                         unsigned char *field, *value;</span>
+<span class="lineNum">     259 </span><span class="lineCov">      86016 :                         int64_t field_len, value_len;</span>
+<span class="lineNum">     260 </span><span class="lineCov">      86016 :                         streamIteratorGetField(&amp;si,&amp;field,&amp;value,</span>
+<span class="lineNum">     261 </span>            :                                                    &amp;field_len,&amp;value_len);
+<span class="lineNum">     262 </span><span class="lineCov">      86016 :                         mixDigest(digest,field,field_len);</span>
+<span class="lineNum">     263 </span><span class="lineCov">      86016 :                         mixDigest(digest,value,value_len);</span>
+<span class="lineNum">     264 </span>            :                     }
+<span class="lineNum">     265 </span>            :                 }
+<span class="lineNum">     266 </span><span class="lineCov">         14 :                 streamIteratorStop(&amp;si);</span>
+<span class="lineNum">     267 </span><span class="lineNoCov">          0 :             } else if (o-&gt;type == OBJ_MODULE) {</span>
+<span class="lineNum">     268 </span><span class="lineNoCov">          0 :                 RedisModuleDigest md;</span>
+<span class="lineNum">     269 </span><span class="lineNoCov">          0 :                 moduleValue *mv = o-&gt;ptr;</span>
+<span class="lineNum">     270 </span><span class="lineNoCov">          0 :                 moduleType *mt = mv-&gt;type;</span>
+<span class="lineNum">     271 </span><span class="lineNoCov">          0 :                 moduleInitDigestContext(md);</span>
+<span class="lineNum">     272 </span><span class="lineNoCov">          0 :                 if (mt-&gt;digest) {</span>
+<span class="lineNum">     273 </span><span class="lineNoCov">          0 :                     mt-&gt;digest(&amp;md,mv-&gt;value);</span>
+<span class="lineNum">     274 </span><span class="lineNoCov">          0 :                     xorDigest(digest,md.x,sizeof(md.x));</span>
+<span class="lineNum">     275 </span>            :                 }
+<span class="lineNum">     276 </span>            :             } else {
+<span class="lineNum">     277 </span><span class="lineNoCov">          0 :                 serverPanic(&quot;Unknown object type&quot;);</span>
+<span class="lineNum">     278 </span>            :             }
+<span class="lineNum">     279 </span>            :             /* If the key has an expire, add it to the mix */
+<span class="lineNum">     280 </span><span class="lineCov">   45426058 :             if (expiretime != -1) xorDigest(digest,&quot;!!expire!!&quot;,10);</span>
+<span class="lineNum">     281 </span>            :             /* We can finally xor the key-val digest to the final digest */
+<span class="lineNum">     282 </span><span class="lineCov">   45426058 :             xorDigest(final,digest,20);</span>
+<span class="lineNum">     283 </span><span class="lineCov">   45426058 :             decrRefCount(keyobj);</span>
+<span class="lineNum">     284 </span>            :         }
+<span class="lineNum">     285 </span><span class="lineCov">       1687 :         dictReleaseIterator(di);</span>
+<span class="lineNum">     286 </span>            :     }
+<a name="287"><span class="lineNum">     287 </span><span class="lineCov">       1241 : }</span></a>
+<span class="lineNum">     288 </span>            : 
+<span class="lineNum">     289 </span><span class="lineCov">      12068 : void debugCommand(client *c) {</span>
+<span class="lineNum">     290 </span><span class="lineCov">      12068 :     if (c-&gt;argc == 2 &amp;&amp; !strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;help&quot;)) {</span>
+<span class="lineNum">     291 </span><span class="lineNoCov">          0 :         const char *help[] = {</span>
+<span class="lineNum">     292 </span>            : &quot;ASSERT -- Crash by assertion failed.&quot;,
+<span class="lineNum">     293 </span>            : &quot;CHANGE-REPL-ID -- Change the replication IDs of the instance. Dangerous, should be used only for testing the replication subsystem.&quot;,
+<span class="lineNum">     294 </span>            : &quot;CRASH-AND-RECOVER &lt;milliseconds&gt; -- Hard crash and restart after &lt;milliseconds&gt; delay.&quot;,
+<span class="lineNum">     295 </span>            : &quot;DIGEST -- Output a hex signature representing the current DB content.&quot;,
+<span class="lineNum">     296 </span>            : &quot;ERROR &lt;string&gt; -- Return a Redis protocol error with &lt;string&gt; as message. Useful for clients unit tests to simulate Redis errors.&quot;,
+<span class="lineNum">     297 </span>            : &quot;LOG &lt;message&gt; -- write message to the server log.&quot;,
+<span class="lineNum">     298 </span>            : &quot;HTSTATS &lt;dbid&gt; -- Return hash table statistics of the specified Redis database.&quot;,
+<span class="lineNum">     299 </span>            : &quot;HTSTATS-KEY &lt;key&gt; -- Like htstats but for the hash table stored as key's value.&quot;,
+<span class="lineNum">     300 </span>            : &quot;LOADAOF -- Flush the AOF buffers on disk and reload the AOF in memory.&quot;,
+<span class="lineNum">     301 </span>            : &quot;LUA-ALWAYS-REPLICATE-COMMANDS &lt;0|1&gt; -- Setting it to 1 makes Lua replication defaulting to replicating single commands, without the script having to enable effects replication.&quot;,
+<span class="lineNum">     302 </span>            : &quot;OBJECT &lt;key&gt; -- Show low level info about key and associated value.&quot;,
+<span class="lineNum">     303 </span>            : &quot;PANIC -- Crash the server simulating a panic.&quot;,
+<span class="lineNum">     304 </span>            : &quot;POPULATE &lt;count&gt; [prefix] [size] -- Create &lt;count&gt; string keys named key:&lt;num&gt;. If a prefix is specified is used instead of the 'key' prefix.&quot;,
+<span class="lineNum">     305 </span>            : &quot;RELOAD -- Save the RDB on disk and reload it back in memory.&quot;,
+<span class="lineNum">     306 </span>            : &quot;RESTART -- Graceful restart: save config, db, restart.&quot;,
+<span class="lineNum">     307 </span>            : &quot;SDSLEN &lt;key&gt; -- Show low level SDS string info representing key and value.&quot;,
+<span class="lineNum">     308 </span>            : &quot;SEGFAULT -- Crash the server with sigsegv.&quot;,
+<span class="lineNum">     309 </span>            : &quot;SET-ACTIVE-EXPIRE &lt;0|1&gt; -- Setting it to 0 disables expiring keys in background when they are not accessed (otherwise the Redis behavior). Setting it to 1 reenables back the default.&quot;,
+<span class="lineNum">     310 </span>            : &quot;SLEEP &lt;seconds&gt; -- Stop the server for &lt;seconds&gt;. Decimals allowed.&quot;,
+<span class="lineNum">     311 </span>            : &quot;STRUCTSIZE -- Return the size of different Redis core C structures.&quot;,
+<span class="lineNum">     312 </span>            : &quot;ZIPLIST &lt;key&gt; -- Show low level info about the ziplist encoding.&quot;,
+<span class="lineNum">     313 </span>            : NULL
+<span class="lineNum">     314 </span>            :         };
+<span class="lineNum">     315 </span><span class="lineNoCov">          0 :         addReplyHelp(c, help);</span>
+<span class="lineNum">     316 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;segfault&quot;)) {</span>
+<span class="lineNum">     317 </span><span class="lineNoCov">          0 :         *((char*)-1) = 'x';</span>
+<span class="lineNum">     318 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;panic&quot;)) {</span>
+<span class="lineNum">     319 </span><span class="lineNoCov">          0 :         serverPanic(&quot;DEBUG PANIC called at Unix time %ld&quot;, time(NULL));</span>
+<span class="lineNum">     320 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;restart&quot;) ||</span>
+<span class="lineNum">     321 </span><span class="lineCov">      12068 :                !strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;crash-and-recover&quot;))</span>
+<span class="lineNum">     322 </span><span class="lineNoCov">          0 :     {</span>
+<span class="lineNum">     323 </span><span class="lineNoCov">          0 :         long long delay = 0;</span>
+<span class="lineNum">     324 </span><span class="lineNoCov">          0 :         if (c-&gt;argc &gt;= 3) {</span>
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 :             if (getLongLongFromObjectOrReply(c, c-&gt;argv[2], &amp;delay, NULL)</span>
+<span class="lineNum">     326 </span><span class="lineNoCov">          0 :                 != C_OK) return;</span>
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 :             if (delay &lt; 0) delay = 0;</span>
+<span class="lineNum">     328 </span>            :         }
+<span class="lineNum">     329 </span><span class="lineNoCov">          0 :         int flags = !strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;restart&quot;) ?</span>
+<span class="lineNum">     330 </span><span class="lineNoCov">          0 :             (RESTART_SERVER_GRACEFULLY|RESTART_SERVER_CONFIG_REWRITE) :</span>
+<span class="lineNum">     331 </span>            :              RESTART_SERVER_NONE;
+<span class="lineNum">     332 </span><span class="lineNoCov">          0 :         restartServer(flags,delay);</span>
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 :         addReplyError(c,&quot;failed to restart the server. Check server logs.&quot;);</span>
+<span class="lineNum">     334 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;oom&quot;)) {</span>
+<span class="lineNum">     335 </span><span class="lineNoCov">          0 :         void *ptr = zmalloc(ULONG_MAX); /* Should trigger an out of memory. */</span>
+<span class="lineNum">     336 </span><span class="lineNoCov">          0 :         zfree(ptr);</span>
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     338 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;assert&quot;)) {</span>
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 :         if (c-&gt;argc &gt;= 3) c-&gt;argv[2] = tryObjectEncoding(c-&gt;argv[2]);</span>
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :         serverAssertWithInfo(c,c-&gt;argv[0],1 == 2);</span>
+<span class="lineNum">     341 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;log&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING, &quot;DEBUG LOG: %s&quot;, (char*)c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     343 </span><span class="lineNoCov">          0 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     344 </span><span class="lineCov">      12068 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;reload&quot;)) {</span>
+<span class="lineNum">     345 </span><span class="lineCov">         42 :         rdbSaveInfo rsi, *rsiptr;</span>
+<span class="lineNum">     346 </span><span class="lineCov">         42 :         rsiptr = rdbPopulateSaveInfo(&amp;rsi);</span>
+<span class="lineNum">     347 </span><span class="lineCov">         42 :         if (rdbSave(server.rdb_filename,rsiptr) != C_OK) {</span>
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :             addReply(c,shared.err);</span>
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     350 </span>            :         }
+<span class="lineNum">     351 </span><span class="lineCov">         42 :         emptyDb(-1,EMPTYDB_NO_FLAGS,NULL);</span>
+<span class="lineNum">     352 </span><span class="lineCov">         42 :         protectClient(c);</span>
+<span class="lineNum">     353 </span><span class="lineCov">         42 :         int ret = rdbLoad(server.rdb_filename,NULL);</span>
+<span class="lineNum">     354 </span><span class="lineCov">         42 :         unprotectClient(c);</span>
+<span class="lineNum">     355 </span><span class="lineCov">         42 :         if (ret != C_OK) {</span>
+<span class="lineNum">     356 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;Error trying to load the RDB dump&quot;);</span>
+<span class="lineNum">     357 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     358 </span>            :         }
+<span class="lineNum">     359 </span><span class="lineCov">         42 :         serverLog(LL_WARNING,&quot;DB reloaded by DEBUG RELOAD&quot;);</span>
+<span class="lineNum">     360 </span><span class="lineCov">         42 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     361 </span><span class="lineCov">      12026 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;loadaof&quot;)) {</span>
+<span class="lineNum">     362 </span><span class="lineCov">        451 :         if (server.aof_state != AOF_OFF) flushAppendOnlyFile(1);</span>
+<span class="lineNum">     363 </span><span class="lineCov">        451 :         emptyDb(-1,EMPTYDB_NO_FLAGS,NULL);</span>
+<span class="lineNum">     364 </span><span class="lineCov">        451 :         protectClient(c);</span>
+<span class="lineNum">     365 </span><span class="lineCov">        451 :         int ret = loadAppendOnlyFile(server.aof_filename);</span>
+<span class="lineNum">     366 </span><span class="lineCov">        451 :         unprotectClient(c);</span>
+<span class="lineNum">     367 </span><span class="lineCov">        451 :         if (ret != C_OK) {</span>
+<span class="lineNum">     368 </span><span class="lineNoCov">          0 :             addReply(c,shared.err);</span>
+<span class="lineNum">     369 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     370 </span>            :         }
+<span class="lineNum">     371 </span><span class="lineCov">        451 :         server.dirty = 0; /* Prevent AOF / replication */</span>
+<span class="lineNum">     372 </span><span class="lineCov">        451 :         serverLog(LL_WARNING,&quot;Append Only File loaded by DEBUG LOADAOF&quot;);</span>
+<span class="lineNum">     373 </span><span class="lineCov">        451 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     374 </span><span class="lineCov">      21739 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;object&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     375 </span><span class="lineCov">      10164 :         dictEntry *de;</span>
+<span class="lineNum">     376 </span><span class="lineCov">      10164 :         robj *val;</span>
+<span class="lineNum">     377 </span><span class="lineCov">      10164 :         char *strenc;</span>
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span><span class="lineCov">      10164 :         if ((de = dictFind(c-&gt;db-&gt;dict,c-&gt;argv[2]-&gt;ptr)) == NULL) {</span>
+<span class="lineNum">     380 </span><span class="lineNoCov">          0 :             addReply(c,shared.nokeyerr);</span>
+<span class="lineNum">     381 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     382 </span>            :         }
+<span class="lineNum">     383 </span><span class="lineCov">      10164 :         val = dictGetVal(de);</span>
+<span class="lineNum">     384 </span><span class="lineCov">      10164 :         strenc = strEncoding(val-&gt;encoding);</span>
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span><span class="lineCov">      10164 :         char extra[138] = {0};</span>
+<span class="lineNum">     387 </span><span class="lineCov">      10164 :         if (val-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     388 </span><span class="lineCov">        282 :             char *nextra = extra;</span>
+<span class="lineNum">     389 </span><span class="lineCov">        282 :             int remaining = sizeof(extra);</span>
+<span class="lineNum">     390 </span><span class="lineCov">        282 :             quicklist *ql = val-&gt;ptr;</span>
+<span class="lineNum">     391 </span>            :             /* Add number of quicklist nodes */
+<span class="lineNum">     392 </span><span class="lineCov">        282 :             int used = snprintf(nextra, remaining, &quot; ql_nodes:%lu&quot;, ql-&gt;len);</span>
+<span class="lineNum">     393 </span><span class="lineCov">        282 :             nextra += used;</span>
+<span class="lineNum">     394 </span><span class="lineCov">        282 :             remaining -= used;</span>
+<span class="lineNum">     395 </span>            :             /* Add average quicklist fill factor */
+<span class="lineNum">     396 </span><span class="lineCov">        282 :             double avg = (double)ql-&gt;count/ql-&gt;len;</span>
+<span class="lineNum">     397 </span><span class="lineCov">        282 :             used = snprintf(nextra, remaining, &quot; ql_avg_node:%.2f&quot;, avg);</span>
+<span class="lineNum">     398 </span><span class="lineCov">        282 :             nextra += used;</span>
+<span class="lineNum">     399 </span><span class="lineCov">        282 :             remaining -= used;</span>
+<span class="lineNum">     400 </span>            :             /* Add quicklist fill level / max ziplist size */
+<span class="lineNum">     401 </span><span class="lineCov">        282 :             used = snprintf(nextra, remaining, &quot; ql_ziplist_max:%d&quot;, ql-&gt;fill);</span>
+<span class="lineNum">     402 </span><span class="lineCov">        282 :             nextra += used;</span>
+<span class="lineNum">     403 </span><span class="lineCov">        282 :             remaining -= used;</span>
+<span class="lineNum">     404 </span>            :             /* Add isCompressed? */
+<span class="lineNum">     405 </span><span class="lineCov">        282 :             int compressed = ql-&gt;compress != 0;</span>
+<span class="lineNum">     406 </span><span class="lineCov">        282 :             used = snprintf(nextra, remaining, &quot; ql_compressed:%d&quot;, compressed);</span>
+<span class="lineNum">     407 </span><span class="lineCov">        282 :             nextra += used;</span>
+<span class="lineNum">     408 </span><span class="lineCov">        282 :             remaining -= used;</span>
+<span class="lineNum">     409 </span>            :             /* Add total uncompressed size */
+<span class="lineNum">     410 </span><span class="lineCov">        282 :             unsigned long sz = 0;</span>
+<span class="lineNum">     411 </span><span class="lineCov">       3393 :             for (quicklistNode *node = ql-&gt;head; node; node = node-&gt;next) {</span>
+<span class="lineNum">     412 </span><span class="lineCov">       3111 :                 sz += node-&gt;sz;</span>
+<span class="lineNum">     413 </span>            :             }
+<span class="lineNum">     414 </span><span class="lineCov">        282 :             used = snprintf(nextra, remaining, &quot; ql_uncompressed_size:%lu&quot;, sz);</span>
+<span class="lineNum">     415 </span><span class="lineCov">        282 :             nextra += used;</span>
+<span class="lineNum">     416 </span><span class="lineCov">        282 :             remaining -= used;</span>
+<span class="lineNum">     417 </span>            :         }
+<span class="lineNum">     418 </span>            : 
+<span class="lineNum">     419 </span><span class="lineCov">      10164 :         addReplyStatusFormat(c,</span>
+<span class="lineNum">     420 </span>            :             &quot;Value at:%p refcount:%d &quot;
+<span class="lineNum">     421 </span>            :             &quot;encoding:%s serializedlength:%zu &quot;
+<span class="lineNum">     422 </span>            :             &quot;lru:%d lru_seconds_idle:%llu%s&quot;,
+<span class="lineNum">     423 </span>            :             (void*)val, val-&gt;refcount,
+<span class="lineNum">     424 </span>            :             strenc, rdbSavedObjectLen(val),
+<span class="lineNum">     425 </span><span class="lineCov">      10164 :             val-&gt;lru, estimateObjectIdleTime(val)/1000, extra);</span>
+<span class="lineNum">     426 </span><span class="lineCov">       1411 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;sdslen&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     427 </span><span class="lineNoCov">          0 :         dictEntry *de;</span>
+<span class="lineNum">     428 </span><span class="lineNoCov">          0 :         robj *val;</span>
+<span class="lineNum">     429 </span><span class="lineNoCov">          0 :         sds key;</span>
+<span class="lineNum">     430 </span>            : 
+<span class="lineNum">     431 </span><span class="lineNoCov">          0 :         if ((de = dictFind(c-&gt;db-&gt;dict,c-&gt;argv[2]-&gt;ptr)) == NULL) {</span>
+<span class="lineNum">     432 </span><span class="lineNoCov">          0 :             addReply(c,shared.nokeyerr);</span>
+<span class="lineNum">     433 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     434 </span>            :         }
+<span class="lineNum">     435 </span><span class="lineNoCov">          0 :         val = dictGetVal(de);</span>
+<span class="lineNum">     436 </span><span class="lineNoCov">          0 :         key = dictGetKey(de);</span>
+<span class="lineNum">     437 </span>            : 
+<span class="lineNum">     438 </span><span class="lineNoCov">          0 :         if (val-&gt;type != OBJ_STRING || !sdsEncodedObject(val)) {</span>
+<span class="lineNum">     439 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;Not an sds encoded string.&quot;);</span>
+<span class="lineNum">     440 </span>            :         } else {
+<span class="lineNum">     441 </span><span class="lineNoCov">          0 :             addReplyStatusFormat(c,</span>
+<span class="lineNum">     442 </span>            :                 &quot;key_sds_len:%lld, key_sds_avail:%lld, key_zmalloc: %lld, &quot;
+<span class="lineNum">     443 </span>            :                 &quot;val_sds_len:%lld, val_sds_avail:%lld, val_zmalloc: %lld&quot;,
+<span class="lineNum">     444 </span><span class="lineNoCov">          0 :                 (long long) sdslen(key),</span>
+<span class="lineNum">     445 </span><span class="lineNoCov">          0 :                 (long long) sdsavail(key),</span>
+<span class="lineNum">     446 </span><span class="lineNoCov">          0 :                 (long long) sdsZmallocSize(key),</span>
+<span class="lineNum">     447 </span><span class="lineNoCov">          0 :                 (long long) sdslen(val-&gt;ptr),</span>
+<span class="lineNum">     448 </span><span class="lineNoCov">          0 :                 (long long) sdsavail(val-&gt;ptr),</span>
+<span class="lineNum">     449 </span><span class="lineNoCov">          0 :                 (long long) getStringObjectSdsUsedMemory(val));</span>
+<span class="lineNum">     450 </span>            :         }
+<span class="lineNum">     451 </span><span class="lineCov">       1411 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;ziplist&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     452 </span><span class="lineNoCov">          0 :         robj *o;</span>
+<span class="lineNum">     453 </span>            : 
+<span class="lineNum">     454 </span><span class="lineNoCov">          0 :         if ((o = objectCommandLookupOrReply(c,c-&gt;argv[2],shared.nokeyerr))</span>
+<span class="lineNum">     455 </span>            :                 == NULL) return;
+<span class="lineNum">     456 </span>            : 
+<span class="lineNum">     457 </span><span class="lineNoCov">          0 :         if (o-&gt;encoding != OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     458 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;Not an sds encoded string.&quot;);</span>
+<span class="lineNum">     459 </span>            :         } else {
+<span class="lineNum">     460 </span><span class="lineNoCov">          0 :             ziplistRepr(o-&gt;ptr);</span>
+<span class="lineNum">     461 </span><span class="lineNoCov">          0 :             addReplyStatus(c,&quot;Ziplist structure printed on stdout&quot;);</span>
+<span class="lineNum">     462 </span>            :         }
+<span class="lineNum">     463 </span><span class="lineCov">       1411 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;populate&quot;) &amp;&amp;</span>
+<span class="lineNum">     464 </span><span class="lineCov">         32 :                c-&gt;argc &gt;= 3 &amp;&amp; c-&gt;argc &lt;= 5) {</span>
+<span class="lineNum">     465 </span><span class="lineCov">         16 :         long keys, j;</span>
+<span class="lineNum">     466 </span><span class="lineCov">         16 :         robj *key, *val;</span>
+<span class="lineNum">     467 </span><span class="lineCov">         16 :         char buf[128];</span>
+<span class="lineNum">     468 </span>            : 
+<span class="lineNum">     469 </span><span class="lineCov">         16 :         if (getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;keys, NULL) != C_OK)</span>
+<span class="lineNum">     470 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     471 </span><span class="lineCov">         16 :         dictExpand(c-&gt;db-&gt;dict,keys);</span>
+<span class="lineNum">     472 </span><span class="lineCov">    1749316 :         for (j = 0; j &lt; keys; j++) {</span>
+<span class="lineNum">     473 </span><span class="lineCov">    1749300 :             long valsize = 0;</span>
+<span class="lineNum">     474 </span><span class="lineCov">    1749300 :             snprintf(buf,sizeof(buf),&quot;%s:%lu&quot;,</span>
+<span class="lineNum">     475 </span><span class="lineCov">    1749300 :                 (c-&gt;argc == 3) ? &quot;key&quot; : (char*)c-&gt;argv[3]-&gt;ptr, j);</span>
+<span class="lineNum">     476 </span><span class="lineCov">    1749300 :             key = createStringObject(buf,strlen(buf));</span>
+<span class="lineNum">     477 </span><span class="lineCov">    1749300 :             if (c-&gt;argc == 5)</span>
+<span class="lineNum">     478 </span><span class="lineCov">    1740000 :                 if (getLongFromObjectOrReply(c, c-&gt;argv[4], &amp;valsize, NULL) != C_OK)</span>
+<span class="lineNum">     479 </span><span class="lineNoCov">          0 :                     return;</span>
+<span class="lineNum">     480 </span><span class="lineCov">    1749300 :             if (lookupKeyWrite(c-&gt;db,key) != NULL) {</span>
+<span class="lineNum">     481 </span><span class="lineCov">     235876 :                 decrRefCount(key);</span>
+<span class="lineNum">     482 </span><span class="lineCov">     235876 :                 continue;</span>
+<span class="lineNum">     483 </span>            :             }
+<span class="lineNum">     484 </span><span class="lineCov">    1513424 :             snprintf(buf,sizeof(buf),&quot;value:%lu&quot;,j);</span>
+<span class="lineNum">     485 </span><span class="lineCov">    1513424 :             if (valsize==0)</span>
+<span class="lineNum">     486 </span><span class="lineCov">       9300 :                 val = createStringObject(buf,strlen(buf));</span>
+<span class="lineNum">     487 </span>            :             else {
+<span class="lineNum">     488 </span><span class="lineCov">    1504124 :                 int buflen = strlen(buf);</span>
+<span class="lineNum">     489 </span><span class="lineCov">    1504124 :                 val = createStringObject(NULL,valsize);</span>
+<span class="lineNum">     490 </span><span class="lineCov">    1504124 :                 memcpy(val-&gt;ptr, buf, valsize&lt;=buflen? valsize: buflen);</span>
+<span class="lineNum">     491 </span>            :             }
+<span class="lineNum">     492 </span><span class="lineCov">    1513424 :             dbAdd(c-&gt;db,key,val);</span>
+<span class="lineNum">     493 </span><span class="lineCov">    1513424 :             signalModifiedKey(c-&gt;db,key);</span>
+<span class="lineNum">     494 </span><span class="lineCov">    1513424 :             decrRefCount(key);</span>
+<span class="lineNum">     495 </span>            :         }
+<span class="lineNum">     496 </span><span class="lineCov">         16 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     497 </span><span class="lineCov">       2636 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;digest&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">     498 </span><span class="lineCov">       1241 :         unsigned char digest[20];</span>
+<span class="lineNum">     499 </span><span class="lineCov">       1241 :         sds d = sdsempty();</span>
+<span class="lineNum">     500 </span><span class="lineCov">       1241 :         int j;</span>
+<span class="lineNum">     501 </span>            : 
+<span class="lineNum">     502 </span><span class="lineCov">       1241 :         computeDatasetDigest(digest);</span>
+<span class="lineNum">     503 </span><span class="lineCov">      26061 :         for (j = 0; j &lt; 20; j++)</span>
+<span class="lineNum">     504 </span><span class="lineCov">      24820 :             d = sdscatprintf(d, &quot;%02x&quot;,digest[j]);</span>
+<span class="lineNum">     505 </span><span class="lineCov">       1241 :         addReplyStatus(c,d);</span>
+<span class="lineNum">     506 </span><span class="lineCov">       1241 :         sdsfree(d);</span>
+<span class="lineNum">     507 </span><span class="lineCov">        248 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;sleep&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     508 </span><span class="lineCov">         94 :         double dtime = strtod(c-&gt;argv[2]-&gt;ptr,NULL);</span>
+<span class="lineNum">     509 </span><span class="lineCov">         94 :         long long utime = dtime*1000000;</span>
+<span class="lineNum">     510 </span><span class="lineCov">         94 :         struct timespec tv;</span>
+<span class="lineNum">     511 </span>            : 
+<span class="lineNum">     512 </span><span class="lineCov">         94 :         tv.tv_sec = utime / 1000000;</span>
+<span class="lineNum">     513 </span><span class="lineCov">         94 :         tv.tv_nsec = (utime % 1000000) * 1000;</span>
+<span class="lineNum">     514 </span><span class="lineCov">         94 :         nanosleep(&amp;tv, NULL);</span>
+<span class="lineNum">     515 </span><span class="lineCov">         94 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     516 </span><span class="lineCov">         60 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;set-active-expire&quot;) &amp;&amp;</span>
+<span class="lineNum">     517 </span>            :                c-&gt;argc == 3)
+<span class="lineNum">     518 </span>            :     {
+<span class="lineNum">     519 </span><span class="lineCov">         30 :         server.active_expire_enabled = atoi(c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     520 </span><span class="lineCov">         30 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     521 </span><span class="lineCov">         30 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;lua-always-replicate-commands&quot;) &amp;&amp;</span>
+<span class="lineNum">     522 </span>            :                c-&gt;argc == 3)
+<span class="lineNum">     523 </span>            :     {
+<span class="lineNum">     524 </span><span class="lineCov">         24 :         server.lua_always_replicate_commands = atoi(c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     525 </span><span class="lineCov">         24 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     526 </span><span class="lineCov">          6 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;error&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     527 </span><span class="lineNoCov">          0 :         sds errstr = sdsnewlen(&quot;-&quot;,1);</span>
+<span class="lineNum">     528 </span>            : 
+<span class="lineNum">     529 </span><span class="lineNoCov">          0 :         errstr = sdscatsds(errstr,c-&gt;argv[2]-&gt;ptr);</span>
+<span class="lineNum">     530 </span><span class="lineNoCov">          0 :         errstr = sdsmapchars(errstr,&quot;\n\r&quot;,&quot;  &quot;,2); /* no newlines in errors. */</span>
+<span class="lineNum">     531 </span><span class="lineNoCov">          0 :         errstr = sdscatlen(errstr,&quot;\r\n&quot;,2);</span>
+<span class="lineNum">     532 </span><span class="lineNoCov">          0 :         addReplySds(c,errstr);</span>
+<span class="lineNum">     533 </span><span class="lineCov">          6 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;structsize&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">     534 </span><span class="lineNoCov">          0 :         sds sizes = sdsempty();</span>
+<span class="lineNum">     535 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;bits:%d &quot;,(sizeof(void*) == 8)?64:32);</span>
+<span class="lineNum">     536 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;robj:%d &quot;,(int)sizeof(robj));</span>
+<span class="lineNum">     537 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;dictentry:%d &quot;,(int)sizeof(dictEntry));</span>
+<span class="lineNum">     538 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;sdshdr5:%d &quot;,(int)sizeof(struct sdshdr5));</span>
+<span class="lineNum">     539 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;sdshdr8:%d &quot;,(int)sizeof(struct sdshdr8));</span>
+<span class="lineNum">     540 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;sdshdr16:%d &quot;,(int)sizeof(struct sdshdr16));</span>
+<span class="lineNum">     541 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;sdshdr32:%d &quot;,(int)sizeof(struct sdshdr32));</span>
+<span class="lineNum">     542 </span><span class="lineNoCov">          0 :         sizes = sdscatprintf(sizes,&quot;sdshdr64:%d &quot;,(int)sizeof(struct sdshdr64));</span>
+<span class="lineNum">     543 </span><span class="lineNoCov">          0 :         addReplyBulkSds(c,sizes);</span>
+<span class="lineNum">     544 </span><span class="lineCov">          6 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;htstats&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     545 </span><span class="lineNoCov">          0 :         long dbid;</span>
+<span class="lineNum">     546 </span><span class="lineNoCov">          0 :         sds stats = sdsempty();</span>
+<span class="lineNum">     547 </span><span class="lineNoCov">          0 :         char buf[4096];</span>
+<span class="lineNum">     548 </span>            : 
+<span class="lineNum">     549 </span><span class="lineNoCov">          0 :         if (getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;dbid, NULL) != C_OK)</span>
+<span class="lineNum">     550 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     551 </span><span class="lineNoCov">          0 :         if (dbid &lt; 0 || dbid &gt;= server.dbnum) {</span>
+<span class="lineNum">     552 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;Out of range database&quot;);</span>
+<span class="lineNum">     553 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     554 </span>            :         }
+<span class="lineNum">     555 </span>            : 
+<span class="lineNum">     556 </span><span class="lineNoCov">          0 :         stats = sdscatprintf(stats,&quot;[Dictionary HT]\n&quot;);</span>
+<span class="lineNum">     557 </span><span class="lineNoCov">          0 :         dictGetStats(buf,sizeof(buf),server.db[dbid].dict);</span>
+<span class="lineNum">     558 </span><span class="lineNoCov">          0 :         stats = sdscat(stats,buf);</span>
+<span class="lineNum">     559 </span>            : 
+<span class="lineNum">     560 </span><span class="lineNoCov">          0 :         stats = sdscatprintf(stats,&quot;[Expires HT]\n&quot;);</span>
+<span class="lineNum">     561 </span><span class="lineNoCov">          0 :         dictGetStats(buf,sizeof(buf),server.db[dbid].expires);</span>
+<span class="lineNum">     562 </span><span class="lineNoCov">          0 :         stats = sdscat(stats,buf);</span>
+<span class="lineNum">     563 </span>            : 
+<span class="lineNum">     564 </span><span class="lineNoCov">          0 :         addReplyBulkSds(c,stats);</span>
+<span class="lineNum">     565 </span><span class="lineCov">          6 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;htstats-key&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">     566 </span><span class="lineNoCov">          0 :         robj *o;</span>
+<span class="lineNum">     567 </span><span class="lineNoCov">          0 :         dict *ht = NULL;</span>
+<span class="lineNum">     568 </span>            : 
+<span class="lineNum">     569 </span><span class="lineNoCov">          0 :         if ((o = objectCommandLookupOrReply(c,c-&gt;argv[2],shared.nokeyerr))</span>
+<span class="lineNum">     570 </span>            :                 == NULL) return;
+<span class="lineNum">     571 </span>            : 
+<span class="lineNum">     572 </span>            :         /* Get the hash table reference from the object, if possible. */
+<span class="lineNum">     573 </span><span class="lineNoCov">          0 :         switch (o-&gt;encoding) {</span>
+<span class="lineNum">     574 </span><span class="lineNoCov">          0 :         case OBJ_ENCODING_SKIPLIST:</span>
+<span class="lineNum">     575 </span>            :             {
+<span class="lineNum">     576 </span><span class="lineNoCov">          0 :                 zset *zs = o-&gt;ptr;</span>
+<span class="lineNum">     577 </span><span class="lineNoCov">          0 :                 ht = zs-&gt;dict;</span>
+<span class="lineNum">     578 </span>            :             }
+<span class="lineNum">     579 </span><span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">     580 </span><span class="lineNoCov">          0 :         case OBJ_ENCODING_HT:</span>
+<span class="lineNum">     581 </span><span class="lineNoCov">          0 :             ht = o-&gt;ptr;</span>
+<span class="lineNum">     582 </span><span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">     583 </span>            :         }
+<span class="lineNum">     584 </span>            : 
+<span class="lineNum">     585 </span><span class="lineNoCov">          0 :         if (ht == NULL) {</span>
+<span class="lineNum">     586 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;The value stored at the specified key is not &quot;</span>
+<span class="lineNum">     587 </span>            :                             &quot;represented using an hash table&quot;);
+<span class="lineNum">     588 </span>            :         } else {
+<span class="lineNum">     589 </span><span class="lineNoCov">          0 :             char buf[4096];</span>
+<span class="lineNum">     590 </span><span class="lineNoCov">          0 :             dictGetStats(buf,sizeof(buf),ht);</span>
+<span class="lineNum">     591 </span><span class="lineNoCov">          0 :             addReplyBulkCString(c,buf);</span>
+<span class="lineNum">     592 </span>            :         }
+<span class="lineNum">     593 </span><span class="lineCov">          6 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;change-repl-id&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">     594 </span><span class="lineCov">          6 :         serverLog(LL_WARNING,&quot;Changing replication IDs after receiving DEBUG change-repl-id&quot;);</span>
+<span class="lineNum">     595 </span><span class="lineCov">          6 :         changeReplicationId();</span>
+<span class="lineNum">     596 </span><span class="lineCov">          6 :         clearReplicationId2();</span>
+<span class="lineNum">     597 </span><span class="lineCov">          6 :         addReply(c,shared.ok);</span>
+<span class="lineNum">     598 </span>            :     } else {
+<span class="lineNum">     599 </span><span class="lineNoCov">          0 :         addReplySubcommandSyntaxError(c);</span>
+<span class="lineNum">     600 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     601 </span>            :     }
+<span class="lineNum">     602 </span>            : }
+<span class="lineNum">     603 </span>            : 
+<a name="604"><span class="lineNum">     604 </span>            : /* =========================== Crash handling  ============================== */</a>
+<span class="lineNum">     605 </span>            : 
+<span class="lineNum">     606 </span><span class="lineNoCov">          0 : void _serverAssert(const char *estr, const char *file, int line) {</span>
+<span class="lineNum">     607 </span><span class="lineNoCov">          0 :     bugReportStart();</span>
+<span class="lineNum">     608 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;=== ASSERTION FAILED ===&quot;);</span>
+<span class="lineNum">     609 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;==&gt; %s:%d '%s' is not true&quot;,file,line,estr);</span>
+<span class="lineNum">     610 </span>            : #ifdef HAVE_BACKTRACE
+<span class="lineNum">     611 </span><span class="lineNoCov">          0 :     server.assert_failed = estr;</span>
+<span class="lineNum">     612 </span><span class="lineNoCov">          0 :     server.assert_file = file;</span>
+<span class="lineNum">     613 </span><span class="lineNoCov">          0 :     server.assert_line = line;</span>
+<span class="lineNum">     614 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;(forcing SIGSEGV to print the bug report.)&quot;);</span>
+<span class="lineNum">     615 </span>            : #endif
+<span class="lineNum">     616 </span><span class="lineNoCov">          0 :     *((char*)-1) = 'x';</span>
+<a name="617"><span class="lineNum">     617 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     618 </span>            : 
+<span class="lineNum">     619 </span><span class="lineNoCov">          0 : void _serverAssertPrintClientInfo(const client *c) {</span>
+<span class="lineNum">     620 </span><span class="lineNoCov">          0 :     int j;</span>
+<span class="lineNum">     621 </span>            : 
+<span class="lineNum">     622 </span><span class="lineNoCov">          0 :     bugReportStart();</span>
+<span class="lineNum">     623 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;=== ASSERTION FAILED CLIENT CONTEXT ===&quot;);</span>
+<span class="lineNum">     624 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;client-&gt;flags = %d&quot;, c-&gt;flags);</span>
+<span class="lineNum">     625 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;client-&gt;fd = %d&quot;, c-&gt;fd);</span>
+<span class="lineNum">     626 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;client-&gt;argc = %d&quot;, c-&gt;argc);</span>
+<span class="lineNum">     627 </span><span class="lineNoCov">          0 :     for (j=0; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     628 </span><span class="lineNoCov">          0 :         char buf[128];</span>
+<span class="lineNum">     629 </span><span class="lineNoCov">          0 :         char *arg;</span>
+<span class="lineNum">     630 </span>            : 
+<span class="lineNum">     631 </span><span class="lineNoCov">          0 :         if (c-&gt;argv[j]-&gt;type == OBJ_STRING &amp;&amp; sdsEncodedObject(c-&gt;argv[j])) {</span>
+<span class="lineNum">     632 </span><span class="lineNoCov">          0 :             arg = (char*) c-&gt;argv[j]-&gt;ptr;</span>
+<span class="lineNum">     633 </span>            :         } else {
+<span class="lineNum">     634 </span><span class="lineNoCov">          0 :             snprintf(buf,sizeof(buf),&quot;Object type: %u, encoding: %u&quot;,</span>
+<span class="lineNum">     635 </span><span class="lineNoCov">          0 :                 c-&gt;argv[j]-&gt;type, c-&gt;argv[j]-&gt;encoding);</span>
+<span class="lineNum">     636 </span><span class="lineNoCov">          0 :             arg = buf;</span>
+<span class="lineNum">     637 </span>            :         }
+<span class="lineNum">     638 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,&quot;client-&gt;argv[%d] = \&quot;%s\&quot; (refcount: %d)&quot;,</span>
+<span class="lineNum">     639 </span><span class="lineNoCov">          0 :             j, arg, c-&gt;argv[j]-&gt;refcount);</span>
+<span class="lineNum">     640 </span>            :     }
+<a name="641"><span class="lineNum">     641 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     642 </span>            : 
+<span class="lineNum">     643 </span><span class="lineNoCov">          0 : void serverLogObjectDebugInfo(const robj *o) {</span>
+<span class="lineNum">     644 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;Object type: %d&quot;, o-&gt;type);</span>
+<span class="lineNum">     645 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;Object encoding: %d&quot;, o-&gt;encoding);</span>
+<span class="lineNum">     646 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;Object refcount: %d&quot;, o-&gt;refcount);</span>
+<span class="lineNum">     647 </span><span class="lineNoCov">          0 :     if (o-&gt;type == OBJ_STRING &amp;&amp; sdsEncodedObject(o)) {</span>
+<span class="lineNum">     648 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,&quot;Object raw string len: %zu&quot;, sdslen(o-&gt;ptr));</span>
+<span class="lineNum">     649 </span><span class="lineNoCov">          0 :         if (sdslen(o-&gt;ptr) &lt; 4096) {</span>
+<span class="lineNum">     650 </span><span class="lineNoCov">          0 :             sds repr = sdscatrepr(sdsempty(),o-&gt;ptr,sdslen(o-&gt;ptr));</span>
+<span class="lineNum">     651 </span><span class="lineNoCov">          0 :             serverLog(LL_WARNING,&quot;Object raw string content: %s&quot;, repr);</span>
+<span class="lineNum">     652 </span><span class="lineNoCov">          0 :             sdsfree(repr);</span>
+<span class="lineNum">     653 </span>            :         }
+<span class="lineNum">     654 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_LIST) {</span>
+<span class="lineNum">     655 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,&quot;List length: %d&quot;, (int) listTypeLength(o));</span>
+<span class="lineNum">     656 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_SET) {</span>
+<span class="lineNum">     657 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,&quot;Set size: %d&quot;, (int) setTypeSize(o));</span>
+<span class="lineNum">     658 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_HASH) {</span>
+<span class="lineNum">     659 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,&quot;Hash size: %d&quot;, (int) hashTypeLength(o));</span>
+<span class="lineNum">     660 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_ZSET) {</span>
+<span class="lineNum">     661 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,&quot;Sorted set size: %d&quot;, (int) zsetLength(o));</span>
+<span class="lineNum">     662 </span><span class="lineNoCov">          0 :         if (o-&gt;encoding == OBJ_ENCODING_SKIPLIST)</span>
+<span class="lineNum">     663 </span><span class="lineNoCov">          0 :             serverLog(LL_WARNING,&quot;Skiplist level: %d&quot;, (int) ((const zset*)o-&gt;ptr)-&gt;zsl-&gt;level);</span>
+<span class="lineNum">     664 </span>            :     }
+<a name="665"><span class="lineNum">     665 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     666 </span>            : 
+<span class="lineNum">     667 </span><span class="lineNoCov">          0 : void _serverAssertPrintObject(const robj *o) {</span>
+<span class="lineNum">     668 </span><span class="lineNoCov">          0 :     bugReportStart();</span>
+<span class="lineNum">     669 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;=== ASSERTION FAILED OBJECT CONTEXT ===&quot;);</span>
+<span class="lineNum">     670 </span><span class="lineNoCov">          0 :     serverLogObjectDebugInfo(o);</span>
+<a name="671"><span class="lineNum">     671 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     672 </span>            : 
+<span class="lineNum">     673 </span><span class="lineNoCov">          0 : void _serverAssertWithInfo(const client *c, const robj *o, const char *estr, const char *file, int line) {</span>
+<span class="lineNum">     674 </span><span class="lineNoCov">          0 :     if (c) _serverAssertPrintClientInfo(c);</span>
+<span class="lineNum">     675 </span><span class="lineNoCov">          0 :     if (o) _serverAssertPrintObject(o);</span>
+<span class="lineNum">     676 </span><span class="lineNoCov">          0 :     _serverAssert(estr,file,line);</span>
+<a name="677"><span class="lineNum">     677 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     678 </span>            : 
+<span class="lineNum">     679 </span><span class="lineNoCov">          0 : void _serverPanic(const char *file, int line, const char *msg, ...) {</span>
+<span class="lineNum">     680 </span><span class="lineNoCov">          0 :     va_list ap;</span>
+<span class="lineNum">     681 </span><span class="lineNoCov">          0 :     va_start(ap,msg);</span>
+<span class="lineNum">     682 </span><span class="lineNoCov">          0 :     char fmtmsg[256];</span>
+<span class="lineNum">     683 </span><span class="lineNoCov">          0 :     vsnprintf(fmtmsg,sizeof(fmtmsg),msg,ap);</span>
+<span class="lineNum">     684 </span><span class="lineNoCov">          0 :     va_end(ap);</span>
+<span class="lineNum">     685 </span>            : 
+<span class="lineNum">     686 </span><span class="lineNoCov">          0 :     bugReportStart();</span>
+<span class="lineNum">     687 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;------------------------------------------------&quot;);</span>
+<span class="lineNum">     688 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;!!! Software Failure. Press left mouse button to continue&quot;);</span>
+<span class="lineNum">     689 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;Guru Meditation: %s #%s:%d&quot;,fmtmsg,file,line);</span>
+<span class="lineNum">     690 </span>            : #ifdef HAVE_BACKTRACE
+<span class="lineNum">     691 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;(forcing SIGSEGV in order to print the stack trace)&quot;);</span>
+<span class="lineNum">     692 </span>            : #endif
+<span class="lineNum">     693 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,&quot;------------------------------------------------&quot;);</span>
+<span class="lineNum">     694 </span><span class="lineNoCov">          0 :     *((char*)-1) = 'x';</span>
+<a name="695"><span class="lineNum">     695 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     696 </span>            : 
+<span class="lineNum">     697 </span><span class="lineNoCov">          0 : void bugReportStart(void) {</span>
+<span class="lineNum">     698 </span><span class="lineNoCov">          0 :     if (server.bug_report_start == 0) {</span>
+<span class="lineNum">     699 </span><span class="lineNoCov">          0 :         serverLogRaw(LL_WARNING|LL_RAW,</span>
+<span class="lineNum">     700 </span>            :         &quot;\n\n=== REDIS BUG REPORT START: Cut &amp; paste starting from here ===\n&quot;);
+<span class="lineNum">     701 </span><span class="lineNoCov">          0 :         server.bug_report_start = 1;</span>
+<span class="lineNum">     702 </span>            :     }
+<span class="lineNum">     703 </span><span class="lineNoCov">          0 : }</span>
+<a name="704"><span class="lineNum">     704 </span>            : </a>
+<span class="lineNum">     705 </span>            : #ifdef HAVE_BACKTRACE
+<span class="lineNum">     706 </span><span class="lineNoCov">          0 : static void *getMcontextEip(ucontext_t *uc) {</span>
+<span class="lineNum">     707 </span>            : #if defined(__APPLE__) &amp;&amp; !defined(MAC_OS_X_VERSION_10_6)
+<span class="lineNum">     708 </span>            :     /* OSX &lt; 10.6 */
+<span class="lineNum">     709 </span>            :     #if defined(__x86_64__)
+<span class="lineNum">     710 </span>            :     return (void*) uc-&gt;uc_mcontext-&gt;__ss.__rip;
+<span class="lineNum">     711 </span>            :     #elif defined(__i386__)
+<span class="lineNum">     712 </span>            :     return (void*) uc-&gt;uc_mcontext-&gt;__ss.__eip;
+<span class="lineNum">     713 </span>            :     #else
+<span class="lineNum">     714 </span>            :     return (void*) uc-&gt;uc_mcontext-&gt;__ss.__srr0;
+<span class="lineNum">     715 </span>            :     #endif
+<span class="lineNum">     716 </span>            : #elif defined(__APPLE__) &amp;&amp; defined(MAC_OS_X_VERSION_10_6)
+<span class="lineNum">     717 </span>            :     /* OSX &gt;= 10.6 */
+<span class="lineNum">     718 </span>            :     #if defined(_STRUCT_X86_THREAD_STATE64) &amp;&amp; !defined(__i386__)
+<span class="lineNum">     719 </span>            :     return (void*) uc-&gt;uc_mcontext-&gt;__ss.__rip;
+<span class="lineNum">     720 </span>            :     #else
+<span class="lineNum">     721 </span>            :     return (void*) uc-&gt;uc_mcontext-&gt;__ss.__eip;
+<span class="lineNum">     722 </span>            :     #endif
+<span class="lineNum">     723 </span>            : #elif defined(__linux__)
+<span class="lineNum">     724 </span>            :     /* Linux */
+<span class="lineNum">     725 </span>            :     #if defined(__i386__)
+<span class="lineNum">     726 </span>            :     return (void*) uc-&gt;uc_mcontext.gregs[14]; /* Linux 32 */
+<span class="lineNum">     727 </span>            :     #elif defined(__X86_64__) || defined(__x86_64__)
+<span class="lineNum">     728 </span><span class="lineCov">          6 :     return (void*) uc-&gt;uc_mcontext.gregs[16]; /* Linux 64 */</span>
+<span class="lineNum">     729 </span>            :     #elif defined(__ia64__) /* Linux IA64 */
+<span class="lineNum">     730 </span>            :     return (void*) uc-&gt;uc_mcontext.sc_ip;
+<span class="lineNum">     731 </span>            :     #elif defined(__arm__) /* Linux ARM */
+<span class="lineNum">     732 </span>            :     return (void*) uc-&gt;uc_mcontext.arm_pc;
+<span class="lineNum">     733 </span>            :     #elif defined(__aarch64__) /* Linux AArch64 */
+<span class="lineNum">     734 </span>            :     return (void*) uc-&gt;uc_mcontext.pc;
+<span class="lineNum">     735 </span>            :     #endif
+<span class="lineNum">     736 </span>            : #elif defined(__FreeBSD__)
+<span class="lineNum">     737 </span>            :     /* FreeBSD */
+<span class="lineNum">     738 </span>            :     #if defined(__i386__)
+<span class="lineNum">     739 </span>            :     return (void*) uc-&gt;uc_mcontext.mc_eip;
+<span class="lineNum">     740 </span>            :     #elif defined(__x86_64__)
+<span class="lineNum">     741 </span>            :     return (void*) uc-&gt;uc_mcontext.mc_rip;
+<span class="lineNum">     742 </span>            :     #endif
+<span class="lineNum">     743 </span>            : #elif defined(__OpenBSD__)
+<span class="lineNum">     744 </span>            :     /* OpenBSD */
+<span class="lineNum">     745 </span>            :     #if defined(__i386__)
+<span class="lineNum">     746 </span>            :     return (void*) uc-&gt;sc_eip;
+<span class="lineNum">     747 </span>            :     #elif defined(__x86_64__)
+<span class="lineNum">     748 </span>            :     return (void*) uc-&gt;sc_rip;
+<span class="lineNum">     749 </span>            :     #endif
+<span class="lineNum">     750 </span>            : #elif defined(__DragonFly__)
+<span class="lineNum">     751 </span>            :     return (void*) uc-&gt;uc_mcontext.mc_rip;
+<span class="lineNum">     752 </span>            : #else
+<span class="lineNum">     753 </span>            :     return NULL;
+<span class="lineNum">     754 </span>            : #endif
+<a name="755"><span class="lineNum">     755 </span>            : }</a>
+<span class="lineNum">     756 </span>            : 
+<span class="lineNum">     757 </span><span class="lineNoCov">          0 : void logStackContent(void **sp) {</span>
+<span class="lineNum">     758 </span><span class="lineNoCov">          0 :     int i;</span>
+<span class="lineNum">     759 </span><span class="lineNoCov">          0 :     for (i = 15; i &gt;= 0; i--) {</span>
+<span class="lineNum">     760 </span><span class="lineNoCov">          0 :         unsigned long addr = (unsigned long) sp+i;</span>
+<span class="lineNum">     761 </span><span class="lineNoCov">          0 :         unsigned long val = (unsigned long) sp[i];</span>
+<span class="lineNum">     762 </span>            : 
+<span class="lineNum">     763 </span><span class="lineNoCov">          0 :         if (sizeof(long) == 4)</span>
+<span class="lineNum">     764 </span>            :             serverLog(LL_WARNING, &quot;(%08lx) -&gt; %08lx&quot;, addr, val);
+<span class="lineNum">     765 </span>            :         else
+<span class="lineNum">     766 </span><span class="lineNoCov">          0 :             serverLog(LL_WARNING, &quot;(%016lx) -&gt; %016lx&quot;, addr, val);</span>
+<span class="lineNum">     767 </span>            :     }
+<a name="768"><span class="lineNum">     768 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     769 </span>            : 
+<span class="lineNum">     770 </span><span class="lineNoCov">          0 : void logRegisters(ucontext_t *uc) {</span>
+<span class="lineNum">     771 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING|LL_RAW, &quot;\n------ REGISTERS ------\n&quot;);</span>
+<span class="lineNum">     772 </span>            : 
+<span class="lineNum">     773 </span>            : /* OSX */
+<span class="lineNum">     774 </span>            : #if defined(__APPLE__) &amp;&amp; defined(MAC_OS_X_VERSION_10_6)
+<span class="lineNum">     775 </span>            :   /* OSX AMD64 */
+<span class="lineNum">     776 </span>            :     #if defined(_STRUCT_X86_THREAD_STATE64) &amp;&amp; !defined(__i386__)
+<span class="lineNum">     777 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     778 </span>            :     &quot;\n&quot;
+<span class="lineNum">     779 </span>            :     &quot;RAX:%016lx RBX:%016lx\nRCX:%016lx RDX:%016lx\n&quot;
+<span class="lineNum">     780 </span>            :     &quot;RDI:%016lx RSI:%016lx\nRBP:%016lx RSP:%016lx\n&quot;
+<span class="lineNum">     781 </span>            :     &quot;R8 :%016lx R9 :%016lx\nR10:%016lx R11:%016lx\n&quot;
+<span class="lineNum">     782 </span>            :     &quot;R12:%016lx R13:%016lx\nR14:%016lx R15:%016lx\n&quot;
+<span class="lineNum">     783 </span>            :     &quot;RIP:%016lx EFL:%016lx\nCS :%016lx FS:%016lx  GS:%016lx&quot;,
+<span class="lineNum">     784 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rax,
+<span class="lineNum">     785 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rbx,
+<span class="lineNum">     786 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rcx,
+<span class="lineNum">     787 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rdx,
+<span class="lineNum">     788 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rdi,
+<span class="lineNum">     789 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rsi,
+<span class="lineNum">     790 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rbp,
+<span class="lineNum">     791 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rsp,
+<span class="lineNum">     792 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r8,
+<span class="lineNum">     793 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r9,
+<span class="lineNum">     794 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r10,
+<span class="lineNum">     795 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r11,
+<span class="lineNum">     796 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r12,
+<span class="lineNum">     797 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r13,
+<span class="lineNum">     798 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r14,
+<span class="lineNum">     799 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__r15,
+<span class="lineNum">     800 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rip,
+<span class="lineNum">     801 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__rflags,
+<span class="lineNum">     802 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__cs,
+<span class="lineNum">     803 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__fs,
+<span class="lineNum">     804 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__gs
+<span class="lineNum">     805 </span>            :     );
+<span class="lineNum">     806 </span>            :     logStackContent((void**)uc-&gt;uc_mcontext-&gt;__ss.__rsp);
+<span class="lineNum">     807 </span>            :     #else
+<span class="lineNum">     808 </span>            :     /* OSX x86 */
+<span class="lineNum">     809 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     810 </span>            :     &quot;\n&quot;
+<span class="lineNum">     811 </span>            :     &quot;EAX:%08lx EBX:%08lx ECX:%08lx EDX:%08lx\n&quot;
+<span class="lineNum">     812 </span>            :     &quot;EDI:%08lx ESI:%08lx EBP:%08lx ESP:%08lx\n&quot;
+<span class="lineNum">     813 </span>            :     &quot;SS:%08lx  EFL:%08lx EIP:%08lx CS :%08lx\n&quot;
+<span class="lineNum">     814 </span>            :     &quot;DS:%08lx  ES:%08lx  FS :%08lx GS :%08lx&quot;,
+<span class="lineNum">     815 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__eax,
+<span class="lineNum">     816 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__ebx,
+<span class="lineNum">     817 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__ecx,
+<span class="lineNum">     818 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__edx,
+<span class="lineNum">     819 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__edi,
+<span class="lineNum">     820 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__esi,
+<span class="lineNum">     821 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__ebp,
+<span class="lineNum">     822 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__esp,
+<span class="lineNum">     823 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__ss,
+<span class="lineNum">     824 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__eflags,
+<span class="lineNum">     825 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__eip,
+<span class="lineNum">     826 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__cs,
+<span class="lineNum">     827 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__ds,
+<span class="lineNum">     828 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__es,
+<span class="lineNum">     829 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__fs,
+<span class="lineNum">     830 </span>            :         (unsigned long) uc-&gt;uc_mcontext-&gt;__ss.__gs
+<span class="lineNum">     831 </span>            :     );
+<span class="lineNum">     832 </span>            :     logStackContent((void**)uc-&gt;uc_mcontext-&gt;__ss.__esp);
+<span class="lineNum">     833 </span>            :     #endif
+<span class="lineNum">     834 </span>            : /* Linux */
+<span class="lineNum">     835 </span>            : #elif defined(__linux__)
+<span class="lineNum">     836 </span>            :     /* Linux x86 */
+<span class="lineNum">     837 </span>            :     #if defined(__i386__)
+<span class="lineNum">     838 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     839 </span>            :     &quot;\n&quot;
+<span class="lineNum">     840 </span>            :     &quot;EAX:%08lx EBX:%08lx ECX:%08lx EDX:%08lx\n&quot;
+<span class="lineNum">     841 </span>            :     &quot;EDI:%08lx ESI:%08lx EBP:%08lx ESP:%08lx\n&quot;
+<span class="lineNum">     842 </span>            :     &quot;SS :%08lx EFL:%08lx EIP:%08lx CS:%08lx\n&quot;
+<span class="lineNum">     843 </span>            :     &quot;DS :%08lx ES :%08lx FS :%08lx GS:%08lx&quot;,
+<span class="lineNum">     844 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[11],
+<span class="lineNum">     845 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[8],
+<span class="lineNum">     846 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[10],
+<span class="lineNum">     847 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[9],
+<span class="lineNum">     848 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[4],
+<span class="lineNum">     849 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[5],
+<span class="lineNum">     850 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[6],
+<span class="lineNum">     851 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[7],
+<span class="lineNum">     852 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[18],
+<span class="lineNum">     853 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[17],
+<span class="lineNum">     854 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[14],
+<span class="lineNum">     855 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[15],
+<span class="lineNum">     856 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[3],
+<span class="lineNum">     857 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[2],
+<span class="lineNum">     858 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[1],
+<span class="lineNum">     859 </span>            :         (unsigned long) uc-&gt;uc_mcontext.gregs[0]
+<span class="lineNum">     860 </span>            :     );
+<span class="lineNum">     861 </span>            :     logStackContent((void**)uc-&gt;uc_mcontext.gregs[7]);
+<span class="lineNum">     862 </span>            :     #elif defined(__X86_64__) || defined(__x86_64__)
+<span class="lineNum">     863 </span>            :     /* Linux AMD64 */
+<span class="lineNum">     864 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,</span>
+<span class="lineNum">     865 </span>            :     &quot;\n&quot;
+<span class="lineNum">     866 </span>            :     &quot;RAX:%016lx RBX:%016lx\nRCX:%016lx RDX:%016lx\n&quot;
+<span class="lineNum">     867 </span>            :     &quot;RDI:%016lx RSI:%016lx\nRBP:%016lx RSP:%016lx\n&quot;
+<span class="lineNum">     868 </span>            :     &quot;R8 :%016lx R9 :%016lx\nR10:%016lx R11:%016lx\n&quot;
+<span class="lineNum">     869 </span>            :     &quot;R12:%016lx R13:%016lx\nR14:%016lx R15:%016lx\n&quot;
+<span class="lineNum">     870 </span>            :     &quot;RIP:%016lx EFL:%016lx\nCSGSFS:%016lx&quot;,
+<span class="lineNum">     871 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[13],</span>
+<span class="lineNum">     872 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[11],</span>
+<span class="lineNum">     873 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[14],</span>
+<span class="lineNum">     874 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[12],</span>
+<span class="lineNum">     875 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[8],</span>
+<span class="lineNum">     876 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[9],</span>
+<span class="lineNum">     877 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[10],</span>
+<span class="lineNum">     878 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[15],</span>
+<span class="lineNum">     879 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[0],</span>
+<span class="lineNum">     880 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[1],</span>
+<span class="lineNum">     881 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[2],</span>
+<span class="lineNum">     882 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[3],</span>
+<span class="lineNum">     883 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[4],</span>
+<span class="lineNum">     884 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[5],</span>
+<span class="lineNum">     885 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[6],</span>
+<span class="lineNum">     886 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[7],</span>
+<span class="lineNum">     887 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[16],</span>
+<span class="lineNum">     888 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[17],</span>
+<span class="lineNum">     889 </span><span class="lineNoCov">          0 :         (unsigned long) uc-&gt;uc_mcontext.gregs[18]</span>
+<span class="lineNum">     890 </span>            :     );
+<span class="lineNum">     891 </span><span class="lineNoCov">          0 :     logStackContent((void**)uc-&gt;uc_mcontext.gregs[15]);</span>
+<span class="lineNum">     892 </span>            :     #endif
+<span class="lineNum">     893 </span>            : #elif defined(__FreeBSD__)
+<span class="lineNum">     894 </span>            :     #if defined(__x86_64__)
+<span class="lineNum">     895 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     896 </span>            :     &quot;\n&quot;
+<span class="lineNum">     897 </span>            :     &quot;RAX:%016lx RBX:%016lx\nRCX:%016lx RDX:%016lx\n&quot;
+<span class="lineNum">     898 </span>            :     &quot;RDI:%016lx RSI:%016lx\nRBP:%016lx RSP:%016lx\n&quot;
+<span class="lineNum">     899 </span>            :     &quot;R8 :%016lx R9 :%016lx\nR10:%016lx R11:%016lx\n&quot;
+<span class="lineNum">     900 </span>            :     &quot;R12:%016lx R13:%016lx\nR14:%016lx R15:%016lx\n&quot;
+<span class="lineNum">     901 </span>            :     &quot;RIP:%016lx EFL:%016lx\nCSGSFS:%016lx&quot;,
+<span class="lineNum">     902 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rax,
+<span class="lineNum">     903 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rbx,
+<span class="lineNum">     904 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rcx,
+<span class="lineNum">     905 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rdx,
+<span class="lineNum">     906 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rdi,
+<span class="lineNum">     907 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rsi,
+<span class="lineNum">     908 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rbp,
+<span class="lineNum">     909 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rsp,
+<span class="lineNum">     910 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r8,
+<span class="lineNum">     911 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r9,
+<span class="lineNum">     912 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r10,
+<span class="lineNum">     913 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r11,
+<span class="lineNum">     914 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r12,
+<span class="lineNum">     915 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r13,
+<span class="lineNum">     916 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r14,
+<span class="lineNum">     917 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r15,
+<span class="lineNum">     918 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rip,
+<span class="lineNum">     919 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rflags,
+<span class="lineNum">     920 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_cs
+<span class="lineNum">     921 </span>            :     );
+<span class="lineNum">     922 </span>            :     logStackContent((void**)uc-&gt;uc_mcontext.mc_rsp);
+<span class="lineNum">     923 </span>            :     #elif defined(__i386__)
+<span class="lineNum">     924 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     925 </span>            :     &quot;\n&quot;
+<span class="lineNum">     926 </span>            :     &quot;EAX:%08lx EBX:%08lx ECX:%08lx EDX:%08lx\n&quot;
+<span class="lineNum">     927 </span>            :     &quot;EDI:%08lx ESI:%08lx EBP:%08lx ESP:%08lx\n&quot;
+<span class="lineNum">     928 </span>            :     &quot;SS :%08lx EFL:%08lx EIP:%08lx CS:%08lx\n&quot;
+<span class="lineNum">     929 </span>            :     &quot;DS :%08lx ES :%08lx FS :%08lx GS:%08lx&quot;,
+<span class="lineNum">     930 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_eax,
+<span class="lineNum">     931 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_ebx,
+<span class="lineNum">     932 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_ebx,
+<span class="lineNum">     933 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_edx,
+<span class="lineNum">     934 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_edi,
+<span class="lineNum">     935 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_esi,
+<span class="lineNum">     936 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_ebp,
+<span class="lineNum">     937 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_esp,
+<span class="lineNum">     938 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_ss,
+<span class="lineNum">     939 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_eflags,
+<span class="lineNum">     940 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_eip,
+<span class="lineNum">     941 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_cs,
+<span class="lineNum">     942 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_es,
+<span class="lineNum">     943 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_fs,
+<span class="lineNum">     944 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_gs
+<span class="lineNum">     945 </span>            :     );
+<span class="lineNum">     946 </span>            :     logStackContent((void**)uc-&gt;uc_mcontext.mc_esp);
+<span class="lineNum">     947 </span>            :     #endif
+<span class="lineNum">     948 </span>            : #elif defined(__OpenBSD__)
+<span class="lineNum">     949 </span>            :     #if defined(__x86_64__)
+<span class="lineNum">     950 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     951 </span>            :     &quot;\n&quot;
+<span class="lineNum">     952 </span>            :     &quot;RAX:%016lx RBX:%016lx\nRCX:%016lx RDX:%016lx\n&quot;
+<span class="lineNum">     953 </span>            :     &quot;RDI:%016lx RSI:%016lx\nRBP:%016lx RSP:%016lx\n&quot;
+<span class="lineNum">     954 </span>            :     &quot;R8 :%016lx R9 :%016lx\nR10:%016lx R11:%016lx\n&quot;
+<span class="lineNum">     955 </span>            :     &quot;R12:%016lx R13:%016lx\nR14:%016lx R15:%016lx\n&quot;
+<span class="lineNum">     956 </span>            :     &quot;RIP:%016lx EFL:%016lx\nCSGSFS:%016lx&quot;,
+<span class="lineNum">     957 </span>            :         (unsigned long) uc-&gt;sc_rax,
+<span class="lineNum">     958 </span>            :         (unsigned long) uc-&gt;sc_rbx,
+<span class="lineNum">     959 </span>            :         (unsigned long) uc-&gt;sc_rcx,
+<span class="lineNum">     960 </span>            :         (unsigned long) uc-&gt;sc_rdx,
+<span class="lineNum">     961 </span>            :         (unsigned long) uc-&gt;sc_rdi,
+<span class="lineNum">     962 </span>            :         (unsigned long) uc-&gt;sc_rsi,
+<span class="lineNum">     963 </span>            :         (unsigned long) uc-&gt;sc_rbp,
+<span class="lineNum">     964 </span>            :         (unsigned long) uc-&gt;sc_rsp,
+<span class="lineNum">     965 </span>            :         (unsigned long) uc-&gt;sc_r8,
+<span class="lineNum">     966 </span>            :         (unsigned long) uc-&gt;sc_r9,
+<span class="lineNum">     967 </span>            :         (unsigned long) uc-&gt;sc_r10,
+<span class="lineNum">     968 </span>            :         (unsigned long) uc-&gt;sc_r11,
+<span class="lineNum">     969 </span>            :         (unsigned long) uc-&gt;sc_r12,
+<span class="lineNum">     970 </span>            :         (unsigned long) uc-&gt;sc_r13,
+<span class="lineNum">     971 </span>            :         (unsigned long) uc-&gt;sc_r14,
+<span class="lineNum">     972 </span>            :         (unsigned long) uc-&gt;sc_r15,
+<span class="lineNum">     973 </span>            :         (unsigned long) uc-&gt;sc_rip,
+<span class="lineNum">     974 </span>            :         (unsigned long) uc-&gt;sc_rflags,
+<span class="lineNum">     975 </span>            :         (unsigned long) uc-&gt;sc_cs
+<span class="lineNum">     976 </span>            :     );
+<span class="lineNum">     977 </span>            :     logStackContent((void**)uc-&gt;sc_rsp);
+<span class="lineNum">     978 </span>            :     #elif defined(__i386__)
+<span class="lineNum">     979 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">     980 </span>            :     &quot;\n&quot;
+<span class="lineNum">     981 </span>            :     &quot;EAX:%08lx EBX:%08lx ECX:%08lx EDX:%08lx\n&quot;
+<span class="lineNum">     982 </span>            :     &quot;EDI:%08lx ESI:%08lx EBP:%08lx ESP:%08lx\n&quot;
+<span class="lineNum">     983 </span>            :     &quot;SS :%08lx EFL:%08lx EIP:%08lx CS:%08lx\n&quot;
+<span class="lineNum">     984 </span>            :     &quot;DS :%08lx ES :%08lx FS :%08lx GS:%08lx&quot;,
+<span class="lineNum">     985 </span>            :         (unsigned long) uc-&gt;sc_eax,
+<span class="lineNum">     986 </span>            :         (unsigned long) uc-&gt;sc_ebx,
+<span class="lineNum">     987 </span>            :         (unsigned long) uc-&gt;sc_ebx,
+<span class="lineNum">     988 </span>            :         (unsigned long) uc-&gt;sc_edx,
+<span class="lineNum">     989 </span>            :         (unsigned long) uc-&gt;sc_edi,
+<span class="lineNum">     990 </span>            :         (unsigned long) uc-&gt;sc_esi,
+<span class="lineNum">     991 </span>            :         (unsigned long) uc-&gt;sc_ebp,
+<span class="lineNum">     992 </span>            :         (unsigned long) uc-&gt;sc_esp,
+<span class="lineNum">     993 </span>            :         (unsigned long) uc-&gt;sc_ss,
+<span class="lineNum">     994 </span>            :         (unsigned long) uc-&gt;sc_eflags,
+<span class="lineNum">     995 </span>            :         (unsigned long) uc-&gt;sc_eip,
+<span class="lineNum">     996 </span>            :         (unsigned long) uc-&gt;sc_cs,
+<span class="lineNum">     997 </span>            :         (unsigned long) uc-&gt;sc_es,
+<span class="lineNum">     998 </span>            :         (unsigned long) uc-&gt;sc_fs,
+<span class="lineNum">     999 </span>            :         (unsigned long) uc-&gt;sc_gs
+<span class="lineNum">    1000 </span>            :     );
+<span class="lineNum">    1001 </span>            :     logStackContent((void**)uc-&gt;sc_esp);
+<span class="lineNum">    1002 </span>            :     #endif
+<span class="lineNum">    1003 </span>            : #elif defined(__DragonFly__)
+<span class="lineNum">    1004 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">    1005 </span>            :     &quot;\n&quot;
+<span class="lineNum">    1006 </span>            :     &quot;RAX:%016lx RBX:%016lx\nRCX:%016lx RDX:%016lx\n&quot;
+<span class="lineNum">    1007 </span>            :     &quot;RDI:%016lx RSI:%016lx\nRBP:%016lx RSP:%016lx\n&quot;
+<span class="lineNum">    1008 </span>            :     &quot;R8 :%016lx R9 :%016lx\nR10:%016lx R11:%016lx\n&quot;
+<span class="lineNum">    1009 </span>            :     &quot;R12:%016lx R13:%016lx\nR14:%016lx R15:%016lx\n&quot;
+<span class="lineNum">    1010 </span>            :     &quot;RIP:%016lx EFL:%016lx\nCSGSFS:%016lx&quot;,
+<span class="lineNum">    1011 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rax,
+<span class="lineNum">    1012 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rbx,
+<span class="lineNum">    1013 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rcx,
+<span class="lineNum">    1014 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rdx,
+<span class="lineNum">    1015 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rdi,
+<span class="lineNum">    1016 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rsi,
+<span class="lineNum">    1017 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rbp,
+<span class="lineNum">    1018 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rsp,
+<span class="lineNum">    1019 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r8,
+<span class="lineNum">    1020 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r9,
+<span class="lineNum">    1021 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r10,
+<span class="lineNum">    1022 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r11,
+<span class="lineNum">    1023 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r12,
+<span class="lineNum">    1024 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r13,
+<span class="lineNum">    1025 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r14,
+<span class="lineNum">    1026 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_r15,
+<span class="lineNum">    1027 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rip,
+<span class="lineNum">    1028 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_rflags,
+<span class="lineNum">    1029 </span>            :         (unsigned long) uc-&gt;uc_mcontext.mc_cs
+<span class="lineNum">    1030 </span>            :     );
+<span class="lineNum">    1031 </span>            :     logStackContent((void**)uc-&gt;uc_mcontext.mc_rsp);
+<span class="lineNum">    1032 </span>            : #else
+<span class="lineNum">    1033 </span>            :     serverLog(LL_WARNING,
+<span class="lineNum">    1034 </span>            :         &quot;  Dumping of registers not supported for this OS/arch&quot;);
+<span class="lineNum">    1035 </span>            : #endif
+<span class="lineNum">    1036 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1037 </span>            : 
+<span class="lineNum">    1038 </span>            : /* Return a file descriptor to write directly to the Redis log with the
+<span class="lineNum">    1039 </span>            :  * write(2) syscall, that can be used in critical sections of the code
+<span class="lineNum">    1040 </span>            :  * where the rest of Redis can't be trusted (for example during the memory
+<span class="lineNum">    1041 </span>            :  * test) or when an API call requires a raw fd.
+<a name="1042"><span class="lineNum">    1042 </span>            :  *</a>
+<span class="lineNum">    1043 </span>            :  * Close it with closeDirectLogFiledes(). */
+<span class="lineNum">    1044 </span><span class="lineNoCov">          0 : int openDirectLogFiledes(void) {</span>
+<span class="lineNum">    1045 </span><span class="lineCov">          3 :     int log_to_stdout = server.logfile[0] == '\0';</span>
+<span class="lineNum">    1046 </span><span class="lineCov">          3 :     int fd = log_to_stdout ?</span>
+<span class="lineNum">    1047 </span><span class="lineNoCov">          0 :         STDOUT_FILENO :</span>
+<span class="lineNum">    1048 </span><span class="lineNoCov">          0 :         open(server.logfile, O_APPEND|O_CREAT|O_WRONLY, 0644);</span>
+<span class="lineNum">    1049 </span><span class="lineNoCov">          0 :     return fd;</span>
+<span class="lineNum">    1050 </span>            : }
+<a name="1051"><span class="lineNum">    1051 </span>            : </a>
+<span class="lineNum">    1052 </span>            : /* Used to close what closeDirectLogFiledes() returns. */
+<span class="lineNum">    1053 </span><span class="lineNoCov">          0 : void closeDirectLogFiledes(int fd) {</span>
+<span class="lineNum">    1054 </span><span class="lineCov">          3 :     int log_to_stdout = server.logfile[0] == '\0';</span>
+<span class="lineNum">    1055 </span><span class="lineNoCov">          0 :     if (!log_to_stdout) close(fd);</span>
+<span class="lineNum">    1056 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1057 </span>            : 
+<a name="1058"><span class="lineNum">    1058 </span>            : /* Logs the stack trace using the backtrace() call. This function is designed</a>
+<span class="lineNum">    1059 </span>            :  * to be called from signal handlers safely. */
+<span class="lineNum">    1060 </span><span class="lineCov">          3 : void logStackTrace(ucontext_t *uc) {</span>
+<span class="lineNum">    1061 </span><span class="lineCov">          3 :     void *trace[101];</span>
+<span class="lineNum">    1062 </span><span class="lineCov">          3 :     int trace_size = 0, fd = openDirectLogFiledes();</span>
+<span class="lineNum">    1063 </span>            : 
+<span class="lineNum">    1064 </span><span class="lineNoCov">          0 :     if (fd == -1) return; /* If we can't log there is anything to do. */</span>
+<span class="lineNum">    1065 </span>            : 
+<span class="lineNum">    1066 </span>            :     /* Generate the stack trace */
+<span class="lineNum">    1067 </span><span class="lineCov">          3 :     trace_size = backtrace(trace+1, 100);</span>
+<span class="lineNum">    1068 </span>            : 
+<span class="lineNum">    1069 </span><span class="lineCov">          3 :     if (getMcontextEip(uc) != NULL) {</span>
+<span class="lineNum">    1070 </span><span class="lineCov">          3 :         char *msg1 = &quot;EIP:\n&quot;;</span>
+<span class="lineNum">    1071 </span><span class="lineCov">          3 :         char *msg2 = &quot;\nBacktrace:\n&quot;;</span>
+<span class="lineNum">    1072 </span><span class="lineCov">          3 :         if (write(fd,msg1,strlen(msg1)) == -1) {/* Avoid warning. */};</span>
+<span class="lineNum">    1073 </span><span class="lineCov">          6 :         trace[0] = getMcontextEip(uc);</span>
+<span class="lineNum">    1074 </span><span class="lineCov">          3 :         backtrace_symbols_fd(trace, 1, fd);</span>
+<span class="lineNum">    1075 </span><span class="lineCov">          3 :         if (write(fd,msg2,strlen(msg2)) == -1) {/* Avoid warning. */};</span>
+<span class="lineNum">    1076 </span>            :     }
+<span class="lineNum">    1077 </span>            : 
+<span class="lineNum">    1078 </span>            :     /* Write symbols to log file */
+<span class="lineNum">    1079 </span><span class="lineCov">          3 :     backtrace_symbols_fd(trace+1, trace_size, fd);</span>
+<span class="lineNum">    1080 </span>            : 
+<span class="lineNum">    1081 </span>            :     /* Cleanup */
+<span class="lineNum">    1082 </span><span class="lineCov">          3 :     closeDirectLogFiledes(fd);</span>
+<span class="lineNum">    1083 </span>            : }
+<span class="lineNum">    1084 </span>            : 
+<span class="lineNum">    1085 </span>            : /* Log information about the &quot;current&quot; client, that is, the client that is
+<a name="1086"><span class="lineNum">    1086 </span>            :  * currently being served by Redis. May be NULL if Redis is not serving a</a>
+<span class="lineNum">    1087 </span>            :  * client right now. */
+<span class="lineNum">    1088 </span><span class="lineNoCov">          0 : void logCurrentClient(void) {</span>
+<span class="lineNum">    1089 </span><span class="lineNoCov">          0 :     if (server.current_client == NULL) return;</span>
+<span class="lineNum">    1090 </span>            : 
+<span class="lineNum">    1091 </span><span class="lineNoCov">          0 :     client *cc = server.current_client;</span>
+<span class="lineNum">    1092 </span><span class="lineNoCov">          0 :     sds client;</span>
+<span class="lineNum">    1093 </span><span class="lineNoCov">          0 :     int j;</span>
+<span class="lineNum">    1094 </span>            : 
+<span class="lineNum">    1095 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, &quot;\n------ CURRENT CLIENT INFO ------\n&quot;);</span>
+<span class="lineNum">    1096 </span><span class="lineNoCov">          0 :     client = catClientInfoString(sdsempty(),cc);</span>
+<span class="lineNum">    1097 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING|LL_RAW,&quot;%s\n&quot;, client);</span>
+<span class="lineNum">    1098 </span><span class="lineNoCov">          0 :     sdsfree(client);</span>
+<span class="lineNum">    1099 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; cc-&gt;argc; j++) {</span>
+<span class="lineNum">    1100 </span><span class="lineNoCov">          0 :         robj *decoded;</span>
+<span class="lineNum">    1101 </span>            : 
+<span class="lineNum">    1102 </span><span class="lineNoCov">          0 :         decoded = getDecodedObject(cc-&gt;argv[j]);</span>
+<span class="lineNum">    1103 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING|LL_RAW,&quot;argv[%d]: '%s'\n&quot;, j,</span>
+<span class="lineNum">    1104 </span><span class="lineNoCov">          0 :             (char*)decoded-&gt;ptr);</span>
+<span class="lineNum">    1105 </span><span class="lineNoCov">          0 :         decrRefCount(decoded);</span>
+<span class="lineNum">    1106 </span>            :     }
+<span class="lineNum">    1107 </span>            :     /* Check if the first argument, usually a key, is found inside the
+<span class="lineNum">    1108 </span>            :      * selected DB, and if so print info about the associated object. */
+<span class="lineNum">    1109 </span><span class="lineNoCov">          0 :     if (cc-&gt;argc &gt;= 1) {</span>
+<span class="lineNum">    1110 </span><span class="lineNoCov">          0 :         robj *val, *key;</span>
+<span class="lineNum">    1111 </span><span class="lineNoCov">          0 :         dictEntry *de;</span>
+<span class="lineNum">    1112 </span>            : 
+<span class="lineNum">    1113 </span><span class="lineNoCov">          0 :         key = getDecodedObject(cc-&gt;argv[1]);</span>
+<span class="lineNum">    1114 </span><span class="lineNoCov">          0 :         de = dictFind(cc-&gt;db-&gt;dict, key-&gt;ptr);</span>
+<span class="lineNum">    1115 </span><span class="lineNoCov">          0 :         if (de) {</span>
+<span class="lineNum">    1116 </span><span class="lineNoCov">          0 :             val = dictGetVal(de);</span>
+<span class="lineNum">    1117 </span><span class="lineNoCov">          0 :             serverLog(LL_WARNING,&quot;key '%s' found in DB containing the following object:&quot;, (char*)key-&gt;ptr);</span>
+<span class="lineNum">    1118 </span><span class="lineNoCov">          0 :             serverLogObjectDebugInfo(val);</span>
+<span class="lineNum">    1119 </span>            :         }
+<span class="lineNum">    1120 </span><span class="lineNoCov">          0 :         decrRefCount(key);</span>
+<span class="lineNum">    1121 </span>            :     }
+<span class="lineNum">    1122 </span>            : }
+<span class="lineNum">    1123 </span>            : 
+<span class="lineNum">    1124 </span>            : #if defined(HAVE_PROC_MAPS)
+<span class="lineNum">    1125 </span>            : 
+<span class="lineNum">    1126 </span>            : #define MEMTEST_MAX_REGIONS 128
+<a name="1127"><span class="lineNum">    1127 </span>            : </a>
+<span class="lineNum">    1128 </span>            : /* A non destructive memory test executed during segfauls. */
+<span class="lineNum">    1129 </span><span class="lineNoCov">          0 : int memtest_test_linux_anonymous_maps(void) {</span>
+<span class="lineNum">    1130 </span><span class="lineNoCov">          0 :     FILE *fp;</span>
+<span class="lineNum">    1131 </span><span class="lineNoCov">          0 :     char line[1024];</span>
+<span class="lineNum">    1132 </span><span class="lineNoCov">          0 :     char logbuf[1024];</span>
+<span class="lineNum">    1133 </span><span class="lineNoCov">          0 :     size_t start_addr, end_addr, size;</span>
+<span class="lineNum">    1134 </span><span class="lineNoCov">          0 :     size_t start_vect[MEMTEST_MAX_REGIONS];</span>
+<span class="lineNum">    1135 </span><span class="lineNoCov">          0 :     size_t size_vect[MEMTEST_MAX_REGIONS];</span>
+<span class="lineNum">    1136 </span><span class="lineNoCov">          0 :     int regions = 0, j;</span>
+<span class="lineNum">    1137 </span>            : 
+<span class="lineNum">    1138 </span><span class="lineNoCov">          0 :     int fd = openDirectLogFiledes();</span>
+<span class="lineNum">    1139 </span><span class="lineNoCov">          0 :     if (!fd) return 0;</span>
+<span class="lineNum">    1140 </span>            : 
+<span class="lineNum">    1141 </span><span class="lineNoCov">          0 :     fp = fopen(&quot;/proc/self/maps&quot;,&quot;r&quot;);</span>
+<span class="lineNum">    1142 </span><span class="lineNoCov">          0 :     if (!fp) return 0;</span>
+<span class="lineNum">    1143 </span><span class="lineNoCov">          0 :     while(fgets(line,sizeof(line),fp) != NULL) {</span>
+<span class="lineNum">    1144 </span><span class="lineNoCov">          0 :         char *start, *end, *p = line;</span>
+<span class="lineNum">    1145 </span>            : 
+<span class="lineNum">    1146 </span><span class="lineNoCov">          0 :         start = p;</span>
+<span class="lineNum">    1147 </span><span class="lineNoCov">          0 :         p = strchr(p,'-');</span>
+<span class="lineNum">    1148 </span><span class="lineNoCov">          0 :         if (!p) continue;</span>
+<span class="lineNum">    1149 </span><span class="lineNoCov">          0 :         *p++ = '\0';</span>
+<span class="lineNum">    1150 </span><span class="lineNoCov">          0 :         end = p;</span>
+<span class="lineNum">    1151 </span><span class="lineNoCov">          0 :         p = strchr(p,' ');</span>
+<span class="lineNum">    1152 </span><span class="lineNoCov">          0 :         if (!p) continue;</span>
+<span class="lineNum">    1153 </span><span class="lineNoCov">          0 :         *p++ = '\0';</span>
+<span class="lineNum">    1154 </span><span class="lineNoCov">          0 :         if (strstr(p,&quot;stack&quot;) ||</span>
+<span class="lineNum">    1155 </span><span class="lineNoCov">          0 :             strstr(p,&quot;vdso&quot;) ||</span>
+<span class="lineNum">    1156 </span><span class="lineNoCov">          0 :             strstr(p,&quot;vsyscall&quot;)) continue;</span>
+<span class="lineNum">    1157 </span><span class="lineNoCov">          0 :         if (!strstr(p,&quot;00:00&quot;)) continue;</span>
+<span class="lineNum">    1158 </span><span class="lineNoCov">          0 :         if (!strstr(p,&quot;rw&quot;)) continue;</span>
+<span class="lineNum">    1159 </span>            : 
+<span class="lineNum">    1160 </span><span class="lineNoCov">          0 :         start_addr = strtoul(start,NULL,16);</span>
+<span class="lineNum">    1161 </span><span class="lineNoCov">          0 :         end_addr = strtoul(end,NULL,16);</span>
+<span class="lineNum">    1162 </span><span class="lineNoCov">          0 :         size = end_addr-start_addr;</span>
+<span class="lineNum">    1163 </span>            : 
+<span class="lineNum">    1164 </span><span class="lineNoCov">          0 :         start_vect[regions] = start_addr;</span>
+<span class="lineNum">    1165 </span><span class="lineNoCov">          0 :         size_vect[regions] = size;</span>
+<span class="lineNum">    1166 </span><span class="lineNoCov">          0 :         snprintf(logbuf,sizeof(logbuf),</span>
+<span class="lineNum">    1167 </span>            :             &quot;*** Preparing to test memory region %lx (%lu bytes)\n&quot;,
+<span class="lineNum">    1168 </span><span class="lineNoCov">          0 :                 (unsigned long) start_vect[regions],</span>
+<span class="lineNum">    1169 </span>            :                 (unsigned long) size_vect[regions]);
+<span class="lineNum">    1170 </span><span class="lineNoCov">          0 :         if (write(fd,logbuf,strlen(logbuf)) == -1) { /* Nothing to do. */ }</span>
+<span class="lineNum">    1171 </span><span class="lineNoCov">          0 :         regions++;</span>
+<span class="lineNum">    1172 </span>            :     }
+<span class="lineNum">    1173 </span>            : 
+<span class="lineNum">    1174 </span>            :     int errors = 0;
+<span class="lineNum">    1175 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; regions; j++) {</span>
+<span class="lineNum">    1176 </span><span class="lineNoCov">          0 :         if (write(fd,&quot;.&quot;,1) == -1) { /* Nothing to do. */ }</span>
+<span class="lineNum">    1177 </span><span class="lineNoCov">          0 :         errors += memtest_preserving_test((void*)start_vect[j],size_vect[j],1);</span>
+<span class="lineNum">    1178 </span><span class="lineNoCov">          0 :         if (write(fd, errors ? &quot;E&quot; : &quot;O&quot;,1) == -1) { /* Nothing to do. */ }</span>
+<span class="lineNum">    1179 </span>            :     }
+<span class="lineNum">    1180 </span><span class="lineNoCov">          0 :     if (write(fd,&quot;\n&quot;,1) == -1) { /* Nothing to do. */ }</span>
+<span class="lineNum">    1181 </span>            : 
+<span class="lineNum">    1182 </span>            :     /* NOTE: It is very important to close the file descriptor only now
+<span class="lineNum">    1183 </span>            :      * because closing it before may result into unmapping of some memory
+<span class="lineNum">    1184 </span>            :      * region that we are testing. */
+<span class="lineNum">    1185 </span><span class="lineNoCov">          0 :     fclose(fp);</span>
+<span class="lineNum">    1186 </span><span class="lineNoCov">          0 :     closeDirectLogFiledes(fd);</span>
+<span class="lineNum">    1187 </span>            :     return errors;
+<span class="lineNum">    1188 </span>            : }
+<span class="lineNum">    1189 </span>            : #endif
+<span class="lineNum">    1190 </span>            : 
+<span class="lineNum">    1191 </span>            : /* Scans the (assumed) x86 code starting at addr, for a max of `len`
+<a name="1192"><span class="lineNum">    1192 </span>            :  * bytes, searching for E8 (callq) opcodes, and dumping the symbols</a>
+<span class="lineNum">    1193 </span>            :  * and the call offset if they appear to be valid. */
+<span class="lineNum">    1194 </span><span class="lineNoCov">          0 : void dumpX86Calls(void *addr, size_t len) {</span>
+<span class="lineNum">    1195 </span><span class="lineNoCov">          0 :     size_t j;</span>
+<span class="lineNum">    1196 </span><span class="lineNoCov">          0 :     unsigned char *p = addr;</span>
+<span class="lineNum">    1197 </span><span class="lineNoCov">          0 :     Dl_info info;</span>
+<span class="lineNum">    1198 </span>            :     /* Hash table to best-effort avoid printing the same symbol
+<span class="lineNum">    1199 </span>            :      * multiple times. */
+<span class="lineNum">    1200 </span><span class="lineNoCov">          0 :     unsigned long ht[256] = {0};</span>
+<span class="lineNum">    1201 </span>            : 
+<span class="lineNum">    1202 </span><span class="lineNoCov">          0 :     if (len &lt; 5) return;</span>
+<span class="lineNum">    1203 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; len-4; j++) {</span>
+<span class="lineNum">    1204 </span><span class="lineNoCov">          0 :         if (p[j] != 0xE8) continue; /* Not an E8 CALL opcode. */</span>
+<span class="lineNum">    1205 </span><span class="lineNoCov">          0 :         unsigned long target = (unsigned long)addr+j+5;</span>
+<span class="lineNum">    1206 </span><span class="lineNoCov">          0 :         target += *((int32_t*)(p+j+1));</span>
+<span class="lineNum">    1207 </span><span class="lineNoCov">          0 :         if (dladdr((void*)target, &amp;info) != 0 &amp;&amp; info.dli_sname != NULL) {</span>
+<span class="lineNum">    1208 </span><span class="lineNoCov">          0 :             if (ht[target&amp;0xff] != target) {</span>
+<span class="lineNum">    1209 </span><span class="lineNoCov">          0 :                 printf(&quot;Function at 0x%lx is %s\n&quot;,target,info.dli_sname);</span>
+<span class="lineNum">    1210 </span><span class="lineNoCov">          0 :                 ht[target&amp;0xff] = target;</span>
+<span class="lineNum">    1211 </span>            :             }
+<span class="lineNum">    1212 </span><span class="lineNoCov">          0 :             j += 4; /* Skip the 32 bit immediate. */</span>
+<span class="lineNum">    1213 </span>            :         }
+<span class="lineNum">    1214 </span>            :     }
+<a name="1215"><span class="lineNum">    1215 </span>            : }</a>
+<span class="lineNum">    1216 </span>            : 
+<span class="lineNum">    1217 </span><span class="lineNoCov">          0 : void sigsegvHandler(int sig, siginfo_t *info, void *secret) {</span>
+<span class="lineNum">    1218 </span><span class="lineNoCov">          0 :     ucontext_t *uc = (ucontext_t*) secret;</span>
+<span class="lineNum">    1219 </span><span class="lineNoCov">          0 :     void *eip = getMcontextEip(uc);</span>
+<span class="lineNum">    1220 </span><span class="lineNoCov">          0 :     sds infostring, clients;</span>
+<span class="lineNum">    1221 </span><span class="lineNoCov">          0 :     struct sigaction act;</span>
+<span class="lineNum">    1222 </span><span class="lineNoCov">          0 :     UNUSED(info);</span>
+<span class="lineNum">    1223 </span>            : 
+<span class="lineNum">    1224 </span><span class="lineNoCov">          0 :     bugReportStart();</span>
+<span class="lineNum">    1225 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,</span>
+<span class="lineNum">    1226 </span>            :         &quot;Redis %s crashed by signal: %d&quot;, REDIS_VERSION, sig);
+<span class="lineNum">    1227 </span><span class="lineNoCov">          0 :     if (eip != NULL) {</span>
+<span class="lineNum">    1228 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,</span>
+<span class="lineNum">    1229 </span>            :         &quot;Crashed running the instruction at: %p&quot;, eip);
+<span class="lineNum">    1230 </span>            :     }
+<span class="lineNum">    1231 </span><span class="lineNoCov">          0 :     if (sig == SIGSEGV || sig == SIGBUS) {</span>
+<span class="lineNum">    1232 </span><span class="lineNoCov">          0 :         serverLog(LL_WARNING,</span>
+<span class="lineNum">    1233 </span>            :         &quot;Accessing address: %p&quot;, (void*)info-&gt;si_addr);
+<span class="lineNum">    1234 </span>            :     }
+<span class="lineNum">    1235 </span><span class="lineNoCov">          0 :     serverLog(LL_WARNING,</span>
+<span class="lineNum">    1236 </span>            :         &quot;Failed assertion: %s (%s:%d)&quot;, server.assert_failed,
+<span class="lineNum">    1237 </span>            :                         server.assert_file, server.assert_line);
+<span class="lineNum">    1238 </span>            : 
+<span class="lineNum">    1239 </span>            :     /* Log the stack trace */
+<span class="lineNum">    1240 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, &quot;\n------ STACK TRACE ------\n&quot;);</span>
+<span class="lineNum">    1241 </span><span class="lineNoCov">          0 :     logStackTrace(uc);</span>
+<span class="lineNum">    1242 </span>            : 
+<span class="lineNum">    1243 </span>            :     /* Log INFO and CLIENT LIST */
+<span class="lineNum">    1244 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, &quot;\n------ INFO OUTPUT ------\n&quot;);</span>
+<span class="lineNum">    1245 </span><span class="lineNoCov">          0 :     infostring = genRedisInfoString(&quot;all&quot;);</span>
+<span class="lineNum">    1246 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, infostring);</span>
+<span class="lineNum">    1247 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, &quot;\n------ CLIENT LIST OUTPUT ------\n&quot;);</span>
+<span class="lineNum">    1248 </span><span class="lineNoCov">          0 :     clients = getAllClientsInfoString(-1);</span>
+<span class="lineNum">    1249 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, clients);</span>
+<span class="lineNum">    1250 </span><span class="lineNoCov">          0 :     sdsfree(infostring);</span>
+<span class="lineNum">    1251 </span><span class="lineNoCov">          0 :     sdsfree(clients);</span>
+<span class="lineNum">    1252 </span>            : 
+<span class="lineNum">    1253 </span>            :     /* Log the current client */
+<span class="lineNum">    1254 </span><span class="lineNoCov">          0 :     logCurrentClient();</span>
+<span class="lineNum">    1255 </span>            : 
+<span class="lineNum">    1256 </span>            :     /* Log dump of processor registers */
+<span class="lineNum">    1257 </span><span class="lineNoCov">          0 :     logRegisters(uc);</span>
+<span class="lineNum">    1258 </span>            : 
+<span class="lineNum">    1259 </span>            : #if defined(HAVE_PROC_MAPS)
+<span class="lineNum">    1260 </span>            :     /* Test memory */
+<span class="lineNum">    1261 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW, &quot;\n------ FAST MEMORY TEST ------\n&quot;);</span>
+<span class="lineNum">    1262 </span><span class="lineNoCov">          0 :     bioKillThreads();</span>
+<span class="lineNum">    1263 </span><span class="lineNoCov">          0 :     if (memtest_test_linux_anonymous_maps()) {</span>
+<span class="lineNum">    1264 </span><span class="lineNoCov">          0 :         serverLogRaw(LL_WARNING|LL_RAW,</span>
+<span class="lineNum">    1265 </span>            :             &quot;!!! MEMORY ERROR DETECTED! Check your memory ASAP !!!\n&quot;);
+<span class="lineNum">    1266 </span>            :     } else {
+<span class="lineNum">    1267 </span><span class="lineNoCov">          0 :         serverLogRaw(LL_WARNING|LL_RAW,</span>
+<span class="lineNum">    1268 </span>            :             &quot;Fast memory test PASSED, however your memory can still be broken. Please run a memory test for several hours if possible.\n&quot;);
+<span class="lineNum">    1269 </span>            :     }
+<span class="lineNum">    1270 </span>            : #endif
+<span class="lineNum">    1271 </span>            : 
+<span class="lineNum">    1272 </span><span class="lineNoCov">          0 :     if (eip != NULL) {</span>
+<span class="lineNum">    1273 </span><span class="lineNoCov">          0 :         Dl_info info;</span>
+<span class="lineNum">    1274 </span><span class="lineNoCov">          0 :         if (dladdr(eip, &amp;info) != 0) {</span>
+<span class="lineNum">    1275 </span><span class="lineNoCov">          0 :             serverLog(LL_WARNING|LL_RAW,</span>
+<span class="lineNum">    1276 </span>            :                 &quot;\n------ DUMPING CODE AROUND EIP ------\n&quot;
+<span class="lineNum">    1277 </span>            :                 &quot;Symbol: %s (base: %p)\n&quot;
+<span class="lineNum">    1278 </span>            :                 &quot;Module: %s (base %p)\n&quot;
+<span class="lineNum">    1279 </span>            :                 &quot;$ xxd -r -p /tmp/dump.hex /tmp/dump.bin\n&quot;
+<span class="lineNum">    1280 </span>            :                 &quot;$ objdump --adjust-vma=%p -D -b binary -m i386:x86-64 /tmp/dump.bin\n&quot;
+<span class="lineNum">    1281 </span>            :                 &quot;------\n&quot;,
+<span class="lineNum">    1282 </span>            :                 info.dli_sname, info.dli_saddr, info.dli_fname, info.dli_fbase,
+<span class="lineNum">    1283 </span>            :                 info.dli_saddr);
+<span class="lineNum">    1284 </span><span class="lineNoCov">          0 :             size_t len = (long)eip - (long)info.dli_saddr;</span>
+<span class="lineNum">    1285 </span><span class="lineNoCov">          0 :             unsigned long sz = sysconf(_SC_PAGESIZE);</span>
+<span class="lineNum">    1286 </span><span class="lineNoCov">          0 :             if (len &lt; 1&lt;&lt;13) { /* we don't have functions over 8k (verified) */</span>
+<span class="lineNum">    1287 </span>            :                 /* Find the address of the next page, which is our &quot;safety&quot;
+<span class="lineNum">    1288 </span>            :                  * limit when dumping. Then try to dump just 128 bytes more
+<span class="lineNum">    1289 </span>            :                  * than EIP if there is room, or stop sooner. */
+<span class="lineNum">    1290 </span><span class="lineNoCov">          0 :                 unsigned long next = ((unsigned long)eip + sz) &amp; ~(sz-1);</span>
+<span class="lineNum">    1291 </span><span class="lineNoCov">          0 :                 unsigned long end = (unsigned long)eip + 128;</span>
+<span class="lineNum">    1292 </span><span class="lineNoCov">          0 :                 if (end &gt; next) end = next;</span>
+<span class="lineNum">    1293 </span><span class="lineNoCov">          0 :                 len = end - (unsigned long)info.dli_saddr;</span>
+<span class="lineNum">    1294 </span><span class="lineNoCov">          0 :                 serverLogHexDump(LL_WARNING, &quot;dump of function&quot;,</span>
+<span class="lineNum">    1295 </span>            :                     info.dli_saddr ,len);
+<span class="lineNum">    1296 </span><span class="lineNoCov">          0 :                 dumpX86Calls(info.dli_saddr,len);</span>
+<span class="lineNum">    1297 </span>            :             }
+<span class="lineNum">    1298 </span>            :         }
+<span class="lineNum">    1299 </span>            :     }
+<span class="lineNum">    1300 </span>            : 
+<span class="lineNum">    1301 </span><span class="lineNoCov">          0 :     serverLogRaw(LL_WARNING|LL_RAW,</span>
+<span class="lineNum">    1302 </span>            : &quot;\n=== REDIS BUG REPORT END. Make sure to include from START to END. ===\n\n&quot;
+<span class="lineNum">    1303 </span>            : &quot;       Please report the crash by opening an issue on github:\n\n&quot;
+<span class="lineNum">    1304 </span>            : &quot;           http://github.com/antirez/redis/issues\n\n&quot;
+<span class="lineNum">    1305 </span>            : &quot;  Suspect RAM error? Use redis-server --test-memory to verify it.\n\n&quot;
+<span class="lineNum">    1306 </span>            : );
+<span class="lineNum">    1307 </span>            : 
+<span class="lineNum">    1308 </span>            :     /* free(messages); Don't call free() with possibly corrupted memory. */
+<span class="lineNum">    1309 </span><span class="lineNoCov">          0 :     if (server.daemonize &amp;&amp; server.supervised == 0) unlink(server.pidfile);</span>
+<span class="lineNum">    1310 </span>            : 
+<span class="lineNum">    1311 </span>            :     /* Make sure we exit with the right signal at the end. So for instance
+<span class="lineNum">    1312 </span>            :      * the core will be dumped if enabled. */
+<span class="lineNum">    1313 </span><span class="lineNoCov">          0 :     sigemptyset (&amp;act.sa_mask);</span>
+<span class="lineNum">    1314 </span><span class="lineNoCov">          0 :     act.sa_flags = SA_NODEFER | SA_ONSTACK | SA_RESETHAND;</span>
+<span class="lineNum">    1315 </span><span class="lineNoCov">          0 :     act.sa_handler = SIG_DFL;</span>
+<span class="lineNum">    1316 </span><span class="lineNoCov">          0 :     sigaction (sig, &amp;act, NULL);</span>
+<span class="lineNum">    1317 </span><span class="lineNoCov">          0 :     kill(getpid(),sig);</span>
+<span class="lineNum">    1318 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1319 </span>            : #endif /* HAVE_BACKTRACE */
+<span class="lineNum">    1320 </span>            : 
+<a name="1321"><span class="lineNum">    1321 </span>            : /* ==================== Logging functions for debugging ===================== */</a>
+<span class="lineNum">    1322 </span>            : 
+<span class="lineNum">    1323 </span><span class="lineNoCov">          0 : void serverLogHexDump(int level, char *descr, void *value, size_t len) {</span>
+<span class="lineNum">    1324 </span><span class="lineNoCov">          0 :     char buf[65], *b;</span>
+<span class="lineNum">    1325 </span><span class="lineNoCov">          0 :     unsigned char *v = value;</span>
+<span class="lineNum">    1326 </span><span class="lineNoCov">          0 :     char charset[] = &quot;0123456789abcdef&quot;;</span>
+<span class="lineNum">    1327 </span>            : 
+<span class="lineNum">    1328 </span><span class="lineNoCov">          0 :     serverLog(level,&quot;%s (hexdump of %zu bytes):&quot;, descr, len);</span>
+<span class="lineNum">    1329 </span><span class="lineNoCov">          0 :     b = buf;</span>
+<span class="lineNum">    1330 </span><span class="lineNoCov">          0 :     while(len) {</span>
+<span class="lineNum">    1331 </span><span class="lineNoCov">          0 :         b[0] = charset[(*v)&gt;&gt;4];</span>
+<span class="lineNum">    1332 </span><span class="lineNoCov">          0 :         b[1] = charset[(*v)&amp;0xf];</span>
+<span class="lineNum">    1333 </span><span class="lineNoCov">          0 :         b[2] = '\0';</span>
+<span class="lineNum">    1334 </span><span class="lineNoCov">          0 :         b += 2;</span>
+<span class="lineNum">    1335 </span><span class="lineNoCov">          0 :         len--;</span>
+<span class="lineNum">    1336 </span><span class="lineNoCov">          0 :         v++;</span>
+<span class="lineNum">    1337 </span><span class="lineNoCov">          0 :         if (b-buf == 64 || len == 0) {</span>
+<span class="lineNum">    1338 </span><span class="lineNoCov">          0 :             serverLogRaw(level|LL_RAW,buf);</span>
+<span class="lineNum">    1339 </span><span class="lineNoCov">          0 :             b = buf;</span>
+<span class="lineNum">    1340 </span>            :         }
+<span class="lineNum">    1341 </span>            :     }
+<span class="lineNum">    1342 </span><span class="lineNoCov">          0 :     serverLogRaw(level|LL_RAW,&quot;\n&quot;);</span>
+<span class="lineNum">    1343 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1344 </span>            : 
+<span class="lineNum">    1345 </span>            : /* =========================== Software Watchdog ============================ */
+<a name="1346"><span class="lineNum">    1346 </span>            : #include &lt;sys/time.h&gt;</a>
+<span class="lineNum">    1347 </span>            : 
+<span class="lineNum">    1348 </span><span class="lineCov">          3 : void watchdogSignalHandler(int sig, siginfo_t *info, void *secret) {</span>
+<span class="lineNum">    1349 </span>            : #ifdef HAVE_BACKTRACE
+<span class="lineNum">    1350 </span><span class="lineCov">          3 :     ucontext_t *uc = (ucontext_t*) secret;</span>
+<span class="lineNum">    1351 </span>            : #else
+<span class="lineNum">    1352 </span>            :     (void)secret;
+<span class="lineNum">    1353 </span>            : #endif
+<span class="lineNum">    1354 </span><span class="lineCov">          3 :     UNUSED(info);</span>
+<span class="lineNum">    1355 </span><span class="lineCov">          3 :     UNUSED(sig);</span>
+<span class="lineNum">    1356 </span>            : 
+<span class="lineNum">    1357 </span><span class="lineCov">          3 :     serverLogFromHandler(LL_WARNING,&quot;\n--- WATCHDOG TIMER EXPIRED ---&quot;);</span>
+<span class="lineNum">    1358 </span>            : #ifdef HAVE_BACKTRACE
+<span class="lineNum">    1359 </span><span class="lineCov">          3 :     logStackTrace(uc);</span>
+<span class="lineNum">    1360 </span>            : #else
+<span class="lineNum">    1361 </span>            :     serverLogFromHandler(LL_WARNING,&quot;Sorry: no support for backtrace().&quot;);
+<span class="lineNum">    1362 </span>            : #endif
+<span class="lineNum">    1363 </span><span class="lineCov">          3 :     serverLogFromHandler(LL_WARNING,&quot;--------\n&quot;);</span>
+<span class="lineNum">    1364 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">    1365 </span>            : 
+<span class="lineNum">    1366 </span>            : /* Schedule a SIGALRM delivery after the specified period in milliseconds.
+<a name="1367"><span class="lineNum">    1367 </span>            :  * If a timer is already scheduled, this function will re-schedule it to the</a>
+<span class="lineNum">    1368 </span>            :  * specified time. If period is 0 the current timer is disabled. */
+<span class="lineNum">    1369 </span><span class="lineCov">          9 : void watchdogScheduleSignal(int period) {</span>
+<span class="lineNum">    1370 </span><span class="lineCov">          9 :     struct itimerval it;</span>
+<span class="lineNum">    1371 </span>            : 
+<span class="lineNum">    1372 </span>            :     /* Will stop the timer if period is 0. */
+<span class="lineNum">    1373 </span><span class="lineCov">          9 :     it.it_value.tv_sec = period/1000;</span>
+<span class="lineNum">    1374 </span><span class="lineCov">          9 :     it.it_value.tv_usec = (period%1000)*1000;</span>
+<span class="lineNum">    1375 </span>            :     /* Don't automatically restart. */
+<span class="lineNum">    1376 </span><span class="lineCov">          9 :     it.it_interval.tv_sec = 0;</span>
+<span class="lineNum">    1377 </span><span class="lineCov">          9 :     it.it_interval.tv_usec = 0;</span>
+<span class="lineNum">    1378 </span><span class="lineCov">          9 :     setitimer(ITIMER_REAL, &amp;it, NULL);</span>
+<span class="lineNum">    1379 </span><span class="lineCov">          9 : }</span>
+<a name="1380"><span class="lineNum">    1380 </span>            : </a>
+<span class="lineNum">    1381 </span>            : /* Enable the software watchdog with the specified period in milliseconds. */
+<span class="lineNum">    1382 </span><span class="lineCov">          3 : void enableWatchdog(int period) {</span>
+<span class="lineNum">    1383 </span><span class="lineCov">          3 :     int min_period;</span>
+<span class="lineNum">    1384 </span>            : 
+<span class="lineNum">    1385 </span><span class="lineCov">          3 :     if (server.watchdog_period == 0) {</span>
+<span class="lineNum">    1386 </span><span class="lineCov">          3 :         struct sigaction act;</span>
+<span class="lineNum">    1387 </span>            : 
+<span class="lineNum">    1388 </span>            :         /* Watchdog was actually disabled, so we have to setup the signal
+<span class="lineNum">    1389 </span>            :          * handler. */
+<span class="lineNum">    1390 </span><span class="lineCov">          3 :         sigemptyset(&amp;act.sa_mask);</span>
+<span class="lineNum">    1391 </span><span class="lineCov">          3 :         act.sa_flags = SA_ONSTACK | SA_SIGINFO;</span>
+<span class="lineNum">    1392 </span><span class="lineCov">          3 :         act.sa_sigaction = watchdogSignalHandler;</span>
+<span class="lineNum">    1393 </span><span class="lineCov">          3 :         sigaction(SIGALRM, &amp;act, NULL);</span>
+<span class="lineNum">    1394 </span>            :     }
+<span class="lineNum">    1395 </span>            :     /* If the configured period is smaller than twice the timer period, it is
+<span class="lineNum">    1396 </span>            :      * too short for the software watchdog to work reliably. Fix it now
+<span class="lineNum">    1397 </span>            :      * if needed. */
+<span class="lineNum">    1398 </span><span class="lineCov">          3 :     min_period = (1000/server.hz)*2;</span>
+<span class="lineNum">    1399 </span><span class="lineCov">          3 :     if (period &lt; min_period) period = min_period;</span>
+<span class="lineNum">    1400 </span><span class="lineCov">          3 :     watchdogScheduleSignal(period); /* Adjust the current timer. */</span>
+<span class="lineNum">    1401 </span><span class="lineCov">          3 :     server.watchdog_period = period;</span>
+<span class="lineNum">    1402 </span><span class="lineCov">          3 : }</span>
+<a name="1403"><span class="lineNum">    1403 </span>            : </a>
+<span class="lineNum">    1404 </span>            : /* Disable the software watchdog. */
+<span class="lineNum">    1405 </span><span class="lineNoCov">          0 : void disableWatchdog(void) {</span>
+<span class="lineNum">    1406 </span><span class="lineNoCov">          0 :     struct sigaction act;</span>
+<span class="lineNum">    1407 </span><span class="lineNoCov">          0 :     if (server.watchdog_period == 0) return; /* Already disabled. */</span>
+<span class="lineNum">    1408 </span><span class="lineNoCov">          0 :     watchdogScheduleSignal(0); /* Stop the current timer. */</span>
+<span class="lineNum">    1409 </span>            : 
+<span class="lineNum">    1410 </span>            :     /* Set the signal handler to SIG_IGN, this will also remove pending
+<span class="lineNum">    1411 </span>            :      * signals from the queue. */
+<span class="lineNum">    1412 </span><span class="lineNoCov">          0 :     sigemptyset(&amp;act.sa_mask);</span>
+<span class="lineNum">    1413 </span><span class="lineNoCov">          0 :     act.sa_flags = 0;</span>
+<span class="lineNum">    1414 </span><span class="lineNoCov">          0 :     act.sa_handler = SIG_IGN;</span>
+<span class="lineNum">    1415 </span><span class="lineNoCov">          0 :     sigaction(SIGALRM, &amp;act, NULL);</span>
+<span class="lineNum">    1416 </span><span class="lineNoCov">          0 :     server.watchdog_period = 0;</span>
+<span class="lineNum">    1417 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

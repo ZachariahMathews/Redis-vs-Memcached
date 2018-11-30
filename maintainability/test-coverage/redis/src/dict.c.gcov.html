@@ -1,0 +1,1310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/dict.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - dict.c<span style="font-size: 80%;"> (source / <a href="dict.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">380</td>
+            <td class="headerCovTableEntry">451</td>
+            <td class="headerCovTableEntryMed">84.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">39</td>
+            <td class="headerCovTableEntryMed">82.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Hash Tables Implementation.</a>
+<span class="lineNum">       2 </span>            :  *
+<span class="lineNum">       3 </span>            :  * This file implements in memory hash tables with insert/del/replace/find/
+<span class="lineNum">       4 </span>            :  * get-random-element operations. Hash tables will auto resize if needed
+<span class="lineNum">       5 </span>            :  * tables of power of two in size are used, collisions are handled by
+<span class="lineNum">       6 </span>            :  * chaining. See the source code for more information... :)
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  * Copyright (c) 2006-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       9 </span>            :  * All rights reserved.
+<span class="lineNum">      10 </span>            :  *
+<span class="lineNum">      11 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">      12 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">      13 </span>            :  *
+<span class="lineNum">      14 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      15 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      16 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      17 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      18 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      19 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      20 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      21 </span>            :  *     specific prior written permission.
+<span class="lineNum">      22 </span>            :  *
+<span class="lineNum">      23 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      24 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      25 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      26 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      27 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      28 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      29 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      30 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      31 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      32 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      33 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      34 </span>            :  */
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : #include &quot;fmacros.h&quot;
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      39 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      40 </span>            : #include &lt;stdint.h&gt;
+<span class="lineNum">      41 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      42 </span>            : #include &lt;stdarg.h&gt;
+<span class="lineNum">      43 </span>            : #include &lt;limits.h&gt;
+<span class="lineNum">      44 </span>            : #include &lt;sys/time.h&gt;
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : #include &quot;dict.h&quot;
+<span class="lineNum">      47 </span>            : #include &quot;zmalloc.h&quot;
+<span class="lineNum">      48 </span>            : #ifndef DICT_BENCHMARK_MAIN
+<span class="lineNum">      49 </span>            : #include &quot;redisassert.h&quot;
+<span class="lineNum">      50 </span>            : #else
+<span class="lineNum">      51 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      52 </span>            : #endif
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : /* Using dictEnableResize() / dictDisableResize() we make possible to
+<span class="lineNum">      55 </span>            :  * enable/disable resizing of the hash table as needed. This is very important
+<span class="lineNum">      56 </span>            :  * for Redis, as we use copy-on-write and don't want to move too much memory
+<span class="lineNum">      57 </span>            :  * around when there is a child performing saving operations.
+<span class="lineNum">      58 </span>            :  *
+<span class="lineNum">      59 </span>            :  * Note that even when dict_can_resize is set to 0, not all resizes are
+<span class="lineNum">      60 </span>            :  * prevented: a hash table is still allowed to grow if the ratio between
+<span class="lineNum">      61 </span>            :  * the number of elements and the buckets &gt; dict_force_resize_ratio. */
+<span class="lineNum">      62 </span>            : static int dict_can_resize = 1;
+<span class="lineNum">      63 </span>            : static unsigned int dict_force_resize_ratio = 5;
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            : /* -------------------------- private prototypes ---------------------------- */
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span>            : static int _dictExpandIfNeeded(dict *ht);
+<span class="lineNum">      68 </span>            : static unsigned long _dictNextPower(unsigned long size);
+<span class="lineNum">      69 </span>            : static long _dictKeyIndex(dict *ht, const void *key, uint64_t hash, dictEntry **existing);
+<span class="lineNum">      70 </span>            : static int _dictInit(dict *ht, dictType *type, void *privDataPtr);
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : /* -------------------------- hash functions -------------------------------- */
+<span class="lineNum">      73 </span>            : 
+<a name="74"><span class="lineNum">      74 </span>            : static uint8_t dict_hash_function_seed[16];</a>
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span><span class="lineCov">        662 : void dictSetHashFunctionSeed(uint8_t *seed) {</span>
+<span class="lineNum">      77 </span><span class="lineCov">       1324 :     memcpy(dict_hash_function_seed,seed,sizeof(dict_hash_function_seed));</span>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">        662 : }</span></a>
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span><span class="lineNoCov">          0 : uint8_t *dictGetHashFunctionSeed(void) {</span>
+<span class="lineNum">      81 </span><span class="lineNoCov">          0 :     return dict_hash_function_seed;</span>
+<span class="lineNum">      82 </span>            : }
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : /* The default hashing function uses SipHash implementation
+<span class="lineNum">      85 </span>            :  * in siphash.c. */
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : uint64_t siphash(const uint8_t *in, const size_t inlen, const uint8_t *k);
+<a name="88"><span class="lineNum">      88 </span>            : uint64_t siphash_nocase(const uint8_t *in, const size_t inlen, const uint8_t *k);</a>
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span><span class="lineCov">  216835608 : uint64_t dictGenHashFunction(const void *key, int len) {</span>
+<span class="lineNum">      91 </span><span class="lineCov">  216835608 :     return siphash(key,len,dict_hash_function_seed);</span>
+<a name="92"><span class="lineNum">      92 </span>            : }</a>
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span><span class="lineCov">   65224971 : uint64_t dictGenCaseHashFunction(const unsigned char *buf, int len) {</span>
+<span class="lineNum">      95 </span><span class="lineCov">   65224971 :     return siphash_nocase(buf,len,dict_hash_function_seed);</span>
+<span class="lineNum">      96 </span>            : }
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            : /* ----------------------------- API implementation ------------------------- */
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : /* Reset a hash table already initialized with ht_init().
+<span class="lineNum">     101 </span>            :  * NOTE: This function should only be called by ht_destroy(). */
+<span class="lineNum">     102 </span>            : static void _dictReset(dictht *ht)
+<span class="lineNum">     103 </span>            : {
+<span class="lineNum">     104 </span><span class="lineCov">    2518270 :     ht-&gt;table = NULL;</span>
+<span class="lineNum">     105 </span><span class="lineCov">    2518270 :     ht-&gt;size = 0;</span>
+<span class="lineNum">     106 </span><span class="lineCov">    2518270 :     ht-&gt;sizemask = 0;</span>
+<span class="lineNum">     107 </span><span class="lineCov">    2518270 :     ht-&gt;used = 0;</span>
+<span class="lineNum">     108 </span>            : }
+<a name="109"><span class="lineNum">     109 </span>            : </a>
+<span class="lineNum">     110 </span>            : /* Create a new hash table */
+<span class="lineNum">     111 </span><span class="lineCov">     799991 : dict *dictCreate(dictType *type,</span>
+<span class="lineNum">     112 </span>            :         void *privDataPtr)
+<span class="lineNum">     113 </span>            : {
+<span class="lineNum">     114 </span><span class="lineCov">     799991 :     dict *d = zmalloc(sizeof(*d));</span>
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span><span class="lineCov">    1599982 :     _dictInit(d,type,privDataPtr);</span>
+<span class="lineNum">     117 </span><span class="lineCov">     799991 :     return d;</span>
+<span class="lineNum">     118 </span>            : }
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            : /* Initialize the hash table */
+<span class="lineNum">     121 </span>            : int _dictInit(dict *d, dictType *type,
+<span class="lineNum">     122 </span>            :         void *privDataPtr)
+<span class="lineNum">     123 </span>            : {
+<span class="lineNum">     124 </span><span class="lineCov">    1599982 :     _dictReset(&amp;d-&gt;ht[0]);</span>
+<span class="lineNum">     125 </span><span class="lineCov">    1599982 :     _dictReset(&amp;d-&gt;ht[1]);</span>
+<span class="lineNum">     126 </span><span class="lineCov">     799991 :     d-&gt;type = type;</span>
+<span class="lineNum">     127 </span><span class="lineCov">     799991 :     d-&gt;privdata = privDataPtr;</span>
+<span class="lineNum">     128 </span><span class="lineCov">     799991 :     d-&gt;rehashidx = -1;</span>
+<span class="lineNum">     129 </span><span class="lineCov">     799991 :     d-&gt;iterators = 0;</span>
+<span class="lineNum">     130 </span><span class="lineCov">     799991 :     return DICT_OK;</span>
+<span class="lineNum">     131 </span>            : }
+<span class="lineNum">     132 </span>            : 
+<a name="133"><span class="lineNum">     133 </span>            : /* Resize the table to the minimal size that contains all the elements,</a>
+<span class="lineNum">     134 </span>            :  * but with the invariant of a USED/BUCKETS ratio near to &lt;= 1 */
+<span class="lineNum">     135 </span><span class="lineCov">       4783 : int dictResize(dict *d)</span>
+<span class="lineNum">     136 </span>            : {
+<span class="lineNum">     137 </span><span class="lineCov">       4783 :     int minimal;</span>
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span><span class="lineCov">       4783 :     if (!dict_can_resize || dictIsRehashing(d)) return DICT_ERR;</span>
+<span class="lineNum">     140 </span><span class="lineCov">        265 :     minimal = d-&gt;ht[0].used;</span>
+<span class="lineNum">     141 </span><span class="lineCov">        265 :     if (minimal &lt; DICT_HT_INITIAL_SIZE)</span>
+<span class="lineNum">     142 </span><span class="lineCov">         52 :         minimal = DICT_HT_INITIAL_SIZE;</span>
+<span class="lineNum">     143 </span><span class="lineCov">        265 :     return dictExpand(d, minimal);</span>
+<span class="lineNum">     144 </span>            : }
+<a name="145"><span class="lineNum">     145 </span>            : </a>
+<span class="lineNum">     146 </span>            : /* Expand or create the hash table */
+<span class="lineNum">     147 </span><span class="lineCov">     747642 : int dictExpand(dict *d, unsigned long size)</span>
+<span class="lineNum">     148 </span>            : {
+<span class="lineNum">     149 </span>            :     /* the size is invalid if it is smaller than the number of
+<span class="lineNum">     150 </span>            :      * elements already inside the hash table */
+<span class="lineNum">     151 </span><span class="lineCov">     747642 :     if (dictIsRehashing(d) || d-&gt;ht[0].used &gt; size)</span>
+<span class="lineNum">     152 </span>            :         return DICT_ERR;
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span><span class="lineCov">     747640 :     dictht n; /* the new hash table */</span>
+<span class="lineNum">     155 </span><span class="lineCov">    1495280 :     unsigned long realsize = _dictNextPower(size);</span>
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span>            :     /* Rehashing to the same table size is not useful. */
+<span class="lineNum">     158 </span><span class="lineCov">     747640 :     if (realsize == d-&gt;ht[0].size) return DICT_ERR;</span>
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            :     /* Allocate the new hash table and initialize all pointers to NULL */
+<span class="lineNum">     161 </span><span class="lineCov">     707570 :     n.size = realsize;</span>
+<span class="lineNum">     162 </span><span class="lineCov">     707570 :     n.sizemask = realsize-1;</span>
+<span class="lineNum">     163 </span><span class="lineCov">     707570 :     n.table = zcalloc(realsize*sizeof(dictEntry*));</span>
+<span class="lineNum">     164 </span><span class="lineCov">     707570 :     n.used = 0;</span>
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            :     /* Is this the first initialization? If so it's not really a rehashing
+<span class="lineNum">     167 </span>            :      * we just set the first hash table so that it can accept keys. */
+<span class="lineNum">     168 </span><span class="lineCov">     707570 :     if (d-&gt;ht[0].table == NULL) {</span>
+<span class="lineNum">     169 </span><span class="lineCov">     669032 :         d-&gt;ht[0] = n;</span>
+<span class="lineNum">     170 </span><span class="lineCov">     669032 :         return DICT_OK;</span>
+<span class="lineNum">     171 </span>            :     }
+<span class="lineNum">     172 </span>            : 
+<span class="lineNum">     173 </span>            :     /* Prepare a second hash table for incremental rehashing */
+<span class="lineNum">     174 </span><span class="lineCov">      38538 :     d-&gt;ht[1] = n;</span>
+<span class="lineNum">     175 </span><span class="lineCov">      38538 :     d-&gt;rehashidx = 0;</span>
+<span class="lineNum">     176 </span><span class="lineCov">      38538 :     return DICT_OK;</span>
+<span class="lineNum">     177 </span>            : }
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span>            : /* Performs N steps of incremental rehashing. Returns 1 if there are still
+<span class="lineNum">     180 </span>            :  * keys to move from the old to the new hash table, otherwise 0 is returned.
+<span class="lineNum">     181 </span>            :  *
+<span class="lineNum">     182 </span>            :  * Note that a rehashing step consists in moving a bucket (that may have more
+<span class="lineNum">     183 </span>            :  * than one key as we use chaining) from the old to the new hash table, however
+<span class="lineNum">     184 </span>            :  * since part of the hash table may be composed of empty spaces, it is not
+<span class="lineNum">     185 </span>            :  * guaranteed that this function will rehash even a single bucket, since it
+<a name="186"><span class="lineNum">     186 </span>            :  * will visit at max N*10 empty buckets in total, otherwise the amount of</a>
+<span class="lineNum">     187 </span>            :  * work it does would be unbound and the function may block for a long time. */
+<span class="lineNum">     188 </span><span class="lineCov">   27102511 : int dictRehash(dict *d, int n) {</span>
+<span class="lineNum">     189 </span><span class="lineCov">   27102511 :     int empty_visits = n*10; /* Max number of empty buckets to visit. */</span>
+<span class="lineNum">     190 </span><span class="lineCov">   27102511 :     if (!dictIsRehashing(d)) return 0;</span>
+<span class="lineNum">     191 </span>            : 
+<span class="lineNum">     192 </span><span class="lineCov">   62748982 :     while(n-- &amp;&amp; d-&gt;ht[0].used != 0) {</span>
+<span class="lineNum">     193 </span><span class="lineCov">   35651303 :         dictEntry *de, *nextde;</span>
+<span class="lineNum">     194 </span>            : 
+<span class="lineNum">     195 </span>            :         /* Note that rehashidx can't overflow as we are sure there are more
+<span class="lineNum">     196 </span>            :          * elements because ht[0].used != 0 */
+<span class="lineNum">     197 </span><span class="lineCov">   35651303 :         assert(d-&gt;ht[0].size &gt; (unsigned long)d-&gt;rehashidx);</span>
+<span class="lineNum">     198 </span><span class="lineCov">   56007206 :         while(d-&gt;ht[0].table[d-&gt;rehashidx] == NULL) {</span>
+<span class="lineNum">     199 </span><span class="lineCov">   20360735 :             d-&gt;rehashidx++;</span>
+<span class="lineNum">     200 </span><span class="lineCov">   20360735 :             if (--empty_visits == 0) return 1;</span>
+<span class="lineNum">     201 </span>            :         }
+<span class="lineNum">     202 </span>            :         de = d-&gt;ht[0].table[d-&gt;rehashidx];
+<span class="lineNum">     203 </span>            :         /* Move all the keys in this bucket from the old to the new hash HT */
+<span class="lineNum">     204 </span><span class="lineCov">   92581375 :         while(de) {</span>
+<span class="lineNum">     205 </span><span class="lineCov">   56934904 :             uint64_t h;</span>
+<span class="lineNum">     206 </span>            : 
+<span class="lineNum">     207 </span><span class="lineCov">   56934904 :             nextde = de-&gt;next;</span>
+<span class="lineNum">     208 </span>            :             /* Get the index in the new hash table */
+<span class="lineNum">     209 </span><span class="lineCov">   56934904 :             h = dictHashKey(d, de-&gt;key) &amp; d-&gt;ht[1].sizemask;</span>
+<span class="lineNum">     210 </span><span class="lineCov">   56934904 :             de-&gt;next = d-&gt;ht[1].table[h];</span>
+<span class="lineNum">     211 </span><span class="lineCov">   56934904 :             d-&gt;ht[1].table[h] = de;</span>
+<span class="lineNum">     212 </span><span class="lineCov">   56934904 :             d-&gt;ht[0].used--;</span>
+<span class="lineNum">     213 </span><span class="lineCov">   56934904 :             d-&gt;ht[1].used++;</span>
+<span class="lineNum">     214 </span><span class="lineCov">   56934904 :             de = nextde;</span>
+<span class="lineNum">     215 </span>            :         }
+<span class="lineNum">     216 </span><span class="lineCov">   35646471 :         d-&gt;ht[0].table[d-&gt;rehashidx] = NULL;</span>
+<span class="lineNum">     217 </span><span class="lineCov">   35646471 :         d-&gt;rehashidx++;</span>
+<span class="lineNum">     218 </span>            :     }
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            :     /* Check if we already rehashed the whole table... */
+<span class="lineNum">     221 </span><span class="lineCov">   27097679 :     if (d-&gt;ht[0].used == 0) {</span>
+<span class="lineNum">     222 </span><span class="lineCov">      29726 :         zfree(d-&gt;ht[0].table);</span>
+<span class="lineNum">     223 </span><span class="lineCov">      29726 :         d-&gt;ht[0] = d-&gt;ht[1];</span>
+<span class="lineNum">     224 </span><span class="lineCov">      59452 :         _dictReset(&amp;d-&gt;ht[1]);</span>
+<span class="lineNum">     225 </span><span class="lineCov">      29726 :         d-&gt;rehashidx = -1;</span>
+<span class="lineNum">     226 </span><span class="lineCov">      29726 :         return 0;</span>
+<span class="lineNum">     227 </span>            :     }
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span>            :     /* More to rehash... */
+<span class="lineNum">     230 </span>            :     return 1;
+<a name="231"><span class="lineNum">     231 </span>            : }</a>
+<span class="lineNum">     232 </span>            : 
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 : long long timeInMilliseconds(void) {</span>
+<span class="lineNum">     234 </span><span class="lineCov">      88112 :     struct timeval tv;</span>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     gettimeofday(&amp;tv,NULL);</span>
+<span class="lineNum">     237 </span><span class="lineCov">      88112 :     return (((long long)tv.tv_sec)*1000)+(tv.tv_usec/1000);</span>
+<span class="lineNum">     238 </span>            : }
+<a name="239"><span class="lineNum">     239 </span>            : </a>
+<span class="lineNum">     240 </span>            : /* Rehash for an amount of time between ms milliseconds and ms+1 milliseconds */
+<span class="lineNum">     241 </span><span class="lineCov">       2127 : int dictRehashMilliseconds(dict *d, int ms) {</span>
+<span class="lineNum">     242 </span><span class="lineCov">       2127 :     long long start = timeInMilliseconds();</span>
+<span class="lineNum">     243 </span><span class="lineCov">       2127 :     int rehashes = 0;</span>
+<span class="lineNum">     244 </span>            : 
+<span class="lineNum">     245 </span><span class="lineCov">      86819 :     while(dictRehash(d,100)) {</span>
+<span class="lineNum">     246 </span><span class="lineCov">      85985 :         rehashes += 100;</span>
+<span class="lineNum">     247 </span><span class="lineCov">      85985 :         if (timeInMilliseconds()-start &gt; ms) break;</span>
+<span class="lineNum">     248 </span>            :     }
+<span class="lineNum">     249 </span><span class="lineCov">       2127 :     return rehashes;</span>
+<span class="lineNum">     250 </span>            : }
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span>            : /* This function performs just a step of rehashing, and only if there are
+<span class="lineNum">     253 </span>            :  * no safe iterators bound to our hash table. When we have iterators in the
+<span class="lineNum">     254 </span>            :  * middle of a rehashing we can't mess with the two hash tables otherwise
+<span class="lineNum">     255 </span>            :  * some element can be missed or duplicated.
+<span class="lineNum">     256 </span>            :  *
+<span class="lineNum">     257 </span>            :  * This function is called by common lookup or update operations in the
+<span class="lineNum">     258 </span>            :  * dictionary so that the hash table automatically migrates from H1 to H2
+<span class="lineNum">     259 </span>            :  * while it is actively used. */
+<span class="lineNum">     260 </span>            : static void _dictRehashStep(dict *d) {
+<span class="lineNum">     261 </span><span class="lineCov">   27015692 :     if (d-&gt;iterators == 0) dictRehash(d,1);</span>
+<span class="lineNum">     262 </span>            : }
+<a name="263"><span class="lineNum">     263 </span>            : </a>
+<span class="lineNum">     264 </span>            : /* Add an element to the target hash table */
+<span class="lineNum">     265 </span><span class="lineCov">   51836882 : int dictAdd(dict *d, void *key, void *val)</span>
+<span class="lineNum">     266 </span>            : {
+<span class="lineNum">     267 </span><span class="lineCov">   51836882 :     dictEntry *entry = dictAddRaw(d,key,NULL);</span>
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span><span class="lineCov">   51836882 :     if (!entry) return DICT_ERR;</span>
+<span class="lineNum">     270 </span><span class="lineCov">   51836825 :     dictSetVal(d, entry, val);</span>
+<span class="lineNum">     271 </span>            :     return DICT_OK;
+<span class="lineNum">     272 </span>            : }
+<span class="lineNum">     273 </span>            : 
+<span class="lineNum">     274 </span>            : /* Low level add or find:
+<span class="lineNum">     275 </span>            :  * This function adds the entry but instead of setting a value returns the
+<span class="lineNum">     276 </span>            :  * dictEntry structure to the user, that will make sure to fill the value
+<span class="lineNum">     277 </span>            :  * field as he wishes.
+<span class="lineNum">     278 </span>            :  *
+<span class="lineNum">     279 </span>            :  * This function is also directly exposed to the user API to be called
+<span class="lineNum">     280 </span>            :  * mainly in order to store non-pointers inside the hash value, example:
+<span class="lineNum">     281 </span>            :  *
+<span class="lineNum">     282 </span>            :  * entry = dictAddRaw(dict,mykey,NULL);
+<span class="lineNum">     283 </span>            :  * if (entry != NULL) dictSetSignedIntegerVal(entry,1000);
+<span class="lineNum">     284 </span>            :  *
+<span class="lineNum">     285 </span>            :  * Return values:
+<span class="lineNum">     286 </span>            :  *
+<span class="lineNum">     287 </span>            :  * If key already exists NULL is returned, and &quot;*existing&quot; is populated
+<span class="lineNum">     288 </span>            :  * with the existing entry if existing is not NULL.
+<span class="lineNum">     289 </span>            :  *
+<a name="290"><span class="lineNum">     290 </span>            :  * If key was added, the hash entry is returned to be manipulated by the caller.</a>
+<span class="lineNum">     291 </span>            :  */
+<span class="lineNum">     292 </span><span class="lineCov">   53204500 : dictEntry *dictAddRaw(dict *d, void *key, dictEntry **existing)</span>
+<span class="lineNum">     293 </span>            : {
+<span class="lineNum">     294 </span><span class="lineCov">   53204500 :     long index;</span>
+<span class="lineNum">     295 </span><span class="lineCov">   53204500 :     dictEntry *entry;</span>
+<span class="lineNum">     296 </span><span class="lineCov">   53204500 :     dictht *ht;</span>
+<span class="lineNum">     297 </span>            : 
+<span class="lineNum">     298 </span><span class="lineCov">   53204500 :     if (dictIsRehashing(d)) _dictRehashStep(d);</span>
+<span class="lineNum">     299 </span>            : 
+<span class="lineNum">     300 </span>            :     /* Get the index of the new element, or -1 if
+<span class="lineNum">     301 </span>            :      * the element already exists. */
+<span class="lineNum">     302 </span><span class="lineCov">   53204500 :     if ((index = _dictKeyIndex(d, key, dictHashKey(d,key), existing)) == -1)</span>
+<span class="lineNum">     303 </span>            :         return NULL;
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span>            :     /* Allocate the memory and store the new entry.
+<span class="lineNum">     306 </span>            :      * Insert the element in top, with the assumption that in a database
+<span class="lineNum">     307 </span>            :      * system it is more likely that recently added entries are accessed
+<span class="lineNum">     308 </span>            :      * more frequently. */
+<span class="lineNum">     309 </span><span class="lineCov">   53172350 :     ht = dictIsRehashing(d) ? &amp;d-&gt;ht[1] : &amp;d-&gt;ht[0];</span>
+<span class="lineNum">     310 </span><span class="lineCov">   53172350 :     entry = zmalloc(sizeof(*entry));</span>
+<span class="lineNum">     311 </span><span class="lineCov">   53172350 :     entry-&gt;next = ht-&gt;table[index];</span>
+<span class="lineNum">     312 </span><span class="lineCov">   53172350 :     ht-&gt;table[index] = entry;</span>
+<span class="lineNum">     313 </span><span class="lineCov">   53172350 :     ht-&gt;used++;</span>
+<span class="lineNum">     314 </span>            : 
+<span class="lineNum">     315 </span>            :     /* Set the hash entry fields. */
+<span class="lineNum">     316 </span><span class="lineCov">   53172350 :     dictSetKey(d, entry, key);</span>
+<span class="lineNum">     317 </span>            :     return entry;
+<span class="lineNum">     318 </span>            : }
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span>            : /* Add or Overwrite:
+<span class="lineNum">     321 </span>            :  * Add an element, discarding the old value if the key already exists.
+<span class="lineNum">     322 </span>            :  * Return 1 if the key was added from scratch, 0 if there was already an
+<a name="323"><span class="lineNum">     323 </span>            :  * element with such key and dictReplace() just performed a value update</a>
+<span class="lineNum">     324 </span>            :  * operation. */
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 : int dictReplace(dict *d, void *key, void *val)</span>
+<span class="lineNum">     326 </span>            : {
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 :     dictEntry *entry, *existing, auxentry;</span>
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span>            :     /* Try to add the element. If the key
+<span class="lineNum">     330 </span>            :      * does not exists dictAdd will succeed. */
+<span class="lineNum">     331 </span><span class="lineNoCov">          0 :     entry = dictAddRaw(d,key,&amp;existing);</span>
+<span class="lineNum">     332 </span><span class="lineNoCov">          0 :     if (entry) {</span>
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 :         dictSetVal(d, entry, val);</span>
+<span class="lineNum">     334 </span><span class="lineNoCov">          0 :         return 1;</span>
+<span class="lineNum">     335 </span>            :     }
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span>            :     /* Set the new value and free the old one. Note that it is important
+<span class="lineNum">     338 </span>            :      * to do that in this order, as the value may just be exactly the same
+<span class="lineNum">     339 </span>            :      * as the previous one. In this context, think to reference counting,
+<span class="lineNum">     340 </span>            :      * you want to increment (set), and then decrement (free), and not the
+<span class="lineNum">     341 </span>            :      * reverse. */
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :     auxentry = *existing;</span>
+<span class="lineNum">     343 </span><span class="lineNoCov">          0 :     dictSetVal(d, existing, val);</span>
+<span class="lineNum">     344 </span><span class="lineNoCov">          0 :     dictFreeVal(d, &amp;auxentry);</span>
+<span class="lineNum">     345 </span>            :     return 0;
+<span class="lineNum">     346 </span>            : }
+<span class="lineNum">     347 </span>            : 
+<span class="lineNum">     348 </span>            : /* Add or Find:
+<span class="lineNum">     349 </span>            :  * dictAddOrFind() is simply a version of dictAddRaw() that always
+<span class="lineNum">     350 </span>            :  * returns the hash entry of the specified key, even if the key already
+<span class="lineNum">     351 </span>            :  * exists and can't be added (in that case the entry of the already
+<span class="lineNum">     352 </span>            :  * existing key is returned.)
+<a name="353"><span class="lineNum">     353 </span>            :  *</a>
+<span class="lineNum">     354 </span>            :  * See dictAddRaw() for more information. */
+<span class="lineNum">     355 </span><span class="lineCov">      62265 : dictEntry *dictAddOrFind(dict *d, void *key) {</span>
+<span class="lineNum">     356 </span><span class="lineCov">      62265 :     dictEntry *entry, *existing;</span>
+<span class="lineNum">     357 </span><span class="lineCov">      62265 :     entry = dictAddRaw(d,key,&amp;existing);</span>
+<span class="lineNum">     358 </span><span class="lineCov">      62265 :     return entry ? entry : existing;</span>
+<span class="lineNum">     359 </span>            : }
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            : /* Search and remove an element. This is an helper function for
+<a name="362"><span class="lineNum">     362 </span>            :  * dictDelete() and dictUnlink(), please check the top comment</a>
+<span class="lineNum">     363 </span>            :  * of those functions. */
+<span class="lineNum">     364 </span><span class="lineCov">   35025764 : static dictEntry *dictGenericDelete(dict *d, const void *key, int nofree) {</span>
+<span class="lineNum">     365 </span><span class="lineCov">   35025764 :     uint64_t h, idx;</span>
+<span class="lineNum">     366 </span><span class="lineCov">   35025764 :     dictEntry *he, *prevHe;</span>
+<span class="lineNum">     367 </span><span class="lineCov">   35025764 :     int table;</span>
+<span class="lineNum">     368 </span>            : 
+<span class="lineNum">     369 </span><span class="lineCov">   35025764 :     if (d-&gt;ht[0].used == 0 &amp;&amp; d-&gt;ht[1].used == 0) return NULL;</span>
+<span class="lineNum">     370 </span>            : 
+<span class="lineNum">     371 </span><span class="lineCov">    3360268 :     if (dictIsRehashing(d)) _dictRehashStep(d);</span>
+<span class="lineNum">     372 </span><span class="lineCov">    3360268 :     h = dictHashKey(d, key);</span>
+<span class="lineNum">     373 </span>            : 
+<span class="lineNum">     374 </span><span class="lineCov">    3517400 :     for (table = 0; table &lt;= 1; table++) {</span>
+<span class="lineNum">     375 </span><span class="lineCov">    3471078 :         idx = h &amp; d-&gt;ht[table].sizemask;</span>
+<span class="lineNum">     376 </span><span class="lineCov">    3471078 :         he = d-&gt;ht[table].table[idx];</span>
+<span class="lineNum">     377 </span><span class="lineCov">    3471078 :         prevHe = NULL;</span>
+<span class="lineNum">     378 </span><span class="lineCov">    4517512 :         while(he) {</span>
+<span class="lineNum">     379 </span><span class="lineCov">    3378574 :             if (key==he-&gt;key || dictCompareKeys(d, key, he-&gt;key)) {</span>
+<span class="lineNum">     380 </span>            :                 /* Unlink the element from the list */
+<span class="lineNum">     381 </span><span class="lineCov">    2332140 :                 if (prevHe)</span>
+<span class="lineNum">     382 </span><span class="lineCov">     214173 :                     prevHe-&gt;next = he-&gt;next;</span>
+<span class="lineNum">     383 </span>            :                 else
+<span class="lineNum">     384 </span><span class="lineCov">    2117967 :                     d-&gt;ht[table].table[idx] = he-&gt;next;</span>
+<span class="lineNum">     385 </span><span class="lineCov">    2332140 :                 if (!nofree) {</span>
+<span class="lineNum">     386 </span><span class="lineCov">    2304673 :                     dictFreeKey(d, he);</span>
+<span class="lineNum">     387 </span><span class="lineCov">    2304673 :                     dictFreeVal(d, he);</span>
+<span class="lineNum">     388 </span><span class="lineCov">    2304673 :                     zfree(he);</span>
+<span class="lineNum">     389 </span>            :                 }
+<span class="lineNum">     390 </span><span class="lineCov">    2332140 :                 d-&gt;ht[table].used--;</span>
+<span class="lineNum">     391 </span><span class="lineCov">    2332140 :                 return he;</span>
+<span class="lineNum">     392 </span>            :             }
+<span class="lineNum">     393 </span><span class="lineCov">    1046434 :             prevHe = he;</span>
+<span class="lineNum">     394 </span><span class="lineCov">    1046434 :             he = he-&gt;next;</span>
+<span class="lineNum">     395 </span>            :         }
+<span class="lineNum">     396 </span><span class="lineCov">    1138938 :         if (!dictIsRehashing(d)) break;</span>
+<span class="lineNum">     397 </span>            :     }
+<span class="lineNum">     398 </span>            :     return NULL; /* not found */
+<span class="lineNum">     399 </span>            : }
+<span class="lineNum">     400 </span>            : 
+<a name="401"><span class="lineNum">     401 </span>            : /* Remove an element, returning DICT_OK on success or DICT_ERR if the</a>
+<span class="lineNum">     402 </span>            :  * element was not found. */
+<span class="lineNum">     403 </span><span class="lineCov">   34990881 : int dictDelete(dict *ht, const void *key) {</span>
+<span class="lineNum">     404 </span><span class="lineCov">   34990881 :     return dictGenericDelete(ht,key,0) ? DICT_OK : DICT_ERR;</span>
+<span class="lineNum">     405 </span>            : }
+<span class="lineNum">     406 </span>            : 
+<span class="lineNum">     407 </span>            : /* Remove an element from the table, but without actually releasing
+<span class="lineNum">     408 </span>            :  * the key, value and dictionary entry. The dictionary entry is returned
+<span class="lineNum">     409 </span>            :  * if the element was found (and unlinked from the table), and the user
+<span class="lineNum">     410 </span>            :  * should later call `dictFreeUnlinkedEntry()` with it in order to release it.
+<span class="lineNum">     411 </span>            :  * Otherwise if the key is not found, NULL is returned.
+<span class="lineNum">     412 </span>            :  *
+<span class="lineNum">     413 </span>            :  * This function is useful when we want to remove something from the hash
+<span class="lineNum">     414 </span>            :  * table but want to use its value before actually deleting the entry.
+<span class="lineNum">     415 </span>            :  * Without this function the pattern would require two lookups:
+<span class="lineNum">     416 </span>            :  *
+<span class="lineNum">     417 </span>            :  *  entry = dictFind(...);
+<span class="lineNum">     418 </span>            :  *  // Do something with entry
+<span class="lineNum">     419 </span>            :  *  dictDelete(dictionary,entry);
+<span class="lineNum">     420 </span>            :  *
+<span class="lineNum">     421 </span>            :  * Thanks to this function it is possible to avoid this, and use
+<span class="lineNum">     422 </span>            :  * instead:
+<span class="lineNum">     423 </span>            :  *
+<span class="lineNum">     424 </span>            :  * entry = dictUnlink(dictionary,entry);
+<span class="lineNum">     425 </span>            :  * // Do something with entry
+<a name="426"><span class="lineNum">     426 </span>            :  * dictFreeUnlinkedEntry(entry); // &lt;- This does not need to lookup again.</a>
+<span class="lineNum">     427 </span>            :  */
+<span class="lineNum">     428 </span><span class="lineCov">      34883 : dictEntry *dictUnlink(dict *ht, const void *key) {</span>
+<span class="lineNum">     429 </span><span class="lineCov">      34883 :     return dictGenericDelete(ht,key,1);</span>
+<span class="lineNum">     430 </span>            : }
+<span class="lineNum">     431 </span>            : 
+<a name="432"><span class="lineNum">     432 </span>            : /* You need to call this function to really free the entry after a call</a>
+<span class="lineNum">     433 </span>            :  * to dictUnlink(). It's safe to call this function with 'he' = NULL. */
+<span class="lineNum">     434 </span><span class="lineCov">      27467 : void dictFreeUnlinkedEntry(dict *d, dictEntry *he) {</span>
+<span class="lineNum">     435 </span><span class="lineCov">      27467 :     if (he == NULL) return;</span>
+<span class="lineNum">     436 </span><span class="lineCov">      27467 :     dictFreeKey(d, he);</span>
+<span class="lineNum">     437 </span><span class="lineCov">      27467 :     dictFreeVal(d, he);</span>
+<span class="lineNum">     438 </span><span class="lineCov">      27467 :     zfree(he);</span>
+<span class="lineNum">     439 </span>            : }
+<a name="440"><span class="lineNum">     440 </span>            : </a>
+<span class="lineNum">     441 </span>            : /* Destroy an entire dictionary */
+<span class="lineNum">     442 </span><span class="lineCov">     888562 : int _dictClear(dict *d, dictht *ht, void(callback)(void *)) {</span>
+<span class="lineNum">     443 </span><span class="lineCov">     888562 :     unsigned long i;</span>
+<span class="lineNum">     444 </span>            : 
+<span class="lineNum">     445 </span>            :     /* Free all the elements */
+<span class="lineNum">     446 </span><span class="lineCov">   32772057 :     for (i = 0; i &lt; ht-&gt;size &amp;&amp; ht-&gt;used &gt; 0; i++) {</span>
+<span class="lineNum">     447 </span><span class="lineCov">   31883495 :         dictEntry *he, *nextHe;</span>
+<span class="lineNum">     448 </span>            : 
+<span class="lineNum">     449 </span><span class="lineCov">   31883495 :         if (callback &amp;&amp; (i &amp; 65535) == 0) callback(d-&gt;privdata);</span>
+<span class="lineNum">     450 </span>            : 
+<span class="lineNum">     451 </span><span class="lineCov">   31883495 :         if ((he = ht-&gt;table[i]) == NULL) continue;</span>
+<span class="lineNum">     452 </span><span class="lineCov">   22092449 :         while(he) {</span>
+<span class="lineNum">     453 </span><span class="lineCov">   12659587 :             nextHe = he-&gt;next;</span>
+<span class="lineNum">     454 </span><span class="lineCov">   12659587 :             dictFreeKey(d, he);</span>
+<span class="lineNum">     455 </span><span class="lineCov">   12659587 :             dictFreeVal(d, he);</span>
+<span class="lineNum">     456 </span><span class="lineCov">   12659587 :             zfree(he);</span>
+<span class="lineNum">     457 </span><span class="lineCov">   12659587 :             ht-&gt;used--;</span>
+<span class="lineNum">     458 </span><span class="lineCov">   12659587 :             he = nextHe;</span>
+<span class="lineNum">     459 </span>            :         }
+<span class="lineNum">     460 </span>            :     }
+<span class="lineNum">     461 </span>            :     /* Free the table and the allocated cache structure */
+<span class="lineNum">     462 </span><span class="lineCov">     888562 :     zfree(ht-&gt;table);</span>
+<span class="lineNum">     463 </span>            :     /* Re-initialize the table */
+<span class="lineNum">     464 </span><span class="lineCov">    1777124 :     _dictReset(ht);</span>
+<span class="lineNum">     465 </span><span class="lineCov">     888562 :     return DICT_OK; /* never fails */</span>
+<span class="lineNum">     466 </span>            : }
+<a name="467"><span class="lineNum">     467 </span>            : </a>
+<span class="lineNum">     468 </span>            : /* Clear &amp; Release the hash table */
+<span class="lineNum">     469 </span><span class="lineCov">     403050 : void dictRelease(dict *d)</span>
+<span class="lineNum">     470 </span>            : {
+<span class="lineNum">     471 </span><span class="lineCov">     403050 :     _dictClear(d,&amp;d-&gt;ht[0],NULL);</span>
+<span class="lineNum">     472 </span><span class="lineCov">     403050 :     _dictClear(d,&amp;d-&gt;ht[1],NULL);</span>
+<span class="lineNum">     473 </span><span class="lineCov">     403050 :     zfree(d);</span>
+<a name="474"><span class="lineNum">     474 </span><span class="lineCov">     403050 : }</span></a>
+<span class="lineNum">     475 </span>            : 
+<span class="lineNum">     476 </span><span class="lineCov">  277486012 : dictEntry *dictFind(dict *d, const void *key)</span>
+<span class="lineNum">     477 </span>            : {
+<span class="lineNum">     478 </span><span class="lineCov">  277486012 :     dictEntry *he;</span>
+<span class="lineNum">     479 </span><span class="lineCov">  277486012 :     uint64_t h, idx, table;</span>
+<span class="lineNum">     480 </span>            : 
+<span class="lineNum">     481 </span><span class="lineCov">  277486012 :     if (d-&gt;ht[0].used + d-&gt;ht[1].used == 0) return NULL; /* dict is empty */</span>
+<span class="lineNum">     482 </span><span class="lineCov">  168560907 :     if (dictIsRehashing(d)) _dictRehashStep(d);</span>
+<span class="lineNum">     483 </span><span class="lineCov">  168560907 :     h = dictHashKey(d, key);</span>
+<span class="lineNum">     484 </span><span class="lineCov">  194498615 :     for (table = 0; table &lt;= 1; table++) {</span>
+<span class="lineNum">     485 </span><span class="lineCov">  185579080 :         idx = h &amp; d-&gt;ht[table].sizemask;</span>
+<span class="lineNum">     486 </span><span class="lineCov">  185579080 :         he = d-&gt;ht[table].table[idx];</span>
+<span class="lineNum">     487 </span><span class="lineCov">  258597739 :         while(he) {</span>
+<span class="lineNum">     488 </span><span class="lineCov">  200277528 :             if (key==he-&gt;key || dictCompareKeys(d, key, he-&gt;key))</span>
+<span class="lineNum">     489 </span><span class="lineCov">  127258869 :                 return he;</span>
+<span class="lineNum">     490 </span><span class="lineCov">   73018659 :             he = he-&gt;next;</span>
+<span class="lineNum">     491 </span>            :         }
+<span class="lineNum">     492 </span><span class="lineCov">   58320211 :         if (!dictIsRehashing(d)) return NULL;</span>
+<span class="lineNum">     493 </span>            :     }
+<span class="lineNum">     494 </span>            :     return NULL;
+<a name="495"><span class="lineNum">     495 </span>            : }</a>
+<span class="lineNum">     496 </span>            : 
+<span class="lineNum">     497 </span><span class="lineCov">   63319635 : void *dictFetchValue(dict *d, const void *key) {</span>
+<span class="lineNum">     498 </span><span class="lineCov">   63319635 :     dictEntry *he;</span>
+<span class="lineNum">     499 </span>            : 
+<span class="lineNum">     500 </span><span class="lineCov">   63319635 :     he = dictFind(d,key);</span>
+<span class="lineNum">     501 </span><span class="lineCov">   63319635 :     return he ? dictGetVal(he) : NULL;</span>
+<span class="lineNum">     502 </span>            : }
+<span class="lineNum">     503 </span>            : 
+<span class="lineNum">     504 </span>            : /* A fingerprint is a 64 bit number that represents the state of the dictionary
+<span class="lineNum">     505 </span>            :  * at a given time, it's just a few dict properties xored together.
+<span class="lineNum">     506 </span>            :  * When an unsafe iterator is initialized, we get the dict fingerprint, and check
+<span class="lineNum">     507 </span>            :  * the fingerprint again when the iterator is released.
+<a name="508"><span class="lineNum">     508 </span>            :  * If the two fingerprints are different it means that the user of the iterator</a>
+<span class="lineNum">     509 </span>            :  * performed forbidden operations against the dictionary while iterating. */
+<span class="lineNum">     510 </span><span class="lineCov">    2274258 : long long dictFingerprint(dict *d) {</span>
+<span class="lineNum">     511 </span><span class="lineCov">    2274258 :     long long integers[6], hash = 0;</span>
+<span class="lineNum">     512 </span><span class="lineCov">    2274258 :     int j;</span>
+<span class="lineNum">     513 </span>            : 
+<span class="lineNum">     514 </span><span class="lineCov">    2274258 :     integers[0] = (long) d-&gt;ht[0].table;</span>
+<span class="lineNum">     515 </span><span class="lineCov">    2274258 :     integers[1] = d-&gt;ht[0].size;</span>
+<span class="lineNum">     516 </span><span class="lineCov">    2274258 :     integers[2] = d-&gt;ht[0].used;</span>
+<span class="lineNum">     517 </span><span class="lineCov">    2274258 :     integers[3] = (long) d-&gt;ht[1].table;</span>
+<span class="lineNum">     518 </span><span class="lineCov">    2274258 :     integers[4] = d-&gt;ht[1].size;</span>
+<span class="lineNum">     519 </span><span class="lineCov">    2274258 :     integers[5] = d-&gt;ht[1].used;</span>
+<span class="lineNum">     520 </span>            : 
+<span class="lineNum">     521 </span>            :     /* We hash N integers by summing every successive integer with the integer
+<span class="lineNum">     522 </span>            :      * hashing of the previous sum. Basically:
+<span class="lineNum">     523 </span>            :      *
+<span class="lineNum">     524 </span>            :      * Result = hash(hash(hash(int1)+int2)+int3) ...
+<span class="lineNum">     525 </span>            :      *
+<span class="lineNum">     526 </span>            :      * This way the same set of integers in a different order will (likely) hash
+<span class="lineNum">     527 </span>            :      * to a different number. */
+<span class="lineNum">     528 </span><span class="lineCov">   15919806 :     for (j = 0; j &lt; 6; j++) {</span>
+<span class="lineNum">     529 </span><span class="lineCov">   13645548 :         hash += integers[j];</span>
+<span class="lineNum">     530 </span>            :         /* For the hashing step we use Tomas Wang's 64 bit integer hash. */
+<span class="lineNum">     531 </span><span class="lineCov">   13645548 :         hash = (~hash) + (hash &lt;&lt; 21); // hash = (hash &lt;&lt; 21) - hash - 1;</span>
+<span class="lineNum">     532 </span><span class="lineCov">   13645548 :         hash = hash ^ (hash &gt;&gt; 24);</span>
+<span class="lineNum">     533 </span><span class="lineCov">   13645548 :         hash = (hash + (hash &lt;&lt; 3)) + (hash &lt;&lt; 8); // hash * 265</span>
+<span class="lineNum">     534 </span><span class="lineCov">   13645548 :         hash = hash ^ (hash &gt;&gt; 14);</span>
+<span class="lineNum">     535 </span><span class="lineCov">   13645548 :         hash = (hash + (hash &lt;&lt; 2)) + (hash &lt;&lt; 4); // hash * 21</span>
+<span class="lineNum">     536 </span><span class="lineCov">   13645548 :         hash = hash ^ (hash &gt;&gt; 28);</span>
+<span class="lineNum">     537 </span><span class="lineCov">   13645548 :         hash = hash + (hash &lt;&lt; 31);</span>
+<span class="lineNum">     538 </span>            :     }
+<span class="lineNum">     539 </span><span class="lineCov">    2274258 :     return hash;</span>
+<a name="540"><span class="lineNum">     540 </span>            : }</a>
+<span class="lineNum">     541 </span>            : 
+<span class="lineNum">     542 </span><span class="lineCov">    1137129 : dictIterator *dictGetIterator(dict *d)</span>
+<span class="lineNum">     543 </span>            : {
+<span class="lineNum">     544 </span><span class="lineCov">    1137129 :     dictIterator *iter = zmalloc(sizeof(*iter));</span>
+<span class="lineNum">     545 </span>            : 
+<span class="lineNum">     546 </span><span class="lineCov">    1145986 :     iter-&gt;d = d;</span>
+<span class="lineNum">     547 </span><span class="lineCov">    1145986 :     iter-&gt;table = 0;</span>
+<span class="lineNum">     548 </span><span class="lineCov">    1145986 :     iter-&gt;index = -1;</span>
+<span class="lineNum">     549 </span><span class="lineCov">    1145986 :     iter-&gt;safe = 0;</span>
+<span class="lineNum">     550 </span><span class="lineCov">    1145986 :     iter-&gt;entry = NULL;</span>
+<span class="lineNum">     551 </span><span class="lineCov">    1145986 :     iter-&gt;nextEntry = NULL;</span>
+<span class="lineNum">     552 </span><span class="lineCov">    1145986 :     return iter;</span>
+<a name="553"><span class="lineNum">     553 </span>            : }</a>
+<span class="lineNum">     554 </span>            : 
+<span class="lineNum">     555 </span><span class="lineCov">       8857 : dictIterator *dictGetSafeIterator(dict *d) {</span>
+<span class="lineNum">     556 </span><span class="lineCov">       8857 :     dictIterator *i = dictGetIterator(d);</span>
+<span class="lineNum">     557 </span>            : 
+<span class="lineNum">     558 </span><span class="lineCov">       8857 :     i-&gt;safe = 1;</span>
+<span class="lineNum">     559 </span><span class="lineCov">       8857 :     return i;</span>
+<a name="560"><span class="lineNum">     560 </span>            : }</a>
+<span class="lineNum">     561 </span>            : 
+<span class="lineNum">     562 </span><span class="lineCov">   86281786 : dictEntry *dictNext(dictIterator *iter)</span>
+<span class="lineNum">     563 </span>            : {
+<span class="lineNum">     564 </span><span class="lineCov">  252311730 :     while (1) {</span>
+<span class="lineNum">     565 </span><span class="lineCov">  252311730 :         if (iter-&gt;entry == NULL) {</span>
+<span class="lineNum">     566 </span><span class="lineCov">  167175930 :             dictht *ht = &amp;iter-&gt;d-&gt;ht[iter-&gt;table];</span>
+<span class="lineNum">     567 </span><span class="lineCov">  167175930 :             if (iter-&gt;index == -1 &amp;&amp; iter-&gt;table == 0) {</span>
+<span class="lineNum">     568 </span><span class="lineCov">    1145986 :                 if (iter-&gt;safe)</span>
+<span class="lineNum">     569 </span><span class="lineCov">       8857 :                     iter-&gt;d-&gt;iterators++;</span>
+<span class="lineNum">     570 </span>            :                 else
+<span class="lineNum">     571 </span><span class="lineCov">    1137129 :                     iter-&gt;fingerprint = dictFingerprint(iter-&gt;d);</span>
+<span class="lineNum">     572 </span>            :             }
+<span class="lineNum">     573 </span><span class="lineCov">  167175930 :             iter-&gt;index++;</span>
+<span class="lineNum">     574 </span><span class="lineCov">  167175930 :             if (iter-&gt;index &gt;= (long) ht-&gt;size) {</span>
+<span class="lineNum">     575 </span><span class="lineCov">    1160575 :                 if (dictIsRehashing(iter-&gt;d) &amp;&amp; iter-&gt;table == 0) {</span>
+<span class="lineNum">     576 </span><span class="lineCov">      14589 :                     iter-&gt;table++;</span>
+<span class="lineNum">     577 </span><span class="lineCov">      14589 :                     iter-&gt;index = 0;</span>
+<span class="lineNum">     578 </span><span class="lineCov">      14589 :                     ht = &amp;iter-&gt;d-&gt;ht[1];</span>
+<span class="lineNum">     579 </span>            :                 } else {
+<span class="lineNum">     580 </span>            :                     break;
+<span class="lineNum">     581 </span>            :                 }
+<span class="lineNum">     582 </span>            :             }
+<span class="lineNum">     583 </span><span class="lineCov">  166029944 :             iter-&gt;entry = ht-&gt;table[iter-&gt;index];</span>
+<span class="lineNum">     584 </span>            :         } else {
+<span class="lineNum">     585 </span><span class="lineCov">   85135800 :             iter-&gt;entry = iter-&gt;nextEntry;</span>
+<span class="lineNum">     586 </span>            :         }
+<span class="lineNum">     587 </span><span class="lineCov">  251165744 :         if (iter-&gt;entry) {</span>
+<span class="lineNum">     588 </span>            :             /* We need to save the 'next' here, the iterator user
+<span class="lineNum">     589 </span>            :              * may delete the entry we are returning. */
+<span class="lineNum">     590 </span><span class="lineCov">   85135800 :             iter-&gt;nextEntry = iter-&gt;entry-&gt;next;</span>
+<span class="lineNum">     591 </span><span class="lineCov">   85135800 :             return iter-&gt;entry;</span>
+<span class="lineNum">     592 </span>            :         }
+<span class="lineNum">     593 </span>            :     }
+<span class="lineNum">     594 </span>            :     return NULL;
+<a name="595"><span class="lineNum">     595 </span>            : }</a>
+<span class="lineNum">     596 </span>            : 
+<span class="lineNum">     597 </span><span class="lineCov">    1145986 : void dictReleaseIterator(dictIterator *iter)</span>
+<span class="lineNum">     598 </span>            : {
+<span class="lineNum">     599 </span><span class="lineCov">    1145986 :     if (!(iter-&gt;index == -1 &amp;&amp; iter-&gt;table == 0)) {</span>
+<span class="lineNum">     600 </span><span class="lineCov">    1145986 :         if (iter-&gt;safe)</span>
+<span class="lineNum">     601 </span><span class="lineCov">       8857 :             iter-&gt;d-&gt;iterators--;</span>
+<span class="lineNum">     602 </span>            :         else
+<span class="lineNum">     603 </span><span class="lineCov">    1137129 :             assert(iter-&gt;fingerprint == dictFingerprint(iter-&gt;d));</span>
+<span class="lineNum">     604 </span>            :     }
+<span class="lineNum">     605 </span><span class="lineCov">    1145986 :     zfree(iter);</span>
+<span class="lineNum">     606 </span><span class="lineCov">    1145986 : }</span>
+<span class="lineNum">     607 </span>            : 
+<a name="608"><span class="lineNum">     608 </span>            : /* Return a random entry from the hash table. Useful to</a>
+<span class="lineNum">     609 </span>            :  * implement randomized algorithms */
+<span class="lineNum">     610 </span><span class="lineCov">    1148412 : dictEntry *dictGetRandomKey(dict *d)</span>
+<span class="lineNum">     611 </span>            : {
+<span class="lineNum">     612 </span><span class="lineCov">    1148412 :     dictEntry *he, *orighe;</span>
+<span class="lineNum">     613 </span><span class="lineCov">    1148412 :     unsigned long h;</span>
+<span class="lineNum">     614 </span><span class="lineCov">    1148412 :     int listlen, listele;</span>
+<span class="lineNum">     615 </span>            : 
+<span class="lineNum">     616 </span><span class="lineCov">    1148412 :     if (dictSize(d) == 0) return NULL;</span>
+<span class="lineNum">     617 </span><span class="lineCov">    1148406 :     if (dictIsRehashing(d)) _dictRehashStep(d);</span>
+<span class="lineNum">     618 </span><span class="lineCov">    1148406 :     if (dictIsRehashing(d)) {</span>
+<span class="lineNum">     619 </span><span class="lineCov">     193323 :         do {</span>
+<span class="lineNum">     620 </span>            :             /* We are sure there are no elements in indexes from 0
+<span class="lineNum">     621 </span>            :              * to rehashidx-1 */
+<span class="lineNum">     622 </span><span class="lineCov">     193323 :             h = d-&gt;rehashidx + (random() % (d-&gt;ht[0].size +</span>
+<span class="lineNum">     623 </span><span class="lineCov">     386646 :                                             d-&gt;ht[1].size -</span>
+<span class="lineNum">     624 </span><span class="lineCov">     193323 :                                             d-&gt;rehashidx));</span>
+<span class="lineNum">     625 </span><span class="lineCov">     193323 :             he = (h &gt;= d-&gt;ht[0].size) ? d-&gt;ht[1].table[h - d-&gt;ht[0].size] :</span>
+<span class="lineNum">     626 </span><span class="lineCov">      55827 :                                       d-&gt;ht[0].table[h];</span>
+<span class="lineNum">     627 </span><span class="lineCov">     193323 :         } while(he == NULL);</span>
+<span class="lineNum">     628 </span>            :     } else {
+<span class="lineNum">     629 </span><span class="lineCov">    2255968 :         do {</span>
+<span class="lineNum">     630 </span><span class="lineCov">    2255968 :             h = random() &amp; d-&gt;ht[0].sizemask;</span>
+<span class="lineNum">     631 </span><span class="lineCov">    2255968 :             he = d-&gt;ht[0].table[h];</span>
+<span class="lineNum">     632 </span><span class="lineCov">    2255968 :         } while(he == NULL);</span>
+<span class="lineNum">     633 </span>            :     }
+<span class="lineNum">     634 </span>            : 
+<span class="lineNum">     635 </span>            :     /* Now we found a non empty bucket, but it is a linked
+<span class="lineNum">     636 </span>            :      * list and we need to get a random element from the list.
+<span class="lineNum">     637 </span>            :      * The only sane way to do so is counting the elements and
+<span class="lineNum">     638 </span>            :      * select a random index. */
+<span class="lineNum">     639 </span><span class="lineCov">    1148406 :     listlen = 0;</span>
+<span class="lineNum">     640 </span><span class="lineCov">    1148406 :     orighe = he;</span>
+<span class="lineNum">     641 </span><span class="lineCov">    2764344 :     while(he) {</span>
+<span class="lineNum">     642 </span><span class="lineCov">    1615938 :         he = he-&gt;next;</span>
+<span class="lineNum">     643 </span><span class="lineCov">    1615938 :         listlen++;</span>
+<span class="lineNum">     644 </span>            :     }
+<span class="lineNum">     645 </span><span class="lineCov">    1148406 :     listele = random() % listlen;</span>
+<span class="lineNum">     646 </span><span class="lineCov">    1148406 :     he = orighe;</span>
+<span class="lineNum">     647 </span><span class="lineCov">    1382379 :     while(listele--) he = he-&gt;next;</span>
+<span class="lineNum">     648 </span>            :     return he;
+<span class="lineNum">     649 </span>            : }
+<span class="lineNum">     650 </span>            : 
+<span class="lineNum">     651 </span>            : /* This function samples the dictionary to return a few keys from random
+<span class="lineNum">     652 </span>            :  * locations.
+<span class="lineNum">     653 </span>            :  *
+<span class="lineNum">     654 </span>            :  * It does not guarantee to return all the keys specified in 'count', nor
+<span class="lineNum">     655 </span>            :  * it does guarantee to return non-duplicated elements, however it will make
+<span class="lineNum">     656 </span>            :  * some effort to do both things.
+<span class="lineNum">     657 </span>            :  *
+<span class="lineNum">     658 </span>            :  * Returned pointers to hash table entries are stored into 'des' that
+<span class="lineNum">     659 </span>            :  * points to an array of dictEntry pointers. The array must have room for
+<span class="lineNum">     660 </span>            :  * at least 'count' elements, that is the argument we pass to the function
+<span class="lineNum">     661 </span>            :  * to tell how many random elements we need.
+<span class="lineNum">     662 </span>            :  *
+<span class="lineNum">     663 </span>            :  * The function returns the number of items stored into 'des', that may
+<span class="lineNum">     664 </span>            :  * be less than 'count' if the hash table has less than 'count' elements
+<span class="lineNum">     665 </span>            :  * inside, or if not enough elements were found in a reasonable amount of
+<span class="lineNum">     666 </span>            :  * steps.
+<span class="lineNum">     667 </span>            :  *
+<span class="lineNum">     668 </span>            :  * Note that this function is not suitable when you need a good distribution
+<span class="lineNum">     669 </span>            :  * of the returned items, but only when you need to &quot;sample&quot; a given number
+<span class="lineNum">     670 </span>            :  * of continuous elements to run some kind of algorithm or to produce
+<a name="671"><span class="lineNum">     671 </span>            :  * statistics. However the function is much faster than dictGetRandomKey()</a>
+<span class="lineNum">     672 </span>            :  * at producing N elements. */
+<span class="lineNum">     673 </span><span class="lineCov">     697643 : unsigned int dictGetSomeKeys(dict *d, dictEntry **des, unsigned int count) {</span>
+<span class="lineNum">     674 </span><span class="lineCov">     697643 :     unsigned long j; /* internal hash table id, 0 or 1. */</span>
+<span class="lineNum">     675 </span><span class="lineCov">     697643 :     unsigned long tables; /* 1 or 2 tables? */</span>
+<span class="lineNum">     676 </span><span class="lineCov">     697643 :     unsigned long stored = 0, maxsizemask;</span>
+<span class="lineNum">     677 </span><span class="lineCov">     697643 :     unsigned long maxsteps;</span>
+<span class="lineNum">     678 </span>            : 
+<span class="lineNum">     679 </span><span class="lineCov">     697643 :     if (dictSize(d) &lt; count) count = dictSize(d);</span>
+<span class="lineNum">     680 </span><span class="lineCov">     697643 :     maxsteps = count*10;</span>
+<span class="lineNum">     681 </span>            : 
+<span class="lineNum">     682 </span>            :     /* Try to do a rehashing work proportional to 'count'. */
+<span class="lineNum">     683 </span><span class="lineCov">     699595 :     for (j = 0; j &lt; count; j++) {</span>
+<span class="lineNum">     684 </span><span class="lineCov">     699205 :         if (dictIsRehashing(d))</span>
+<span class="lineNum">     685 </span><span class="lineCov">       3904 :             _dictRehashStep(d);</span>
+<span class="lineNum">     686 </span>            :         else
+<span class="lineNum">     687 </span>            :             break;
+<span class="lineNum">     688 </span>            :     }
+<span class="lineNum">     689 </span>            : 
+<span class="lineNum">     690 </span><span class="lineCov">     697643 :     tables = dictIsRehashing(d) ? 2 : 1;</span>
+<span class="lineNum">     691 </span><span class="lineCov">     697643 :     maxsizemask = d-&gt;ht[0].sizemask;</span>
+<span class="lineNum">     692 </span><span class="lineCov">     697643 :     if (tables &gt; 1 &amp;&amp; maxsizemask &lt; d-&gt;ht[1].sizemask)</span>
+<span class="lineNum">     693 </span><span class="lineCov">        388 :         maxsizemask = d-&gt;ht[1].sizemask;</span>
+<span class="lineNum">     694 </span>            : 
+<span class="lineNum">     695 </span>            :     /* Pick a random point inside the larger table. */
+<span class="lineNum">     696 </span><span class="lineCov">     697643 :     unsigned long i = random() &amp; maxsizemask;</span>
+<span class="lineNum">     697 </span><span class="lineCov">     697643 :     unsigned long emptylen = 0; /* Continuous empty entries so far. */</span>
+<span class="lineNum">     698 </span><span class="lineCov">    7446189 :     while(stored &lt; count &amp;&amp; maxsteps--) {</span>
+<span class="lineNum">     699 </span><span class="lineCov">   14199440 :         for (j = 0; j &lt; tables; j++) {</span>
+<span class="lineNum">     700 </span>            :             /* Invariant of the dict.c rehashing: up to the indexes already
+<span class="lineNum">     701 </span>            :              * visited in ht[0] during the rehashing, there are no populated
+<span class="lineNum">     702 </span>            :              * buckets, so we can skip ht[0] for indexes between 0 and idx-1. */
+<span class="lineNum">     703 </span><span class="lineCov">    7450894 :             if (tables == 2 &amp;&amp; j == 0 &amp;&amp; i &lt; (unsigned long) d-&gt;rehashidx) {</span>
+<span class="lineNum">     704 </span>            :                 /* Moreover, if we are currently out of range in the second
+<span class="lineNum">     705 </span>            :                  * table, there will be no elements in both tables up to
+<span class="lineNum">     706 </span>            :                  * the current rehashing index, so we jump if possible.
+<span class="lineNum">     707 </span>            :                  * (this happens when going from big to small table). */
+<span class="lineNum">     708 </span><span class="lineCov">       1438 :                 if (i &gt;= d-&gt;ht[1].size)</span>
+<span class="lineNum">     709 </span>            :                     i = d-&gt;rehashidx;
+<span class="lineNum">     710 </span>            :                 else
+<span class="lineNum">     711 </span>            :                     continue;
+<span class="lineNum">     712 </span>            :             }
+<span class="lineNum">     713 </span><span class="lineCov">    7449456 :             if (i &gt;= d-&gt;ht[j].size) continue; /* Out of range for this table. */</span>
+<span class="lineNum">     714 </span><span class="lineCov">    7446870 :             dictEntry *he = d-&gt;ht[j].table[i];</span>
+<span class="lineNum">     715 </span>            : 
+<span class="lineNum">     716 </span>            :             /* Count contiguous empty buckets, and jump to other
+<span class="lineNum">     717 </span>            :              * locations if they reach 'count' (with a minimum of 5). */
+<span class="lineNum">     718 </span><span class="lineCov">    7446870 :             if (he == NULL) {</span>
+<span class="lineNum">     719 </span><span class="lineCov">    4693711 :                 emptylen++;</span>
+<span class="lineNum">     720 </span><span class="lineCov">    4693711 :                 if (emptylen &gt;= 5 &amp;&amp; emptylen &gt; count) {</span>
+<span class="lineNum">     721 </span><span class="lineCov">     253819 :                     i = random() &amp; maxsizemask;</span>
+<span class="lineNum">     722 </span><span class="lineCov">     253819 :                     emptylen = 0;</span>
+<span class="lineNum">     723 </span>            :                 }
+<span class="lineNum">     724 </span>            :             } else {
+<span class="lineNum">     725 </span>            :                 emptylen = 0;
+<span class="lineNum">     726 </span><span class="lineCov">    5543707 :                 while (he) {</span>
+<span class="lineNum">     727 </span>            :                     /* Collect all the elements of the buckets found non
+<span class="lineNum">     728 </span>            :                      * empty while iterating. */
+<span class="lineNum">     729 </span><span class="lineCov">    3488149 :                     *des = he;</span>
+<span class="lineNum">     730 </span><span class="lineCov">    3488149 :                     des++;</span>
+<span class="lineNum">     731 </span><span class="lineCov">    3488149 :                     he = he-&gt;next;</span>
+<span class="lineNum">     732 </span><span class="lineCov">    3488149 :                     stored++;</span>
+<span class="lineNum">     733 </span><span class="lineCov">    3488149 :                     if (stored == count) return stored;</span>
+<span class="lineNum">     734 </span>            :                 }
+<span class="lineNum">     735 </span>            :             }
+<span class="lineNum">     736 </span>            :         }
+<span class="lineNum">     737 </span><span class="lineCov">    6748546 :         i = (i+1) &amp; maxsizemask;</span>
+<span class="lineNum">     738 </span>            :     }
+<span class="lineNum">     739 </span><span class="lineCov">         42 :     return stored;</span>
+<span class="lineNum">     740 </span>            : }
+<span class="lineNum">     741 </span>            : 
+<span class="lineNum">     742 </span>            : /* Function to reverse bits. Algorithm from:
+<span class="lineNum">     743 </span>            :  * http://graphics.stanford.edu/~seander/bithacks.html#ReverseParallel */
+<span class="lineNum">     744 </span>            : static unsigned long rev(unsigned long v) {
+<span class="lineNum">     745 </span><span class="lineCov">    5719398 :     unsigned long s = 8 * sizeof(v); // bit size; must be power of 2</span>
+<span class="lineNum">     746 </span><span class="lineCov">    5719398 :     unsigned long mask = ~0;</span>
+<span class="lineNum">     747 </span><span class="lineCov">   80071572 :     while ((s &gt;&gt;= 1) &gt; 0) {</span>
+<span class="lineNum">     748 </span><span class="lineCov">   68632776 :         mask ^= (mask &lt;&lt; s);</span>
+<span class="lineNum">     749 </span><span class="lineCov">   68632776 :         v = ((v &gt;&gt; s) &amp; mask) | ((v &lt;&lt; s) &amp; ~mask);</span>
+<span class="lineNum">     750 </span>            :     }
+<span class="lineNum">     751 </span><span class="lineCov">    6126326 :     return v;</span>
+<span class="lineNum">     752 </span>            : }
+<span class="lineNum">     753 </span>            : 
+<span class="lineNum">     754 </span>            : /* dictScan() is used to iterate over the elements of a dictionary.
+<span class="lineNum">     755 </span>            :  *
+<span class="lineNum">     756 </span>            :  * Iterating works the following way:
+<span class="lineNum">     757 </span>            :  *
+<span class="lineNum">     758 </span>            :  * 1) Initially you call the function using a cursor (v) value of 0.
+<span class="lineNum">     759 </span>            :  * 2) The function performs one step of the iteration, and returns the
+<span class="lineNum">     760 </span>            :  *    new cursor value you must use in the next call.
+<span class="lineNum">     761 </span>            :  * 3) When the returned cursor is 0, the iteration is complete.
+<span class="lineNum">     762 </span>            :  *
+<span class="lineNum">     763 </span>            :  * The function guarantees all elements present in the
+<span class="lineNum">     764 </span>            :  * dictionary get returned between the start and end of the iteration.
+<span class="lineNum">     765 </span>            :  * However it is possible some elements get returned multiple times.
+<span class="lineNum">     766 </span>            :  *
+<span class="lineNum">     767 </span>            :  * For every element returned, the callback argument 'fn' is
+<span class="lineNum">     768 </span>            :  * called with 'privdata' as first argument and the dictionary entry
+<span class="lineNum">     769 </span>            :  * 'de' as second argument.
+<span class="lineNum">     770 </span>            :  *
+<span class="lineNum">     771 </span>            :  * HOW IT WORKS.
+<span class="lineNum">     772 </span>            :  *
+<span class="lineNum">     773 </span>            :  * The iteration algorithm was designed by Pieter Noordhuis.
+<span class="lineNum">     774 </span>            :  * The main idea is to increment a cursor starting from the higher order
+<span class="lineNum">     775 </span>            :  * bits. That is, instead of incrementing the cursor normally, the bits
+<span class="lineNum">     776 </span>            :  * of the cursor are reversed, then the cursor is incremented, and finally
+<span class="lineNum">     777 </span>            :  * the bits are reversed again.
+<span class="lineNum">     778 </span>            :  *
+<span class="lineNum">     779 </span>            :  * This strategy is needed because the hash table may be resized between
+<span class="lineNum">     780 </span>            :  * iteration calls.
+<span class="lineNum">     781 </span>            :  *
+<span class="lineNum">     782 </span>            :  * dict.c hash tables are always power of two in size, and they
+<span class="lineNum">     783 </span>            :  * use chaining, so the position of an element in a given table is given
+<span class="lineNum">     784 </span>            :  * by computing the bitwise AND between Hash(key) and SIZE-1
+<span class="lineNum">     785 </span>            :  * (where SIZE-1 is always the mask that is equivalent to taking the rest
+<span class="lineNum">     786 </span>            :  *  of the division between the Hash of the key and SIZE).
+<span class="lineNum">     787 </span>            :  *
+<span class="lineNum">     788 </span>            :  * For example if the current hash table size is 16, the mask is
+<span class="lineNum">     789 </span>            :  * (in binary) 1111. The position of a key in the hash table will always be
+<span class="lineNum">     790 </span>            :  * the last four bits of the hash output, and so forth.
+<span class="lineNum">     791 </span>            :  *
+<span class="lineNum">     792 </span>            :  * WHAT HAPPENS IF THE TABLE CHANGES IN SIZE?
+<span class="lineNum">     793 </span>            :  *
+<span class="lineNum">     794 </span>            :  * If the hash table grows, elements can go anywhere in one multiple of
+<span class="lineNum">     795 </span>            :  * the old bucket: for example let's say we already iterated with
+<span class="lineNum">     796 </span>            :  * a 4 bit cursor 1100 (the mask is 1111 because hash table size = 16).
+<span class="lineNum">     797 </span>            :  *
+<span class="lineNum">     798 </span>            :  * If the hash table will be resized to 64 elements, then the new mask will
+<span class="lineNum">     799 </span>            :  * be 111111. The new buckets you obtain by substituting in ??1100
+<span class="lineNum">     800 </span>            :  * with either 0 or 1 can be targeted only by keys we already visited
+<span class="lineNum">     801 </span>            :  * when scanning the bucket 1100 in the smaller hash table.
+<span class="lineNum">     802 </span>            :  *
+<span class="lineNum">     803 </span>            :  * By iterating the higher bits first, because of the inverted counter, the
+<span class="lineNum">     804 </span>            :  * cursor does not need to restart if the table size gets bigger. It will
+<span class="lineNum">     805 </span>            :  * continue iterating using cursors without '1100' at the end, and also
+<span class="lineNum">     806 </span>            :  * without any other combination of the final 4 bits already explored.
+<span class="lineNum">     807 </span>            :  *
+<span class="lineNum">     808 </span>            :  * Similarly when the table size shrinks over time, for example going from
+<span class="lineNum">     809 </span>            :  * 16 to 8, if a combination of the lower three bits (the mask for size 8
+<span class="lineNum">     810 </span>            :  * is 111) were already completely explored, it would not be visited again
+<span class="lineNum">     811 </span>            :  * because we are sure we tried, for example, both 0111 and 1111 (all the
+<span class="lineNum">     812 </span>            :  * variations of the higher bit) so we don't need to test it again.
+<span class="lineNum">     813 </span>            :  *
+<span class="lineNum">     814 </span>            :  * WAIT... YOU HAVE *TWO* TABLES DURING REHASHING!
+<span class="lineNum">     815 </span>            :  *
+<span class="lineNum">     816 </span>            :  * Yes, this is true, but we always iterate the smaller table first, then
+<span class="lineNum">     817 </span>            :  * we test all the expansions of the current cursor into the larger
+<span class="lineNum">     818 </span>            :  * table. For example if the current cursor is 101 and we also have a
+<span class="lineNum">     819 </span>            :  * larger table of size 16, we also test (0)101 and (1)101 inside the larger
+<span class="lineNum">     820 </span>            :  * table. This reduces the problem back to having only one table, where
+<span class="lineNum">     821 </span>            :  * the larger one, if it exists, is just an expansion of the smaller one.
+<span class="lineNum">     822 </span>            :  *
+<span class="lineNum">     823 </span>            :  * LIMITATIONS
+<span class="lineNum">     824 </span>            :  *
+<span class="lineNum">     825 </span>            :  * This iterator is completely stateless, and this is a huge advantage,
+<span class="lineNum">     826 </span>            :  * including no additional memory used.
+<span class="lineNum">     827 </span>            :  *
+<span class="lineNum">     828 </span>            :  * The disadvantages resulting from this design are:
+<span class="lineNum">     829 </span>            :  *
+<span class="lineNum">     830 </span>            :  * 1) It is possible we return elements more than once. However this is usually
+<span class="lineNum">     831 </span>            :  *    easy to deal with in the application level.
+<span class="lineNum">     832 </span>            :  * 2) The iterator must return multiple elements per call, as it needs to always
+<span class="lineNum">     833 </span>            :  *    return all the keys chained in a given bucket, and all the expansions, so
+<span class="lineNum">     834 </span>            :  *    we are sure we don't miss keys moving during rehashing.
+<span class="lineNum">     835 </span>            :  * 3) The reverse cursor is somewhat hard to understand at first, but this
+<a name="836"><span class="lineNum">     836 </span>            :  *    comment is supposed to help.</a>
+<span class="lineNum">     837 </span>            :  */
+<span class="lineNum">     838 </span><span class="lineCov">    5449878 : unsigned long dictScan(dict *d,</span>
+<span class="lineNum">     839 </span>            :                        unsigned long v,
+<span class="lineNum">     840 </span>            :                        dictScanFunction *fn,
+<span class="lineNum">     841 </span>            :                        dictScanBucketFunction* bucketfn,
+<span class="lineNum">     842 </span>            :                        void *privdata)
+<span class="lineNum">     843 </span>            : {
+<span class="lineNum">     844 </span><span class="lineCov">    5449878 :     dictht *t0, *t1;</span>
+<span class="lineNum">     845 </span><span class="lineCov">    5449878 :     const dictEntry *de, *next;</span>
+<span class="lineNum">     846 </span><span class="lineCov">    5449878 :     unsigned long m0, m1;</span>
+<span class="lineNum">     847 </span>            : 
+<span class="lineNum">     848 </span><span class="lineCov">    5449878 :     if (dictSize(d) == 0) return 0;</span>
+<span class="lineNum">     849 </span>            : 
+<span class="lineNum">     850 </span><span class="lineCov">    5449773 :     if (!dictIsRehashing(d)) {</span>
+<span class="lineNum">     851 </span><span class="lineCov">    5312470 :         t0 = &amp;(d-&gt;ht[0]);</span>
+<span class="lineNum">     852 </span><span class="lineCov">    5312470 :         m0 = t0-&gt;sizemask;</span>
+<span class="lineNum">     853 </span>            : 
+<span class="lineNum">     854 </span>            :         /* Emit entries at cursor */
+<span class="lineNum">     855 </span><span class="lineCov">    5312470 :         if (bucketfn) bucketfn(privdata, &amp;t0-&gt;table[v &amp; m0]);</span>
+<span class="lineNum">     856 </span><span class="lineCov">    5312470 :         de = t0-&gt;table[v &amp; m0];</span>
+<span class="lineNum">     857 </span><span class="lineCov">    7586213 :         while (de) {</span>
+<span class="lineNum">     858 </span><span class="lineCov">    2273743 :             next = de-&gt;next;</span>
+<span class="lineNum">     859 </span><span class="lineCov">    2273743 :             fn(privdata, de);</span>
+<span class="lineNum">     860 </span><span class="lineCov">    2273743 :             de = next;</span>
+<span class="lineNum">     861 </span>            :         }
+<span class="lineNum">     862 </span>            : 
+<span class="lineNum">     863 </span>            :         /* Set unmasked bits so incrementing the reversed cursor
+<span class="lineNum">     864 </span>            :          * operates on the masked bits */
+<span class="lineNum">     865 </span><span class="lineCov">    5312470 :         v |= ~m0;</span>
+<span class="lineNum">     866 </span>            : 
+<span class="lineNum">     867 </span>            :         /* Increment the reverse cursor */
+<span class="lineNum">     868 </span><span class="lineCov">    5312470 :         v = rev(v);</span>
+<span class="lineNum">     869 </span><span class="lineCov">    5312470 :         v++;</span>
+<span class="lineNum">     870 </span><span class="lineCov">    5312470 :         v = rev(v);</span>
+<span class="lineNum">     871 </span>            : 
+<span class="lineNum">     872 </span>            :     } else {
+<span class="lineNum">     873 </span><span class="lineCov">     137303 :         t0 = &amp;d-&gt;ht[0];</span>
+<span class="lineNum">     874 </span><span class="lineCov">     137303 :         t1 = &amp;d-&gt;ht[1];</span>
+<span class="lineNum">     875 </span>            : 
+<span class="lineNum">     876 </span>            :         /* Make sure t0 is the smaller and t1 is the bigger table */
+<span class="lineNum">     877 </span><span class="lineCov">     137303 :         if (t0-&gt;size &gt; t1-&gt;size) {</span>
+<span class="lineNum">     878 </span><span class="lineCov">      22128 :             t0 = &amp;d-&gt;ht[1];</span>
+<span class="lineNum">     879 </span><span class="lineCov">      22128 :             t1 = &amp;d-&gt;ht[0];</span>
+<span class="lineNum">     880 </span>            :         }
+<span class="lineNum">     881 </span>            : 
+<span class="lineNum">     882 </span><span class="lineCov">     137303 :         m0 = t0-&gt;sizemask;</span>
+<span class="lineNum">     883 </span><span class="lineCov">     137303 :         m1 = t1-&gt;sizemask;</span>
+<span class="lineNum">     884 </span>            : 
+<span class="lineNum">     885 </span>            :         /* Emit entries at cursor */
+<span class="lineNum">     886 </span><span class="lineCov">     137303 :         if (bucketfn) bucketfn(privdata, &amp;t0-&gt;table[v &amp; m0]);</span>
+<span class="lineNum">     887 </span><span class="lineCov">     137303 :         de = t0-&gt;table[v &amp; m0];</span>
+<span class="lineNum">     888 </span><span class="lineCov">     189630 :         while (de) {</span>
+<span class="lineNum">     889 </span><span class="lineCov">      52327 :             next = de-&gt;next;</span>
+<span class="lineNum">     890 </span><span class="lineCov">      52327 :             fn(privdata, de);</span>
+<span class="lineNum">     891 </span><span class="lineCov">      52327 :             de = next;</span>
+<span class="lineNum">     892 </span>            :         }
+<span class="lineNum">     893 </span>            : 
+<span class="lineNum">     894 </span>            :         /* Iterate over indices in larger table that are the expansion
+<span class="lineNum">     895 </span>            :          * of the index pointed to by the cursor in the smaller table */
+<span class="lineNum">     896 </span><span class="lineCov">     406928 :         do {</span>
+<span class="lineNum">     897 </span>            :             /* Emit entries at cursor */
+<span class="lineNum">     898 </span><span class="lineCov">     406928 :             if (bucketfn) bucketfn(privdata, &amp;t1-&gt;table[v &amp; m1]);</span>
+<span class="lineNum">     899 </span><span class="lineCov">     406928 :             de = t1-&gt;table[v &amp; m1];</span>
+<span class="lineNum">     900 </span><span class="lineCov">     510179 :             while (de) {</span>
+<span class="lineNum">     901 </span><span class="lineCov">     103251 :                 next = de-&gt;next;</span>
+<span class="lineNum">     902 </span><span class="lineCov">     103251 :                 fn(privdata, de);</span>
+<span class="lineNum">     903 </span><span class="lineCov">     103251 :                 de = next;</span>
+<span class="lineNum">     904 </span>            :             }
+<span class="lineNum">     905 </span>            : 
+<span class="lineNum">     906 </span>            :             /* Increment the reverse cursor not covered by the smaller mask.*/
+<span class="lineNum">     907 </span><span class="lineCov">     406928 :             v |= ~m1;</span>
+<span class="lineNum">     908 </span><span class="lineCov">     406928 :             v = rev(v);</span>
+<span class="lineNum">     909 </span><span class="lineCov">     406928 :             v++;</span>
+<span class="lineNum">     910 </span><span class="lineCov">     406928 :             v = rev(v);</span>
+<span class="lineNum">     911 </span>            : 
+<span class="lineNum">     912 </span>            :             /* Continue while bits covered by mask difference is non-zero */
+<span class="lineNum">     913 </span><span class="lineCov">     406928 :         } while (v &amp; (m0 ^ m1));</span>
+<span class="lineNum">     914 </span>            :     }
+<span class="lineNum">     915 </span>            : 
+<span class="lineNum">     916 </span>            :     return v;
+<span class="lineNum">     917 </span>            : }
+<span class="lineNum">     918 </span>            : 
+<span class="lineNum">     919 </span>            : /* ------------------------- private functions ------------------------------ */
+<a name="920"><span class="lineNum">     920 </span>            : </a>
+<span class="lineNum">     921 </span>            : /* Expand the hash table if needed */
+<span class="lineNum">     922 </span><span class="lineCov">   53204500 : static int _dictExpandIfNeeded(dict *d)</span>
+<span class="lineNum">     923 </span>            : {
+<span class="lineNum">     924 </span>            :     /* Incremental rehashing already in progress. Return. */
+<span class="lineNum">     925 </span><span class="lineCov">   53204500 :     if (dictIsRehashing(d)) return DICT_OK;</span>
+<span class="lineNum">     926 </span>            : 
+<span class="lineNum">     927 </span>            :     /* If the hash table is empty expand it to the initial size. */
+<span class="lineNum">     928 </span><span class="lineCov">   43515967 :     if (d-&gt;ht[0].size == 0) return dictExpand(d, DICT_HT_INITIAL_SIZE);</span>
+<span class="lineNum">     929 </span>            : 
+<span class="lineNum">     930 </span>            :     /* If we reached the 1:1 ratio, and we are allowed to resize the hash
+<span class="lineNum">     931 </span>            :      * table (global setting) or we should avoid it but the ratio between
+<span class="lineNum">     932 </span>            :      * elements/buckets is over the &quot;safe&quot; threshold, we resize doubling
+<span class="lineNum">     933 </span>            :      * the number of buckets. */
+<span class="lineNum">     934 </span><span class="lineCov">   43115696 :     if (d-&gt;ht[0].used &gt;= d-&gt;ht[0].size &amp;&amp;</span>
+<span class="lineNum">     935 </span><span class="lineCov">    1225464 :         (dict_can_resize ||</span>
+<span class="lineNum">     936 </span><span class="lineCov">    1187730 :          d-&gt;ht[0].used/d-&gt;ht[0].size &gt; dict_force_resize_ratio))</span>
+<span class="lineNum">     937 </span>            :     {
+<span class="lineNum">     938 </span><span class="lineCov">      37776 :         return dictExpand(d, d-&gt;ht[0].used*2);</span>
+<span class="lineNum">     939 </span>            :     }
+<span class="lineNum">     940 </span>            :     return DICT_OK;
+<span class="lineNum">     941 </span>            : }
+<span class="lineNum">     942 </span>            : 
+<span class="lineNum">     943 </span>            : /* Our hash table capability is a power of two */
+<span class="lineNum">     944 </span>            : static unsigned long _dictNextPower(unsigned long size)
+<span class="lineNum">     945 </span>            : {
+<span class="lineNum">     946 </span><span class="lineCov">     747640 :     unsigned long i = DICT_HT_INITIAL_SIZE;</span>
+<span class="lineNum">     947 </span>            : 
+<span class="lineNum">     948 </span><span class="lineCov">     747640 :     if (size &gt;= LONG_MAX) return LONG_MAX + 1LU;</span>
+<span class="lineNum">     949 </span><span class="lineCov">     892989 :     while(1) {</span>
+<span class="lineNum">     950 </span><span class="lineCov">     892989 :         if (i &gt;= size)</span>
+<span class="lineNum">     951 </span>            :             return i;
+<span class="lineNum">     952 </span><span class="lineCov">     145349 :         i *= 2;</span>
+<span class="lineNum">     953 </span>            :     }
+<span class="lineNum">     954 </span>            : }
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            : /* Returns the index of a free slot that can be populated with
+<span class="lineNum">     957 </span>            :  * a hash entry for the given 'key'.
+<span class="lineNum">     958 </span>            :  * If the key already exists, -1 is returned
+<span class="lineNum">     959 </span>            :  * and the optional output parameter may be filled.
+<span class="lineNum">     960 </span>            :  *
+<a name="961"><span class="lineNum">     961 </span>            :  * Note that if we are in the process of rehashing the hash table, the</a>
+<span class="lineNum">     962 </span>            :  * index is always returned in the context of the second (new) hash table. */
+<span class="lineNum">     963 </span><span class="lineCov">   53204500 : static long _dictKeyIndex(dict *d, const void *key, uint64_t hash, dictEntry **existing)</span>
+<span class="lineNum">     964 </span>            : {
+<span class="lineNum">     965 </span><span class="lineCov">   53204500 :     unsigned long idx, table;</span>
+<span class="lineNum">     966 </span><span class="lineCov">   53204500 :     dictEntry *he;</span>
+<span class="lineNum">     967 </span><span class="lineCov">   53204500 :     if (existing) *existing = NULL;</span>
+<span class="lineNum">     968 </span>            : 
+<span class="lineNum">     969 </span>            :     /* Expand the hash table if needed */
+<span class="lineNum">     970 </span><span class="lineCov">   53204500 :     if (_dictExpandIfNeeded(d) == DICT_ERR)</span>
+<span class="lineNum">     971 </span>            :         return -1;
+<span class="lineNum">     972 </span><span class="lineCov">   72653651 :     for (table = 0; table &lt;= 1; table++) {</span>
+<span class="lineNum">     973 </span><span class="lineCov">   62929347 :         idx = hash &amp; d-&gt;ht[table].sizemask;</span>
+<span class="lineNum">     974 </span>            :         /* Search if this slot does not already contain the given key */
+<span class="lineNum">     975 </span><span class="lineCov">   62929347 :         he = d-&gt;ht[table].table[idx];</span>
+<span class="lineNum">     976 </span><span class="lineCov">   98800435 :         while(he) {</span>
+<span class="lineNum">     977 </span><span class="lineCov">   35903238 :             if (key==he-&gt;key || dictCompareKeys(d, key, he-&gt;key)) {</span>
+<span class="lineNum">     978 </span><span class="lineCov">      32150 :                 if (existing) *existing = he;</span>
+<span class="lineNum">     979 </span><span class="lineCov">      32150 :                 return -1;</span>
+<span class="lineNum">     980 </span>            :             }
+<span class="lineNum">     981 </span><span class="lineCov">   35871088 :             he = he-&gt;next;</span>
+<span class="lineNum">     982 </span>            :         }
+<span class="lineNum">     983 </span><span class="lineCov">   62897197 :         if (!dictIsRehashing(d)) break;</span>
+<span class="lineNum">     984 </span>            :     }
+<span class="lineNum">     985 </span><span class="lineCov">   53172350 :     return idx;</span>
+<a name="986"><span class="lineNum">     986 </span>            : }</a>
+<span class="lineNum">     987 </span>            : 
+<span class="lineNum">     988 </span><span class="lineCov">      41231 : void dictEmpty(dict *d, void(callback)(void*)) {</span>
+<span class="lineNum">     989 </span><span class="lineCov">      41231 :     _dictClear(d,&amp;d-&gt;ht[0],callback);</span>
+<span class="lineNum">     990 </span><span class="lineCov">      41231 :     _dictClear(d,&amp;d-&gt;ht[1],callback);</span>
+<span class="lineNum">     991 </span><span class="lineCov">      41231 :     d-&gt;rehashidx = -1;</span>
+<span class="lineNum">     992 </span><span class="lineCov">      41231 :     d-&gt;iterators = 0;</span>
+<a name="993"><span class="lineNum">     993 </span><span class="lineCov">      41231 : }</span></a>
+<span class="lineNum">     994 </span>            : 
+<span class="lineNum">     995 </span><span class="lineCov">        741 : void dictEnableResize(void) {</span>
+<span class="lineNum">     996 </span><span class="lineCov">        741 :     dict_can_resize = 1;</span>
+<a name="997"><span class="lineNum">     997 </span><span class="lineCov">        741 : }</span></a>
+<span class="lineNum">     998 </span>            : 
+<span class="lineNum">     999 </span><span class="lineCov">        795 : void dictDisableResize(void) {</span>
+<span class="lineNum">    1000 </span><span class="lineCov">        795 :     dict_can_resize = 0;</span>
+<a name="1001"><span class="lineNum">    1001 </span><span class="lineCov">        795 : }</span></a>
+<span class="lineNum">    1002 </span>            : 
+<span class="lineNum">    1003 </span><span class="lineNoCov">          0 : uint64_t dictGetHash(dict *d, const void *key) {</span>
+<span class="lineNum">    1004 </span><span class="lineNoCov">          0 :     return dictHashKey(d, key);</span>
+<span class="lineNum">    1005 </span>            : }
+<span class="lineNum">    1006 </span>            : 
+<span class="lineNum">    1007 </span>            : /* Finds the dictEntry reference by using pointer and pre-calculated hash.
+<span class="lineNum">    1008 </span>            :  * oldkey is a dead pointer and should not be accessed.
+<span class="lineNum">    1009 </span>            :  * the hash value should be provided using dictGetHash.
+<a name="1010"><span class="lineNum">    1010 </span>            :  * no string / key comparison is performed.</a>
+<span class="lineNum">    1011 </span>            :  * return value is the reference to the dictEntry if found, or NULL if not found. */
+<span class="lineNum">    1012 </span><span class="lineNoCov">          0 : dictEntry **dictFindEntryRefByPtrAndHash(dict *d, const void *oldptr, uint64_t hash) {</span>
+<span class="lineNum">    1013 </span><span class="lineNoCov">          0 :     dictEntry *he, **heref;</span>
+<span class="lineNum">    1014 </span><span class="lineNoCov">          0 :     unsigned long idx, table;</span>
+<span class="lineNum">    1015 </span>            : 
+<span class="lineNum">    1016 </span><span class="lineNoCov">          0 :     if (d-&gt;ht[0].used + d-&gt;ht[1].used == 0) return NULL; /* dict is empty */</span>
+<span class="lineNum">    1017 </span><span class="lineNoCov">          0 :     for (table = 0; table &lt;= 1; table++) {</span>
+<span class="lineNum">    1018 </span><span class="lineNoCov">          0 :         idx = hash &amp; d-&gt;ht[table].sizemask;</span>
+<span class="lineNum">    1019 </span><span class="lineNoCov">          0 :         heref = &amp;d-&gt;ht[table].table[idx];</span>
+<span class="lineNum">    1020 </span><span class="lineNoCov">          0 :         he = *heref;</span>
+<span class="lineNum">    1021 </span><span class="lineNoCov">          0 :         while(he) {</span>
+<span class="lineNum">    1022 </span><span class="lineNoCov">          0 :             if (oldptr==he-&gt;key)</span>
+<span class="lineNum">    1023 </span><span class="lineNoCov">          0 :                 return heref;</span>
+<span class="lineNum">    1024 </span><span class="lineNoCov">          0 :             heref = &amp;he-&gt;next;</span>
+<span class="lineNum">    1025 </span><span class="lineNoCov">          0 :             he = *heref;</span>
+<span class="lineNum">    1026 </span>            :         }
+<span class="lineNum">    1027 </span><span class="lineNoCov">          0 :         if (!dictIsRehashing(d)) return NULL;</span>
+<span class="lineNum">    1028 </span>            :     }
+<span class="lineNum">    1029 </span>            :     return NULL;
+<span class="lineNum">    1030 </span>            : }
+<span class="lineNum">    1031 </span>            : 
+<span class="lineNum">    1032 </span>            : /* ------------------------------- Debugging ---------------------------------*/
+<a name="1033"><span class="lineNum">    1033 </span>            : </a>
+<span class="lineNum">    1034 </span>            : #define DICT_STATS_VECTLEN 50
+<span class="lineNum">    1035 </span><span class="lineNoCov">          0 : size_t _dictGetStatsHt(char *buf, size_t bufsize, dictht *ht, int tableid) {</span>
+<span class="lineNum">    1036 </span><span class="lineNoCov">          0 :     unsigned long i, slots = 0, chainlen, maxchainlen = 0;</span>
+<span class="lineNum">    1037 </span><span class="lineNoCov">          0 :     unsigned long totchainlen = 0;</span>
+<span class="lineNum">    1038 </span><span class="lineNoCov">          0 :     unsigned long clvector[DICT_STATS_VECTLEN];</span>
+<span class="lineNum">    1039 </span><span class="lineNoCov">          0 :     size_t l = 0;</span>
+<span class="lineNum">    1040 </span>            : 
+<span class="lineNum">    1041 </span><span class="lineNoCov">          0 :     if (ht-&gt;used == 0) {</span>
+<span class="lineNum">    1042 </span><span class="lineNoCov">          0 :         return snprintf(buf,bufsize,</span>
+<span class="lineNum">    1043 </span>            :             &quot;No stats available for empty dictionaries\n&quot;);
+<span class="lineNum">    1044 </span>            :     }
+<span class="lineNum">    1045 </span>            : 
+<span class="lineNum">    1046 </span>            :     /* Compute stats. */
+<span class="lineNum">    1047 </span><span class="lineNoCov">          0 :     for (i = 0; i &lt; DICT_STATS_VECTLEN; i++) clvector[i] = 0;</span>
+<span class="lineNum">    1048 </span><span class="lineNoCov">          0 :     for (i = 0; i &lt; ht-&gt;size; i++) {</span>
+<span class="lineNum">    1049 </span><span class="lineNoCov">          0 :         dictEntry *he;</span>
+<span class="lineNum">    1050 </span>            : 
+<span class="lineNum">    1051 </span><span class="lineNoCov">          0 :         if (ht-&gt;table[i] == NULL) {</span>
+<span class="lineNum">    1052 </span><span class="lineNoCov">          0 :             clvector[0]++;</span>
+<span class="lineNum">    1053 </span><span class="lineNoCov">          0 :             continue;</span>
+<span class="lineNum">    1054 </span>            :         }
+<span class="lineNum">    1055 </span><span class="lineNoCov">          0 :         slots++;</span>
+<span class="lineNum">    1056 </span>            :         /* For each hash entry on this slot... */
+<span class="lineNum">    1057 </span><span class="lineNoCov">          0 :         chainlen = 0;</span>
+<span class="lineNum">    1058 </span><span class="lineNoCov">          0 :         he = ht-&gt;table[i];</span>
+<span class="lineNum">    1059 </span><span class="lineNoCov">          0 :         while(he) {</span>
+<span class="lineNum">    1060 </span><span class="lineNoCov">          0 :             chainlen++;</span>
+<span class="lineNum">    1061 </span><span class="lineNoCov">          0 :             he = he-&gt;next;</span>
+<span class="lineNum">    1062 </span>            :         }
+<span class="lineNum">    1063 </span><span class="lineNoCov">          0 :         clvector[(chainlen &lt; DICT_STATS_VECTLEN) ? chainlen : (DICT_STATS_VECTLEN-1)]++;</span>
+<span class="lineNum">    1064 </span><span class="lineNoCov">          0 :         if (chainlen &gt; maxchainlen) maxchainlen = chainlen;</span>
+<span class="lineNum">    1065 </span><span class="lineNoCov">          0 :         totchainlen += chainlen;</span>
+<span class="lineNum">    1066 </span>            :     }
+<span class="lineNum">    1067 </span>            : 
+<span class="lineNum">    1068 </span>            :     /* Generate human readable stats. */
+<span class="lineNum">    1069 </span><span class="lineNoCov">          0 :     l += snprintf(buf+l,bufsize-l,</span>
+<span class="lineNum">    1070 </span>            :         &quot;Hash table %d stats (%s):\n&quot;
+<span class="lineNum">    1071 </span>            :         &quot; table size: %ld\n&quot;
+<span class="lineNum">    1072 </span>            :         &quot; number of elements: %ld\n&quot;
+<span class="lineNum">    1073 </span>            :         &quot; different slots: %ld\n&quot;
+<span class="lineNum">    1074 </span>            :         &quot; max chain length: %ld\n&quot;
+<span class="lineNum">    1075 </span>            :         &quot; avg chain length (counted): %.02f\n&quot;
+<span class="lineNum">    1076 </span>            :         &quot; avg chain length (computed): %.02f\n&quot;
+<span class="lineNum">    1077 </span>            :         &quot; Chain length distribution:\n&quot;,
+<span class="lineNum">    1078 </span>            :         tableid, (tableid == 0) ? &quot;main hash table&quot; : &quot;rehashing target&quot;,
+<span class="lineNum">    1079 </span>            :         ht-&gt;size, ht-&gt;used, slots, maxchainlen,
+<span class="lineNum">    1080 </span><span class="lineNoCov">          0 :         (float)totchainlen/slots, (float)ht-&gt;used/slots);</span>
+<span class="lineNum">    1081 </span>            : 
+<span class="lineNum">    1082 </span><span class="lineNoCov">          0 :     for (i = 0; i &lt; DICT_STATS_VECTLEN-1; i++) {</span>
+<span class="lineNum">    1083 </span><span class="lineNoCov">          0 :         if (clvector[i] == 0) continue;</span>
+<span class="lineNum">    1084 </span><span class="lineNoCov">          0 :         if (l &gt;= bufsize) break;</span>
+<span class="lineNum">    1085 </span><span class="lineNoCov">          0 :         l += snprintf(buf+l,bufsize-l,</span>
+<span class="lineNum">    1086 </span>            :             &quot;   %s%ld: %ld (%.02f%%)\n&quot;,
+<span class="lineNum">    1087 </span>            :             (i == DICT_STATS_VECTLEN-1)?&quot;&gt;= &quot;:&quot;&quot;,
+<span class="lineNum">    1088 </span><span class="lineNoCov">          0 :             i, clvector[i], ((float)clvector[i]/ht-&gt;size)*100);</span>
+<span class="lineNum">    1089 </span>            :     }
+<span class="lineNum">    1090 </span>            : 
+<span class="lineNum">    1091 </span>            :     /* Unlike snprintf(), teturn the number of characters actually written. */
+<span class="lineNum">    1092 </span><span class="lineNoCov">          0 :     if (bufsize) buf[bufsize-1] = '\0';</span>
+<span class="lineNum">    1093 </span><span class="lineNoCov">          0 :     return strlen(buf);</span>
+<a name="1094"><span class="lineNum">    1094 </span>            : }</a>
+<span class="lineNum">    1095 </span>            : 
+<span class="lineNum">    1096 </span><span class="lineNoCov">          0 : void dictGetStats(char *buf, size_t bufsize, dict *d) {</span>
+<span class="lineNum">    1097 </span><span class="lineNoCov">          0 :     size_t l;</span>
+<span class="lineNum">    1098 </span><span class="lineNoCov">          0 :     char *orig_buf = buf;</span>
+<span class="lineNum">    1099 </span><span class="lineNoCov">          0 :     size_t orig_bufsize = bufsize;</span>
+<span class="lineNum">    1100 </span>            : 
+<span class="lineNum">    1101 </span><span class="lineNoCov">          0 :     l = _dictGetStatsHt(buf,bufsize,&amp;d-&gt;ht[0],0);</span>
+<span class="lineNum">    1102 </span><span class="lineNoCov">          0 :     buf += l;</span>
+<span class="lineNum">    1103 </span><span class="lineNoCov">          0 :     bufsize -= l;</span>
+<span class="lineNum">    1104 </span><span class="lineNoCov">          0 :     if (dictIsRehashing(d) &amp;&amp; bufsize &gt; 0) {</span>
+<span class="lineNum">    1105 </span><span class="lineNoCov">          0 :         _dictGetStatsHt(buf,bufsize,&amp;d-&gt;ht[1],1);</span>
+<span class="lineNum">    1106 </span>            :     }
+<span class="lineNum">    1107 </span>            :     /* Make sure there is a NULL term at the end. */
+<span class="lineNum">    1108 </span><span class="lineNoCov">          0 :     if (orig_bufsize) orig_buf[orig_bufsize-1] = '\0';</span>
+<span class="lineNum">    1109 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1110 </span>            : 
+<span class="lineNum">    1111 </span>            : /* ------------------------------- Benchmark ---------------------------------*/
+<span class="lineNum">    1112 </span>            : 
+<span class="lineNum">    1113 </span>            : #ifdef DICT_BENCHMARK_MAIN
+<span class="lineNum">    1114 </span>            : 
+<span class="lineNum">    1115 </span>            : #include &quot;sds.h&quot;
+<span class="lineNum">    1116 </span>            : 
+<span class="lineNum">    1117 </span>            : uint64_t hashCallback(const void *key) {
+<span class="lineNum">    1118 </span>            :     return dictGenHashFunction((unsigned char*)key, sdslen((char*)key));
+<span class="lineNum">    1119 </span>            : }
+<span class="lineNum">    1120 </span>            : 
+<span class="lineNum">    1121 </span>            : int compareCallback(void *privdata, const void *key1, const void *key2) {
+<span class="lineNum">    1122 </span>            :     int l1,l2;
+<span class="lineNum">    1123 </span>            :     DICT_NOTUSED(privdata);
+<span class="lineNum">    1124 </span>            : 
+<span class="lineNum">    1125 </span>            :     l1 = sdslen((sds)key1);
+<span class="lineNum">    1126 </span>            :     l2 = sdslen((sds)key2);
+<span class="lineNum">    1127 </span>            :     if (l1 != l2) return 0;
+<span class="lineNum">    1128 </span>            :     return memcmp(key1, key2, l1) == 0;
+<span class="lineNum">    1129 </span>            : }
+<span class="lineNum">    1130 </span>            : 
+<span class="lineNum">    1131 </span>            : void freeCallback(void *privdata, void *val) {
+<span class="lineNum">    1132 </span>            :     DICT_NOTUSED(privdata);
+<span class="lineNum">    1133 </span>            : 
+<span class="lineNum">    1134 </span>            :     sdsfree(val);
+<span class="lineNum">    1135 </span>            : }
+<span class="lineNum">    1136 </span>            : 
+<span class="lineNum">    1137 </span>            : dictType BenchmarkDictType = {
+<span class="lineNum">    1138 </span>            :     hashCallback,
+<span class="lineNum">    1139 </span>            :     NULL,
+<span class="lineNum">    1140 </span>            :     NULL,
+<span class="lineNum">    1141 </span>            :     compareCallback,
+<span class="lineNum">    1142 </span>            :     freeCallback,
+<span class="lineNum">    1143 </span>            :     NULL
+<span class="lineNum">    1144 </span>            : };
+<span class="lineNum">    1145 </span>            : 
+<span class="lineNum">    1146 </span>            : #define start_benchmark() start = timeInMilliseconds()
+<span class="lineNum">    1147 </span>            : #define end_benchmark(msg) do { \
+<span class="lineNum">    1148 </span>            :     elapsed = timeInMilliseconds()-start; \
+<span class="lineNum">    1149 </span>            :     printf(msg &quot;: %ld items in %lld ms\n&quot;, count, elapsed); \
+<span class="lineNum">    1150 </span>            : } while(0);
+<span class="lineNum">    1151 </span>            : 
+<span class="lineNum">    1152 </span>            : /* dict-benchmark [count] */
+<span class="lineNum">    1153 </span>            : int main(int argc, char **argv) {
+<span class="lineNum">    1154 </span>            :     long j;
+<span class="lineNum">    1155 </span>            :     long long start, elapsed;
+<span class="lineNum">    1156 </span>            :     dict *dict = dictCreate(&amp;BenchmarkDictType,NULL);
+<span class="lineNum">    1157 </span>            :     long count = 0;
+<span class="lineNum">    1158 </span>            : 
+<span class="lineNum">    1159 </span>            :     if (argc == 2) {
+<span class="lineNum">    1160 </span>            :         count = strtol(argv[1],NULL,10);
+<span class="lineNum">    1161 </span>            :     } else {
+<span class="lineNum">    1162 </span>            :         count = 5000000;
+<span class="lineNum">    1163 </span>            :     }
+<span class="lineNum">    1164 </span>            : 
+<span class="lineNum">    1165 </span>            :     start_benchmark();
+<span class="lineNum">    1166 </span>            :     for (j = 0; j &lt; count; j++) {
+<span class="lineNum">    1167 </span>            :         int retval = dictAdd(dict,sdsfromlonglong(j),(void*)j);
+<span class="lineNum">    1168 </span>            :         assert(retval == DICT_OK);
+<span class="lineNum">    1169 </span>            :     }
+<span class="lineNum">    1170 </span>            :     end_benchmark(&quot;Inserting&quot;);
+<span class="lineNum">    1171 </span>            :     assert((long)dictSize(dict) == count);
+<span class="lineNum">    1172 </span>            : 
+<span class="lineNum">    1173 </span>            :     /* Wait for rehashing. */
+<span class="lineNum">    1174 </span>            :     while (dictIsRehashing(dict)) {
+<span class="lineNum">    1175 </span>            :         dictRehashMilliseconds(dict,100);
+<span class="lineNum">    1176 </span>            :     }
+<span class="lineNum">    1177 </span>            : 
+<span class="lineNum">    1178 </span>            :     start_benchmark();
+<span class="lineNum">    1179 </span>            :     for (j = 0; j &lt; count; j++) {
+<span class="lineNum">    1180 </span>            :         sds key = sdsfromlonglong(j);
+<span class="lineNum">    1181 </span>            :         dictEntry *de = dictFind(dict,key);
+<span class="lineNum">    1182 </span>            :         assert(de != NULL);
+<span class="lineNum">    1183 </span>            :         sdsfree(key);
+<span class="lineNum">    1184 </span>            :     }
+<span class="lineNum">    1185 </span>            :     end_benchmark(&quot;Linear access of existing elements&quot;);
+<span class="lineNum">    1186 </span>            : 
+<span class="lineNum">    1187 </span>            :     start_benchmark();
+<span class="lineNum">    1188 </span>            :     for (j = 0; j &lt; count; j++) {
+<span class="lineNum">    1189 </span>            :         sds key = sdsfromlonglong(j);
+<span class="lineNum">    1190 </span>            :         dictEntry *de = dictFind(dict,key);
+<span class="lineNum">    1191 </span>            :         assert(de != NULL);
+<span class="lineNum">    1192 </span>            :         sdsfree(key);
+<span class="lineNum">    1193 </span>            :     }
+<span class="lineNum">    1194 </span>            :     end_benchmark(&quot;Linear access of existing elements (2nd round)&quot;);
+<span class="lineNum">    1195 </span>            : 
+<span class="lineNum">    1196 </span>            :     start_benchmark();
+<span class="lineNum">    1197 </span>            :     for (j = 0; j &lt; count; j++) {
+<span class="lineNum">    1198 </span>            :         sds key = sdsfromlonglong(rand() % count);
+<span class="lineNum">    1199 </span>            :         dictEntry *de = dictFind(dict,key);
+<span class="lineNum">    1200 </span>            :         assert(de != NULL);
+<span class="lineNum">    1201 </span>            :         sdsfree(key);
+<span class="lineNum">    1202 </span>            :     }
+<span class="lineNum">    1203 </span>            :     end_benchmark(&quot;Random access of existing elements&quot;);
+<span class="lineNum">    1204 </span>            : 
+<span class="lineNum">    1205 </span>            :     start_benchmark();
+<span class="lineNum">    1206 </span>            :     for (j = 0; j &lt; count; j++) {
+<span class="lineNum">    1207 </span>            :         sds key = sdsfromlonglong(rand() % count);
+<span class="lineNum">    1208 </span>            :         key[0] = 'X';
+<span class="lineNum">    1209 </span>            :         dictEntry *de = dictFind(dict,key);
+<span class="lineNum">    1210 </span>            :         assert(de == NULL);
+<span class="lineNum">    1211 </span>            :         sdsfree(key);
+<span class="lineNum">    1212 </span>            :     }
+<span class="lineNum">    1213 </span>            :     end_benchmark(&quot;Accessing missing&quot;);
+<span class="lineNum">    1214 </span>            : 
+<span class="lineNum">    1215 </span>            :     start_benchmark();
+<span class="lineNum">    1216 </span>            :     for (j = 0; j &lt; count; j++) {
+<span class="lineNum">    1217 </span>            :         sds key = sdsfromlonglong(j);
+<span class="lineNum">    1218 </span>            :         int retval = dictDelete(dict,key);
+<span class="lineNum">    1219 </span>            :         assert(retval == DICT_OK);
+<span class="lineNum">    1220 </span>            :         key[0] += 17; /* Change first number to letter. */
+<span class="lineNum">    1221 </span>            :         retval = dictAdd(dict,key,(void*)j);
+<span class="lineNum">    1222 </span>            :         assert(retval == DICT_OK);
+<span class="lineNum">    1223 </span>            :     }
+<span class="lineNum">    1224 </span>            :     end_benchmark(&quot;Removing and adding&quot;);
+<span class="lineNum">    1225 </span>            : }
+<span class="lineNum">    1226 </span>            : #endif
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

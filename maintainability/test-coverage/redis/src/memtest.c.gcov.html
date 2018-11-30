@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/memtest.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - memtest.c<span style="font-size: 80%;"> (source / <a href="memtest.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">172</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : #include &lt;stdint.h&gt;
+<span class="lineNum">      30 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      31 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      32 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      33 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      34 </span>            : #include &lt;limits.h&gt;
+<span class="lineNum">      35 </span>            : #include &lt;errno.h&gt;
+<span class="lineNum">      36 </span>            : #include &lt;termios.h&gt;
+<span class="lineNum">      37 </span>            : #include &lt;sys/ioctl.h&gt;
+<span class="lineNum">      38 </span>            : #if defined(__sun)
+<span class="lineNum">      39 </span>            : #include &lt;stropts.h&gt;
+<span class="lineNum">      40 </span>            : #endif
+<span class="lineNum">      41 </span>            : #include &quot;config.h&quot;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : #if (ULONG_MAX == 4294967295UL)
+<span class="lineNum">      44 </span>            : #define MEMTEST_32BIT
+<span class="lineNum">      45 </span>            : #elif (ULONG_MAX == 18446744073709551615ULL)
+<span class="lineNum">      46 </span>            : #define MEMTEST_64BIT
+<span class="lineNum">      47 </span>            : #else
+<span class="lineNum">      48 </span>            : #error &quot;ULONG_MAX value not supported.&quot;
+<span class="lineNum">      49 </span>            : #endif
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span>            : #ifdef MEMTEST_32BIT
+<span class="lineNum">      52 </span>            : #define ULONG_ONEZERO 0xaaaaaaaaUL
+<span class="lineNum">      53 </span>            : #define ULONG_ZEROONE 0x55555555UL
+<span class="lineNum">      54 </span>            : #else
+<span class="lineNum">      55 </span>            : #define ULONG_ONEZERO 0xaaaaaaaaaaaaaaaaUL
+<span class="lineNum">      56 </span>            : #define ULONG_ZEROONE 0x5555555555555555UL
+<span class="lineNum">      57 </span>            : #endif
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span>            : static struct winsize ws;
+<span class="lineNum">      60 </span>            : size_t progress_printed; /* Printed chars in screen-wide progress bar. */
+<a name="61"><span class="lineNum">      61 </span>            : size_t progress_full; /* How many chars to write to fill the progress bar. */</a>
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 : void memtest_progress_start(char *title, int pass) {</span>
+<span class="lineNum">      64 </span><span class="lineNoCov">          0 :     int j;</span>
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :     printf(&quot;\x1b[H\x1b[2J&quot;);    /* Cursor home, clear screen. */</span>
+<span class="lineNum">      67 </span>            :     /* Fill with dots. */
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; ws.ws_col*(ws.ws_row-2); j++) printf(&quot;.&quot;);</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :     printf(&quot;Please keep the test running several minutes per GB of memory.\n&quot;);</span>
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :     printf(&quot;Also check http://www.memtest86.com/ and http://pyropus.ca/software/memtester/&quot;);</span>
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 :     printf(&quot;\x1b[H\x1b[2K&quot;);          /* Cursor home, clear current line.  */</span>
+<span class="lineNum">      72 </span><span class="lineNoCov">          0 :     printf(&quot;%s [%d]\n&quot;, title, pass); /* Print title. */</span>
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 :     progress_printed = 0;</span>
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :     progress_full = ws.ws_col*(ws.ws_row-3);</span>
+<span class="lineNum">      75 </span><span class="lineNoCov">          0 :     fflush(stdout);</span>
+<a name="76"><span class="lineNum">      76 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 : void memtest_progress_end(void) {</span>
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 :     printf(&quot;\x1b[H\x1b[2J&quot;);    /* Cursor home, clear screen. */</span>
+<a name="80"><span class="lineNum">      80 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 : void memtest_progress_step(size_t curr, size_t size, char c) {</span>
+<span class="lineNum">      83 </span><span class="lineNoCov">          0 :     size_t chars = ((unsigned long long)curr*progress_full)/size, j;</span>
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; chars-progress_printed; j++) printf(&quot;%c&quot;,c);</span>
+<span class="lineNum">      86 </span><span class="lineNoCov">          0 :     progress_printed = chars;</span>
+<span class="lineNum">      87 </span><span class="lineNoCov">          0 :     fflush(stdout);</span>
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            : /* Test that addressing is fine. Every location is populated with its own
+<a name="91"><span class="lineNum">      91 </span>            :  * address, and finally verified. This test is very fast but may detect</a>
+<span class="lineNum">      92 </span>            :  * ASAP big issues with the memory subsystem. */
+<span class="lineNum">      93 </span><span class="lineNoCov">          0 : int memtest_addressing(unsigned long *l, size_t bytes, int interactive) {</span>
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :     unsigned long words = bytes/sizeof(unsigned long);</span>
+<span class="lineNum">      95 </span><span class="lineNoCov">          0 :     unsigned long j, *p;</span>
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span>            :     /* Fill */
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :     p = l;</span>
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; words; j++) {</span>
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :         *p = (unsigned long)p;</span>
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 :         p++;</span>
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :         if ((j &amp; 0xffff) == 0 &amp;&amp; interactive)</span>
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :             memtest_progress_step(j,words*2,'A');</span>
+<span class="lineNum">     104 </span>            :     }
+<span class="lineNum">     105 </span>            :     /* Test */
+<span class="lineNum">     106 </span>            :     p = l;
+<span class="lineNum">     107 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; words; j++) {</span>
+<span class="lineNum">     108 </span><span class="lineNoCov">          0 :         if (*p != (unsigned long)p) {</span>
+<span class="lineNum">     109 </span><span class="lineNoCov">          0 :             if (interactive) {</span>
+<span class="lineNum">     110 </span><span class="lineNoCov">          0 :                 printf(&quot;\n*** MEMORY ADDRESSING ERROR: %p contains %lu\n&quot;,</span>
+<span class="lineNum">     111 </span>            :                     (void*) p, *p);
+<span class="lineNum">     112 </span><span class="lineNoCov">          0 :                 exit(1);</span>
+<span class="lineNum">     113 </span>            :             }
+<span class="lineNum">     114 </span>            :             return 1;
+<span class="lineNum">     115 </span>            :         }
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :         p++;</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :         if ((j &amp; 0xffff) == 0 &amp;&amp; interactive)</span>
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :             memtest_progress_step(j+words,words*2,'A');</span>
+<span class="lineNum">     119 </span>            :     }
+<span class="lineNum">     120 </span>            :     return 0;
+<span class="lineNum">     121 </span>            : }
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            : /* Fill words stepping a single page at every write, so we continue to
+<span class="lineNum">     124 </span>            :  * touch all the pages in the smallest amount of time reducing the
+<span class="lineNum">     125 </span>            :  * effectiveness of caches, and making it hard for the OS to transfer
+<span class="lineNum">     126 </span>            :  * pages on the swap.
+<span class="lineNum">     127 </span>            :  *
+<span class="lineNum">     128 </span>            :  * In this test we can't call rand() since the system may be completely
+<span class="lineNum">     129 </span>            :  * unable to handle library calls, so we have to resort to our own
+<span class="lineNum">     130 </span>            :  * PRNG that only uses local state. We use an xorshift* PRNG. */
+<span class="lineNum">     131 </span>            : #define xorshift64star_next() do { \
+<span class="lineNum">     132 </span>            :         rseed ^= rseed &gt;&gt; 12; \
+<span class="lineNum">     133 </span>            :         rseed ^= rseed &lt;&lt; 25; \
+<span class="lineNum">     134 </span>            :         rseed ^= rseed &gt;&gt; 27; \
+<span class="lineNum">     135 </span>            :         rout = rseed * UINT64_C(2685821657736338717); \
+<a name="136"><span class="lineNum">     136 </span>            : } while(0)</a>
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 : void memtest_fill_random(unsigned long *l, size_t bytes, int interactive) {</span>
+<span class="lineNum">     139 </span><span class="lineNoCov">          0 :     unsigned long step = 4096/sizeof(unsigned long);</span>
+<span class="lineNum">     140 </span><span class="lineNoCov">          0 :     unsigned long words = bytes/sizeof(unsigned long)/2;</span>
+<span class="lineNum">     141 </span><span class="lineNoCov">          0 :     unsigned long iwords = words/step;  /* words per iteration */</span>
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :     unsigned long off, w, *l1, *l2;</span>
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 :     uint64_t rseed = UINT64_C(0xd13133de9afdb566); /* Just a random seed. */</span>
+<span class="lineNum">     144 </span><span class="lineNoCov">          0 :     uint64_t rout = 0;</span>
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 :     assert((bytes &amp; 4095) == 0);</span>
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 :     for (off = 0; off &lt; step; off++) {</span>
+<span class="lineNum">     148 </span><span class="lineNoCov">          0 :         l1 = l+off;</span>
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :         l2 = l1+words;</span>
+<span class="lineNum">     150 </span><span class="lineNoCov">          0 :         for (w = 0; w &lt; iwords; w++) {</span>
+<span class="lineNum">     151 </span><span class="lineNoCov">          0 :             xorshift64star_next();</span>
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 :             *l1 = *l2 = (unsigned long) rout;</span>
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 :             l1 += step;</span>
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 :             l2 += step;</span>
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :             if ((w &amp; 0xffff) == 0 &amp;&amp; interactive)</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :                 memtest_progress_step(w+iwords*off,words,'R');</span>
+<span class="lineNum">     157 </span>            :         }
+<span class="lineNum">     158 </span>            :     }
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     160 </span>            : 
+<a name="161"><span class="lineNum">     161 </span>            : /* Like memtest_fill_random() but uses the two specified values to fill</a>
+<span class="lineNum">     162 </span>            :  * memory, in an alternated way (v1|v2|v1|v2|...) */
+<span class="lineNum">     163 </span><span class="lineNoCov">          0 : void memtest_fill_value(unsigned long *l, size_t bytes, unsigned long v1,</span>
+<span class="lineNum">     164 </span>            :                         unsigned long v2, char sym, int interactive)
+<span class="lineNum">     165 </span>            : {
+<span class="lineNum">     166 </span><span class="lineNoCov">          0 :     unsigned long step = 4096/sizeof(unsigned long);</span>
+<span class="lineNum">     167 </span><span class="lineNoCov">          0 :     unsigned long words = bytes/sizeof(unsigned long)/2;</span>
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 :     unsigned long iwords = words/step;  /* words per iteration */</span>
+<span class="lineNum">     169 </span><span class="lineNoCov">          0 :     unsigned long off, w, *l1, *l2, v;</span>
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :     assert((bytes &amp; 4095) == 0);</span>
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :     for (off = 0; off &lt; step; off++) {</span>
+<span class="lineNum">     173 </span><span class="lineNoCov">          0 :         l1 = l+off;</span>
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 :         l2 = l1+words;</span>
+<span class="lineNum">     175 </span><span class="lineNoCov">          0 :         v = (off &amp; 1) ? v2 : v1;</span>
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :         for (w = 0; w &lt; iwords; w++) {</span>
+<span class="lineNum">     177 </span>            : #ifdef MEMTEST_32BIT
+<span class="lineNum">     178 </span>            :             *l1 = *l2 = ((unsigned long)     v) |
+<span class="lineNum">     179 </span>            :                         (((unsigned long)    v) &lt;&lt; 16);
+<span class="lineNum">     180 </span>            : #else
+<span class="lineNum">     181 </span><span class="lineNoCov">          0 :             *l1 = *l2 = ((unsigned long)     v) |</span>
+<span class="lineNum">     182 </span><span class="lineNoCov">          0 :                         (((unsigned long)    v) &lt;&lt; 16) |</span>
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 :                         (((unsigned long)    v) &lt;&lt; 32) |</span>
+<span class="lineNum">     184 </span><span class="lineNoCov">          0 :                         (((unsigned long)    v) &lt;&lt; 48);</span>
+<span class="lineNum">     185 </span>            : #endif
+<span class="lineNum">     186 </span><span class="lineNoCov">          0 :             l1 += step;</span>
+<span class="lineNum">     187 </span><span class="lineNoCov">          0 :             l2 += step;</span>
+<span class="lineNum">     188 </span><span class="lineNoCov">          0 :             if ((w &amp; 0xffff) == 0 &amp;&amp; interactive)</span>
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :                 memtest_progress_step(w+iwords*off,words,sym);</span>
+<span class="lineNum">     190 </span>            :         }
+<span class="lineNum">     191 </span>            :     }
+<a name="192"><span class="lineNum">     192 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span><span class="lineNoCov">          0 : int memtest_compare(unsigned long *l, size_t bytes, int interactive) {</span>
+<span class="lineNum">     195 </span><span class="lineNoCov">          0 :     unsigned long words = bytes/sizeof(unsigned long)/2;</span>
+<span class="lineNum">     196 </span><span class="lineNoCov">          0 :     unsigned long w, *l1, *l2;</span>
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span><span class="lineNoCov">          0 :     assert((bytes &amp; 4095) == 0);</span>
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 :     l1 = l;</span>
+<span class="lineNum">     200 </span><span class="lineNoCov">          0 :     l2 = l1+words;</span>
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :     for (w = 0; w &lt; words; w++) {</span>
+<span class="lineNum">     202 </span><span class="lineNoCov">          0 :         if (*l1 != *l2) {</span>
+<span class="lineNum">     203 </span><span class="lineNoCov">          0 :             if (interactive) {</span>
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 :                 printf(&quot;\n*** MEMORY ERROR DETECTED: %p != %p (%lu vs %lu)\n&quot;,</span>
+<span class="lineNum">     205 </span>            :                     (void*)l1, (void*)l2, *l1, *l2);
+<span class="lineNum">     206 </span><span class="lineNoCov">          0 :                 exit(1);</span>
+<span class="lineNum">     207 </span>            :             }
+<span class="lineNum">     208 </span>            :             return 1;
+<span class="lineNum">     209 </span>            :         }
+<span class="lineNum">     210 </span><span class="lineNoCov">          0 :         l1 ++;</span>
+<span class="lineNum">     211 </span><span class="lineNoCov">          0 :         l2 ++;</span>
+<span class="lineNum">     212 </span><span class="lineNoCov">          0 :         if ((w &amp; 0xffff) == 0 &amp;&amp; interactive)</span>
+<span class="lineNum">     213 </span><span class="lineNoCov">          0 :             memtest_progress_step(w,words,'=');</span>
+<span class="lineNum">     214 </span>            :     }
+<span class="lineNum">     215 </span>            :     return 0;
+<a name="216"><span class="lineNum">     216 </span>            : }</a>
+<span class="lineNum">     217 </span>            : 
+<span class="lineNum">     218 </span><span class="lineNoCov">          0 : int memtest_compare_times(unsigned long *m, size_t bytes, int pass, int times,</span>
+<span class="lineNum">     219 </span>            :                           int interactive)
+<span class="lineNum">     220 </span>            : {
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 :     int j;</span>
+<span class="lineNum">     222 </span><span class="lineNoCov">          0 :     int errors = 0;</span>
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :     for (j = 0; j &lt; times; j++) {</span>
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_start(&quot;Compare&quot;,pass);</span>
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :         errors += memtest_compare(m,bytes,interactive);</span>
+<span class="lineNum">     227 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_end();</span>
+<span class="lineNum">     228 </span>            :     }
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 :     return errors;</span>
+<span class="lineNum">     230 </span>            : }
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span>            : /* Test the specified memory. The number of bytes must be multiple of 4096.
+<span class="lineNum">     233 </span>            :  * If interactive is true the program exists with an error and prints
+<span class="lineNum">     234 </span>            :  * ASCII arts to show progresses. Instead when interactive is 0, it can
+<a name="235"><span class="lineNum">     235 </span>            :  * be used as an API call, and returns 1 if memory errors were found or</a>
+<span class="lineNum">     236 </span>            :  * 0 if there were no errors detected. */
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 : int memtest_test(unsigned long *m, size_t bytes, int passes, int interactive) {</span>
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :     int pass = 0;</span>
+<span class="lineNum">     239 </span><span class="lineNoCov">          0 :     int errors = 0;</span>
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span><span class="lineNoCov">          0 :     while (pass != passes) {</span>
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :         pass++;</span>
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_start(&quot;Addressing test&quot;,pass);</span>
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 :         errors += memtest_addressing(m,bytes,interactive);</span>
+<span class="lineNum">     246 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_end();</span>
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_start(&quot;Random fill&quot;,pass);</span>
+<span class="lineNum">     249 </span><span class="lineNoCov">          0 :         memtest_fill_random(m,bytes,interactive);</span>
+<span class="lineNum">     250 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_end();</span>
+<span class="lineNum">     251 </span><span class="lineNoCov">          0 :         errors += memtest_compare_times(m,bytes,pass,4,interactive);</span>
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_start(&quot;Solid fill&quot;,pass);</span>
+<span class="lineNum">     254 </span><span class="lineNoCov">          0 :         memtest_fill_value(m,bytes,0,(unsigned long)-1,'S',interactive);</span>
+<span class="lineNum">     255 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_end();</span>
+<span class="lineNum">     256 </span><span class="lineNoCov">          0 :         errors += memtest_compare_times(m,bytes,pass,4,interactive);</span>
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_start(&quot;Checkerboard fill&quot;,pass);</span>
+<span class="lineNum">     259 </span><span class="lineNoCov">          0 :         memtest_fill_value(m,bytes,ULONG_ONEZERO,ULONG_ZEROONE,'C',interactive);</span>
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :         if (interactive) memtest_progress_end();</span>
+<span class="lineNum">     261 </span><span class="lineNoCov">          0 :         errors += memtest_compare_times(m,bytes,pass,4,interactive);</span>
+<span class="lineNum">     262 </span>            :     }
+<span class="lineNum">     263 </span><span class="lineNoCov">          0 :     return errors;</span>
+<span class="lineNum">     264 </span>            : }
+<span class="lineNum">     265 </span>            : 
+<span class="lineNum">     266 </span>            : /* A version of memtest_test() that tests memory in small pieces
+<span class="lineNum">     267 </span>            :  * in order to restore the memory content at exit.
+<span class="lineNum">     268 </span>            :  *
+<span class="lineNum">     269 </span>            :  * One problem we have with this approach, is that the cache can avoid
+<span class="lineNum">     270 </span>            :  * real memory accesses, and we can't test big chunks of memory at the
+<span class="lineNum">     271 </span>            :  * same time, because we need to backup them on the stack (the allocator
+<span class="lineNum">     272 </span>            :  * may not be usable or we may be already in an out of memory condition).
+<span class="lineNum">     273 </span>            :  * So what we do is to try to trash the cache with useless memory accesses
+<span class="lineNum">     274 </span>            :  * between the fill and compare cycles. */
+<span class="lineNum">     275 </span>            : #define MEMTEST_BACKUP_WORDS (1024*(1024/sizeof(long)))
+<span class="lineNum">     276 </span>            : /* Random accesses of MEMTEST_DECACHE_SIZE are performed at the start and
+<span class="lineNum">     277 </span>            :  * end of the region between fill and compare cycles in order to trash
+<a name="278"><span class="lineNum">     278 </span>            :  * the cache. */</a>
+<span class="lineNum">     279 </span>            : #define MEMTEST_DECACHE_SIZE (1024*8)
+<span class="lineNum">     280 </span><span class="lineNoCov">          0 : int memtest_preserving_test(unsigned long *m, size_t bytes, int passes) {</span>
+<span class="lineNum">     281 </span><span class="lineNoCov">          0 :     unsigned long backup[MEMTEST_BACKUP_WORDS];</span>
+<span class="lineNum">     282 </span><span class="lineNoCov">          0 :     unsigned long *p = m;</span>
+<span class="lineNum">     283 </span><span class="lineNoCov">          0 :     unsigned long *end = (unsigned long*) (((unsigned char*)m)+(bytes-MEMTEST_DECACHE_SIZE));</span>
+<span class="lineNum">     284 </span><span class="lineNoCov">          0 :     size_t left = bytes;</span>
+<span class="lineNum">     285 </span><span class="lineNoCov">          0 :     int errors = 0;</span>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span><span class="lineNoCov">          0 :     if (bytes &amp; 4095) return 0; /* Can't test across 4k page boundaries. */</span>
+<span class="lineNum">     288 </span><span class="lineNoCov">          0 :     if (bytes &lt; 4096*2) return 0; /* Can't test a single page. */</span>
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span><span class="lineNoCov">          0 :     while(left) {</span>
+<span class="lineNum">     291 </span>            :         /* If we have to test a single final page, go back a single page
+<span class="lineNum">     292 </span>            :          * so that we can test two pages, since the code can't test a single
+<span class="lineNum">     293 </span>            :          * page but at least two. */
+<span class="lineNum">     294 </span><span class="lineNoCov">          0 :         if (left == 4096) {</span>
+<span class="lineNum">     295 </span><span class="lineNoCov">          0 :             left += 4096;</span>
+<span class="lineNum">     296 </span><span class="lineNoCov">          0 :             p -= 4096/sizeof(unsigned long);</span>
+<span class="lineNum">     297 </span>            :         }
+<span class="lineNum">     298 </span>            : 
+<span class="lineNum">     299 </span><span class="lineNoCov">          0 :         int pass = 0;</span>
+<span class="lineNum">     300 </span><span class="lineNoCov">          0 :         size_t len = (left &gt; sizeof(backup)) ? sizeof(backup) : left;</span>
+<span class="lineNum">     301 </span>            : 
+<span class="lineNum">     302 </span>            :         /* Always test an even number of pages. */
+<span class="lineNum">     303 </span><span class="lineNoCov">          0 :         if (len/4096 % 2) len -= 4096;</span>
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span><span class="lineNoCov">          0 :         memcpy(backup,p,len); /* Backup. */</span>
+<span class="lineNum">     306 </span><span class="lineNoCov">          0 :         while(pass != passes) {</span>
+<span class="lineNum">     307 </span><span class="lineNoCov">          0 :             pass++;</span>
+<span class="lineNum">     308 </span><span class="lineNoCov">          0 :             errors += memtest_addressing(p,len,0);</span>
+<span class="lineNum">     309 </span><span class="lineNoCov">          0 :             memtest_fill_random(p,len,0);</span>
+<span class="lineNum">     310 </span><span class="lineNoCov">          0 :             if (bytes &gt;= MEMTEST_DECACHE_SIZE) {</span>
+<span class="lineNum">     311 </span>            :                 memtest_compare_times(m,MEMTEST_DECACHE_SIZE,pass,1,0);
+<span class="lineNum">     312 </span>            :                 memtest_compare_times(end,MEMTEST_DECACHE_SIZE,pass,1,0);
+<span class="lineNum">     313 </span>            :             }
+<span class="lineNum">     314 </span><span class="lineNoCov">          0 :             errors += memtest_compare_times(p,len,pass,4,0);</span>
+<span class="lineNum">     315 </span><span class="lineNoCov">          0 :             memtest_fill_value(p,len,0,(unsigned long)-1,'S',0);</span>
+<span class="lineNum">     316 </span><span class="lineNoCov">          0 :             if (bytes &gt;= MEMTEST_DECACHE_SIZE) {</span>
+<span class="lineNum">     317 </span>            :                 memtest_compare_times(m,MEMTEST_DECACHE_SIZE,pass,1,0);
+<span class="lineNum">     318 </span>            :                 memtest_compare_times(end,MEMTEST_DECACHE_SIZE,pass,1,0);
+<span class="lineNum">     319 </span>            :             }
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :             errors += memtest_compare_times(p,len,pass,4,0);</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :             memtest_fill_value(p,len,ULONG_ONEZERO,ULONG_ZEROONE,'C',0);</span>
+<span class="lineNum">     322 </span><span class="lineNoCov">          0 :             if (bytes &gt;= MEMTEST_DECACHE_SIZE) {</span>
+<span class="lineNum">     323 </span>            :                 memtest_compare_times(m,MEMTEST_DECACHE_SIZE,pass,1,0);
+<span class="lineNum">     324 </span>            :                 memtest_compare_times(end,MEMTEST_DECACHE_SIZE,pass,1,0);
+<span class="lineNum">     325 </span>            :             }
+<span class="lineNum">     326 </span><span class="lineNoCov">          0 :             errors += memtest_compare_times(p,len,pass,4,0);</span>
+<span class="lineNum">     327 </span>            :         }
+<span class="lineNum">     328 </span><span class="lineNoCov">          0 :         memcpy(p,backup,len); /* Restore. */</span>
+<span class="lineNum">     329 </span><span class="lineNoCov">          0 :         left -= len;</span>
+<span class="lineNum">     330 </span><span class="lineNoCov">          0 :         p += len/sizeof(unsigned long);</span>
+<span class="lineNum">     331 </span>            :     }
+<span class="lineNum">     332 </span>            :     return errors;
+<span class="lineNum">     333 </span>            : }
+<a name="334"><span class="lineNum">     334 </span>            : </a>
+<span class="lineNum">     335 </span>            : /* Perform an interactive test allocating the specified number of megabytes. */
+<span class="lineNum">     336 </span><span class="lineNoCov">          0 : void memtest_alloc_and_test(size_t megabytes, int passes) {</span>
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 :     size_t bytes = megabytes*1024*1024;</span>
+<span class="lineNum">     338 </span><span class="lineNoCov">          0 :     unsigned long *m = malloc(bytes);</span>
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :     if (m == NULL) {</span>
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :         fprintf(stderr,&quot;Unable to allocate %zu megabytes: %s&quot;,</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :             megabytes, strerror(errno));</span>
+<span class="lineNum">     343 </span><span class="lineNoCov">          0 :         exit(1);</span>
+<span class="lineNum">     344 </span>            :     }
+<span class="lineNum">     345 </span><span class="lineNoCov">          0 :     memtest_test(m,bytes,passes,1);</span>
+<span class="lineNum">     346 </span><span class="lineNoCov">          0 :     free(m);</span>
+<a name="347"><span class="lineNum">     347 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 : void memtest(size_t megabytes, int passes) {</span>
+<span class="lineNum">     350 </span><span class="lineNoCov">          0 :     if (ioctl(1, TIOCGWINSZ, &amp;ws) == -1) {</span>
+<span class="lineNum">     351 </span><span class="lineNoCov">          0 :         ws.ws_col = 80;</span>
+<span class="lineNum">     352 </span><span class="lineNoCov">          0 :         ws.ws_row = 20;</span>
+<span class="lineNum">     353 </span>            :     }
+<span class="lineNum">     354 </span><span class="lineNoCov">          0 :     memtest_alloc_and_test(megabytes,passes);</span>
+<span class="lineNum">     355 </span><span class="lineNoCov">          0 :     printf(&quot;\nYour memory passed this test.\n&quot;);</span>
+<span class="lineNum">     356 </span><span class="lineNoCov">          0 :     printf(&quot;Please if you are still in doubt use the following two tools:\n&quot;);</span>
+<span class="lineNum">     357 </span><span class="lineNoCov">          0 :     printf(&quot;1) memtest86: http://www.memtest86.com/\n&quot;);</span>
+<span class="lineNum">     358 </span><span class="lineNoCov">          0 :     printf(&quot;2) memtester: http://pyropus.ca/software/memtester/\n&quot;);</span>
+<span class="lineNum">     359 </span><span class="lineNoCov">          0 :     exit(0);</span>
+<span class="lineNum">     360 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

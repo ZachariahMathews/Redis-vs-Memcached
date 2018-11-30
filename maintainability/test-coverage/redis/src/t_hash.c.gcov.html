@@ -1,0 +1,909 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/t_hash.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - t_hash.c<span style="font-size: 80%;"> (source / <a href="t_hash.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">425</td>
+            <td class="headerCovTableEntry">450</td>
+            <td class="headerCovTableEntryHi">94.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : #include &lt;math.h&gt;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">      34 </span>            :  * Hash type API
+<span class="lineNum">      35 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : /* Check the length of a number of objects to see if we need to convert a
+<a name="38"><span class="lineNum">      38 </span>            :  * ziplist to a real hash. Note that we only check string encoded objects</a>
+<span class="lineNum">      39 </span>            :  * as their string length can be queried in constant time. */
+<span class="lineNum">      40 </span><span class="lineCov">     851257 : void hashTypeTryConversion(robj *o, robj **argv, int start, int end) {</span>
+<span class="lineNum">      41 </span><span class="lineCov">     851257 :     int i;</span>
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span><span class="lineCov">     851257 :     if (o-&gt;encoding != OBJ_ENCODING_ZIPLIST) return;</span>
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span><span class="lineCov">    1861940 :     for (i = start; i &lt;= end; i++) {</span>
+<span class="lineNum">      46 </span><span class="lineCov">    1334104 :         if (sdsEncodedObject(argv[i]) &amp;&amp;</span>
+<span class="lineNum">      47 </span><span class="lineCov">    2668208 :             sdslen(argv[i]-&gt;ptr) &gt; server.hash_max_ziplist_value)</span>
+<span class="lineNum">      48 </span>            :         {
+<span class="lineNum">      49 </span><span class="lineCov">     149282 :             hashTypeConvert(o, OBJ_ENCODING_HT);</span>
+<span class="lineNum">      50 </span><span class="lineCov">     149282 :             break;</span>
+<span class="lineNum">      51 </span>            :         }
+<span class="lineNum">      52 </span>            :     }
+<span class="lineNum">      53 </span>            : }
+<span class="lineNum">      54 </span>            : 
+<a name="55"><span class="lineNum">      55 </span>            : /* Get the value from a ziplist encoded hash, identified by field.</a>
+<span class="lineNum">      56 </span>            :  * Returns -1 when the field cannot be found. */
+<span class="lineNum">      57 </span><span class="lineCov">      96346 : int hashTypeGetFromZiplist(robj *o, sds field,</span>
+<span class="lineNum">      58 </span>            :                            unsigned char **vstr,
+<span class="lineNum">      59 </span>            :                            unsigned int *vlen,
+<span class="lineNum">      60 </span>            :                            long long *vll)
+<span class="lineNum">      61 </span>            : {
+<span class="lineNum">      62 </span><span class="lineCov">      96346 :     unsigned char *zl, *fptr = NULL, *vptr = NULL;</span>
+<span class="lineNum">      63 </span><span class="lineCov">      96346 :     int ret;</span>
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span><span class="lineCov">      96346 :     serverAssert(o-&gt;encoding == OBJ_ENCODING_ZIPLIST);</span>
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span><span class="lineCov">      96346 :     zl = o-&gt;ptr;</span>
+<span class="lineNum">      68 </span><span class="lineCov">      96346 :     fptr = ziplistIndex(zl, ZIPLIST_HEAD);</span>
+<span class="lineNum">      69 </span><span class="lineCov">      96346 :     if (fptr != NULL) {</span>
+<span class="lineNum">      70 </span><span class="lineCov">     192674 :         fptr = ziplistFind(fptr, (unsigned char*)field, sdslen(field), 1);</span>
+<span class="lineNum">      71 </span><span class="lineCov">      96337 :         if (fptr != NULL) {</span>
+<span class="lineNum">      72 </span>            :             /* Grab pointer to the value (fptr points to the field) */
+<span class="lineNum">      73 </span><span class="lineCov">      96319 :             vptr = ziplistNext(zl, fptr);</span>
+<span class="lineNum">      74 </span><span class="lineCov">      96319 :             serverAssert(vptr != NULL);</span>
+<span class="lineNum">      75 </span>            :         }
+<span class="lineNum">      76 </span>            :     }
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span><span class="lineCov">      96319 :     if (vptr != NULL) {</span>
+<span class="lineNum">      79 </span><span class="lineCov">      96319 :         ret = ziplistGet(vptr, vstr, vlen, vll);</span>
+<span class="lineNum">      80 </span><span class="lineCov">      96319 :         serverAssert(ret);</span>
+<span class="lineNum">      81 </span>            :         return 0;
+<span class="lineNum">      82 </span>            :     }
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            :     return -1;
+<span class="lineNum">      85 </span>            : }
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : /* Get the value from a hash table encoded hash, identified by field.
+<a name="88"><span class="lineNum">      88 </span>            :  * Returns NULL when the field cannot be found, otherwise the SDS value</a>
+<span class="lineNum">      89 </span>            :  * is returned. */
+<span class="lineNum">      90 </span><span class="lineCov">      34752 : sds hashTypeGetFromHashTable(robj *o, sds field) {</span>
+<span class="lineNum">      91 </span><span class="lineCov">      34752 :     dictEntry *de;</span>
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span><span class="lineCov">      34752 :     serverAssert(o-&gt;encoding == OBJ_ENCODING_HT);</span>
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span><span class="lineCov">      34752 :     de = dictFind(o-&gt;ptr, field);</span>
+<span class="lineNum">      96 </span><span class="lineCov">      34752 :     if (de == NULL) return NULL;</span>
+<span class="lineNum">      97 </span><span class="lineCov">      34716 :     return dictGetVal(de);</span>
+<span class="lineNum">      98 </span>            : }
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : /* Higher level function of hashTypeGet*() that returns the hash value
+<span class="lineNum">     101 </span>            :  * associated with the specified field. If the field is found C_OK
+<span class="lineNum">     102 </span>            :  * is returned, otherwise C_ERR. The returned object is returned by
+<span class="lineNum">     103 </span>            :  * reference in either *vstr and *vlen if it's returned in string form,
+<span class="lineNum">     104 </span>            :  * or stored in *vll if it's returned as a number.
+<span class="lineNum">     105 </span>            :  *
+<span class="lineNum">     106 </span>            :  * If *vll is populated *vstr is set to NULL, so the caller
+<a name="107"><span class="lineNum">     107 </span>            :  * can always check the function return by checking the return value</a>
+<span class="lineNum">     108 </span>            :  * for C_OK and checking if vll (or vstr) is NULL. */
+<span class="lineNum">     109 </span><span class="lineCov">      96299 : int hashTypeGetValue(robj *o, sds field, unsigned char **vstr, unsigned int *vlen, long long *vll) {</span>
+<span class="lineNum">     110 </span><span class="lineCov">      96299 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     111 </span><span class="lineCov">      96215 :         *vstr = NULL;</span>
+<span class="lineNum">     112 </span><span class="lineCov">      96215 :         if (hashTypeGetFromZiplist(o, field, vstr, vlen, vll) == 0)</span>
+<span class="lineNum">     113 </span><span class="lineCov">      96206 :             return C_OK;</span>
+<span class="lineNum">     114 </span><span class="lineCov">         84 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     115 </span><span class="lineCov">         84 :         sds value;</span>
+<span class="lineNum">     116 </span><span class="lineCov">         84 :         if ((value = hashTypeGetFromHashTable(o, field)) != NULL) {</span>
+<span class="lineNum">     117 </span><span class="lineCov">         72 :             *vstr = (unsigned char*) value;</span>
+<span class="lineNum">     118 </span><span class="lineCov">         72 :             *vlen = sdslen(value);</span>
+<span class="lineNum">     119 </span><span class="lineCov">         72 :             return C_OK;</span>
+<span class="lineNum">     120 </span>            :         }
+<span class="lineNum">     121 </span>            :     } else {
+<span class="lineNum">     122 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     123 </span>            :     }
+<span class="lineNum">     124 </span>            :     return C_ERR;
+<span class="lineNum">     125 </span>            : }
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span>            : /* Like hashTypeGetValue() but returns a Redis object, which is useful for
+<span class="lineNum">     128 </span>            :  * interaction with the hash type outside t_hash.c.
+<a name="129"><span class="lineNum">     129 </span>            :  * The function returns NULL if the field is not found in the hash. Otherwise</a>
+<span class="lineNum">     130 </span>            :  * a newly allocated string object with the value is returned. */
+<span class="lineNum">     131 </span><span class="lineCov">      96192 : robj *hashTypeGetValueObject(robj *o, sds field) {</span>
+<span class="lineNum">     132 </span><span class="lineCov">      96192 :     unsigned char *vstr;</span>
+<span class="lineNum">     133 </span><span class="lineCov">      96192 :     unsigned int vlen;</span>
+<span class="lineNum">     134 </span><span class="lineCov">      96192 :     long long vll;</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span><span class="lineCov">      96192 :     if (hashTypeGetValue(o,field,&amp;vstr,&amp;vlen,&amp;vll) == C_ERR) return NULL;</span>
+<span class="lineNum">     137 </span><span class="lineCov">      96192 :     if (vstr) return createStringObject((char*)vstr,vlen);</span>
+<span class="lineNum">     138 </span><span class="lineCov">      48396 :     else return createStringObjectFromLongLong(vll);</span>
+<span class="lineNum">     139 </span>            : }
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : /* Higher level function using hashTypeGet*() to return the length of the
+<a name="142"><span class="lineNum">     142 </span>            :  * object associated with the requested field, or 0 if the field does not</a>
+<span class="lineNum">     143 </span>            :  * exist. */
+<span class="lineNum">     144 </span><span class="lineCov">       3138 : size_t hashTypeGetValueLength(robj *o, sds field) {</span>
+<span class="lineNum">     145 </span><span class="lineCov">       3138 :     size_t len = 0;</span>
+<span class="lineNum">     146 </span><span class="lineCov">       3138 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 :         unsigned char *vstr = NULL;</span>
+<span class="lineNum">     148 </span><span class="lineNoCov">          0 :         unsigned int vlen = UINT_MAX;</span>
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :         long long vll = LLONG_MAX;</span>
+<span class="lineNum">     150 </span>            : 
+<span class="lineNum">     151 </span><span class="lineNoCov">          0 :         if (hashTypeGetFromZiplist(o, field, &amp;vstr, &amp;vlen, &amp;vll) == 0)</span>
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 :             len = vstr ? vlen : sdigits10(vll);</span>
+<span class="lineNum">     153 </span><span class="lineCov">       3138 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     154 </span><span class="lineCov">       3138 :         sds aux;</span>
+<span class="lineNum">     155 </span>            : 
+<span class="lineNum">     156 </span><span class="lineCov">       3138 :         if ((aux = hashTypeGetFromHashTable(o, field)) != NULL)</span>
+<span class="lineNum">     157 </span><span class="lineCov">       3132 :             len = sdslen(aux);</span>
+<span class="lineNum">     158 </span>            :     } else {
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     160 </span>            :     }
+<span class="lineNum">     161 </span><span class="lineCov">       3138 :     return len;</span>
+<span class="lineNum">     162 </span>            : }
+<span class="lineNum">     163 </span>            : 
+<a name="164"><span class="lineNum">     164 </span>            : /* Test if the specified field exists in the given hash. Returns 1 if the field</a>
+<span class="lineNum">     165 </span>            :  * exists, and 0 when it doesn't. */
+<span class="lineNum">     166 </span><span class="lineCov">         24 : int hashTypeExists(robj *o, sds field) {</span>
+<span class="lineNum">     167 </span><span class="lineCov">         24 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     168 </span><span class="lineCov">         12 :         unsigned char *vstr = NULL;</span>
+<span class="lineNum">     169 </span><span class="lineCov">         12 :         unsigned int vlen = UINT_MAX;</span>
+<span class="lineNum">     170 </span><span class="lineCov">         12 :         long long vll = LLONG_MAX;</span>
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span><span class="lineCov">         12 :         if (hashTypeGetFromZiplist(o, field, &amp;vstr, &amp;vlen, &amp;vll) == 0) return 1;</span>
+<span class="lineNum">     173 </span><span class="lineCov">         12 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     174 </span><span class="lineCov">         12 :         if (hashTypeGetFromHashTable(o, field) != NULL) return 1;</span>
+<span class="lineNum">     175 </span>            :     } else {
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     177 </span>            :     }
+<span class="lineNum">     178 </span>            :     return 0;
+<span class="lineNum">     179 </span>            : }
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span>            : /* Add a new field, overwrite the old with the new value if it already exists.
+<span class="lineNum">     182 </span>            :  * Return 0 on insert and 1 on update.
+<span class="lineNum">     183 </span>            :  *
+<span class="lineNum">     184 </span>            :  * By default, the key and value SDS strings are copied if needed, so the
+<span class="lineNum">     185 </span>            :  * caller retains ownership of the strings passed. However this behavior
+<span class="lineNum">     186 </span>            :  * can be effected by passing appropriate flags (possibly bitwise OR-ed):
+<span class="lineNum">     187 </span>            :  *
+<span class="lineNum">     188 </span>            :  * HASH_SET_TAKE_FIELD -- The SDS field ownership passes to the function.
+<span class="lineNum">     189 </span>            :  * HASH_SET_TAKE_VALUE -- The SDS value ownership passes to the function.
+<span class="lineNum">     190 </span>            :  *
+<span class="lineNum">     191 </span>            :  * When the flags are used the caller does not need to release the passed
+<span class="lineNum">     192 </span>            :  * SDS string(s). It's up to the function to use the string to create a new
+<span class="lineNum">     193 </span>            :  * entry or to free the SDS string before returning to the caller.
+<span class="lineNum">     194 </span>            :  *
+<span class="lineNum">     195 </span>            :  * HASH_SET_COPY corresponds to no flags passed, and means the default
+<span class="lineNum">     196 </span>            :  * semantics of copying the values if needed.
+<span class="lineNum">     197 </span>            :  *
+<span class="lineNum">     198 </span>            :  */
+<span class="lineNum">     199 </span>            : #define HASH_SET_TAKE_FIELD (1&lt;&lt;0)
+<a name="200"><span class="lineNum">     200 </span>            : #define HASH_SET_TAKE_VALUE (1&lt;&lt;1)</a>
+<span class="lineNum">     201 </span>            : #define HASH_SET_COPY 0
+<span class="lineNum">     202 </span><span class="lineCov">     903207 : int hashTypeSet(robj *o, sds field, sds value, int flags) {</span>
+<span class="lineNum">     203 </span><span class="lineCov">     903207 :     int update = 0;</span>
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span><span class="lineCov">     903207 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     206 </span><span class="lineCov">     554229 :         unsigned char *zl, *fptr, *vptr;</span>
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span><span class="lineCov">     554229 :         zl = o-&gt;ptr;</span>
+<span class="lineNum">     209 </span><span class="lineCov">     554229 :         fptr = ziplistIndex(zl, ZIPLIST_HEAD);</span>
+<span class="lineNum">     210 </span><span class="lineCov">     554229 :         if (fptr != NULL) {</span>
+<span class="lineNum">     211 </span><span class="lineCov">     486962 :             fptr = ziplistFind(fptr, (unsigned char*)field, sdslen(field), 1);</span>
+<span class="lineNum">     212 </span><span class="lineCov">     243481 :             if (fptr != NULL) {</span>
+<span class="lineNum">     213 </span>            :                 /* Grab pointer to the value (fptr points to the field) */
+<span class="lineNum">     214 </span><span class="lineCov">     176735 :                 vptr = ziplistNext(zl, fptr);</span>
+<span class="lineNum">     215 </span><span class="lineCov">     176735 :                 serverAssert(vptr != NULL);</span>
+<span class="lineNum">     216 </span><span class="lineCov">     176735 :                 update = 1;</span>
+<span class="lineNum">     217 </span>            : 
+<span class="lineNum">     218 </span>            :                 /* Delete value */
+<span class="lineNum">     219 </span><span class="lineCov">     176735 :                 zl = ziplistDelete(zl, &amp;vptr);</span>
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span>            :                 /* Insert new value */
+<span class="lineNum">     222 </span><span class="lineCov">     353470 :                 zl = ziplistInsert(zl, vptr, (unsigned char*)value,</span>
+<span class="lineNum">     223 </span><span class="lineCov">     176735 :                         sdslen(value));</span>
+<span class="lineNum">     224 </span>            :             }
+<span class="lineNum">     225 </span>            :         }
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span><span class="lineCov">     176735 :         if (!update) {</span>
+<span class="lineNum">     228 </span>            :             /* Push new field/value pair onto the tail of the ziplist */
+<span class="lineNum">     229 </span><span class="lineCov">     754988 :             zl = ziplistPush(zl, (unsigned char*)field, sdslen(field),</span>
+<span class="lineNum">     230 </span>            :                     ZIPLIST_TAIL);
+<span class="lineNum">     231 </span><span class="lineCov">     754988 :             zl = ziplistPush(zl, (unsigned char*)value, sdslen(value),</span>
+<span class="lineNum">     232 </span>            :                     ZIPLIST_TAIL);
+<span class="lineNum">     233 </span>            :         }
+<span class="lineNum">     234 </span><span class="lineCov">     554229 :         o-&gt;ptr = zl;</span>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span>            :         /* Check if the ziplist needs to be converted to a hash table */
+<span class="lineNum">     237 </span><span class="lineCov">     554229 :         if (hashTypeLength(o) &gt; server.hash_max_ziplist_entries)</span>
+<span class="lineNum">     238 </span><span class="lineCov">        110 :             hashTypeConvert(o, OBJ_ENCODING_HT);</span>
+<span class="lineNum">     239 </span><span class="lineCov">     348978 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     240 </span><span class="lineCov">     348978 :         dictEntry *de = dictFind(o-&gt;ptr,field);</span>
+<span class="lineNum">     241 </span><span class="lineCov">     348978 :         if (de) {</span>
+<span class="lineNum">     242 </span><span class="lineCov">      77423 :             sdsfree(dictGetVal(de));</span>
+<span class="lineNum">     243 </span><span class="lineCov">      77423 :             if (flags &amp; HASH_SET_TAKE_VALUE) {</span>
+<span class="lineNum">     244 </span><span class="lineCov">         48 :                 dictGetVal(de) = value;</span>
+<span class="lineNum">     245 </span><span class="lineCov">         48 :                 value = NULL;</span>
+<span class="lineNum">     246 </span>            :             } else {
+<span class="lineNum">     247 </span><span class="lineCov">      77375 :                 dictGetVal(de) = sdsdup(value);</span>
+<span class="lineNum">     248 </span>            :             }
+<span class="lineNum">     249 </span>            :             update = 1;
+<span class="lineNum">     250 </span>            :         } else {
+<span class="lineNum">     251 </span><span class="lineCov">     271555 :             sds f,v;</span>
+<span class="lineNum">     252 </span><span class="lineCov">     271555 :             if (flags &amp; HASH_SET_TAKE_FIELD) {</span>
+<span class="lineNum">     253 </span>            :                 f = field;
+<span class="lineNum">     254 </span>            :                 field = NULL;
+<span class="lineNum">     255 </span>            :             } else {
+<span class="lineNum">     256 </span><span class="lineCov">     271555 :                 f = sdsdup(field);</span>
+<span class="lineNum">     257 </span>            :             }
+<span class="lineNum">     258 </span><span class="lineCov">     271555 :             if (flags &amp; HASH_SET_TAKE_VALUE) {</span>
+<span class="lineNum">     259 </span>            :                 v = value;
+<span class="lineNum">     260 </span>            :                 value = NULL;
+<span class="lineNum">     261 </span>            :             } else {
+<span class="lineNum">     262 </span><span class="lineCov">     271543 :                 v = sdsdup(value);</span>
+<span class="lineNum">     263 </span>            :             }
+<span class="lineNum">     264 </span><span class="lineCov">     271555 :             dictAdd(o-&gt;ptr,f,v);</span>
+<span class="lineNum">     265 </span>            :         }
+<span class="lineNum">     266 </span>            :     } else {
+<span class="lineNum">     267 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     268 </span>            :     }
+<span class="lineNum">     269 </span>            : 
+<span class="lineNum">     270 </span>            :     /* Free SDS strings we did not referenced elsewhere if the flags
+<span class="lineNum">     271 </span>            :      * want this function to be responsible. */
+<span class="lineNum">     272 </span><span class="lineCov">     903207 :     if (flags &amp; HASH_SET_TAKE_FIELD &amp;&amp; field) sdsfree(field);</span>
+<span class="lineNum">     273 </span><span class="lineCov">     903207 :     if (flags &amp; HASH_SET_TAKE_VALUE &amp;&amp; value) sdsfree(value);</span>
+<span class="lineNum">     274 </span><span class="lineCov">     903207 :     return update;</span>
+<span class="lineNum">     275 </span>            : }
+<span class="lineNum">     276 </span>            : 
+<a name="277"><span class="lineNum">     277 </span>            : /* Delete an element from a hash.</a>
+<span class="lineNum">     278 </span>            :  * Return 1 on deleted and 0 on not found. */
+<span class="lineNum">     279 </span><span class="lineCov">     235515 : int hashTypeDelete(robj *o, sds field) {</span>
+<span class="lineNum">     280 </span><span class="lineCov">     235515 :     int deleted = 0;</span>
+<span class="lineNum">     281 </span>            : 
+<span class="lineNum">     282 </span><span class="lineCov">     235515 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     283 </span><span class="lineCov">     150104 :         unsigned char *zl, *fptr;</span>
+<span class="lineNum">     284 </span>            : 
+<span class="lineNum">     285 </span><span class="lineCov">     150104 :         zl = o-&gt;ptr;</span>
+<span class="lineNum">     286 </span><span class="lineCov">     150104 :         fptr = ziplistIndex(zl, ZIPLIST_HEAD);</span>
+<span class="lineNum">     287 </span><span class="lineCov">     150104 :         if (fptr != NULL) {</span>
+<span class="lineNum">     288 </span><span class="lineCov">     300208 :             fptr = ziplistFind(fptr, (unsigned char*)field, sdslen(field), 1);</span>
+<span class="lineNum">     289 </span><span class="lineCov">     150104 :             if (fptr != NULL) {</span>
+<span class="lineNum">     290 </span><span class="lineCov">     140479 :                 zl = ziplistDelete(zl,&amp;fptr); /* Delete the key. */</span>
+<span class="lineNum">     291 </span><span class="lineCov">     140479 :                 zl = ziplistDelete(zl,&amp;fptr); /* Delete the value. */</span>
+<span class="lineNum">     292 </span><span class="lineCov">     140479 :                 o-&gt;ptr = zl;</span>
+<span class="lineNum">     293 </span><span class="lineCov">     140479 :                 deleted = 1;</span>
+<span class="lineNum">     294 </span>            :             }
+<span class="lineNum">     295 </span>            :         }
+<span class="lineNum">     296 </span><span class="lineCov">      85411 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     297 </span><span class="lineCov">      85411 :         if (dictDelete((dict*)o-&gt;ptr, field) == C_OK) {</span>
+<span class="lineNum">     298 </span><span class="lineCov">      72252 :             deleted = 1;</span>
+<span class="lineNum">     299 </span>            : 
+<span class="lineNum">     300 </span>            :             /* Always check if the dictionary needs a resize after a delete. */
+<span class="lineNum">     301 </span><span class="lineCov">      72252 :             if (htNeedsResize(o-&gt;ptr)) dictResize(o-&gt;ptr);</span>
+<span class="lineNum">     302 </span>            :         }
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span>            :     } else {
+<span class="lineNum">     305 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     306 </span>            :     }
+<span class="lineNum">     307 </span><span class="lineCov">     235515 :     return deleted;</span>
+<span class="lineNum">     308 </span>            : }
+<a name="309"><span class="lineNum">     309 </span>            : </a>
+<span class="lineNum">     310 </span>            : /* Return the number of elements in a hash. */
+<span class="lineNum">     311 </span><span class="lineCov">     814226 : unsigned long hashTypeLength(const robj *o) {</span>
+<span class="lineNum">     312 </span><span class="lineCov">     814226 :     unsigned long length = ULONG_MAX;</span>
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span><span class="lineCov">     814226 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     315 </span><span class="lineCov">     741837 :         length = ziplistLen(o-&gt;ptr) / 2;</span>
+<span class="lineNum">     316 </span><span class="lineCov">      72389 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     317 </span><span class="lineCov">      72389 :         length = dictSize((const dict*)o-&gt;ptr);</span>
+<span class="lineNum">     318 </span>            :     } else {
+<span class="lineNum">     319 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     320 </span>            :     }
+<span class="lineNum">     321 </span><span class="lineCov">     814226 :     return length;</span>
+<a name="322"><span class="lineNum">     322 </span>            : }</a>
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span><span class="lineCov">     734380 : hashTypeIterator *hashTypeInitIterator(robj *subject) {</span>
+<span class="lineNum">     325 </span><span class="lineCov">     734380 :     hashTypeIterator *hi = zmalloc(sizeof(hashTypeIterator));</span>
+<span class="lineNum">     326 </span><span class="lineCov">     734380 :     hi-&gt;subject = subject;</span>
+<span class="lineNum">     327 </span><span class="lineCov">     734380 :     hi-&gt;encoding = subject-&gt;encoding;</span>
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span><span class="lineCov">     734380 :     if (hi-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     330 </span><span class="lineCov">     533091 :         hi-&gt;fptr = NULL;</span>
+<span class="lineNum">     331 </span><span class="lineCov">     533091 :         hi-&gt;vptr = NULL;</span>
+<span class="lineNum">     332 </span><span class="lineCov">     201289 :     } else if (hi-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     333 </span><span class="lineCov">     201289 :         hi-&gt;di = dictGetIterator(subject-&gt;ptr);</span>
+<span class="lineNum">     334 </span>            :     } else {
+<span class="lineNum">     335 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     336 </span>            :     }
+<span class="lineNum">     337 </span><span class="lineCov">     734380 :     return hi;</span>
+<a name="338"><span class="lineNum">     338 </span>            : }</a>
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span><span class="lineCov">     734380 : void hashTypeReleaseIterator(hashTypeIterator *hi) {</span>
+<span class="lineNum">     341 </span><span class="lineCov">     734380 :     if (hi-&gt;encoding == OBJ_ENCODING_HT)</span>
+<span class="lineNum">     342 </span><span class="lineCov">     201289 :         dictReleaseIterator(hi-&gt;di);</span>
+<span class="lineNum">     343 </span><span class="lineCov">     734380 :     zfree(hi);</span>
+<span class="lineNum">     344 </span><span class="lineCov">     734380 : }</span>
+<span class="lineNum">     345 </span>            : 
+<a name="346"><span class="lineNum">     346 </span>            : /* Move to the next entry in the hash. Return C_OK when the next entry</a>
+<span class="lineNum">     347 </span>            :  * could be found and C_ERR when the iterator reaches the end. */
+<span class="lineNum">     348 </span><span class="lineCov">    1597107 : int hashTypeNext(hashTypeIterator *hi) {</span>
+<span class="lineNum">     349 </span><span class="lineCov">    1597107 :     if (hi-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     350 </span><span class="lineCov">     998842 :         unsigned char *zl;</span>
+<span class="lineNum">     351 </span><span class="lineCov">     998842 :         unsigned char *fptr, *vptr;</span>
+<span class="lineNum">     352 </span>            : 
+<span class="lineNum">     353 </span><span class="lineCov">     998842 :         zl = hi-&gt;subject-&gt;ptr;</span>
+<span class="lineNum">     354 </span><span class="lineCov">     998842 :         fptr = hi-&gt;fptr;</span>
+<span class="lineNum">     355 </span><span class="lineCov">     998842 :         vptr = hi-&gt;vptr;</span>
+<span class="lineNum">     356 </span>            : 
+<span class="lineNum">     357 </span><span class="lineCov">     998842 :         if (fptr == NULL) {</span>
+<span class="lineNum">     358 </span>            :             /* Initialize cursor */
+<span class="lineNum">     359 </span><span class="lineCov">     533091 :             serverAssert(vptr == NULL);</span>
+<span class="lineNum">     360 </span><span class="lineCov">     533091 :             fptr = ziplistIndex(zl, 0);</span>
+<span class="lineNum">     361 </span>            :         } else {
+<span class="lineNum">     362 </span>            :             /* Advance cursor */
+<span class="lineNum">     363 </span><span class="lineCov">     465751 :             serverAssert(vptr != NULL);</span>
+<span class="lineNum">     364 </span><span class="lineCov">     465751 :             fptr = ziplistNext(zl, vptr);</span>
+<span class="lineNum">     365 </span>            :         }
+<span class="lineNum">     366 </span><span class="lineCov">     998842 :         if (fptr == NULL) return C_ERR;</span>
+<span class="lineNum">     367 </span>            : 
+<span class="lineNum">     368 </span>            :         /* Grab pointer to the value (fptr points to the field) */
+<span class="lineNum">     369 </span><span class="lineCov">     465751 :         vptr = ziplistNext(zl, fptr);</span>
+<span class="lineNum">     370 </span><span class="lineCov">     465751 :         serverAssert(vptr != NULL);</span>
+<span class="lineNum">     371 </span>            : 
+<span class="lineNum">     372 </span>            :         /* fptr, vptr now point to the first or next pair */
+<span class="lineNum">     373 </span><span class="lineCov">     465751 :         hi-&gt;fptr = fptr;</span>
+<span class="lineNum">     374 </span><span class="lineCov">     465751 :         hi-&gt;vptr = vptr;</span>
+<span class="lineNum">     375 </span><span class="lineCov">     598265 :     } else if (hi-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     376 </span><span class="lineCov">     598265 :         if ((hi-&gt;de = dictNext(hi-&gt;di)) == NULL) return C_ERR;</span>
+<span class="lineNum">     377 </span>            :     } else {
+<span class="lineNum">     378 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     379 </span>            :     }
+<span class="lineNum">     380 </span>            :     return C_OK;
+<span class="lineNum">     381 </span>            : }
+<span class="lineNum">     382 </span>            : 
+<a name="383"><span class="lineNum">     383 </span>            : /* Get the field or value at iterator cursor, for an iterator on a hash value</a>
+<span class="lineNum">     384 </span>            :  * encoded as a ziplist. Prototype is similar to `hashTypeGetFromZiplist`. */
+<span class="lineNum">     385 </span><span class="lineCov">     931454 : void hashTypeCurrentFromZiplist(hashTypeIterator *hi, int what,</span>
+<span class="lineNum">     386 </span>            :                                 unsigned char **vstr,
+<span class="lineNum">     387 </span>            :                                 unsigned int *vlen,
+<span class="lineNum">     388 </span>            :                                 long long *vll)
+<span class="lineNum">     389 </span>            : {
+<span class="lineNum">     390 </span><span class="lineCov">     931454 :     int ret;</span>
+<span class="lineNum">     391 </span>            : 
+<span class="lineNum">     392 </span><span class="lineCov">     931454 :     serverAssert(hi-&gt;encoding == OBJ_ENCODING_ZIPLIST);</span>
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span><span class="lineCov">     931454 :     if (what &amp; OBJ_HASH_KEY) {</span>
+<span class="lineNum">     395 </span><span class="lineCov">     465727 :         ret = ziplistGet(hi-&gt;fptr, vstr, vlen, vll);</span>
+<span class="lineNum">     396 </span><span class="lineCov">     465727 :         serverAssert(ret);</span>
+<span class="lineNum">     397 </span>            :     } else {
+<span class="lineNum">     398 </span><span class="lineCov">     465727 :         ret = ziplistGet(hi-&gt;vptr, vstr, vlen, vll);</span>
+<span class="lineNum">     399 </span><span class="lineCov">     465727 :         serverAssert(ret);</span>
+<span class="lineNum">     400 </span>            :     }
+<span class="lineNum">     401 </span><span class="lineCov">     931454 : }</span>
+<span class="lineNum">     402 </span>            : 
+<span class="lineNum">     403 </span>            : /* Get the field or value at iterator cursor, for an iterator on a hash value
+<a name="404"><span class="lineNum">     404 </span>            :  * encoded as a hash table. Prototype is similar to</a>
+<span class="lineNum">     405 </span>            :  * `hashTypeGetFromHashTable`. */
+<span class="lineNum">     406 </span><span class="lineCov">     787808 : sds hashTypeCurrentFromHashTable(hashTypeIterator *hi, int what) {</span>
+<span class="lineNum">     407 </span><span class="lineCov">     787808 :     serverAssert(hi-&gt;encoding == OBJ_ENCODING_HT);</span>
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span><span class="lineCov">     787808 :     if (what &amp; OBJ_HASH_KEY) {</span>
+<span class="lineNum">     410 </span><span class="lineCov">     393904 :         return dictGetKey(hi-&gt;de);</span>
+<span class="lineNum">     411 </span>            :     } else {
+<span class="lineNum">     412 </span><span class="lineCov">     393904 :         return dictGetVal(hi-&gt;de);</span>
+<span class="lineNum">     413 </span>            :     }
+<span class="lineNum">     414 </span>            : }
+<span class="lineNum">     415 </span>            : 
+<span class="lineNum">     416 </span>            : /* Higher level function of hashTypeCurrent*() that returns the hash value
+<span class="lineNum">     417 </span>            :  * at current iterator position.
+<span class="lineNum">     418 </span>            :  *
+<span class="lineNum">     419 </span>            :  * The returned element is returned by reference in either *vstr and *vlen if
+<span class="lineNum">     420 </span>            :  * it's returned in string form, or stored in *vll if it's returned as
+<span class="lineNum">     421 </span>            :  * a number.
+<span class="lineNum">     422 </span>            :  *
+<span class="lineNum">     423 </span>            :  * If *vll is populated *vstr is set to NULL, so the caller
+<a name="424"><span class="lineNum">     424 </span>            :  * can always check the function return by checking the return value</a>
+<span class="lineNum">     425 </span>            :  * type checking if vstr == NULL. */
+<span class="lineNum">     426 </span><span class="lineCov">    1695134 : void hashTypeCurrentObject(hashTypeIterator *hi, int what, unsigned char **vstr, unsigned int *vlen, long long *vll) {</span>
+<span class="lineNum">     427 </span><span class="lineCov">    1695134 :     if (hi-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     428 </span><span class="lineCov">     931148 :         *vstr = NULL;</span>
+<span class="lineNum">     429 </span><span class="lineCov">     931148 :         hashTypeCurrentFromZiplist(hi, what, vstr, vlen, vll);</span>
+<span class="lineNum">     430 </span><span class="lineCov">     763986 :     } else if (hi-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     431 </span><span class="lineCov">     763986 :         sds ele = hashTypeCurrentFromHashTable(hi, what);</span>
+<span class="lineNum">     432 </span><span class="lineCov">     763986 :         *vstr = (unsigned char*) ele;</span>
+<span class="lineNum">     433 </span><span class="lineCov">    1527972 :         *vlen = sdslen(ele);</span>
+<span class="lineNum">     434 </span>            :     } else {
+<span class="lineNum">     435 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     436 </span>            :     }
+<span class="lineNum">     437 </span><span class="lineCov">    1695134 : }</span>
+<span class="lineNum">     438 </span>            : 
+<a name="439"><span class="lineNum">     439 </span>            : /* Return the key or value at the current iterator position as a new</a>
+<span class="lineNum">     440 </span>            :  * SDS string. */
+<span class="lineNum">     441 </span><span class="lineCov">    1695134 : sds hashTypeCurrentObjectNewSds(hashTypeIterator *hi, int what) {</span>
+<span class="lineNum">     442 </span><span class="lineCov">    1695134 :     unsigned char *vstr;</span>
+<span class="lineNum">     443 </span><span class="lineCov">    1695134 :     unsigned int vlen;</span>
+<span class="lineNum">     444 </span><span class="lineCov">    1695134 :     long long vll;</span>
+<span class="lineNum">     445 </span>            : 
+<span class="lineNum">     446 </span><span class="lineCov">    1695134 :     hashTypeCurrentObject(hi,what,&amp;vstr,&amp;vlen,&amp;vll);</span>
+<span class="lineNum">     447 </span><span class="lineCov">    1695134 :     if (vstr) return sdsnewlen(vstr,vlen);</span>
+<span class="lineNum">     448 </span><span class="lineCov">     781081 :     return sdsfromlonglong(vll);</span>
+<a name="449"><span class="lineNum">     449 </span>            : }</a>
+<span class="lineNum">     450 </span>            : 
+<span class="lineNum">     451 </span><span class="lineCov">     851364 : robj *hashTypeLookupWriteOrCreate(client *c, robj *key) {</span>
+<span class="lineNum">     452 </span><span class="lineCov">     851364 :     robj *o = lookupKeyWrite(c-&gt;db,key);</span>
+<span class="lineNum">     453 </span><span class="lineCov">     851364 :     if (o == NULL) {</span>
+<span class="lineNum">     454 </span><span class="lineCov">     455259 :         o = createHashObject();</span>
+<span class="lineNum">     455 </span><span class="lineCov">     455259 :         dbAdd(c-&gt;db,key,o);</span>
+<span class="lineNum">     456 </span>            :     } else {
+<span class="lineNum">     457 </span><span class="lineCov">     396105 :         if (o-&gt;type != OBJ_HASH) {</span>
+<span class="lineNum">     458 </span><span class="lineNoCov">          0 :             addReply(c,shared.wrongtypeerr);</span>
+<span class="lineNum">     459 </span><span class="lineNoCov">          0 :             return NULL;</span>
+<span class="lineNum">     460 </span>            :         }
+<span class="lineNum">     461 </span>            :     }
+<span class="lineNum">     462 </span>            :     return o;
+<a name="463"><span class="lineNum">     463 </span>            : }</a>
+<span class="lineNum">     464 </span>            : 
+<span class="lineNum">     465 </span><span class="lineCov">     176000 : void hashTypeConvertZiplist(robj *o, int enc) {</span>
+<span class="lineNum">     466 </span><span class="lineCov">     176000 :     serverAssert(o-&gt;encoding == OBJ_ENCODING_ZIPLIST);</span>
+<span class="lineNum">     467 </span>            : 
+<span class="lineNum">     468 </span><span class="lineCov">     176000 :     if (enc == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     469 </span>            :         /* Nothing to do... */
+<span class="lineNum">     470 </span>            : 
+<span class="lineNum">     471 </span><span class="lineCov">     176000 :     } else if (enc == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     472 </span><span class="lineCov">     176000 :         hashTypeIterator *hi;</span>
+<span class="lineNum">     473 </span><span class="lineCov">     176000 :         dict *dict;</span>
+<span class="lineNum">     474 </span><span class="lineCov">     176000 :         int ret;</span>
+<span class="lineNum">     475 </span>            : 
+<span class="lineNum">     476 </span><span class="lineCov">     176000 :         hi = hashTypeInitIterator(o);</span>
+<span class="lineNum">     477 </span><span class="lineCov">     176000 :         dict = dictCreate(&amp;hashDictType, NULL);</span>
+<span class="lineNum">     478 </span>            : 
+<span class="lineNum">     479 </span><span class="lineCov">     267686 :         while (hashTypeNext(hi) != C_ERR) {</span>
+<span class="lineNum">     480 </span><span class="lineCov">      91686 :             sds key, value;</span>
+<span class="lineNum">     481 </span>            : 
+<span class="lineNum">     482 </span><span class="lineCov">      91686 :             key = hashTypeCurrentObjectNewSds(hi,OBJ_HASH_KEY);</span>
+<span class="lineNum">     483 </span><span class="lineCov">      91686 :             value = hashTypeCurrentObjectNewSds(hi,OBJ_HASH_VALUE);</span>
+<span class="lineNum">     484 </span><span class="lineCov">      91686 :             ret = dictAdd(dict, key, value);</span>
+<span class="lineNum">     485 </span><span class="lineCov">      91686 :             if (ret != DICT_OK) {</span>
+<span class="lineNum">     486 </span><span class="lineNoCov">          0 :                 serverLogHexDump(LL_WARNING,&quot;ziplist with dup elements dump&quot;,</span>
+<span class="lineNum">     487 </span><span class="lineNoCov">          0 :                     o-&gt;ptr,ziplistBlobLen(o-&gt;ptr));</span>
+<span class="lineNum">     488 </span><span class="lineNoCov">          0 :                 serverPanic(&quot;Ziplist corruption detected&quot;);</span>
+<span class="lineNum">     489 </span>            :             }
+<span class="lineNum">     490 </span>            :         }
+<span class="lineNum">     491 </span><span class="lineCov">     176000 :         hashTypeReleaseIterator(hi);</span>
+<span class="lineNum">     492 </span><span class="lineCov">     176000 :         zfree(o-&gt;ptr);</span>
+<span class="lineNum">     493 </span><span class="lineCov">     176000 :         o-&gt;encoding = OBJ_ENCODING_HT;</span>
+<span class="lineNum">     494 </span><span class="lineCov">     176000 :         o-&gt;ptr = dict;</span>
+<span class="lineNum">     495 </span>            :     } else {
+<span class="lineNum">     496 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     497 </span>            :     }
+<a name="498"><span class="lineNum">     498 </span><span class="lineCov">     176000 : }</span></a>
+<span class="lineNum">     499 </span>            : 
+<span class="lineNum">     500 </span><span class="lineCov">     176000 : void hashTypeConvert(robj *o, int enc) {</span>
+<span class="lineNum">     501 </span><span class="lineCov">     176000 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     502 </span><span class="lineCov">     176000 :         hashTypeConvertZiplist(o, enc);</span>
+<span class="lineNum">     503 </span><span class="lineNoCov">          0 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     504 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Not implemented&quot;);</span>
+<span class="lineNum">     505 </span>            :     } else {
+<span class="lineNum">     506 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     507 </span>            :     }
+<span class="lineNum">     508 </span><span class="lineCov">     176000 : }</span>
+<span class="lineNum">     509 </span>            : 
+<span class="lineNum">     510 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     511 </span>            :  * Hash type commands
+<a name="512"><span class="lineNum">     512 </span>            :  *----------------------------------------------------------------------------*/</a>
+<span class="lineNum">     513 </span>            : 
+<span class="lineNum">     514 </span><span class="lineCov">         12 : void hsetnxCommand(client *c) {</span>
+<span class="lineNum">     515 </span><span class="lineCov">         12 :     robj *o;</span>
+<span class="lineNum">     516 </span><span class="lineCov">         12 :     if ((o = hashTypeLookupWriteOrCreate(c,c-&gt;argv[1])) == NULL) return;</span>
+<span class="lineNum">     517 </span><span class="lineCov">         12 :     hashTypeTryConversion(o,c-&gt;argv,2,3);</span>
+<span class="lineNum">     518 </span>            : 
+<span class="lineNum">     519 </span><span class="lineCov">         12 :     if (hashTypeExists(o, c-&gt;argv[2]-&gt;ptr)) {</span>
+<span class="lineNum">     520 </span><span class="lineCov">          6 :         addReply(c, shared.czero);</span>
+<span class="lineNum">     521 </span>            :     } else {
+<span class="lineNum">     522 </span><span class="lineCov">          6 :         hashTypeSet(o,c-&gt;argv[2]-&gt;ptr,c-&gt;argv[3]-&gt;ptr,HASH_SET_COPY);</span>
+<span class="lineNum">     523 </span><span class="lineCov">          6 :         addReply(c, shared.cone);</span>
+<span class="lineNum">     524 </span><span class="lineCov">          6 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     525 </span><span class="lineCov">          6 :         notifyKeyspaceEvent(NOTIFY_HASH,&quot;hset&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     526 </span><span class="lineCov">          6 :         server.dirty++;</span>
+<span class="lineNum">     527 </span>            :     }
+<a name="528"><span class="lineNum">     528 </span>            : }</a>
+<span class="lineNum">     529 </span>            : 
+<span class="lineNum">     530 </span><span class="lineCov">     851248 : void hsetCommand(client *c) {</span>
+<span class="lineNum">     531 </span><span class="lineCov">     851248 :     int i, created = 0;</span>
+<span class="lineNum">     532 </span><span class="lineCov">     851248 :     robj *o;</span>
+<span class="lineNum">     533 </span>            : 
+<span class="lineNum">     534 </span><span class="lineCov">     851248 :     if ((c-&gt;argc % 2) == 1) {</span>
+<span class="lineNum">     535 </span><span class="lineCov">          3 :         addReplyError(c,&quot;wrong number of arguments for HMSET&quot;);</span>
+<span class="lineNum">     536 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     537 </span>            :     }
+<span class="lineNum">     538 </span>            : 
+<span class="lineNum">     539 </span><span class="lineCov">     851245 :     if ((o = hashTypeLookupWriteOrCreate(c,c-&gt;argv[1])) == NULL) return;</span>
+<span class="lineNum">     540 </span><span class="lineCov">     851245 :     hashTypeTryConversion(o,c-&gt;argv,2,c-&gt;argc-1);</span>
+<span class="lineNum">     541 </span>            : 
+<span class="lineNum">     542 </span><span class="lineCov">    1754366 :     for (i = 2; i &lt; c-&gt;argc; i += 2)</span>
+<span class="lineNum">     543 </span><span class="lineCov">     903121 :         created += !hashTypeSet(o,c-&gt;argv[i]-&gt;ptr,c-&gt;argv[i+1]-&gt;ptr,HASH_SET_COPY);</span>
+<span class="lineNum">     544 </span>            : 
+<span class="lineNum">     545 </span>            :     /* HMSET (deprecated) and HSET return value is different. */
+<span class="lineNum">     546 </span><span class="lineCov">     851245 :     char *cmdname = c-&gt;argv[0]-&gt;ptr;</span>
+<span class="lineNum">     547 </span><span class="lineCov">     851245 :     if (cmdname[1] == 's' || cmdname[1] == 'S') {</span>
+<span class="lineNum">     548 </span>            :         /* HSET */
+<span class="lineNum">     549 </span><span class="lineCov">     850380 :         addReplyLongLong(c, created);</span>
+<span class="lineNum">     550 </span>            :     } else {
+<span class="lineNum">     551 </span>            :         /* HMSET */
+<span class="lineNum">     552 </span><span class="lineCov">        865 :         addReply(c, shared.ok);</span>
+<span class="lineNum">     553 </span>            :     }
+<span class="lineNum">     554 </span><span class="lineCov">     851245 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     555 </span><span class="lineCov">     851245 :     notifyKeyspaceEvent(NOTIFY_HASH,&quot;hset&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     556 </span><span class="lineCov">     851245 :     server.dirty++;</span>
+<a name="557"><span class="lineNum">     557 </span>            : }</a>
+<span class="lineNum">     558 </span>            : 
+<span class="lineNum">     559 </span><span class="lineCov">         53 : void hincrbyCommand(client *c) {</span>
+<span class="lineNum">     560 </span><span class="lineCov">         53 :     long long value, incr, oldvalue;</span>
+<span class="lineNum">     561 </span><span class="lineCov">         53 :     robj *o;</span>
+<span class="lineNum">     562 </span><span class="lineCov">         53 :     sds new;</span>
+<span class="lineNum">     563 </span><span class="lineCov">         53 :     unsigned char *vstr;</span>
+<span class="lineNum">     564 </span><span class="lineCov">         53 :     unsigned int vlen;</span>
+<span class="lineNum">     565 </span>            : 
+<span class="lineNum">     566 </span><span class="lineCov">         68 :     if (getLongLongFromObjectOrReply(c,c-&gt;argv[3],&amp;incr,NULL) != C_OK) return;</span>
+<span class="lineNum">     567 </span><span class="lineCov">         53 :     if ((o = hashTypeLookupWriteOrCreate(c,c-&gt;argv[1])) == NULL) return;</span>
+<span class="lineNum">     568 </span><span class="lineCov">         53 :     if (hashTypeGetValue(o,c-&gt;argv[2]-&gt;ptr,&amp;vstr,&amp;vlen,&amp;value) == C_OK) {</span>
+<span class="lineNum">     569 </span><span class="lineCov">         44 :         if (vstr) {</span>
+<span class="lineNum">     570 </span><span class="lineCov">         36 :             if (string2ll((char*)vstr,vlen,&amp;value) == 0) {</span>
+<span class="lineNum">     571 </span><span class="lineCov">         12 :                 addReplyError(c,&quot;hash value is not an integer&quot;);</span>
+<span class="lineNum">     572 </span><span class="lineCov">         12 :                 return;</span>
+<span class="lineNum">     573 </span>            :             }
+<span class="lineNum">     574 </span>            :         } /* Else hashTypeGetValue() already stored it into &amp;value */
+<span class="lineNum">     575 </span>            :     } else {
+<span class="lineNum">     576 </span><span class="lineCov">          9 :         value = 0;</span>
+<span class="lineNum">     577 </span>            :     }
+<span class="lineNum">     578 </span>            : 
+<span class="lineNum">     579 </span><span class="lineCov">         41 :     oldvalue = value;</span>
+<span class="lineNum">     580 </span><span class="lineCov">         41 :     if ((incr &lt; 0 &amp;&amp; oldvalue &lt; 0 &amp;&amp; incr &lt; (LLONG_MIN-oldvalue)) ||</span>
+<span class="lineNum">     581 </span><span class="lineCov">         35 :         (incr &gt; 0 &amp;&amp; oldvalue &gt; 0 &amp;&amp; incr &gt; (LLONG_MAX-oldvalue))) {</span>
+<span class="lineNum">     582 </span><span class="lineCov">          3 :         addReplyError(c,&quot;increment or decrement would overflow&quot;);</span>
+<span class="lineNum">     583 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     584 </span>            :     }
+<span class="lineNum">     585 </span><span class="lineCov">         38 :     value += incr;</span>
+<span class="lineNum">     586 </span><span class="lineCov">         38 :     new = sdsfromlonglong(value);</span>
+<span class="lineNum">     587 </span><span class="lineCov">         38 :     hashTypeSet(o,c-&gt;argv[2]-&gt;ptr,new,HASH_SET_TAKE_VALUE);</span>
+<span class="lineNum">     588 </span><span class="lineCov">         38 :     addReplyLongLong(c,value);</span>
+<span class="lineNum">     589 </span><span class="lineCov">         38 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     590 </span><span class="lineCov">         38 :     notifyKeyspaceEvent(NOTIFY_HASH,&quot;hincrby&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     591 </span><span class="lineCov">         38 :     server.dirty++;</span>
+<a name="592"><span class="lineNum">     592 </span>            : }</a>
+<span class="lineNum">     593 </span>            : 
+<span class="lineNum">     594 </span><span class="lineCov">         54 : void hincrbyfloatCommand(client *c) {</span>
+<span class="lineNum">     595 </span><span class="lineCov">         54 :     long double value, incr;</span>
+<span class="lineNum">     596 </span><span class="lineCov">         54 :     long long ll;</span>
+<span class="lineNum">     597 </span><span class="lineCov">         54 :     robj *o;</span>
+<span class="lineNum">     598 </span><span class="lineCov">         54 :     sds new;</span>
+<span class="lineNum">     599 </span><span class="lineCov">         54 :     unsigned char *vstr;</span>
+<span class="lineNum">     600 </span><span class="lineCov">         54 :     unsigned int vlen;</span>
+<span class="lineNum">     601 </span>            : 
+<span class="lineNum">     602 </span><span class="lineCov">         66 :     if (getLongDoubleFromObjectOrReply(c,c-&gt;argv[3],&amp;incr,NULL) != C_OK) return;</span>
+<span class="lineNum">     603 </span><span class="lineCov">         54 :     if ((o = hashTypeLookupWriteOrCreate(c,c-&gt;argv[1])) == NULL) return;</span>
+<span class="lineNum">     604 </span><span class="lineCov">         54 :     if (hashTypeGetValue(o,c-&gt;argv[2]-&gt;ptr,&amp;vstr,&amp;vlen,&amp;ll) == C_OK) {</span>
+<span class="lineNum">     605 </span><span class="lineCov">         42 :         if (vstr) {</span>
+<span class="lineNum">     606 </span><span class="lineCov">         39 :             if (string2ld((char*)vstr,vlen,&amp;value) == 0) {</span>
+<span class="lineNum">     607 </span><span class="lineCov">         12 :                 addReplyError(c,&quot;hash value is not a float&quot;);</span>
+<span class="lineNum">     608 </span><span class="lineCov">         12 :                 return;</span>
+<span class="lineNum">     609 </span>            :             }
+<span class="lineNum">     610 </span>            :         } else {
+<span class="lineNum">     611 </span><span class="lineCov">          3 :             value = (long double)ll;</span>
+<span class="lineNum">     612 </span>            :         }
+<span class="lineNum">     613 </span>            :     } else {
+<span class="lineNum">     614 </span><span class="lineCov">         12 :         value = 0;</span>
+<span class="lineNum">     615 </span>            :     }
+<span class="lineNum">     616 </span>            : 
+<span class="lineNum">     617 </span><span class="lineCov">         42 :     value += incr;</span>
+<span class="lineNum">     618 </span>            : 
+<span class="lineNum">     619 </span><span class="lineCov">         42 :     char buf[MAX_LONG_DOUBLE_CHARS];</span>
+<span class="lineNum">     620 </span><span class="lineCov">         42 :     int len = ld2string(buf,sizeof(buf),value,1);</span>
+<span class="lineNum">     621 </span><span class="lineCov">         42 :     new = sdsnewlen(buf,len);</span>
+<span class="lineNum">     622 </span><span class="lineCov">         42 :     hashTypeSet(o,c-&gt;argv[2]-&gt;ptr,new,HASH_SET_TAKE_VALUE);</span>
+<span class="lineNum">     623 </span><span class="lineCov">         42 :     addReplyBulkCBuffer(c,buf,len);</span>
+<span class="lineNum">     624 </span><span class="lineCov">         42 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     625 </span><span class="lineCov">         42 :     notifyKeyspaceEvent(NOTIFY_HASH,&quot;hincrbyfloat&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     626 </span><span class="lineCov">         42 :     server.dirty++;</span>
+<span class="lineNum">     627 </span>            : 
+<span class="lineNum">     628 </span>            :     /* Always replicate HINCRBYFLOAT as an HSET command with the final value
+<span class="lineNum">     629 </span>            :      * in order to make sure that differences in float pricision or formatting
+<span class="lineNum">     630 </span>            :      * will not create differences in replicas or after an AOF restart. */
+<span class="lineNum">     631 </span><span class="lineCov">         42 :     robj *aux, *newobj;</span>
+<span class="lineNum">     632 </span><span class="lineCov">         42 :     aux = createStringObject(&quot;HSET&quot;,4);</span>
+<span class="lineNum">     633 </span><span class="lineCov">         42 :     newobj = createRawStringObject(buf,len);</span>
+<span class="lineNum">     634 </span><span class="lineCov">         42 :     rewriteClientCommandArgument(c,0,aux);</span>
+<span class="lineNum">     635 </span><span class="lineCov">         42 :     decrRefCount(aux);</span>
+<span class="lineNum">     636 </span><span class="lineCov">         42 :     rewriteClientCommandArgument(c,3,newobj);</span>
+<span class="lineNum">     637 </span><span class="lineCov">         42 :     decrRefCount(newobj);</span>
+<a name="638"><span class="lineNum">     638 </span>            : }</a>
+<span class="lineNum">     639 </span>            : 
+<span class="lineNum">     640 </span><span class="lineCov">      31643 : static void addHashFieldToReply(client *c, robj *o, sds field) {</span>
+<span class="lineNum">     641 </span><span class="lineCov">      31643 :     int ret;</span>
+<span class="lineNum">     642 </span>            : 
+<span class="lineNum">     643 </span><span class="lineCov">      31643 :     if (o == NULL) {</span>
+<span class="lineNum">     644 </span><span class="lineCov">          6 :         addReply(c, shared.nullbulk);</span>
+<span class="lineNum">     645 </span><span class="lineCov">          6 :         return;</span>
+<span class="lineNum">     646 </span>            :     }
+<span class="lineNum">     647 </span>            : 
+<span class="lineNum">     648 </span><span class="lineCov">      31637 :     if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     649 </span><span class="lineCov">        119 :         unsigned char *vstr = NULL;</span>
+<span class="lineNum">     650 </span><span class="lineCov">        119 :         unsigned int vlen = UINT_MAX;</span>
+<span class="lineNum">     651 </span><span class="lineCov">        119 :         long long vll = LLONG_MAX;</span>
+<span class="lineNum">     652 </span>            : 
+<span class="lineNum">     653 </span><span class="lineCov">        119 :         ret = hashTypeGetFromZiplist(o, field, &amp;vstr, &amp;vlen, &amp;vll);</span>
+<span class="lineNum">     654 </span><span class="lineCov">        119 :         if (ret &lt; 0) {</span>
+<span class="lineNum">     655 </span><span class="lineCov">         12 :             addReply(c, shared.nullbulk);</span>
+<span class="lineNum">     656 </span>            :         } else {
+<span class="lineNum">     657 </span><span class="lineCov">        107 :             if (vstr) {</span>
+<span class="lineNum">     658 </span><span class="lineCov">         65 :                 addReplyBulkCBuffer(c, vstr, vlen);</span>
+<span class="lineNum">     659 </span>            :             } else {
+<span class="lineNum">     660 </span><span class="lineCov">         42 :                 addReplyBulkLongLong(c, vll);</span>
+<span class="lineNum">     661 </span>            :             }
+<span class="lineNum">     662 </span>            :         }
+<span class="lineNum">     663 </span>            : 
+<span class="lineNum">     664 </span><span class="lineCov">      31518 :     } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     665 </span><span class="lineCov">      31518 :         sds value = hashTypeGetFromHashTable(o, field);</span>
+<span class="lineNum">     666 </span><span class="lineCov">      31518 :         if (value == NULL)</span>
+<span class="lineNum">     667 </span><span class="lineCov">         12 :             addReply(c, shared.nullbulk);</span>
+<span class="lineNum">     668 </span>            :         else
+<span class="lineNum">     669 </span><span class="lineCov">      63012 :             addReplyBulkCBuffer(c, value, sdslen(value));</span>
+<span class="lineNum">     670 </span>            :     } else {
+<span class="lineNum">     671 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     672 </span>            :     }
+<a name="673"><span class="lineNum">     673 </span>            : }</a>
+<span class="lineNum">     674 </span>            : 
+<span class="lineNum">     675 </span><span class="lineCov">      28511 : void hgetCommand(client *c) {</span>
+<span class="lineNum">     676 </span><span class="lineCov">      28511 :     robj *o;</span>
+<span class="lineNum">     677 </span>            : 
+<span class="lineNum">     678 </span><span class="lineCov">      57022 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.nullbulk)) == NULL ||</span>
+<span class="lineNum">     679 </span><span class="lineCov">      28511 :         checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     680 </span>            : 
+<span class="lineNum">     681 </span><span class="lineCov">      28511 :     addHashFieldToReply(c, o, c-&gt;argv[2]-&gt;ptr);</span>
+<a name="682"><span class="lineNum">     682 </span>            : }</a>
+<span class="lineNum">     683 </span>            : 
+<span class="lineNum">     684 </span><span class="lineCov">         27 : void hmgetCommand(client *c) {</span>
+<span class="lineNum">     685 </span><span class="lineCov">         27 :     robj *o;</span>
+<span class="lineNum">     686 </span><span class="lineCov">         27 :     int i;</span>
+<span class="lineNum">     687 </span>            : 
+<span class="lineNum">     688 </span>            :     /* Don't abort when the key cannot be found. Non-existing keys are empty
+<span class="lineNum">     689 </span>            :      * hashes, where HMGET should respond with a series of null bulks. */
+<span class="lineNum">     690 </span><span class="lineCov">         27 :     o = lookupKeyRead(c-&gt;db, c-&gt;argv[1]);</span>
+<span class="lineNum">     691 </span><span class="lineCov">         27 :     if (o != NULL &amp;&amp; o-&gt;type != OBJ_HASH) {</span>
+<span class="lineNum">     692 </span><span class="lineCov">          3 :         addReply(c, shared.wrongtypeerr);</span>
+<span class="lineNum">     693 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     694 </span>            :     }
+<span class="lineNum">     695 </span>            : 
+<span class="lineNum">     696 </span><span class="lineCov">         24 :     addReplyMultiBulkLen(c, c-&gt;argc-2);</span>
+<span class="lineNum">     697 </span><span class="lineCov">       3156 :     for (i = 2; i &lt; c-&gt;argc; i++) {</span>
+<span class="lineNum">     698 </span><span class="lineCov">       3132 :         addHashFieldToReply(c, o, c-&gt;argv[i]-&gt;ptr);</span>
+<span class="lineNum">     699 </span>            :     }
+<a name="700"><span class="lineNum">     700 </span>            : }</a>
+<span class="lineNum">     701 </span>            : 
+<span class="lineNum">     702 </span><span class="lineCov">     235543 : void hdelCommand(client *c) {</span>
+<span class="lineNum">     703 </span><span class="lineCov">     235543 :     robj *o;</span>
+<span class="lineNum">     704 </span><span class="lineCov">     235543 :     int j, deleted = 0, keyremoved = 0;</span>
+<span class="lineNum">     705 </span>            : 
+<span class="lineNum">     706 </span><span class="lineCov">     471043 :     if ((o = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     707 </span><span class="lineCov">     235543 :         checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     708 </span>            : 
+<span class="lineNum">     709 </span><span class="lineCov">     258566 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     710 </span><span class="lineCov">     235515 :         if (hashTypeDelete(o,c-&gt;argv[j]-&gt;ptr)) {</span>
+<span class="lineNum">     711 </span><span class="lineCov">     212731 :             deleted++;</span>
+<span class="lineNum">     712 </span><span class="lineCov">     212731 :             if (hashTypeLength(o) == 0) {</span>
+<span class="lineNum">     713 </span><span class="lineCov">     212449 :                 dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     714 </span><span class="lineCov">     212449 :                 keyremoved = 1;</span>
+<span class="lineNum">     715 </span><span class="lineCov">     212449 :                 break;</span>
+<span class="lineNum">     716 </span>            :             }
+<span class="lineNum">     717 </span>            :         }
+<span class="lineNum">     718 </span>            :     }
+<span class="lineNum">     719 </span><span class="lineCov">     235500 :     if (deleted) {</span>
+<span class="lineNum">     720 </span><span class="lineCov">     212722 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     721 </span><span class="lineCov">     212722 :         notifyKeyspaceEvent(NOTIFY_HASH,&quot;hdel&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     722 </span><span class="lineCov">     212722 :         if (keyremoved)</span>
+<span class="lineNum">     723 </span><span class="lineCov">     424898 :             notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],</span>
+<span class="lineNum">     724 </span><span class="lineCov">     212449 :                                 c-&gt;db-&gt;id);</span>
+<span class="lineNum">     725 </span><span class="lineCov">     212722 :         server.dirty += deleted;</span>
+<span class="lineNum">     726 </span>            :     }
+<span class="lineNum">     727 </span><span class="lineCov">     235500 :     addReplyLongLong(c,deleted);</span>
+<a name="728"><span class="lineNum">     728 </span>            : }</a>
+<span class="lineNum">     729 </span>            : 
+<span class="lineNum">     730 </span><span class="lineCov">        135 : void hlenCommand(client *c) {</span>
+<span class="lineNum">     731 </span><span class="lineCov">        135 :     robj *o;</span>
+<span class="lineNum">     732 </span>            : 
+<span class="lineNum">     733 </span><span class="lineCov">        270 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     734 </span><span class="lineCov">        135 :         checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     735 </span>            : 
+<span class="lineNum">     736 </span><span class="lineCov">        135 :     addReplyLongLong(c,hashTypeLength(o));</span>
+<a name="737"><span class="lineNum">     737 </span>            : }</a>
+<span class="lineNum">     738 </span>            : 
+<span class="lineNum">     739 </span><span class="lineCov">       3138 : void hstrlenCommand(client *c) {</span>
+<span class="lineNum">     740 </span><span class="lineCov">       3138 :     robj *o;</span>
+<span class="lineNum">     741 </span>            : 
+<span class="lineNum">     742 </span><span class="lineCov">       6276 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     743 </span><span class="lineCov">       3138 :         checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     744 </span><span class="lineCov">       3138 :     addReplyLongLong(c,hashTypeGetValueLength(o,c-&gt;argv[2]-&gt;ptr));</span>
+<a name="745"><span class="lineNum">     745 </span>            : }</a>
+<span class="lineNum">     746 </span>            : 
+<span class="lineNum">     747 </span><span class="lineCov">      12474 : static void addHashIteratorCursorToReply(client *c, hashTypeIterator *hi, int what) {</span>
+<span class="lineNum">     748 </span><span class="lineCov">      12474 :     if (hi-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     749 </span><span class="lineCov">        186 :         unsigned char *vstr = NULL;</span>
+<span class="lineNum">     750 </span><span class="lineCov">        186 :         unsigned int vlen = UINT_MAX;</span>
+<span class="lineNum">     751 </span><span class="lineCov">        186 :         long long vll = LLONG_MAX;</span>
+<span class="lineNum">     752 </span>            : 
+<span class="lineNum">     753 </span><span class="lineCov">        186 :         hashTypeCurrentFromZiplist(hi, what, &amp;vstr, &amp;vlen, &amp;vll);</span>
+<span class="lineNum">     754 </span><span class="lineCov">        186 :         if (vstr)</span>
+<span class="lineNum">     755 </span><span class="lineCov">        141 :             addReplyBulkCBuffer(c, vstr, vlen);</span>
+<span class="lineNum">     756 </span>            :         else
+<span class="lineNum">     757 </span><span class="lineCov">         45 :             addReplyBulkLongLong(c, vll);</span>
+<span class="lineNum">     758 </span><span class="lineCov">      12288 :     } else if (hi-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     759 </span><span class="lineCov">      12288 :         sds value = hashTypeCurrentFromHashTable(hi, what);</span>
+<span class="lineNum">     760 </span><span class="lineCov">      24576 :         addReplyBulkCBuffer(c, value, sdslen(value));</span>
+<span class="lineNum">     761 </span>            :     } else {
+<span class="lineNum">     762 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     763 </span>            :     }
+<a name="764"><span class="lineNum">     764 </span><span class="lineCov">      12474 : }</span></a>
+<span class="lineNum">     765 </span>            : 
+<span class="lineNum">     766 </span><span class="lineCov">         27 : void genericHgetallCommand(client *c, int flags) {</span>
+<span class="lineNum">     767 </span><span class="lineCov">         27 :     robj *o;</span>
+<span class="lineNum">     768 </span><span class="lineCov">         27 :     hashTypeIterator *hi;</span>
+<span class="lineNum">     769 </span><span class="lineCov">         27 :     int multiplier = 0;</span>
+<span class="lineNum">     770 </span><span class="lineCov">         27 :     int length, count = 0;</span>
+<span class="lineNum">     771 </span>            : 
+<span class="lineNum">     772 </span><span class="lineCov">         27 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptymultibulk)) == NULL</span>
+<span class="lineNum">     773 </span><span class="lineCov">         27 :         || checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     774 </span>            : 
+<span class="lineNum">     775 </span><span class="lineCov">         27 :     if (flags &amp; OBJ_HASH_KEY) multiplier++;</span>
+<span class="lineNum">     776 </span><span class="lineCov">         27 :     if (flags &amp; OBJ_HASH_VALUE) multiplier++;</span>
+<span class="lineNum">     777 </span>            : 
+<span class="lineNum">     778 </span><span class="lineCov">         27 :     length = hashTypeLength(o) * multiplier;</span>
+<span class="lineNum">     779 </span><span class="lineCov">         27 :     addReplyMultiBulkLen(c, length);</span>
+<span class="lineNum">     780 </span>            : 
+<span class="lineNum">     781 </span><span class="lineCov">         27 :     hi = hashTypeInitIterator(o);</span>
+<span class="lineNum">     782 </span><span class="lineCov">       9387 :     while (hashTypeNext(hi) != C_ERR) {</span>
+<span class="lineNum">     783 </span><span class="lineCov">       9333 :         if (flags &amp; OBJ_HASH_KEY) {</span>
+<span class="lineNum">     784 </span><span class="lineCov">       6237 :             addHashIteratorCursorToReply(c, hi, OBJ_HASH_KEY);</span>
+<span class="lineNum">     785 </span><span class="lineCov">       6237 :             count++;</span>
+<span class="lineNum">     786 </span>            :         }
+<span class="lineNum">     787 </span><span class="lineCov">       9333 :         if (flags &amp; OBJ_HASH_VALUE) {</span>
+<span class="lineNum">     788 </span><span class="lineCov">       6237 :             addHashIteratorCursorToReply(c, hi, OBJ_HASH_VALUE);</span>
+<span class="lineNum">     789 </span><span class="lineCov">       6237 :             count++;</span>
+<span class="lineNum">     790 </span>            :         }
+<span class="lineNum">     791 </span>            :     }
+<span class="lineNum">     792 </span>            : 
+<span class="lineNum">     793 </span><span class="lineCov">         27 :     hashTypeReleaseIterator(hi);</span>
+<span class="lineNum">     794 </span><span class="lineCov">         27 :     serverAssert(count == length);</span>
+<a name="795"><span class="lineNum">     795 </span>            : }</a>
+<span class="lineNum">     796 </span>            : 
+<span class="lineNum">     797 </span><span class="lineCov">          6 : void hkeysCommand(client *c) {</span>
+<span class="lineNum">     798 </span><span class="lineCov">          6 :     genericHgetallCommand(c,OBJ_HASH_KEY);</span>
+<a name="799"><span class="lineNum">     799 </span><span class="lineCov">          6 : }</span></a>
+<span class="lineNum">     800 </span>            : 
+<span class="lineNum">     801 </span><span class="lineCov">          6 : void hvalsCommand(client *c) {</span>
+<span class="lineNum">     802 </span><span class="lineCov">          6 :     genericHgetallCommand(c,OBJ_HASH_VALUE);</span>
+<a name="803"><span class="lineNum">     803 </span><span class="lineCov">          6 : }</span></a>
+<span class="lineNum">     804 </span>            : 
+<span class="lineNum">     805 </span><span class="lineCov">         15 : void hgetallCommand(client *c) {</span>
+<span class="lineNum">     806 </span><span class="lineCov">         15 :     genericHgetallCommand(c,OBJ_HASH_KEY|OBJ_HASH_VALUE);</span>
+<a name="807"><span class="lineNum">     807 </span><span class="lineCov">         15 : }</span></a>
+<span class="lineNum">     808 </span>            : 
+<span class="lineNum">     809 </span><span class="lineCov">         12 : void hexistsCommand(client *c) {</span>
+<span class="lineNum">     810 </span><span class="lineCov">         12 :     robj *o;</span>
+<span class="lineNum">     811 </span><span class="lineCov">         24 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     812 </span><span class="lineCov">         12 :         checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     813 </span>            : 
+<span class="lineNum">     814 </span><span class="lineCov">         12 :     addReply(c, hashTypeExists(o,c-&gt;argv[2]-&gt;ptr) ? shared.cone : shared.czero);</span>
+<a name="815"><span class="lineNum">     815 </span>            : }</a>
+<span class="lineNum">     816 </span>            : 
+<span class="lineNum">     817 </span><span class="lineCov">        293 : void hscanCommand(client *c) {</span>
+<span class="lineNum">     818 </span><span class="lineCov">        293 :     robj *o;</span>
+<span class="lineNum">     819 </span><span class="lineCov">        293 :     unsigned long cursor;</span>
+<span class="lineNum">     820 </span>            : 
+<span class="lineNum">     821 </span><span class="lineCov">        293 :     if (parseScanCursorOrReply(c,c-&gt;argv[2],&amp;cursor) == C_ERR) return;</span>
+<span class="lineNum">     822 </span><span class="lineCov">        586 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptyscan)) == NULL ||</span>
+<span class="lineNum">     823 </span><span class="lineCov">        293 :         checkType(c,o,OBJ_HASH)) return;</span>
+<span class="lineNum">     824 </span><span class="lineCov">        293 :     scanGenericCommand(c,o,cursor);</span>
+<span class="lineNum">     825 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

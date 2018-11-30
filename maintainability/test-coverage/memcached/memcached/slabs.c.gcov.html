@@ -1,0 +1,1422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - memcached/slabs.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">memcached</a> - slabs.c<span style="font-size: 80%;"> (source / <a href="slabs.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">492</td>
+            <td class="headerCovTableEntry">681</td>
+            <td class="headerCovTableEntryLo">72.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:48:59</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntryLo">73.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* -*- Mode: C; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*- */</a>
+<span class="lineNum">       2 </span>            : /*
+<span class="lineNum">       3 </span>            :  * Slabs memory allocation, based on powers-of-N. Slabs are up to 1MB in size
+<span class="lineNum">       4 </span>            :  * and are divided into chunks. The chunk sizes start off at the size of the
+<span class="lineNum">       5 </span>            :  * &quot;item&quot; structure plus space for a small key and value. They increase by
+<span class="lineNum">       6 </span>            :  * a multiplier factor from there, up to half the maximum slab size. The last
+<span class="lineNum">       7 </span>            :  * slab size is always 1MB, since that's the maximum item size allowed by the
+<span class="lineNum">       8 </span>            :  * memcached protocol.
+<span class="lineNum">       9 </span>            :  */
+<span class="lineNum">      10 </span>            : #include &quot;memcached.h&quot;
+<span class="lineNum">      11 </span>            : #include &lt;sys/mman.h&gt;
+<span class="lineNum">      12 </span>            : #include &lt;sys/stat.h&gt;
+<span class="lineNum">      13 </span>            : #include &lt;sys/socket.h&gt;
+<span class="lineNum">      14 </span>            : #include &lt;sys/resource.h&gt;
+<span class="lineNum">      15 </span>            : #include &lt;fcntl.h&gt;
+<span class="lineNum">      16 </span>            : #include &lt;netinet/in.h&gt;
+<span class="lineNum">      17 </span>            : #include &lt;errno.h&gt;
+<span class="lineNum">      18 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      19 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      20 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      21 </span>            : #include &lt;signal.h&gt;
+<span class="lineNum">      22 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      23 </span>            : #include &lt;pthread.h&gt;
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            : //#define DEBUG_SLAB_MOVER
+<span class="lineNum">      26 </span>            : /* powers-of-N allocation structures */
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : typedef struct {
+<span class="lineNum">      29 </span>            :     unsigned int size;      /* sizes of items */
+<span class="lineNum">      30 </span>            :     unsigned int perslab;   /* how many items per slab */
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            :     void *slots;           /* list of item ptrs */
+<span class="lineNum">      33 </span>            :     unsigned int sl_curr;   /* total free items in list */
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            :     unsigned int slabs;     /* how many slabs were allocated for this class */
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            :     void **slab_list;       /* array of slab pointers */
+<span class="lineNum">      38 </span>            :     unsigned int list_size; /* size of prev array */
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            :     size_t requested; /* The number of requested bytes */
+<span class="lineNum">      41 </span>            : } slabclass_t;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : static slabclass_t slabclass[MAX_NUMBER_OF_SLAB_CLASSES];
+<span class="lineNum">      44 </span>            : static size_t mem_limit = 0;
+<span class="lineNum">      45 </span>            : static size_t mem_malloced = 0;
+<span class="lineNum">      46 </span>            : /* If the memory limit has been hit once. Used as a hint to decide when to
+<span class="lineNum">      47 </span>            :  * early-wake the LRU maintenance thread */
+<span class="lineNum">      48 </span>            : static bool mem_limit_reached = false;
+<span class="lineNum">      49 </span>            : static int power_largest;
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span>            : static void *mem_base = NULL;
+<span class="lineNum">      52 </span>            : static void *mem_current = NULL;
+<span class="lineNum">      53 </span>            : static size_t mem_avail = 0;
+<span class="lineNum">      54 </span>            : #ifdef EXTSTORE
+<span class="lineNum">      55 </span>            : static void *storage  = NULL;
+<span class="lineNum">      56 </span>            : #endif
+<span class="lineNum">      57 </span>            : /**
+<span class="lineNum">      58 </span>            :  * Access to the slab allocator is protected by this lock
+<span class="lineNum">      59 </span>            :  */
+<span class="lineNum">      60 </span>            : static pthread_mutex_t slabs_lock = PTHREAD_MUTEX_INITIALIZER;
+<span class="lineNum">      61 </span>            : static pthread_mutex_t slabs_rebalance_lock = PTHREAD_MUTEX_INITIALIZER;
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            : /*
+<span class="lineNum">      64 </span>            :  * Forward Declarations
+<span class="lineNum">      65 </span>            :  */
+<span class="lineNum">      66 </span>            : static int grow_slab_list (const unsigned int id);
+<span class="lineNum">      67 </span>            : static int do_slabs_newslab(const unsigned int id);
+<span class="lineNum">      68 </span>            : static void *memory_allocate(size_t size);
+<span class="lineNum">      69 </span>            : static void do_slabs_free(void *ptr, const size_t size, unsigned int id);
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            : /* Preallocate as many slab pages as possible (called from slabs_init)
+<span class="lineNum">      72 </span>            :    on start-up, so users don't get confused out-of-memory errors when
+<span class="lineNum">      73 </span>            :    they do have free (in-slab) space, but no space to make new slabs.
+<span class="lineNum">      74 </span>            :    if maxslabs is 18 (POWER_LARGEST - POWER_SMALLEST + 1), then all
+<span class="lineNum">      75 </span>            :    slab types can be made.  if max memory is less than 18 MB, only the
+<span class="lineNum">      76 </span>            :    smaller ones will be made.  */
+<span class="lineNum">      77 </span>            : static void slabs_preallocate (const unsigned int maxslabs);
+<span class="lineNum">      78 </span>            : #ifdef EXTSTORE
+<span class="lineNum">      79 </span>            : void slabs_set_storage(void *arg) {
+<span class="lineNum">      80 </span>            :     storage = arg;
+<span class="lineNum">      81 </span>            : }
+<span class="lineNum">      82 </span>            : #endif
+<span class="lineNum">      83 </span>            : /*
+<span class="lineNum">      84 </span>            :  * Figures out which slab class (chunk size) is required to store an item of
+<span class="lineNum">      85 </span>            :  * a given size.
+<span class="lineNum">      86 </span>            :  *
+<span class="lineNum">      87 </span>            :  * Given object size, return id to use when allocating/freeing memory for object
+<span class="lineNum">      88 </span>            :  * 0 means error: can't store such a large object
+<a name="89"><span class="lineNum">      89 </span>            :  */</a>
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span><span class="lineCov">     275025 : unsigned int slabs_clsid(const size_t size) {</span>
+<span class="lineNum">      92 </span><span class="lineCov">     275025 :     int res = POWER_SMALLEST;</span>
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span><span class="lineCov">     275025 :     if (size == 0 || size &gt; settings.item_size_max)</span>
+<span class="lineNum">      95 </span>            :         return 0;
+<span class="lineNum">      96 </span><span class="lineCov">    3771661 :     while (size &gt; slabclass[res].size)</span>
+<span class="lineNum">      97 </span><span class="lineCov">    3516277 :         if (res++ == power_largest)     /* won't fit in the biggest slab */</span>
+<span class="lineNum">      98 </span><span class="lineCov">      19633 :             return power_largest;</span>
+<span class="lineNum">      99 </span><span class="lineCov">     255384 :     return res;</span>
+<span class="lineNum">     100 </span>            : }
+<span class="lineNum">     101 </span>            : 
+<a name="102"><span class="lineNum">     102 </span>            : #if defined(__linux__) &amp;&amp; defined(MADV_HUGEPAGE)</a>
+<span class="lineNum">     103 </span>            : /* Function split out for better error path handling */
+<span class="lineNum">     104 </span><span class="lineNoCov">          0 : static void * alloc_large_chunk_linux(const size_t limit)</span>
+<span class="lineNum">     105 </span>            : {
+<span class="lineNum">     106 </span><span class="lineNoCov">          0 :     size_t pagesize = 0;</span>
+<span class="lineNum">     107 </span><span class="lineNoCov">          0 :     void *ptr = NULL;</span>
+<span class="lineNum">     108 </span><span class="lineNoCov">          0 :     FILE *fp;</span>
+<span class="lineNum">     109 </span><span class="lineNoCov">          0 :     int ret;</span>
+<span class="lineNum">     110 </span>            : 
+<span class="lineNum">     111 </span>            :     /* Get the size of huge pages */
+<span class="lineNum">     112 </span><span class="lineNoCov">          0 :     fp = fopen(&quot;/proc/meminfo&quot;, &quot;r&quot;);</span>
+<span class="lineNum">     113 </span><span class="lineNoCov">          0 :     if (fp != NULL) {</span>
+<span class="lineNum">     114 </span>            :         char buf[64];
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :         while ((fgets(buf, sizeof(buf), fp)))</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :             if (!strncmp(buf, &quot;Hugepagesize:&quot;, 13)) {</span>
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :                 ret = sscanf(buf + 13, &quot;%zu\n&quot;, &amp;pagesize);</span>
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            :                 /* meminfo huge page size is in KiBs */
+<span class="lineNum">     121 </span><span class="lineNoCov">          0 :                 pagesize &lt;&lt;= 10;</span>
+<span class="lineNum">     122 </span>            :             }
+<span class="lineNum">     123 </span><span class="lineNoCov">          0 :         fclose(fp);</span>
+<span class="lineNum">     124 </span>            :     }
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span><span class="lineNoCov">          0 :     if (!pagesize) {</span>
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to get supported huge page size\n&quot;);</span>
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">     129 </span>            :     }
+<span class="lineNum">     130 </span>            : 
+<span class="lineNum">     131 </span><span class="lineNoCov">          0 :     if (settings.verbose &gt; 1)</span>
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;huge page size: %zu\n&quot;, pagesize);</span>
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            :     /* This works because glibc simply uses mmap when the alignment is
+<span class="lineNum">     135 </span>            :      * above a certain limit. */
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :     ret = posix_memalign(&amp;ptr, pagesize, limit);</span>
+<span class="lineNum">     137 </span><span class="lineNoCov">          0 :     if (ret != 0) {</span>
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to get aligned memory chunk: %d\n&quot;, ret);</span>
+<span class="lineNum">     139 </span><span class="lineNoCov">          0 :         return NULL;</span>
+<span class="lineNum">     140 </span>            :     }
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :     ret = madvise(ptr, limit, MADV_HUGEPAGE);</span>
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 :     if (ret &lt; 0) {</span>
+<span class="lineNum">     144 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to set transparent hugepage hint: %d\n&quot;, ret);</span>
+<span class="lineNum">     145 </span><span class="lineNoCov">          0 :         free(ptr);</span>
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 :         ptr = NULL;</span>
+<span class="lineNum">     147 </span>            :     }
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            :     return ptr;
+<span class="lineNum">     150 </span>            : }
+<span class="lineNum">     151 </span>            : #endif
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span>            : /**
+<span class="lineNum">     154 </span>            :  * Determines the chunk sizes and initializes the slab class descriptors
+<a name="155"><span class="lineNum">     155 </span>            :  * accordingly.</a>
+<span class="lineNum">     156 </span>            :  */
+<span class="lineNum">     157 </span><span class="lineCov">         96 : void slabs_init(const size_t limit, const double factor, const bool prealloc, const uint32_t *slab_sizes) {</span>
+<span class="lineNum">     158 </span><span class="lineCov">         96 :     int i = POWER_SMALLEST - 1;</span>
+<span class="lineNum">     159 </span><span class="lineCov">         96 :     unsigned int size = sizeof(item) + settings.chunk_size;</span>
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span>            :     /* Some platforms use runtime transparent hugepages. If for any reason
+<span class="lineNum">     162 </span>            :      * the initial allocation fails, the required settings do not persist
+<span class="lineNum">     163 </span>            :      * for remaining allocations. As such it makes little sense to do slab
+<span class="lineNum">     164 </span>            :      * preallocation. */
+<span class="lineNum">     165 </span><span class="lineCov">         96 :     bool __attribute__ ((unused)) do_slab_prealloc = false;</span>
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span><span class="lineCov">         96 :     mem_limit = limit;</span>
+<span class="lineNum">     168 </span>            : 
+<span class="lineNum">     169 </span><span class="lineCov">         96 :     if (prealloc) {</span>
+<span class="lineNum">     170 </span>            : #if defined(__linux__) &amp;&amp; defined(MADV_HUGEPAGE)
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :         mem_base = alloc_large_chunk_linux(mem_limit);</span>
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :         if (mem_base)</span>
+<span class="lineNum">     173 </span><span class="lineNoCov">          0 :             do_slab_prealloc = true;</span>
+<span class="lineNum">     174 </span>            : #else
+<span class="lineNum">     175 </span>            :         /* Allocate everything in a big chunk with malloc */
+<span class="lineNum">     176 </span>            :         mem_base = malloc(mem_limit);
+<span class="lineNum">     177 </span>            :         do_slab_prealloc = true;
+<span class="lineNum">     178 </span>            : #endif
+<span class="lineNum">     179 </span><span class="lineNoCov">          0 :         if (mem_base != NULL) {</span>
+<span class="lineNum">     180 </span><span class="lineNoCov">          0 :             mem_current = mem_base;</span>
+<span class="lineNum">     181 </span><span class="lineNoCov">          0 :             mem_avail = mem_limit;</span>
+<span class="lineNum">     182 </span>            :         } else {
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 :             fprintf(stderr, &quot;Warning: Failed to allocate requested memory in&quot;</span>
+<span class="lineNum">     184 </span>            :                     &quot; one large chunk.\nWill allocate in smaller chunks\n&quot;);
+<span class="lineNum">     185 </span>            :         }
+<span class="lineNum">     186 </span>            :     }
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span><span class="lineCov">         96 :     memset(slabclass, 0, sizeof(slabclass));</span>
+<span class="lineNum">     189 </span>            : 
+<span class="lineNum">     190 </span><span class="lineCov">       3658 :     while (++i &lt; MAX_NUMBER_OF_SLAB_CLASSES-1) {</span>
+<span class="lineNum">     191 </span><span class="lineCov">       3658 :         if (slab_sizes != NULL) {</span>
+<span class="lineNum">     192 </span><span class="lineNoCov">          0 :             if (slab_sizes[i-1] == 0)</span>
+<span class="lineNum">     193 </span>            :                 break;
+<span class="lineNum">     194 </span>            :             size = slab_sizes[i-1];
+<span class="lineNum">     195 </span><span class="lineCov">       3658 :         } else if (size &gt;= settings.slab_chunk_size_max / factor) {</span>
+<span class="lineNum">     196 </span>            :             break;
+<span class="lineNum">     197 </span>            :         }
+<span class="lineNum">     198 </span>            :         /* Make sure items are always n-byte aligned */
+<span class="lineNum">     199 </span><span class="lineCov">       3562 :         if (size % CHUNK_ALIGN_BYTES)</span>
+<span class="lineNum">     200 </span><span class="lineCov">       2342 :             size += CHUNK_ALIGN_BYTES - (size % CHUNK_ALIGN_BYTES);</span>
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span><span class="lineCov">       3562 :         slabclass[i].size = size;</span>
+<span class="lineNum">     203 </span><span class="lineCov">       3562 :         slabclass[i].perslab = settings.slab_page_size / slabclass[i].size;</span>
+<span class="lineNum">     204 </span><span class="lineCov">       3562 :         if (slab_sizes == NULL)</span>
+<span class="lineNum">     205 </span><span class="lineCov">       3562 :             size *= factor;</span>
+<span class="lineNum">     206 </span><span class="lineCov">       3562 :         if (settings.verbose &gt; 1) {</span>
+<span class="lineNum">     207 </span><span class="lineCov">        114 :             fprintf(stderr, &quot;slab class %3d: chunk size %9u perslab %7u\n&quot;,</span>
+<span class="lineNum">     208 </span>            :                     i, slabclass[i].size, slabclass[i].perslab);
+<span class="lineNum">     209 </span>            :         }
+<span class="lineNum">     210 </span>            :     }
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span><span class="lineCov">         96 :     power_largest = i;</span>
+<span class="lineNum">     213 </span><span class="lineCov">         96 :     slabclass[power_largest].size = settings.slab_chunk_size_max;</span>
+<span class="lineNum">     214 </span><span class="lineCov">         96 :     slabclass[power_largest].perslab = settings.slab_page_size / settings.slab_chunk_size_max;</span>
+<span class="lineNum">     215 </span><span class="lineCov">         96 :     if (settings.verbose &gt; 1) {</span>
+<span class="lineNum">     216 </span><span class="lineCov">          3 :         fprintf(stderr, &quot;slab class %3d: chunk size %9u perslab %7u\n&quot;,</span>
+<span class="lineNum">     217 </span>            :                 i, slabclass[i].size, slabclass[i].perslab);
+<span class="lineNum">     218 </span>            :     }
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            :     /* for the test suite:  faking of how much we've already malloc'd */
+<span class="lineNum">     221 </span>            :     {
+<span class="lineNum">     222 </span><span class="lineCov">         96 :         char *t_initial_malloc = getenv(&quot;T_MEMD_INITIAL_MALLOC&quot;);</span>
+<span class="lineNum">     223 </span><span class="lineCov">         96 :         if (t_initial_malloc) {</span>
+<span class="lineNum">     224 </span><span class="lineCov">          1 :             mem_malloced = (size_t)atol(t_initial_malloc);</span>
+<span class="lineNum">     225 </span>            :         }
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            :     }
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span><span class="lineCov">         96 :     if (prealloc &amp;&amp; do_slab_prealloc) {</span>
+<span class="lineNum">     230 </span><span class="lineNoCov">          0 :         slabs_preallocate(power_largest);</span>
+<span class="lineNum">     231 </span>            :     }
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">         96 : }</span></a>
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 : void slabs_prefill_global(void) {</span>
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 :     void *ptr;</span>
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     slabclass_t *p = &amp;slabclass[0];</span>
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :     int len = settings.slab_page_size;</span>
+<span class="lineNum">     238 </span>            : 
+<span class="lineNum">     239 </span><span class="lineNoCov">          0 :     while (mem_malloced &lt; mem_limit</span>
+<span class="lineNum">     240 </span><span class="lineNoCov">          0 :             &amp;&amp; (ptr = memory_allocate(len)) != NULL) {</span>
+<span class="lineNum">     241 </span><span class="lineNoCov">          0 :         grow_slab_list(0);</span>
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :         p-&gt;slab_list[p-&gt;slabs++] = ptr;</span>
+<span class="lineNum">     243 </span>            :     }
+<span class="lineNum">     244 </span><span class="lineNoCov">          0 :     mem_limit_reached = true;</span>
+<a name="245"><span class="lineNum">     245 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     246 </span>            : 
+<span class="lineNum">     247 </span><span class="lineNoCov">          0 : static void slabs_preallocate (const unsigned int maxslabs) {</span>
+<span class="lineNum">     248 </span><span class="lineNoCov">          0 :     int i;</span>
+<span class="lineNum">     249 </span><span class="lineNoCov">          0 :     unsigned int prealloc = 0;</span>
+<span class="lineNum">     250 </span>            : 
+<span class="lineNum">     251 </span>            :     /* pre-allocate a 1MB slab in every size class so people don't get
+<span class="lineNum">     252 </span>            :        confused by non-intuitive &quot;SERVER_ERROR out of memory&quot;
+<span class="lineNum">     253 </span>            :        messages.  this is the most common question on the mailing
+<span class="lineNum">     254 </span>            :        list.  if you really don't want this, you can rebuild without
+<span class="lineNum">     255 </span>            :        these three lines.  */
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span><span class="lineNoCov">          0 :     for (i = POWER_SMALLEST; i &lt; MAX_NUMBER_OF_SLAB_CLASSES; i++) {</span>
+<span class="lineNum">     258 </span><span class="lineNoCov">          0 :         if (++prealloc &gt; maxslabs)</span>
+<span class="lineNum">     259 </span>            :             return;
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :         if (do_slabs_newslab(i) == 0) {</span>
+<span class="lineNum">     261 </span><span class="lineNoCov">          0 :             fprintf(stderr, &quot;Error while preallocating slab memory!\n&quot;</span>
+<span class="lineNum">     262 </span>            :                 &quot;If using -L or other prealloc options, max memory must be &quot;
+<span class="lineNum">     263 </span>            :                 &quot;at least %d megabytes.\n&quot;, power_largest);
+<span class="lineNum">     264 </span><span class="lineNoCov">          0 :             exit(1);</span>
+<span class="lineNum">     265 </span>            :         }
+<span class="lineNum">     266 </span>            :     }
+<a name="267"><span class="lineNum">     267 </span>            : }</a>
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span><span class="lineCov">        810 : static int grow_slab_list (const unsigned int id) {</span>
+<span class="lineNum">     270 </span><span class="lineCov">        810 :     slabclass_t *p = &amp;slabclass[id];</span>
+<span class="lineNum">     271 </span><span class="lineCov">        810 :     if (p-&gt;slabs == p-&gt;list_size) {</span>
+<span class="lineNum">     272 </span><span class="lineCov">        181 :         size_t new_size =  (p-&gt;list_size != 0) ? p-&gt;list_size * 2 : 16;</span>
+<span class="lineNum">     273 </span><span class="lineCov">        181 :         void *new_list = realloc(p-&gt;slab_list, new_size * sizeof(void *));</span>
+<span class="lineNum">     274 </span><span class="lineCov">        181 :         if (new_list == 0) return 0;</span>
+<span class="lineNum">     275 </span><span class="lineCov">        181 :         p-&gt;list_size = new_size;</span>
+<span class="lineNum">     276 </span><span class="lineCov">        181 :         p-&gt;slab_list = new_list;</span>
+<span class="lineNum">     277 </span>            :     }
+<span class="lineNum">     278 </span>            :     return 1;
+<span class="lineNum">     279 </span>            : }
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span>            : static void split_slab_page_into_freelist(char *ptr, const unsigned int id) {
+<span class="lineNum">     282 </span>            :     slabclass_t *p = &amp;slabclass[id];
+<span class="lineNum">     283 </span>            :     int x;
+<span class="lineNum">     284 </span><span class="lineCov">     659510 :     for (x = 0; x &lt; p-&gt;perslab; x++) {</span>
+<span class="lineNum">     285 </span><span class="lineCov">     658795 :         do_slabs_free(ptr, 0, id);</span>
+<span class="lineNum">     286 </span><span class="lineCov">     658795 :         ptr += p-&gt;size;</span>
+<span class="lineNum">     287 </span>            :     }
+<span class="lineNum">     288 </span>            : }
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span>            : /* Fast FIFO queue */
+<span class="lineNum">     291 </span>            : static void *get_page_from_global_pool(void) {
+<span class="lineNum">     292 </span><span class="lineCov">        723 :     slabclass_t *p = &amp;slabclass[SLAB_GLOBAL_PAGE_POOL];</span>
+<span class="lineNum">     293 </span><span class="lineCov">        723 :     if (p-&gt;slabs &lt; 1) {</span>
+<span class="lineNum">     294 </span>            :         return NULL;
+<span class="lineNum">     295 </span>            :     }
+<span class="lineNum">     296 </span><span class="lineCov">         88 :     char *ret = p-&gt;slab_list[p-&gt;slabs - 1];</span>
+<span class="lineNum">     297 </span><span class="lineCov">         88 :     p-&gt;slabs--;</span>
+<span class="lineNum">     298 </span><span class="lineCov">         88 :     return ret;</span>
+<a name="299"><span class="lineNum">     299 </span>            : }</a>
+<span class="lineNum">     300 </span>            : 
+<span class="lineNum">     301 </span><span class="lineCov">      28349 : static int do_slabs_newslab(const unsigned int id) {</span>
+<span class="lineNum">     302 </span><span class="lineCov">      28349 :     slabclass_t *p = &amp;slabclass[id];</span>
+<span class="lineNum">     303 </span><span class="lineCov">      28349 :     slabclass_t *g = &amp;slabclass[SLAB_GLOBAL_PAGE_POOL];</span>
+<span class="lineNum">     304 </span><span class="lineCov">        211 :     int len = (settings.slab_reassign || settings.slab_chunk_size_max != settings.slab_page_size)</span>
+<span class="lineNum">     305 </span>            :         ? settings.slab_page_size
+<span class="lineNum">     306 </span><span class="lineCov">      28560 :         : p-&gt;size * p-&gt;perslab;</span>
+<span class="lineNum">     307 </span><span class="lineCov">      28349 :     char *ptr;</span>
+<span class="lineNum">     308 </span>            : 
+<span class="lineNum">     309 </span><span class="lineCov">      28349 :     if ((mem_limit &amp;&amp; mem_malloced + len &gt; mem_limit &amp;&amp; p-&gt;slabs &gt; 0</span>
+<span class="lineNum">     310 </span><span class="lineCov">      27693 :          &amp;&amp; g-&gt;slabs == 0)) {</span>
+<span class="lineNum">     311 </span><span class="lineCov">      27636 :         mem_limit_reached = true;</span>
+<span class="lineNum">     312 </span><span class="lineCov">      27636 :         MEMCACHED_SLABS_SLABCLASS_ALLOCATE_FAILED(id);</span>
+<span class="lineNum">     313 </span><span class="lineCov">      27636 :         return 0;</span>
+<span class="lineNum">     314 </span>            :     }
+<span class="lineNum">     315 </span>            : 
+<span class="lineNum">     316 </span><span class="lineCov">        713 :     if ((grow_slab_list(id) == 0) ||</span>
+<span class="lineNum">     317 </span><span class="lineCov">        713 :         (((ptr = get_page_from_global_pool()) == NULL) &amp;&amp;</span>
+<span class="lineNum">     318 </span><span class="lineCov">        630 :         ((ptr = memory_allocate((size_t)len)) == 0))) {</span>
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :         MEMCACHED_SLABS_SLABCLASS_ALLOCATE_FAILED(id);</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :         return 0;</span>
+<span class="lineNum">     322 </span>            :     }
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span><span class="lineCov">        713 :     memset(ptr, 0, (size_t)len);</span>
+<span class="lineNum">     325 </span><span class="lineCov">        713 :     split_slab_page_into_freelist(ptr, id);</span>
+<span class="lineNum">     326 </span>            : 
+<span class="lineNum">     327 </span><span class="lineCov">        713 :     p-&gt;slab_list[p-&gt;slabs++] = ptr;</span>
+<span class="lineNum">     328 </span><span class="lineCov">        713 :     MEMCACHED_SLABS_SLABCLASS_ALLOCATE(id);</span>
+<span class="lineNum">     329 </span>            : 
+<span class="lineNum">     330 </span><span class="lineCov">        713 :     return 1;</span>
+<span class="lineNum">     331 </span>            : }
+<a name="332"><span class="lineNum">     332 </span>            : </a>
+<span class="lineNum">     333 </span>            : /*@null@*/
+<span class="lineNum">     334 </span><span class="lineCov">     285207 : static void *do_slabs_alloc(const size_t size, unsigned int id, uint64_t *total_bytes,</span>
+<span class="lineNum">     335 </span>            :         unsigned int flags) {
+<span class="lineNum">     336 </span><span class="lineCov">     285207 :     slabclass_t *p;</span>
+<span class="lineNum">     337 </span><span class="lineCov">     285207 :     void *ret = NULL;</span>
+<span class="lineNum">     338 </span><span class="lineCov">     285207 :     item *it = NULL;</span>
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span><span class="lineCov">     285207 :     if (id &lt; POWER_SMALLEST || id &gt; power_largest) {</span>
+<span class="lineNum">     341 </span>            :         MEMCACHED_SLABS_ALLOCATE_FAILED(size, 0);
+<span class="lineNum">     342 </span>            :         return NULL;
+<span class="lineNum">     343 </span>            :     }
+<span class="lineNum">     344 </span><span class="lineCov">     285207 :     p = &amp;slabclass[id];</span>
+<span class="lineNum">     345 </span><span class="lineCov">     285207 :     assert(p-&gt;sl_curr == 0 || ((item *)p-&gt;slots)-&gt;slabs_clsid == 0);</span>
+<span class="lineNum">     346 </span><span class="lineCov">     285207 :     if (total_bytes != NULL) {</span>
+<span class="lineNum">     347 </span><span class="lineCov">     283010 :         *total_bytes = p-&gt;requested;</span>
+<span class="lineNum">     348 </span>            :     }
+<span class="lineNum">     349 </span>            : 
+<span class="lineNum">     350 </span><span class="lineCov">     285207 :     assert(size &lt;= p-&gt;size);</span>
+<span class="lineNum">     351 </span>            :     /* fail unless we have space at the end of a recently allocated page,
+<span class="lineNum">     352 </span>            :        we have something on our freelist, or we could allocate a new page */
+<span class="lineNum">     353 </span><span class="lineCov">     285207 :     if (p-&gt;sl_curr == 0 &amp;&amp; flags != SLABS_ALLOC_NO_NEWPAGE) {</span>
+<span class="lineNum">     354 </span><span class="lineCov">      28349 :         do_slabs_newslab(id);</span>
+<span class="lineNum">     355 </span>            :     }
+<span class="lineNum">     356 </span>            : 
+<span class="lineNum">     357 </span><span class="lineCov">     285207 :     if (p-&gt;sl_curr != 0) {</span>
+<span class="lineNum">     358 </span>            :         /* return off our freelist */
+<span class="lineNum">     359 </span><span class="lineCov">     257153 :         it = (item *)p-&gt;slots;</span>
+<span class="lineNum">     360 </span><span class="lineCov">     257153 :         p-&gt;slots = it-&gt;next;</span>
+<span class="lineNum">     361 </span><span class="lineCov">     257153 :         if (it-&gt;next) it-&gt;next-&gt;prev = 0;</span>
+<span class="lineNum">     362 </span>            :         /* Kill flag and initialize refcount here for lock safety in slab
+<span class="lineNum">     363 </span>            :          * mover's freeness detection. */
+<span class="lineNum">     364 </span><span class="lineCov">     257153 :         it-&gt;it_flags &amp;= ~ITEM_SLABBED;</span>
+<span class="lineNum">     365 </span><span class="lineCov">     257153 :         it-&gt;refcount = 1;</span>
+<span class="lineNum">     366 </span><span class="lineCov">     257153 :         p-&gt;sl_curr--;</span>
+<span class="lineNum">     367 </span><span class="lineCov">     257153 :         ret = (void *)it;</span>
+<span class="lineNum">     368 </span>            :     } else {
+<span class="lineNum">     369 </span>            :         ret = NULL;
+<span class="lineNum">     370 </span>            :     }
+<span class="lineNum">     371 </span>            : 
+<span class="lineNum">     372 </span><span class="lineCov">     257153 :     if (ret) {</span>
+<span class="lineNum">     373 </span><span class="lineCov">     257153 :         p-&gt;requested += size;</span>
+<span class="lineNum">     374 </span><span class="lineCov">     257153 :         MEMCACHED_SLABS_ALLOCATE(size, id, p-&gt;size, ret);</span>
+<span class="lineNum">     375 </span>            :     } else {
+<span class="lineNum">     376 </span>            :         MEMCACHED_SLABS_ALLOCATE_FAILED(size, id);
+<span class="lineNum">     377 </span>            :     }
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span>            :     return ret;
+<a name="380"><span class="lineNum">     380 </span>            : }</a>
+<span class="lineNum">     381 </span>            : 
+<span class="lineNum">     382 </span><span class="lineNoCov">          0 : static void do_slabs_free_chunked(item *it, const size_t size) {</span>
+<span class="lineNum">     383 </span><span class="lineNoCov">          0 :     item_chunk *chunk = (item_chunk *) ITEM_schunk(it);</span>
+<span class="lineNum">     384 </span><span class="lineNoCov">          0 :     slabclass_t *p;</span>
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span><span class="lineNoCov">          0 :     it-&gt;it_flags = ITEM_SLABBED;</span>
+<span class="lineNum">     387 </span><span class="lineNoCov">          0 :     it-&gt;slabs_clsid = 0;</span>
+<span class="lineNum">     388 </span><span class="lineNoCov">          0 :     it-&gt;prev = 0;</span>
+<span class="lineNum">     389 </span>            :     // header object's original classid is stored in chunk.
+<span class="lineNum">     390 </span><span class="lineNoCov">          0 :     p = &amp;slabclass[chunk-&gt;orig_clsid];</span>
+<span class="lineNum">     391 </span><span class="lineNoCov">          0 :     if (chunk-&gt;next) {</span>
+<span class="lineNum">     392 </span><span class="lineNoCov">          0 :         chunk = chunk-&gt;next;</span>
+<span class="lineNum">     393 </span><span class="lineNoCov">          0 :         chunk-&gt;prev = 0;</span>
+<span class="lineNum">     394 </span>            :     } else {
+<span class="lineNum">     395 </span>            :         // header with no attached chunk
+<span class="lineNum">     396 </span>            :         chunk = NULL;
+<span class="lineNum">     397 </span>            :     }
+<span class="lineNum">     398 </span>            : 
+<span class="lineNum">     399 </span>            :     // return the header object.
+<span class="lineNum">     400 </span>            :     // TODO: This is in three places, here and in do_slabs_free().
+<span class="lineNum">     401 </span><span class="lineNoCov">          0 :     it-&gt;prev = 0;</span>
+<span class="lineNum">     402 </span><span class="lineNoCov">          0 :     it-&gt;next = p-&gt;slots;</span>
+<span class="lineNum">     403 </span><span class="lineNoCov">          0 :     if (it-&gt;next) it-&gt;next-&gt;prev = it;</span>
+<span class="lineNum">     404 </span><span class="lineNoCov">          0 :     p-&gt;slots = it;</span>
+<span class="lineNum">     405 </span><span class="lineNoCov">          0 :     p-&gt;sl_curr++;</span>
+<span class="lineNum">     406 </span>            :     // TODO: macro
+<span class="lineNum">     407 </span>            : #ifdef NEED_ALIGN
+<span class="lineNum">     408 </span>            :     int total = it-&gt;nkey + 1 + it-&gt;nsuffix + sizeof(item) + sizeof(item_chunk);
+<span class="lineNum">     409 </span>            :     if (total % 8 != 0) {
+<span class="lineNum">     410 </span>            :         total += 8 - (total % 8);
+<span class="lineNum">     411 </span>            :     }
+<span class="lineNum">     412 </span>            :     p-&gt;requested -= total;
+<span class="lineNum">     413 </span>            : #else
+<span class="lineNum">     414 </span><span class="lineNoCov">          0 :     p-&gt;requested -= it-&gt;nkey + 1 + it-&gt;nsuffix + sizeof(item) + sizeof(item_chunk);</span>
+<span class="lineNum">     415 </span>            : #endif
+<span class="lineNum">     416 </span><span class="lineNoCov">          0 :     if (settings.use_cas) {</span>
+<span class="lineNum">     417 </span><span class="lineNoCov">          0 :         p-&gt;requested -= sizeof(uint64_t);</span>
+<span class="lineNum">     418 </span>            :     }
+<span class="lineNum">     419 </span>            : 
+<span class="lineNum">     420 </span>            :     item_chunk *next_chunk;
+<span class="lineNum">     421 </span><span class="lineNoCov">          0 :     while (chunk) {</span>
+<span class="lineNum">     422 </span><span class="lineNoCov">          0 :         assert(chunk-&gt;it_flags == ITEM_CHUNK);</span>
+<span class="lineNum">     423 </span><span class="lineNoCov">          0 :         chunk-&gt;it_flags = ITEM_SLABBED;</span>
+<span class="lineNum">     424 </span><span class="lineNoCov">          0 :         p = &amp;slabclass[chunk-&gt;slabs_clsid];</span>
+<span class="lineNum">     425 </span><span class="lineNoCov">          0 :         chunk-&gt;slabs_clsid = 0;</span>
+<span class="lineNum">     426 </span><span class="lineNoCov">          0 :         next_chunk = chunk-&gt;next;</span>
+<span class="lineNum">     427 </span>            : 
+<span class="lineNum">     428 </span><span class="lineNoCov">          0 :         chunk-&gt;prev = 0;</span>
+<span class="lineNum">     429 </span><span class="lineNoCov">          0 :         chunk-&gt;next = p-&gt;slots;</span>
+<span class="lineNum">     430 </span><span class="lineNoCov">          0 :         if (chunk-&gt;next) chunk-&gt;next-&gt;prev = chunk;</span>
+<span class="lineNum">     431 </span><span class="lineNoCov">          0 :         p-&gt;slots = chunk;</span>
+<span class="lineNum">     432 </span><span class="lineNoCov">          0 :         p-&gt;sl_curr++;</span>
+<span class="lineNum">     433 </span><span class="lineNoCov">          0 :         p-&gt;requested -= chunk-&gt;size + sizeof(item_chunk);</span>
+<span class="lineNum">     434 </span>            : 
+<span class="lineNum">     435 </span><span class="lineNoCov">          0 :         chunk = next_chunk;</span>
+<span class="lineNum">     436 </span>            :     }
+<span class="lineNum">     437 </span>            : 
+<span class="lineNum">     438 </span><span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     439 </span>            : }
+<a name="440"><span class="lineNum">     440 </span>            : </a>
+<span class="lineNum">     441 </span>            : 
+<span class="lineNum">     442 </span><span class="lineCov">     738616 : static void do_slabs_free(void *ptr, const size_t size, unsigned int id) {</span>
+<span class="lineNum">     443 </span><span class="lineCov">     738616 :     slabclass_t *p;</span>
+<span class="lineNum">     444 </span><span class="lineCov">     738616 :     item *it;</span>
+<span class="lineNum">     445 </span>            : 
+<span class="lineNum">     446 </span><span class="lineCov">     738616 :     assert(id &gt;= POWER_SMALLEST &amp;&amp; id &lt;= power_largest);</span>
+<span class="lineNum">     447 </span><span class="lineCov">     738616 :     if (id &lt; POWER_SMALLEST || id &gt; power_largest)</span>
+<span class="lineNum">     448 </span>            :         return;
+<span class="lineNum">     449 </span>            : 
+<span class="lineNum">     450 </span><span class="lineCov">     738616 :     MEMCACHED_SLABS_FREE(size, id, ptr);</span>
+<span class="lineNum">     451 </span><span class="lineCov">     738616 :     p = &amp;slabclass[id];</span>
+<span class="lineNum">     452 </span>            : 
+<span class="lineNum">     453 </span><span class="lineCov">     738616 :     it = (item *)ptr;</span>
+<span class="lineNum">     454 </span><span class="lineCov">     738616 :     if ((it-&gt;it_flags &amp; ITEM_CHUNKED) == 0) {</span>
+<span class="lineNum">     455 </span>            : #ifdef EXTSTORE
+<span class="lineNum">     456 </span>            :         bool is_hdr = it-&gt;it_flags &amp; ITEM_HDR;
+<span class="lineNum">     457 </span>            : #endif
+<span class="lineNum">     458 </span><span class="lineCov">     722371 :         it-&gt;it_flags = ITEM_SLABBED;</span>
+<span class="lineNum">     459 </span><span class="lineCov">     722371 :         it-&gt;slabs_clsid = 0;</span>
+<span class="lineNum">     460 </span><span class="lineCov">     722371 :         it-&gt;prev = 0;</span>
+<span class="lineNum">     461 </span><span class="lineCov">     722371 :         it-&gt;next = p-&gt;slots;</span>
+<span class="lineNum">     462 </span><span class="lineCov">     722371 :         if (it-&gt;next) it-&gt;next-&gt;prev = it;</span>
+<span class="lineNum">     463 </span><span class="lineCov">     722371 :         p-&gt;slots = it;</span>
+<span class="lineNum">     464 </span>            : 
+<span class="lineNum">     465 </span><span class="lineCov">     722371 :         p-&gt;sl_curr++;</span>
+<span class="lineNum">     466 </span>            : #ifdef EXTSTORE
+<span class="lineNum">     467 </span>            :         if (!is_hdr) {
+<span class="lineNum">     468 </span>            :             p-&gt;requested -= size;
+<span class="lineNum">     469 </span>            :         } else {
+<span class="lineNum">     470 </span>            :             p-&gt;requested -= (size - it-&gt;nbytes) + sizeof(item_hdr);
+<span class="lineNum">     471 </span>            :         }
+<span class="lineNum">     472 </span>            : #else
+<span class="lineNum">     473 </span><span class="lineCov">     722371 :         p-&gt;requested -= size;</span>
+<span class="lineNum">     474 </span>            : #endif
+<span class="lineNum">     475 </span>            :     } else {
+<span class="lineNum">     476 </span><span class="lineCov">      16245 :         do_slabs_free_chunked(it, size);</span>
+<span class="lineNum">     477 </span>            :     }
+<span class="lineNum">     478 </span>            :     return;
+<span class="lineNum">     479 </span>            : }
+<span class="lineNum">     480 </span>            : 
+<span class="lineNum">     481 </span>            : /* With refactoring of the various stats code the automover won't need a
+<a name="482"><span class="lineNum">     482 </span>            :  * custom function here.</a>
+<span class="lineNum">     483 </span>            :  */
+<span class="lineNum">     484 </span><span class="lineCov">        356 : void fill_slab_stats_automove(slab_stats_automove *am) {</span>
+<span class="lineNum">     485 </span><span class="lineCov">        356 :     int n;</span>
+<span class="lineNum">     486 </span><span class="lineCov">        356 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     487 </span><span class="lineCov">      23140 :     for (n = 0; n &lt; MAX_NUMBER_OF_SLAB_CLASSES; n++) {</span>
+<span class="lineNum">     488 </span><span class="lineCov">      22784 :         slabclass_t *p = &amp;slabclass[n];</span>
+<span class="lineNum">     489 </span><span class="lineCov">      22784 :         slab_stats_automove *cur = &amp;am[n];</span>
+<span class="lineNum">     490 </span><span class="lineCov">      22784 :         cur-&gt;chunks_per_page = p-&gt;perslab;</span>
+<span class="lineNum">     491 </span><span class="lineCov">      22784 :         cur-&gt;free_chunks = p-&gt;sl_curr;</span>
+<span class="lineNum">     492 </span><span class="lineCov">      22784 :         cur-&gt;total_pages = p-&gt;slabs;</span>
+<span class="lineNum">     493 </span><span class="lineCov">      22784 :         cur-&gt;chunk_size = p-&gt;size;</span>
+<span class="lineNum">     494 </span>            :     }
+<span class="lineNum">     495 </span><span class="lineCov">        356 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     496 </span><span class="lineCov">        356 : }</span>
+<span class="lineNum">     497 </span>            : 
+<span class="lineNum">     498 </span>            : /* TODO: slabs_available_chunks should grow up to encompass this.
+<a name="499"><span class="lineNum">     499 </span>            :  * mem_flag is redundant with the other function.</a>
+<span class="lineNum">     500 </span>            :  */
+<span class="lineNum">     501 </span><span class="lineNoCov">          0 : unsigned int global_page_pool_size(bool *mem_flag) {</span>
+<span class="lineNum">     502 </span><span class="lineNoCov">          0 :     unsigned int ret = 0;</span>
+<span class="lineNum">     503 </span><span class="lineNoCov">          0 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     504 </span><span class="lineNoCov">          0 :     if (mem_flag != NULL)</span>
+<span class="lineNum">     505 </span><span class="lineNoCov">          0 :         *mem_flag = mem_malloced &gt;= mem_limit ? true : false;</span>
+<span class="lineNum">     506 </span><span class="lineNoCov">          0 :     ret = slabclass[SLAB_GLOBAL_PAGE_POOL].slabs;</span>
+<span class="lineNum">     507 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     508 </span><span class="lineNoCov">          0 :     return ret;</span>
+<a name="509"><span class="lineNum">     509 </span>            : }</a>
+<span class="lineNum">     510 </span>            : 
+<span class="lineNum">     511 </span><span class="lineCov">         63 : static int nz_strcmp(int nzlength, const char *nz, const char *z) {</span>
+<span class="lineNum">     512 </span><span class="lineCov">         63 :     int zlength=strlen(z);</span>
+<span class="lineNum">     513 </span><span class="lineCov">         63 :     return (zlength == nzlength) &amp;&amp; (strncmp(nz, z, zlength) == 0) ? 0 : -1;</span>
+<a name="514"><span class="lineNum">     514 </span>            : }</a>
+<span class="lineNum">     515 </span>            : 
+<span class="lineNum">     516 </span><span class="lineCov">       2790 : bool get_stats(const char *stat_type, int nkey, ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     517 </span><span class="lineCov">       2790 :     bool ret = true;</span>
+<span class="lineNum">     518 </span>            : 
+<span class="lineNum">     519 </span><span class="lineCov">       2790 :     if (add_stats != NULL) {</span>
+<span class="lineNum">     520 </span><span class="lineCov">       2790 :         if (!stat_type) {</span>
+<span class="lineNum">     521 </span>            :             /* prepare general statistics for the engine */
+<span class="lineNum">     522 </span><span class="lineCov">       2753 :             STATS_LOCK();</span>
+<span class="lineNum">     523 </span><span class="lineCov">       2753 :             APPEND_STAT(&quot;bytes&quot;, &quot;%llu&quot;, (unsigned long long)stats_state.curr_bytes);</span>
+<span class="lineNum">     524 </span><span class="lineCov">       2753 :             APPEND_STAT(&quot;curr_items&quot;, &quot;%llu&quot;, (unsigned long long)stats_state.curr_items);</span>
+<span class="lineNum">     525 </span><span class="lineCov">       2753 :             APPEND_STAT(&quot;total_items&quot;, &quot;%llu&quot;, (unsigned long long)stats.total_items);</span>
+<span class="lineNum">     526 </span><span class="lineCov">       2753 :             STATS_UNLOCK();</span>
+<span class="lineNum">     527 </span><span class="lineCov">       2753 :             pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     528 </span><span class="lineCov">       2753 :             APPEND_STAT(&quot;slab_global_page_pool&quot;, &quot;%u&quot;, slabclass[SLAB_GLOBAL_PAGE_POOL].slabs);</span>
+<span class="lineNum">     529 </span><span class="lineCov">       2753 :             pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     530 </span><span class="lineCov">       2753 :             item_stats_totals(add_stats, c);</span>
+<span class="lineNum">     531 </span><span class="lineCov">         37 :         } else if (nz_strcmp(nkey, stat_type, &quot;items&quot;) == 0) {</span>
+<span class="lineNum">     532 </span><span class="lineCov">         11 :             item_stats(add_stats, c);</span>
+<span class="lineNum">     533 </span><span class="lineCov">         26 :         } else if (nz_strcmp(nkey, stat_type, &quot;slabs&quot;) == 0) {</span>
+<span class="lineNum">     534 </span><span class="lineCov">         26 :             slabs_stats(add_stats, c);</span>
+<span class="lineNum">     535 </span><span class="lineNoCov">          0 :         } else if (nz_strcmp(nkey, stat_type, &quot;sizes&quot;) == 0) {</span>
+<span class="lineNum">     536 </span><span class="lineNoCov">          0 :             item_stats_sizes(add_stats, c);</span>
+<span class="lineNum">     537 </span><span class="lineNoCov">          0 :         } else if (nz_strcmp(nkey, stat_type, &quot;sizes_enable&quot;) == 0) {</span>
+<span class="lineNum">     538 </span><span class="lineNoCov">          0 :             item_stats_sizes_enable(add_stats, c);</span>
+<span class="lineNum">     539 </span><span class="lineNoCov">          0 :         } else if (nz_strcmp(nkey, stat_type, &quot;sizes_disable&quot;) == 0) {</span>
+<span class="lineNum">     540 </span><span class="lineNoCov">          0 :             item_stats_sizes_disable(add_stats, c);</span>
+<span class="lineNum">     541 </span>            :         } else {
+<span class="lineNum">     542 </span>            :             ret = false;
+<span class="lineNum">     543 </span>            :         }
+<span class="lineNum">     544 </span>            :     } else {
+<span class="lineNum">     545 </span>            :         ret = false;
+<span class="lineNum">     546 </span>            :     }
+<span class="lineNum">     547 </span>            : 
+<span class="lineNum">     548 </span><span class="lineCov">       2790 :     return ret;</span>
+<span class="lineNum">     549 </span>            : }
+<a name="550"><span class="lineNum">     550 </span>            : </a>
+<span class="lineNum">     551 </span>            : /*@null@*/
+<span class="lineNum">     552 </span><span class="lineCov">         26 : static void do_slabs_stats(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     553 </span><span class="lineCov">         26 :     int i, total;</span>
+<span class="lineNum">     554 </span>            :     /* Get the per-thread stats which contain some interesting aggregates */
+<span class="lineNum">     555 </span><span class="lineCov">         26 :     struct thread_stats thread_stats;</span>
+<span class="lineNum">     556 </span><span class="lineCov">         26 :     threadlocal_stats_aggregate(&amp;thread_stats);</span>
+<span class="lineNum">     557 </span>            : 
+<span class="lineNum">     558 </span><span class="lineCov">         26 :     total = 0;</span>
+<span class="lineNum">     559 </span><span class="lineCov">       1030 :     for(i = POWER_SMALLEST; i &lt;= power_largest; i++) {</span>
+<span class="lineNum">     560 </span><span class="lineCov">       1004 :         slabclass_t *p = &amp;slabclass[i];</span>
+<span class="lineNum">     561 </span><span class="lineCov">       1004 :         if (p-&gt;slabs != 0) {</span>
+<span class="lineNum">     562 </span><span class="lineCov">         72 :             uint32_t perslab, slabs;</span>
+<span class="lineNum">     563 </span><span class="lineCov">         72 :             slabs = p-&gt;slabs;</span>
+<span class="lineNum">     564 </span><span class="lineCov">         72 :             perslab = p-&gt;perslab;</span>
+<span class="lineNum">     565 </span>            : 
+<span class="lineNum">     566 </span><span class="lineCov">         72 :             char key_str[STAT_KEY_LEN];</span>
+<span class="lineNum">     567 </span><span class="lineCov">         72 :             char val_str[STAT_VAL_LEN];</span>
+<span class="lineNum">     568 </span><span class="lineCov">         72 :             int klen = 0, vlen = 0;</span>
+<span class="lineNum">     569 </span>            : 
+<span class="lineNum">     570 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;chunk_size&quot;, &quot;%u&quot;, p-&gt;size);</span>
+<span class="lineNum">     571 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;chunks_per_page&quot;, &quot;%u&quot;, perslab);</span>
+<span class="lineNum">     572 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;total_pages&quot;, &quot;%u&quot;, slabs);</span>
+<span class="lineNum">     573 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;total_chunks&quot;, &quot;%u&quot;, slabs * perslab);</span>
+<span class="lineNum">     574 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;used_chunks&quot;, &quot;%u&quot;,</span>
+<span class="lineNum">     575 </span><span class="lineCov">         72 :                             slabs*perslab - p-&gt;sl_curr);</span>
+<span class="lineNum">     576 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;free_chunks&quot;, &quot;%u&quot;, p-&gt;sl_curr);</span>
+<span class="lineNum">     577 </span>            :             /* Stat is dead, but displaying zero instead of removing it. */
+<span class="lineNum">     578 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;free_chunks_end&quot;, &quot;%u&quot;, 0);</span>
+<span class="lineNum">     579 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;mem_requested&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     580 </span><span class="lineCov">         72 :                             (unsigned long long)p-&gt;requested);</span>
+<span class="lineNum">     581 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;get_hits&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     582 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].get_hits);</span>
+<span class="lineNum">     583 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;cmd_set&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     584 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].set_cmds);</span>
+<span class="lineNum">     585 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;delete_hits&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     586 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].delete_hits);</span>
+<span class="lineNum">     587 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;incr_hits&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     588 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].incr_hits);</span>
+<span class="lineNum">     589 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;decr_hits&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     590 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].decr_hits);</span>
+<span class="lineNum">     591 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;cas_hits&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     592 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].cas_hits);</span>
+<span class="lineNum">     593 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;cas_badval&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     594 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].cas_badval);</span>
+<span class="lineNum">     595 </span><span class="lineCov">        216 :             APPEND_NUM_STAT(i, &quot;touch_hits&quot;, &quot;%llu&quot;,</span>
+<span class="lineNum">     596 </span><span class="lineCov">         72 :                     (unsigned long long)thread_stats.slab_stats[i].touch_hits);</span>
+<span class="lineNum">     597 </span><span class="lineCov">         72 :             total++;</span>
+<span class="lineNum">     598 </span>            :         }
+<span class="lineNum">     599 </span>            :     }
+<span class="lineNum">     600 </span>            : 
+<span class="lineNum">     601 </span>            :     /* add overall slab stats and append terminator */
+<span class="lineNum">     602 </span>            : 
+<span class="lineNum">     603 </span><span class="lineCov">         26 :     APPEND_STAT(&quot;active_slabs&quot;, &quot;%d&quot;, total);</span>
+<span class="lineNum">     604 </span><span class="lineCov">         26 :     APPEND_STAT(&quot;total_malloced&quot;, &quot;%llu&quot;, (unsigned long long)mem_malloced);</span>
+<span class="lineNum">     605 </span><span class="lineCov">         26 :     add_stats(NULL, 0, NULL, 0, c);</span>
+<a name="606"><span class="lineNum">     606 </span><span class="lineCov">         26 : }</span></a>
+<span class="lineNum">     607 </span>            : 
+<span class="lineNum">     608 </span><span class="lineCov">        630 : static void *memory_allocate(size_t size) {</span>
+<span class="lineNum">     609 </span><span class="lineCov">        630 :     void *ret;</span>
+<span class="lineNum">     610 </span>            : 
+<span class="lineNum">     611 </span><span class="lineCov">        630 :     if (mem_base == NULL) {</span>
+<span class="lineNum">     612 </span>            :         /* We are not using a preallocated large memory chunk */
+<span class="lineNum">     613 </span><span class="lineCov">        630 :         ret = malloc(size);</span>
+<span class="lineNum">     614 </span>            :     } else {
+<span class="lineNum">     615 </span><span class="lineNoCov">          0 :         ret = mem_current;</span>
+<span class="lineNum">     616 </span>            : 
+<span class="lineNum">     617 </span><span class="lineNoCov">          0 :         if (size &gt; mem_avail) {</span>
+<span class="lineNum">     618 </span>            :             return NULL;
+<span class="lineNum">     619 </span>            :         }
+<span class="lineNum">     620 </span>            : 
+<span class="lineNum">     621 </span>            :         /* mem_current pointer _must_ be aligned!!! */
+<span class="lineNum">     622 </span><span class="lineNoCov">          0 :         if (size % CHUNK_ALIGN_BYTES) {</span>
+<span class="lineNum">     623 </span><span class="lineNoCov">          0 :             size += CHUNK_ALIGN_BYTES - (size % CHUNK_ALIGN_BYTES);</span>
+<span class="lineNum">     624 </span>            :         }
+<span class="lineNum">     625 </span>            : 
+<span class="lineNum">     626 </span><span class="lineNoCov">          0 :         mem_current = ((char*)mem_current) + size;</span>
+<span class="lineNum">     627 </span><span class="lineNoCov">          0 :         if (size &lt; mem_avail) {</span>
+<span class="lineNum">     628 </span><span class="lineNoCov">          0 :             mem_avail -= size;</span>
+<span class="lineNum">     629 </span>            :         } else {
+<span class="lineNum">     630 </span><span class="lineNoCov">          0 :             mem_avail = 0;</span>
+<span class="lineNum">     631 </span>            :         }
+<span class="lineNum">     632 </span>            :     }
+<span class="lineNum">     633 </span><span class="lineCov">        630 :     mem_malloced += size;</span>
+<span class="lineNum">     634 </span>            : 
+<span class="lineNum">     635 </span><span class="lineCov">        630 :     return ret;</span>
+<span class="lineNum">     636 </span>            : }
+<a name="637"><span class="lineNum">     637 </span>            : </a>
+<span class="lineNum">     638 </span>            : /* Must only be used if all pages are item_size_max */
+<span class="lineNum">     639 </span><span class="lineCov">         97 : static void memory_release() {</span>
+<span class="lineNum">     640 </span><span class="lineCov">         97 :     void *p = NULL;</span>
+<span class="lineNum">     641 </span><span class="lineCov">         97 :     if (mem_base != NULL)</span>
+<span class="lineNum">     642 </span>            :         return;
+<span class="lineNum">     643 </span>            : 
+<span class="lineNum">     644 </span><span class="lineCov">         97 :     if (!settings.slab_reassign)</span>
+<span class="lineNum">     645 </span>            :         return;
+<span class="lineNum">     646 </span>            : 
+<span class="lineNum">     647 </span><span class="lineCov">        102 :     while (mem_malloced &gt; mem_limit &amp;&amp;</span>
+<span class="lineNum">     648 </span><span class="lineCov">         10 :             (p = get_page_from_global_pool()) != NULL) {</span>
+<span class="lineNum">     649 </span><span class="lineCov">          5 :         free(p);</span>
+<span class="lineNum">     650 </span><span class="lineCov">          5 :         mem_malloced -= settings.slab_page_size;</span>
+<span class="lineNum">     651 </span>            :     }
+<a name="652"><span class="lineNum">     652 </span>            : }</a>
+<span class="lineNum">     653 </span>            : 
+<span class="lineNum">     654 </span><span class="lineCov">     283010 : void *slabs_alloc(size_t size, unsigned int id, uint64_t *total_bytes,</span>
+<span class="lineNum">     655 </span>            :         unsigned int flags) {
+<span class="lineNum">     656 </span><span class="lineCov">     283010 :     void *ret;</span>
+<span class="lineNum">     657 </span>            : 
+<span class="lineNum">     658 </span><span class="lineCov">     283010 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     659 </span><span class="lineCov">     283010 :     ret = do_slabs_alloc(size, id, total_bytes, flags);</span>
+<span class="lineNum">     660 </span><span class="lineCov">     283010 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     661 </span><span class="lineCov">     283010 :     return ret;</span>
+<a name="662"><span class="lineNum">     662 </span>            : }</a>
+<span class="lineNum">     663 </span>            : 
+<span class="lineNum">     664 </span><span class="lineCov">      79821 : void slabs_free(void *ptr, size_t size, unsigned int id) {</span>
+<span class="lineNum">     665 </span><span class="lineCov">      79821 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     666 </span><span class="lineCov">      79821 :     do_slabs_free(ptr, size, id);</span>
+<span class="lineNum">     667 </span><span class="lineCov">      79821 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<a name="668"><span class="lineNum">     668 </span><span class="lineCov">      79821 : }</span></a>
+<span class="lineNum">     669 </span>            : 
+<span class="lineNum">     670 </span><span class="lineCov">         26 : void slabs_stats(ADD_STAT add_stats, void *c) {</span>
+<span class="lineNum">     671 </span><span class="lineCov">         26 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     672 </span><span class="lineCov">         26 :     do_slabs_stats(add_stats, c);</span>
+<span class="lineNum">     673 </span><span class="lineCov">         26 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     674 </span><span class="lineCov">         26 : }</span>
+<span class="lineNum">     675 </span>            : 
+<span class="lineNum">     676 </span>            : static bool do_slabs_adjust_mem_limit(size_t new_mem_limit) {
+<span class="lineNum">     677 </span>            :     /* Cannot adjust memory limit at runtime if prealloc'ed */
+<span class="lineNum">     678 </span><span class="lineCov">          3 :     if (mem_base != NULL)</span>
+<span class="lineNum">     679 </span>            :         return false;
+<span class="lineNum">     680 </span><span class="lineCov">          3 :     settings.maxbytes = new_mem_limit;</span>
+<span class="lineNum">     681 </span><span class="lineCov">          3 :     mem_limit = new_mem_limit;</span>
+<span class="lineNum">     682 </span><span class="lineCov">          3 :     mem_limit_reached = false; /* Will reset on next alloc */</span>
+<span class="lineNum">     683 </span><span class="lineCov">          3 :     memory_release(); /* free what might already be in the global pool */</span>
+<span class="lineNum">     684 </span><span class="lineCov">          3 :     return true;</span>
+<a name="685"><span class="lineNum">     685 </span>            : }</a>
+<span class="lineNum">     686 </span>            : 
+<span class="lineNum">     687 </span><span class="lineCov">          3 : bool slabs_adjust_mem_limit(size_t new_mem_limit) {</span>
+<span class="lineNum">     688 </span><span class="lineCov">          3 :     bool ret;</span>
+<span class="lineNum">     689 </span><span class="lineCov">          3 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     690 </span><span class="lineCov">          3 :     ret = do_slabs_adjust_mem_limit(new_mem_limit);</span>
+<span class="lineNum">     691 </span><span class="lineCov">          3 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     692 </span><span class="lineCov">          3 :     return ret;</span>
+<a name="693"><span class="lineNum">     693 </span>            : }</a>
+<span class="lineNum">     694 </span>            : 
+<span class="lineNum">     695 </span><span class="lineNoCov">          0 : void slabs_adjust_mem_requested(unsigned int id, size_t old, size_t ntotal)</span>
+<span class="lineNum">     696 </span>            : {
+<span class="lineNum">     697 </span><span class="lineNoCov">          0 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     698 </span><span class="lineNoCov">          0 :     slabclass_t *p;</span>
+<span class="lineNum">     699 </span><span class="lineNoCov">          0 :     if (id &lt; POWER_SMALLEST || id &gt; power_largest) {</span>
+<span class="lineNum">     700 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Internal error! Invalid slab class\n&quot;);</span>
+<span class="lineNum">     701 </span><span class="lineNoCov">          0 :         abort();</span>
+<span class="lineNum">     702 </span>            :     }
+<span class="lineNum">     703 </span>            : 
+<span class="lineNum">     704 </span><span class="lineNoCov">          0 :     p = &amp;slabclass[id];</span>
+<span class="lineNum">     705 </span><span class="lineNoCov">          0 :     p-&gt;requested = p-&gt;requested - old + ntotal;</span>
+<span class="lineNum">     706 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<a name="707"><span class="lineNum">     707 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     708 </span>            : 
+<span class="lineNum">     709 </span><span class="lineCov">     224322 : unsigned int slabs_available_chunks(const unsigned int id, bool *mem_flag,</span>
+<span class="lineNum">     710 </span>            :         uint64_t *total_bytes, unsigned int *chunks_perslab) {
+<span class="lineNum">     711 </span><span class="lineCov">     224322 :     unsigned int ret;</span>
+<span class="lineNum">     712 </span><span class="lineCov">     224322 :     slabclass_t *p;</span>
+<span class="lineNum">     713 </span>            : 
+<span class="lineNum">     714 </span><span class="lineCov">     224322 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     715 </span><span class="lineCov">     224322 :     p = &amp;slabclass[id];</span>
+<span class="lineNum">     716 </span><span class="lineCov">     224322 :     ret = p-&gt;sl_curr;</span>
+<span class="lineNum">     717 </span><span class="lineCov">     224322 :     if (mem_flag != NULL)</span>
+<span class="lineNum">     718 </span><span class="lineNoCov">          0 :         *mem_flag = mem_malloced &gt;= mem_limit ? true : false;</span>
+<span class="lineNum">     719 </span><span class="lineCov">     224322 :     if (total_bytes != NULL)</span>
+<span class="lineNum">     720 </span><span class="lineCov">     224322 :         *total_bytes = p-&gt;requested;</span>
+<span class="lineNum">     721 </span><span class="lineCov">     224322 :     if (chunks_perslab != NULL)</span>
+<span class="lineNum">     722 </span><span class="lineCov">     224322 :         *chunks_perslab = p-&gt;perslab;</span>
+<span class="lineNum">     723 </span><span class="lineCov">     224322 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     724 </span><span class="lineCov">     224322 :     return ret;</span>
+<span class="lineNum">     725 </span>            : }
+<span class="lineNum">     726 </span>            : 
+<span class="lineNum">     727 </span>            : /* The slabber system could avoid needing to understand much, if anything,
+<span class="lineNum">     728 </span>            :  * about items if callbacks were strategically used. Due to how the slab mover
+<span class="lineNum">     729 </span>            :  * works, certain flag bits can only be adjusted while holding the slabs lock.
+<span class="lineNum">     730 </span>            :  * Using these functions, isolate sections of code needing this and turn them
+<a name="731"><span class="lineNum">     731 </span>            :  * into callbacks when an interface becomes more obvious.</a>
+<span class="lineNum">     732 </span>            :  */
+<span class="lineNum">     733 </span><span class="lineCov">     136171 : void slabs_mlock(void) {</span>
+<span class="lineNum">     734 </span><span class="lineCov">     136171 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<a name="735"><span class="lineNum">     735 </span><span class="lineCov">     136171 : }</span></a>
+<span class="lineNum">     736 </span>            : 
+<span class="lineNum">     737 </span><span class="lineCov">     136171 : void slabs_munlock(void) {</span>
+<span class="lineNum">     738 </span><span class="lineCov">     136171 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     739 </span><span class="lineCov">     136171 : }</span>
+<span class="lineNum">     740 </span>            : 
+<span class="lineNum">     741 </span>            : static pthread_cond_t slab_rebalance_cond = PTHREAD_COND_INITIALIZER;
+<span class="lineNum">     742 </span>            : static volatile int do_run_slab_thread = 1;
+<span class="lineNum">     743 </span>            : static volatile int do_run_slab_rebalance_thread = 1;
+<span class="lineNum">     744 </span>            : 
+<span class="lineNum">     745 </span>            : #define DEFAULT_SLAB_BULK_CHECK 1
+<a name="746"><span class="lineNum">     746 </span>            : int slab_bulk_check = DEFAULT_SLAB_BULK_CHECK;</a>
+<span class="lineNum">     747 </span>            : 
+<span class="lineNum">     748 </span><span class="lineCov">         97 : static int slab_rebalance_start(void) {</span>
+<span class="lineNum">     749 </span><span class="lineCov">         97 :     slabclass_t *s_cls;</span>
+<span class="lineNum">     750 </span><span class="lineCov">         97 :     int no_go = 0;</span>
+<span class="lineNum">     751 </span>            : 
+<span class="lineNum">     752 </span><span class="lineCov">         97 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     753 </span>            : 
+<span class="lineNum">     754 </span><span class="lineCov">         97 :     if (slab_rebal.s_clsid &lt; SLAB_GLOBAL_PAGE_POOL ||</span>
+<span class="lineNum">     755 </span><span class="lineCov">         97 :         slab_rebal.s_clsid &gt; power_largest  ||</span>
+<span class="lineNum">     756 </span><span class="lineCov">         97 :         slab_rebal.d_clsid &lt; SLAB_GLOBAL_PAGE_POOL ||</span>
+<span class="lineNum">     757 </span><span class="lineCov">         97 :         slab_rebal.d_clsid &gt; power_largest  ||</span>
+<span class="lineNum">     758 </span>            :         slab_rebal.s_clsid == slab_rebal.d_clsid)
+<span class="lineNum">     759 </span><span class="lineNoCov">          0 :         no_go = -2;</span>
+<span class="lineNum">     760 </span>            : 
+<span class="lineNum">     761 </span><span class="lineCov">         97 :     s_cls = &amp;slabclass[slab_rebal.s_clsid];</span>
+<span class="lineNum">     762 </span>            : 
+<span class="lineNum">     763 </span><span class="lineCov">         97 :     if (!grow_slab_list(slab_rebal.d_clsid)) {</span>
+<span class="lineNum">     764 </span><span class="lineNoCov">          0 :         no_go = -1;</span>
+<span class="lineNum">     765 </span>            :     }
+<span class="lineNum">     766 </span>            : 
+<span class="lineNum">     767 </span><span class="lineCov">         97 :     if (s_cls-&gt;slabs &lt; 2)</span>
+<span class="lineNum">     768 </span>            :         no_go = -3;
+<span class="lineNum">     769 </span>            : 
+<span class="lineNum">     770 </span><span class="lineCov">         97 :     if (no_go != 0) {</span>
+<span class="lineNum">     771 </span><span class="lineNoCov">          0 :         pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     772 </span><span class="lineNoCov">          0 :         return no_go; /* Should use a wrapper function... */</span>
+<span class="lineNum">     773 </span>            :     }
+<span class="lineNum">     774 </span>            : 
+<span class="lineNum">     775 </span>            :     /* Always kill the first available slab page as it is most likely to
+<span class="lineNum">     776 </span>            :      * contain the oldest items
+<span class="lineNum">     777 </span>            :      */
+<span class="lineNum">     778 </span><span class="lineCov">         97 :     slab_rebal.slab_start = s_cls-&gt;slab_list[0];</span>
+<span class="lineNum">     779 </span><span class="lineCov">        194 :     slab_rebal.slab_end   = (char *)slab_rebal.slab_start +</span>
+<span class="lineNum">     780 </span><span class="lineCov">         97 :         (s_cls-&gt;size * s_cls-&gt;perslab);</span>
+<span class="lineNum">     781 </span><span class="lineCov">         97 :     slab_rebal.slab_pos   = slab_rebal.slab_start;</span>
+<span class="lineNum">     782 </span><span class="lineCov">         97 :     slab_rebal.done       = 0;</span>
+<span class="lineNum">     783 </span>            :     // Don't need to do chunk move work if page is in global pool.
+<span class="lineNum">     784 </span><span class="lineCov">         97 :     if (slab_rebal.s_clsid == SLAB_GLOBAL_PAGE_POOL) {</span>
+<span class="lineNum">     785 </span><span class="lineNoCov">          0 :         slab_rebal.done = 1;</span>
+<span class="lineNum">     786 </span>            :     }
+<span class="lineNum">     787 </span>            : 
+<span class="lineNum">     788 </span><span class="lineCov">         97 :     slab_rebalance_signal = 2;</span>
+<span class="lineNum">     789 </span>            : 
+<span class="lineNum">     790 </span><span class="lineCov">         97 :     if (settings.verbose &gt; 1) {</span>
+<span class="lineNum">     791 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Started a slab rebalance\n&quot;);</span>
+<span class="lineNum">     792 </span>            :     }
+<span class="lineNum">     793 </span>            : 
+<span class="lineNum">     794 </span><span class="lineCov">         97 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     795 </span>            : 
+<span class="lineNum">     796 </span><span class="lineCov">         97 :     STATS_LOCK();</span>
+<span class="lineNum">     797 </span><span class="lineCov">         97 :     stats_state.slab_reassign_running = true;</span>
+<span class="lineNum">     798 </span><span class="lineCov">         97 :     STATS_UNLOCK();</span>
+<span class="lineNum">     799 </span>            : 
+<span class="lineNum">     800 </span><span class="lineCov">         97 :     return 0;</span>
+<span class="lineNum">     801 </span>            : }
+<a name="802"><span class="lineNum">     802 </span>            : </a>
+<span class="lineNum">     803 </span>            : /* CALLED WITH slabs_lock HELD */
+<span class="lineNum">     804 </span><span class="lineCov">       1783 : static void *slab_rebalance_alloc(const size_t size, unsigned int id) {</span>
+<span class="lineNum">     805 </span><span class="lineCov">       1783 :     slabclass_t *s_cls;</span>
+<span class="lineNum">     806 </span><span class="lineCov">       1783 :     s_cls = &amp;slabclass[slab_rebal.s_clsid];</span>
+<span class="lineNum">     807 </span><span class="lineCov">       1783 :     int x;</span>
+<span class="lineNum">     808 </span><span class="lineCov">       1783 :     item *new_it = NULL;</span>
+<span class="lineNum">     809 </span>            : 
+<span class="lineNum">     810 </span><span class="lineCov">       2197 :     for (x = 0; x &lt; s_cls-&gt;perslab; x++) {</span>
+<span class="lineNum">     811 </span><span class="lineCov">       2197 :         new_it = do_slabs_alloc(size, id, NULL, SLABS_ALLOC_NO_NEWPAGE);</span>
+<span class="lineNum">     812 </span>            :         /* check that memory isn't within the range to clear */
+<span class="lineNum">     813 </span><span class="lineCov">       2197 :         if (new_it == NULL) {</span>
+<span class="lineNum">     814 </span>            :             break;
+<span class="lineNum">     815 </span>            :         }
+<span class="lineNum">     816 </span><span class="lineCov">       1779 :         if ((void *)new_it &gt;= slab_rebal.slab_start</span>
+<span class="lineNum">     817 </span><span class="lineCov">        414 :             &amp;&amp; (void *)new_it &lt; slab_rebal.slab_end) {</span>
+<span class="lineNum">     818 </span>            :             /* Pulled something we intend to free. Mark it as freed since
+<span class="lineNum">     819 </span>            :              * we've already done the work of unlinking it from the freelist.
+<span class="lineNum">     820 </span>            :              */
+<span class="lineNum">     821 </span><span class="lineCov">        414 :             s_cls-&gt;requested -= size;</span>
+<span class="lineNum">     822 </span><span class="lineCov">        414 :             new_it-&gt;refcount = 0;</span>
+<span class="lineNum">     823 </span><span class="lineCov">        414 :             new_it-&gt;it_flags = ITEM_SLABBED|ITEM_FETCHED;</span>
+<span class="lineNum">     824 </span>            : #ifdef DEBUG_SLAB_MOVER
+<span class="lineNum">     825 </span>            :             memcpy(ITEM_key(new_it), &quot;deadbeef&quot;, 8);
+<span class="lineNum">     826 </span>            : #endif
+<span class="lineNum">     827 </span><span class="lineCov">        414 :             new_it = NULL;</span>
+<span class="lineNum">     828 </span><span class="lineCov">        414 :             slab_rebal.inline_reclaim++;</span>
+<span class="lineNum">     829 </span>            :         } else {
+<span class="lineNum">     830 </span>            :             break;
+<span class="lineNum">     831 </span>            :         }
+<span class="lineNum">     832 </span>            :     }
+<span class="lineNum">     833 </span><span class="lineCov">       1783 :     return new_it;</span>
+<span class="lineNum">     834 </span>            : }
+<span class="lineNum">     835 </span>            : 
+<a name="836"><span class="lineNum">     836 </span>            : /* CALLED WITH slabs_lock HELD */</a>
+<span class="lineNum">     837 </span>            : /* detaches item/chunk from freelist. */
+<span class="lineNum">     838 </span><span class="lineNoCov">          0 : static void slab_rebalance_cut_free(slabclass_t *s_cls, item *it) {</span>
+<span class="lineNum">     839 </span>            :     /* Ensure this was on the freelist and nothing else. */
+<span class="lineNum">     840 </span><span class="lineNoCov">          0 :     assert(it-&gt;it_flags == ITEM_SLABBED);</span>
+<span class="lineNum">     841 </span><span class="lineNoCov">          0 :     if (s_cls-&gt;slots == it) {</span>
+<span class="lineNum">     842 </span><span class="lineNoCov">          0 :         s_cls-&gt;slots = it-&gt;next;</span>
+<span class="lineNum">     843 </span>            :     }
+<span class="lineNum">     844 </span><span class="lineNoCov">          0 :     if (it-&gt;next) it-&gt;next-&gt;prev = it-&gt;prev;</span>
+<span class="lineNum">     845 </span><span class="lineNoCov">          0 :     if (it-&gt;prev) it-&gt;prev-&gt;next = it-&gt;next;</span>
+<span class="lineNum">     846 </span><span class="lineNoCov">          0 :     s_cls-&gt;sl_curr--;</span>
+<span class="lineNum">     847 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     848 </span>            : 
+<span class="lineNum">     849 </span>            : enum move_status {
+<span class="lineNum">     850 </span>            :     MOVE_PASS=0, MOVE_FROM_SLAB, MOVE_FROM_LRU, MOVE_BUSY, MOVE_LOCKED
+<span class="lineNum">     851 </span>            : };
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span>            : #define SLAB_MOVE_MAX_LOOPS 1000
+<span class="lineNum">     854 </span>            : 
+<span class="lineNum">     855 </span>            : /* refcount == 0 is safe since nobody can incr while item_lock is held.
+<span class="lineNum">     856 </span>            :  * refcount != 0 is impossible since flags/etc can be modified in other
+<span class="lineNum">     857 </span>            :  * threads. instead, note we found a busy one and bail. logic in do_item_get
+<span class="lineNum">     858 </span>            :  * will prevent busy items from continuing to be busy
+<span class="lineNum">     859 </span>            :  * NOTE: This is checking it_flags outside of an item lock. I believe this
+<span class="lineNum">     860 </span>            :  * works since it_flags is 8 bits, and we're only ever comparing a single bit
+<span class="lineNum">     861 </span>            :  * regardless. ITEM_SLABBED bit will always be correct since we're holding the
+<span class="lineNum">     862 </span>            :  * lock which modifies that bit. ITEM_LINKED won't exist if we're between an
+<span class="lineNum">     863 </span>            :  * item having ITEM_SLABBED removed, and the key hasn't been added to the item
+<span class="lineNum">     864 </span>            :  * yet. The memory barrier from the slabs lock should order the key write and the
+<span class="lineNum">     865 </span>            :  * flags to the item?
+<span class="lineNum">     866 </span>            :  * If ITEM_LINKED did exist and was just removed, but we still see it, that's
+<span class="lineNum">     867 </span>            :  * still safe since it will have a valid key, which we then lock, and then
+<span class="lineNum">     868 </span>            :  * recheck everything.
+<span class="lineNum">     869 </span>            :  * This may not be safe on all platforms; If not, slabs_alloc() will need to
+<a name="870"><span class="lineNum">     870 </span>            :  * seed the item key while holding slabs_lock.</a>
+<span class="lineNum">     871 </span>            :  */
+<span class="lineNum">     872 </span><span class="lineCov">      10993 : static int slab_rebalance_move(void) {</span>
+<span class="lineNum">     873 </span><span class="lineCov">      10993 :     slabclass_t *s_cls;</span>
+<span class="lineNum">     874 </span><span class="lineCov">      10993 :     int x;</span>
+<span class="lineNum">     875 </span><span class="lineCov">      10993 :     int was_busy = 0;</span>
+<span class="lineNum">     876 </span><span class="lineCov">      10993 :     int refcount = 0;</span>
+<span class="lineNum">     877 </span><span class="lineCov">      10993 :     uint32_t hv;</span>
+<span class="lineNum">     878 </span><span class="lineCov">      10993 :     void *hold_lock;</span>
+<span class="lineNum">     879 </span><span class="lineCov">      10993 :     enum move_status status = MOVE_PASS;</span>
+<span class="lineNum">     880 </span>            : 
+<span class="lineNum">     881 </span><span class="lineCov">      10993 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     882 </span>            : 
+<span class="lineNum">     883 </span><span class="lineCov">      10993 :     s_cls = &amp;slabclass[slab_rebal.s_clsid];</span>
+<span class="lineNum">     884 </span>            : 
+<span class="lineNum">     885 </span><span class="lineCov">      21885 :     for (x = 0; x &lt; slab_bulk_check; x++) {</span>
+<span class="lineNum">     886 </span><span class="lineCov">      10993 :         hv = 0;</span>
+<span class="lineNum">     887 </span><span class="lineCov">      10993 :         hold_lock = NULL;</span>
+<span class="lineNum">     888 </span><span class="lineCov">      10993 :         item *it = slab_rebal.slab_pos;</span>
+<span class="lineNum">     889 </span><span class="lineCov">      10993 :         item_chunk *ch = NULL;</span>
+<span class="lineNum">     890 </span><span class="lineCov">      10993 :         status = MOVE_PASS;</span>
+<span class="lineNum">     891 </span><span class="lineCov">      10993 :         if (it-&gt;it_flags &amp; ITEM_CHUNK) {</span>
+<span class="lineNum">     892 </span>            :             /* This chunk is a chained part of a larger item. */
+<span class="lineNum">     893 </span><span class="lineCov">        445 :             ch = (item_chunk *) it;</span>
+<span class="lineNum">     894 </span>            :             /* Instead, we use the head chunk to find the item and effectively
+<span class="lineNum">     895 </span>            :              * lock the entire structure. If a chunk has ITEM_CHUNK flag, its
+<span class="lineNum">     896 </span>            :              * head cannot be slabbed, so the normal routine is safe. */
+<span class="lineNum">     897 </span><span class="lineCov">        445 :             it = ch-&gt;head;</span>
+<span class="lineNum">     898 </span><span class="lineCov">        445 :             assert(it-&gt;it_flags &amp; ITEM_CHUNKED);</span>
+<span class="lineNum">     899 </span>            :         }
+<span class="lineNum">     900 </span>            : 
+<span class="lineNum">     901 </span>            :         /* ITEM_FETCHED when ITEM_SLABBED is overloaded to mean we've cleared
+<span class="lineNum">     902 </span>            :          * the chunk for move. Only these two flags should exist.
+<span class="lineNum">     903 </span>            :          */
+<span class="lineNum">     904 </span><span class="lineCov">      10993 :         if (it-&gt;it_flags != (ITEM_SLABBED|ITEM_FETCHED)) {</span>
+<span class="lineNum">     905 </span>            :             /* ITEM_SLABBED can only be added/removed under the slabs_lock */
+<span class="lineNum">     906 </span><span class="lineCov">      10068 :             if (it-&gt;it_flags &amp; ITEM_SLABBED) {</span>
+<span class="lineNum">     907 </span><span class="lineCov">       8285 :                 assert(ch == NULL);</span>
+<span class="lineNum">     908 </span><span class="lineCov">       8285 :                 slab_rebalance_cut_free(s_cls, it);</span>
+<span class="lineNum">     909 </span><span class="lineCov">       8285 :                 status = MOVE_FROM_SLAB;</span>
+<span class="lineNum">     910 </span><span class="lineCov">       1783 :             } else if ((it-&gt;it_flags &amp; ITEM_LINKED) != 0) {</span>
+<span class="lineNum">     911 </span>            :                 /* If it doesn't have ITEM_SLABBED, the item could be in any
+<span class="lineNum">     912 </span>            :                  * state on its way to being freed or written to. If no
+<span class="lineNum">     913 </span>            :                  * ITEM_SLABBED, but it's had ITEM_LINKED, it must be active
+<span class="lineNum">     914 </span>            :                  * and have the key written to it already.
+<span class="lineNum">     915 </span>            :                  */
+<span class="lineNum">     916 </span><span class="lineCov">       1783 :                 hv = hash(ITEM_key(it), it-&gt;nkey);</span>
+<span class="lineNum">     917 </span><span class="lineCov">       1783 :                 if ((hold_lock = item_trylock(hv)) == NULL) {</span>
+<span class="lineNum">     918 </span>            :                     status = MOVE_LOCKED;
+<span class="lineNum">     919 </span>            :                 } else {
+<span class="lineNum">     920 </span><span class="lineCov">       1783 :                     bool is_linked = (it-&gt;it_flags &amp; ITEM_LINKED);</span>
+<span class="lineNum">     921 </span><span class="lineCov">       1783 :                     refcount = refcount_incr(it);</span>
+<span class="lineNum">     922 </span><span class="lineCov">       1783 :                     if (refcount == 2) { /* item is linked but not busy */</span>
+<span class="lineNum">     923 </span>            :                         /* Double check ITEM_LINKED flag here, since we're
+<span class="lineNum">     924 </span>            :                          * past a memory barrier from the mutex. */
+<span class="lineNum">     925 </span><span class="lineCov">       1783 :                         if (is_linked) {</span>
+<span class="lineNum">     926 </span>            :                             status = MOVE_FROM_LRU;
+<span class="lineNum">     927 </span>            :                         } else {
+<span class="lineNum">     928 </span>            :                             /* refcount == 1 + !ITEM_LINKED means the item is being
+<span class="lineNum">     929 </span>            :                              * uploaded to, or was just unlinked but hasn't been freed
+<span class="lineNum">     930 </span>            :                              * yet. Let it bleed off on its own and try again later */
+<span class="lineNum">     931 </span>            :                             status = MOVE_BUSY;
+<span class="lineNum">     932 </span>            :                         }
+<span class="lineNum">     933 </span><span class="lineNoCov">          0 :                     } else if (refcount &gt; 2 &amp;&amp; is_linked) {</span>
+<span class="lineNum">     934 </span>            :                         // TODO: Mark items for delete/rescue and process
+<span class="lineNum">     935 </span>            :                         // outside of the main loop.
+<span class="lineNum">     936 </span><span class="lineNoCov">          0 :                         if (slab_rebal.busy_loops &gt; SLAB_MOVE_MAX_LOOPS) {</span>
+<span class="lineNum">     937 </span><span class="lineNoCov">          0 :                             slab_rebal.busy_deletes++;</span>
+<span class="lineNum">     938 </span>            :                             // Only safe to hold slabs lock because refcount
+<span class="lineNum">     939 </span>            :                             // can't drop to 0 until we release item lock.
+<span class="lineNum">     940 </span><span class="lineNoCov">          0 :                             STORAGE_delete(storage, it);</span>
+<span class="lineNum">     941 </span><span class="lineNoCov">          0 :                             pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">     942 </span><span class="lineNoCov">          0 :                             do_item_unlink(it, hv);</span>
+<span class="lineNum">     943 </span><span class="lineNoCov">          0 :                             pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">     944 </span>            :                         }
+<span class="lineNum">     945 </span>            :                         status = MOVE_BUSY;
+<span class="lineNum">     946 </span>            :                     } else {
+<span class="lineNum">     947 </span><span class="lineNoCov">          0 :                         if (settings.verbose &gt; 2) {</span>
+<span class="lineNum">     948 </span><span class="lineNoCov">          0 :                             fprintf(stderr, &quot;Slab reassign hit a busy item: refcount: %d (%d -&gt; %d)\n&quot;,</span>
+<span class="lineNum">     949 </span>            :                                 it-&gt;refcount, slab_rebal.s_clsid, slab_rebal.d_clsid);
+<span class="lineNum">     950 </span>            :                         }
+<span class="lineNum">     951 </span>            :                         status = MOVE_BUSY;
+<span class="lineNum">     952 </span>            :                     }
+<span class="lineNum">     953 </span>            :                     /* Item lock must be held while modifying refcount */
+<span class="lineNum">     954 </span>            :                     if (status == MOVE_BUSY) {
+<span class="lineNum">     955 </span><span class="lineNoCov">          0 :                         refcount_decr(it);</span>
+<span class="lineNum">     956 </span><span class="lineNoCov">          0 :                         item_trylock_unlock(hold_lock);</span>
+<span class="lineNum">     957 </span>            :                     }
+<span class="lineNum">     958 </span>            :                 }
+<span class="lineNum">     959 </span>            :             } else {
+<span class="lineNum">     960 </span>            :                 /* See above comment. No ITEM_SLABBED or ITEM_LINKED. Mark
+<span class="lineNum">     961 </span>            :                  * busy and wait for item to complete its upload. */
+<span class="lineNum">     962 </span>            :                 status = MOVE_BUSY;
+<span class="lineNum">     963 </span>            :             }
+<span class="lineNum">     964 </span>            :         }
+<span class="lineNum">     965 </span>            : 
+<span class="lineNum">     966 </span><span class="lineCov">      10993 :         int save_item = 0;</span>
+<span class="lineNum">     967 </span><span class="lineCov">      10993 :         item *new_it = NULL;</span>
+<span class="lineNum">     968 </span><span class="lineCov">      10993 :         size_t ntotal = 0;</span>
+<span class="lineNum">     969 </span><span class="lineCov">      10993 :         switch (status) {</span>
+<span class="lineNum">     970 </span><span class="lineCov">       1783 :             case MOVE_FROM_LRU:</span>
+<span class="lineNum">     971 </span>            :                 /* Lock order is LRU locks -&gt; slabs_lock. unlink uses LRU lock.
+<span class="lineNum">     972 </span>            :                  * We only need to hold the slabs_lock while initially looking
+<span class="lineNum">     973 </span>            :                  * at an item, and at this point we have an exclusive refcount
+<span class="lineNum">     974 </span>            :                  * (2) + the item is locked. Drop slabs lock, drop item to
+<span class="lineNum">     975 </span>            :                  * refcount 1 (just our own, then fall through and wipe it
+<span class="lineNum">     976 </span>            :                  */
+<span class="lineNum">     977 </span>            :                 /* Check if expired or flushed */
+<span class="lineNum">     978 </span><span class="lineCov">       1783 :                 ntotal = ITEM_ntotal(it);</span>
+<span class="lineNum">     979 </span>            : #ifdef EXTSTORE
+<span class="lineNum">     980 </span>            :                 if (it-&gt;it_flags &amp; ITEM_HDR) {
+<span class="lineNum">     981 </span>            :                     ntotal = (ntotal - it-&gt;nbytes) + sizeof(item_hdr);
+<span class="lineNum">     982 </span>            :                 }
+<span class="lineNum">     983 </span>            : #endif
+<span class="lineNum">     984 </span>            :                 /* REQUIRES slabs_lock: CHECK FOR cls-&gt;sl_curr &gt; 0 */
+<span class="lineNum">     985 </span><span class="lineCov">       1783 :                 if (ch == NULL &amp;&amp; (it-&gt;it_flags &amp; ITEM_CHUNKED)) {</span>
+<span class="lineNum">     986 </span>            :                     /* Chunked should be identical to non-chunked, except we need
+<span class="lineNum">     987 </span>            :                      * to swap out ntotal for the head-chunk-total. */
+<span class="lineNum">     988 </span><span class="lineNoCov">          0 :                     ntotal = s_cls-&gt;size;</span>
+<span class="lineNum">     989 </span>            :                 }
+<span class="lineNum">     990 </span><span class="lineCov">       1783 :                 if ((it-&gt;exptime != 0 &amp;&amp; it-&gt;exptime &lt; current_time)</span>
+<span class="lineNum">     991 </span><span class="lineCov">       1783 :                     || item_is_flushed(it)) {</span>
+<span class="lineNum">     992 </span>            :                     /* Expired, don't save. */
+<span class="lineNum">     993 </span>            :                     save_item = 0;
+<span class="lineNum">     994 </span><span class="lineCov">       1783 :                 } else if (ch == NULL &amp;&amp;</span>
+<span class="lineNum">     995 </span><span class="lineCov">       1338 :                         (new_it = slab_rebalance_alloc(ntotal, slab_rebal.s_clsid)) == NULL) {</span>
+<span class="lineNum">     996 </span>            :                     /* Not a chunk of an item, and nomem. */
+<span class="lineNum">     997 </span><span class="lineCov">        162 :                     save_item = 0;</span>
+<span class="lineNum">     998 </span><span class="lineCov">        162 :                     slab_rebal.evictions_nomem++;</span>
+<span class="lineNum">     999 </span><span class="lineCov">       1621 :                 } else if (ch != NULL &amp;&amp;</span>
+<span class="lineNum">    1000 </span><span class="lineCov">        445 :                         (new_it = slab_rebalance_alloc(s_cls-&gt;size, slab_rebal.s_clsid)) == NULL) {</span>
+<span class="lineNum">    1001 </span>            :                     /* Is a chunk of an item, and nomem. */
+<span class="lineNum">    1002 </span><span class="lineCov">        256 :                     save_item = 0;</span>
+<span class="lineNum">    1003 </span><span class="lineCov">        256 :                     slab_rebal.evictions_nomem++;</span>
+<span class="lineNum">    1004 </span>            :                 } else {
+<span class="lineNum">    1005 </span>            :                     /* Was whatever it was, and we have memory for it. */
+<span class="lineNum">    1006 </span>            :                     save_item = 1;
+<span class="lineNum">    1007 </span>            :                 }
+<span class="lineNum">    1008 </span><span class="lineCov">       1783 :                 pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">    1009 </span><span class="lineCov">       1783 :                 unsigned int requested_adjust = 0;</span>
+<span class="lineNum">    1010 </span><span class="lineCov">       1783 :                 if (save_item) {</span>
+<span class="lineNum">    1011 </span><span class="lineCov">       1365 :                     if (ch == NULL) {</span>
+<span class="lineNum">    1012 </span><span class="lineCov">       1176 :                         assert((new_it-&gt;it_flags &amp; ITEM_CHUNKED) == 0);</span>
+<span class="lineNum">    1013 </span>            :                         /* if free memory, memcpy. clear prev/next/h_bucket */
+<span class="lineNum">    1014 </span><span class="lineCov">       1176 :                         memcpy(new_it, it, ntotal);</span>
+<span class="lineNum">    1015 </span><span class="lineCov">       1176 :                         new_it-&gt;prev = 0;</span>
+<span class="lineNum">    1016 </span><span class="lineCov">       1176 :                         new_it-&gt;next = 0;</span>
+<span class="lineNum">    1017 </span><span class="lineCov">       1176 :                         new_it-&gt;h_next = 0;</span>
+<span class="lineNum">    1018 </span>            :                         /* These are definitely required. else fails assert */
+<span class="lineNum">    1019 </span><span class="lineCov">       1176 :                         new_it-&gt;it_flags &amp;= ~ITEM_LINKED;</span>
+<span class="lineNum">    1020 </span><span class="lineCov">       1176 :                         new_it-&gt;refcount = 0;</span>
+<span class="lineNum">    1021 </span><span class="lineCov">       1176 :                         do_item_replace(it, new_it, hv);</span>
+<span class="lineNum">    1022 </span>            :                         /* Need to walk the chunks and repoint head  */
+<span class="lineNum">    1023 </span><span class="lineCov">       1176 :                         if (new_it-&gt;it_flags &amp; ITEM_CHUNKED) {</span>
+<span class="lineNum">    1024 </span><span class="lineNoCov">          0 :                             item_chunk *fch = (item_chunk *) ITEM_schunk(new_it);</span>
+<span class="lineNum">    1025 </span><span class="lineNoCov">          0 :                             fch-&gt;next-&gt;prev = fch;</span>
+<span class="lineNum">    1026 </span><span class="lineNoCov">          0 :                             while (fch) {</span>
+<span class="lineNum">    1027 </span><span class="lineNoCov">          0 :                                 fch-&gt;head = new_it;</span>
+<span class="lineNum">    1028 </span><span class="lineNoCov">          0 :                                 fch = fch-&gt;next;</span>
+<span class="lineNum">    1029 </span>            :                             }
+<span class="lineNum">    1030 </span>            :                         }
+<span class="lineNum">    1031 </span><span class="lineCov">       1176 :                         it-&gt;refcount = 0;</span>
+<span class="lineNum">    1032 </span><span class="lineCov">       1176 :                         it-&gt;it_flags = ITEM_SLABBED|ITEM_FETCHED;</span>
+<span class="lineNum">    1033 </span>            : #ifdef DEBUG_SLAB_MOVER
+<span class="lineNum">    1034 </span>            :                         memcpy(ITEM_key(it), &quot;deadbeef&quot;, 8);
+<span class="lineNum">    1035 </span>            : #endif
+<span class="lineNum">    1036 </span><span class="lineCov">       1176 :                         slab_rebal.rescues++;</span>
+<span class="lineNum">    1037 </span><span class="lineCov">       1176 :                         requested_adjust = ntotal;</span>
+<span class="lineNum">    1038 </span>            :                     } else {
+<span class="lineNum">    1039 </span><span class="lineCov">        189 :                         item_chunk *nch = (item_chunk *) new_it;</span>
+<span class="lineNum">    1040 </span>            :                         /* Chunks always have head chunk (the main it) */
+<span class="lineNum">    1041 </span><span class="lineCov">        189 :                         ch-&gt;prev-&gt;next = nch;</span>
+<span class="lineNum">    1042 </span><span class="lineCov">        189 :                         if (ch-&gt;next)</span>
+<span class="lineNum">    1043 </span><span class="lineCov">         19 :                             ch-&gt;next-&gt;prev = nch;</span>
+<span class="lineNum">    1044 </span><span class="lineCov">        189 :                         memcpy(nch, ch, ch-&gt;used + sizeof(item_chunk));</span>
+<span class="lineNum">    1045 </span><span class="lineCov">        189 :                         ch-&gt;refcount = 0;</span>
+<span class="lineNum">    1046 </span><span class="lineCov">        189 :                         ch-&gt;it_flags = ITEM_SLABBED|ITEM_FETCHED;</span>
+<span class="lineNum">    1047 </span><span class="lineCov">        189 :                         slab_rebal.chunk_rescues++;</span>
+<span class="lineNum">    1048 </span>            : #ifdef DEBUG_SLAB_MOVER
+<span class="lineNum">    1049 </span>            :                         memcpy(ITEM_key((item *)ch), &quot;deadbeef&quot;, 8);
+<span class="lineNum">    1050 </span>            : #endif
+<span class="lineNum">    1051 </span><span class="lineCov">        189 :                         refcount_decr(it);</span>
+<span class="lineNum">    1052 </span><span class="lineCov">        189 :                         requested_adjust = s_cls-&gt;size;</span>
+<span class="lineNum">    1053 </span>            :                     }
+<span class="lineNum">    1054 </span>            :                 } else {
+<span class="lineNum">    1055 </span>            :                     /* restore ntotal in case we tried saving a head chunk. */
+<span class="lineNum">    1056 </span><span class="lineCov">        418 :                     ntotal = ITEM_ntotal(it);</span>
+<span class="lineNum">    1057 </span><span class="lineCov">        418 :                     STORAGE_delete(storage, it);</span>
+<span class="lineNum">    1058 </span><span class="lineCov">        418 :                     do_item_unlink(it, hv);</span>
+<span class="lineNum">    1059 </span><span class="lineCov">        418 :                     slabs_free(it, ntotal, slab_rebal.s_clsid);</span>
+<span class="lineNum">    1060 </span>            :                     /* Swing around again later to remove it from the freelist. */
+<span class="lineNum">    1061 </span><span class="lineCov">        418 :                     slab_rebal.busy_items++;</span>
+<span class="lineNum">    1062 </span><span class="lineCov">        418 :                     was_busy++;</span>
+<span class="lineNum">    1063 </span>            :                 }
+<span class="lineNum">    1064 </span><span class="lineCov">       1783 :                 item_trylock_unlock(hold_lock);</span>
+<span class="lineNum">    1065 </span><span class="lineCov">       1783 :                 pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">    1066 </span>            :                 /* Always remove the ntotal, as we added it in during
+<span class="lineNum">    1067 </span>            :                  * do_slabs_alloc() when copying the item.
+<span class="lineNum">    1068 </span>            :                  */
+<span class="lineNum">    1069 </span><span class="lineCov">       1783 :                 s_cls-&gt;requested -= requested_adjust;</span>
+<span class="lineNum">    1070 </span><span class="lineCov">       1783 :                 break;</span>
+<span class="lineNum">    1071 </span><span class="lineCov">       8285 :             case MOVE_FROM_SLAB:</span>
+<span class="lineNum">    1072 </span><span class="lineCov">       8285 :                 it-&gt;refcount = 0;</span>
+<span class="lineNum">    1073 </span><span class="lineCov">       8285 :                 it-&gt;it_flags = ITEM_SLABBED|ITEM_FETCHED;</span>
+<span class="lineNum">    1074 </span>            : #ifdef DEBUG_SLAB_MOVER
+<span class="lineNum">    1075 </span>            :                 memcpy(ITEM_key(it), &quot;deadbeef&quot;, 8);
+<span class="lineNum">    1076 </span>            : #endif
+<span class="lineNum">    1077 </span><span class="lineCov">       8285 :                 break;</span>
+<span class="lineNum">    1078 </span><span class="lineNoCov">          0 :             case MOVE_BUSY:</span>
+<span class="lineNum">    1079 </span>            :             case MOVE_LOCKED:
+<span class="lineNum">    1080 </span><span class="lineNoCov">          0 :                 slab_rebal.busy_items++;</span>
+<span class="lineNum">    1081 </span><span class="lineNoCov">          0 :                 was_busy++;</span>
+<span class="lineNum">    1082 </span><span class="lineNoCov">          0 :                 break;</span>
+<span class="lineNum">    1083 </span>            :             case MOVE_PASS:
+<span class="lineNum">    1084 </span>            :                 break;
+<span class="lineNum">    1085 </span>            :         }
+<span class="lineNum">    1086 </span>            : 
+<span class="lineNum">    1087 </span><span class="lineCov">      10993 :         slab_rebal.slab_pos = (char *)slab_rebal.slab_pos + s_cls-&gt;size;</span>
+<span class="lineNum">    1088 </span><span class="lineCov">      10993 :         if (slab_rebal.slab_pos &gt;= slab_rebal.slab_end)</span>
+<span class="lineNum">    1089 </span>            :             break;
+<span class="lineNum">    1090 </span>            :     }
+<span class="lineNum">    1091 </span>            : 
+<span class="lineNum">    1092 </span><span class="lineCov">      10993 :     if (slab_rebal.slab_pos &gt;= slab_rebal.slab_end) {</span>
+<span class="lineNum">    1093 </span>            :         /* Some items were busy, start again from the top */
+<span class="lineNum">    1094 </span><span class="lineCov">        101 :         if (slab_rebal.busy_items) {</span>
+<span class="lineNum">    1095 </span><span class="lineCov">          5 :             slab_rebal.slab_pos = slab_rebal.slab_start;</span>
+<span class="lineNum">    1096 </span><span class="lineCov">          5 :             STATS_LOCK();</span>
+<span class="lineNum">    1097 </span><span class="lineCov">          5 :             stats.slab_reassign_busy_items += slab_rebal.busy_items;</span>
+<span class="lineNum">    1098 </span><span class="lineCov">          5 :             STATS_UNLOCK();</span>
+<span class="lineNum">    1099 </span><span class="lineCov">          5 :             slab_rebal.busy_items = 0;</span>
+<span class="lineNum">    1100 </span><span class="lineCov">          5 :             slab_rebal.busy_loops++;</span>
+<span class="lineNum">    1101 </span>            :         } else {
+<span class="lineNum">    1102 </span><span class="lineCov">         96 :             slab_rebal.done++;</span>
+<span class="lineNum">    1103 </span>            :         }
+<span class="lineNum">    1104 </span>            :     }
+<span class="lineNum">    1105 </span>            : 
+<span class="lineNum">    1106 </span><span class="lineCov">      10993 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">    1107 </span>            : 
+<span class="lineNum">    1108 </span><span class="lineCov">      10993 :     return was_busy;</span>
+<a name="1109"><span class="lineNum">    1109 </span>            : }</a>
+<span class="lineNum">    1110 </span>            : 
+<span class="lineNum">    1111 </span><span class="lineCov">         96 : static void slab_rebalance_finish(void) {</span>
+<span class="lineNum">    1112 </span><span class="lineCov">         96 :     slabclass_t *s_cls;</span>
+<span class="lineNum">    1113 </span><span class="lineCov">         96 :     slabclass_t *d_cls;</span>
+<span class="lineNum">    1114 </span><span class="lineCov">         96 :     int x;</span>
+<span class="lineNum">    1115 </span><span class="lineCov">         96 :     uint32_t rescues;</span>
+<span class="lineNum">    1116 </span><span class="lineCov">         96 :     uint32_t evictions_nomem;</span>
+<span class="lineNum">    1117 </span><span class="lineCov">         96 :     uint32_t inline_reclaim;</span>
+<span class="lineNum">    1118 </span><span class="lineCov">         96 :     uint32_t chunk_rescues;</span>
+<span class="lineNum">    1119 </span><span class="lineCov">         96 :     uint32_t busy_deletes;</span>
+<span class="lineNum">    1120 </span>            : 
+<span class="lineNum">    1121 </span><span class="lineCov">         96 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">    1122 </span>            : 
+<span class="lineNum">    1123 </span><span class="lineCov">         96 :     s_cls = &amp;slabclass[slab_rebal.s_clsid];</span>
+<span class="lineNum">    1124 </span><span class="lineCov">         96 :     d_cls = &amp;slabclass[slab_rebal.d_clsid];</span>
+<span class="lineNum">    1125 </span>            : 
+<span class="lineNum">    1126 </span>            : #ifdef DEBUG_SLAB_MOVER
+<span class="lineNum">    1127 </span>            :     /* If the algorithm is broken, live items can sneak in. */
+<span class="lineNum">    1128 </span>            :     slab_rebal.slab_pos = slab_rebal.slab_start;
+<span class="lineNum">    1129 </span>            :     while (1) {
+<span class="lineNum">    1130 </span>            :         item *it = slab_rebal.slab_pos;
+<span class="lineNum">    1131 </span>            :         assert(it-&gt;it_flags == (ITEM_SLABBED|ITEM_FETCHED));
+<span class="lineNum">    1132 </span>            :         assert(memcmp(ITEM_key(it), &quot;deadbeef&quot;, 8) == 0);
+<span class="lineNum">    1133 </span>            :         it-&gt;it_flags = ITEM_SLABBED|ITEM_FETCHED;
+<span class="lineNum">    1134 </span>            :         slab_rebal.slab_pos = (char *)slab_rebal.slab_pos + s_cls-&gt;size;
+<span class="lineNum">    1135 </span>            :         if (slab_rebal.slab_pos &gt;= slab_rebal.slab_end)
+<span class="lineNum">    1136 </span>            :             break;
+<span class="lineNum">    1137 </span>            :     }
+<span class="lineNum">    1138 </span>            : #endif
+<span class="lineNum">    1139 </span>            : 
+<span class="lineNum">    1140 </span>            :     /* At this point the stolen slab is completely clear.
+<span class="lineNum">    1141 </span>            :      * We always kill the &quot;first&quot;/&quot;oldest&quot; slab page in the slab_list, so
+<span class="lineNum">    1142 </span>            :      * shuffle the page list backwards and decrement.
+<span class="lineNum">    1143 </span>            :      */
+<span class="lineNum">    1144 </span><span class="lineCov">         96 :     s_cls-&gt;slabs--;</span>
+<span class="lineNum">    1145 </span><span class="lineCov">       2241 :     for (x = 0; x &lt; s_cls-&gt;slabs; x++) {</span>
+<span class="lineNum">    1146 </span><span class="lineCov">       2145 :         s_cls-&gt;slab_list[x] = s_cls-&gt;slab_list[x+1];</span>
+<span class="lineNum">    1147 </span>            :     }
+<span class="lineNum">    1148 </span>            : 
+<span class="lineNum">    1149 </span><span class="lineCov">         96 :     d_cls-&gt;slab_list[d_cls-&gt;slabs++] = slab_rebal.slab_start;</span>
+<span class="lineNum">    1150 </span>            :     /* Don't need to split the page into chunks if we're just storing it */
+<span class="lineNum">    1151 </span><span class="lineCov">         96 :     if (slab_rebal.d_clsid &gt; SLAB_GLOBAL_PAGE_POOL) {</span>
+<span class="lineNum">    1152 </span><span class="lineCov">          2 :         memset(slab_rebal.slab_start, 0, (size_t)settings.slab_page_size);</span>
+<span class="lineNum">    1153 </span><span class="lineCov">          4 :         split_slab_page_into_freelist(slab_rebal.slab_start,</span>
+<span class="lineNum">    1154 </span><span class="lineCov">          2 :             slab_rebal.d_clsid);</span>
+<span class="lineNum">    1155 </span><span class="lineCov">         94 :     } else if (slab_rebal.d_clsid == SLAB_GLOBAL_PAGE_POOL) {</span>
+<span class="lineNum">    1156 </span>            :         /* mem_malloc'ed might be higher than mem_limit. */
+<span class="lineNum">    1157 </span><span class="lineCov">         94 :         mem_limit_reached = false;</span>
+<span class="lineNum">    1158 </span><span class="lineCov">         94 :         memory_release();</span>
+<span class="lineNum">    1159 </span>            :     }
+<span class="lineNum">    1160 </span>            : 
+<span class="lineNum">    1161 </span><span class="lineCov">         96 :     slab_rebal.busy_loops = 0;</span>
+<span class="lineNum">    1162 </span><span class="lineCov">         96 :     slab_rebal.done       = 0;</span>
+<span class="lineNum">    1163 </span><span class="lineCov">         96 :     slab_rebal.s_clsid    = 0;</span>
+<span class="lineNum">    1164 </span><span class="lineCov">         96 :     slab_rebal.d_clsid    = 0;</span>
+<span class="lineNum">    1165 </span><span class="lineCov">         96 :     slab_rebal.slab_start = NULL;</span>
+<span class="lineNum">    1166 </span><span class="lineCov">         96 :     slab_rebal.slab_end   = NULL;</span>
+<span class="lineNum">    1167 </span><span class="lineCov">         96 :     slab_rebal.slab_pos   = NULL;</span>
+<span class="lineNum">    1168 </span><span class="lineCov">         96 :     evictions_nomem    = slab_rebal.evictions_nomem;</span>
+<span class="lineNum">    1169 </span><span class="lineCov">         96 :     inline_reclaim = slab_rebal.inline_reclaim;</span>
+<span class="lineNum">    1170 </span><span class="lineCov">         96 :     rescues   = slab_rebal.rescues;</span>
+<span class="lineNum">    1171 </span><span class="lineCov">         96 :     chunk_rescues = slab_rebal.chunk_rescues;</span>
+<span class="lineNum">    1172 </span><span class="lineCov">         96 :     busy_deletes = slab_rebal.busy_deletes;</span>
+<span class="lineNum">    1173 </span><span class="lineCov">         96 :     slab_rebal.evictions_nomem    = 0;</span>
+<span class="lineNum">    1174 </span><span class="lineCov">         96 :     slab_rebal.inline_reclaim = 0;</span>
+<span class="lineNum">    1175 </span><span class="lineCov">         96 :     slab_rebal.rescues  = 0;</span>
+<span class="lineNum">    1176 </span><span class="lineCov">         96 :     slab_rebal.chunk_rescues = 0;</span>
+<span class="lineNum">    1177 </span><span class="lineCov">         96 :     slab_rebal.busy_deletes = 0;</span>
+<span class="lineNum">    1178 </span>            : 
+<span class="lineNum">    1179 </span><span class="lineCov">         96 :     slab_rebalance_signal = 0;</span>
+<span class="lineNum">    1180 </span>            : 
+<span class="lineNum">    1181 </span><span class="lineCov">         96 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">    1182 </span>            : 
+<span class="lineNum">    1183 </span><span class="lineCov">         96 :     STATS_LOCK();</span>
+<span class="lineNum">    1184 </span><span class="lineCov">         96 :     stats.slabs_moved++;</span>
+<span class="lineNum">    1185 </span><span class="lineCov">         96 :     stats.slab_reassign_rescues += rescues;</span>
+<span class="lineNum">    1186 </span><span class="lineCov">         96 :     stats.slab_reassign_evictions_nomem += evictions_nomem;</span>
+<span class="lineNum">    1187 </span><span class="lineCov">         96 :     stats.slab_reassign_inline_reclaim += inline_reclaim;</span>
+<span class="lineNum">    1188 </span><span class="lineCov">         96 :     stats.slab_reassign_chunk_rescues += chunk_rescues;</span>
+<span class="lineNum">    1189 </span><span class="lineCov">         96 :     stats.slab_reassign_busy_deletes += busy_deletes;</span>
+<span class="lineNum">    1190 </span><span class="lineCov">         96 :     stats_state.slab_reassign_running = false;</span>
+<span class="lineNum">    1191 </span><span class="lineCov">         96 :     STATS_UNLOCK();</span>
+<span class="lineNum">    1192 </span>            : 
+<span class="lineNum">    1193 </span><span class="lineCov">         96 :     if (settings.verbose &gt; 1) {</span>
+<span class="lineNum">    1194 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;finished a slab move\n&quot;);</span>
+<span class="lineNum">    1195 </span>            :     }
+<span class="lineNum">    1196 </span><span class="lineCov">         96 : }</span>
+<span class="lineNum">    1197 </span>            : 
+<span class="lineNum">    1198 </span>            : /* Slab mover thread.
+<a name="1199"><span class="lineNum">    1199 </span>            :  * Sits waiting for a condition to jump off and shovel some memory about</a>
+<span class="lineNum">    1200 </span>            :  */
+<span class="lineNum">    1201 </span><span class="lineCov">         89 : static void *slab_rebalance_thread(void *arg) {</span>
+<span class="lineNum">    1202 </span><span class="lineCov">         89 :     int was_busy = 0;</span>
+<span class="lineNum">    1203 </span>            :     /* So we first pass into cond_wait with the mutex held */
+<span class="lineNum">    1204 </span><span class="lineCov">         89 :     mutex_lock(&amp;slabs_rebalance_lock);</span>
+<span class="lineNum">    1205 </span>            : 
+<span class="lineNum">    1206 </span><span class="lineCov">      11179 :     while (do_run_slab_rebalance_thread) {</span>
+<span class="lineNum">    1207 </span><span class="lineCov">      11179 :         if (slab_rebalance_signal == 1) {</span>
+<span class="lineNum">    1208 </span><span class="lineCov">         97 :             if (slab_rebalance_start() &lt; 0) {</span>
+<span class="lineNum">    1209 </span>            :                 /* Handle errors with more specificity as required. */
+<span class="lineNum">    1210 </span><span class="lineNoCov">          0 :                 slab_rebalance_signal = 0;</span>
+<span class="lineNum">    1211 </span>            :             }
+<span class="lineNum">    1212 </span>            : 
+<span class="lineNum">    1213 </span>            :             was_busy = 0;
+<span class="lineNum">    1214 </span><span class="lineCov">      11082 :         } else if (slab_rebalance_signal &amp;&amp; slab_rebal.slab_start != NULL) {</span>
+<span class="lineNum">    1215 </span><span class="lineCov">      10993 :             was_busy = slab_rebalance_move();</span>
+<span class="lineNum">    1216 </span>            :         }
+<span class="lineNum">    1217 </span>            : 
+<span class="lineNum">    1218 </span><span class="lineCov">      11179 :         if (slab_rebal.done) {</span>
+<span class="lineNum">    1219 </span><span class="lineCov">         96 :             slab_rebalance_finish();</span>
+<span class="lineNum">    1220 </span><span class="lineCov">      11083 :         } else if (was_busy) {</span>
+<span class="lineNum">    1221 </span>            :             /* Stuck waiting for some items to unlock, so slow down a bit
+<span class="lineNum">    1222 </span>            :              * to give them a chance to free up */
+<span class="lineNum">    1223 </span><span class="lineCov">        418 :             usleep(1000);</span>
+<span class="lineNum">    1224 </span>            :         }
+<span class="lineNum">    1225 </span>            : 
+<span class="lineNum">    1226 </span><span class="lineCov">      11178 :         if (slab_rebalance_signal == 0) {</span>
+<span class="lineNum">    1227 </span>            :             /* always hold this lock while we're running */
+<span class="lineNum">    1228 </span><span class="lineCov">        185 :             pthread_cond_wait(&amp;slab_rebalance_cond, &amp;slabs_rebalance_lock);</span>
+<span class="lineNum">    1229 </span>            :         }
+<span class="lineNum">    1230 </span>            :     }
+<span class="lineNum">    1231 </span><span class="lineNoCov">          0 :     return NULL;</span>
+<span class="lineNum">    1232 </span>            : }
+<span class="lineNum">    1233 </span>            : 
+<span class="lineNum">    1234 </span>            : /* Iterate at most once through the slab classes and pick a &quot;random&quot; source.
+<span class="lineNum">    1235 </span>            :  * I like this better than calling rand() since rand() is slow enough that we
+<span class="lineNum">    1236 </span>            :  * can just check all of the classes once instead.
+<span class="lineNum">    1237 </span>            :  */
+<span class="lineNum">    1238 </span>            : static int slabs_reassign_pick_any(int dst) {
+<span class="lineNum">    1239 </span><span class="lineNoCov">          0 :     static int cur = POWER_SMALLEST - 1;</span>
+<span class="lineNum">    1240 </span><span class="lineNoCov">          0 :     int tries = power_largest - POWER_SMALLEST + 1;</span>
+<span class="lineNum">    1241 </span><span class="lineNoCov">          0 :     for (; tries &gt; 0; tries--) {</span>
+<span class="lineNum">    1242 </span><span class="lineNoCov">          0 :         cur++;</span>
+<span class="lineNum">    1243 </span><span class="lineNoCov">          0 :         if (cur &gt; power_largest)</span>
+<span class="lineNum">    1244 </span><span class="lineNoCov">          0 :             cur = POWER_SMALLEST;</span>
+<span class="lineNum">    1245 </span><span class="lineNoCov">          0 :         if (cur == dst)</span>
+<span class="lineNum">    1246 </span>            :             continue;
+<span class="lineNum">    1247 </span><span class="lineNoCov">          0 :         if (slabclass[cur].slabs &gt; 1) {</span>
+<span class="lineNum">    1248 </span>            :             return cur;
+<span class="lineNum">    1249 </span>            :         }
+<span class="lineNum">    1250 </span>            :     }
+<span class="lineNum">    1251 </span>            :     return -1;
+<a name="1252"><span class="lineNum">    1252 </span>            : }</a>
+<span class="lineNum">    1253 </span>            : 
+<span class="lineNum">    1254 </span><span class="lineCov">         97 : static enum reassign_result_type do_slabs_reassign(int src, int dst) {</span>
+<span class="lineNum">    1255 </span><span class="lineCov">         97 :     bool nospare = false;</span>
+<span class="lineNum">    1256 </span><span class="lineCov">         97 :     if (slab_rebalance_signal != 0)</span>
+<span class="lineNum">    1257 </span>            :         return REASSIGN_RUNNING;
+<span class="lineNum">    1258 </span>            : 
+<span class="lineNum">    1259 </span><span class="lineCov">         97 :     if (src == dst)</span>
+<span class="lineNum">    1260 </span>            :         return REASSIGN_SRC_DST_SAME;
+<span class="lineNum">    1261 </span>            : 
+<span class="lineNum">    1262 </span>            :     /* Special indicator to choose ourselves. */
+<span class="lineNum">    1263 </span><span class="lineCov">         97 :     if (src == -1) {</span>
+<span class="lineNum">    1264 </span><span class="lineNoCov">          0 :         src = slabs_reassign_pick_any(dst);</span>
+<span class="lineNum">    1265 </span>            :         /* TODO: If we end up back at -1, return a new error type */
+<span class="lineNum">    1266 </span>            :     }
+<span class="lineNum">    1267 </span>            : 
+<span class="lineNum">    1268 </span><span class="lineCov">         97 :     if (src &lt; SLAB_GLOBAL_PAGE_POOL || src &gt; power_largest ||</span>
+<span class="lineNum">    1269 </span><span class="lineCov">         97 :         dst &lt; SLAB_GLOBAL_PAGE_POOL || dst &gt; power_largest)</span>
+<span class="lineNum">    1270 </span>            :         return REASSIGN_BADCLASS;
+<span class="lineNum">    1271 </span>            : 
+<span class="lineNum">    1272 </span><span class="lineCov">         97 :     pthread_mutex_lock(&amp;slabs_lock);</span>
+<span class="lineNum">    1273 </span><span class="lineCov">         97 :     if (slabclass[src].slabs &lt; 2)</span>
+<span class="lineNum">    1274 </span><span class="lineNoCov">          0 :         nospare = true;</span>
+<span class="lineNum">    1275 </span><span class="lineCov">         97 :     pthread_mutex_unlock(&amp;slabs_lock);</span>
+<span class="lineNum">    1276 </span><span class="lineCov">         97 :     if (nospare)</span>
+<span class="lineNum">    1277 </span>            :         return REASSIGN_NOSPARE;
+<span class="lineNum">    1278 </span>            : 
+<span class="lineNum">    1279 </span><span class="lineCov">         97 :     slab_rebal.s_clsid = src;</span>
+<span class="lineNum">    1280 </span><span class="lineCov">         97 :     slab_rebal.d_clsid = dst;</span>
+<span class="lineNum">    1281 </span>            : 
+<span class="lineNum">    1282 </span><span class="lineCov">         97 :     slab_rebalance_signal = 1;</span>
+<span class="lineNum">    1283 </span><span class="lineCov">         97 :     pthread_cond_signal(&amp;slab_rebalance_cond);</span>
+<span class="lineNum">    1284 </span>            : 
+<span class="lineNum">    1285 </span><span class="lineCov">         97 :     return REASSIGN_OK;</span>
+<a name="1286"><span class="lineNum">    1286 </span>            : }</a>
+<span class="lineNum">    1287 </span>            : 
+<span class="lineNum">    1288 </span><span class="lineCov">         97 : enum reassign_result_type slabs_reassign(int src, int dst) {</span>
+<span class="lineNum">    1289 </span><span class="lineCov">         97 :     enum reassign_result_type ret;</span>
+<span class="lineNum">    1290 </span><span class="lineCov">         97 :     if (pthread_mutex_trylock(&amp;slabs_rebalance_lock) != 0) {</span>
+<span class="lineNum">    1291 </span>            :         return REASSIGN_RUNNING;
+<span class="lineNum">    1292 </span>            :     }
+<span class="lineNum">    1293 </span><span class="lineCov">         97 :     ret = do_slabs_reassign(src, dst);</span>
+<span class="lineNum">    1294 </span><span class="lineCov">         97 :     pthread_mutex_unlock(&amp;slabs_rebalance_lock);</span>
+<span class="lineNum">    1295 </span><span class="lineCov">         97 :     return ret;</span>
+<span class="lineNum">    1296 </span>            : }
+<a name="1297"><span class="lineNum">    1297 </span>            : </a>
+<span class="lineNum">    1298 </span>            : /* If we hold this lock, rebalancer can't wake up or move */
+<span class="lineNum">    1299 </span><span class="lineNoCov">          0 : void slabs_rebalancer_pause(void) {</span>
+<span class="lineNum">    1300 </span><span class="lineNoCov">          0 :     pthread_mutex_lock(&amp;slabs_rebalance_lock);</span>
+<a name="1301"><span class="lineNum">    1301 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">    1302 </span>            : 
+<span class="lineNum">    1303 </span><span class="lineNoCov">          0 : void slabs_rebalancer_resume(void) {</span>
+<span class="lineNum">    1304 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;slabs_rebalance_lock);</span>
+<span class="lineNum">    1305 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1306 </span>            : 
+<a name="1307"><span class="lineNum">    1307 </span>            : static pthread_t rebalance_tid;</a>
+<span class="lineNum">    1308 </span>            : 
+<span class="lineNum">    1309 </span><span class="lineCov">         89 : int start_slab_maintenance_thread(void) {</span>
+<span class="lineNum">    1310 </span><span class="lineCov">         89 :     int ret;</span>
+<span class="lineNum">    1311 </span><span class="lineCov">         89 :     slab_rebalance_signal = 0;</span>
+<span class="lineNum">    1312 </span><span class="lineCov">         89 :     slab_rebal.slab_start = NULL;</span>
+<span class="lineNum">    1313 </span><span class="lineCov">         89 :     char *env = getenv(&quot;MEMCACHED_SLAB_BULK_CHECK&quot;);</span>
+<span class="lineNum">    1314 </span><span class="lineCov">         89 :     if (env != NULL) {</span>
+<span class="lineNum">    1315 </span><span class="lineNoCov">          0 :         slab_bulk_check = atoi(env);</span>
+<span class="lineNum">    1316 </span><span class="lineNoCov">          0 :         if (slab_bulk_check == 0) {</span>
+<span class="lineNum">    1317 </span><span class="lineNoCov">          0 :             slab_bulk_check = DEFAULT_SLAB_BULK_CHECK;</span>
+<span class="lineNum">    1318 </span>            :         }
+<span class="lineNum">    1319 </span>            :     }
+<span class="lineNum">    1320 </span>            : 
+<span class="lineNum">    1321 </span><span class="lineCov">         89 :     if (pthread_cond_init(&amp;slab_rebalance_cond, NULL) != 0) {</span>
+<span class="lineNum">    1322 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Can't initialize rebalance condition\n&quot;);</span>
+<span class="lineNum">    1323 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">    1324 </span>            :     }
+<span class="lineNum">    1325 </span><span class="lineCov">         89 :     pthread_mutex_init(&amp;slabs_rebalance_lock, NULL);</span>
+<span class="lineNum">    1326 </span>            : 
+<span class="lineNum">    1327 </span><span class="lineCov">         89 :     if ((ret = pthread_create(&amp;rebalance_tid, NULL,</span>
+<span class="lineNum">    1328 </span>            :                               slab_rebalance_thread, NULL)) != 0) {
+<span class="lineNum">    1329 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Can't create rebal thread: %s\n&quot;, strerror(ret));</span>
+<span class="lineNum">    1330 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">    1331 </span>            :     }
+<span class="lineNum">    1332 </span>            :     return 0;
+<span class="lineNum">    1333 </span>            : }
+<span class="lineNum">    1334 </span>            : 
+<a name="1335"><span class="lineNum">    1335 </span>            : /* The maintenance thread is on a sleep/loop cycle, so it should join after a</a>
+<span class="lineNum">    1336 </span>            :  * short wait */
+<span class="lineNum">    1337 </span><span class="lineNoCov">          0 : void stop_slab_maintenance_thread(void) {</span>
+<span class="lineNum">    1338 </span><span class="lineNoCov">          0 :     mutex_lock(&amp;slabs_rebalance_lock);</span>
+<span class="lineNum">    1339 </span><span class="lineNoCov">          0 :     do_run_slab_thread = 0;</span>
+<span class="lineNum">    1340 </span><span class="lineNoCov">          0 :     do_run_slab_rebalance_thread = 0;</span>
+<span class="lineNum">    1341 </span><span class="lineNoCov">          0 :     pthread_cond_signal(&amp;slab_rebalance_cond);</span>
+<span class="lineNum">    1342 </span><span class="lineNoCov">          0 :     pthread_mutex_unlock(&amp;slabs_rebalance_lock);</span>
+<span class="lineNum">    1343 </span>            : 
+<span class="lineNum">    1344 </span>            :     /* Wait for the maintenance thread to stop */
+<span class="lineNum">    1345 </span><span class="lineNoCov">          0 :     pthread_join(rebalance_tid, NULL);</span>
+<span class="lineNum">    1346 </span><span class="lineNoCov">          0 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

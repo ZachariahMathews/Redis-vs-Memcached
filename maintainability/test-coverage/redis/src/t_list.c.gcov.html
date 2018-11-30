@@ -1,0 +1,861 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/t_list.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - t_list.c<span style="font-size: 80%;"> (source / <a href="t_list.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">394</td>
+            <td class="headerCovTableEntry">412</td>
+            <td class="headerCovTableEntryHi">95.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">35</td>
+            <td class="headerCovTableEntry">35</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">      33 </span>            :  * List API
+<span class="lineNum">      34 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : /* The function pushes an element to the specified list object 'subject',
+<span class="lineNum">      37 </span>            :  * at head or tail position as specified by 'where'.
+<span class="lineNum">      38 </span>            :  *
+<a name="39"><span class="lineNum">      39 </span>            :  * There is no need for the caller to increment the refcount of 'value' as</a>
+<span class="lineNum">      40 </span>            :  * the function takes care of it if needed. */
+<span class="lineNum">      41 </span><span class="lineCov">    3536730 : void listTypePush(robj *subject, robj *value, int where) {</span>
+<span class="lineNum">      42 </span><span class="lineCov">    3536730 :     if (subject-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">      43 </span><span class="lineCov">    3536730 :         int pos = (where == LIST_HEAD) ? QUICKLIST_HEAD : QUICKLIST_TAIL;</span>
+<span class="lineNum">      44 </span><span class="lineCov">    3536730 :         value = getDecodedObject(value);</span>
+<span class="lineNum">      45 </span><span class="lineCov">    3536730 :         size_t len = sdslen(value-&gt;ptr);</span>
+<span class="lineNum">      46 </span><span class="lineCov">    3536730 :         quicklistPush(subject-&gt;ptr, value-&gt;ptr, len, pos);</span>
+<span class="lineNum">      47 </span><span class="lineCov">    3536730 :         decrRefCount(value);</span>
+<span class="lineNum">      48 </span>            :     } else {
+<span class="lineNum">      49 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">      50 </span>            :     }
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">    3536730 : }</span></a>
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span><span class="lineCov">      55729 : void *listPopSaver(unsigned char *data, unsigned int sz) {</span>
+<span class="lineNum">      54 </span><span class="lineCov">      55729 :     return createStringObject((char*)data,sz);</span>
+<a name="55"><span class="lineNum">      55 </span>            : }</a>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineCov">     206343 : robj *listTypePop(robj *subject, int where) {</span>
+<span class="lineNum">      58 </span><span class="lineCov">     206343 :     long long vlong;</span>
+<span class="lineNum">      59 </span><span class="lineCov">     206343 :     robj *value = NULL;</span>
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span><span class="lineCov">     206343 :     int ql_where = where == LIST_HEAD ? QUICKLIST_HEAD : QUICKLIST_TAIL;</span>
+<span class="lineNum">      62 </span><span class="lineCov">     206343 :     if (subject-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">      63 </span><span class="lineCov">     206343 :         if (quicklistPopCustom(subject-&gt;ptr, ql_where, (unsigned char **)&amp;value,</span>
+<span class="lineNum">      64 </span>            :                                NULL, &amp;vlong, listPopSaver)) {
+<span class="lineNum">      65 </span><span class="lineCov">     206343 :             if (!value)</span>
+<span class="lineNum">      66 </span><span class="lineCov">     150614 :                 value = createStringObjectFromLongLong(vlong);</span>
+<span class="lineNum">      67 </span>            :         }
+<span class="lineNum">      68 </span>            :     } else {
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">      70 </span>            :     }
+<span class="lineNum">      71 </span><span class="lineCov">     206343 :     return value;</span>
+<a name="72"><span class="lineNum">      72 </span>            : }</a>
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span><span class="lineCov">    1744686 : unsigned long listTypeLength(const robj *subject) {</span>
+<span class="lineNum">      75 </span><span class="lineCov">    1744686 :     if (subject-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">    1744686 :         return quicklistCount(subject-&gt;ptr);</span>
+<span class="lineNum">      77 </span>            :     } else {
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">      79 </span>            :     }
+<span class="lineNum">      80 </span>            : }
+<a name="81"><span class="lineNum">      81 </span>            : </a>
+<span class="lineNum">      82 </span>            : /* Initialize an iterator at the specified index. */
+<span class="lineNum">      83 </span><span class="lineCov">     674662 : listTypeIterator *listTypeInitIterator(robj *subject, long index,</span>
+<span class="lineNum">      84 </span>            :                                        unsigned char direction) {
+<span class="lineNum">      85 </span><span class="lineCov">     674662 :     listTypeIterator *li = zmalloc(sizeof(listTypeIterator));</span>
+<span class="lineNum">      86 </span><span class="lineCov">     674662 :     li-&gt;subject = subject;</span>
+<span class="lineNum">      87 </span><span class="lineCov">     674662 :     li-&gt;encoding = subject-&gt;encoding;</span>
+<span class="lineNum">      88 </span><span class="lineCov">     674662 :     li-&gt;direction = direction;</span>
+<span class="lineNum">      89 </span><span class="lineCov">     674662 :     li-&gt;iter = NULL;</span>
+<span class="lineNum">      90 </span>            :     /* LIST_HEAD means start at TAIL and move *towards* head.
+<span class="lineNum">      91 </span>            :      * LIST_TAIL means start at HEAD and move *towards tail. */
+<span class="lineNum">      92 </span><span class="lineCov">    1349324 :     int iter_direction =</span>
+<span class="lineNum">      93 </span><span class="lineCov">     674662 :         direction == LIST_HEAD ? AL_START_TAIL : AL_START_HEAD;</span>
+<span class="lineNum">      94 </span><span class="lineCov">     674662 :     if (li-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">      95 </span><span class="lineCov">     674662 :         li-&gt;iter = quicklistGetIteratorAtIdx(li-&gt;subject-&gt;ptr,</span>
+<span class="lineNum">      96 </span>            :                                              iter_direction, index);
+<span class="lineNum">      97 </span>            :     } else {
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">      99 </span>            :     }
+<span class="lineNum">     100 </span><span class="lineCov">     674662 :     return li;</span>
+<span class="lineNum">     101 </span>            : }
+<a name="102"><span class="lineNum">     102 </span>            : </a>
+<span class="lineNum">     103 </span>            : /* Clean up the iterator. */
+<span class="lineNum">     104 </span><span class="lineCov">     443799 : void listTypeReleaseIterator(listTypeIterator *li) {</span>
+<span class="lineNum">     105 </span><span class="lineCov">     443799 :     zfree(li-&gt;iter);</span>
+<span class="lineNum">     106 </span><span class="lineCov">     674662 :     zfree(li);</span>
+<span class="lineNum">     107 </span><span class="lineCov">     443799 : }</span>
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            : /* Stores pointer to current the entry in the provided entry structure
+<a name="110"><span class="lineNum">     110 </span>            :  * and advances the position of the iterator. Returns 1 when the current</a>
+<span class="lineNum">     111 </span>            :  * entry is in fact an entry, 0 otherwise. */
+<span class="lineNum">     112 </span><span class="lineCov">    5566085 : int listTypeNext(listTypeIterator *li, listTypeEntry *entry) {</span>
+<span class="lineNum">     113 </span>            :     /* Protect from converting when iterating */
+<span class="lineNum">     114 </span><span class="lineCov">    5566085 :     serverAssert(li-&gt;subject-&gt;encoding == li-&gt;encoding);</span>
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span><span class="lineCov">    5566085 :     entry-&gt;li = li;</span>
+<span class="lineNum">     117 </span><span class="lineCov">    5566085 :     if (li-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     118 </span><span class="lineCov">    5566085 :         return quicklistNext(li-&gt;iter, &amp;entry-&gt;entry);</span>
+<span class="lineNum">     119 </span>            :     } else {
+<span class="lineNum">     120 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     121 </span>            :     }
+<span class="lineNum">     122 </span>            :     return 0;
+<span class="lineNum">     123 </span>            : }
+<a name="124"><span class="lineNum">     124 </span>            : </a>
+<span class="lineNum">     125 </span>            : /* Return entry or NULL at the current position of the iterator. */
+<span class="lineNum">     126 </span><span class="lineCov">    1321206 : robj *listTypeGet(listTypeEntry *entry) {</span>
+<span class="lineNum">     127 </span><span class="lineCov">    1321206 :     robj *value = NULL;</span>
+<span class="lineNum">     128 </span><span class="lineCov">    1321206 :     if (entry-&gt;li-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     129 </span><span class="lineCov">    1321206 :         if (entry-&gt;entry.value) {</span>
+<span class="lineNum">     130 </span><span class="lineCov">     716802 :             value = createStringObject((char *)entry-&gt;entry.value,</span>
+<span class="lineNum">     131 </span><span class="lineCov">     358401 :                                        entry-&gt;entry.sz);</span>
+<span class="lineNum">     132 </span>            :         } else {
+<span class="lineNum">     133 </span><span class="lineCov">     962805 :             value = createStringObjectFromLongLong(entry-&gt;entry.longval);</span>
+<span class="lineNum">     134 </span>            :         }
+<span class="lineNum">     135 </span>            :     } else {
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     137 </span>            :     }
+<span class="lineNum">     138 </span><span class="lineCov">    1321206 :     return value;</span>
+<a name="139"><span class="lineNum">     139 </span>            : }</a>
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span><span class="lineCov">        488 : void listTypeInsert(listTypeEntry *entry, robj *value, int where) {</span>
+<span class="lineNum">     142 </span><span class="lineCov">        488 :     if (entry-&gt;li-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     143 </span><span class="lineCov">        488 :         value = getDecodedObject(value);</span>
+<span class="lineNum">     144 </span><span class="lineCov">        488 :         sds str = value-&gt;ptr;</span>
+<span class="lineNum">     145 </span><span class="lineCov">        488 :         size_t len = sdslen(str);</span>
+<span class="lineNum">     146 </span><span class="lineCov">        488 :         if (where == LIST_TAIL) {</span>
+<span class="lineNum">     147 </span><span class="lineCov">        226 :             quicklistInsertAfter((quicklist *)entry-&gt;entry.quicklist,</span>
+<span class="lineNum">     148 </span>            :                                  &amp;entry-&gt;entry, str, len);
+<span class="lineNum">     149 </span><span class="lineCov">        262 :         } else if (where == LIST_HEAD) {</span>
+<span class="lineNum">     150 </span><span class="lineCov">        262 :             quicklistInsertBefore((quicklist *)entry-&gt;entry.quicklist,</span>
+<span class="lineNum">     151 </span>            :                                   &amp;entry-&gt;entry, str, len);
+<span class="lineNum">     152 </span>            :         }
+<span class="lineNum">     153 </span><span class="lineCov">        488 :         decrRefCount(value);</span>
+<span class="lineNum">     154 </span>            :     } else {
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     156 </span>            :     }
+<span class="lineNum">     157 </span><span class="lineCov">        488 : }</span>
+<a name="158"><span class="lineNum">     158 </span>            : </a>
+<span class="lineNum">     159 </span>            : /* Compare the given object with the entry at the current position. */
+<span class="lineNum">     160 </span><span class="lineCov">    1047228 : int listTypeEqual(listTypeEntry *entry, robj *o) {</span>
+<span class="lineNum">     161 </span><span class="lineCov">    1047228 :     if (entry-&gt;li-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     162 </span><span class="lineCov">    1047228 :         serverAssertWithInfo(NULL,o,sdsEncodedObject(o));</span>
+<span class="lineNum">     163 </span><span class="lineCov">    2094456 :         return quicklistCompare(entry-&gt;entry.zi,o-&gt;ptr,sdslen(o-&gt;ptr));</span>
+<span class="lineNum">     164 </span>            :     } else {
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     166 </span>            :     }
+<span class="lineNum">     167 </span>            : }
+<a name="168"><span class="lineNum">     168 </span>            : </a>
+<span class="lineNum">     169 </span>            : /* Delete the element pointed to. */
+<span class="lineNum">     170 </span><span class="lineCov">      84431 : void listTypeDelete(listTypeIterator *iter, listTypeEntry *entry) {</span>
+<span class="lineNum">     171 </span><span class="lineCov">      84431 :     if (entry-&gt;li-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     172 </span><span class="lineCov">      84431 :         quicklistDelEntry(iter-&gt;iter, &amp;entry-&gt;entry);</span>
+<span class="lineNum">     173 </span>            :     } else {
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     175 </span>            :     }
+<span class="lineNum">     176 </span><span class="lineCov">      84431 : }</span>
+<a name="177"><span class="lineNum">     177 </span>            : </a>
+<span class="lineNum">     178 </span>            : /* Create a quicklist from a single ziplist */
+<span class="lineNum">     179 </span><span class="lineCov">          3 : void listTypeConvert(robj *subject, int enc) {</span>
+<span class="lineNum">     180 </span><span class="lineCov">          3 :     serverAssertWithInfo(NULL,subject,subject-&gt;type==OBJ_LIST);</span>
+<span class="lineNum">     181 </span><span class="lineCov">          3 :     serverAssertWithInfo(NULL,subject,subject-&gt;encoding==OBJ_ENCODING_ZIPLIST);</span>
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span><span class="lineCov">          3 :     if (enc == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     184 </span><span class="lineCov">          3 :         size_t zlen = server.list_max_ziplist_size;</span>
+<span class="lineNum">     185 </span><span class="lineCov">          3 :         int depth = server.list_compress_depth;</span>
+<span class="lineNum">     186 </span><span class="lineCov">          3 :         subject-&gt;ptr = quicklistCreateFromZiplist(zlen, depth, subject-&gt;ptr);</span>
+<span class="lineNum">     187 </span><span class="lineCov">          3 :         subject-&gt;encoding = OBJ_ENCODING_QUICKLIST;</span>
+<span class="lineNum">     188 </span>            :     } else {
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unsupported list conversion&quot;);</span>
+<span class="lineNum">     190 </span>            :     }
+<span class="lineNum">     191 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     194 </span>            :  * List Commands
+<a name="195"><span class="lineNum">     195 </span>            :  *----------------------------------------------------------------------------*/</a>
+<span class="lineNum">     196 </span>            : 
+<span class="lineNum">     197 </span><span class="lineCov">    1284547 : void pushGenericCommand(client *c, int where) {</span>
+<span class="lineNum">     198 </span><span class="lineCov">    1284547 :     int j, pushed = 0;</span>
+<span class="lineNum">     199 </span><span class="lineCov">    1284547 :     robj *lobj = lookupKeyWrite(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span><span class="lineCov">    1284547 :     if (lobj &amp;&amp; lobj-&gt;type != OBJ_LIST) {</span>
+<span class="lineNum">     202 </span><span class="lineCov">         10 :         addReply(c,shared.wrongtypeerr);</span>
+<span class="lineNum">     203 </span><span class="lineCov">         10 :         return;</span>
+<span class="lineNum">     204 </span>            :     }
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span><span class="lineCov">    4820910 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     207 </span><span class="lineCov">    3536373 :         if (!lobj) {</span>
+<span class="lineNum">     208 </span><span class="lineCov">     425901 :             lobj = createQuicklistObject();</span>
+<span class="lineNum">     209 </span><span class="lineCov">     425901 :             quicklistSetOptions(lobj-&gt;ptr, server.list_max_ziplist_size,</span>
+<span class="lineNum">     210 </span>            :                                 server.list_compress_depth);
+<span class="lineNum">     211 </span><span class="lineCov">     425901 :             dbAdd(c-&gt;db,c-&gt;argv[1],lobj);</span>
+<span class="lineNum">     212 </span>            :         }
+<span class="lineNum">     213 </span><span class="lineCov">    3536373 :         listTypePush(lobj,c-&gt;argv[j],where);</span>
+<span class="lineNum">     214 </span><span class="lineCov">    3536373 :         pushed++;</span>
+<span class="lineNum">     215 </span>            :     }
+<span class="lineNum">     216 </span><span class="lineCov">    1284537 :     addReplyLongLong(c, (lobj ? listTypeLength(lobj) : 0));</span>
+<span class="lineNum">     217 </span><span class="lineCov">    1284537 :     if (pushed) {</span>
+<span class="lineNum">     218 </span><span class="lineCov">    1284537 :         char *event = (where == LIST_HEAD) ? &quot;lpush&quot; : &quot;rpush&quot;;</span>
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span><span class="lineCov">    1284537 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     221 </span><span class="lineCov">    1284537 :         notifyKeyspaceEvent(NOTIFY_LIST,event,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     222 </span>            :     }
+<span class="lineNum">     223 </span><span class="lineCov">    1284537 :     server.dirty += pushed;</span>
+<a name="224"><span class="lineNum">     224 </span>            : }</a>
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span><span class="lineCov">     741988 : void lpushCommand(client *c) {</span>
+<span class="lineNum">     227 </span><span class="lineCov">     741988 :     pushGenericCommand(c,LIST_HEAD);</span>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">     741988 : }</span></a>
+<span class="lineNum">     229 </span>            : 
+<span class="lineNum">     230 </span><span class="lineCov">     542559 : void rpushCommand(client *c) {</span>
+<span class="lineNum">     231 </span><span class="lineCov">     542559 :     pushGenericCommand(c,LIST_TAIL);</span>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">     542559 : }</span></a>
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span><span class="lineCov">         30 : void pushxGenericCommand(client *c, int where) {</span>
+<span class="lineNum">     235 </span><span class="lineCov">         30 :     int j, pushed = 0;</span>
+<span class="lineNum">     236 </span><span class="lineCov">         30 :     robj *subject;</span>
+<span class="lineNum">     237 </span>            : 
+<span class="lineNum">     238 </span><span class="lineCov">         54 :     if ((subject = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     239 </span><span class="lineCov">         30 :         checkType(c,subject,OBJ_LIST)) return;</span>
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span><span class="lineCov">         66 :     for (j = 2; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">     242 </span><span class="lineCov">         42 :         listTypePush(subject,c-&gt;argv[j],where);</span>
+<span class="lineNum">     243 </span><span class="lineCov">         42 :         pushed++;</span>
+<span class="lineNum">     244 </span>            :     }
+<span class="lineNum">     245 </span>            : 
+<span class="lineNum">     246 </span><span class="lineCov">         24 :     addReplyLongLong(c,listTypeLength(subject));</span>
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span><span class="lineCov">         24 :     if (pushed) {</span>
+<span class="lineNum">     249 </span><span class="lineCov">         24 :         char *event = (where == LIST_HEAD) ? &quot;lpush&quot; : &quot;rpush&quot;;</span>
+<span class="lineNum">     250 </span><span class="lineCov">         24 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     251 </span><span class="lineCov">         24 :         notifyKeyspaceEvent(NOTIFY_LIST,event,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     252 </span>            :     }
+<span class="lineNum">     253 </span><span class="lineCov">         24 :     server.dirty += pushed;</span>
+<a name="254"><span class="lineNum">     254 </span>            : }</a>
+<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     256 </span><span class="lineCov">         15 : void lpushxCommand(client *c) {</span>
+<span class="lineNum">     257 </span><span class="lineCov">         15 :     pushxGenericCommand(c,LIST_HEAD);</span>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">         15 : }</span></a>
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span><span class="lineCov">         15 : void rpushxCommand(client *c) {</span>
+<span class="lineNum">     261 </span><span class="lineCov">         15 :     pushxGenericCommand(c,LIST_TAIL);</span>
+<a name="262"><span class="lineNum">     262 </span><span class="lineCov">         15 : }</span></a>
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span><span class="lineCov">      10119 : void linsertCommand(client *c) {</span>
+<span class="lineNum">     265 </span><span class="lineCov">      10119 :     int where;</span>
+<span class="lineNum">     266 </span><span class="lineCov">      10119 :     robj *subject;</span>
+<span class="lineNum">     267 </span><span class="lineCov">      10119 :     listTypeIterator *iter;</span>
+<span class="lineNum">     268 </span><span class="lineCov">      10119 :     listTypeEntry entry;</span>
+<span class="lineNum">     269 </span><span class="lineCov">      10119 :     int inserted = 0;</span>
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span><span class="lineCov">      10119 :     if (strcasecmp(c-&gt;argv[2]-&gt;ptr,&quot;after&quot;) == 0) {</span>
+<span class="lineNum">     272 </span>            :         where = LIST_TAIL;
+<span class="lineNum">     273 </span><span class="lineCov">       5023 :     } else if (strcasecmp(c-&gt;argv[2]-&gt;ptr,&quot;before&quot;) == 0) {</span>
+<span class="lineNum">     274 </span>            :         where = LIST_HEAD;
+<span class="lineNum">     275 </span>            :     } else {
+<span class="lineNum">     276 </span><span class="lineCov">          3 :         addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">     277 </span><span class="lineCov">       9631 :         return;</span>
+<span class="lineNum">     278 </span>            :     }
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span><span class="lineCov">      20126 :     if ((subject = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.czero)) == NULL ||</span>
+<span class="lineNum">     281 </span><span class="lineCov">      10116 :         checkType(c,subject,OBJ_LIST)) return;</span>
+<span class="lineNum">     282 </span>            : 
+<span class="lineNum">     283 </span>            :     /* Seek pivot from head to tail */
+<span class="lineNum">     284 </span><span class="lineCov">      10010 :     iter = listTypeInitIterator(subject,0,LIST_TAIL);</span>
+<span class="lineNum">     285 </span><span class="lineCov">     960354 :     while (listTypeNext(iter,&amp;entry)) {</span>
+<span class="lineNum">     286 </span><span class="lineCov">     950832 :         if (listTypeEqual(&amp;entry,c-&gt;argv[3])) {</span>
+<span class="lineNum">     287 </span><span class="lineCov">        488 :             listTypeInsert(&amp;entry,c-&gt;argv[4],where);</span>
+<span class="lineNum">     288 </span><span class="lineCov">        488 :             inserted = 1;</span>
+<span class="lineNum">     289 </span><span class="lineCov">        488 :             break;</span>
+<span class="lineNum">     290 </span>            :         }
+<span class="lineNum">     291 </span>            :     }
+<span class="lineNum">     292 </span><span class="lineCov">      10010 :     listTypeReleaseIterator(iter);</span>
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span><span class="lineCov">      10010 :     if (inserted) {</span>
+<span class="lineNum">     295 </span><span class="lineCov">        488 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     296 </span><span class="lineCov">       1464 :         notifyKeyspaceEvent(NOTIFY_LIST,&quot;linsert&quot;,</span>
+<span class="lineNum">     297 </span><span class="lineCov">        488 :                             c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     298 </span><span class="lineCov">        488 :         server.dirty++;</span>
+<span class="lineNum">     299 </span>            :     } else {
+<span class="lineNum">     300 </span>            :         /* Notify client of a failed insert */
+<span class="lineNum">     301 </span><span class="lineCov">       9522 :         addReply(c,shared.cnegone);</span>
+<span class="lineNum">     302 </span><span class="lineCov">       9522 :         return;</span>
+<span class="lineNum">     303 </span>            :     }
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span><span class="lineCov">        488 :     addReplyLongLong(c,listTypeLength(subject));</span>
+<a name="306"><span class="lineNum">     306 </span>            : }</a>
+<span class="lineNum">     307 </span>            : 
+<span class="lineNum">     308 </span><span class="lineCov">      18765 : void llenCommand(client *c) {</span>
+<span class="lineNum">     309 </span><span class="lineCov">      18765 :     robj *o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.czero);</span>
+<span class="lineNum">     310 </span><span class="lineCov">      18765 :     if (o == NULL || checkType(c,o,OBJ_LIST)) return;</span>
+<span class="lineNum">     311 </span><span class="lineCov">      18735 :     addReplyLongLong(c,listTypeLength(o));</span>
+<a name="312"><span class="lineNum">     312 </span>            : }</a>
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span><span class="lineCov">     148235 : void lindexCommand(client *c) {</span>
+<span class="lineNum">     315 </span><span class="lineCov">     148235 :     robj *o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.nullbulk);</span>
+<span class="lineNum">     316 </span><span class="lineCov">     148235 :     if (o == NULL || checkType(c,o,OBJ_LIST)) return;</span>
+<span class="lineNum">     317 </span><span class="lineCov">     148226 :     long index;</span>
+<span class="lineNum">     318 </span><span class="lineCov">     148226 :     robj *value = NULL;</span>
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span><span class="lineCov">     148226 :     if ((getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;index, NULL) != C_OK))</span>
+<span class="lineNum">     321 </span>            :         return;
+<span class="lineNum">     322 </span>            : 
+<span class="lineNum">     323 </span><span class="lineCov">     148226 :     if (o-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     324 </span><span class="lineCov">     148226 :         quicklistEntry entry;</span>
+<span class="lineNum">     325 </span><span class="lineCov">     148226 :         if (quicklistIndex(o-&gt;ptr, index, &amp;entry)) {</span>
+<span class="lineNum">     326 </span><span class="lineCov">     148217 :             if (entry.value) {</span>
+<span class="lineNum">     327 </span><span class="lineCov">      31646 :                 value = createStringObject((char*)entry.value,entry.sz);</span>
+<span class="lineNum">     328 </span>            :             } else {
+<span class="lineNum">     329 </span><span class="lineCov">     116571 :                 value = createStringObjectFromLongLong(entry.longval);</span>
+<span class="lineNum">     330 </span>            :             }
+<span class="lineNum">     331 </span><span class="lineCov">     148217 :             addReplyBulk(c,value);</span>
+<span class="lineNum">     332 </span><span class="lineCov">     148217 :             decrRefCount(value);</span>
+<span class="lineNum">     333 </span>            :         } else {
+<span class="lineNum">     334 </span><span class="lineCov">          9 :             addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     335 </span>            :         }
+<span class="lineNum">     336 </span>            :     } else {
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     338 </span>            :     }
+<a name="339"><span class="lineNum">     339 </span>            : }</a>
+<span class="lineNum">     340 </span>            : 
+<span class="lineNum">     341 </span><span class="lineCov">      10148 : void lsetCommand(client *c) {</span>
+<span class="lineNum">     342 </span><span class="lineCov">      10148 :     robj *o = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.nokeyerr);</span>
+<span class="lineNum">     343 </span><span class="lineCov">      10148 :     if (o == NULL || checkType(c,o,OBJ_LIST)) return;</span>
+<span class="lineNum">     344 </span><span class="lineCov">      10024 :     long index;</span>
+<span class="lineNum">     345 </span><span class="lineCov">      10024 :     robj *value = c-&gt;argv[3];</span>
+<span class="lineNum">     346 </span>            : 
+<span class="lineNum">     347 </span><span class="lineCov">      10024 :     if ((getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;index, NULL) != C_OK))</span>
+<span class="lineNum">     348 </span>            :         return;
+<span class="lineNum">     349 </span>            : 
+<span class="lineNum">     350 </span><span class="lineCov">      10024 :     if (o-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     351 </span><span class="lineCov">      10024 :         quicklist *ql = o-&gt;ptr;</span>
+<span class="lineNum">     352 </span><span class="lineCov">      30072 :         int replaced = quicklistReplaceAtIndex(ql, index,</span>
+<span class="lineNum">     353 </span><span class="lineCov">      20048 :                                                value-&gt;ptr, sdslen(value-&gt;ptr));</span>
+<span class="lineNum">     354 </span><span class="lineCov">      10024 :         if (!replaced) {</span>
+<span class="lineNum">     355 </span><span class="lineCov">        154 :             addReply(c,shared.outofrangeerr);</span>
+<span class="lineNum">     356 </span>            :         } else {
+<span class="lineNum">     357 </span><span class="lineCov">       9870 :             addReply(c,shared.ok);</span>
+<span class="lineNum">     358 </span><span class="lineCov">       9870 :             signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     359 </span><span class="lineCov">       9870 :             notifyKeyspaceEvent(NOTIFY_LIST,&quot;lset&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     360 </span><span class="lineCov">       9870 :             server.dirty++;</span>
+<span class="lineNum">     361 </span>            :         }
+<span class="lineNum">     362 </span>            :     } else {
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     364 </span>            :     }
+<a name="365"><span class="lineNum">     365 </span>            : }</a>
+<span class="lineNum">     366 </span>            : 
+<span class="lineNum">     367 </span><span class="lineCov">     206288 : void popGenericCommand(client *c, int where) {</span>
+<span class="lineNum">     368 </span><span class="lineCov">     206288 :     robj *o = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.nullbulk);</span>
+<span class="lineNum">     369 </span><span class="lineCov">     206288 :     if (o == NULL || checkType(c,o,OBJ_LIST)) return;</span>
+<span class="lineNum">     370 </span>            : 
+<span class="lineNum">     371 </span><span class="lineCov">     206042 :     robj *value = listTypePop(o,where);</span>
+<span class="lineNum">     372 </span><span class="lineCov">     206042 :     if (value == NULL) {</span>
+<span class="lineNum">     373 </span><span class="lineNoCov">          0 :         addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     374 </span>            :     } else {
+<span class="lineNum">     375 </span><span class="lineCov">     206042 :         char *event = (where == LIST_HEAD) ? &quot;lpop&quot; : &quot;rpop&quot;;</span>
+<span class="lineNum">     376 </span>            : 
+<span class="lineNum">     377 </span><span class="lineCov">     206042 :         addReplyBulk(c,value);</span>
+<span class="lineNum">     378 </span><span class="lineCov">     206042 :         decrRefCount(value);</span>
+<span class="lineNum">     379 </span><span class="lineCov">     206042 :         notifyKeyspaceEvent(NOTIFY_LIST,event,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     380 </span><span class="lineCov">     206042 :         if (listTypeLength(o) == 0) {</span>
+<span class="lineNum">     381 </span><span class="lineCov">     517149 :             notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,</span>
+<span class="lineNum">     382 </span><span class="lineCov">     172383 :                                 c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     383 </span><span class="lineCov">     172383 :             dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     384 </span>            :         }
+<span class="lineNum">     385 </span><span class="lineCov">     206042 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     386 </span><span class="lineCov">     206042 :         server.dirty++;</span>
+<span class="lineNum">     387 </span>            :     }
+<a name="388"><span class="lineNum">     388 </span>            : }</a>
+<span class="lineNum">     389 </span>            : 
+<span class="lineNum">     390 </span><span class="lineCov">     103261 : void lpopCommand(client *c) {</span>
+<span class="lineNum">     391 </span><span class="lineCov">     103261 :     popGenericCommand(c,LIST_HEAD);</span>
+<a name="392"><span class="lineNum">     392 </span><span class="lineCov">     103261 : }</span></a>
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span><span class="lineCov">     103027 : void rpopCommand(client *c) {</span>
+<span class="lineNum">     395 </span><span class="lineCov">     103027 :     popGenericCommand(c,LIST_TAIL);</span>
+<a name="396"><span class="lineNum">     396 </span><span class="lineCov">     103027 : }</span></a>
+<span class="lineNum">     397 </span>            : 
+<span class="lineNum">     398 </span><span class="lineCov">     130977 : void lrangeCommand(client *c) {</span>
+<span class="lineNum">     399 </span><span class="lineCov">     130977 :     robj *o;</span>
+<span class="lineNum">     400 </span><span class="lineCov">     130977 :     long start, end, llen, rangelen;</span>
+<span class="lineNum">     401 </span>            : 
+<span class="lineNum">     402 </span><span class="lineCov">     261954 :     if ((getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;start, NULL) != C_OK) ||</span>
+<span class="lineNum">     403 </span><span class="lineCov">     131010 :         (getLongFromObjectOrReply(c, c-&gt;argv[3], &amp;end, NULL) != C_OK)) return;</span>
+<span class="lineNum">     404 </span>            : 
+<span class="lineNum">     405 </span><span class="lineCov">     130977 :     if ((o = lookupKeyReadOrReply(c,c-&gt;argv[1],shared.emptymultibulk)) == NULL</span>
+<span class="lineNum">     406 </span><span class="lineCov">     130977 :          || checkType(c,o,OBJ_LIST)) return;</span>
+<span class="lineNum">     407 </span><span class="lineCov">     130956 :     llen = listTypeLength(o);</span>
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span>            :     /* convert negative indexes */
+<span class="lineNum">     410 </span><span class="lineCov">     130956 :     if (start &lt; 0) start = llen+start;</span>
+<span class="lineNum">     411 </span><span class="lineCov">     130956 :     if (end &lt; 0) end = llen+end;</span>
+<span class="lineNum">     412 </span><span class="lineCov">     130956 :     if (start &lt; 0) start = 0;</span>
+<span class="lineNum">     413 </span>            : 
+<span class="lineNum">     414 </span>            :     /* Invariant: start &gt;= 0, so this test will be true when end &lt; 0.
+<span class="lineNum">     415 </span>            :      * The range is empty when start &gt; end or start &gt;= length. */
+<span class="lineNum">     416 </span><span class="lineCov">     130956 :     if (start &gt; end || start &gt;= llen) {</span>
+<span class="lineNum">     417 </span><span class="lineCov">         12 :         addReply(c,shared.emptymultibulk);</span>
+<span class="lineNum">     418 </span><span class="lineCov">         12 :         return;</span>
+<span class="lineNum">     419 </span>            :     }
+<span class="lineNum">     420 </span><span class="lineCov">     130944 :     if (end &gt;= llen) end = llen-1;</span>
+<span class="lineNum">     421 </span><span class="lineCov">     130944 :     rangelen = (end-start)+1;</span>
+<span class="lineNum">     422 </span>            : 
+<span class="lineNum">     423 </span>            :     /* Return the result in form of a multi-bulk reply */
+<span class="lineNum">     424 </span><span class="lineCov">     130944 :     addReplyMultiBulkLen(c,rangelen);</span>
+<span class="lineNum">     425 </span><span class="lineCov">     130944 :     if (o-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     426 </span><span class="lineCov">     130944 :         listTypeIterator *iter = listTypeInitIterator(o, start, LIST_TAIL);</span>
+<span class="lineNum">     427 </span>            : 
+<span class="lineNum">     428 </span><span class="lineCov">    2785701 :         while(rangelen--) {</span>
+<span class="lineNum">     429 </span><span class="lineCov">    2654757 :             listTypeEntry entry;</span>
+<span class="lineNum">     430 </span><span class="lineCov">    2654757 :             listTypeNext(iter, &amp;entry);</span>
+<span class="lineNum">     431 </span><span class="lineCov">    2654757 :             quicklistEntry *qe = &amp;entry.entry;</span>
+<span class="lineNum">     432 </span><span class="lineCov">    2654757 :             if (qe-&gt;value) {</span>
+<span class="lineNum">     433 </span><span class="lineCov">       1002 :                 addReplyBulkCBuffer(c,qe-&gt;value,qe-&gt;sz);</span>
+<span class="lineNum">     434 </span>            :             } else {
+<span class="lineNum">     435 </span><span class="lineCov">    2653755 :                 addReplyBulkLongLong(c,qe-&gt;longval);</span>
+<span class="lineNum">     436 </span>            :             }
+<span class="lineNum">     437 </span>            :         }
+<span class="lineNum">     438 </span><span class="lineCov">     261888 :         listTypeReleaseIterator(iter);</span>
+<span class="lineNum">     439 </span>            :     } else {
+<span class="lineNum">     440 </span><span class="lineNoCov">          0 :         serverPanic(&quot;List encoding is not QUICKLIST!&quot;);</span>
+<span class="lineNum">     441 </span>            :     }
+<a name="442"><span class="lineNum">     442 </span>            : }</a>
+<span class="lineNum">     443 </span>            : 
+<span class="lineNum">     444 </span><span class="lineCov">       6084 : void ltrimCommand(client *c) {</span>
+<span class="lineNum">     445 </span><span class="lineCov">       6084 :     robj *o;</span>
+<span class="lineNum">     446 </span><span class="lineCov">       6084 :     long start, end, llen, ltrim, rtrim;</span>
+<span class="lineNum">     447 </span>            : 
+<span class="lineNum">     448 </span><span class="lineCov">      12168 :     if ((getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;start, NULL) != C_OK) ||</span>
+<span class="lineNum">     449 </span><span class="lineCov">       6084 :         (getLongFromObjectOrReply(c, c-&gt;argv[3], &amp;end, NULL) != C_OK)) return;</span>
+<span class="lineNum">     450 </span>            : 
+<span class="lineNum">     451 </span><span class="lineCov">      12168 :     if ((o = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.ok)) == NULL ||</span>
+<span class="lineNum">     452 </span><span class="lineCov">       6084 :         checkType(c,o,OBJ_LIST)) return;</span>
+<span class="lineNum">     453 </span><span class="lineCov">       6084 :     llen = listTypeLength(o);</span>
+<span class="lineNum">     454 </span>            : 
+<span class="lineNum">     455 </span>            :     /* convert negative indexes */
+<span class="lineNum">     456 </span><span class="lineCov">       6084 :     if (start &lt; 0) start = llen+start;</span>
+<span class="lineNum">     457 </span><span class="lineCov">       6084 :     if (end &lt; 0) end = llen+end;</span>
+<span class="lineNum">     458 </span><span class="lineCov">       6084 :     if (start &lt; 0) start = 0;</span>
+<span class="lineNum">     459 </span>            : 
+<span class="lineNum">     460 </span>            :     /* Invariant: start &gt;= 0, so this test will be true when end &lt; 0.
+<span class="lineNum">     461 </span>            :      * The range is empty when start &gt; end or start &gt;= length. */
+<span class="lineNum">     462 </span><span class="lineCov">       6084 :     if (start &gt; end || start &gt;= llen) {</span>
+<span class="lineNum">     463 </span>            :         /* Out of range start or start &gt; end result in empty list */
+<span class="lineNum">     464 </span>            :         ltrim = llen;
+<span class="lineNum">     465 </span>            :         rtrim = 0;
+<span class="lineNum">     466 </span>            :     } else {
+<span class="lineNum">     467 </span><span class="lineCov">       6078 :         if (end &gt;= llen) end = llen-1;</span>
+<span class="lineNum">     468 </span><span class="lineCov">       6078 :         ltrim = start;</span>
+<span class="lineNum">     469 </span><span class="lineCov">       6078 :         rtrim = llen-end-1;</span>
+<span class="lineNum">     470 </span>            :     }
+<span class="lineNum">     471 </span>            : 
+<span class="lineNum">     472 </span>            :     /* Remove list elements to perform the trim */
+<span class="lineNum">     473 </span><span class="lineCov">       6084 :     if (o-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     474 </span><span class="lineCov">       6084 :         quicklistDelRange(o-&gt;ptr,0,ltrim);</span>
+<span class="lineNum">     475 </span><span class="lineCov">       6084 :         quicklistDelRange(o-&gt;ptr,-rtrim,rtrim);</span>
+<span class="lineNum">     476 </span>            :     } else {
+<span class="lineNum">     477 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     478 </span>            :     }
+<span class="lineNum">     479 </span>            : 
+<span class="lineNum">     480 </span><span class="lineCov">       6084 :     notifyKeyspaceEvent(NOTIFY_LIST,&quot;ltrim&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     481 </span><span class="lineCov">       6084 :     if (listTypeLength(o) == 0) {</span>
+<span class="lineNum">     482 </span><span class="lineCov">          6 :         dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     483 </span><span class="lineCov">          6 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     484 </span>            :     }
+<span class="lineNum">     485 </span><span class="lineCov">       6084 :     signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     486 </span><span class="lineCov">       6084 :     server.dirty++;</span>
+<span class="lineNum">     487 </span><span class="lineCov">       6084 :     addReply(c,shared.ok);</span>
+<a name="488"><span class="lineNum">     488 </span>            : }</a>
+<span class="lineNum">     489 </span>            : 
+<span class="lineNum">     490 </span><span class="lineCov">      89909 : void lremCommand(client *c) {</span>
+<span class="lineNum">     491 </span><span class="lineCov">      89909 :     robj *subject, *obj;</span>
+<span class="lineNum">     492 </span><span class="lineCov">      89909 :     obj = c-&gt;argv[3];</span>
+<span class="lineNum">     493 </span><span class="lineCov">      89909 :     long toremove;</span>
+<span class="lineNum">     494 </span><span class="lineCov">      89909 :     long removed = 0;</span>
+<span class="lineNum">     495 </span>            : 
+<span class="lineNum">     496 </span><span class="lineCov">      89909 :     if ((getLongFromObjectOrReply(c, c-&gt;argv[2], &amp;toremove, NULL) != C_OK))</span>
+<span class="lineNum">     497 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     498 </span>            : 
+<span class="lineNum">     499 </span><span class="lineCov">      89909 :     subject = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.czero);</span>
+<span class="lineNum">     500 </span><span class="lineCov">      89909 :     if (subject == NULL || checkType(c,subject,OBJ_LIST)) return;</span>
+<span class="lineNum">     501 </span>            : 
+<span class="lineNum">     502 </span><span class="lineCov">      89909 :     listTypeIterator *li;</span>
+<span class="lineNum">     503 </span><span class="lineCov">      89909 :     if (toremove &lt; 0) {</span>
+<span class="lineNum">     504 </span><span class="lineCov">         12 :         toremove = -toremove;</span>
+<span class="lineNum">     505 </span><span class="lineCov">         12 :         li = listTypeInitIterator(subject,-1,LIST_HEAD);</span>
+<span class="lineNum">     506 </span>            :     } else {
+<span class="lineNum">     507 </span><span class="lineCov">      89897 :         li = listTypeInitIterator(subject,0,LIST_TAIL);</span>
+<span class="lineNum">     508 </span>            :     }
+<span class="lineNum">     509 </span>            : 
+<span class="lineNum">     510 </span>            :     listTypeEntry entry;
+<span class="lineNum">     511 </span><span class="lineCov">     186281 :     while (listTypeNext(li,&amp;entry)) {</span>
+<span class="lineNum">     512 </span><span class="lineCov">      96396 :         if (listTypeEqual(&amp;entry,obj)) {</span>
+<span class="lineNum">     513 </span><span class="lineCov">      84431 :             listTypeDelete(li, &amp;entry);</span>
+<span class="lineNum">     514 </span><span class="lineCov">      84431 :             server.dirty++;</span>
+<span class="lineNum">     515 </span><span class="lineCov">      84431 :             removed++;</span>
+<span class="lineNum">     516 </span><span class="lineCov">      84431 :             if (toremove &amp;&amp; removed == toremove) break;</span>
+<span class="lineNum">     517 </span>            :         }
+<span class="lineNum">     518 </span>            :     }
+<span class="lineNum">     519 </span><span class="lineCov">      89909 :     listTypeReleaseIterator(li);</span>
+<span class="lineNum">     520 </span>            : 
+<span class="lineNum">     521 </span><span class="lineCov">      89909 :     if (removed) {</span>
+<span class="lineNum">     522 </span><span class="lineCov">      84419 :         signalModifiedKey(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     523 </span><span class="lineCov">      84419 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;lrem&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     524 </span>            :     }
+<span class="lineNum">     525 </span>            : 
+<span class="lineNum">     526 </span><span class="lineCov">      89909 :     if (listTypeLength(subject) == 0) {</span>
+<span class="lineNum">     527 </span><span class="lineCov">      84389 :         dbDelete(c-&gt;db,c-&gt;argv[1]);</span>
+<span class="lineNum">     528 </span><span class="lineCov">      84389 :         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,c-&gt;argv[1],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     529 </span>            :     }
+<span class="lineNum">     530 </span>            : 
+<span class="lineNum">     531 </span><span class="lineCov">      89909 :     addReplyLongLong(c,removed);</span>
+<span class="lineNum">     532 </span>            : }
+<span class="lineNum">     533 </span>            : 
+<span class="lineNum">     534 </span>            : /* This is the semantic of this command:
+<span class="lineNum">     535 </span>            :  *  RPOPLPUSH srclist dstlist:
+<span class="lineNum">     536 </span>            :  *    IF LLEN(srclist) &gt; 0
+<span class="lineNum">     537 </span>            :  *      element = RPOP srclist
+<span class="lineNum">     538 </span>            :  *      LPUSH dstlist element
+<span class="lineNum">     539 </span>            :  *      RETURN element
+<span class="lineNum">     540 </span>            :  *    ELSE
+<span class="lineNum">     541 </span>            :  *      RETURN nil
+<span class="lineNum">     542 </span>            :  *    END
+<span class="lineNum">     543 </span>            :  *  END
+<span class="lineNum">     544 </span>            :  *
+<span class="lineNum">     545 </span>            :  * The idea is to be able to get an element from a list in a reliable way
+<span class="lineNum">     546 </span>            :  * since the element is not just returned but pushed against another list
+<span class="lineNum">     547 </span>            :  * as well. This command was originally proposed by Ezra Zygmuntowicz.
+<a name="548"><span class="lineNum">     548 </span>            :  */</a>
+<span class="lineNum">     549 </span>            : 
+<span class="lineNum">     550 </span><span class="lineCov">         99 : void rpoplpushHandlePush(client *c, robj *dstkey, robj *dstobj, robj *value) {</span>
+<span class="lineNum">     551 </span>            :     /* Create the list if the key does not exist */
+<span class="lineNum">     552 </span><span class="lineCov">         99 :     if (!dstobj) {</span>
+<span class="lineNum">     553 </span><span class="lineCov">         57 :         dstobj = createQuicklistObject();</span>
+<span class="lineNum">     554 </span><span class="lineCov">         57 :         quicklistSetOptions(dstobj-&gt;ptr, server.list_max_ziplist_size,</span>
+<span class="lineNum">     555 </span>            :                             server.list_compress_depth);
+<span class="lineNum">     556 </span><span class="lineCov">         57 :         dbAdd(c-&gt;db,dstkey,dstobj);</span>
+<span class="lineNum">     557 </span>            :     }
+<span class="lineNum">     558 </span><span class="lineCov">         99 :     signalModifiedKey(c-&gt;db,dstkey);</span>
+<span class="lineNum">     559 </span><span class="lineCov">         99 :     listTypePush(dstobj,value,LIST_HEAD);</span>
+<span class="lineNum">     560 </span><span class="lineCov">         99 :     notifyKeyspaceEvent(NOTIFY_LIST,&quot;lpush&quot;,dstkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     561 </span>            :     /* Always send the pushed value to the client. */
+<span class="lineNum">     562 </span><span class="lineCov">         99 :     addReplyBulk(c,value);</span>
+<a name="563"><span class="lineNum">     563 </span><span class="lineCov">         99 : }</span></a>
+<span class="lineNum">     564 </span>            : 
+<span class="lineNum">     565 </span><span class="lineCov">         75 : void rpoplpushCommand(client *c) {</span>
+<span class="lineNum">     566 </span><span class="lineCov">         75 :     robj *sobj, *value;</span>
+<span class="lineNum">     567 </span><span class="lineCov">        144 :     if ((sobj = lookupKeyWriteOrReply(c,c-&gt;argv[1],shared.nullbulk)) == NULL ||</span>
+<span class="lineNum">     568 </span><span class="lineCov">         78 :         checkType(c,sobj,OBJ_LIST)) return;</span>
+<span class="lineNum">     569 </span>            : 
+<span class="lineNum">     570 </span><span class="lineCov">         66 :     if (listTypeLength(sobj) == 0) {</span>
+<span class="lineNum">     571 </span>            :         /* This may only happen after loading very old RDB files. Recent
+<span class="lineNum">     572 </span>            :          * versions of Redis delete keys of empty lists. */
+<span class="lineNum">     573 </span><span class="lineNoCov">          0 :         addReply(c,shared.nullbulk);</span>
+<span class="lineNum">     574 </span>            :     } else {
+<span class="lineNum">     575 </span><span class="lineCov">         66 :         robj *dobj = lookupKeyWrite(c-&gt;db,c-&gt;argv[2]);</span>
+<span class="lineNum">     576 </span><span class="lineCov">         66 :         robj *touchedkey = c-&gt;argv[1];</span>
+<span class="lineNum">     577 </span>            : 
+<span class="lineNum">     578 </span><span class="lineCov">         66 :         if (dobj &amp;&amp; checkType(c,dobj,OBJ_LIST)) return;</span>
+<span class="lineNum">     579 </span><span class="lineCov">         60 :         value = listTypePop(sobj,LIST_TAIL);</span>
+<span class="lineNum">     580 </span>            :         /* We saved touched key, and protect it, since rpoplpushHandlePush
+<span class="lineNum">     581 </span>            :          * may change the client command argument vector (it does not
+<span class="lineNum">     582 </span>            :          * currently). */
+<span class="lineNum">     583 </span><span class="lineCov">         60 :         incrRefCount(touchedkey);</span>
+<span class="lineNum">     584 </span><span class="lineCov">         60 :         rpoplpushHandlePush(c,c-&gt;argv[2],dobj,value);</span>
+<span class="lineNum">     585 </span>            : 
+<span class="lineNum">     586 </span>            :         /* listTypePop returns an object with its refcount incremented */
+<span class="lineNum">     587 </span><span class="lineCov">         60 :         decrRefCount(value);</span>
+<span class="lineNum">     588 </span>            : 
+<span class="lineNum">     589 </span>            :         /* Delete the source list when it is empty */
+<span class="lineNum">     590 </span><span class="lineCov">         60 :         notifyKeyspaceEvent(NOTIFY_LIST,&quot;rpop&quot;,touchedkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     591 </span><span class="lineCov">         60 :         if (listTypeLength(sobj) == 0) {</span>
+<span class="lineNum">     592 </span><span class="lineCov">          3 :             dbDelete(c-&gt;db,touchedkey);</span>
+<span class="lineNum">     593 </span><span class="lineCov">          6 :             notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,</span>
+<span class="lineNum">     594 </span><span class="lineCov">          3 :                                 touchedkey,c-&gt;db-&gt;id);</span>
+<span class="lineNum">     595 </span>            :         }
+<span class="lineNum">     596 </span><span class="lineCov">         60 :         signalModifiedKey(c-&gt;db,touchedkey);</span>
+<span class="lineNum">     597 </span><span class="lineCov">         60 :         decrRefCount(touchedkey);</span>
+<span class="lineNum">     598 </span><span class="lineCov">         60 :         server.dirty++;</span>
+<span class="lineNum">     599 </span><span class="lineCov">         60 :         if (c-&gt;cmd-&gt;proc == brpoplpushCommand) {</span>
+<span class="lineNum">     600 </span><span class="lineCov">         15 :             rewriteClientCommandVector(c,3,shared.rpoplpush,c-&gt;argv[1],c-&gt;argv[2]);</span>
+<span class="lineNum">     601 </span>            :         }
+<span class="lineNum">     602 </span>            :     }
+<span class="lineNum">     603 </span>            : }
+<span class="lineNum">     604 </span>            : 
+<span class="lineNum">     605 </span>            : /*-----------------------------------------------------------------------------
+<span class="lineNum">     606 </span>            :  * Blocking POP operations
+<span class="lineNum">     607 </span>            :  *----------------------------------------------------------------------------*/
+<span class="lineNum">     608 </span>            : 
+<span class="lineNum">     609 </span>            : /* This is a helper function for handleClientsBlockedOnLists(). It's work
+<span class="lineNum">     610 </span>            :  * is to serve a specific client (receiver) that is blocked on 'key'
+<span class="lineNum">     611 </span>            :  * in the context of the specified 'db', doing the following:
+<span class="lineNum">     612 </span>            :  *
+<span class="lineNum">     613 </span>            :  * 1) Provide the client with the 'value' element.
+<span class="lineNum">     614 </span>            :  * 2) If the dstkey is not NULL (we are serving a BRPOPLPUSH) also push the
+<span class="lineNum">     615 </span>            :  *    'value' element on the destination list (the LPUSH side of the command).
+<span class="lineNum">     616 </span>            :  * 3) Propagate the resulting BRPOP, BLPOP and additional LPUSH if any into
+<span class="lineNum">     617 </span>            :  *    the AOF and replication channel.
+<span class="lineNum">     618 </span>            :  *
+<span class="lineNum">     619 </span>            :  * The argument 'where' is LIST_TAIL or LIST_HEAD, and indicates if the
+<span class="lineNum">     620 </span>            :  * 'value' element was popped fron the head (BLPOP) or tail (BRPOP) so that
+<span class="lineNum">     621 </span>            :  * we can propagate the command properly.
+<span class="lineNum">     622 </span>            :  *
+<span class="lineNum">     623 </span>            :  * The function returns C_OK if we are able to serve the client, otherwise
+<span class="lineNum">     624 </span>            :  * C_ERR is returned to signal the caller that the list POP operation
+<span class="lineNum">     625 </span>            :  * should be undone as the client was not served: This only happens for
+<a name="626"><span class="lineNum">     626 </span>            :  * BRPOPLPUSH that fails to push the value to the destination key as it is</a>
+<span class="lineNum">     627 </span>            :  * of the wrong type. */
+<span class="lineNum">     628 </span><span class="lineCov">         98 : int serveClientBlockedOnList(client *receiver, robj *key, robj *dstkey, redisDb *db, robj *value, int where)</span>
+<span class="lineNum">     629 </span>            : {
+<span class="lineNum">     630 </span><span class="lineCov">         98 :     robj *argv[3];</span>
+<span class="lineNum">     631 </span>            : 
+<span class="lineNum">     632 </span><span class="lineCov">         98 :     if (dstkey == NULL) {</span>
+<span class="lineNum">     633 </span>            :         /* Propagate the [LR]POP operation. */
+<span class="lineNum">     634 </span><span class="lineCov">         50 :         argv[0] = (where == LIST_HEAD) ? shared.lpop :</span>
+<span class="lineNum">     635 </span>            :                                           shared.rpop;
+<span class="lineNum">     636 </span><span class="lineCov">         50 :         argv[1] = key;</span>
+<span class="lineNum">     637 </span><span class="lineCov">         50 :         propagate((where == LIST_HEAD) ?</span>
+<span class="lineNum">     638 </span>            :             server.lpopCommand : server.rpopCommand,
+<span class="lineNum">     639 </span>            :             db-&gt;id,argv,2,PROPAGATE_AOF|PROPAGATE_REPL);
+<span class="lineNum">     640 </span>            : 
+<span class="lineNum">     641 </span>            :         /* BRPOP/BLPOP */
+<span class="lineNum">     642 </span><span class="lineCov">         50 :         addReplyMultiBulkLen(receiver,2);</span>
+<span class="lineNum">     643 </span><span class="lineCov">         50 :         addReplyBulk(receiver,key);</span>
+<span class="lineNum">     644 </span><span class="lineCov">         50 :         addReplyBulk(receiver,value);</span>
+<span class="lineNum">     645 </span>            :         
+<span class="lineNum">     646 </span>            :         /* Notify event. */
+<span class="lineNum">     647 </span><span class="lineCov">         50 :         char *event = (where == LIST_HEAD) ? &quot;lpop&quot; : &quot;rpop&quot;;</span>
+<span class="lineNum">     648 </span><span class="lineCov">         50 :         notifyKeyspaceEvent(NOTIFY_LIST,event,key,receiver-&gt;db-&gt;id);</span>
+<span class="lineNum">     649 </span>            :     } else {
+<span class="lineNum">     650 </span>            :         /* BRPOPLPUSH */
+<span class="lineNum">     651 </span><span class="lineCov">         48 :         robj *dstobj =</span>
+<span class="lineNum">     652 </span><span class="lineCov">         48 :             lookupKeyWrite(receiver-&gt;db,dstkey);</span>
+<span class="lineNum">     653 </span><span class="lineCov">         60 :         if (!(dstobj &amp;&amp;</span>
+<span class="lineNum">     654 </span><span class="lineCov">         12 :              checkType(receiver,dstobj,OBJ_LIST)))</span>
+<span class="lineNum">     655 </span>            :         {
+<span class="lineNum">     656 </span>            :             /* Propagate the RPOP operation. */
+<span class="lineNum">     657 </span><span class="lineCov">         39 :             argv[0] = shared.rpop;</span>
+<span class="lineNum">     658 </span><span class="lineCov">         39 :             argv[1] = key;</span>
+<span class="lineNum">     659 </span><span class="lineCov">         39 :             propagate(server.rpopCommand,</span>
+<span class="lineNum">     660 </span>            :                 db-&gt;id,argv,2,
+<span class="lineNum">     661 </span>            :                 PROPAGATE_AOF|
+<span class="lineNum">     662 </span>            :                 PROPAGATE_REPL);
+<span class="lineNum">     663 </span><span class="lineCov">         39 :             rpoplpushHandlePush(receiver,dstkey,dstobj,</span>
+<span class="lineNum">     664 </span>            :                 value);
+<span class="lineNum">     665 </span>            :             /* Propagate the LPUSH operation. */
+<span class="lineNum">     666 </span><span class="lineCov">         39 :             argv[0] = shared.lpush;</span>
+<span class="lineNum">     667 </span><span class="lineCov">         39 :             argv[1] = dstkey;</span>
+<span class="lineNum">     668 </span><span class="lineCov">         39 :             argv[2] = value;</span>
+<span class="lineNum">     669 </span><span class="lineCov">         39 :             propagate(server.lpushCommand,</span>
+<span class="lineNum">     670 </span>            :                 db-&gt;id,argv,3,
+<span class="lineNum">     671 </span>            :                 PROPAGATE_AOF|
+<span class="lineNum">     672 </span>            :                 PROPAGATE_REPL);
+<span class="lineNum">     673 </span>            : 
+<span class="lineNum">     674 </span>            :             /* Notify event (&quot;lpush&quot; was notified by rpoplpushHandlePush). */
+<span class="lineNum">     675 </span><span class="lineCov">         39 :             notifyKeyspaceEvent(NOTIFY_LIST,&quot;rpop&quot;,key,receiver-&gt;db-&gt;id);</span>
+<span class="lineNum">     676 </span>            :         } else {
+<span class="lineNum">     677 </span>            :             /* BRPOPLPUSH failed because of wrong
+<span class="lineNum">     678 </span>            :              * destination type. */
+<span class="lineNum">     679 </span>            :             return C_ERR;
+<span class="lineNum">     680 </span>            :         }
+<span class="lineNum">     681 </span>            :     }
+<span class="lineNum">     682 </span>            :     return C_OK;
+<span class="lineNum">     683 </span>            : }
+<a name="684"><span class="lineNum">     684 </span>            : </a>
+<span class="lineNum">     685 </span>            : /* Blocking RPOP/LPOP */
+<span class="lineNum">     686 </span><span class="lineCov">        303 : void blockingPopGenericCommand(client *c, int where) {</span>
+<span class="lineNum">     687 </span><span class="lineCov">        303 :     robj *o;</span>
+<span class="lineNum">     688 </span><span class="lineCov">        303 :     mstime_t timeout;</span>
+<span class="lineNum">     689 </span><span class="lineCov">        303 :     int j;</span>
+<span class="lineNum">     690 </span>            : 
+<span class="lineNum">     691 </span><span class="lineCov">        303 :     if (getTimeoutFromObjectOrReply(c,c-&gt;argv[c-&gt;argc-1],&amp;timeout,UNIT_SECONDS)</span>
+<span class="lineNum">     692 </span><span class="lineCov">        164 :         != C_OK) return;</span>
+<span class="lineNum">     693 </span>            : 
+<span class="lineNum">     694 </span><span class="lineCov">        533 :     for (j = 1; j &lt; c-&gt;argc-1; j++) {</span>
+<span class="lineNum">     695 </span><span class="lineCov">        391 :         o = lookupKeyWrite(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     696 </span><span class="lineCov">        391 :         if (o != NULL) {</span>
+<span class="lineNum">     697 </span><span class="lineCov">        149 :             if (o-&gt;type != OBJ_LIST) {</span>
+<span class="lineNum">     698 </span><span class="lineCov">          6 :                 addReply(c,shared.wrongtypeerr);</span>
+<span class="lineNum">     699 </span><span class="lineCov">          6 :                 return;</span>
+<span class="lineNum">     700 </span>            :             } else {
+<span class="lineNum">     701 </span><span class="lineCov">        143 :                 if (listTypeLength(o) != 0) {</span>
+<span class="lineNum">     702 </span>            :                     /* Non empty list, this is like a non normal [LR]POP. */
+<span class="lineNum">     703 </span><span class="lineCov">        143 :                     char *event = (where == LIST_HEAD) ? &quot;lpop&quot; : &quot;rpop&quot;;</span>
+<span class="lineNum">     704 </span><span class="lineCov">        143 :                     robj *value = listTypePop(o,where);</span>
+<span class="lineNum">     705 </span><span class="lineCov">        143 :                     serverAssert(value != NULL);</span>
+<span class="lineNum">     706 </span>            : 
+<span class="lineNum">     707 </span><span class="lineCov">        143 :                     addReplyMultiBulkLen(c,2);</span>
+<span class="lineNum">     708 </span><span class="lineCov">        143 :                     addReplyBulk(c,c-&gt;argv[j]);</span>
+<span class="lineNum">     709 </span><span class="lineCov">        143 :                     addReplyBulk(c,value);</span>
+<span class="lineNum">     710 </span><span class="lineCov">        143 :                     decrRefCount(value);</span>
+<span class="lineNum">     711 </span><span class="lineCov">        429 :                     notifyKeyspaceEvent(NOTIFY_LIST,event,</span>
+<span class="lineNum">     712 </span><span class="lineCov">        143 :                                         c-&gt;argv[j],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     713 </span><span class="lineCov">        143 :                     if (listTypeLength(o) == 0) {</span>
+<span class="lineNum">     714 </span><span class="lineCov">         65 :                         dbDelete(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     715 </span><span class="lineCov">        195 :                         notifyKeyspaceEvent(NOTIFY_GENERIC,&quot;del&quot;,</span>
+<span class="lineNum">     716 </span><span class="lineCov">         65 :                                             c-&gt;argv[j],c-&gt;db-&gt;id);</span>
+<span class="lineNum">     717 </span>            :                     }
+<span class="lineNum">     718 </span><span class="lineCov">        143 :                     signalModifiedKey(c-&gt;db,c-&gt;argv[j]);</span>
+<span class="lineNum">     719 </span><span class="lineCov">        143 :                     server.dirty++;</span>
+<span class="lineNum">     720 </span>            : 
+<span class="lineNum">     721 </span>            :                     /* Replicate it as an [LR]POP instead of B[LR]POP. */
+<span class="lineNum">     722 </span><span class="lineCov">        143 :                     rewriteClientCommandVector(c,2,</span>
+<span class="lineNum">     723 </span>            :                         (where == LIST_HEAD) ? shared.lpop : shared.rpop,
+<span class="lineNum">     724 </span><span class="lineCov">        143 :                         c-&gt;argv[j]);</span>
+<span class="lineNum">     725 </span><span class="lineCov">        143 :                     return;</span>
+<span class="lineNum">     726 </span>            :                 }
+<span class="lineNum">     727 </span>            :             }
+<span class="lineNum">     728 </span>            :         }
+<span class="lineNum">     729 </span>            :     }
+<span class="lineNum">     730 </span>            : 
+<span class="lineNum">     731 </span>            :     /* If we are inside a MULTI/EXEC and the list is empty the only thing
+<span class="lineNum">     732 </span>            :      * we can do is treating it as a timeout (even with timeout 0). */
+<span class="lineNum">     733 </span><span class="lineCov">        142 :     if (c-&gt;flags &amp; CLIENT_MULTI) {</span>
+<span class="lineNum">     734 </span><span class="lineCov">          3 :         addReply(c,shared.nullmultibulk);</span>
+<span class="lineNum">     735 </span><span class="lineCov">          3 :         return;</span>
+<span class="lineNum">     736 </span>            :     }
+<span class="lineNum">     737 </span>            : 
+<span class="lineNum">     738 </span>            :     /* If the list is empty or the key does not exists we must block */
+<span class="lineNum">     739 </span><span class="lineCov">        139 :     blockForKeys(c,BLOCKED_LIST,c-&gt;argv + 1,c-&gt;argc - 2,timeout,NULL,NULL);</span>
+<a name="740"><span class="lineNum">     740 </span>            : }</a>
+<span class="lineNum">     741 </span>            : 
+<span class="lineNum">     742 </span><span class="lineCov">        243 : void blpopCommand(client *c) {</span>
+<span class="lineNum">     743 </span><span class="lineCov">        243 :     blockingPopGenericCommand(c,LIST_HEAD);</span>
+<a name="744"><span class="lineNum">     744 </span><span class="lineCov">        243 : }</span></a>
+<span class="lineNum">     745 </span>            : 
+<span class="lineNum">     746 </span><span class="lineCov">         60 : void brpopCommand(client *c) {</span>
+<span class="lineNum">     747 </span><span class="lineCov">         60 :     blockingPopGenericCommand(c,LIST_TAIL);</span>
+<a name="748"><span class="lineNum">     748 </span><span class="lineCov">         60 : }</span></a>
+<span class="lineNum">     749 </span>            : 
+<span class="lineNum">     750 </span><span class="lineCov">         78 : void brpoplpushCommand(client *c) {</span>
+<span class="lineNum">     751 </span><span class="lineCov">         78 :     mstime_t timeout;</span>
+<span class="lineNum">     752 </span>            : 
+<span class="lineNum">     753 </span><span class="lineCov">         78 :     if (getTimeoutFromObjectOrReply(c,c-&gt;argv[3],&amp;timeout,UNIT_SECONDS)</span>
+<span class="lineNum">     754 </span><span class="lineNoCov">          0 :         != C_OK) return;</span>
+<span class="lineNum">     755 </span>            : 
+<span class="lineNum">     756 </span><span class="lineCov">         78 :     robj *key = lookupKeyWrite(c-&gt;db, c-&gt;argv[1]);</span>
+<span class="lineNum">     757 </span>            : 
+<span class="lineNum">     758 </span><span class="lineCov">         78 :     if (key == NULL) {</span>
+<span class="lineNum">     759 </span><span class="lineCov">         57 :         if (c-&gt;flags &amp; CLIENT_MULTI) {</span>
+<span class="lineNum">     760 </span>            :             /* Blocking against an empty list in a multi state
+<span class="lineNum">     761 </span>            :              * returns immediately. */
+<span class="lineNum">     762 </span><span class="lineCov">          3 :             addReply(c, shared.nullbulk);</span>
+<span class="lineNum">     763 </span>            :         } else {
+<span class="lineNum">     764 </span>            :             /* The list is empty and the client blocks. */
+<span class="lineNum">     765 </span><span class="lineCov">         54 :             blockForKeys(c,BLOCKED_LIST,c-&gt;argv + 1,1,timeout,c-&gt;argv[2],NULL);</span>
+<span class="lineNum">     766 </span>            :         }
+<span class="lineNum">     767 </span>            :     } else {
+<span class="lineNum">     768 </span><span class="lineCov">         21 :         if (key-&gt;type != OBJ_LIST) {</span>
+<span class="lineNum">     769 </span><span class="lineCov">          3 :             addReply(c, shared.wrongtypeerr);</span>
+<span class="lineNum">     770 </span>            :         } else {
+<span class="lineNum">     771 </span>            :             /* The list exists and has elements, so
+<span class="lineNum">     772 </span>            :              * the regular rpoplpushCommand is executed. */
+<span class="lineNum">     773 </span><span class="lineCov">         18 :             serverAssertWithInfo(c,key,listTypeLength(key) &gt; 0);</span>
+<span class="lineNum">     774 </span><span class="lineCov">         18 :             rpoplpushCommand(c);</span>
+<span class="lineNum">     775 </span>            :         }
+<span class="lineNum">     776 </span>            :     }
+<span class="lineNum">     777 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

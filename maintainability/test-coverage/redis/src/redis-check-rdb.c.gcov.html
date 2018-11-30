@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/redis-check-rdb.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - redis-check-rdb.c<span style="font-size: 80%;"> (source / <a href="redis-check-rdb.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">102</td>
+            <td class="headerCovTableEntry">169</td>
+            <td class="headerCovTableEntryLo">60.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2016, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       3 </span>            :  * All rights reserved.
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       6 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>            :  *
+<span class="lineNum">       8 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      11 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      12 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      13 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      14 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      15 </span>            :  *     specific prior written permission.
+<span class="lineNum">      16 </span>            :  *
+<span class="lineNum">      17 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      18 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      19 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      20 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      21 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      22 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      23 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      24 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      25 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      26 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      27 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      31 </span>            : #include &quot;rdb.h&quot;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : #include &lt;stdarg.h&gt;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : void createSharedObjects(void);
+<span class="lineNum">      36 </span>            : void rdbLoadProgressCallback(rio *r, const void *buf, size_t len);
+<span class="lineNum">      37 </span>            : int rdbCheckMode = 0;
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span>            : struct {
+<span class="lineNum">      40 </span>            :     rio *rio;
+<span class="lineNum">      41 </span>            :     robj *key;                      /* Current key we are reading. */
+<span class="lineNum">      42 </span>            :     int key_type;                   /* Current key type if != -1. */
+<span class="lineNum">      43 </span>            :     unsigned long keys;             /* Number of keys processed. */
+<span class="lineNum">      44 </span>            :     unsigned long expires;          /* Number of keys with an expire. */
+<span class="lineNum">      45 </span>            :     unsigned long already_expired;  /* Number of keys already expired. */
+<span class="lineNum">      46 </span>            :     int doing;                      /* The state while reading the RDB. */
+<span class="lineNum">      47 </span>            :     int error_set;                  /* True if error is populated. */
+<span class="lineNum">      48 </span>            :     char error[1024];
+<span class="lineNum">      49 </span>            : } rdbstate;
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span>            : /* At every loading step try to remember what we were about to do, so that
+<span class="lineNum">      52 </span>            :  * we can log this information when an error is encountered. */
+<span class="lineNum">      53 </span>            : #define RDB_CHECK_DOING_START 0
+<span class="lineNum">      54 </span>            : #define RDB_CHECK_DOING_READ_TYPE 1
+<span class="lineNum">      55 </span>            : #define RDB_CHECK_DOING_READ_EXPIRE 2
+<span class="lineNum">      56 </span>            : #define RDB_CHECK_DOING_READ_KEY 3
+<span class="lineNum">      57 </span>            : #define RDB_CHECK_DOING_READ_OBJECT_VALUE 4
+<span class="lineNum">      58 </span>            : #define RDB_CHECK_DOING_CHECK_SUM 5
+<span class="lineNum">      59 </span>            : #define RDB_CHECK_DOING_READ_LEN 6
+<span class="lineNum">      60 </span>            : #define RDB_CHECK_DOING_READ_AUX 7
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : char *rdb_check_doing_string[] = {
+<span class="lineNum">      63 </span>            :     &quot;start&quot;,
+<span class="lineNum">      64 </span>            :     &quot;read-type&quot;,
+<span class="lineNum">      65 </span>            :     &quot;read-expire&quot;,
+<span class="lineNum">      66 </span>            :     &quot;read-key&quot;,
+<span class="lineNum">      67 </span>            :     &quot;read-object-value&quot;,
+<span class="lineNum">      68 </span>            :     &quot;check-sum&quot;,
+<span class="lineNum">      69 </span>            :     &quot;read-len&quot;,
+<span class="lineNum">      70 </span>            :     &quot;read-aux&quot;
+<span class="lineNum">      71 </span>            : };
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : char *rdb_type_string[] = {
+<span class="lineNum">      74 </span>            :     &quot;string&quot;,
+<span class="lineNum">      75 </span>            :     &quot;list-linked&quot;,
+<span class="lineNum">      76 </span>            :     &quot;set-hashtable&quot;,
+<span class="lineNum">      77 </span>            :     &quot;zset-v1&quot;,
+<span class="lineNum">      78 </span>            :     &quot;hash-hashtable&quot;,
+<span class="lineNum">      79 </span>            :     &quot;zset-v2&quot;,
+<span class="lineNum">      80 </span>            :     &quot;module-value&quot;,
+<span class="lineNum">      81 </span>            :     &quot;&quot;,&quot;&quot;,
+<span class="lineNum">      82 </span>            :     &quot;hash-zipmap&quot;,
+<span class="lineNum">      83 </span>            :     &quot;list-ziplist&quot;,
+<span class="lineNum">      84 </span>            :     &quot;set-intset&quot;,
+<span class="lineNum">      85 </span>            :     &quot;zset-ziplist&quot;,
+<span class="lineNum">      86 </span>            :     &quot;hash-ziplist&quot;,
+<span class="lineNum">      87 </span>            :     &quot;quicklist&quot;,
+<span class="lineNum">      88 </span>            :     &quot;stream&quot;
+<span class="lineNum">      89 </span>            : };
+<a name="90"><span class="lineNum">      90 </span>            : </a>
+<span class="lineNum">      91 </span>            : /* Show a few stats collected into 'rdbstate' */
+<span class="lineNum">      92 </span><span class="lineCov">          3 : void rdbShowGenericInfo(void) {</span>
+<span class="lineNum">      93 </span><span class="lineCov">          3 :     printf(&quot;[info] %lu keys read\n&quot;, rdbstate.keys);</span>
+<span class="lineNum">      94 </span><span class="lineCov">          3 :     printf(&quot;[info] %lu expires\n&quot;, rdbstate.expires);</span>
+<span class="lineNum">      95 </span><span class="lineCov">          3 :     printf(&quot;[info] %lu already expired\n&quot;, rdbstate.already_expired);</span>
+<span class="lineNum">      96 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">      97 </span>            : 
+<a name="98"><span class="lineNum">      98 </span>            : /* Called on RDB errors. Provides details about the RDB and the offset</a>
+<span class="lineNum">      99 </span>            :  * we were when the error was detected. */
+<span class="lineNum">     100 </span><span class="lineCov">          3 : void rdbCheckError(const char *fmt, ...) {</span>
+<span class="lineNum">     101 </span><span class="lineCov">          3 :     char msg[1024];</span>
+<span class="lineNum">     102 </span><span class="lineCov">          3 :     va_list ap;</span>
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span><span class="lineCov">          3 :     va_start(ap, fmt);</span>
+<span class="lineNum">     105 </span><span class="lineCov">          3 :     vsnprintf(msg, sizeof(msg), fmt, ap);</span>
+<span class="lineNum">     106 </span><span class="lineCov">          3 :     va_end(ap);</span>
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span><span class="lineCov">          3 :     printf(&quot;--- RDB ERROR DETECTED ---\n&quot;);</span>
+<span class="lineNum">     109 </span><span class="lineCov">          3 :     printf(&quot;[offset %llu] %s\n&quot;,</span>
+<span class="lineNum">     110 </span><span class="lineCov">          3 :         (unsigned long long) (rdbstate.rio ?</span>
+<span class="lineNum">     111 </span>            :             rdbstate.rio-&gt;processed_bytes : 0), msg);
+<span class="lineNum">     112 </span><span class="lineCov">          9 :     printf(&quot;[additional info] While doing: %s\n&quot;,</span>
+<span class="lineNum">     113 </span><span class="lineCov">          3 :         rdb_check_doing_string[rdbstate.doing]);</span>
+<span class="lineNum">     114 </span><span class="lineCov">          3 :     if (rdbstate.key)</span>
+<span class="lineNum">     115 </span><span class="lineNoCov">          0 :         printf(&quot;[additional info] Reading key '%s'\n&quot;,</span>
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :             (char*)rdbstate.key-&gt;ptr);</span>
+<span class="lineNum">     117 </span><span class="lineCov">          3 :     if (rdbstate.key_type != -1)</span>
+<span class="lineNum">     118 </span><span class="lineCov">          3 :         printf(&quot;[additional info] Reading type %d (%s)\n&quot;,</span>
+<span class="lineNum">     119 </span>            :             rdbstate.key_type,
+<span class="lineNum">     120 </span><span class="lineCov">          3 :             ((unsigned)rdbstate.key_type &lt;</span>
+<span class="lineNum">     121 </span>            :              sizeof(rdb_type_string)/sizeof(char*)) ?
+<span class="lineNum">     122 </span>            :                 rdb_type_string[rdbstate.key_type] : &quot;unknown&quot;);
+<span class="lineNum">     123 </span><span class="lineCov">          3 :     rdbShowGenericInfo();</span>
+<span class="lineNum">     124 </span><span class="lineCov">          3 : }</span>
+<a name="125"><span class="lineNum">     125 </span>            : </a>
+<span class="lineNum">     126 </span>            : /* Print informations during RDB checking. */
+<span class="lineNum">     127 </span><span class="lineCov">         18 : void rdbCheckInfo(const char *fmt, ...) {</span>
+<span class="lineNum">     128 </span><span class="lineCov">         18 :     char msg[1024];</span>
+<span class="lineNum">     129 </span><span class="lineCov">         18 :     va_list ap;</span>
+<span class="lineNum">     130 </span>            : 
+<span class="lineNum">     131 </span><span class="lineCov">         18 :     va_start(ap, fmt);</span>
+<span class="lineNum">     132 </span><span class="lineCov">         18 :     vsnprintf(msg, sizeof(msg), fmt, ap);</span>
+<span class="lineNum">     133 </span><span class="lineCov">         18 :     va_end(ap);</span>
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span><span class="lineCov">         18 :     printf(&quot;[offset %llu] %s\n&quot;,</span>
+<span class="lineNum">     136 </span><span class="lineCov">         18 :         (unsigned long long) (rdbstate.rio ?</span>
+<span class="lineNum">     137 </span>            :             rdbstate.rio-&gt;processed_bytes : 0), msg);
+<span class="lineNum">     138 </span><span class="lineCov">         18 : }</span>
+<span class="lineNum">     139 </span>            : 
+<a name="140"><span class="lineNum">     140 </span>            : /* Used inside rdb.c in order to log specific errors happening inside</a>
+<span class="lineNum">     141 </span>            :  * the RDB loading internals. */
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 : void rdbCheckSetError(const char *fmt, ...) {</span>
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 :     va_list ap;</span>
+<span class="lineNum">     144 </span>            : 
+<span class="lineNum">     145 </span><span class="lineNoCov">          0 :     va_start(ap, fmt);</span>
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 :     vsnprintf(rdbstate.error, sizeof(rdbstate.error), fmt, ap);</span>
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 :     va_end(ap);</span>
+<span class="lineNum">     148 </span><span class="lineNoCov">          0 :     rdbstate.error_set = 1;</span>
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     150 </span>            : 
+<span class="lineNum">     151 </span>            : /* During RDB check we setup a special signal handler for memory violations
+<a name="152"><span class="lineNum">     152 </span>            :  * and similar conditions, so that we can log the offending part of the RDB</a>
+<span class="lineNum">     153 </span>            :  * if the crash is due to broken content. */
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 : void rdbCheckHandleCrash(int sig, siginfo_t *info, void *secret) {</span>
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :     UNUSED(sig);</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :     UNUSED(info);</span>
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :     UNUSED(secret);</span>
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 :     rdbCheckError(&quot;Server crash checking the specified RDB file!&quot;);</span>
+<span class="lineNum">     160 </span><span class="lineNoCov">          0 :     exit(1);</span>
+<a name="161"><span class="lineNum">     161 </span>            : }</a>
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span><span class="lineCov">          3 : void rdbCheckSetupSignals(void) {</span>
+<span class="lineNum">     164 </span><span class="lineCov">          3 :     struct sigaction act;</span>
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span><span class="lineCov">          3 :     sigemptyset(&amp;act.sa_mask);</span>
+<span class="lineNum">     167 </span><span class="lineCov">          3 :     act.sa_flags = SA_NODEFER | SA_RESETHAND | SA_SIGINFO;</span>
+<span class="lineNum">     168 </span><span class="lineCov">          3 :     act.sa_sigaction = rdbCheckHandleCrash;</span>
+<span class="lineNum">     169 </span><span class="lineCov">          3 :     sigaction(SIGSEGV, &amp;act, NULL);</span>
+<span class="lineNum">     170 </span><span class="lineCov">          3 :     sigaction(SIGBUS, &amp;act, NULL);</span>
+<span class="lineNum">     171 </span><span class="lineCov">          3 :     sigaction(SIGFPE, &amp;act, NULL);</span>
+<span class="lineNum">     172 </span><span class="lineCov">          3 :     sigaction(SIGILL, &amp;act, NULL);</span>
+<span class="lineNum">     173 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span>            : /* Check the specified RDB file. Return 0 if the RDB looks sane, otherwise
+<span class="lineNum">     176 </span>            :  * 1 is returned.
+<a name="177"><span class="lineNum">     177 </span>            :  * The file is specified as a filename in 'rdbfilename' if 'fp' is not NULL,</a>
+<span class="lineNum">     178 </span>            :  * otherwise the already open file 'fp' is checked. */
+<span class="lineNum">     179 </span><span class="lineCov">          3 : int redis_check_rdb(char *rdbfilename, FILE *fp) {</span>
+<span class="lineNum">     180 </span><span class="lineCov">          3 :     uint64_t dbid;</span>
+<span class="lineNum">     181 </span><span class="lineCov">          3 :     int type, rdbver;</span>
+<span class="lineNum">     182 </span><span class="lineCov">          3 :     char buf[1024];</span>
+<span class="lineNum">     183 </span><span class="lineCov">          3 :     long long expiretime, now = mstime();</span>
+<span class="lineNum">     184 </span><span class="lineCov">          3 :     static rio rdb; /* Pointed by global struct riostate. */</span>
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span><span class="lineCov">          3 :     int closefile = (fp == NULL);</span>
+<span class="lineNum">     187 </span><span class="lineCov">          3 :     if (fp == NULL &amp;&amp; (fp = fopen(rdbfilename,&quot;r&quot;)) == NULL) return 1;</span>
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span><span class="lineCov">          3 :     rioInitWithFile(&amp;rdb,fp);</span>
+<span class="lineNum">     190 </span><span class="lineCov">          3 :     rdbstate.rio = &amp;rdb;</span>
+<span class="lineNum">     191 </span><span class="lineCov">          3 :     rdb.update_cksum = rdbLoadProgressCallback;</span>
+<span class="lineNum">     192 </span><span class="lineCov">          3 :     if (rioRead(&amp;rdb,buf,9) == 0) goto eoferr;</span>
+<span class="lineNum">     193 </span><span class="lineCov">          3 :     buf[9] = '\0';</span>
+<span class="lineNum">     194 </span><span class="lineCov">          3 :     if (memcmp(buf,&quot;REDIS&quot;,5) != 0) {</span>
+<span class="lineNum">     195 </span><span class="lineNoCov">          0 :         rdbCheckError(&quot;Wrong signature trying to load DB from file&quot;);</span>
+<span class="lineNum">     196 </span><span class="lineNoCov">          0 :         goto err;</span>
+<span class="lineNum">     197 </span>            :     }
+<span class="lineNum">     198 </span><span class="lineCov">          3 :     rdbver = atoi(buf+5);</span>
+<span class="lineNum">     199 </span><span class="lineCov">          3 :     if (rdbver &lt; 1 || rdbver &gt; RDB_VERSION) {</span>
+<span class="lineNum">     200 </span><span class="lineNoCov">          0 :         rdbCheckError(&quot;Can't handle RDB format version %d&quot;,rdbver);</span>
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :         goto err;</span>
+<span class="lineNum">     202 </span>            :     }
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span><span class="lineCov">          3 :     expiretime = -1;</span>
+<span class="lineNum">     205 </span><span class="lineCov">          3 :     startLoading(fp);</span>
+<span class="lineNum">     206 </span><span class="lineCov">         18 :     while(1) {</span>
+<span class="lineNum">     207 </span><span class="lineCov">         18 :         robj *key, *val;</span>
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span>            :         /* Read type. */
+<span class="lineNum">     210 </span><span class="lineCov">         18 :         rdbstate.doing = RDB_CHECK_DOING_READ_TYPE;</span>
+<span class="lineNum">     211 </span><span class="lineCov">         18 :         if ((type = rdbLoadType(&amp;rdb)) == -1) goto eoferr;</span>
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            :         /* Handle special types. */
+<span class="lineNum">     214 </span><span class="lineCov">         18 :         if (type == RDB_OPCODE_EXPIRETIME) {</span>
+<span class="lineNum">     215 </span><span class="lineNoCov">          0 :             rdbstate.doing = RDB_CHECK_DOING_READ_EXPIRE;</span>
+<span class="lineNum">     216 </span>            :             /* EXPIRETIME: load an expire associated with the next key
+<span class="lineNum">     217 </span>            :              * to load. Note that after loading an expire we need to
+<span class="lineNum">     218 </span>            :              * load the actual type, and continue. */
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :             if ((expiretime = rdbLoadTime(&amp;rdb)) == -1) goto eoferr;</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :             expiretime *= 1000;</span>
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 :             continue; /* Read next opcode. */</span>
+<span class="lineNum">     222 </span><span class="lineCov">         18 :         } else if (type == RDB_OPCODE_EXPIRETIME_MS) {</span>
+<span class="lineNum">     223 </span>            :             /* EXPIRETIME_MS: milliseconds precision expire times introduced
+<span class="lineNum">     224 </span>            :              * with RDB v3. Like EXPIRETIME but no with more precision. */
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :             rdbstate.doing = RDB_CHECK_DOING_READ_EXPIRE;</span>
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :             if ((expiretime = rdbLoadMillisecondTime(&amp;rdb, rdbver)) == -1) goto eoferr;</span>
+<span class="lineNum">     227 </span>            :             continue; /* Read next opcode. */
+<span class="lineNum">     228 </span><span class="lineCov">         18 :         } else if (type == RDB_OPCODE_FREQ) {</span>
+<span class="lineNum">     229 </span>            :             /* FREQ: LFU frequency. */
+<span class="lineNum">     230 </span><span class="lineNoCov">          0 :             uint8_t byte;</span>
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :             if (rioRead(&amp;rdb,&amp;byte,1) == 0) goto eoferr;</span>
+<span class="lineNum">     232 </span><span class="lineNoCov">          0 :             continue; /* Read next opcode. */</span>
+<span class="lineNum">     233 </span><span class="lineCov">         18 :         } else if (type == RDB_OPCODE_IDLE) {</span>
+<span class="lineNum">     234 </span>            :             /* IDLE: LRU idle time. */
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 :             if (rdbLoadLen(&amp;rdb,NULL) == RDB_LENERR) goto eoferr;</span>
+<span class="lineNum">     236 </span>            :             continue; /* Read next opcode. */
+<span class="lineNum">     237 </span><span class="lineCov">         18 :         } else if (type == RDB_OPCODE_EOF) {</span>
+<span class="lineNum">     238 </span>            :             /* EOF: End of file, exit the main loop. */
+<span class="lineNum">     239 </span>            :             break;
+<span class="lineNum">     240 </span><span class="lineCov">         15 :         } else if (type == RDB_OPCODE_SELECTDB) {</span>
+<span class="lineNum">     241 </span>            :             /* SELECTDB: Select the specified database. */
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :             rdbstate.doing = RDB_CHECK_DOING_READ_LEN;</span>
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 :             if ((dbid = rdbLoadLen(&amp;rdb,NULL)) == RDB_LENERR)</span>
+<span class="lineNum">     244 </span>            :                 goto eoferr;
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 :             rdbCheckInfo(&quot;Selecting DB ID %d&quot;, dbid);</span>
+<span class="lineNum">     246 </span><span class="lineNoCov">          0 :             continue; /* Read type again. */</span>
+<span class="lineNum">     247 </span><span class="lineCov">         15 :         } else if (type == RDB_OPCODE_RESIZEDB) {</span>
+<span class="lineNum">     248 </span>            :             /* RESIZEDB: Hint about the size of the keys in the currently
+<span class="lineNum">     249 </span>            :              * selected data base, in order to avoid useless rehashing. */
+<span class="lineNum">     250 </span><span class="lineNoCov">          0 :             uint64_t db_size, expires_size;</span>
+<span class="lineNum">     251 </span><span class="lineNoCov">          0 :             rdbstate.doing = RDB_CHECK_DOING_READ_LEN;</span>
+<span class="lineNum">     252 </span><span class="lineNoCov">          0 :             if ((db_size = rdbLoadLen(&amp;rdb,NULL)) == RDB_LENERR)</span>
+<span class="lineNum">     253 </span>            :                 goto eoferr;
+<span class="lineNum">     254 </span><span class="lineNoCov">          0 :             if ((expires_size = rdbLoadLen(&amp;rdb,NULL)) == RDB_LENERR)</span>
+<span class="lineNum">     255 </span>            :                 goto eoferr;
+<span class="lineNum">     256 </span>            :             continue; /* Read type again. */
+<span class="lineNum">     257 </span><span class="lineCov">         15 :         } else if (type == RDB_OPCODE_AUX) {</span>
+<span class="lineNum">     258 </span>            :             /* AUX: generic string-string fields. Use to add state to RDB
+<span class="lineNum">     259 </span>            :              * which is backward compatible. Implementations of RDB loading
+<span class="lineNum">     260 </span>            :              * are requierd to skip AUX fields they don't understand.
+<span class="lineNum">     261 </span>            :              *
+<span class="lineNum">     262 </span>            :              * An AUX field is composed of two strings: key and value. */
+<span class="lineNum">     263 </span><span class="lineCov">         15 :             robj *auxkey, *auxval;</span>
+<span class="lineNum">     264 </span><span class="lineCov">         15 :             rdbstate.doing = RDB_CHECK_DOING_READ_AUX;</span>
+<span class="lineNum">     265 </span><span class="lineCov">         15 :             if ((auxkey = rdbLoadStringObject(&amp;rdb)) == NULL) goto eoferr;</span>
+<span class="lineNum">     266 </span><span class="lineCov">         15 :             if ((auxval = rdbLoadStringObject(&amp;rdb)) == NULL) goto eoferr;</span>
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span><span class="lineCov">         30 :             rdbCheckInfo(&quot;AUX FIELD %s = '%s'&quot;,</span>
+<span class="lineNum">     269 </span><span class="lineCov">         15 :                 (char*)auxkey-&gt;ptr, (char*)auxval-&gt;ptr);</span>
+<span class="lineNum">     270 </span><span class="lineCov">         15 :             decrRefCount(auxkey);</span>
+<span class="lineNum">     271 </span><span class="lineCov">         15 :             decrRefCount(auxval);</span>
+<span class="lineNum">     272 </span><span class="lineCov">         15 :             continue; /* Read type again. */</span>
+<span class="lineNum">     273 </span>            :         } else {
+<span class="lineNum">     274 </span><span class="lineNoCov">          0 :             if (!rdbIsObjectType(type)) {</span>
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :                 rdbCheckError(&quot;Invalid object type: %d&quot;, type);</span>
+<span class="lineNum">     276 </span><span class="lineNoCov">          0 :                 goto err;</span>
+<span class="lineNum">     277 </span>            :             }
+<span class="lineNum">     278 </span><span class="lineNoCov">          0 :             rdbstate.key_type = type;</span>
+<span class="lineNum">     279 </span>            :         }
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span>            :         /* Read key */
+<span class="lineNum">     282 </span><span class="lineNoCov">          0 :         rdbstate.doing = RDB_CHECK_DOING_READ_KEY;</span>
+<span class="lineNum">     283 </span><span class="lineNoCov">          0 :         if ((key = rdbLoadStringObject(&amp;rdb)) == NULL) goto eoferr;</span>
+<span class="lineNum">     284 </span><span class="lineNoCov">          0 :         rdbstate.key = key;</span>
+<span class="lineNum">     285 </span><span class="lineNoCov">          0 :         rdbstate.keys++;</span>
+<span class="lineNum">     286 </span>            :         /* Read value */
+<span class="lineNum">     287 </span><span class="lineNoCov">          0 :         rdbstate.doing = RDB_CHECK_DOING_READ_OBJECT_VALUE;</span>
+<span class="lineNum">     288 </span><span class="lineNoCov">          0 :         if ((val = rdbLoadObject(type,&amp;rdb)) == NULL) goto eoferr;</span>
+<span class="lineNum">     289 </span>            :         /* Check if the key already expired. */
+<span class="lineNum">     290 </span><span class="lineNoCov">          0 :         if (expiretime != -1 &amp;&amp; expiretime &lt; now)</span>
+<span class="lineNum">     291 </span><span class="lineNoCov">          0 :             rdbstate.already_expired++;</span>
+<span class="lineNum">     292 </span><span class="lineNoCov">          0 :         if (expiretime != -1) rdbstate.expires++;</span>
+<span class="lineNum">     293 </span><span class="lineNoCov">          0 :         rdbstate.key = NULL;</span>
+<span class="lineNum">     294 </span><span class="lineNoCov">          0 :         decrRefCount(key);</span>
+<span class="lineNum">     295 </span><span class="lineNoCov">          0 :         decrRefCount(val);</span>
+<span class="lineNum">     296 </span><span class="lineNoCov">          0 :         rdbstate.key_type = -1;</span>
+<span class="lineNum">     297 </span><span class="lineNoCov">          0 :         expiretime = -1;</span>
+<span class="lineNum">     298 </span>            :     }
+<span class="lineNum">     299 </span>            :     /* Verify the checksum if RDB version is &gt;= 5 */
+<span class="lineNum">     300 </span><span class="lineCov">          3 :     if (rdbver &gt;= 5 &amp;&amp; server.rdb_checksum) {</span>
+<span class="lineNum">     301 </span><span class="lineCov">          3 :         uint64_t cksum, expected = rdb.cksum;</span>
+<span class="lineNum">     302 </span>            : 
+<span class="lineNum">     303 </span><span class="lineCov">          3 :         rdbstate.doing = RDB_CHECK_DOING_CHECK_SUM;</span>
+<span class="lineNum">     304 </span><span class="lineCov">          3 :         if (rioRead(&amp;rdb,&amp;cksum,8) == 0) goto eoferr;</span>
+<span class="lineNum">     305 </span><span class="lineCov">          3 :         memrev64ifbe(&amp;cksum);</span>
+<span class="lineNum">     306 </span><span class="lineCov">          3 :         if (cksum == 0) {</span>
+<span class="lineNum">     307 </span><span class="lineNoCov">          0 :             rdbCheckInfo(&quot;RDB file was saved with checksum disabled: no check performed.&quot;);</span>
+<span class="lineNum">     308 </span><span class="lineCov">          3 :         } else if (cksum != expected) {</span>
+<span class="lineNum">     309 </span><span class="lineCov">          3 :             rdbCheckError(&quot;RDB CRC error&quot;);</span>
+<span class="lineNum">     310 </span><span class="lineCov">          3 :             goto err;</span>
+<span class="lineNum">     311 </span>            :         } else {
+<span class="lineNum">     312 </span><span class="lineNoCov">          0 :             rdbCheckInfo(&quot;Checksum OK&quot;);</span>
+<span class="lineNum">     313 </span>            :         }
+<span class="lineNum">     314 </span>            :     }
+<span class="lineNum">     315 </span>            : 
+<span class="lineNum">     316 </span><span class="lineNoCov">          0 :     if (closefile) fclose(fp);</span>
+<span class="lineNum">     317 </span>            :     return 0;
+<span class="lineNum">     318 </span>            : 
+<span class="lineNum">     319 </span><span class="lineNoCov">          0 : eoferr: /* unexpected end of file is handled here with a fatal exit */</span>
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :     if (rdbstate.error_set) {</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :         rdbCheckError(rdbstate.error);</span>
+<span class="lineNum">     322 </span>            :     } else {
+<span class="lineNum">     323 </span><span class="lineNoCov">          0 :         rdbCheckError(&quot;Unexpected EOF reading RDB file&quot;);</span>
+<span class="lineNum">     324 </span>            :     }
+<span class="lineNum">     325 </span><span class="lineCov">          3 : err:</span>
+<span class="lineNum">     326 </span><span class="lineCov">          3 :     if (closefile) fclose(fp);</span>
+<span class="lineNum">     327 </span>            :     return 1;
+<span class="lineNum">     328 </span>            : }
+<span class="lineNum">     329 </span>            : 
+<span class="lineNum">     330 </span>            : /* RDB check main: called form redis.c when Redis is executed with the
+<span class="lineNum">     331 </span>            :  * redis-check-rdb alias, on during RDB loading errors.
+<span class="lineNum">     332 </span>            :  *
+<span class="lineNum">     333 </span>            :  * The function works in two ways: can be called with argc/argv as a
+<span class="lineNum">     334 </span>            :  * standalone executable, or called with a non NULL 'fp' argument if we
+<span class="lineNum">     335 </span>            :  * already have an open file to check. This happens when the function
+<span class="lineNum">     336 </span>            :  * is used to check an RDB preamble inside an AOF file.
+<span class="lineNum">     337 </span>            :  *
+<span class="lineNum">     338 </span>            :  * When called with fp = NULL, the function never returns, but exits with the
+<span class="lineNum">     339 </span>            :  * status code according to success (RDB is sane) or error (RDB is corrupted).
+<a name="340"><span class="lineNum">     340 </span>            :  * Otherwise if called with a non NULL fp, the function returns C_OK or</a>
+<span class="lineNum">     341 </span>            :  * C_ERR depending on the success or failure. */
+<span class="lineNum">     342 </span><span class="lineCov">          3 : int redis_check_rdb_main(int argc, char **argv, FILE *fp) {</span>
+<span class="lineNum">     343 </span><span class="lineCov">          3 :     if (argc != 2 &amp;&amp; fp == NULL) {</span>
+<span class="lineNum">     344 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Usage: %s &lt;rdb-file-name&gt;\n&quot;, argv[0]);</span>
+<span class="lineNum">     345 </span><span class="lineNoCov">          0 :         exit(1);</span>
+<span class="lineNum">     346 </span>            :     }
+<span class="lineNum">     347 </span>            :     /* In order to call the loading functions we need to create the shared
+<span class="lineNum">     348 </span>            :      * integer objects, however since this function may be called from
+<span class="lineNum">     349 </span>            :      * an already initialized Redis instance, check if we really need to. */
+<span class="lineNum">     350 </span><span class="lineCov">          3 :     if (shared.integers[0] == NULL)</span>
+<span class="lineNum">     351 </span><span class="lineNoCov">          0 :         createSharedObjects();</span>
+<span class="lineNum">     352 </span><span class="lineCov">          3 :     server.loading_process_events_interval_bytes = 0;</span>
+<span class="lineNum">     353 </span><span class="lineCov">          3 :     rdbCheckMode = 1;</span>
+<span class="lineNum">     354 </span><span class="lineCov">          3 :     rdbCheckInfo(&quot;Checking RDB file %s&quot;, argv[1]);</span>
+<span class="lineNum">     355 </span><span class="lineCov">          3 :     rdbCheckSetupSignals();</span>
+<span class="lineNum">     356 </span><span class="lineCov">          3 :     int retval = redis_check_rdb(argv[1],fp);</span>
+<span class="lineNum">     357 </span><span class="lineCov">          3 :     if (retval == 0) {</span>
+<span class="lineNum">     358 </span><span class="lineNoCov">          0 :         rdbCheckInfo(&quot;\\o/ RDB looks OK! \\o/&quot;);</span>
+<span class="lineNum">     359 </span><span class="lineNoCov">          0 :         rdbShowGenericInfo();</span>
+<span class="lineNum">     360 </span>            :     }
+<span class="lineNum">     361 </span><span class="lineCov">          3 :     if (fp) return (retval == 0) ? C_OK : C_ERR;</span>
+<span class="lineNum">     362 </span><span class="lineCov">          3 :     exit(retval);</span>
+<span class="lineNum">     363 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

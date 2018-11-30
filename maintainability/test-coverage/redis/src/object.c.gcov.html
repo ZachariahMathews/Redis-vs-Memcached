@@ -1,0 +1,1535 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - redis.info - src/object.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - object.c<span style="font-size: 80%;"> (source / <a href="object.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">redis.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">456</td>
+            <td class="headerCovTableEntry">818</td>
+            <td class="headerCovTableEntryLo">55.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:16:49</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntry">59</td>
+            <td class="headerCovTableEntryMed">78.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Redis Object implementation.</a>
+<span class="lineNum">       2 </span>            :  *
+<span class="lineNum">       3 </span>            :  * Copyright (c) 2009-2012, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+<span class="lineNum">       4 </span>            :  * All rights reserved.
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       7 </span>            :  * modification, are permitted provided that the following conditions are met:
+<span class="lineNum">       8 </span>            :  *
+<span class="lineNum">       9 </span>            :  *   * Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      10 </span>            :  *     this list of conditions and the following disclaimer.
+<span class="lineNum">      11 </span>            :  *   * Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      12 </span>            :  *     notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      13 </span>            :  *     documentation and/or other materials provided with the distribution.
+<span class="lineNum">      14 </span>            :  *   * Neither the name of Redis nor the names of its contributors may be used
+<span class="lineNum">      15 </span>            :  *     to endorse or promote products derived from this software without
+<span class="lineNum">      16 </span>            :  *     specific prior written permission.
+<span class="lineNum">      17 </span>            :  *
+<span class="lineNum">      18 </span>            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+<span class="lineNum">      19 </span>            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+<span class="lineNum">      20 </span>            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      21 </span>            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+<span class="lineNum">      22 </span>            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+<span class="lineNum">      23 </span>            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+<span class="lineNum">      24 </span>            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+<span class="lineNum">      25 </span>            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+<span class="lineNum">      26 </span>            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      27 </span>            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      28 </span>            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            :  */
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : #include &quot;server.h&quot;
+<span class="lineNum">      32 </span>            : #include &lt;math.h&gt;
+<span class="lineNum">      33 </span>            : #include &lt;ctype.h&gt;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : #ifdef __CYGWIN__
+<span class="lineNum">      36 </span>            : #define strtold(a,b) ((long double)strtod((a),(b)))
+<span class="lineNum">      37 </span>            : #endif
+<span class="lineNum">      38 </span>            : 
+<a name="39"><span class="lineNum">      39 </span>            : /* ===================== Creation and parsing of objects ==================== */</a>
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span><span class="lineCov">  161955846 : robj *createObject(int type, void *ptr) {</span>
+<span class="lineNum">      42 </span><span class="lineCov">  161955846 :     robj *o = zmalloc(sizeof(*o));</span>
+<span class="lineNum">      43 </span><span class="lineCov">  161955846 :     o-&gt;type = type;</span>
+<span class="lineNum">      44 </span><span class="lineCov">  161955846 :     o-&gt;encoding = OBJ_ENCODING_RAW;</span>
+<span class="lineNum">      45 </span><span class="lineCov">  161955846 :     o-&gt;ptr = ptr;</span>
+<span class="lineNum">      46 </span><span class="lineCov">  161955846 :     o-&gt;refcount = 1;</span>
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            :     /* Set the LRU to the current lruclock (minutes resolution), or
+<span class="lineNum">      49 </span>            :      * alternatively the LFU counter. */
+<span class="lineNum">      50 </span><span class="lineCov">  161955846 :     if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) {</span>
+<span class="lineNum">      51 </span><span class="lineCov">     527256 :         o-&gt;lru = (LFUGetTimeInMinutes()&lt;&lt;8) | LFU_INIT_VAL;</span>
+<span class="lineNum">      52 </span>            :     } else {
+<span class="lineNum">      53 </span><span class="lineCov">  161428590 :         o-&gt;lru = LRU_CLOCK();</span>
+<span class="lineNum">      54 </span>            :     }
+<span class="lineNum">      55 </span><span class="lineCov">  161955846 :     return o;</span>
+<span class="lineNum">      56 </span>            : }
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : /* Set a special refcount in the object to make it &quot;shared&quot;:
+<span class="lineNum">      59 </span>            :  * incrRefCount and decrRefCount() will test for this special refcount
+<span class="lineNum">      60 </span>            :  * and will not touch the object. This way it is free to access shared
+<span class="lineNum">      61 </span>            :  * objects such as small integers from different threads without any
+<span class="lineNum">      62 </span>            :  * mutex.
+<span class="lineNum">      63 </span>            :  *
+<span class="lineNum">      64 </span>            :  * A common patter to create shared objects:
+<span class="lineNum">      65 </span>            :  *
+<span class="lineNum">      66 </span>            :  * robj *myobject = makeObjectShared(createObject(...));
+<a name="67"><span class="lineNum">      67 </span>            :  *</a>
+<span class="lineNum">      68 </span>            :  */
+<span class="lineNum">      69 </span><span class="lineCov">    6560000 : robj *makeObjectShared(robj *o) {</span>
+<span class="lineNum">      70 </span><span class="lineCov">    6560000 :     serverAssert(o-&gt;refcount == 1);</span>
+<span class="lineNum">      71 </span><span class="lineCov">    6560000 :     o-&gt;refcount = OBJ_SHARED_REFCOUNT;</span>
+<span class="lineNum">      72 </span><span class="lineCov">    6560000 :     return o;</span>
+<span class="lineNum">      73 </span>            : }
+<span class="lineNum">      74 </span>            : 
+<a name="75"><span class="lineNum">      75 </span>            : /* Create a string object with encoding OBJ_ENCODING_RAW, that is a plain</a>
+<span class="lineNum">      76 </span>            :  * string object where o-&gt;ptr points to a proper sds string. */
+<span class="lineNum">      77 </span><span class="lineCov">   12139157 : robj *createRawStringObject(const char *ptr, size_t len) {</span>
+<span class="lineNum">      78 </span><span class="lineCov">   12139157 :     return createObject(OBJ_STRING, sdsnewlen(ptr,len));</span>
+<span class="lineNum">      79 </span>            : }
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : /* Create a string object with encoding OBJ_ENCODING_EMBSTR, that is
+<a name="82"><span class="lineNum">      82 </span>            :  * an object where the sds string is actually an unmodifiable string</a>
+<span class="lineNum">      83 </span>            :  * allocated in the same chunk as the object itself. */
+<span class="lineNum">      84 </span><span class="lineCov">  277167674 : robj *createEmbeddedStringObject(const char *ptr, size_t len) {</span>
+<span class="lineNum">      85 </span><span class="lineCov">  277167674 :     robj *o = zmalloc(sizeof(robj)+sizeof(struct sdshdr8)+len+1);</span>
+<span class="lineNum">      86 </span><span class="lineCov">  277167674 :     struct sdshdr8 *sh = (void*)(o+1);</span>
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span><span class="lineCov">  277167674 :     o-&gt;type = OBJ_STRING;</span>
+<span class="lineNum">      89 </span><span class="lineCov">  277167674 :     o-&gt;encoding = OBJ_ENCODING_EMBSTR;</span>
+<span class="lineNum">      90 </span><span class="lineCov">  277167674 :     o-&gt;ptr = sh+1;</span>
+<span class="lineNum">      91 </span><span class="lineCov">  277167674 :     o-&gt;refcount = 1;</span>
+<span class="lineNum">      92 </span><span class="lineCov">  277167674 :     if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) {</span>
+<span class="lineNum">      93 </span><span class="lineCov">    3190853 :         o-&gt;lru = (LFUGetTimeInMinutes()&lt;&lt;8) | LFU_INIT_VAL;</span>
+<span class="lineNum">      94 </span>            :     } else {
+<span class="lineNum">      95 </span><span class="lineCov">  273976821 :         o-&gt;lru = LRU_CLOCK();</span>
+<span class="lineNum">      96 </span>            :     }
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span><span class="lineCov">  277167674 :     sh-&gt;len = len;</span>
+<span class="lineNum">      99 </span><span class="lineCov">  277167674 :     sh-&gt;alloc = len;</span>
+<span class="lineNum">     100 </span><span class="lineCov">  277167674 :     sh-&gt;flags = SDS_TYPE_8;</span>
+<span class="lineNum">     101 </span><span class="lineCov">  277167674 :     if (ptr == SDS_NOINIT)</span>
+<span class="lineNum">     102 </span><span class="lineCov">   11591539 :         sh-&gt;buf[len] = '\0';</span>
+<span class="lineNum">     103 </span><span class="lineCov">  265576135 :     else if (ptr) {</span>
+<span class="lineNum">     104 </span><span class="lineCov">  265317556 :         memcpy(sh-&gt;buf,ptr,len);</span>
+<span class="lineNum">     105 </span><span class="lineCov">  265317556 :         sh-&gt;buf[len] = '\0';</span>
+<span class="lineNum">     106 </span>            :     } else {
+<span class="lineNum">     107 </span><span class="lineCov">     258579 :         memset(sh-&gt;buf,0,len+1);</span>
+<span class="lineNum">     108 </span>            :     }
+<span class="lineNum">     109 </span><span class="lineCov">  277167674 :     return o;</span>
+<span class="lineNum">     110 </span>            : }
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            : /* Create a string object with EMBSTR encoding if it is smaller than
+<span class="lineNum">     113 </span>            :  * OBJ_ENCODING_EMBSTR_SIZE_LIMIT, otherwise the RAW encoding is
+<span class="lineNum">     114 </span>            :  * used.
+<span class="lineNum">     115 </span>            :  *
+<span class="lineNum">     116 </span>            :  * The current limit of 44 is chosen so that the biggest string object
+<a name="117"><span class="lineNum">     117 </span>            :  * we allocate as EMBSTR will still fit into the 64 byte arena of jemalloc. */</a>
+<span class="lineNum">     118 </span>            : #define OBJ_ENCODING_EMBSTR_SIZE_LIMIT 44
+<span class="lineNum">     119 </span><span class="lineCov">  277547618 : robj *createStringObject(const char *ptr, size_t len) {</span>
+<span class="lineNum">     120 </span><span class="lineCov">  277547618 :     if (len &lt;= OBJ_ENCODING_EMBSTR_SIZE_LIMIT)</span>
+<span class="lineNum">     121 </span><span class="lineCov">  270251041 :         return createEmbeddedStringObject(ptr,len);</span>
+<span class="lineNum">     122 </span>            :     else
+<span class="lineNum">     123 </span><span class="lineCov">    7296577 :         return createRawStringObject(ptr,len);</span>
+<span class="lineNum">     124 </span>            : }
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span>            : /* Create a string object from a long long value. When possible returns a
+<span class="lineNum">     127 </span>            :  * shared integer object, or at least an integer encoded one.
+<span class="lineNum">     128 </span>            :  *
+<span class="lineNum">     129 </span>            :  * If valueobj is non zero, the function avoids returning a a shared
+<span class="lineNum">     130 </span>            :  * integer, because the object is going to be used as value in the Redis key
+<a name="131"><span class="lineNum">     131 </span>            :  * space (for instance when the INCR command is used), so we want LFU/LRU</a>
+<span class="lineNum">     132 </span>            :  * values specific for each key. */
+<span class="lineNum">     133 </span><span class="lineCov">    9855620 : robj *createStringObjectFromLongLongWithOptions(long long value, int valueobj) {</span>
+<span class="lineNum">     134 </span><span class="lineCov">    9855620 :     robj *o;</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span><span class="lineCov">    9855620 :     if (server.maxmemory == 0 ||</span>
+<span class="lineNum">     137 </span><span class="lineNoCov">          0 :         !(server.maxmemory_policy &amp; MAXMEMORY_FLAG_NO_SHARED_INTEGERS))</span>
+<span class="lineNum">     138 </span>            :     {
+<span class="lineNum">     139 </span>            :         /* If the maxmemory policy permits, we can still return shared integers
+<span class="lineNum">     140 </span>            :          * even if valueobj is true. */
+<span class="lineNum">     141 </span><span class="lineCov">    9855620 :         valueobj = 0;</span>
+<span class="lineNum">     142 </span>            :     }
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span><span class="lineCov">    9855620 :     if (value &gt;= 0 &amp;&amp; value &lt; OBJ_SHARED_INTEGERS &amp;&amp; valueobj == 0) {</span>
+<span class="lineNum">     145 </span><span class="lineCov">    8890067 :         incrRefCount(shared.integers[value]);</span>
+<span class="lineNum">     146 </span>            :         o = shared.integers[value];
+<span class="lineNum">     147 </span>            :     } else {
+<span class="lineNum">     148 </span><span class="lineCov">     965553 :         if (value &gt;= LONG_MIN &amp;&amp; value &lt;= LONG_MAX) {</span>
+<span class="lineNum">     149 </span><span class="lineCov">     965553 :             o = createObject(OBJ_STRING, NULL);</span>
+<span class="lineNum">     150 </span><span class="lineCov">     965553 :             o-&gt;encoding = OBJ_ENCODING_INT;</span>
+<span class="lineNum">     151 </span><span class="lineCov">     965553 :             o-&gt;ptr = (void*)((long)value);</span>
+<span class="lineNum">     152 </span>            :         } else {
+<span class="lineNum">     153 </span>            :             o = createObject(OBJ_STRING,sdsfromlonglong(value));
+<span class="lineNum">     154 </span>            :         }
+<span class="lineNum">     155 </span>            :     }
+<span class="lineNum">     156 </span><span class="lineCov">    9855620 :     return o;</span>
+<span class="lineNum">     157 </span>            : }
+<span class="lineNum">     158 </span>            : 
+<a name="159"><span class="lineNum">     159 </span>            : /* Wrapper for createStringObjectFromLongLongWithOptions() always demanding</a>
+<span class="lineNum">     160 </span>            :  * to create a shared object if possible. */
+<span class="lineNum">     161 </span><span class="lineCov">    1287596 : robj *createStringObjectFromLongLong(long long value) {</span>
+<span class="lineNum">     162 </span><span class="lineCov">    1287596 :     return createStringObjectFromLongLongWithOptions(value,0);</span>
+<span class="lineNum">     163 </span>            : }
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span>            : /* Wrapper for createStringObjectFromLongLongWithOptions() avoiding a shared
+<span class="lineNum">     166 </span>            :  * object when LFU/LRU info are needed, that is, when the object is used
+<a name="167"><span class="lineNum">     167 </span>            :  * as a value in the key space, and Redis is configured to evict based on</a>
+<span class="lineNum">     168 </span>            :  * LFU/LRU. */
+<span class="lineNum">     169 </span><span class="lineCov">    8568024 : robj *createStringObjectFromLongLongForValue(long long value) {</span>
+<span class="lineNum">     170 </span><span class="lineCov">    8568024 :     return createStringObjectFromLongLongWithOptions(value,1);</span>
+<span class="lineNum">     171 </span>            : }
+<span class="lineNum">     172 </span>            : 
+<span class="lineNum">     173 </span>            : /* Create a string object from a long double. If humanfriendly is non-zero
+<span class="lineNum">     174 </span>            :  * it does not use exponential format and trims trailing zeroes at the end,
+<span class="lineNum">     175 </span>            :  * however this results in loss of precision. Otherwise exp format is used
+<span class="lineNum">     176 </span>            :  * and the output of snprintf() is not modified.
+<a name="177"><span class="lineNum">     177 </span>            :  *</a>
+<span class="lineNum">     178 </span>            :  * The 'humanfriendly' option is used for INCRBYFLOAT and HINCRBYFLOAT. */
+<span class="lineNum">     179 </span><span class="lineCov">       3078 : robj *createStringObjectFromLongDouble(long double value, int humanfriendly) {</span>
+<span class="lineNum">     180 </span><span class="lineCov">       3078 :     char buf[MAX_LONG_DOUBLE_CHARS];</span>
+<span class="lineNum">     181 </span><span class="lineCov">       3078 :     int len = ld2string(buf,sizeof(buf),value,humanfriendly);</span>
+<span class="lineNum">     182 </span><span class="lineCov">       3078 :     return createStringObject(buf,len);</span>
+<span class="lineNum">     183 </span>            : }
+<span class="lineNum">     184 </span>            : 
+<span class="lineNum">     185 </span>            : /* Duplicate a string object, with the guarantee that the returned object
+<span class="lineNum">     186 </span>            :  * has the same encoding as the original one.
+<span class="lineNum">     187 </span>            :  *
+<span class="lineNum">     188 </span>            :  * This function also guarantees that duplicating a small integer object
+<span class="lineNum">     189 </span>            :  * (or a string object that contains a representation of a small integer)
+<span class="lineNum">     190 </span>            :  * will always result in a fresh object that is unshared (refcount == 1).
+<a name="191"><span class="lineNum">     191 </span>            :  *</a>
+<span class="lineNum">     192 </span>            :  * The resulting object always has refcount set to 1. */
+<span class="lineNum">     193 </span><span class="lineCov">      14506 : robj *dupStringObject(const robj *o) {</span>
+<span class="lineNum">     194 </span><span class="lineCov">      14506 :     robj *d;</span>
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span><span class="lineCov">      14506 :     serverAssert(o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span><span class="lineCov">      14506 :     switch(o-&gt;encoding) {</span>
+<span class="lineNum">     199 </span><span class="lineCov">        970 :     case OBJ_ENCODING_RAW:</span>
+<span class="lineNum">     200 </span><span class="lineCov">       1940 :         return createRawStringObject(o-&gt;ptr,sdslen(o-&gt;ptr));</span>
+<span class="lineNum">     201 </span><span class="lineCov">      13522 :     case OBJ_ENCODING_EMBSTR:</span>
+<span class="lineNum">     202 </span><span class="lineCov">      27044 :         return createEmbeddedStringObject(o-&gt;ptr,sdslen(o-&gt;ptr));</span>
+<span class="lineNum">     203 </span><span class="lineCov">         14 :     case OBJ_ENCODING_INT:</span>
+<span class="lineNum">     204 </span><span class="lineCov">         14 :         d = createObject(OBJ_STRING, NULL);</span>
+<span class="lineNum">     205 </span><span class="lineCov">         14 :         d-&gt;encoding = OBJ_ENCODING_INT;</span>
+<span class="lineNum">     206 </span><span class="lineCov">         14 :         d-&gt;ptr = o-&gt;ptr;</span>
+<span class="lineNum">     207 </span><span class="lineCov">         14 :         return d;</span>
+<span class="lineNum">     208 </span><span class="lineNoCov">          0 :     default:</span>
+<span class="lineNum">     209 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Wrong encoding.&quot;);</span>
+<span class="lineNum">     210 </span>            :         break;
+<span class="lineNum">     211 </span>            :     }
+<a name="212"><span class="lineNum">     212 </span>            : }</a>
+<span class="lineNum">     213 </span>            : 
+<span class="lineNum">     214 </span><span class="lineCov">     484967 : robj *createQuicklistObject(void) {</span>
+<span class="lineNum">     215 </span><span class="lineCov">     484967 :     quicklist *l = quicklistCreate();</span>
+<span class="lineNum">     216 </span><span class="lineCov">     484967 :     robj *o = createObject(OBJ_LIST,l);</span>
+<span class="lineNum">     217 </span><span class="lineCov">     484967 :     o-&gt;encoding = OBJ_ENCODING_QUICKLIST;</span>
+<span class="lineNum">     218 </span><span class="lineCov">     484967 :     return o;</span>
+<a name="219"><span class="lineNum">     219 </span>            : }</a>
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 : robj *createZiplistObject(void) {</span>
+<span class="lineNum">     222 </span><span class="lineNoCov">          0 :     unsigned char *zl = ziplistNew();</span>
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :     robj *o = createObject(OBJ_LIST,zl);</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :     o-&gt;encoding = OBJ_ENCODING_ZIPLIST;</span>
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :     return o;</span>
+<a name="226"><span class="lineNum">     226 </span>            : }</a>
+<span class="lineNum">     227 </span>            : 
+<span class="lineNum">     228 </span><span class="lineCov">     105269 : robj *createSetObject(void) {</span>
+<span class="lineNum">     229 </span><span class="lineCov">     105269 :     dict *d = dictCreate(&amp;setDictType,NULL);</span>
+<span class="lineNum">     230 </span><span class="lineCov">     105269 :     robj *o = createObject(OBJ_SET,d);</span>
+<span class="lineNum">     231 </span><span class="lineCov">     105269 :     o-&gt;encoding = OBJ_ENCODING_HT;</span>
+<span class="lineNum">     232 </span><span class="lineCov">     105269 :     return o;</span>
+<a name="233"><span class="lineNum">     233 </span>            : }</a>
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span><span class="lineCov">     539338 : robj *createIntsetObject(void) {</span>
+<span class="lineNum">     236 </span><span class="lineCov">     539338 :     intset *is = intsetNew();</span>
+<span class="lineNum">     237 </span><span class="lineCov">     539338 :     robj *o = createObject(OBJ_SET,is);</span>
+<span class="lineNum">     238 </span><span class="lineCov">     539338 :     o-&gt;encoding = OBJ_ENCODING_INTSET;</span>
+<span class="lineNum">     239 </span><span class="lineCov">     539338 :     return o;</span>
+<a name="240"><span class="lineNum">     240 </span>            : }</a>
+<span class="lineNum">     241 </span>            : 
+<span class="lineNum">     242 </span><span class="lineCov">     481865 : robj *createHashObject(void) {</span>
+<span class="lineNum">     243 </span><span class="lineCov">     481865 :     unsigned char *zl = ziplistNew();</span>
+<span class="lineNum">     244 </span><span class="lineCov">     481865 :     robj *o = createObject(OBJ_HASH, zl);</span>
+<span class="lineNum">     245 </span><span class="lineCov">     481865 :     o-&gt;encoding = OBJ_ENCODING_ZIPLIST;</span>
+<span class="lineNum">     246 </span><span class="lineCov">     481865 :     return o;</span>
+<a name="247"><span class="lineNum">     247 </span>            : }</a>
+<span class="lineNum">     248 </span>            : 
+<span class="lineNum">     249 </span><span class="lineCov">     267442 : robj *createZsetObject(void) {</span>
+<span class="lineNum">     250 </span><span class="lineCov">     267442 :     zset *zs = zmalloc(sizeof(*zs));</span>
+<span class="lineNum">     251 </span><span class="lineCov">     267442 :     robj *o;</span>
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span><span class="lineCov">     267442 :     zs-&gt;dict = dictCreate(&amp;zsetDictType,NULL);</span>
+<span class="lineNum">     254 </span><span class="lineCov">     267442 :     zs-&gt;zsl = zslCreate();</span>
+<span class="lineNum">     255 </span><span class="lineCov">     267442 :     o = createObject(OBJ_ZSET,zs);</span>
+<span class="lineNum">     256 </span><span class="lineCov">     267442 :     o-&gt;encoding = OBJ_ENCODING_SKIPLIST;</span>
+<span class="lineNum">     257 </span><span class="lineCov">     267442 :     return o;</span>
+<a name="258"><span class="lineNum">     258 </span>            : }</a>
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span><span class="lineCov">     345641 : robj *createZsetZiplistObject(void) {</span>
+<span class="lineNum">     261 </span><span class="lineCov">     345641 :     unsigned char *zl = ziplistNew();</span>
+<span class="lineNum">     262 </span><span class="lineCov">     345641 :     robj *o = createObject(OBJ_ZSET,zl);</span>
+<span class="lineNum">     263 </span><span class="lineCov">     345641 :     o-&gt;encoding = OBJ_ENCODING_ZIPLIST;</span>
+<span class="lineNum">     264 </span><span class="lineCov">     345641 :     return o;</span>
+<a name="265"><span class="lineNum">     265 </span>            : }</a>
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span><span class="lineCov">        169 : robj *createStreamObject(void) {</span>
+<span class="lineNum">     268 </span><span class="lineCov">        169 :     stream *s = streamNew();</span>
+<span class="lineNum">     269 </span><span class="lineCov">        169 :     robj *o = createObject(OBJ_STREAM,s);</span>
+<span class="lineNum">     270 </span><span class="lineCov">        169 :     o-&gt;encoding = OBJ_ENCODING_STREAM;</span>
+<span class="lineNum">     271 </span><span class="lineCov">        169 :     return o;</span>
+<a name="272"><span class="lineNum">     272 </span>            : }</a>
+<span class="lineNum">     273 </span>            : 
+<span class="lineNum">     274 </span><span class="lineNoCov">          0 : robj *createModuleObject(moduleType *mt, void *value) {</span>
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :     moduleValue *mv = zmalloc(sizeof(*mv));</span>
+<span class="lineNum">     276 </span><span class="lineNoCov">          0 :     mv-&gt;type = mt;</span>
+<span class="lineNum">     277 </span><span class="lineNoCov">          0 :     mv-&gt;value = value;</span>
+<span class="lineNum">     278 </span><span class="lineNoCov">          0 :     return createObject(OBJ_MODULE,mv);</span>
+<a name="279"><span class="lineNum">     279 </span>            : }</a>
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span><span class="lineNoCov">          0 : void freeStringObject(robj *o) {</span>
+<span class="lineNum">     282 </span><span class="lineNoCov">          0 :     if (o-&gt;encoding == OBJ_ENCODING_RAW) {</span>
+<span class="lineNum">     283 </span><span class="lineCov">  150900051 :         sdsfree(o-&gt;ptr);</span>
+<span class="lineNum">     284 </span>            :     }
+<a name="285"><span class="lineNum">     285 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span><span class="lineCov">     288291 : void freeListObject(robj *o) {</span>
+<span class="lineNum">     288 </span><span class="lineCov">     288291 :     if (o-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     289 </span><span class="lineCov">     288291 :         quicklistRelease(o-&gt;ptr);</span>
+<span class="lineNum">     290 </span>            :     } else {
+<span class="lineNum">     291 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown list encoding type&quot;);</span>
+<span class="lineNum">     292 </span>            :     }
+<a name="293"><span class="lineNum">     293 </span><span class="lineCov">     288291 : }</span></a>
+<span class="lineNum">     294 </span>            : 
+<span class="lineNum">     295 </span><span class="lineCov">     275447 : void freeSetObject(robj *o) {</span>
+<span class="lineNum">     296 </span><span class="lineCov">     275447 :     switch (o-&gt;encoding) {</span>
+<span class="lineNum">     297 </span><span class="lineCov">      59003 :     case OBJ_ENCODING_HT:</span>
+<span class="lineNum">     298 </span><span class="lineCov">      59003 :         dictRelease((dict*) o-&gt;ptr);</span>
+<span class="lineNum">     299 </span><span class="lineCov">      59003 :         break;</span>
+<span class="lineNum">     300 </span><span class="lineCov">     216444 :     case OBJ_ENCODING_INTSET:</span>
+<span class="lineNum">     301 </span><span class="lineCov">     216444 :         zfree(o-&gt;ptr);</span>
+<span class="lineNum">     302 </span><span class="lineCov">     216444 :         break;</span>
+<span class="lineNum">     303 </span><span class="lineNoCov">          0 :     default:</span>
+<span class="lineNum">     304 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown set encoding type&quot;);</span>
+<span class="lineNum">     305 </span>            :     }
+<a name="306"><span class="lineNum">     306 </span><span class="lineCov">     275447 : }</span></a>
+<span class="lineNum">     307 </span>            : 
+<span class="lineNum">     308 </span><span class="lineCov">     279702 : void freeZsetObject(robj *o) {</span>
+<span class="lineNum">     309 </span><span class="lineCov">     279702 :     zset *zs;</span>
+<span class="lineNum">     310 </span><span class="lineCov">     279702 :     switch (o-&gt;encoding) {</span>
+<span class="lineNum">     311 </span><span class="lineCov">     112921 :     case OBJ_ENCODING_SKIPLIST:</span>
+<span class="lineNum">     312 </span><span class="lineCov">     112921 :         zs = o-&gt;ptr;</span>
+<span class="lineNum">     313 </span><span class="lineCov">     112921 :         dictRelease(zs-&gt;dict);</span>
+<span class="lineNum">     314 </span><span class="lineCov">     112921 :         zslFree(zs-&gt;zsl);</span>
+<span class="lineNum">     315 </span><span class="lineCov">     112921 :         zfree(zs);</span>
+<span class="lineNum">     316 </span><span class="lineCov">     112921 :         break;</span>
+<span class="lineNum">     317 </span><span class="lineCov">     166781 :     case OBJ_ENCODING_ZIPLIST:</span>
+<span class="lineNum">     318 </span><span class="lineCov">     166781 :         zfree(o-&gt;ptr);</span>
+<span class="lineNum">     319 </span><span class="lineCov">     166781 :         break;</span>
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :     default:</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown sorted set encoding&quot;);</span>
+<span class="lineNum">     322 </span>            :     }
+<a name="323"><span class="lineNum">     323 </span><span class="lineCov">     279702 : }</span></a>
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span><span class="lineCov">     281126 : void freeHashObject(robj *o) {</span>
+<span class="lineNum">     326 </span><span class="lineCov">     281126 :     switch (o-&gt;encoding) {</span>
+<span class="lineNum">     327 </span><span class="lineCov">      86831 :     case OBJ_ENCODING_HT:</span>
+<span class="lineNum">     328 </span><span class="lineCov">      86831 :         dictRelease((dict*) o-&gt;ptr);</span>
+<span class="lineNum">     329 </span><span class="lineCov">      86831 :         break;</span>
+<span class="lineNum">     330 </span><span class="lineCov">     194295 :     case OBJ_ENCODING_ZIPLIST:</span>
+<span class="lineNum">     331 </span><span class="lineCov">     194295 :         zfree(o-&gt;ptr);</span>
+<span class="lineNum">     332 </span><span class="lineCov">     194295 :         break;</span>
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 :     default:</span>
+<span class="lineNum">     334 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown hash encoding type&quot;);</span>
+<span class="lineNum">     335 </span>            :         break;
+<span class="lineNum">     336 </span>            :     }
+<a name="337"><span class="lineNum">     337 </span><span class="lineCov">     281126 : }</span></a>
+<span class="lineNum">     338 </span>            : 
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 : void freeModuleObject(robj *o) {</span>
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :     moduleValue *mv = o-&gt;ptr;</span>
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :     mv-&gt;type-&gt;free(mv-&gt;value);</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :     zfree(mv);</span>
+<a name="343"><span class="lineNum">     343 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     344 </span>            : 
+<span class="lineNum">     345 </span><span class="lineNoCov">          0 : void freeStreamObject(robj *o) {</span>
+<span class="lineNum">     346 </span><span class="lineNoCov">          0 :     freeStream(o-&gt;ptr);</span>
+<a name="347"><span class="lineNum">     347 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span><span class="lineCov">   36704005 : void incrRefCount(robj *o) {</span>
+<span class="lineNum">     350 </span><span class="lineCov">  115608282 :     if (o-&gt;refcount != OBJ_SHARED_REFCOUNT) o-&gt;refcount++;</span>
+<a name="351"><span class="lineNum">     351 </span><span class="lineCov">   36704005 : }</span></a>
+<span class="lineNum">     352 </span>            : 
+<span class="lineNum">     353 </span><span class="lineCov">  511078968 : void decrRefCount(robj *o) {</span>
+<span class="lineNum">     354 </span><span class="lineCov">  511078968 :     if (o-&gt;refcount == 1) {</span>
+<span class="lineNum">     355 </span><span class="lineCov">  395649529 :         switch(o-&gt;type) {</span>
+<span class="lineNum">     356 </span><span class="lineCov">  394524870 :         case OBJ_STRING: freeStringObject(o); break;</span>
+<span class="lineNum">     357 </span><span class="lineCov">     288291 :         case OBJ_LIST: freeListObject(o); break;</span>
+<span class="lineNum">     358 </span><span class="lineCov">     275447 :         case OBJ_SET: freeSetObject(o); break;</span>
+<span class="lineNum">     359 </span><span class="lineCov">     279702 :         case OBJ_ZSET: freeZsetObject(o); break;</span>
+<span class="lineNum">     360 </span><span class="lineCov">     281126 :         case OBJ_HASH: freeHashObject(o); break;</span>
+<span class="lineNum">     361 </span><span class="lineNoCov">          0 :         case OBJ_MODULE: freeModuleObject(o); break;</span>
+<span class="lineNum">     362 </span><span class="lineCov">         93 :         case OBJ_STREAM: freeStreamObject(o); break;</span>
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :         default: serverPanic(&quot;Unknown object type&quot;); break;</span>
+<span class="lineNum">     364 </span>            :         }
+<span class="lineNum">     365 </span><span class="lineCov">  395649529 :         zfree(o);</span>
+<span class="lineNum">     366 </span>            :     } else {
+<span class="lineNum">     367 </span><span class="lineCov">  115429439 :         if (o-&gt;refcount &lt;= 0) serverPanic(&quot;decrRefCount against refcount &lt;= 0&quot;);</span>
+<span class="lineNum">     368 </span><span class="lineCov">  115429439 :         if (o-&gt;refcount != OBJ_SHARED_REFCOUNT) o-&gt;refcount--;</span>
+<span class="lineNum">     369 </span>            :     }
+<span class="lineNum">     370 </span><span class="lineCov">  511078968 : }</span>
+<span class="lineNum">     371 </span>            : 
+<span class="lineNum">     372 </span>            : /* This variant of decrRefCount() gets its argument as void, and is useful
+<a name="373"><span class="lineNum">     373 </span>            :  * as free method in data structures that expect a 'void free_object(void*)'</a>
+<span class="lineNum">     374 </span>            :  * prototype for the free method. */
+<span class="lineNum">     375 </span><span class="lineCov">         40 : void decrRefCountVoid(void *o) {</span>
+<span class="lineNum">     376 </span><span class="lineCov">         40 :     decrRefCount(o);</span>
+<span class="lineNum">     377 </span><span class="lineCov">         40 : }</span>
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span>            : /* This function set the ref count to zero without freeing the object.
+<span class="lineNum">     380 </span>            :  * It is useful in order to pass a new object to functions incrementing
+<span class="lineNum">     381 </span>            :  * the ref count of the received object. Example:
+<span class="lineNum">     382 </span>            :  *
+<span class="lineNum">     383 </span>            :  *    functionThatWillIncrementRefCount(resetRefCount(CreateObject(...)));
+<span class="lineNum">     384 </span>            :  *
+<span class="lineNum">     385 </span>            :  * Otherwise you need to resort to the less elegant pattern:
+<span class="lineNum">     386 </span>            :  *
+<span class="lineNum">     387 </span>            :  *    *obj = createObject(...);
+<span class="lineNum">     388 </span>            :  *    functionThatWillIncrementRefCount(obj);
+<a name="389"><span class="lineNum">     389 </span>            :  *    decrRefCount(obj);</a>
+<span class="lineNum">     390 </span>            :  */
+<span class="lineNum">     391 </span><span class="lineNoCov">          0 : robj *resetRefCount(robj *obj) {</span>
+<span class="lineNum">     392 </span><span class="lineNoCov">          0 :     obj-&gt;refcount = 0;</span>
+<span class="lineNum">     393 </span><span class="lineNoCov">          0 :     return obj;</span>
+<a name="394"><span class="lineNum">     394 </span>            : }</a>
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span><span class="lineCov">   15103834 : int checkType(client *c, robj *o, int type) {</span>
+<span class="lineNum">     397 </span><span class="lineCov">   15103834 :     if (o-&gt;type != type) {</span>
+<span class="lineNum">     398 </span><span class="lineCov">         71 :         addReply(c,shared.wrongtypeerr);</span>
+<span class="lineNum">     399 </span><span class="lineCov">         71 :         return 1;</span>
+<span class="lineNum">     400 </span>            :     }
+<span class="lineNum">     401 </span>            :     return 0;
+<a name="402"><span class="lineNum">     402 </span>            : }</a>
+<span class="lineNum">     403 </span>            : 
+<span class="lineNum">     404 </span><span class="lineCov">    1342691 : int isSdsRepresentableAsLongLong(sds s, long long *llval) {</span>
+<span class="lineNum">     405 </span><span class="lineCov">    2685382 :     return string2ll(s,sdslen(s),llval) ? C_OK : C_ERR;</span>
+<a name="406"><span class="lineNum">     406 </span>            : }</a>
+<span class="lineNum">     407 </span>            : 
+<span class="lineNum">     408 </span><span class="lineNoCov">          0 : int isObjectRepresentableAsLongLong(robj *o, long long *llval) {</span>
+<span class="lineNum">     409 </span><span class="lineNoCov">          0 :     serverAssertWithInfo(NULL,o,o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     410 </span><span class="lineNoCov">          0 :     if (o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     411 </span><span class="lineNoCov">          0 :         if (llval) *llval = (long) o-&gt;ptr;</span>
+<span class="lineNum">     412 </span><span class="lineNoCov">          0 :         return C_OK;</span>
+<span class="lineNum">     413 </span>            :     } else {
+<span class="lineNum">     414 </span><span class="lineNoCov">          0 :         return isSdsRepresentableAsLongLong(o-&gt;ptr,llval);</span>
+<span class="lineNum">     415 </span>            :     }
+<span class="lineNum">     416 </span>            : }
+<a name="417"><span class="lineNum">     417 </span>            : </a>
+<span class="lineNum">     418 </span>            : /* Try to encode a string object in order to save space */
+<span class="lineNum">     419 </span><span class="lineCov">   43859017 : robj *tryObjectEncoding(robj *o) {</span>
+<span class="lineNum">     420 </span><span class="lineCov">   43859017 :     long value;</span>
+<span class="lineNum">     421 </span><span class="lineCov">   43859017 :     sds s = o-&gt;ptr;</span>
+<span class="lineNum">     422 </span><span class="lineCov">   43859017 :     size_t len;</span>
+<span class="lineNum">     423 </span>            : 
+<span class="lineNum">     424 </span>            :     /* Make sure this is a string object, the only type we encode
+<span class="lineNum">     425 </span>            :      * in this function. Other types use encoded memory efficient
+<span class="lineNum">     426 </span>            :      * representations but are handled by the commands implementing
+<span class="lineNum">     427 </span>            :      * the type. */
+<span class="lineNum">     428 </span><span class="lineCov">   43859017 :     serverAssertWithInfo(NULL,o,o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span>            :     /* We try some specialized encoding only for objects that are
+<span class="lineNum">     431 </span>            :      * RAW or EMBSTR encoded, in other words objects that are still
+<span class="lineNum">     432 </span>            :      * in represented by an actually array of chars. */
+<span class="lineNum">     433 </span><span class="lineCov">   43859017 :     if (!sdsEncodedObject(o)) return o;</span>
+<span class="lineNum">     434 </span>            : 
+<span class="lineNum">     435 </span>            :     /* It's not safe to encode shared objects: shared objects can be shared
+<span class="lineNum">     436 </span>            :      * everywhere in the &quot;object space&quot; of Redis and may end in places where
+<span class="lineNum">     437 </span>            :      * they are not handled. We handle them only as values in the keyspace. */
+<span class="lineNum">     438 </span><span class="lineCov">   43662402 :      if (o-&gt;refcount &gt; 1) return o;</span>
+<span class="lineNum">     439 </span>            : 
+<span class="lineNum">     440 </span>            :     /* Check if we can represent this string as a long integer.
+<span class="lineNum">     441 </span>            :      * Note that we are sure that a string larger than 20 chars is not
+<span class="lineNum">     442 </span>            :      * representable as a 32 nor 64 bit integer. */
+<span class="lineNum">     443 </span><span class="lineCov">   43662402 :     len = sdslen(s);</span>
+<span class="lineNum">     444 </span><span class="lineCov">   43662402 :     if (len &lt;= 20 &amp;&amp; string2l(s,len,&amp;value)) {</span>
+<span class="lineNum">     445 </span>            :         /* This object is encodable as a long. Try to use a shared object.
+<span class="lineNum">     446 </span>            :          * Note that we avoid using shared integers when maxmemory is used
+<span class="lineNum">     447 </span>            :          * because every object needs to have a private LRU field for the LRU
+<span class="lineNum">     448 </span>            :          * algorithm to work well. */
+<span class="lineNum">     449 </span><span class="lineCov">     889790 :         if ((server.maxmemory == 0 ||</span>
+<span class="lineNum">     450 </span><span class="lineCov">          6 :             !(server.maxmemory_policy &amp; MAXMEMORY_FLAG_NO_SHARED_INTEGERS)) &amp;&amp;</span>
+<span class="lineNum">     451 </span><span class="lineCov">     889786 :             value &gt;= 0 &amp;&amp;</span>
+<span class="lineNum">     452 </span>            :             value &lt; OBJ_SHARED_INTEGERS)
+<span class="lineNum">     453 </span>            :         {
+<span class="lineNum">     454 </span><span class="lineCov">     160322 :             decrRefCount(o);</span>
+<span class="lineNum">     455 </span><span class="lineCov">     160322 :             incrRefCount(shared.integers[value]);</span>
+<span class="lineNum">     456 </span><span class="lineCov">     160322 :             return shared.integers[value];</span>
+<span class="lineNum">     457 </span>            :         } else {
+<span class="lineNum">     458 </span><span class="lineCov">     729468 :             if (o-&gt;encoding == OBJ_ENCODING_RAW) sdsfree(o-&gt;ptr);</span>
+<span class="lineNum">     459 </span><span class="lineCov">     729468 :             o-&gt;encoding = OBJ_ENCODING_INT;</span>
+<span class="lineNum">     460 </span><span class="lineCov">     729468 :             o-&gt;ptr = (void*) value;</span>
+<span class="lineNum">     461 </span><span class="lineCov">     729468 :             return o;</span>
+<span class="lineNum">     462 </span>            :         }
+<span class="lineNum">     463 </span>            :     }
+<span class="lineNum">     464 </span>            : 
+<span class="lineNum">     465 </span>            :     /* If the string is small and is still RAW encoded,
+<span class="lineNum">     466 </span>            :      * try the EMBSTR encoding which is more efficient.
+<span class="lineNum">     467 </span>            :      * In this representation the object and the SDS string are allocated
+<span class="lineNum">     468 </span>            :      * in the same chunk of memory to save space and cache misses. */
+<span class="lineNum">     469 </span><span class="lineCov">   42772612 :     if (len &lt;= OBJ_ENCODING_EMBSTR_SIZE_LIMIT) {</span>
+<span class="lineNum">     470 </span><span class="lineCov">   42429201 :         robj *emb;</span>
+<span class="lineNum">     471 </span>            : 
+<span class="lineNum">     472 </span><span class="lineCov">   42429201 :         if (o-&gt;encoding == OBJ_ENCODING_EMBSTR) return o;</span>
+<span class="lineNum">     473 </span><span class="lineCov">   13806222 :         emb = createEmbeddedStringObject(s,sdslen(s));</span>
+<span class="lineNum">     474 </span><span class="lineCov">    6903111 :         decrRefCount(o);</span>
+<span class="lineNum">     475 </span><span class="lineCov">    6903111 :         return emb;</span>
+<span class="lineNum">     476 </span>            :     }
+<span class="lineNum">     477 </span>            : 
+<span class="lineNum">     478 </span>            :     /* We can't encode the object...
+<span class="lineNum">     479 </span>            :      *
+<span class="lineNum">     480 </span>            :      * Do the last try, and at least optimize the SDS string inside
+<span class="lineNum">     481 </span>            :      * the string object to require little space, in case there
+<span class="lineNum">     482 </span>            :      * is more than 10% of free space at the end of the SDS string.
+<span class="lineNum">     483 </span>            :      *
+<span class="lineNum">     484 </span>            :      * We do that only for relatively large strings as this branch
+<span class="lineNum">     485 </span>            :      * is only entered if the length of the string is greater than
+<span class="lineNum">     486 </span>            :      * OBJ_ENCODING_EMBSTR_SIZE_LIMIT. */
+<span class="lineNum">     487 </span><span class="lineCov">     343411 :     if (o-&gt;encoding == OBJ_ENCODING_RAW &amp;&amp;</span>
+<span class="lineNum">     488 </span><span class="lineCov">     343411 :         sdsavail(s) &gt; len/10)</span>
+<span class="lineNum">     489 </span>            :     {
+<span class="lineNum">     490 </span><span class="lineCov">        279 :         o-&gt;ptr = sdsRemoveFreeSpace(o-&gt;ptr);</span>
+<span class="lineNum">     491 </span>            :     }
+<span class="lineNum">     492 </span>            : 
+<span class="lineNum">     493 </span>            :     /* Return the original object. */
+<span class="lineNum">     494 </span>            :     return o;
+<span class="lineNum">     495 </span>            : }
+<span class="lineNum">     496 </span>            : 
+<a name="497"><span class="lineNum">     497 </span>            : /* Get a decoded version of an encoded object (returned as a new object).</a>
+<span class="lineNum">     498 </span>            :  * If the object is already raw-encoded just increment the ref count. */
+<span class="lineNum">     499 </span><span class="lineCov">   73021810 : robj *getDecodedObject(robj *o) {</span>
+<span class="lineNum">     500 </span><span class="lineCov">   73021810 :     robj *dec;</span>
+<span class="lineNum">     501 </span>            : 
+<span class="lineNum">     502 </span><span class="lineCov">   73021810 :     if (sdsEncodedObject(o)) {</span>
+<span class="lineNum">     503 </span><span class="lineCov">   70014210 :         incrRefCount(o);</span>
+<span class="lineNum">     504 </span><span class="lineCov">   70014210 :         return o;</span>
+<span class="lineNum">     505 </span>            :     }
+<span class="lineNum">     506 </span><span class="lineCov">    3007600 :     if (o-&gt;type == OBJ_STRING &amp;&amp; o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     507 </span><span class="lineCov">    3007600 :         char buf[32];</span>
+<span class="lineNum">     508 </span>            : 
+<span class="lineNum">     509 </span><span class="lineCov">    3007600 :         ll2string(buf,32,(long)o-&gt;ptr);</span>
+<span class="lineNum">     510 </span><span class="lineCov">    3007600 :         dec = createStringObject(buf,strlen(buf));</span>
+<span class="lineNum">     511 </span><span class="lineCov">    3007600 :         return dec;</span>
+<span class="lineNum">     512 </span>            :     } else {
+<span class="lineNum">     513 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown encoding type&quot;);</span>
+<span class="lineNum">     514 </span>            :     }
+<span class="lineNum">     515 </span>            : }
+<span class="lineNum">     516 </span>            : 
+<span class="lineNum">     517 </span>            : /* Compare two string objects via strcmp() or strcoll() depending on flags.
+<span class="lineNum">     518 </span>            :  * Note that the objects may be integer-encoded. In such a case we
+<span class="lineNum">     519 </span>            :  * use ll2string() to get a string representation of the numbers on the stack
+<span class="lineNum">     520 </span>            :  * and compare the strings, it's much faster than calling getDecodedObject().
+<span class="lineNum">     521 </span>            :  *
+<span class="lineNum">     522 </span>            :  * Important note: when REDIS_COMPARE_BINARY is used a binary-safe comparison
+<span class="lineNum">     523 </span>            :  * is used. */
+<span class="lineNum">     524 </span>            : 
+<span class="lineNum">     525 </span>            : #define REDIS_COMPARE_BINARY (1&lt;&lt;0)
+<a name="526"><span class="lineNum">     526 </span>            : #define REDIS_COMPARE_COLL (1&lt;&lt;1)</a>
+<span class="lineNum">     527 </span>            : 
+<span class="lineNum">     528 </span><span class="lineCov">       1209 : int compareStringObjectsWithFlags(robj *a, robj *b, int flags) {</span>
+<span class="lineNum">     529 </span><span class="lineCov">       1209 :     serverAssertWithInfo(NULL,a,a-&gt;type == OBJ_STRING &amp;&amp; b-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     530 </span><span class="lineCov">       1209 :     char bufa[128], bufb[128], *astr, *bstr;</span>
+<span class="lineNum">     531 </span><span class="lineCov">       1209 :     size_t alen, blen, minlen;</span>
+<span class="lineNum">     532 </span>            : 
+<span class="lineNum">     533 </span><span class="lineCov">       1209 :     if (a == b) return 0;</span>
+<span class="lineNum">     534 </span><span class="lineCov">       1137 :     if (sdsEncodedObject(a)) {</span>
+<span class="lineNum">     535 </span><span class="lineCov">       1122 :         astr = a-&gt;ptr;</span>
+<span class="lineNum">     536 </span><span class="lineCov">       1122 :         alen = sdslen(astr);</span>
+<span class="lineNum">     537 </span>            :     } else {
+<span class="lineNum">     538 </span><span class="lineCov">         15 :         alen = ll2string(bufa,sizeof(bufa),(long) a-&gt;ptr);</span>
+<span class="lineNum">     539 </span><span class="lineCov">         15 :         astr = bufa;</span>
+<span class="lineNum">     540 </span>            :     }
+<span class="lineNum">     541 </span><span class="lineCov">       1137 :     if (sdsEncodedObject(b)) {</span>
+<span class="lineNum">     542 </span><span class="lineCov">       1122 :         bstr = b-&gt;ptr;</span>
+<span class="lineNum">     543 </span><span class="lineCov">       1122 :         blen = sdslen(bstr);</span>
+<span class="lineNum">     544 </span>            :     } else {
+<span class="lineNum">     545 </span><span class="lineCov">         15 :         blen = ll2string(bufb,sizeof(bufb),(long) b-&gt;ptr);</span>
+<span class="lineNum">     546 </span><span class="lineCov">         15 :         bstr = bufb;</span>
+<span class="lineNum">     547 </span>            :     }
+<span class="lineNum">     548 </span><span class="lineCov">       1137 :     if (flags &amp; REDIS_COMPARE_COLL) {</span>
+<span class="lineNum">     549 </span><span class="lineCov">        377 :         return strcoll(astr,bstr);</span>
+<span class="lineNum">     550 </span>            :     } else {
+<span class="lineNum">     551 </span><span class="lineCov">        760 :         int cmp;</span>
+<span class="lineNum">     552 </span>            : 
+<span class="lineNum">     553 </span><span class="lineCov">        760 :         minlen = (alen &lt; blen) ? alen : blen;</span>
+<span class="lineNum">     554 </span><span class="lineCov">        760 :         cmp = memcmp(astr,bstr,minlen);</span>
+<span class="lineNum">     555 </span><span class="lineCov">        760 :         if (cmp == 0) return alen-blen;</span>
+<span class="lineNum">     556 </span>            :         return cmp;
+<span class="lineNum">     557 </span>            :     }
+<span class="lineNum">     558 </span>            : }
+<a name="559"><span class="lineNum">     559 </span>            : </a>
+<span class="lineNum">     560 </span>            : /* Wrapper for compareStringObjectsWithFlags() using binary comparison. */
+<span class="lineNum">     561 </span><span class="lineCov">        504 : int compareStringObjects(robj *a, robj *b) {</span>
+<span class="lineNum">     562 </span><span class="lineCov">        504 :     return compareStringObjectsWithFlags(a,b,REDIS_COMPARE_BINARY);</span>
+<span class="lineNum">     563 </span>            : }
+<a name="564"><span class="lineNum">     564 </span>            : </a>
+<span class="lineNum">     565 </span>            : /* Wrapper for compareStringObjectsWithFlags() using collation. */
+<span class="lineNum">     566 </span><span class="lineCov">        377 : int collateStringObjects(robj *a, robj *b) {</span>
+<span class="lineNum">     567 </span><span class="lineCov">        377 :     return compareStringObjectsWithFlags(a,b,REDIS_COMPARE_COLL);</span>
+<span class="lineNum">     568 </span>            : }
+<span class="lineNum">     569 </span>            : 
+<span class="lineNum">     570 </span>            : /* Equal string objects return 1 if the two objects are the same from the
+<span class="lineNum">     571 </span>            :  * point of view of a string comparison, otherwise 0 is returned. Note that
+<a name="572"><span class="lineNum">     572 </span>            :  * this function is faster then checking for (compareStringObject(a,b) == 0)</a>
+<span class="lineNum">     573 </span>            :  * because it can perform some more optimization. */
+<span class="lineNum">     574 </span><span class="lineCov">        328 : int equalStringObjects(robj *a, robj *b) {</span>
+<span class="lineNum">     575 </span><span class="lineCov">        328 :     if (a-&gt;encoding == OBJ_ENCODING_INT &amp;&amp;</span>
+<span class="lineNum">     576 </span><span class="lineNoCov">          0 :         b-&gt;encoding == OBJ_ENCODING_INT){</span>
+<span class="lineNum">     577 </span>            :         /* If both strings are integer encoded just check if the stored
+<span class="lineNum">     578 </span>            :          * long is the same. */
+<span class="lineNum">     579 </span><span class="lineNoCov">          0 :         return a-&gt;ptr == b-&gt;ptr;</span>
+<span class="lineNum">     580 </span>            :     } else {
+<span class="lineNum">     581 </span><span class="lineCov">        328 :         return compareStringObjects(a,b) == 0;</span>
+<span class="lineNum">     582 </span>            :     }
+<a name="583"><span class="lineNum">     583 </span>            : }</a>
+<span class="lineNum">     584 </span>            : 
+<span class="lineNum">     585 </span><span class="lineCov">   49431910 : size_t stringObjectLen(robj *o) {</span>
+<span class="lineNum">     586 </span><span class="lineCov">   49431910 :     serverAssertWithInfo(NULL,o,o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     587 </span><span class="lineCov">   49431910 :     if (sdsEncodedObject(o)) {</span>
+<span class="lineNum">     588 </span><span class="lineCov">   98088150 :         return sdslen(o-&gt;ptr);</span>
+<span class="lineNum">     589 </span>            :     } else {
+<span class="lineNum">     590 </span><span class="lineCov">     387835 :         return sdigits10((long)o-&gt;ptr);</span>
+<span class="lineNum">     591 </span>            :     }
+<a name="592"><span class="lineNum">     592 </span>            : }</a>
+<span class="lineNum">     593 </span>            : 
+<span class="lineNum">     594 </span><span class="lineCov">    4178939 : int getDoubleFromObject(const robj *o, double *target) {</span>
+<span class="lineNum">     595 </span><span class="lineCov">    4178939 :     double value;</span>
+<span class="lineNum">     596 </span><span class="lineCov">    4178939 :     char *eptr;</span>
+<span class="lineNum">     597 </span>            : 
+<span class="lineNum">     598 </span><span class="lineCov">    4178939 :     if (o == NULL) {</span>
+<span class="lineNum">     599 </span>            :         value = 0;
+<span class="lineNum">     600 </span>            :     } else {
+<span class="lineNum">     601 </span><span class="lineCov">    4178939 :         serverAssertWithInfo(NULL,o,o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     602 </span><span class="lineCov">    4178939 :         if (sdsEncodedObject(o)) {</span>
+<span class="lineNum">     603 </span><span class="lineCov">    4178939 :             errno = 0;</span>
+<span class="lineNum">     604 </span><span class="lineCov">    4178939 :             value = strtod(o-&gt;ptr, &amp;eptr);</span>
+<span class="lineNum">     605 </span><span class="lineCov">    8357878 :             if (sdslen(o-&gt;ptr) == 0 ||</span>
+<span class="lineNum">     606 </span><span class="lineCov">    4178936 :                 isspace(((const char*)o-&gt;ptr)[0]) ||</span>
+<span class="lineNum">     607 </span><span class="lineCov">    8357872 :                 (size_t)(eptr-(char*)o-&gt;ptr) != sdslen(o-&gt;ptr) ||</span>
+<span class="lineNum">     608 </span><span class="lineCov">    4178928 :                 (errno == ERANGE &amp;&amp;</span>
+<span class="lineNum">     609 </span><span class="lineCov">    4178928 :                     (value == HUGE_VAL || value == -HUGE_VAL || value == 0)) ||</span>
+<span class="lineNum">     610 </span>            :                 isnan(value))
+<span class="lineNum">     611 </span>            :                 return C_ERR;
+<span class="lineNum">     612 </span><span class="lineNoCov">          0 :         } else if (o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     613 </span><span class="lineNoCov">          0 :             value = (long)o-&gt;ptr;</span>
+<span class="lineNum">     614 </span>            :         } else {
+<span class="lineNum">     615 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown string encoding&quot;);</span>
+<span class="lineNum">     616 </span>            :         }
+<span class="lineNum">     617 </span>            :     }
+<span class="lineNum">     618 </span><span class="lineCov">    4178904 :     *target = value;</span>
+<span class="lineNum">     619 </span><span class="lineCov">    4178904 :     return C_OK;</span>
+<a name="620"><span class="lineNum">     620 </span>            : }</a>
+<span class="lineNum">     621 </span>            : 
+<span class="lineNum">     622 </span><span class="lineCov">    4178939 : int getDoubleFromObjectOrReply(client *c, robj *o, double *target, const char *msg) {</span>
+<span class="lineNum">     623 </span><span class="lineCov">    4178939 :     double value;</span>
+<span class="lineNum">     624 </span><span class="lineCov">    4178939 :     if (getDoubleFromObject(o, &amp;value) != C_OK) {</span>
+<span class="lineNum">     625 </span><span class="lineCov">         35 :         if (msg != NULL) {</span>
+<span class="lineNum">     626 </span><span class="lineCov">         12 :             addReplyError(c,(char*)msg);</span>
+<span class="lineNum">     627 </span>            :         } else {
+<span class="lineNum">     628 </span><span class="lineCov">         23 :             addReplyError(c,&quot;value is not a valid float&quot;);</span>
+<span class="lineNum">     629 </span>            :         }
+<span class="lineNum">     630 </span><span class="lineCov">         35 :         return C_ERR;</span>
+<span class="lineNum">     631 </span>            :     }
+<span class="lineNum">     632 </span><span class="lineCov">    4178904 :     *target = value;</span>
+<span class="lineNum">     633 </span><span class="lineCov">    4178904 :     return C_OK;</span>
+<a name="634"><span class="lineNum">     634 </span>            : }</a>
+<span class="lineNum">     635 </span>            : 
+<span class="lineNum">     636 </span><span class="lineCov">        108 : int getLongDoubleFromObject(robj *o, long double *target) {</span>
+<span class="lineNum">     637 </span><span class="lineCov">        108 :     long double value;</span>
+<span class="lineNum">     638 </span><span class="lineCov">        108 :     char *eptr;</span>
+<span class="lineNum">     639 </span>            : 
+<span class="lineNum">     640 </span><span class="lineCov">        108 :     if (o == NULL) {</span>
+<span class="lineNum">     641 </span>            :         value = 0;
+<span class="lineNum">     642 </span>            :     } else {
+<span class="lineNum">     643 </span><span class="lineCov">        105 :         serverAssertWithInfo(NULL,o,o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     644 </span><span class="lineCov">        105 :         if (sdsEncodedObject(o)) {</span>
+<span class="lineNum">     645 </span><span class="lineCov">         93 :             errno = 0;</span>
+<span class="lineNum">     646 </span><span class="lineCov">         93 :             value = strtold(o-&gt;ptr, &amp;eptr);</span>
+<span class="lineNum">     647 </span><span class="lineCov">        186 :             if (sdslen(o-&gt;ptr) == 0 ||</span>
+<span class="lineNum">     648 </span><span class="lineCov">         93 :                 isspace(((const char*)o-&gt;ptr)[0]) ||</span>
+<span class="lineNum">     649 </span><span class="lineCov">        174 :                 (size_t)(eptr-(char*)o-&gt;ptr) != sdslen(o-&gt;ptr) ||</span>
+<span class="lineNum">     650 </span><span class="lineCov">         81 :                 (errno == ERANGE &amp;&amp;</span>
+<span class="lineNum">     651 </span><span class="lineCov">         81 :                     (value == HUGE_VAL || value == -HUGE_VAL || value == 0)) ||</span>
+<span class="lineNum">     652 </span>            :                 isnan(value))
+<span class="lineNum">     653 </span>            :                 return C_ERR;
+<span class="lineNum">     654 </span><span class="lineCov">         12 :         } else if (o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     655 </span><span class="lineCov">         12 :             value = (long)o-&gt;ptr;</span>
+<span class="lineNum">     656 </span>            :         } else {
+<span class="lineNum">     657 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown string encoding&quot;);</span>
+<span class="lineNum">     658 </span>            :         }
+<span class="lineNum">     659 </span>            :     }
+<span class="lineNum">     660 </span><span class="lineCov">         96 :     *target = value;</span>
+<span class="lineNum">     661 </span><span class="lineCov">         96 :     return C_OK;</span>
+<a name="662"><span class="lineNum">     662 </span>            : }</a>
+<span class="lineNum">     663 </span>            : 
+<span class="lineNum">     664 </span><span class="lineCov">        108 : int getLongDoubleFromObjectOrReply(client *c, robj *o, long double *target, const char *msg) {</span>
+<span class="lineNum">     665 </span><span class="lineCov">        108 :     long double value;</span>
+<span class="lineNum">     666 </span><span class="lineCov">        108 :     if (getLongDoubleFromObject(o, &amp;value) != C_OK) {</span>
+<span class="lineNum">     667 </span><span class="lineCov">         12 :         if (msg != NULL) {</span>
+<span class="lineNum">     668 </span><span class="lineNoCov">          0 :             addReplyError(c,(char*)msg);</span>
+<span class="lineNum">     669 </span>            :         } else {
+<span class="lineNum">     670 </span><span class="lineCov">         12 :             addReplyError(c,&quot;value is not a valid float&quot;);</span>
+<span class="lineNum">     671 </span>            :         }
+<span class="lineNum">     672 </span><span class="lineCov">         12 :         return C_ERR;</span>
+<span class="lineNum">     673 </span>            :     }
+<span class="lineNum">     674 </span><span class="lineCov">         96 :     *target = value;</span>
+<span class="lineNum">     675 </span><span class="lineCov">         96 :     return C_OK;</span>
+<a name="676"><span class="lineNum">     676 </span>            : }</a>
+<span class="lineNum">     677 </span>            : 
+<span class="lineNum">     678 </span><span class="lineCov">   18070007 : int getLongLongFromObject(robj *o, long long *target) {</span>
+<span class="lineNum">     679 </span><span class="lineCov">   18070007 :     long long value;</span>
+<span class="lineNum">     680 </span>            : 
+<span class="lineNum">     681 </span><span class="lineCov">   18070007 :     if (o == NULL) {</span>
+<span class="lineNum">     682 </span><span class="lineCov">     276051 :         value = 0;</span>
+<span class="lineNum">     683 </span>            :     } else {
+<span class="lineNum">     684 </span><span class="lineCov">   17793956 :         serverAssertWithInfo(NULL,o,o-&gt;type == OBJ_STRING);</span>
+<span class="lineNum">     685 </span><span class="lineCov">   17793956 :         if (sdsEncodedObject(o)) {</span>
+<span class="lineNum">     686 </span><span class="lineCov">   14193550 :             if (string2ll(o-&gt;ptr,sdslen(o-&gt;ptr),&amp;value) == 0) return C_ERR;</span>
+<span class="lineNum">     687 </span><span class="lineCov">   10697181 :         } else if (o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     688 </span><span class="lineCov">   10697181 :             value = (long)o-&gt;ptr;</span>
+<span class="lineNum">     689 </span>            :         } else {
+<span class="lineNum">     690 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown string encoding&quot;);</span>
+<span class="lineNum">     691 </span>            :         }
+<span class="lineNum">     692 </span>            :     }
+<span class="lineNum">     693 </span><span class="lineCov">   18069979 :     if (target) *target = value;</span>
+<span class="lineNum">     694 </span>            :     return C_OK;
+<a name="695"><span class="lineNum">     695 </span>            : }</a>
+<span class="lineNum">     696 </span>            : 
+<span class="lineNum">     697 </span><span class="lineCov">   18068902 : int getLongLongFromObjectOrReply(client *c, robj *o, long long *target, const char *msg) {</span>
+<span class="lineNum">     698 </span><span class="lineCov">   18068902 :     long long value;</span>
+<span class="lineNum">     699 </span><span class="lineCov">   18068902 :     if (getLongLongFromObject(o, &amp;value) != C_OK) {</span>
+<span class="lineNum">     700 </span><span class="lineCov">         25 :         if (msg != NULL) {</span>
+<span class="lineNum">     701 </span><span class="lineCov">          6 :             addReplyError(c,(char*)msg);</span>
+<span class="lineNum">     702 </span>            :         } else {
+<span class="lineNum">     703 </span><span class="lineCov">         19 :             addReplyError(c,&quot;value is not an integer or out of range&quot;);</span>
+<span class="lineNum">     704 </span>            :         }
+<span class="lineNum">     705 </span><span class="lineCov">         25 :         return C_ERR;</span>
+<span class="lineNum">     706 </span>            :     }
+<span class="lineNum">     707 </span><span class="lineCov">   18068877 :     *target = value;</span>
+<span class="lineNum">     708 </span><span class="lineCov">   18068877 :     return C_OK;</span>
+<a name="709"><span class="lineNum">     709 </span>            : }</a>
+<span class="lineNum">     710 </span>            : 
+<span class="lineNum">     711 </span><span class="lineCov">    6372557 : int getLongFromObjectOrReply(client *c, robj *o, long *target, const char *msg) {</span>
+<span class="lineNum">     712 </span><span class="lineCov">    6372557 :     long long value;</span>
+<span class="lineNum">     713 </span>            : 
+<span class="lineNum">     714 </span><span class="lineCov">    6372557 :     if (getLongLongFromObjectOrReply(c, o, &amp;value, msg) != C_OK) return C_ERR;</span>
+<span class="lineNum">     715 </span><span class="lineCov">    6372557 :     if (value &lt; LONG_MIN || value &gt; LONG_MAX) {</span>
+<span class="lineNum">     716 </span>            :         if (msg != NULL) {
+<span class="lineNum">     717 </span>            :             addReplyError(c,(char*)msg);
+<span class="lineNum">     718 </span>            :         } else {
+<span class="lineNum">     719 </span>            :             addReplyError(c,&quot;value is out of range&quot;);
+<span class="lineNum">     720 </span>            :         }
+<span class="lineNum">     721 </span>            :         return C_ERR;
+<span class="lineNum">     722 </span>            :     }
+<span class="lineNum">     723 </span><span class="lineCov">    6372557 :     *target = value;</span>
+<span class="lineNum">     724 </span><span class="lineCov">    6372557 :     return C_OK;</span>
+<a name="725"><span class="lineNum">     725 </span>            : }</a>
+<span class="lineNum">     726 </span>            : 
+<span class="lineNum">     727 </span><span class="lineCov">      10836 : char *strEncoding(int encoding) {</span>
+<span class="lineNum">     728 </span><span class="lineCov">      10836 :     switch(encoding) {</span>
+<span class="lineNum">     729 </span>            :     case OBJ_ENCODING_RAW: return &quot;raw&quot;;
+<span class="lineNum">     730 </span><span class="lineCov">         27 :     case OBJ_ENCODING_INT: return &quot;int&quot;;</span>
+<span class="lineNum">     731 </span><span class="lineCov">        504 :     case OBJ_ENCODING_HT: return &quot;hashtable&quot;;</span>
+<span class="lineNum">     732 </span><span class="lineCov">        381 :     case OBJ_ENCODING_QUICKLIST: return &quot;quicklist&quot;;</span>
+<span class="lineNum">     733 </span><span class="lineCov">       4909 :     case OBJ_ENCODING_ZIPLIST: return &quot;ziplist&quot;;</span>
+<span class="lineNum">     734 </span><span class="lineCov">        132 :     case OBJ_ENCODING_INTSET: return &quot;intset&quot;;</span>
+<span class="lineNum">     735 </span><span class="lineCov">       4874 :     case OBJ_ENCODING_SKIPLIST: return &quot;skiplist&quot;;</span>
+<span class="lineNum">     736 </span><span class="lineNoCov">          0 :     case OBJ_ENCODING_EMBSTR: return &quot;embstr&quot;;</span>
+<span class="lineNum">     737 </span><span class="lineNoCov">          0 :     default: return &quot;unknown&quot;;</span>
+<span class="lineNum">     738 </span>            :     }
+<span class="lineNum">     739 </span>            : }
+<span class="lineNum">     740 </span>            : 
+<span class="lineNum">     741 </span>            : /* =========================== Memory introspection ========================= */
+<span class="lineNum">     742 </span>            : 
+<span class="lineNum">     743 </span>            : 
+<span class="lineNum">     744 </span>            : /* This is an helper function with the goal of estimating the memory
+<span class="lineNum">     745 </span>            :  * size of a radix tree that is used to store Stream IDs.
+<span class="lineNum">     746 </span>            :  *
+<span class="lineNum">     747 </span>            :  * Note: to guess the size of the radix tree is not trivial, so we
+<span class="lineNum">     748 </span>            :  * approximate it considering 16 bytes of data overhead for each
+<span class="lineNum">     749 </span>            :  * key (the ID), and then adding the number of bare nodes, plus some
+<span class="lineNum">     750 </span>            :  * overhead due by the data and child pointers. This secret recipe
+<span class="lineNum">     751 </span>            :  * was obtained by checking the average radix tree created by real
+<span class="lineNum">     752 </span>            :  * workloads, and then adjusting the constants to get numbers that
+<span class="lineNum">     753 </span>            :  * more or less match the real memory usage.
+<span class="lineNum">     754 </span>            :  *
+<span class="lineNum">     755 </span>            :  * Actually the number of nodes and keys may be different depending
+<a name="756"><span class="lineNum">     756 </span>            :  * on the insertion speed and thus the ability of the radix tree</a>
+<span class="lineNum">     757 </span>            :  * to compress prefixes. */
+<span class="lineNum">     758 </span><span class="lineNoCov">          0 : size_t streamRadixTreeMemoryUsage(rax *rax) {</span>
+<span class="lineNum">     759 </span><span class="lineNoCov">          0 :     size_t size;</span>
+<span class="lineNum">     760 </span><span class="lineNoCov">          0 :     size = rax-&gt;numele * sizeof(streamID);</span>
+<span class="lineNum">     761 </span><span class="lineNoCov">          0 :     size += rax-&gt;numnodes * sizeof(raxNode);</span>
+<span class="lineNum">     762 </span>            :     /* Add a fixed overhead due to the aux data pointer, children, ... */
+<span class="lineNum">     763 </span><span class="lineNoCov">          0 :     size += rax-&gt;numnodes * sizeof(long)*30;</span>
+<span class="lineNum">     764 </span><span class="lineNoCov">          0 :     return size;</span>
+<span class="lineNum">     765 </span>            : }
+<span class="lineNum">     766 </span>            : 
+<span class="lineNum">     767 </span>            : /* Returns the size in bytes consumed by the key's value in RAM.
+<span class="lineNum">     768 </span>            :  * Note that the returned value is just an approximation, especially in the
+<span class="lineNum">     769 </span>            :  * case of aggregated data types where only &quot;sample_size&quot; elements
+<a name="770"><span class="lineNum">     770 </span>            :  * are checked and averaged to estimate the total size. */</a>
+<span class="lineNum">     771 </span>            : #define OBJ_COMPUTE_SIZE_DEF_SAMPLES 5 /* Default sample size. */
+<span class="lineNum">     772 </span><span class="lineNoCov">          0 : size_t objectComputeSize(robj *o, size_t sample_size) {</span>
+<span class="lineNum">     773 </span><span class="lineNoCov">          0 :     sds ele, ele2;</span>
+<span class="lineNum">     774 </span><span class="lineNoCov">          0 :     dict *d;</span>
+<span class="lineNum">     775 </span><span class="lineNoCov">          0 :     dictIterator *di;</span>
+<span class="lineNum">     776 </span><span class="lineNoCov">          0 :     struct dictEntry *de;</span>
+<span class="lineNum">     777 </span><span class="lineNoCov">          0 :     size_t asize = 0, elesize = 0, samples = 0;</span>
+<span class="lineNum">     778 </span>            : 
+<span class="lineNum">     779 </span><span class="lineNoCov">          0 :     if (o-&gt;type == OBJ_STRING) {</span>
+<span class="lineNum">     780 </span><span class="lineNoCov">          0 :         if(o-&gt;encoding == OBJ_ENCODING_INT) {</span>
+<span class="lineNum">     781 </span>            :             asize = sizeof(*o);
+<span class="lineNum">     782 </span><span class="lineNoCov">          0 :         } else if(o-&gt;encoding == OBJ_ENCODING_RAW) {</span>
+<span class="lineNum">     783 </span><span class="lineNoCov">          0 :             asize = sdsAllocSize(o-&gt;ptr)+sizeof(*o);</span>
+<span class="lineNum">     784 </span><span class="lineNoCov">          0 :         } else if(o-&gt;encoding == OBJ_ENCODING_EMBSTR) {</span>
+<span class="lineNum">     785 </span><span class="lineNoCov">          0 :             asize = sdslen(o-&gt;ptr)+2+sizeof(*o);</span>
+<span class="lineNum">     786 </span>            :         } else {
+<span class="lineNum">     787 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown string encoding&quot;);</span>
+<span class="lineNum">     788 </span>            :         }
+<span class="lineNum">     789 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_LIST) {</span>
+<span class="lineNum">     790 </span><span class="lineNoCov">          0 :         if (o-&gt;encoding == OBJ_ENCODING_QUICKLIST) {</span>
+<span class="lineNum">     791 </span><span class="lineNoCov">          0 :             quicklist *ql = o-&gt;ptr;</span>
+<span class="lineNum">     792 </span><span class="lineNoCov">          0 :             quicklistNode *node = ql-&gt;head;</span>
+<span class="lineNum">     793 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+sizeof(quicklist);</span>
+<span class="lineNum">     794 </span><span class="lineNoCov">          0 :             do {</span>
+<span class="lineNum">     795 </span><span class="lineNoCov">          0 :                 elesize += sizeof(quicklistNode)+ziplistBlobLen(node-&gt;zl);</span>
+<span class="lineNum">     796 </span><span class="lineNoCov">          0 :                 samples++;</span>
+<span class="lineNum">     797 </span><span class="lineNoCov">          0 :             } while ((node = node-&gt;next) &amp;&amp; samples &lt; sample_size);</span>
+<span class="lineNum">     798 </span><span class="lineNoCov">          0 :             asize += (double)elesize/samples*ql-&gt;len;</span>
+<span class="lineNum">     799 </span><span class="lineNoCov">          0 :         } else if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     800 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+ziplistBlobLen(o-&gt;ptr);</span>
+<span class="lineNum">     801 </span>            :         } else {
+<span class="lineNum">     802 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown list encoding&quot;);</span>
+<span class="lineNum">     803 </span>            :         }
+<span class="lineNum">     804 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_SET) {</span>
+<span class="lineNum">     805 </span><span class="lineNoCov">          0 :         if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     806 </span><span class="lineNoCov">          0 :             d = o-&gt;ptr;</span>
+<span class="lineNum">     807 </span><span class="lineNoCov">          0 :             di = dictGetIterator(d);</span>
+<span class="lineNum">     808 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+sizeof(dict)+(sizeof(struct dictEntry*)*dictSlots(d));</span>
+<span class="lineNum">     809 </span><span class="lineNoCov">          0 :             while((de = dictNext(di)) != NULL &amp;&amp; samples &lt; sample_size) {</span>
+<span class="lineNum">     810 </span><span class="lineNoCov">          0 :                 ele = dictGetKey(de);</span>
+<span class="lineNum">     811 </span><span class="lineNoCov">          0 :                 elesize += sizeof(struct dictEntry) + sdsAllocSize(ele);</span>
+<span class="lineNum">     812 </span><span class="lineNoCov">          0 :                 samples++;</span>
+<span class="lineNum">     813 </span>            :             }
+<span class="lineNum">     814 </span><span class="lineNoCov">          0 :             dictReleaseIterator(di);</span>
+<span class="lineNum">     815 </span><span class="lineNoCov">          0 :             if (samples) asize += (double)elesize/samples*dictSize(d);</span>
+<span class="lineNum">     816 </span><span class="lineNoCov">          0 :         } else if (o-&gt;encoding == OBJ_ENCODING_INTSET) {</span>
+<span class="lineNum">     817 </span><span class="lineNoCov">          0 :             intset *is = o-&gt;ptr;</span>
+<span class="lineNum">     818 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+sizeof(*is)+is-&gt;encoding*is-&gt;length;</span>
+<span class="lineNum">     819 </span>            :         } else {
+<span class="lineNum">     820 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown set encoding&quot;);</span>
+<span class="lineNum">     821 </span>            :         }
+<span class="lineNum">     822 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_ZSET) {</span>
+<span class="lineNum">     823 </span><span class="lineNoCov">          0 :         if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     824 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+(ziplistBlobLen(o-&gt;ptr));</span>
+<span class="lineNum">     825 </span><span class="lineNoCov">          0 :         } else if (o-&gt;encoding == OBJ_ENCODING_SKIPLIST) {</span>
+<span class="lineNum">     826 </span><span class="lineNoCov">          0 :             d = ((zset*)o-&gt;ptr)-&gt;dict;</span>
+<span class="lineNum">     827 </span><span class="lineNoCov">          0 :             zskiplist *zsl = ((zset*)o-&gt;ptr)-&gt;zsl;</span>
+<span class="lineNum">     828 </span><span class="lineNoCov">          0 :             zskiplistNode *znode = zsl-&gt;header-&gt;level[0].forward;</span>
+<span class="lineNum">     829 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+sizeof(zset)+(sizeof(struct dictEntry*)*dictSlots(d));</span>
+<span class="lineNum">     830 </span><span class="lineNoCov">          0 :             while(znode != NULL &amp;&amp; samples &lt; sample_size) {</span>
+<span class="lineNum">     831 </span><span class="lineNoCov">          0 :                 elesize += sdsAllocSize(znode-&gt;ele);</span>
+<span class="lineNum">     832 </span><span class="lineNoCov">          0 :                 elesize += sizeof(struct dictEntry) + zmalloc_size(znode);</span>
+<span class="lineNum">     833 </span><span class="lineNoCov">          0 :                 samples++;</span>
+<span class="lineNum">     834 </span><span class="lineNoCov">          0 :                 znode = znode-&gt;level[0].forward;</span>
+<span class="lineNum">     835 </span>            :             }
+<span class="lineNum">     836 </span><span class="lineNoCov">          0 :             if (samples) asize += (double)elesize/samples*dictSize(d);</span>
+<span class="lineNum">     837 </span>            :         } else {
+<span class="lineNum">     838 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown sorted set encoding&quot;);</span>
+<span class="lineNum">     839 </span>            :         }
+<span class="lineNum">     840 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_HASH) {</span>
+<span class="lineNum">     841 </span><span class="lineNoCov">          0 :         if (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) {</span>
+<span class="lineNum">     842 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+(ziplistBlobLen(o-&gt;ptr));</span>
+<span class="lineNum">     843 </span><span class="lineNoCov">          0 :         } else if (o-&gt;encoding == OBJ_ENCODING_HT) {</span>
+<span class="lineNum">     844 </span><span class="lineNoCov">          0 :             d = o-&gt;ptr;</span>
+<span class="lineNum">     845 </span><span class="lineNoCov">          0 :             di = dictGetIterator(d);</span>
+<span class="lineNum">     846 </span><span class="lineNoCov">          0 :             asize = sizeof(*o)+sizeof(dict)+(sizeof(struct dictEntry*)*dictSlots(d));</span>
+<span class="lineNum">     847 </span><span class="lineNoCov">          0 :             while((de = dictNext(di)) != NULL &amp;&amp; samples &lt; sample_size) {</span>
+<span class="lineNum">     848 </span><span class="lineNoCov">          0 :                 ele = dictGetKey(de);</span>
+<span class="lineNum">     849 </span><span class="lineNoCov">          0 :                 ele2 = dictGetVal(de);</span>
+<span class="lineNum">     850 </span><span class="lineNoCov">          0 :                 elesize += sdsAllocSize(ele) + sdsAllocSize(ele2);</span>
+<span class="lineNum">     851 </span><span class="lineNoCov">          0 :                 elesize += sizeof(struct dictEntry);</span>
+<span class="lineNum">     852 </span><span class="lineNoCov">          0 :                 samples++;</span>
+<span class="lineNum">     853 </span>            :             }
+<span class="lineNum">     854 </span><span class="lineNoCov">          0 :             dictReleaseIterator(di);</span>
+<span class="lineNum">     855 </span><span class="lineNoCov">          0 :             if (samples) asize += (double)elesize/samples*dictSize(d);</span>
+<span class="lineNum">     856 </span>            :         } else {
+<span class="lineNum">     857 </span><span class="lineNoCov">          0 :             serverPanic(&quot;Unknown hash encoding&quot;);</span>
+<span class="lineNum">     858 </span>            :         }
+<span class="lineNum">     859 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_STREAM) {</span>
+<span class="lineNum">     860 </span><span class="lineNoCov">          0 :         stream *s = o-&gt;ptr;</span>
+<span class="lineNum">     861 </span><span class="lineNoCov">          0 :         asize = sizeof(*o);</span>
+<span class="lineNum">     862 </span><span class="lineNoCov">          0 :         asize += streamRadixTreeMemoryUsage(s-&gt;rax);</span>
+<span class="lineNum">     863 </span>            : 
+<span class="lineNum">     864 </span>            :         /* Now we have to add the listpacks. The last listpack is often non
+<span class="lineNum">     865 </span>            :          * complete, so we estimate the size of the first N listpacks, and
+<span class="lineNum">     866 </span>            :          * use the average to compute the size of the first N-1 listpacks, and
+<span class="lineNum">     867 </span>            :          * finally add the real size of the last node. */
+<span class="lineNum">     868 </span><span class="lineNoCov">          0 :         raxIterator ri;</span>
+<span class="lineNum">     869 </span><span class="lineNoCov">          0 :         raxStart(&amp;ri,s-&gt;rax);</span>
+<span class="lineNum">     870 </span><span class="lineNoCov">          0 :         raxSeek(&amp;ri,&quot;^&quot;,NULL,0);</span>
+<span class="lineNum">     871 </span><span class="lineNoCov">          0 :         size_t lpsize = 0, samples = 0;</span>
+<span class="lineNum">     872 </span><span class="lineNoCov">          0 :         while(samples &lt; sample_size &amp;&amp; raxNext(&amp;ri)) {</span>
+<span class="lineNum">     873 </span><span class="lineNoCov">          0 :             unsigned char *lp = ri.data;</span>
+<span class="lineNum">     874 </span><span class="lineNoCov">          0 :             lpsize += lpBytes(lp);</span>
+<span class="lineNum">     875 </span><span class="lineNoCov">          0 :             samples++;</span>
+<span class="lineNum">     876 </span>            :         }
+<span class="lineNum">     877 </span><span class="lineNoCov">          0 :         if (s-&gt;rax-&gt;numele &lt;= samples) {</span>
+<span class="lineNum">     878 </span><span class="lineNoCov">          0 :             asize += lpsize;</span>
+<span class="lineNum">     879 </span>            :         } else {
+<span class="lineNum">     880 </span><span class="lineNoCov">          0 :             if (samples) lpsize /= samples; /* Compute the average. */</span>
+<span class="lineNum">     881 </span><span class="lineNoCov">          0 :             asize += lpsize * (s-&gt;rax-&gt;numele-1);</span>
+<span class="lineNum">     882 </span>            :             /* No need to check if seek succeeded, we enter this branch only
+<span class="lineNum">     883 </span>            :              * if there are a few elements in the radix tree. */
+<span class="lineNum">     884 </span><span class="lineNoCov">          0 :             raxSeek(&amp;ri,&quot;$&quot;,NULL,0);</span>
+<span class="lineNum">     885 </span><span class="lineNoCov">          0 :             raxNext(&amp;ri);</span>
+<span class="lineNum">     886 </span><span class="lineNoCov">          0 :             asize += lpBytes(ri.data);</span>
+<span class="lineNum">     887 </span>            :         }
+<span class="lineNum">     888 </span><span class="lineNoCov">          0 :         raxStop(&amp;ri);</span>
+<span class="lineNum">     889 </span>            : 
+<span class="lineNum">     890 </span>            :         /* Consumer groups also have a non trivial memory overhead if there
+<span class="lineNum">     891 </span>            :          * are many consumers and many groups, let's count at least the
+<span class="lineNum">     892 </span>            :          * overhead of the pending entries in the groups and consumers
+<span class="lineNum">     893 </span>            :          * PELs. */
+<span class="lineNum">     894 </span><span class="lineNoCov">          0 :         if (s-&gt;cgroups) {</span>
+<span class="lineNum">     895 </span><span class="lineNoCov">          0 :             raxStart(&amp;ri,s-&gt;cgroups);</span>
+<span class="lineNum">     896 </span><span class="lineNoCov">          0 :             raxSeek(&amp;ri,&quot;^&quot;,NULL,0);</span>
+<span class="lineNum">     897 </span><span class="lineNoCov">          0 :             while(raxNext(&amp;ri)) {</span>
+<span class="lineNum">     898 </span><span class="lineNoCov">          0 :                 streamCG *cg = ri.data;</span>
+<span class="lineNum">     899 </span><span class="lineNoCov">          0 :                 asize += sizeof(*cg);</span>
+<span class="lineNum">     900 </span><span class="lineNoCov">          0 :                 asize += streamRadixTreeMemoryUsage(cg-&gt;pel);</span>
+<span class="lineNum">     901 </span><span class="lineNoCov">          0 :                 asize += sizeof(streamNACK)*raxSize(cg-&gt;pel);</span>
+<span class="lineNum">     902 </span>            : 
+<span class="lineNum">     903 </span>            :                 /* For each consumer we also need to add the basic data
+<span class="lineNum">     904 </span>            :                  * structures and the PEL memory usage. */
+<span class="lineNum">     905 </span><span class="lineNoCov">          0 :                 raxIterator cri;</span>
+<span class="lineNum">     906 </span><span class="lineNoCov">          0 :                 raxStart(&amp;cri,cg-&gt;consumers);</span>
+<span class="lineNum">     907 </span><span class="lineNoCov">          0 :                 raxSeek(&amp;cri,&quot;^&quot;,NULL,0);</span>
+<span class="lineNum">     908 </span><span class="lineNoCov">          0 :                 while(raxNext(&amp;cri)) {</span>
+<span class="lineNum">     909 </span><span class="lineNoCov">          0 :                     streamConsumer *consumer = cri.data;</span>
+<span class="lineNum">     910 </span><span class="lineNoCov">          0 :                     asize += sizeof(*consumer);</span>
+<span class="lineNum">     911 </span><span class="lineNoCov">          0 :                     asize += sdslen(consumer-&gt;name);</span>
+<span class="lineNum">     912 </span><span class="lineNoCov">          0 :                     asize += streamRadixTreeMemoryUsage(consumer-&gt;pel);</span>
+<span class="lineNum">     913 </span>            :                     /* Don't count NACKs again, they are shared with the
+<span class="lineNum">     914 </span>            :                      * consumer group PEL. */
+<span class="lineNum">     915 </span>            :                 }
+<span class="lineNum">     916 </span><span class="lineNoCov">          0 :                 raxStop(&amp;cri);</span>
+<span class="lineNum">     917 </span>            :             }
+<span class="lineNum">     918 </span><span class="lineNoCov">          0 :             raxStop(&amp;ri);</span>
+<span class="lineNum">     919 </span>            :         }
+<span class="lineNum">     920 </span><span class="lineNoCov">          0 :     } else if (o-&gt;type == OBJ_MODULE) {</span>
+<span class="lineNum">     921 </span><span class="lineNoCov">          0 :         moduleValue *mv = o-&gt;ptr;</span>
+<span class="lineNum">     922 </span><span class="lineNoCov">          0 :         moduleType *mt = mv-&gt;type;</span>
+<span class="lineNum">     923 </span><span class="lineNoCov">          0 :         if (mt-&gt;mem_usage != NULL) {</span>
+<span class="lineNum">     924 </span><span class="lineNoCov">          0 :             asize = mt-&gt;mem_usage(mv-&gt;value);</span>
+<span class="lineNum">     925 </span>            :         } else {
+<span class="lineNum">     926 </span>            :             asize = 0;
+<span class="lineNum">     927 </span>            :         }
+<span class="lineNum">     928 </span>            :     } else {
+<span class="lineNum">     929 </span><span class="lineNoCov">          0 :         serverPanic(&quot;Unknown object type&quot;);</span>
+<span class="lineNum">     930 </span>            :     }
+<span class="lineNum">     931 </span><span class="lineNoCov">          0 :     return asize;</span>
+<span class="lineNum">     932 </span>            : }
+<a name="933"><span class="lineNum">     933 </span>            : </a>
+<span class="lineNum">     934 </span>            : /* Release data obtained with getMemoryOverheadData(). */
+<span class="lineNum">     935 </span><span class="lineCov">      30622 : void freeMemoryOverheadData(struct redisMemOverhead *mh) {</span>
+<span class="lineNum">     936 </span><span class="lineCov">      30622 :     zfree(mh-&gt;db);</span>
+<span class="lineNum">     937 </span><span class="lineCov">      30622 :     zfree(mh);</span>
+<span class="lineNum">     938 </span><span class="lineCov">      30622 : }</span>
+<span class="lineNum">     939 </span>            : 
+<span class="lineNum">     940 </span>            : /* Return a struct redisMemOverhead filled with memory overhead
+<a name="941"><span class="lineNum">     941 </span>            :  * information used for the MEMORY OVERHEAD and INFO command. The returned</a>
+<span class="lineNum">     942 </span>            :  * structure pointer should be freed calling freeMemoryOverheadData(). */
+<span class="lineNum">     943 </span><span class="lineCov">      30622 : struct redisMemOverhead *getMemoryOverheadData(void) {</span>
+<span class="lineNum">     944 </span><span class="lineCov">      30622 :     int j;</span>
+<span class="lineNum">     945 </span><span class="lineCov">      30622 :     size_t mem_total = 0;</span>
+<span class="lineNum">     946 </span><span class="lineCov">      30622 :     size_t mem = 0;</span>
+<span class="lineNum">     947 </span><span class="lineCov">      30622 :     size_t zmalloc_used = zmalloc_used_memory();</span>
+<span class="lineNum">     948 </span><span class="lineCov">      30622 :     struct redisMemOverhead *mh = zcalloc(sizeof(*mh));</span>
+<span class="lineNum">     949 </span>            : 
+<span class="lineNum">     950 </span><span class="lineCov">      30622 :     mh-&gt;total_allocated = zmalloc_used;</span>
+<span class="lineNum">     951 </span><span class="lineCov">      30622 :     mh-&gt;startup_allocated = server.initial_memory_usage;</span>
+<span class="lineNum">     952 </span><span class="lineCov">      30622 :     mh-&gt;peak_allocated = server.stat_peak_memory;</span>
+<span class="lineNum">     953 </span><span class="lineCov">      61244 :     mh-&gt;total_frag =</span>
+<span class="lineNum">     954 </span><span class="lineCov">      30622 :         (float)server.cron_malloc_stats.process_rss / server.cron_malloc_stats.zmalloc_used;</span>
+<span class="lineNum">     955 </span><span class="lineCov">      61244 :     mh-&gt;total_frag_bytes =</span>
+<span class="lineNum">     956 </span><span class="lineCov">      30622 :         server.cron_malloc_stats.process_rss - server.cron_malloc_stats.zmalloc_used;</span>
+<span class="lineNum">     957 </span><span class="lineCov">      61244 :     mh-&gt;allocator_frag =</span>
+<span class="lineNum">     958 </span><span class="lineCov">      30622 :         (float)server.cron_malloc_stats.allocator_active / server.cron_malloc_stats.allocator_allocated;</span>
+<span class="lineNum">     959 </span><span class="lineCov">      61244 :     mh-&gt;allocator_frag_bytes =</span>
+<span class="lineNum">     960 </span><span class="lineCov">      30622 :         server.cron_malloc_stats.allocator_active - server.cron_malloc_stats.allocator_allocated;</span>
+<span class="lineNum">     961 </span><span class="lineCov">      61244 :     mh-&gt;allocator_rss =</span>
+<span class="lineNum">     962 </span><span class="lineCov">      30622 :         (float)server.cron_malloc_stats.allocator_resident / server.cron_malloc_stats.allocator_active;</span>
+<span class="lineNum">     963 </span><span class="lineCov">      61244 :     mh-&gt;allocator_rss_bytes =</span>
+<span class="lineNum">     964 </span><span class="lineCov">      30622 :         server.cron_malloc_stats.allocator_resident - server.cron_malloc_stats.allocator_active;</span>
+<span class="lineNum">     965 </span><span class="lineCov">      61244 :     mh-&gt;rss_extra =</span>
+<span class="lineNum">     966 </span><span class="lineCov">      30622 :         (float)server.cron_malloc_stats.process_rss / server.cron_malloc_stats.allocator_resident;</span>
+<span class="lineNum">     967 </span><span class="lineCov">      61244 :     mh-&gt;rss_extra_bytes =</span>
+<span class="lineNum">     968 </span><span class="lineCov">      30622 :         server.cron_malloc_stats.process_rss - server.cron_malloc_stats.allocator_resident;</span>
+<span class="lineNum">     969 </span>            : 
+<span class="lineNum">     970 </span><span class="lineCov">      30622 :     mem_total += server.initial_memory_usage;</span>
+<span class="lineNum">     971 </span>            : 
+<span class="lineNum">     972 </span><span class="lineCov">      30622 :     mem = 0;</span>
+<span class="lineNum">     973 </span><span class="lineCov">      30622 :     if (server.repl_backlog)</span>
+<span class="lineNum">     974 </span><span class="lineCov">        796 :         mem += zmalloc_size(server.repl_backlog);</span>
+<span class="lineNum">     975 </span><span class="lineCov">      30622 :     mh-&gt;repl_backlog = mem;</span>
+<span class="lineNum">     976 </span><span class="lineCov">      30622 :     mem_total += mem;</span>
+<span class="lineNum">     977 </span>            : 
+<span class="lineNum">     978 </span><span class="lineCov">      30622 :     mem = 0;</span>
+<span class="lineNum">     979 </span><span class="lineCov">      30622 :     if (listLength(server.slaves)) {</span>
+<span class="lineNum">     980 </span><span class="lineCov">        649 :         listIter li;</span>
+<span class="lineNum">     981 </span><span class="lineCov">        649 :         listNode *ln;</span>
+<span class="lineNum">     982 </span>            : 
+<span class="lineNum">     983 </span><span class="lineCov">        649 :         listRewind(server.slaves,&amp;li);</span>
+<span class="lineNum">     984 </span><span class="lineCov">       2435 :         while((ln = listNext(&amp;li))) {</span>
+<span class="lineNum">     985 </span><span class="lineCov">       1786 :             client *c = listNodeValue(ln);</span>
+<span class="lineNum">     986 </span><span class="lineCov">       1786 :             mem += getClientOutputBufferMemoryUsage(c);</span>
+<span class="lineNum">     987 </span><span class="lineCov">       1786 :             mem += sdsAllocSize(c-&gt;querybuf);</span>
+<span class="lineNum">     988 </span><span class="lineCov">       1786 :             mem += sizeof(client);</span>
+<span class="lineNum">     989 </span>            :         }
+<span class="lineNum">     990 </span>            :     }
+<span class="lineNum">     991 </span><span class="lineCov">      30622 :     mh-&gt;clients_slaves = mem;</span>
+<span class="lineNum">     992 </span><span class="lineCov">      30622 :     mem_total+=mem;</span>
+<span class="lineNum">     993 </span>            : 
+<span class="lineNum">     994 </span><span class="lineCov">      30622 :     mem = 0;</span>
+<span class="lineNum">     995 </span><span class="lineCov">      30622 :     if (listLength(server.clients)) {</span>
+<span class="lineNum">     996 </span><span class="lineCov">      30622 :         listIter li;</span>
+<span class="lineNum">     997 </span><span class="lineCov">      30622 :         listNode *ln;</span>
+<span class="lineNum">     998 </span>            : 
+<span class="lineNum">     999 </span><span class="lineCov">      30622 :         listRewind(server.clients,&amp;li);</span>
+<span class="lineNum">    1000 </span><span class="lineCov">      65620 :         while((ln = listNext(&amp;li))) {</span>
+<span class="lineNum">    1001 </span><span class="lineCov">      34998 :             client *c = listNodeValue(ln);</span>
+<span class="lineNum">    1002 </span><span class="lineCov">      34998 :             if (c-&gt;flags &amp; CLIENT_SLAVE &amp;&amp; !(c-&gt;flags &amp; CLIENT_MONITOR))</span>
+<span class="lineNum">    1003 </span>            :                 continue;
+<span class="lineNum">    1004 </span><span class="lineCov">      33212 :             mem += getClientOutputBufferMemoryUsage(c);</span>
+<span class="lineNum">    1005 </span><span class="lineCov">      33212 :             mem += sdsAllocSize(c-&gt;querybuf);</span>
+<span class="lineNum">    1006 </span><span class="lineCov">      33212 :             mem += sizeof(client);</span>
+<span class="lineNum">    1007 </span>            :         }
+<span class="lineNum">    1008 </span>            :     }
+<span class="lineNum">    1009 </span><span class="lineCov">      30622 :     mh-&gt;clients_normal = mem;</span>
+<span class="lineNum">    1010 </span><span class="lineCov">      30622 :     mem_total+=mem;</span>
+<span class="lineNum">    1011 </span>            : 
+<span class="lineNum">    1012 </span><span class="lineCov">      30622 :     mem = 0;</span>
+<span class="lineNum">    1013 </span><span class="lineCov">      30622 :     if (server.aof_state != AOF_OFF) {</span>
+<span class="lineNum">    1014 </span><span class="lineCov">        188 :         mem += sdsalloc(server.aof_buf);</span>
+<span class="lineNum">    1015 </span><span class="lineCov">        188 :         mem += aofRewriteBufferSize();</span>
+<span class="lineNum">    1016 </span>            :     }
+<span class="lineNum">    1017 </span><span class="lineCov">      30622 :     mh-&gt;aof_buffer = mem;</span>
+<span class="lineNum">    1018 </span><span class="lineCov">      30622 :     mem_total+=mem;</span>
+<span class="lineNum">    1019 </span>            : 
+<span class="lineNum">    1020 </span><span class="lineCov">      30622 :     mem = server.lua_scripts_mem;</span>
+<span class="lineNum">    1021 </span><span class="lineCov">      61244 :     mem += dictSize(server.lua_scripts) * sizeof(dictEntry) +</span>
+<span class="lineNum">    1022 </span><span class="lineCov">      30622 :         dictSlots(server.lua_scripts) * sizeof(dictEntry*);</span>
+<span class="lineNum">    1023 </span><span class="lineCov">      61244 :     mem += dictSize(server.repl_scriptcache_dict) * sizeof(dictEntry) +</span>
+<span class="lineNum">    1024 </span><span class="lineCov">      30622 :         dictSlots(server.repl_scriptcache_dict) * sizeof(dictEntry*);</span>
+<span class="lineNum">    1025 </span><span class="lineCov">      30622 :     if (listLength(server.repl_scriptcache_fifo) &gt; 0) {</span>
+<span class="lineNum">    1026 </span><span class="lineNoCov">          0 :         mem += listLength(server.repl_scriptcache_fifo) * (sizeof(listNode) + </span>
+<span class="lineNum">    1027 </span><span class="lineNoCov">          0 :             sdsZmallocSize(listNodeValue(listFirst(server.repl_scriptcache_fifo))));</span>
+<span class="lineNum">    1028 </span>            :     }
+<span class="lineNum">    1029 </span><span class="lineCov">      30622 :     mh-&gt;lua_caches = mem;</span>
+<span class="lineNum">    1030 </span><span class="lineCov">      30622 :     mem_total+=mem;</span>
+<span class="lineNum">    1031 </span>            : 
+<span class="lineNum">    1032 </span><span class="lineCov">     520574 :     for (j = 0; j &lt; server.dbnum; j++) {</span>
+<span class="lineNum">    1033 </span><span class="lineCov">     489952 :         redisDb *db = server.db+j;</span>
+<span class="lineNum">    1034 </span><span class="lineCov">     489952 :         long long keyscount = dictSize(db-&gt;dict);</span>
+<span class="lineNum">    1035 </span><span class="lineCov">     489952 :         if (keyscount==0) continue;</span>
+<span class="lineNum">    1036 </span>            : 
+<span class="lineNum">    1037 </span><span class="lineCov">      29929 :         mh-&gt;total_keys += keyscount;</span>
+<span class="lineNum">    1038 </span><span class="lineCov">      29929 :         mh-&gt;db = zrealloc(mh-&gt;db,sizeof(mh-&gt;db[0])*(mh-&gt;num_dbs+1));</span>
+<span class="lineNum">    1039 </span><span class="lineCov">      29929 :         mh-&gt;db[mh-&gt;num_dbs].dbid = j;</span>
+<span class="lineNum">    1040 </span>            : 
+<span class="lineNum">    1041 </span><span class="lineCov">      59858 :         mem = dictSize(db-&gt;dict) * sizeof(dictEntry) +</span>
+<span class="lineNum">    1042 </span><span class="lineCov">      29929 :               dictSlots(db-&gt;dict) * sizeof(dictEntry*) +</span>
+<span class="lineNum">    1043 </span>            :               dictSize(db-&gt;dict) * sizeof(robj);
+<span class="lineNum">    1044 </span><span class="lineCov">      29929 :         mh-&gt;db[mh-&gt;num_dbs].overhead_ht_main = mem;</span>
+<span class="lineNum">    1045 </span><span class="lineCov">      29929 :         mem_total+=mem;</span>
+<span class="lineNum">    1046 </span>            : 
+<span class="lineNum">    1047 </span><span class="lineCov">      59858 :         mem = dictSize(db-&gt;expires) * sizeof(dictEntry) +</span>
+<span class="lineNum">    1048 </span><span class="lineCov">      29929 :               dictSlots(db-&gt;expires) * sizeof(dictEntry*);</span>
+<span class="lineNum">    1049 </span><span class="lineCov">      29929 :         mh-&gt;db[mh-&gt;num_dbs].overhead_ht_expires = mem;</span>
+<span class="lineNum">    1050 </span><span class="lineCov">      29929 :         mem_total+=mem;</span>
+<span class="lineNum">    1051 </span>            : 
+<span class="lineNum">    1052 </span><span class="lineCov">      29929 :         mh-&gt;num_dbs++;</span>
+<span class="lineNum">    1053 </span>            :     }
+<span class="lineNum">    1054 </span>            : 
+<span class="lineNum">    1055 </span><span class="lineCov">      30622 :     mh-&gt;overhead_total = mem_total;</span>
+<span class="lineNum">    1056 </span><span class="lineCov">      30622 :     mh-&gt;dataset = zmalloc_used - mem_total;</span>
+<span class="lineNum">    1057 </span><span class="lineCov">      30622 :     mh-&gt;peak_perc = (float)zmalloc_used*100/mh-&gt;peak_allocated;</span>
+<span class="lineNum">    1058 </span>            : 
+<span class="lineNum">    1059 </span>            :     /* Metrics computed after subtracting the startup memory from
+<span class="lineNum">    1060 </span>            :      * the total memory. */
+<span class="lineNum">    1061 </span><span class="lineCov">      30622 :     size_t net_usage = 1;</span>
+<span class="lineNum">    1062 </span><span class="lineCov">      30622 :     if (zmalloc_used &gt; mh-&gt;startup_allocated)</span>
+<span class="lineNum">    1063 </span><span class="lineCov">      30622 :         net_usage = zmalloc_used - mh-&gt;startup_allocated;</span>
+<span class="lineNum">    1064 </span><span class="lineCov">      30622 :     mh-&gt;dataset_perc = (float)mh-&gt;dataset*100/net_usage;</span>
+<span class="lineNum">    1065 </span><span class="lineCov">      30622 :     mh-&gt;bytes_per_key = mh-&gt;total_keys ? (net_usage / mh-&gt;total_keys) : 0;</span>
+<span class="lineNum">    1066 </span>            : 
+<span class="lineNum">    1067 </span><span class="lineCov">      30622 :     return mh;</span>
+<span class="lineNum">    1068 </span>            : }
+<span class="lineNum">    1069 </span>            : 
+<a name="1070"><span class="lineNum">    1070 </span>            : /* Helper for &quot;MEMORY allocator-stats&quot;, used as a callback for the jemalloc</a>
+<span class="lineNum">    1071 </span>            :  * stats output. */
+<span class="lineNum">    1072 </span><span class="lineNoCov">          0 : void inputCatSds(void *result, const char *str) {</span>
+<span class="lineNum">    1073 </span>            :     /* result is actually a (sds *), so re-cast it here */
+<span class="lineNum">    1074 </span><span class="lineNoCov">          0 :     sds *info = (sds *)result;</span>
+<span class="lineNum">    1075 </span><span class="lineNoCov">          0 :     *info = sdscat(*info, str);</span>
+<span class="lineNum">    1076 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1077 </span>            : 
+<a name="1078"><span class="lineNum">    1078 </span>            : /* This implements MEMORY DOCTOR. An human readable analysis of the Redis</a>
+<span class="lineNum">    1079 </span>            :  * memory condition. */
+<span class="lineNum">    1080 </span><span class="lineNoCov">          0 : sds getMemoryDoctorReport(void) {</span>
+<span class="lineNum">    1081 </span><span class="lineNoCov">          0 :     int empty = 0;          /* Instance is empty or almost empty. */</span>
+<span class="lineNum">    1082 </span><span class="lineNoCov">          0 :     int big_peak = 0;       /* Memory peak is much larger than used mem. */</span>
+<span class="lineNum">    1083 </span><span class="lineNoCov">          0 :     int high_frag = 0;      /* High fragmentation. */</span>
+<span class="lineNum">    1084 </span><span class="lineNoCov">          0 :     int high_alloc_frag = 0;/* High allocator fragmentation. */</span>
+<span class="lineNum">    1085 </span><span class="lineNoCov">          0 :     int high_proc_rss = 0;  /* High process rss overhead. */</span>
+<span class="lineNum">    1086 </span><span class="lineNoCov">          0 :     int high_alloc_rss = 0; /* High rss overhead. */</span>
+<span class="lineNum">    1087 </span><span class="lineNoCov">          0 :     int big_slave_buf = 0;  /* Slave buffers are too big. */</span>
+<span class="lineNum">    1088 </span><span class="lineNoCov">          0 :     int big_client_buf = 0; /* Client buffers are too big. */</span>
+<span class="lineNum">    1089 </span><span class="lineNoCov">          0 :     int many_scripts = 0;   /* Script cache has too many scripts. */</span>
+<span class="lineNum">    1090 </span><span class="lineNoCov">          0 :     int num_reports = 0;</span>
+<span class="lineNum">    1091 </span><span class="lineNoCov">          0 :     struct redisMemOverhead *mh = getMemoryOverheadData();</span>
+<span class="lineNum">    1092 </span>            : 
+<span class="lineNum">    1093 </span><span class="lineNoCov">          0 :     if (mh-&gt;total_allocated &lt; (1024*1024*5)) {</span>
+<span class="lineNum">    1094 </span>            :         empty = 1;
+<span class="lineNum">    1095 </span>            :         num_reports++;
+<span class="lineNum">    1096 </span>            :     } else {
+<span class="lineNum">    1097 </span>            :         /* Peak is &gt; 150% of current used memory? */
+<span class="lineNum">    1098 </span><span class="lineNoCov">          0 :         if (((float)mh-&gt;peak_allocated / mh-&gt;total_allocated) &gt; 1.5) {</span>
+<span class="lineNum">    1099 </span><span class="lineNoCov">          0 :             big_peak = 1;</span>
+<span class="lineNum">    1100 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1101 </span>            :         }
+<span class="lineNum">    1102 </span>            : 
+<span class="lineNum">    1103 </span>            :         /* Fragmentation is higher than 1.4 and 10MB ?*/
+<span class="lineNum">    1104 </span><span class="lineNoCov">          0 :         if (mh-&gt;total_frag &gt; 1.4 &amp;&amp; mh-&gt;total_frag_bytes &gt; 10&lt;&lt;20) {</span>
+<span class="lineNum">    1105 </span><span class="lineNoCov">          0 :             high_frag = 1;</span>
+<span class="lineNum">    1106 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1107 </span>            :         }
+<span class="lineNum">    1108 </span>            : 
+<span class="lineNum">    1109 </span>            :         /* External fragmentation is higher than 1.1 and 10MB? */
+<span class="lineNum">    1110 </span><span class="lineNoCov">          0 :         if (mh-&gt;allocator_frag &gt; 1.1 &amp;&amp; mh-&gt;allocator_frag_bytes &gt; 10&lt;&lt;20) {</span>
+<span class="lineNum">    1111 </span><span class="lineNoCov">          0 :             high_alloc_frag = 1;</span>
+<span class="lineNum">    1112 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1113 </span>            :         }
+<span class="lineNum">    1114 </span>            : 
+<span class="lineNum">    1115 </span>            :         /* Allocator fss is higher than 1.1 and 10MB ? */
+<span class="lineNum">    1116 </span><span class="lineNoCov">          0 :         if (mh-&gt;allocator_rss &gt; 1.1 &amp;&amp; mh-&gt;allocator_rss_bytes &gt; 10&lt;&lt;20) {</span>
+<span class="lineNum">    1117 </span><span class="lineNoCov">          0 :             high_alloc_rss = 1;</span>
+<span class="lineNum">    1118 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1119 </span>            :         }
+<span class="lineNum">    1120 </span>            : 
+<span class="lineNum">    1121 </span>            :         /* Non-Allocator fss is higher than 1.1 and 10MB ? */
+<span class="lineNum">    1122 </span><span class="lineNoCov">          0 :         if (mh-&gt;rss_extra &gt; 1.1 &amp;&amp; mh-&gt;rss_extra_bytes &gt; 10&lt;&lt;20) {</span>
+<span class="lineNum">    1123 </span><span class="lineNoCov">          0 :             high_proc_rss = 1;</span>
+<span class="lineNum">    1124 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1125 </span>            :         }
+<span class="lineNum">    1126 </span>            : 
+<span class="lineNum">    1127 </span>            :         /* Clients using more than 200k each average? */
+<span class="lineNum">    1128 </span><span class="lineNoCov">          0 :         long numslaves = listLength(server.slaves);</span>
+<span class="lineNum">    1129 </span><span class="lineNoCov">          0 :         long numclients = listLength(server.clients)-numslaves;</span>
+<span class="lineNum">    1130 </span><span class="lineNoCov">          0 :         if (mh-&gt;clients_normal / numclients &gt; (1024*200)) {</span>
+<span class="lineNum">    1131 </span><span class="lineNoCov">          0 :             big_client_buf = 1;</span>
+<span class="lineNum">    1132 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1133 </span>            :         }
+<span class="lineNum">    1134 </span>            : 
+<span class="lineNum">    1135 </span>            :         /* Slaves using more than 10 MB each? */
+<span class="lineNum">    1136 </span><span class="lineNoCov">          0 :         if (numslaves &gt; 0 &amp;&amp; mh-&gt;clients_slaves / numslaves &gt; (1024*1024*10)) {</span>
+<span class="lineNum">    1137 </span><span class="lineNoCov">          0 :             big_slave_buf = 1;</span>
+<span class="lineNum">    1138 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1139 </span>            :         }
+<span class="lineNum">    1140 </span>            : 
+<span class="lineNum">    1141 </span>            :         /* Too many scripts are cached? */
+<span class="lineNum">    1142 </span><span class="lineNoCov">          0 :         if (dictSize(server.lua_scripts) &gt; 1000) {</span>
+<span class="lineNum">    1143 </span><span class="lineNoCov">          0 :             many_scripts = 1;</span>
+<span class="lineNum">    1144 </span><span class="lineNoCov">          0 :             num_reports++;</span>
+<span class="lineNum">    1145 </span>            :         }
+<span class="lineNum">    1146 </span>            :     }
+<span class="lineNum">    1147 </span>            : 
+<span class="lineNum">    1148 </span><span class="lineNoCov">          0 :     sds s;</span>
+<span class="lineNum">    1149 </span><span class="lineNoCov">          0 :     if (num_reports == 0) {</span>
+<span class="lineNum">    1150 </span><span class="lineNoCov">          0 :         s = sdsnew(</span>
+<span class="lineNum">    1151 </span>            :         &quot;Hi Sam, I can't find any memory issue in your instance. &quot;
+<span class="lineNum">    1152 </span>            :         &quot;I can only account for what occurs on this base.\n&quot;);
+<span class="lineNum">    1153 </span><span class="lineNoCov">          0 :     } else if (empty == 1) {</span>
+<span class="lineNum">    1154 </span><span class="lineNoCov">          0 :         s = sdsnew(</span>
+<span class="lineNum">    1155 </span>            :         &quot;Hi Sam, this instance is empty or is using very little memory, &quot;
+<span class="lineNum">    1156 </span>            :         &quot;my issues detector can't be used in these conditions. &quot;
+<span class="lineNum">    1157 </span>            :         &quot;Please, leave for your mission on Earth and fill it with some data. &quot;
+<span class="lineNum">    1158 </span>            :         &quot;The new Sam and I will be back to our programming as soon as I &quot;
+<span class="lineNum">    1159 </span>            :         &quot;finished rebooting.\n&quot;);
+<span class="lineNum">    1160 </span>            :     } else {
+<span class="lineNum">    1161 </span><span class="lineNoCov">          0 :         s = sdsnew(&quot;Sam, I detected a few issues in this Redis instance memory implants:\n\n&quot;);</span>
+<span class="lineNum">    1162 </span><span class="lineNoCov">          0 :         if (big_peak) {</span>
+<span class="lineNum">    1163 </span><span class="lineNoCov">          0 :             s = sdscat(s,&quot; * Peak memory: In the past this instance used more than 150% the memory that is currently using. The allocator is normally not able to release memory after a peak, so you can expect to see a big fragmentation ratio, however this is actually harmless and is only due to the memory peak, and if the Redis instance Resident Set Size (RSS) is currently bigger than expected, the memory will be used as soon as you fill the Redis instance with more data. If the memory peak was only occasional and you want to try to reclaim memory, please try the MEMORY PURGE command, otherwise the only other option is to shutdown and restart the instance.\n\n&quot;);</span>
+<span class="lineNum">    1164 </span>            :         }
+<span class="lineNum">    1165 </span><span class="lineNoCov">          0 :         if (high_frag) {</span>
+<span class="lineNum">    1166 </span><span class="lineNoCov">          0 :             s = sdscatprintf(s,&quot; * High total RSS: This instance has a memory fragmentation and RSS overhead greater than 1.4 (this means that the Resident Set Size of the Redis process is much larger than the sum of the logical allocations Redis performed). This problem is usually due either to a large peak memory (check if there is a peak memory entry above in the report) or may result from a workload that causes the allocator to fragment memory a lot. If the problem is a large peak memory, then there is no issue. Otherwise, make sure you are using the Jemalloc allocator and not the default libc malloc. Note: The currently used allocator is \&quot;%s\&quot;.\n\n&quot;, ZMALLOC_LIB);</span>
+<span class="lineNum">    1167 </span>            :         }
+<span class="lineNum">    1168 </span><span class="lineNoCov">          0 :         if (high_alloc_frag) {</span>
+<span class="lineNum">    1169 </span><span class="lineNoCov">          0 :             s = sdscatprintf(s,&quot; * High allocator fragmentation: This instance has an allocator external fragmentation greater than 1.1. This problem is usually due either to a large peak memory (check if there is a peak memory entry above in the report) or may result from a workload that causes the allocator to fragment memory a lot. You can try enabling 'activedefrag' config option.\n\n&quot;);</span>
+<span class="lineNum">    1170 </span>            :         }
+<span class="lineNum">    1171 </span><span class="lineNoCov">          0 :         if (high_alloc_rss) {</span>
+<span class="lineNum">    1172 </span><span class="lineNoCov">          0 :             s = sdscatprintf(s,&quot; * High allocator RSS overhead: This instance has an RSS memory overhead is greater than 1.1 (this means that the Resident Set Size of the allocator is much larger than the sum what the allocator actually holds). This problem is usually due to a large peak memory (check if there is a peak memory entry above in the report), you can try the MEMORY PURGE command to reclaim it.\n\n&quot;);</span>
+<span class="lineNum">    1173 </span>            :         }
+<span class="lineNum">    1174 </span><span class="lineNoCov">          0 :         if (high_proc_rss) {</span>
+<span class="lineNum">    1175 </span><span class="lineNoCov">          0 :             s = sdscatprintf(s,&quot; * High process RSS overhead: This instance has non-allocator RSS memory overhead is greater than 1.1 (this means that the Resident Set Size of the Redis process is much larger than the RSS the allocator holds). This problem may be due to Lua scripts or Modules.\n\n&quot;);</span>
+<span class="lineNum">    1176 </span>            :         }
+<span class="lineNum">    1177 </span><span class="lineNoCov">          0 :         if (big_slave_buf) {</span>
+<span class="lineNum">    1178 </span><span class="lineNoCov">          0 :             s = sdscat(s,&quot; * Big replica buffers: The replica output buffers in this instance are greater than 10MB for each replica (on average). This likely means that there is some replica instance that is struggling receiving data, either because it is too slow or because of networking issues. As a result, data piles on the master output buffers. Please try to identify what replica is not receiving data correctly and why. You can use the INFO output in order to check the replicas delays and the CLIENT LIST command to check the output buffers of each replica.\n\n&quot;);</span>
+<span class="lineNum">    1179 </span>            :         }
+<span class="lineNum">    1180 </span><span class="lineNoCov">          0 :         if (big_client_buf) {</span>
+<span class="lineNum">    1181 </span><span class="lineNoCov">          0 :             s = sdscat(s,&quot; * Big client buffers: The clients output buffers in this instance are greater than 200K per client (on average). This may result from different causes, like Pub/Sub clients subscribed to channels bot not receiving data fast enough, so that data piles on the Redis instance output buffer, or clients sending commands with large replies or very large sequences of commands in the same pipeline. Please use the CLIENT LIST command in order to investigate the issue if it causes problems in your instance, or to understand better why certain clients are using a big amount of memory.\n\n&quot;);</span>
+<span class="lineNum">    1182 </span>            :         }
+<span class="lineNum">    1183 </span><span class="lineNoCov">          0 :         if (many_scripts) {</span>
+<span class="lineNum">    1184 </span><span class="lineNoCov">          0 :             s = sdscat(s,&quot; * Many scripts: There seem to be many cached scripts in this instance (more than 1000). This may be because scripts are generated and `EVAL`ed, instead of being parameterized (with KEYS and ARGV), `SCRIPT LOAD`ed and `EVALSHA`ed. Unless `SCRIPT FLUSH` is called periodically, the scripts' caches may end up consuming most of your memory.\n\n&quot;);</span>
+<span class="lineNum">    1185 </span>            :         }
+<span class="lineNum">    1186 </span><span class="lineNoCov">          0 :         s = sdscat(s,&quot;I'm here to keep you safe, Sam. I want to help you.\n&quot;);</span>
+<span class="lineNum">    1187 </span>            :     }
+<span class="lineNum">    1188 </span><span class="lineNoCov">          0 :     freeMemoryOverheadData(mh);</span>
+<span class="lineNum">    1189 </span><span class="lineNoCov">          0 :     return s;</span>
+<span class="lineNum">    1190 </span>            : }
+<span class="lineNum">    1191 </span>            : 
+<span class="lineNum">    1192 </span>            : /* Set the object LRU/LFU depending on server.maxmemory_policy.
+<span class="lineNum">    1193 </span>            :  * The lfu_freq arg is only relevant if policy is MAXMEMORY_FLAG_LFU.
+<span class="lineNum">    1194 </span>            :  * The lru_idle and lru_clock args are only relevant if policy 
+<a name="1195"><span class="lineNum">    1195 </span>            :  * is MAXMEMORY_FLAG_LRU.</a>
+<span class="lineNum">    1196 </span>            :  * Either or both of them may be &lt;0, in that case, nothing is set. */
+<span class="lineNum">    1197 </span><span class="lineCov">   12222063 : void objectSetLRUOrLFU(robj *val, long long lfu_freq, long long lru_idle,</span>
+<span class="lineNum">    1198 </span>            :                        long long lru_clock) {
+<span class="lineNum">    1199 </span><span class="lineCov">   12222063 :     if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) {</span>
+<span class="lineNum">    1200 </span><span class="lineCov">          9 :         if (lfu_freq &gt;= 0) {</span>
+<span class="lineNum">    1201 </span><span class="lineCov">          3 :             serverAssert(lfu_freq &lt;= 255);</span>
+<span class="lineNum">    1202 </span><span class="lineCov">          3 :             val-&gt;lru = (LFUGetTimeInMinutes()&lt;&lt;8) | lfu_freq;</span>
+<span class="lineNum">    1203 </span>            :         }
+<span class="lineNum">    1204 </span><span class="lineCov">   12222054 :     } else if (lru_idle &gt;= 0) {</span>
+<span class="lineNum">    1205 </span>            :         /* Serialized LRU idle time is in seconds. Scale
+<span class="lineNum">    1206 </span>            :          * according to the LRU clock resolution this Redis
+<span class="lineNum">    1207 </span>            :          * instance was compiled with (normally 1000 ms, so the
+<span class="lineNum">    1208 </span>            :          * below statement will expand to lru_idle*1000/1000. */
+<span class="lineNum">    1209 </span><span class="lineCov">          3 :         lru_idle = lru_idle*1000/LRU_CLOCK_RESOLUTION;</span>
+<span class="lineNum">    1210 </span><span class="lineCov">          3 :         val-&gt;lru = lru_clock - lru_idle;</span>
+<span class="lineNum">    1211 </span>            :         /* If the lru field overflows (since LRU it is a wrapping
+<span class="lineNum">    1212 </span>            :          * clock), the best we can do is to provide the maximum
+<span class="lineNum">    1213 </span>            :          * representable idle time. */
+<span class="lineNum">    1214 </span><span class="lineCov">          3 :         if (val-&gt;lru &lt; 0) val-&gt;lru = lru_clock+1;</span>
+<span class="lineNum">    1215 </span>            :     }
+<span class="lineNum">    1216 </span><span class="lineCov">   12222063 : }</span>
+<span class="lineNum">    1217 </span>            : 
+<span class="lineNum">    1218 </span>            : /* ======================= The OBJECT and MEMORY commands =================== */
+<span class="lineNum">    1219 </span>            : 
+<a name="1220"><span class="lineNum">    1220 </span>            : /* This is a helper function for the OBJECT command. We need to lookup keys</a>
+<span class="lineNum">    1221 </span>            :  * without any modification of LRU or other parameters. */
+<span class="lineNum">    1222 </span><span class="lineNoCov">          0 : robj *objectCommandLookup(client *c, robj *key) {</span>
+<span class="lineNum">    1223 </span><span class="lineCov">        702 :     dictEntry *de;</span>
+<span class="lineNum">    1224 </span>            : 
+<span class="lineNum">    1225 </span><span class="lineCov">        702 :     if ((de = dictFind(c-&gt;db-&gt;dict,key-&gt;ptr)) == NULL) return NULL;</span>
+<span class="lineNum">    1226 </span><span class="lineNoCov">          0 :     return (robj*) dictGetVal(de);</span>
+<a name="1227"><span class="lineNum">    1227 </span>            : }</a>
+<span class="lineNum">    1228 </span>            : 
+<span class="lineNum">    1229 </span><span class="lineCov">        702 : robj *objectCommandLookupOrReply(client *c, robj *key, robj *reply) {</span>
+<span class="lineNum">    1230 </span><span class="lineCov">        702 :     robj *o = objectCommandLookup(c,key);</span>
+<span class="lineNum">    1231 </span>            : 
+<span class="lineNum">    1232 </span><span class="lineCov">        702 :     if (!o) addReply(c, reply);</span>
+<span class="lineNum">    1233 </span><span class="lineCov">        702 :     return o;</span>
+<span class="lineNum">    1234 </span>            : }
+<span class="lineNum">    1235 </span>            : 
+<a name="1236"><span class="lineNum">    1236 </span>            : /* Object command allows to inspect the internals of an Redis Object.</a>
+<span class="lineNum">    1237 </span>            :  * Usage: OBJECT &lt;refcount|encoding|idletime|freq&gt; &lt;key&gt; */
+<span class="lineNum">    1238 </span><span class="lineCov">        702 : void objectCommand(client *c) {</span>
+<span class="lineNum">    1239 </span><span class="lineCov">        702 :     robj *o;</span>
+<span class="lineNum">    1240 </span>            : 
+<span class="lineNum">    1241 </span><span class="lineCov">        702 :     if (c-&gt;argc == 2 &amp;&amp; !strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;help&quot;)) {</span>
+<span class="lineNum">    1242 </span><span class="lineNoCov">          0 :         const char *help[] = {</span>
+<span class="lineNum">    1243 </span>            : &quot;ENCODING &lt;key&gt; -- Return the kind of internal representation used in order to store the value associated with a key.&quot;,
+<span class="lineNum">    1244 </span>            : &quot;FREQ &lt;key&gt; -- Return the access frequency index of the key. The returned integer is proportional to the logarithm of the recent access frequency of the key.&quot;,
+<span class="lineNum">    1245 </span>            : &quot;IDLETIME &lt;key&gt; -- Return the idle time of the key, that is the approximated number of seconds elapsed since the last access to the key.&quot;,
+<span class="lineNum">    1246 </span>            : &quot;REFCOUNT &lt;key&gt; -- Return the number of references of the value associated with the specified key.&quot;,
+<span class="lineNum">    1247 </span>            : NULL
+<span class="lineNum">    1248 </span>            :         };
+<span class="lineNum">    1249 </span><span class="lineNoCov">          0 :         addReplyHelp(c, help);</span>
+<span class="lineNum">    1250 </span><span class="lineCov">        702 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;refcount&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">    1251 </span><span class="lineCov">         20 :         if ((o = objectCommandLookupOrReply(c,c-&gt;argv[2],shared.nullbulk))</span>
+<span class="lineNum">    1252 </span>            :                 == NULL) return;
+<span class="lineNum">    1253 </span><span class="lineCov">         20 :         addReplyLongLong(c,o-&gt;refcount);</span>
+<span class="lineNum">    1254 </span><span class="lineCov">        682 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;encoding&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">    1255 </span><span class="lineCov">        672 :         if ((o = objectCommandLookupOrReply(c,c-&gt;argv[2],shared.nullbulk))</span>
+<span class="lineNum">    1256 </span>            :                 == NULL) return;
+<span class="lineNum">    1257 </span><span class="lineCov">        672 :         addReplyBulkCString(c,strEncoding(o-&gt;encoding));</span>
+<span class="lineNum">    1258 </span><span class="lineCov">         10 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;idletime&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">    1259 </span><span class="lineCov">          7 :         if ((o = objectCommandLookupOrReply(c,c-&gt;argv[2],shared.nullbulk))</span>
+<span class="lineNum">    1260 </span>            :                 == NULL) return;
+<span class="lineNum">    1261 </span><span class="lineCov">          7 :         if (server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU) {</span>
+<span class="lineNum">    1262 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;An LFU maxmemory policy is selected, idle time not tracked. Please note that when switching between policies at runtime LRU and LFU data will take some time to adjust.&quot;);</span>
+<span class="lineNum">    1263 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">    1264 </span>            :         }
+<span class="lineNum">    1265 </span><span class="lineCov">          7 :         addReplyLongLong(c,estimateObjectIdleTime(o)/1000);</span>
+<span class="lineNum">    1266 </span><span class="lineCov">          3 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;freq&quot;) &amp;&amp; c-&gt;argc == 3) {</span>
+<span class="lineNum">    1267 </span><span class="lineCov">          3 :         if ((o = objectCommandLookupOrReply(c,c-&gt;argv[2],shared.nullbulk))</span>
+<span class="lineNum">    1268 </span>            :                 == NULL) return;
+<span class="lineNum">    1269 </span><span class="lineCov">          3 :         if (!(server.maxmemory_policy &amp; MAXMEMORY_FLAG_LFU)) {</span>
+<span class="lineNum">    1270 </span><span class="lineNoCov">          0 :             addReplyError(c,&quot;An LFU maxmemory policy is not selected, access frequency not tracked. Please note that when switching between policies at runtime LRU and LFU data will take some time to adjust.&quot;);</span>
+<span class="lineNum">    1271 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">    1272 </span>            :         }
+<span class="lineNum">    1273 </span>            :         /* LFUDecrAndReturn should be called
+<span class="lineNum">    1274 </span>            :          * in case of the key has not been accessed for a long time,
+<span class="lineNum">    1275 </span>            :          * because we update the access time only
+<span class="lineNum">    1276 </span>            :          * when the key is read or overwritten. */
+<span class="lineNum">    1277 </span><span class="lineCov">          3 :         addReplyLongLong(c,LFUDecrAndReturn(o));</span>
+<span class="lineNum">    1278 </span>            :     } else {
+<span class="lineNum">    1279 </span><span class="lineNoCov">          0 :         addReplySubcommandSyntaxError(c);</span>
+<span class="lineNum">    1280 </span>            :     }
+<span class="lineNum">    1281 </span>            : }
+<span class="lineNum">    1282 </span>            : 
+<span class="lineNum">    1283 </span>            : /* The memory command will eventually be a complete interface for the
+<span class="lineNum">    1284 </span>            :  * memory introspection capabilities of Redis.
+<a name="1285"><span class="lineNum">    1285 </span>            :  *</a>
+<span class="lineNum">    1286 </span>            :  * Usage: MEMORY usage &lt;key&gt; */
+<span class="lineNum">    1287 </span><span class="lineNoCov">          0 : void memoryCommand(client *c) {</span>
+<span class="lineNum">    1288 </span><span class="lineNoCov">          0 :     if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;help&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">    1289 </span><span class="lineNoCov">          0 :         const char *help[] = {</span>
+<span class="lineNum">    1290 </span>            : &quot;DOCTOR - Return memory problems reports.&quot;,
+<span class="lineNum">    1291 </span>            : &quot;MALLOC-STATS -- Return internal statistics report from the memory allocator.&quot;,
+<span class="lineNum">    1292 </span>            : &quot;PURGE -- Attempt to purge dirty pages for reclamation by the allocator.&quot;,
+<span class="lineNum">    1293 </span>            : &quot;STATS -- Return information about the memory usage of the server.&quot;,
+<span class="lineNum">    1294 </span>            : &quot;USAGE &lt;key&gt; [SAMPLES &lt;count&gt;] -- Return memory in bytes used by &lt;key&gt; and its value. Nested values are sampled up to &lt;count&gt; times (default: 5).&quot;,
+<span class="lineNum">    1295 </span>            : NULL
+<span class="lineNum">    1296 </span>            :         };
+<span class="lineNum">    1297 </span><span class="lineNoCov">          0 :         addReplyHelp(c, help);</span>
+<span class="lineNum">    1298 </span><span class="lineNoCov">          0 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;usage&quot;) &amp;&amp; c-&gt;argc &gt;= 3) {</span>
+<span class="lineNum">    1299 </span><span class="lineNoCov">          0 :         dictEntry *de;</span>
+<span class="lineNum">    1300 </span><span class="lineNoCov">          0 :         long long samples = OBJ_COMPUTE_SIZE_DEF_SAMPLES;</span>
+<span class="lineNum">    1301 </span><span class="lineNoCov">          0 :         for (int j = 3; j &lt; c-&gt;argc; j++) {</span>
+<span class="lineNum">    1302 </span><span class="lineNoCov">          0 :             if (!strcasecmp(c-&gt;argv[j]-&gt;ptr,&quot;samples&quot;) &amp;&amp;</span>
+<span class="lineNum">    1303 </span><span class="lineNoCov">          0 :                 j+1 &lt; c-&gt;argc)</span>
+<span class="lineNum">    1304 </span>            :             {
+<span class="lineNum">    1305 </span><span class="lineNoCov">          0 :                 if (getLongLongFromObjectOrReply(c,c-&gt;argv[j+1],&amp;samples,NULL)</span>
+<span class="lineNum">    1306 </span><span class="lineNoCov">          0 :                      == C_ERR) return;</span>
+<span class="lineNum">    1307 </span><span class="lineNoCov">          0 :                 if (samples &lt; 0) {</span>
+<span class="lineNum">    1308 </span><span class="lineNoCov">          0 :                     addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">    1309 </span><span class="lineNoCov">          0 :                     return;</span>
+<span class="lineNum">    1310 </span>            :                 }
+<span class="lineNum">    1311 </span><span class="lineNoCov">          0 :                 if (samples == 0) samples = LLONG_MAX;;</span>
+<span class="lineNum">    1312 </span><span class="lineNoCov">          0 :                 j++; /* skip option argument. */</span>
+<span class="lineNum">    1313 </span>            :             } else {
+<span class="lineNum">    1314 </span><span class="lineNoCov">          0 :                 addReply(c,shared.syntaxerr);</span>
+<span class="lineNum">    1315 </span><span class="lineNoCov">          0 :                 return;</span>
+<span class="lineNum">    1316 </span>            :             }
+<span class="lineNum">    1317 </span>            :         }
+<span class="lineNum">    1318 </span><span class="lineNoCov">          0 :         if ((de = dictFind(c-&gt;db-&gt;dict,c-&gt;argv[2]-&gt;ptr)) == NULL) {</span>
+<span class="lineNum">    1319 </span><span class="lineNoCov">          0 :             addReply(c, shared.nullbulk);</span>
+<span class="lineNum">    1320 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">    1321 </span>            :         }
+<span class="lineNum">    1322 </span><span class="lineNoCov">          0 :         size_t usage = objectComputeSize(dictGetVal(de),samples);</span>
+<span class="lineNum">    1323 </span><span class="lineNoCov">          0 :         usage += sdsAllocSize(dictGetKey(de));</span>
+<span class="lineNum">    1324 </span><span class="lineNoCov">          0 :         usage += sizeof(dictEntry);</span>
+<span class="lineNum">    1325 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,usage);</span>
+<span class="lineNum">    1326 </span><span class="lineNoCov">          0 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;stats&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">    1327 </span><span class="lineNoCov">          0 :         struct redisMemOverhead *mh = getMemoryOverheadData();</span>
+<span class="lineNum">    1328 </span>            : 
+<span class="lineNum">    1329 </span><span class="lineNoCov">          0 :         addReplyMultiBulkLen(c,(25+mh-&gt;num_dbs)*2);</span>
+<span class="lineNum">    1330 </span>            : 
+<span class="lineNum">    1331 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;peak.allocated&quot;);</span>
+<span class="lineNum">    1332 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;peak_allocated);</span>
+<span class="lineNum">    1333 </span>            : 
+<span class="lineNum">    1334 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;total.allocated&quot;);</span>
+<span class="lineNum">    1335 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;total_allocated);</span>
+<span class="lineNum">    1336 </span>            : 
+<span class="lineNum">    1337 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;startup.allocated&quot;);</span>
+<span class="lineNum">    1338 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;startup_allocated);</span>
+<span class="lineNum">    1339 </span>            : 
+<span class="lineNum">    1340 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;replication.backlog&quot;);</span>
+<span class="lineNum">    1341 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;repl_backlog);</span>
+<span class="lineNum">    1342 </span>            : 
+<span class="lineNum">    1343 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;clients.slaves&quot;);</span>
+<span class="lineNum">    1344 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;clients_slaves);</span>
+<span class="lineNum">    1345 </span>            : 
+<span class="lineNum">    1346 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;clients.normal&quot;);</span>
+<span class="lineNum">    1347 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;clients_normal);</span>
+<span class="lineNum">    1348 </span>            : 
+<span class="lineNum">    1349 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;aof.buffer&quot;);</span>
+<span class="lineNum">    1350 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;aof_buffer);</span>
+<span class="lineNum">    1351 </span>            : 
+<span class="lineNum">    1352 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;lua.caches&quot;);</span>
+<span class="lineNum">    1353 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;lua_caches);</span>
+<span class="lineNum">    1354 </span>            : 
+<span class="lineNum">    1355 </span><span class="lineNoCov">          0 :         for (size_t j = 0; j &lt; mh-&gt;num_dbs; j++) {</span>
+<span class="lineNum">    1356 </span><span class="lineNoCov">          0 :             char dbname[32];</span>
+<span class="lineNum">    1357 </span><span class="lineNoCov">          0 :             snprintf(dbname,sizeof(dbname),&quot;db.%zd&quot;,mh-&gt;db[j].dbid);</span>
+<span class="lineNum">    1358 </span><span class="lineNoCov">          0 :             addReplyBulkCString(c,dbname);</span>
+<span class="lineNum">    1359 </span><span class="lineNoCov">          0 :             addReplyMultiBulkLen(c,4);</span>
+<span class="lineNum">    1360 </span>            : 
+<span class="lineNum">    1361 </span><span class="lineNoCov">          0 :             addReplyBulkCString(c,&quot;overhead.hashtable.main&quot;);</span>
+<span class="lineNum">    1362 </span><span class="lineNoCov">          0 :             addReplyLongLong(c,mh-&gt;db[j].overhead_ht_main);</span>
+<span class="lineNum">    1363 </span>            : 
+<span class="lineNum">    1364 </span><span class="lineNoCov">          0 :             addReplyBulkCString(c,&quot;overhead.hashtable.expires&quot;);</span>
+<span class="lineNum">    1365 </span><span class="lineNoCov">          0 :             addReplyLongLong(c,mh-&gt;db[j].overhead_ht_expires);</span>
+<span class="lineNum">    1366 </span>            :         }
+<span class="lineNum">    1367 </span>            : 
+<span class="lineNum">    1368 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;overhead.total&quot;);</span>
+<span class="lineNum">    1369 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;overhead_total);</span>
+<span class="lineNum">    1370 </span>            : 
+<span class="lineNum">    1371 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;keys.count&quot;);</span>
+<span class="lineNum">    1372 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;total_keys);</span>
+<span class="lineNum">    1373 </span>            : 
+<span class="lineNum">    1374 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;keys.bytes-per-key&quot;);</span>
+<span class="lineNum">    1375 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;bytes_per_key);</span>
+<span class="lineNum">    1376 </span>            : 
+<span class="lineNum">    1377 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;dataset.bytes&quot;);</span>
+<span class="lineNum">    1378 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;dataset);</span>
+<span class="lineNum">    1379 </span>            : 
+<span class="lineNum">    1380 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;dataset.percentage&quot;);</span>
+<span class="lineNum">    1381 </span><span class="lineNoCov">          0 :         addReplyDouble(c,mh-&gt;dataset_perc);</span>
+<span class="lineNum">    1382 </span>            : 
+<span class="lineNum">    1383 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;peak.percentage&quot;);</span>
+<span class="lineNum">    1384 </span><span class="lineNoCov">          0 :         addReplyDouble(c,mh-&gt;peak_perc);</span>
+<span class="lineNum">    1385 </span>            : 
+<span class="lineNum">    1386 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator.allocated&quot;);</span>
+<span class="lineNum">    1387 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,server.cron_malloc_stats.allocator_allocated);</span>
+<span class="lineNum">    1388 </span>            : 
+<span class="lineNum">    1389 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator.active&quot;);</span>
+<span class="lineNum">    1390 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,server.cron_malloc_stats.allocator_active);</span>
+<span class="lineNum">    1391 </span>            : 
+<span class="lineNum">    1392 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator.resident&quot;);</span>
+<span class="lineNum">    1393 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,server.cron_malloc_stats.allocator_resident);</span>
+<span class="lineNum">    1394 </span>            : 
+<span class="lineNum">    1395 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator-fragmentation.ratio&quot;);</span>
+<span class="lineNum">    1396 </span><span class="lineNoCov">          0 :         addReplyDouble(c,mh-&gt;allocator_frag);</span>
+<span class="lineNum">    1397 </span>            : 
+<span class="lineNum">    1398 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator-fragmentation.bytes&quot;);</span>
+<span class="lineNum">    1399 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;allocator_frag_bytes);</span>
+<span class="lineNum">    1400 </span>            : 
+<span class="lineNum">    1401 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator-rss.ratio&quot;);</span>
+<span class="lineNum">    1402 </span><span class="lineNoCov">          0 :         addReplyDouble(c,mh-&gt;allocator_rss);</span>
+<span class="lineNum">    1403 </span>            : 
+<span class="lineNum">    1404 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;allocator-rss.bytes&quot;);</span>
+<span class="lineNum">    1405 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;allocator_rss_bytes);</span>
+<span class="lineNum">    1406 </span>            : 
+<span class="lineNum">    1407 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;rss-overhead.ratio&quot;);</span>
+<span class="lineNum">    1408 </span><span class="lineNoCov">          0 :         addReplyDouble(c,mh-&gt;rss_extra);</span>
+<span class="lineNum">    1409 </span>            : 
+<span class="lineNum">    1410 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;rss-overhead.bytes&quot;);</span>
+<span class="lineNum">    1411 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;rss_extra_bytes);</span>
+<span class="lineNum">    1412 </span>            : 
+<span class="lineNum">    1413 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;fragmentation&quot;); /* this is the total RSS overhead, including fragmentation */</span>
+<span class="lineNum">    1414 </span><span class="lineNoCov">          0 :         addReplyDouble(c,mh-&gt;total_frag); /* it is kept here for backwards compatibility */</span>
+<span class="lineNum">    1415 </span>            : 
+<span class="lineNum">    1416 </span><span class="lineNoCov">          0 :         addReplyBulkCString(c,&quot;fragmentation.bytes&quot;);</span>
+<span class="lineNum">    1417 </span><span class="lineNoCov">          0 :         addReplyLongLong(c,mh-&gt;total_frag_bytes);</span>
+<span class="lineNum">    1418 </span>            : 
+<span class="lineNum">    1419 </span><span class="lineNoCov">          0 :         freeMemoryOverheadData(mh);</span>
+<span class="lineNum">    1420 </span><span class="lineNoCov">          0 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;malloc-stats&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">    1421 </span>            : #if defined(USE_JEMALLOC)
+<span class="lineNum">    1422 </span><span class="lineNoCov">          0 :         sds info = sdsempty();</span>
+<span class="lineNum">    1423 </span><span class="lineNoCov">          0 :         je_malloc_stats_print(inputCatSds, &amp;info, NULL);</span>
+<span class="lineNum">    1424 </span><span class="lineNoCov">          0 :         addReplyBulkSds(c, info);</span>
+<span class="lineNum">    1425 </span>            : #else
+<span class="lineNum">    1426 </span>            :         addReplyBulkCString(c,&quot;Stats not supported for the current allocator&quot;);
+<span class="lineNum">    1427 </span>            : #endif
+<span class="lineNum">    1428 </span><span class="lineNoCov">          0 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;doctor&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">    1429 </span><span class="lineNoCov">          0 :         sds report = getMemoryDoctorReport();</span>
+<span class="lineNum">    1430 </span><span class="lineNoCov">          0 :         addReplyBulkSds(c,report);</span>
+<span class="lineNum">    1431 </span><span class="lineNoCov">          0 :     } else if (!strcasecmp(c-&gt;argv[1]-&gt;ptr,&quot;purge&quot;) &amp;&amp; c-&gt;argc == 2) {</span>
+<span class="lineNum">    1432 </span>            : #if defined(USE_JEMALLOC)
+<span class="lineNum">    1433 </span><span class="lineNoCov">          0 :         char tmp[32];</span>
+<span class="lineNum">    1434 </span><span class="lineNoCov">          0 :         unsigned narenas = 0;</span>
+<span class="lineNum">    1435 </span><span class="lineNoCov">          0 :         size_t sz = sizeof(unsigned);</span>
+<span class="lineNum">    1436 </span><span class="lineNoCov">          0 :         if (!je_mallctl(&quot;arenas.narenas&quot;, &amp;narenas, &amp;sz, NULL, 0)) {</span>
+<span class="lineNum">    1437 </span><span class="lineNoCov">          0 :             sprintf(tmp, &quot;arena.%d.purge&quot;, narenas);</span>
+<span class="lineNum">    1438 </span><span class="lineNoCov">          0 :             if (!je_mallctl(tmp, NULL, 0, NULL, 0)) {</span>
+<span class="lineNum">    1439 </span><span class="lineNoCov">          0 :                 addReply(c, shared.ok);</span>
+<span class="lineNum">    1440 </span><span class="lineNoCov">          0 :                 return;</span>
+<span class="lineNum">    1441 </span>            :             }
+<span class="lineNum">    1442 </span>            :         }
+<span class="lineNum">    1443 </span><span class="lineNoCov">          0 :         addReplyError(c, &quot;Error purging dirty pages&quot;);</span>
+<span class="lineNum">    1444 </span>            : #else
+<span class="lineNum">    1445 </span>            :         addReply(c, shared.ok);
+<span class="lineNum">    1446 </span>            :         /* Nothing to do for other allocators. */
+<span class="lineNum">    1447 </span>            : #endif
+<span class="lineNum">    1448 </span>            :     } else {
+<span class="lineNum">    1449 </span><span class="lineNoCov">          0 :         addReplyErrorFormat(c, &quot;Unknown subcommand or wrong number of arguments for '%s'. Try MEMORY HELP&quot;, (char*)c-&gt;argv[1]-&gt;ptr);</span>
+<span class="lineNum">    1450 </span>            :     }
+<span class="lineNum">    1451 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

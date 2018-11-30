@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - memcached/assoc.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">memcached</a> - assoc.c<span style="font-size: 80%;"> (source / <a href="assoc.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">60</td>
+            <td class="headerCovTableEntry">129</td>
+            <td class="headerCovTableEntryLo">46.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-11-29 23:48:59</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryMed">80.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* -*- Mode: C; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*- */</a>
+<span class="lineNum">       2 </span>            : /*
+<span class="lineNum">       3 </span>            :  * Hash table
+<span class="lineNum">       4 </span>            :  *
+<span class="lineNum">       5 </span>            :  * The hash function used here is by Bob Jenkins, 1996:
+<span class="lineNum">       6 </span>            :  *    &lt;http://burtleburtle.net/bob/hash/doobs.html&gt;
+<span class="lineNum">       7 </span>            :  *       &quot;By Bob Jenkins, 1996.  bob_jenkins@burtleburtle.net.
+<span class="lineNum">       8 </span>            :  *       You may use this code any way you wish, private, educational,
+<span class="lineNum">       9 </span>            :  *       or commercial.  It's free.&quot;
+<span class="lineNum">      10 </span>            :  *
+<span class="lineNum">      11 </span>            :  * The rest of the file is licensed under the BSD license.  See LICENSE.
+<span class="lineNum">      12 </span>            :  */
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : #include &quot;memcached.h&quot;
+<span class="lineNum">      15 </span>            : #include &lt;sys/stat.h&gt;
+<span class="lineNum">      16 </span>            : #include &lt;sys/socket.h&gt;
+<span class="lineNum">      17 </span>            : #include &lt;sys/resource.h&gt;
+<span class="lineNum">      18 </span>            : #include &lt;signal.h&gt;
+<span class="lineNum">      19 </span>            : #include &lt;fcntl.h&gt;
+<span class="lineNum">      20 </span>            : #include &lt;netinet/in.h&gt;
+<span class="lineNum">      21 </span>            : #include &lt;errno.h&gt;
+<span class="lineNum">      22 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      23 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      24 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      25 </span>            : #include &lt;assert.h&gt;
+<span class="lineNum">      26 </span>            : #include &lt;pthread.h&gt;
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : static pthread_cond_t maintenance_cond = PTHREAD_COND_INITIALIZER;
+<span class="lineNum">      29 </span>            : static pthread_mutex_t maintenance_lock = PTHREAD_MUTEX_INITIALIZER;
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : typedef  unsigned long  int  ub4;   /* unsigned 4-byte quantities */
+<span class="lineNum">      32 </span>            : typedef  unsigned       char ub1;   /* unsigned 1-byte quantities */
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : /* how many powers of 2's worth of buckets we use */
+<span class="lineNum">      35 </span>            : unsigned int hashpower = HASHPOWER_DEFAULT;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : #define hashsize(n) ((ub4)1&lt;&lt;(n))
+<span class="lineNum">      38 </span>            : #define hashmask(n) (hashsize(n)-1)
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : /* Main hash table. This is where we look except during expansion. */
+<span class="lineNum">      41 </span>            : static item** primary_hashtable = 0;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : /*
+<span class="lineNum">      44 </span>            :  * Previous hash table. During expansion, we look here for keys that haven't
+<span class="lineNum">      45 </span>            :  * been moved over to the primary yet.
+<span class="lineNum">      46 </span>            :  */
+<span class="lineNum">      47 </span>            : static item** old_hashtable = 0;
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            : /* Flag: Are we in the middle of expanding now? */
+<span class="lineNum">      50 </span>            : static bool expanding = false;
+<span class="lineNum">      51 </span>            : static bool started_expanding = false;
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span>            : /*
+<span class="lineNum">      54 </span>            :  * During expansion we migrate values with bucket granularity; this is how
+<span class="lineNum">      55 </span>            :  * far we've gotten so far. Ranges from 0 .. hashsize(hashpower - 1) - 1.
+<span class="lineNum">      56 </span>            :  */
+<a name="57"><span class="lineNum">      57 </span>            : static unsigned int expand_bucket = 0;</a>
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span><span class="lineCov">         96 : void assoc_init(const int hashtable_init) {</span>
+<span class="lineNum">      60 </span><span class="lineCov">         96 :     if (hashtable_init) {</span>
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :         hashpower = hashtable_init;</span>
+<span class="lineNum">      62 </span>            :     }
+<span class="lineNum">      63 </span><span class="lineCov">         96 :     primary_hashtable = calloc(hashsize(hashpower), sizeof(void *));</span>
+<span class="lineNum">      64 </span><span class="lineCov">         96 :     if (! primary_hashtable) {</span>
+<span class="lineNum">      65 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Failed to init hashtable.\n&quot;);</span>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :         exit(EXIT_FAILURE);</span>
+<span class="lineNum">      67 </span>            :     }
+<span class="lineNum">      68 </span><span class="lineCov">         96 :     STATS_LOCK();</span>
+<span class="lineNum">      69 </span><span class="lineCov">         96 :     stats_state.hash_power_level = hashpower;</span>
+<span class="lineNum">      70 </span><span class="lineCov">         96 :     stats_state.hash_bytes = hashsize(hashpower) * sizeof(void *);</span>
+<span class="lineNum">      71 </span><span class="lineCov">         96 :     STATS_UNLOCK();</span>
+<a name="72"><span class="lineNum">      72 </span><span class="lineCov">         96 : }</span></a>
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span><span class="lineCov">     220015 : item *assoc_find(const char *key, const size_t nkey, const uint32_t hv) {</span>
+<span class="lineNum">      75 </span><span class="lineCov">     220015 :     item *it;</span>
+<span class="lineNum">      76 </span><span class="lineCov">     220015 :     unsigned int oldbucket;</span>
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span><span class="lineCov">     220015 :     if (expanding &amp;&amp;</span>
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 :         (oldbucket = (hv &amp; hashmask(hashpower - 1))) &gt;= expand_bucket)</span>
+<span class="lineNum">      80 </span>            :     {
+<span class="lineNum">      81 </span><span class="lineNoCov">          0 :         it = old_hashtable[oldbucket];</span>
+<span class="lineNum">      82 </span>            :     } else {
+<span class="lineNum">      83 </span><span class="lineCov">     220015 :         it = primary_hashtable[hv &amp; hashmask(hashpower)];</span>
+<span class="lineNum">      84 </span>            :     }
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            :     item *ret = NULL;
+<span class="lineNum">      87 </span>            :     int depth = 0;
+<span class="lineNum">      88 </span><span class="lineCov">     226699 :     while (it) {</span>
+<span class="lineNum">      89 </span><span class="lineCov">      77724 :         if ((nkey == it-&gt;nkey) &amp;&amp; (memcmp(key, ITEM_key(it), nkey) == 0)) {</span>
+<span class="lineNum">      90 </span>            :             ret = it;
+<span class="lineNum">      91 </span>            :             break;
+<span class="lineNum">      92 </span>            :         }
+<span class="lineNum">      93 </span><span class="lineCov">       6684 :         it = it-&gt;h_next;</span>
+<span class="lineNum">      94 </span><span class="lineCov">       6684 :         ++depth;</span>
+<span class="lineNum">      95 </span>            :     }
+<span class="lineNum">      96 </span><span class="lineCov">     220015 :     MEMCACHED_ASSOC_FIND(key, nkey, depth);</span>
+<span class="lineNum">      97 </span><span class="lineCov">     220015 :     return ret;</span>
+<span class="lineNum">      98 </span>            : }
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : /* returns the address of the item pointer before the key.  if *item == 0,
+<a name="101"><span class="lineNum">     101 </span>            :    the item wasn't found */</a>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span><span class="lineCov">      64856 : static item** _hashitem_before (const char *key, const size_t nkey, const uint32_t hv) {</span>
+<span class="lineNum">     104 </span><span class="lineCov">      64856 :     item **pos;</span>
+<span class="lineNum">     105 </span><span class="lineCov">      64856 :     unsigned int oldbucket;</span>
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span><span class="lineCov">      64856 :     if (expanding &amp;&amp;</span>
+<span class="lineNum">     108 </span><span class="lineNoCov">          0 :         (oldbucket = (hv &amp; hashmask(hashpower - 1))) &gt;= expand_bucket)</span>
+<span class="lineNum">     109 </span>            :     {
+<span class="lineNum">     110 </span><span class="lineNoCov">          0 :         pos = &amp;old_hashtable[oldbucket];</span>
+<span class="lineNum">     111 </span>            :     } else {
+<span class="lineNum">     112 </span><span class="lineCov">      64856 :         pos = &amp;primary_hashtable[hv &amp; hashmask(hashpower)];</span>
+<span class="lineNum">     113 </span>            :     }
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span><span class="lineCov">      67795 :     while (*pos &amp;&amp; ((nkey != (*pos)-&gt;nkey) || memcmp(key, ITEM_key(*pos), nkey))) {</span>
+<span class="lineNum">     116 </span><span class="lineCov">       2939 :         pos = &amp;(*pos)-&gt;h_next;</span>
+<span class="lineNum">     117 </span>            :     }
+<span class="lineNum">     118 </span><span class="lineCov">      64856 :     return pos;</span>
+<span class="lineNum">     119 </span>            : }
+<a name="120"><span class="lineNum">     120 </span>            : </a>
+<span class="lineNum">     121 </span>            : /* grows the hashtable to the next power of 2. */
+<span class="lineNum">     122 </span><span class="lineNoCov">          0 : static void assoc_expand(void) {</span>
+<span class="lineNum">     123 </span><span class="lineNoCov">          0 :     old_hashtable = primary_hashtable;</span>
+<span class="lineNum">     124 </span>            : 
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 :     primary_hashtable = calloc(hashsize(hashpower + 1), sizeof(void *));</span>
+<span class="lineNum">     126 </span><span class="lineNoCov">          0 :     if (primary_hashtable) {</span>
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 :         if (settings.verbose &gt; 1)</span>
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 :             fprintf(stderr, &quot;Hash table expansion starting\n&quot;);</span>
+<span class="lineNum">     129 </span><span class="lineNoCov">          0 :         hashpower++;</span>
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :         expanding = true;</span>
+<span class="lineNum">     131 </span><span class="lineNoCov">          0 :         expand_bucket = 0;</span>
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :         STATS_LOCK();</span>
+<span class="lineNum">     133 </span><span class="lineNoCov">          0 :         stats_state.hash_power_level = hashpower;</span>
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 :         stats_state.hash_bytes += hashsize(hashpower) * sizeof(void *);</span>
+<span class="lineNum">     135 </span><span class="lineNoCov">          0 :         stats_state.hash_is_expanding = true;</span>
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :         STATS_UNLOCK();</span>
+<span class="lineNum">     137 </span>            :     } else {
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 :         primary_hashtable = old_hashtable;</span>
+<span class="lineNum">     139 </span>            :         /* Bad news, but we can keep running. */
+<span class="lineNum">     140 </span>            :     }
+<a name="141"><span class="lineNum">     141 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span><span class="lineCov">        245 : void assoc_start_expand(uint64_t curr_items) {</span>
+<span class="lineNum">     144 </span><span class="lineCov">        245 :     if (started_expanding)</span>
+<span class="lineNum">     145 </span>            :         return;
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span><span class="lineCov">        245 :     if (curr_items &gt; (hashsize(hashpower) * 3) / 2 &amp;&amp;</span>
+<span class="lineNum">     148 </span>            :           hashpower &lt; HASHPOWER_MAX) {
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :         started_expanding = true;</span>
+<span class="lineNum">     150 </span><span class="lineNoCov">          0 :         pthread_cond_signal(&amp;maintenance_cond);</span>
+<span class="lineNum">     151 </span>            :     }
+<span class="lineNum">     152 </span>            : }
+<a name="153"><span class="lineNum">     153 </span>            : </a>
+<span class="lineNum">     154 </span>            : /* Note: this isn't an assoc_update.  The key must not already exist to call this */
+<span class="lineNum">     155 </span><span class="lineCov">     104236 : int assoc_insert(item *it, const uint32_t hv) {</span>
+<span class="lineNum">     156 </span><span class="lineCov">     104236 :     unsigned int oldbucket;</span>
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            : //    assert(assoc_find(ITEM_key(it), it-&gt;nkey) == 0);  /* shouldn't have duplicately named things defined */
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span><span class="lineCov">     104236 :     if (expanding &amp;&amp;</span>
+<span class="lineNum">     161 </span><span class="lineNoCov">          0 :         (oldbucket = (hv &amp; hashmask(hashpower - 1))) &gt;= expand_bucket)</span>
+<span class="lineNum">     162 </span>            :     {
+<span class="lineNum">     163 </span><span class="lineNoCov">          0 :         it-&gt;h_next = old_hashtable[oldbucket];</span>
+<span class="lineNum">     164 </span><span class="lineNoCov">          0 :         old_hashtable[oldbucket] = it;</span>
+<span class="lineNum">     165 </span>            :     } else {
+<span class="lineNum">     166 </span><span class="lineCov">     104236 :         it-&gt;h_next = primary_hashtable[hv &amp; hashmask(hashpower)];</span>
+<span class="lineNum">     167 </span><span class="lineCov">     104236 :         primary_hashtable[hv &amp; hashmask(hashpower)] = it;</span>
+<span class="lineNum">     168 </span>            :     }
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span><span class="lineCov">     104236 :     MEMCACHED_ASSOC_INSERT(ITEM_key(it), it-&gt;nkey);</span>
+<span class="lineNum">     171 </span><span class="lineCov">     104236 :     return 1;</span>
+<a name="172"><span class="lineNum">     172 </span>            : }</a>
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span><span class="lineCov">      64856 : void assoc_delete(const char *key, const size_t nkey, const uint32_t hv) {</span>
+<span class="lineNum">     175 </span><span class="lineCov">      64856 :     item **before = _hashitem_before(key, nkey, hv);</span>
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span><span class="lineCov">      64856 :     if (*before) {</span>
+<span class="lineNum">     178 </span><span class="lineCov">      64856 :         item *nxt;</span>
+<span class="lineNum">     179 </span>            :         /* The DTrace probe cannot be triggered as the last instruction
+<span class="lineNum">     180 </span>            :          * due to possible tail-optimization by the compiler
+<span class="lineNum">     181 </span>            :          */
+<span class="lineNum">     182 </span><span class="lineCov">      64856 :         MEMCACHED_ASSOC_DELETE(key, nkey);</span>
+<span class="lineNum">     183 </span><span class="lineCov">      64856 :         nxt = (*before)-&gt;h_next;</span>
+<span class="lineNum">     184 </span><span class="lineCov">      64856 :         (*before)-&gt;h_next = 0;   /* probably pointless, but whatever. */</span>
+<span class="lineNum">     185 </span><span class="lineCov">      64856 :         *before = nxt;</span>
+<span class="lineNum">     186 </span><span class="lineCov">      64856 :         return;</span>
+<span class="lineNum">     187 </span>            :     }
+<span class="lineNum">     188 </span>            :     /* Note:  we never actually get here.  the callers don't delete things
+<span class="lineNum">     189 </span>            :        they can't find. */
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :     assert(*before != 0);</span>
+<span class="lineNum">     191 </span>            : }
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span>            : static volatile int do_run_maintenance_thread = 1;
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span>            : #define DEFAULT_HASH_BULK_MOVE 1
+<a name="197"><span class="lineNum">     197 </span>            : int hash_bulk_move = DEFAULT_HASH_BULK_MOVE;</a>
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span><span class="lineCov">         96 : static void *assoc_maintenance_thread(void *arg) {</span>
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span><span class="lineCov">         96 :     mutex_lock(&amp;maintenance_lock);</span>
+<span class="lineNum">     202 </span><span class="lineCov">        192 :     while (do_run_maintenance_thread) {</span>
+<span class="lineNum">     203 </span>            :         int ii = 0;
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            :         /* There is only one expansion thread, so no need to global lock. */
+<span class="lineNum">     206 </span><span class="lineCov">         96 :         for (ii = 0; ii &lt; hash_bulk_move &amp;&amp; expanding; ++ii) {</span>
+<span class="lineNum">     207 </span><span class="lineNoCov">          0 :             item *it, *next;</span>
+<span class="lineNum">     208 </span><span class="lineNoCov">          0 :             unsigned int bucket;</span>
+<span class="lineNum">     209 </span><span class="lineNoCov">          0 :             void *item_lock = NULL;</span>
+<span class="lineNum">     210 </span>            : 
+<span class="lineNum">     211 </span>            :             /* bucket = hv &amp; hashmask(hashpower) =&gt;the bucket of hash table
+<span class="lineNum">     212 </span>            :              * is the lowest N bits of the hv, and the bucket of item_locks is
+<span class="lineNum">     213 </span>            :              *  also the lowest M bits of hv, and N is greater than M.
+<span class="lineNum">     214 </span>            :              *  So we can process expanding with only one item_lock. cool! */
+<span class="lineNum">     215 </span><span class="lineNoCov">          0 :             if ((item_lock = item_trylock(expand_bucket))) {</span>
+<span class="lineNum">     216 </span><span class="lineNoCov">          0 :                     for (it = old_hashtable[expand_bucket]; NULL != it; it = next) {</span>
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 :                         next = it-&gt;h_next;</span>
+<span class="lineNum">     218 </span><span class="lineNoCov">          0 :                         bucket = hash(ITEM_key(it), it-&gt;nkey) &amp; hashmask(hashpower);</span>
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :                         it-&gt;h_next = primary_hashtable[bucket];</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :                         primary_hashtable[bucket] = it;</span>
+<span class="lineNum">     221 </span>            :                     }
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :                     old_hashtable[expand_bucket] = NULL;</span>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :                     expand_bucket++;</span>
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :                     if (expand_bucket == hashsize(hashpower - 1)) {</span>
+<span class="lineNum">     227 </span><span class="lineNoCov">          0 :                         expanding = false;</span>
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :                         free(old_hashtable);</span>
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 :                         STATS_LOCK();</span>
+<span class="lineNum">     230 </span><span class="lineNoCov">          0 :                         stats_state.hash_bytes -= hashsize(hashpower - 1) * sizeof(void *);</span>
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :                         stats_state.hash_is_expanding = false;</span>
+<span class="lineNum">     232 </span><span class="lineNoCov">          0 :                         STATS_UNLOCK();</span>
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 :                         if (settings.verbose &gt; 1)</span>
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 :                             fprintf(stderr, &quot;Hash table expansion done\n&quot;);</span>
+<span class="lineNum">     235 </span>            :                     }
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            :             } else {
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :                 usleep(10*1000);</span>
+<span class="lineNum">     239 </span>            :             }
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span><span class="lineNoCov">          0 :             if (item_lock) {</span>
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :                 item_trylock_unlock(item_lock);</span>
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 :                 item_lock = NULL;</span>
+<span class="lineNum">     244 </span>            :             }
+<span class="lineNum">     245 </span>            :         }
+<span class="lineNum">     246 </span>            : 
+<span class="lineNum">     247 </span><span class="lineCov">         96 :         if (!expanding) {</span>
+<span class="lineNum">     248 </span>            :             /* We are done expanding.. just wait for next invocation */
+<span class="lineNum">     249 </span><span class="lineCov">         96 :             started_expanding = false;</span>
+<span class="lineNum">     250 </span><span class="lineCov">         96 :             pthread_cond_wait(&amp;maintenance_cond, &amp;maintenance_lock);</span>
+<span class="lineNum">     251 </span>            :             /* assoc_expand() swaps out the hash table entirely, so we need
+<span class="lineNum">     252 </span>            :              * all threads to not hold any references related to the hash
+<span class="lineNum">     253 </span>            :              * table while this happens.
+<span class="lineNum">     254 </span>            :              * This is instead of a more complex, possibly slower algorithm to
+<span class="lineNum">     255 </span>            :              * allow dynamic hash table expansion without causing significant
+<span class="lineNum">     256 </span>            :              * wait times.
+<span class="lineNum">     257 </span>            :              */
+<span class="lineNum">     258 </span><span class="lineNoCov">          0 :             pause_threads(PAUSE_ALL_THREADS);</span>
+<span class="lineNum">     259 </span><span class="lineNoCov">          0 :             assoc_expand();</span>
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :             pause_threads(RESUME_ALL_THREADS);</span>
+<span class="lineNum">     261 </span>            :         }
+<span class="lineNum">     262 </span>            :     }
+<span class="lineNum">     263 </span><span class="lineNoCov">          0 :     return NULL;</span>
+<span class="lineNum">     264 </span>            : }
+<span class="lineNum">     265 </span>            : 
+<a name="266"><span class="lineNum">     266 </span>            : static pthread_t maintenance_tid;</a>
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span><span class="lineCov">         96 : int start_assoc_maintenance_thread() {</span>
+<span class="lineNum">     269 </span><span class="lineCov">         96 :     int ret;</span>
+<span class="lineNum">     270 </span><span class="lineCov">         96 :     char *env = getenv(&quot;MEMCACHED_HASH_BULK_MOVE&quot;);</span>
+<span class="lineNum">     271 </span><span class="lineCov">         96 :     if (env != NULL) {</span>
+<span class="lineNum">     272 </span><span class="lineNoCov">          0 :         hash_bulk_move = atoi(env);</span>
+<span class="lineNum">     273 </span><span class="lineNoCov">          0 :         if (hash_bulk_move == 0) {</span>
+<span class="lineNum">     274 </span><span class="lineNoCov">          0 :             hash_bulk_move = DEFAULT_HASH_BULK_MOVE;</span>
+<span class="lineNum">     275 </span>            :         }
+<span class="lineNum">     276 </span>            :     }
+<span class="lineNum">     277 </span><span class="lineCov">         96 :     pthread_mutex_init(&amp;maintenance_lock, NULL);</span>
+<span class="lineNum">     278 </span><span class="lineCov">         96 :     if ((ret = pthread_create(&amp;maintenance_tid, NULL,</span>
+<span class="lineNum">     279 </span>            :                               assoc_maintenance_thread, NULL)) != 0) {
+<span class="lineNum">     280 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;Can't create thread: %s\n&quot;, strerror(ret));</span>
+<span class="lineNum">     281 </span><span class="lineNoCov">          0 :         return -1;</span>
+<span class="lineNum">     282 </span>            :     }
+<span class="lineNum">     283 </span>            :     return 0;
+<a name="284"><span class="lineNum">     284 </span>            : }</a>
+<span class="lineNum">     285 </span>            : 
+<span class="lineNum">     286 </span><span class="lineNoCov">          0 : void stop_assoc_maintenance_thread() {</span>
+<span class="lineNum">     287 </span><span class="lineNoCov">          0 :     mutex_lock(&amp;maintenance_lock);</span>
+<span class="lineNum">     288 </span><span class="lineNoCov">          0 :     do_run_maintenance_thread = 0;</span>
+<span class="lineNum">     289 </span><span class="lineNoCov">          0 :     pthread_cond_signal(&amp;maintenance_cond);</span>
+<span class="lineNum">     290 </span><span class="lineNoCov">          0 :     mutex_unlock(&amp;maintenance_lock);</span>
+<span class="lineNum">     291 </span>            : 
+<span class="lineNum">     292 </span>            :     /* Wait for the maintenance thread to stop */
+<span class="lineNum">     293 </span><span class="lineNoCov">          0 :     pthread_join(maintenance_tid, NULL);</span>
+<span class="lineNum">     294 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     295 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
