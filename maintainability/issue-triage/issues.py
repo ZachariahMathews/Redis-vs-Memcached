@@ -1,8 +1,22 @@
+# This script generates a list of closed issues along with the time it took 
+# to close it in days. 
+# It also computes the average resolutiont time and classifies the number of 
+# issues in to groups with resolution time :
+# 0 - 10
+# 10- 50
+# 50 - 100
+# 100 - 500
+# > 500
+# 
+# To run the file, run 'python issues.py <project name>' where <project name> 
+# can take values redis or memcached. 
+
+
 import requests
 import dateutil.parser
 import sys
 
-headers = {"Authorization": "Bearer 8b14e06299c86733a60ac1a351c99fd74ee65f06"}
+headers = {"Authorization": "Bearer <API KEY>"}
 
 project = sys.argv[1]
 if project == "redis":
@@ -71,7 +85,7 @@ while hasNext:
   }
   """ % (owner,repo,startCursor1)
 
-  result = run_query(issueDataQuery) # Execute the query
+  result = run_query(issueDataQuery)
   repository = result["data"]["repository"]
   pageInfo = repository["issues"]["pageInfo"]
   hasNext = pageInfo["hasNextPage"]
