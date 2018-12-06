@@ -12,3 +12,10 @@ cppcheck-warning:89
 cppcheck-style:512
 cppcheck-performance:0
 cppcheck-portability:24
+[29.11.2018]
+1543470071613
+cppcheck-error:15
+cppcheck-warning:89
+cppcheck-style:512
+cppcheck-performance:0
+cppcheck-portability:24
