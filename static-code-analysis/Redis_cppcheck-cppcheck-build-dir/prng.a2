@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2599370083">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="test_prng_lg_range_u32" lineNumber="4"/>
+    <functiondecl functionName="test_prng_lg_range_u64" lineNumber="41"/>
+    <functiondecl functionName="test_prng_lg_range_zu" lineNumber="77"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="114"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="119"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="124"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="129"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="134"/>
+    <functiondecl functionName="test_prng_range_u32" lineNumber="140"/>
+    <functiondecl functionName="test_prng_range_u64" lineNumber="160"/>
+    <functiondecl functionName="test_prng_range_zu" lineNumber="180"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="199"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="204"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="209"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="214"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="219"/>
+    <functiondecl functionName="main" lineNumber="225"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="LG_SIZEOF_PTR"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="UINT32_C"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u32_lt"/>
+    <functioncall functionName="assert_u32_ne"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="assert_u64_lt"/>
+    <functioncall functionName="assert_u64_ne"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_lt"/>
+    <functioncall functionName="assert_zu_ne"/>
+    <functioncall functionName="atomic"/>
+    <functioncall functionName="atomic_store_u32"/>
+    <functioncall functionName="atomic_store_zu"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="lg_range"/>
+    <functioncall functionName="prng_lg_range_u32"/>
+    <functioncall functionName="prng_lg_range_u64"/>
+    <functioncall functionName="prng_lg_range_zu"/>
+    <functioncall functionName="prng_range_u32"/>
+    <functioncall functionName="prng_range_u64"/>
+    <functioncall functionName="prng_range_zu"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="ra"/>
+    <functioncall functionName="range"/>
+    <functioncall functionName="rb"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_prng_lg_range_u32"/>
+    <functioncall functionName="test_prng_lg_range_u32_atomic"/>
+    <functioncall functionName="test_prng_lg_range_u32_nonatomic"/>
+    <functioncall functionName="test_prng_lg_range_u64"/>
+    <functioncall functionName="test_prng_lg_range_u64_nonatomic"/>
+    <functioncall functionName="test_prng_lg_range_zu"/>
+    <functioncall functionName="test_prng_lg_range_zu_atomic"/>
+    <functioncall functionName="test_prng_lg_range_zu_nonatomic"/>
+    <functioncall functionName="test_prng_range_u32"/>
+    <functioncall functionName="test_prng_range_u32_atomic"/>
+    <functioncall functionName="test_prng_range_u32_nonatomic"/>
+    <functioncall functionName="test_prng_range_u64"/>
+    <functioncall functionName="test_prng_range_u64_nonatomic"/>
+    <functioncall functionName="test_prng_range_zu"/>
+    <functioncall functionName="test_prng_range_zu_atomic"/>
+    <functioncall functionName="test_prng_range_zu_nonatomic"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

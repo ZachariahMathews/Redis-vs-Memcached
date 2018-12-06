@@ -1,0 +1,359 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1405743424">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;target&apos; can be reduced." verbose="The scope of the variable &apos;target&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\background_thread.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\background_thread.c" line="179"/>
+            <symbol>target</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;npurge&apos; can be reduced." verbose="The scope of the variable &apos;npurge&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\background_thread.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\background_thread.c" line="179"/>
+            <symbol>npurge</symbol>
+        </error>
+        <error id="assignmentInAssert" severity="warning" msg="Assert statement modifies &apos;n_search&apos;." verbose="Variable &apos;n_search&apos; is modified insert assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\background_thread.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\background_thread.c" line="191"/>
+            <symbol>n_search</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="background_thread_create" lineNumber="56"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="57"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="58"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="59"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="61"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="62"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="63"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="64"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="65"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="67"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functiondecl functionName="background_thread_info_init" lineNumber="74"/>
+    <functiondecl functionName="set_current_thread_affinity" lineNumber="84"/>
+    <functiondecl functionName="decay_npurge_after_interval" lineNumber="104"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval_impl" lineNumber="118"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval" lineNumber="204"/>
+    <functiondecl functionName="background_thread_sleep" lineNumber="218"/>
+    <functiondecl functionName="background_thread_pause_check" lineNumber="274"/>
+    <functiondecl functionName="background_work_sleep_once" lineNumber="288"/>
+    <functiondecl functionName="background_threads_disable_single" lineNumber="313"/>
+    <functiondecl functionName="background_thread_create_signals_masked" lineNumber="354"/>
+    <functiondecl functionName="check_background_thread_creation" lineNumber="386"/>
+    <functiondecl functionName="background_thread0_work" lineNumber="436"/>
+    <functiondecl functionName="background_work" lineNumber="485"/>
+    <functiondecl functionName="background_thread_entry" lineNumber="508"/>
+    <functiondecl functionName="background_thread_init" lineNumber="530"/>
+    <functiondecl functionName="background_thread_create" lineNumber="539"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="593"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="629"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="645"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="728"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="734"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="741"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="750"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="777"/>
+    <functiondecl functionName="pthread_create_fptr_init" lineNumber="811"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="837"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functiondecl functionName="background_thread_info_init" lineNumber="74"/>
+    <functiondecl functionName="set_current_thread_affinity" lineNumber="84"/>
+    <functiondecl functionName="decay_npurge_after_interval" lineNumber="104"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval_impl" lineNumber="118"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval" lineNumber="204"/>
+    <functiondecl functionName="background_thread_sleep" lineNumber="218"/>
+    <functiondecl functionName="background_thread_pause_check" lineNumber="274"/>
+    <functiondecl functionName="background_work_sleep_once" lineNumber="288"/>
+    <functiondecl functionName="background_threads_disable_single" lineNumber="313"/>
+    <functiondecl functionName="background_thread_create_signals_masked" lineNumber="354"/>
+    <functiondecl functionName="check_background_thread_creation" lineNumber="386"/>
+    <functiondecl functionName="background_thread0_work" lineNumber="436"/>
+    <functiondecl functionName="background_work" lineNumber="485"/>
+    <functiondecl functionName="background_thread_entry" lineNumber="508"/>
+    <functiondecl functionName="background_thread_init" lineNumber="530"/>
+    <functiondecl functionName="background_thread_create" lineNumber="539"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="593"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="629"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="645"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="728"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="734"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="741"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="750"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="777"/>
+    <functiondecl functionName="pthread_create_fptr_init" lineNumber="811"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="837"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functiondecl functionName="background_thread_info_init" lineNumber="74"/>
+    <functiondecl functionName="set_current_thread_affinity" lineNumber="84"/>
+    <functiondecl functionName="decay_npurge_after_interval" lineNumber="104"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval_impl" lineNumber="118"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval" lineNumber="204"/>
+    <functiondecl functionName="background_thread_sleep" lineNumber="218"/>
+    <functiondecl functionName="background_thread_pause_check" lineNumber="274"/>
+    <functiondecl functionName="background_work_sleep_once" lineNumber="288"/>
+    <functiondecl functionName="background_threads_disable_single" lineNumber="313"/>
+    <functiondecl functionName="background_thread_create_signals_masked" lineNumber="354"/>
+    <functiondecl functionName="check_background_thread_creation" lineNumber="386"/>
+    <functiondecl functionName="background_thread0_work" lineNumber="436"/>
+    <functiondecl functionName="background_work" lineNumber="485"/>
+    <functiondecl functionName="background_thread_entry" lineNumber="508"/>
+    <functiondecl functionName="background_thread_init" lineNumber="530"/>
+    <functiondecl functionName="background_thread_create" lineNumber="539"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="593"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="629"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="645"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="728"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="734"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="741"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="750"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="777"/>
+    <functiondecl functionName="pthread_create_fptr_init" lineNumber="811"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="837"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functiondecl functionName="pthread_create_wrapper_init" lineNumber="37"/>
+    <functiondecl functionName="pthread_create_wrapper" lineNumber="46"/>
+    <functiondecl functionName="background_thread_info_init" lineNumber="74"/>
+    <functiondecl functionName="set_current_thread_affinity" lineNumber="84"/>
+    <functiondecl functionName="decay_npurge_after_interval" lineNumber="104"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval_impl" lineNumber="118"/>
+    <functiondecl functionName="arena_decay_compute_purge_interval" lineNumber="204"/>
+    <functiondecl functionName="background_thread_sleep" lineNumber="218"/>
+    <functiondecl functionName="background_thread_pause_check" lineNumber="274"/>
+    <functiondecl functionName="background_work_sleep_once" lineNumber="288"/>
+    <functiondecl functionName="background_threads_disable_single" lineNumber="313"/>
+    <functiondecl functionName="background_thread_create_signals_masked" lineNumber="354"/>
+    <functiondecl functionName="check_background_thread_creation" lineNumber="386"/>
+    <functiondecl functionName="background_thread0_work" lineNumber="436"/>
+    <functiondecl functionName="background_work" lineNumber="485"/>
+    <functiondecl functionName="background_thread_entry" lineNumber="508"/>
+    <functiondecl functionName="background_thread_init" lineNumber="530"/>
+    <functiondecl functionName="background_thread_create" lineNumber="539"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="593"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="629"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="645"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="728"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="734"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="741"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="750"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="777"/>
+    <functiondecl functionName="pthread_create_fptr_init" lineNumber="811"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="837"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functiondecl functionName="pthread_create_wrapper_init" lineNumber="37"/>
+    <functiondecl functionName="pthread_create_wrapper" lineNumber="46"/>
+    <functiondecl functionName="background_thread_create" lineNumber="56"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="57"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="58"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="59"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="61"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="62"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="63"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="64"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="65"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="67"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functiondecl functionName="pthread_create_wrapper_init" lineNumber="37"/>
+    <functiondecl functionName="pthread_create_wrapper" lineNumber="46"/>
+    <functiondecl functionName="background_thread_create" lineNumber="56"/>
+    <functiondecl functionName="background_threads_enable" lineNumber="57"/>
+    <functiondecl functionName="background_threads_disable" lineNumber="58"/>
+    <functiondecl functionName="background_thread_interval_check" lineNumber="59"/>
+    <functiondecl functionName="background_thread_prefork0" lineNumber="61"/>
+    <functiondecl functionName="background_thread_prefork1" lineNumber="62"/>
+    <functiondecl functionName="background_thread_postfork_parent" lineNumber="63"/>
+    <functiondecl functionName="background_thread_postfork_child" lineNumber="64"/>
+    <functiondecl functionName="background_thread_stats_read" lineNumber="65"/>
+    <functiondecl functionName="background_thread_ctl_init" lineNumber="67"/>
+    <functiondecl functionName="background_thread_boot0" lineNumber="848"/>
+    <functiondecl functionName="background_thread_boot1" lineNumber="864"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="BACKGROUND_THREAD_INDEFINITE_SLEEP"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="CPU_SET"/>
+    <functioncall functionName="CPU_ZERO"/>
+    <functioncall functionName="MAX_BACKGROUND_THREAD_LIMIT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="RTLD_NEXT"/>
+    <functioncall functionName="SIG_SETMASK"/>
+    <functioncall functionName="SMOOTHSTEP_NSTEPS"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="WITNESS_RANK_BACKGROUND_THREAD"/>
+    <functioncall functionName="WITNESS_RANK_BACKGROUND_THREAD_GLOBAL"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="after_sleep"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_background_thread_info_get"/>
+    <functioncall functionName="arena_decay"/>
+    <functioncall functionName="arena_decay_compute_purge_interval"/>
+    <functioncall functionName="arena_decay_compute_purge_interval_impl"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_load_zd"/>
+    <functioncall functionName="attr"/>
+    <functioncall functionName="b0get"/>
+    <functioncall functionName="background_thread0_work"/>
+    <functioncall functionName="background_thread_create"/>
+    <functioncall functionName="background_thread_create_signals_masked"/>
+    <functioncall functionName="background_thread_enabled"/>
+    <functioncall functionName="background_thread_enabled_at_fork"/>
+    <functioncall functionName="background_thread_enabled_set"/>
+    <functioncall functionName="background_thread_entry"/>
+    <functioncall functionName="background_thread_indefinite_sleep"/>
+    <functioncall functionName="background_thread_info"/>
+    <functioncall functionName="background_thread_info_init"/>
+    <functioncall functionName="background_thread_info_t"/>
+    <functioncall functionName="background_thread_init"/>
+    <functioncall functionName="background_thread_lock"/>
+    <functioncall functionName="background_thread_pause_check"/>
+    <functioncall functionName="background_thread_sleep"/>
+    <functioncall functionName="background_thread_started"/>
+    <functioncall functionName="background_thread_stopped"/>
+    <functioncall functionName="background_thread_wakeup_time_get"/>
+    <functioncall functionName="background_thread_wakeup_time_set"/>
+    <functioncall functionName="background_threads_disable_single"/>
+    <functioncall functionName="background_work"/>
+    <functioncall functionName="background_work_sleep_once"/>
+    <functioncall functionName="base_alloc"/>
+    <functioncall functionName="before_sleep"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="check_background_thread_creation"/>
+    <functioncall functionName="cond"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cpu"/>
+    <functioncall functionName="cpu_set_t"/>
+    <functioncall functionName="cpuset"/>
+    <functioncall functionName="create"/>
+    <functioncall functionName="create_err"/>
+    <functioncall functionName="created_threads"/>
+    <functioncall functionName="decay"/>
+    <functioncall functionName="decay_dirty"/>
+    <functioncall functionName="decay_interval_ns"/>
+    <functioncall functionName="decay_muzzy"/>
+    <functioncall functionName="decay_npurge_after_interval"/>
+    <functioncall functionName="diff"/>
+    <functioncall functionName="dlsym"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="extents"/>
+    <functioncall functionName="extents_dirty"/>
+    <functioncall functionName="extents_muzzy"/>
+    <functioncall functionName="extents_npages_get"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="has_thread"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i1"/>
+    <functioncall functionName="i2"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="ind_arg"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="interval"/>
+    <functioncall functionName="isthreaded"/>
+    <functioncall functionName="label_done"/>
+    <functioncall functionName="label_done_unlock2"/>
+    <functioncall functionName="lb"/>
+    <functioncall functionName="lg_floor"/>
+    <functioncall functionName="likely"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_address_ordered"/>
+    <functioncall functionName="malloc_mutex_assert_not_owner"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_trylock"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_write"/>
+    <functioncall functionName="marked"/>
+    <functioncall functionName="max_background_threads"/>
+    <functioncall functionName="min_interval"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="n_background_threads"/>
+    <functioncall functionName="n_created"/>
+    <functioncall functionName="n_epoch"/>
+    <functioncall functionName="narenas_total_get"/>
+    <functioncall functionName="ncpus"/>
+    <functioncall functionName="need_new_thread"/>
+    <functioncall functionName="next_wakeup"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="npages_new"/>
+    <functioncall functionName="npages_to_purge_new"/>
+    <functioncall functionName="npurge"/>
+    <functioncall functionName="npurge_lb"/>
+    <functioncall functionName="nstime_add"/>
+    <functioncall functionName="nstime_compare"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_iadd"/>
+    <functioncall functionName="nstime_idivide"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_init2"/>
+    <functioncall functionName="nstime_ns"/>
+    <functioncall functionName="nstime_nsec"/>
+    <functioncall functionName="nstime_sec"/>
+    <functioncall functionName="nstime_subtract"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="num_runs"/>
+    <functioncall functionName="oldset"/>
+    <functioncall functionName="opt_abort"/>
+    <functioncall functionName="opt_background_thread"/>
+    <functioncall functionName="opt_max_background_threads"/>
+    <functioncall functionName="post_reentrancy"/>
+    <functioncall functionName="pre_reentrancy"/>
+    <functioncall functionName="pthread_cond_init"/>
+    <functioncall functionName="pthread_cond_signal"/>
+    <functioncall functionName="pthread_cond_timedwait"/>
+    <functioncall functionName="pthread_cond_wait"/>
+    <functioncall functionName="pthread_create_fptr"/>
+    <functioncall functionName="pthread_create_fptr_init"/>
+    <functioncall functionName="pthread_create_wrapper"/>
+    <functioncall functionName="pthread_create_wrapper_init"/>
+    <functioncall functionName="pthread_equal"/>
+    <functioncall functionName="pthread_join"/>
+    <functioncall functionName="pthread_self"/>
+    <functioncall functionName="pthread_setname_np"/>
+    <functioncall functionName="pthread_sigmask"/>
+    <functioncall functionName="restore_err"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="run_interval"/>
+    <functioncall functionName="sched_setaffinity"/>
+    <functioncall functionName="set"/>
+    <functioncall functionName="set_current_thread_affinity"/>
+    <functioncall functionName="should_signal"/>
+    <functioncall functionName="sigfillset"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start_routine"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="thread"/>
+    <functioncall functionName="thread_ind"/>
+    <functioncall functionName="time_ms"/>
+    <functioncall functionName="tot_n_runs"/>
+    <functioncall functionName="tot_sleep_time"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="ts_wakeup"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_internal_fetch"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="ub"/>
+    <functioncall functionName="unlikely"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

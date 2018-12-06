@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2994425704">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="5"/>
+    <functiondecl functionName="main" lineNumber="15"/>
+    <functioncall functionName="SPIN_INITIALIZER"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="spin_adaptive"/>
+    <functioncall functionName="spinner"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_spin"/>
+  </FileInfo>
+</analyzerinfo>

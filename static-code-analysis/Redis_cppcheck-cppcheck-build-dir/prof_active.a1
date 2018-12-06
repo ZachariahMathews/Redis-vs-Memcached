@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="940304756">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="mallctl_bool_get" lineNumber="4"/>
+    <functiondecl functionName="mallctl_bool_set" lineNumber="16"/>
+    <functiondecl functionName="mallctl_prof_active_get_impl" lineNumber="31"/>
+    <functiondecl functionName="mallctl_prof_active_set_impl" lineNumber="39"/>
+    <functiondecl functionName="mallctl_thread_prof_active_get_impl" lineNumber="48"/>
+    <functiondecl functionName="mallctl_thread_prof_active_set_impl" lineNumber="57"/>
+    <functiondecl functionName="prof_sampling_probe_impl" lineNumber="66"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="81"/>
+    <functiondecl functionName="main" lineNumber="114"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="__func__"/>
+    <functioncall functionName="assert_b_eq"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="expected_backtraces"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctl_bool_get"/>
+    <functioncall functionName="mallctl_bool_set"/>
+    <functioncall functionName="mallctl_prof_active_get_impl"/>
+    <functioncall functionName="mallctl_prof_active_set_impl"/>
+    <functioncall functionName="mallctl_thread_prof_active_get_impl"/>
+    <functioncall functionName="mallctl_thread_prof_active_set_impl"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="old_expected"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prof_active_new"/>
+    <functioncall functionName="prof_active_old_expected"/>
+    <functioncall functionName="prof_bt_count"/>
+    <functioncall functionName="prof_sampling_probe_impl"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_prof_active"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="thread_prof_active_new"/>
+    <functioncall functionName="thread_prof_active_old_expected"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="val_new"/>
+  </FileInfo>
+</analyzerinfo>

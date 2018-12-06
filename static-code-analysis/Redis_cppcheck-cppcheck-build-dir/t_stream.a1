@@ -1,0 +1,428 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2600667042">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;si-&gt;start_key[0]&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;si-&gt;start_key[0]&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" line="495"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" line="494"/>
+            <symbol>si-&gt;start_key[0]</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;si-&gt;end_key[0]&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;si-&gt;end_key[0]&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" line="502"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" line="501"/>
+            <symbol>si-&gt;end_key[0]</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;endkey&apos; can be reduced." verbose="The scope of the variable &apos;endkey&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" line="1016"/>
+            <symbol>endkey</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;help&apos; can be reduced." verbose="The scope of the variable &apos;help&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_stream.c" line="2425"/>
+            <symbol>help</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="streamNew" lineNumber="52"/>
+    <functiondecl functionName="freeStream" lineNumber="63"/>
+    <functiondecl functionName="streamNextID" lineNumber="74"/>
+    <functiondecl functionName="lpAppendInteger" lineNumber="87"/>
+    <functiondecl functionName="lpReplaceInteger" lineNumber="97"/>
+    <functiondecl functionName="lpGetInteger" lineNumber="106"/>
+    <functiondecl functionName="streamLogListpackContent" lineNumber="122"/>
+    <functiondecl functionName="streamEncodeID" lineNumber="135"/>
+    <functiondecl functionName="streamDecodeID" lineNumber="145"/>
+    <functiondecl functionName="streamCompareID" lineNumber="153"/>
+    <functiondecl functionName="streamAppendItem" lineNumber="175"/>
+    <functiondecl functionName="streamTrimByLength" lineNumber="374"/>
+    <functiondecl functionName="streamIteratorStart" lineNumber="488"/>
+    <functiondecl functionName="streamIteratorGetID" lineNumber="533"/>
+    <functiondecl functionName="streamIteratorGetField" lineNumber="678"/>
+    <functiondecl functionName="streamIteratorRemoveEntry" lineNumber="700"/>
+    <functiondecl functionName="streamIteratorStop" lineNumber="756"/>
+    <functiondecl functionName="streamDeleteItem" lineNumber="762"/>
+    <functiondecl functionName="addReplyStreamID" lineNumber="779"/>
+    <functiondecl functionName="createObjectFromStreamID" lineNumber="786"/>
+    <functiondecl functionName="streamPropagateXCLAIM" lineNumber="794"/>
+    <functiondecl functionName="streamPropagateGroupID" lineNumber="837"/>
+    <functiondecl functionName="streamReplyWithRange" lineNumber="898"/>
+    <functiondecl functionName="streamReplyWithRangeFromConsumerPEL" lineNumber="1013"/>
+    <functiondecl functionName="streamTypeLookupWriteOrCreate" lineNumber="1058"/>
+    <functiondecl functionName="string2ull" lineNumber="1077"/>
+    <functiondecl functionName="streamGenericParseIDOrReply" lineNumber="1104"/>
+    <functiondecl functionName="streamParseIDOrReply" lineNumber="1142"/>
+    <functiondecl functionName="streamParseStrictIDOrReply" lineNumber="1149"/>
+    <functiondecl functionName="streamRewriteApproxMaxlen" lineNumber="1155"/>
+    <functiondecl functionName="xaddCommand" lineNumber="1167"/>
+    <functiondecl functionName="xrangeGenericCommand" lineNumber="1261"/>
+    <functiondecl functionName="xrangeCommand" lineNumber="1302"/>
+    <functiondecl functionName="xrevrangeCommand" lineNumber="1307"/>
+    <functiondecl functionName="xlenCommand" lineNumber="1312"/>
+    <functiondecl functionName="xreadCommand" lineNumber="1328"/>
+    <functiondecl functionName="streamCreateNACK" lineNumber="1592"/>
+    <functiondecl functionName="streamFreeNACK" lineNumber="1601"/>
+    <functiondecl functionName="streamFreeConsumer" lineNumber="1610"/>
+    <functiondecl functionName="streamCreateCG" lineNumber="1621"/>
+    <functiondecl functionName="streamFreeCG" lineNumber="1635"/>
+    <functiondecl functionName="streamLookupCG" lineNumber="1643"/>
+    <functiondecl functionName="streamLookupConsumer" lineNumber="1654"/>
+    <functiondecl functionName="streamDelConsumer" lineNumber="1672"/>
+    <functiondecl functionName="xgroupCommand" lineNumber="1704"/>
+    <functiondecl functionName="xsetidCommand" lineNumber="1835"/>
+    <functiondecl functionName="xackCommand" lineNumber="1875"/>
+    <functiondecl functionName="xpendingCommand" lineNumber="1920"/>
+    <functiondecl functionName="xclaimCommand" lineNumber="2125"/>
+    <functiondecl functionName="xdelCommand" lineNumber="2311"/>
+    <functiondecl functionName="xtrimCommand" lineNumber="2354"/>
+    <functiondecl functionName="xinfoCommand" lineNumber="2424"/>
+    <functiondecl functionName="streamNew" lineNumber="52"/>
+    <functiondecl functionName="freeStream" lineNumber="63"/>
+    <functiondecl functionName="streamNextID" lineNumber="74"/>
+    <functiondecl functionName="lpAppendInteger" lineNumber="87"/>
+    <functiondecl functionName="lpReplaceInteger" lineNumber="97"/>
+    <functiondecl functionName="lpGetInteger" lineNumber="106"/>
+    <functiondecl functionName="streamLogListpackContent" lineNumber="122"/>
+    <functiondecl functionName="streamEncodeID" lineNumber="135"/>
+    <functiondecl functionName="streamDecodeID" lineNumber="145"/>
+    <functiondecl functionName="streamCompareID" lineNumber="153"/>
+    <functiondecl functionName="streamAppendItem" lineNumber="175"/>
+    <functiondecl functionName="streamTrimByLength" lineNumber="374"/>
+    <functiondecl functionName="streamIteratorStart" lineNumber="488"/>
+    <functiondecl functionName="streamIteratorGetID" lineNumber="533"/>
+    <functiondecl functionName="streamIteratorGetField" lineNumber="678"/>
+    <functiondecl functionName="streamIteratorRemoveEntry" lineNumber="700"/>
+    <functiondecl functionName="streamIteratorStop" lineNumber="756"/>
+    <functiondecl functionName="streamDeleteItem" lineNumber="762"/>
+    <functiondecl functionName="addReplyStreamID" lineNumber="779"/>
+    <functiondecl functionName="createObjectFromStreamID" lineNumber="786"/>
+    <functiondecl functionName="streamPropagateXCLAIM" lineNumber="794"/>
+    <functiondecl functionName="streamPropagateGroupID" lineNumber="837"/>
+    <functiondecl functionName="streamReplyWithRange" lineNumber="898"/>
+    <functiondecl functionName="streamReplyWithRangeFromConsumerPEL" lineNumber="1013"/>
+    <functiondecl functionName="streamTypeLookupWriteOrCreate" lineNumber="1058"/>
+    <functiondecl functionName="string2ull" lineNumber="1077"/>
+    <functiondecl functionName="streamGenericParseIDOrReply" lineNumber="1104"/>
+    <functiondecl functionName="streamParseIDOrReply" lineNumber="1142"/>
+    <functiondecl functionName="streamParseStrictIDOrReply" lineNumber="1149"/>
+    <functiondecl functionName="streamRewriteApproxMaxlen" lineNumber="1155"/>
+    <functiondecl functionName="xaddCommand" lineNumber="1167"/>
+    <functiondecl functionName="xrangeGenericCommand" lineNumber="1261"/>
+    <functiondecl functionName="xrangeCommand" lineNumber="1302"/>
+    <functiondecl functionName="xrevrangeCommand" lineNumber="1307"/>
+    <functiondecl functionName="xlenCommand" lineNumber="1312"/>
+    <functiondecl functionName="xreadCommand" lineNumber="1328"/>
+    <functiondecl functionName="streamCreateNACK" lineNumber="1592"/>
+    <functiondecl functionName="streamFreeNACK" lineNumber="1601"/>
+    <functiondecl functionName="streamFreeConsumer" lineNumber="1610"/>
+    <functiondecl functionName="streamCreateCG" lineNumber="1621"/>
+    <functiondecl functionName="streamFreeCG" lineNumber="1635"/>
+    <functiondecl functionName="streamLookupCG" lineNumber="1643"/>
+    <functiondecl functionName="streamLookupConsumer" lineNumber="1654"/>
+    <functiondecl functionName="streamDelConsumer" lineNumber="1672"/>
+    <functiondecl functionName="xgroupCommand" lineNumber="1704"/>
+    <functiondecl functionName="xsetidCommand" lineNumber="1835"/>
+    <functiondecl functionName="xackCommand" lineNumber="1875"/>
+    <functiondecl functionName="xpendingCommand" lineNumber="1920"/>
+    <functiondecl functionName="xclaimCommand" lineNumber="2125"/>
+    <functiondecl functionName="xdelCommand" lineNumber="2311"/>
+    <functiondecl functionName="xtrimCommand" lineNumber="2354"/>
+    <functiondecl functionName="xinfoCommand" lineNumber="2424"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="acknowledged"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyStreamID"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="added_id"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="approx"/>
+    <functioncall functionName="approx_maxlen"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="arraylen"/>
+    <functioncall functionName="arraylen_ptr"/>
+    <functioncall functionName="arraylenptr"/>
+    <functioncall functionName="blockForKeys"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cg"/>
+    <functioncall functionName="cgroups"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="consumer"/>
+    <functioncall functionName="consumername"/>
+    <functioncall functionName="consumers"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="create"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createObjectFromStreamID"/>
+    <functioncall functionName="createStreamObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLong"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="delivery_count"/>
+    <functioncall functionName="delivery_time"/>
+    <functioncall functionName="deliverytime"/>
+    <functioncall functionName="dot"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="e_len"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="emitted"/>
+    <functioncall functionName="emptymultibulk"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="end_key"/>
+    <functioncall functionName="endarg"/>
+    <functioncall functionName="endid"/>
+    <functioncall functionName="endkey"/>
+    <functioncall functionName="endptr"/>
+    <functioncall functionName="equal_obj"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="field_buf"/>
+    <functioncall functionName="field_pos"/>
+    <functioncall functionName="fieldlen"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="found"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getTimeoutFromObjectOrReply"/>
+    <functioncall functionName="group"/>
+    <functioncall functionName="groupname"/>
+    <functioncall functionName="groups"/>
+    <functioncall functionName="grpname"/>
+    <functioncall functionName="gt"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="id_idx"/>
+    <functioncall functionName="idarg"/>
+    <functioncall functionName="idle"/>
+    <functioncall functionName="ids"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intrev64"/>
+    <functioncall functionName="invalid"/>
+    <functioncall functionName="item_id"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="justid"/>
+    <functioncall functionName="justinfo"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_len"/>
+    <functioncall functionName="keyname"/>
+    <functioncall functionName="last"/>
+    <functioncall functionName="last_id"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupKeyWriteOrReply"/>
+    <functioncall functionName="lp"/>
+    <functioncall functionName="lpAppend"/>
+    <functioncall functionName="lpAppendInteger"/>
+    <functioncall functionName="lpBytes"/>
+    <functioncall functionName="lpFirst"/>
+    <functioncall functionName="lpFree"/>
+    <functioncall functionName="lpGet"/>
+    <functioncall functionName="lpGetInteger"/>
+    <functioncall functionName="lpInsert"/>
+    <functioncall functionName="lpLast"/>
+    <functioncall functionName="lpNew"/>
+    <functioncall functionName="lpNext"/>
+    <functioncall functionName="lpPrev"/>
+    <functioncall functionName="lpReplaceInteger"/>
+    <functioncall functionName="lp_count"/>
+    <functioncall functionName="lp_ele"/>
+    <functioncall functionName="lp_flags"/>
+    <functioncall functionName="marked_deleted"/>
+    <functioncall functionName="master_fields_count"/>
+    <functioncall functionName="master_fields_ptr"/>
+    <functioncall functionName="master_fields_start"/>
+    <functioncall functionName="master_id"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxid"/>
+    <functioncall functionName="maxlen"/>
+    <functioncall functionName="maxlen_arg_idx"/>
+    <functioncall functionName="maxlen_obj"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="minidle"/>
+    <functioncall functionName="missing_seq"/>
+    <functioncall functionName="mkstream"/>
+    <functioncall functionName="ms"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="myid"/>
+    <functioncall functionName="myiterator"/>
+    <functioncall functionName="na"/>
+    <functioncall functionName="nack"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="namelen"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="noack"/>
+    <functioncall functionName="nokeyerr"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="nullmultibulk"/>
+    <functioncall functionName="numfields"/>
+    <functioncall functionName="numnodes"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="opt"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pel"/>
+    <functioncall functionName="pending"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="preventCommandPropagation"/>
+    <functioncall functionName="propagate"/>
+    <functioncall functionName="propagate_last_id"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rax"/>
+    <functioncall functionName="raxEOF"/>
+    <functioncall functionName="raxFind"/>
+    <functioncall functionName="raxFree"/>
+    <functioncall functionName="raxFreeWithCallback"/>
+    <functioncall functionName="raxInsert"/>
+    <functioncall functionName="raxNew"/>
+    <functioncall functionName="raxNext"/>
+    <functioncall functionName="raxPrev"/>
+    <functioncall functionName="raxRemove"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxSize"/>
+    <functioncall functionName="raxStart"/>
+    <functioncall functionName="raxStop"/>
+    <functioncall functionName="raxTryInsert"/>
+    <functioncall functionName="rax_key"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="replyid"/>
+    <functioncall functionName="retrycount"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rev"/>
+    <functioncall functionName="rewriteClientCommandArgument"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sc"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="seen_time"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="serve_history"/>
+    <functioncall functionName="serve_synchronously"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="signalKeyAsReady"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="spi"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="start_key"/>
+    <functioncall functionName="startarg"/>
+    <functioncall functionName="startid"/>
+    <functioncall functionName="startkey"/>
+    <functioncall functionName="static_ids"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="stream"/>
+    <functioncall functionName="streamAppendItem"/>
+    <functioncall functionName="streamCompareID"/>
+    <functioncall functionName="streamCreateCG"/>
+    <functioncall functionName="streamCreateNACK"/>
+    <functioncall functionName="streamDecodeID"/>
+    <functioncall functionName="streamDelConsumer"/>
+    <functioncall functionName="streamDeleteItem"/>
+    <functioncall functionName="streamEncodeID"/>
+    <functioncall functionName="streamFreeCG"/>
+    <functioncall functionName="streamFreeConsumer"/>
+    <functioncall functionName="streamFreeNACK"/>
+    <functioncall functionName="streamGenericParseIDOrReply"/>
+    <functioncall functionName="streamIteratorGetField"/>
+    <functioncall functionName="streamIteratorGetID"/>
+    <functioncall functionName="streamIteratorRemoveEntry"/>
+    <functioncall functionName="streamIteratorStart"/>
+    <functioncall functionName="streamIteratorStop"/>
+    <functioncall functionName="streamLookupCG"/>
+    <functioncall functionName="streamLookupConsumer"/>
+    <functioncall functionName="streamNextID"/>
+    <functioncall functionName="streamParseIDOrReply"/>
+    <functioncall functionName="streamParseStrictIDOrReply"/>
+    <functioncall functionName="streamPropagateGroupID"/>
+    <functioncall functionName="streamPropagateXCLAIM"/>
+    <functioncall functionName="streamReplyWithRange"/>
+    <functioncall functionName="streamReplyWithRangeFromConsumerPEL"/>
+    <functioncall functionName="streamRewriteApproxMaxlen"/>
+    <functioncall functionName="streamTrimByLength"/>
+    <functioncall functionName="streamTypeLookupWriteOrCreate"/>
+    <functioncall functionName="stream_node_max_bytes"/>
+    <functioncall functionName="stream_node_max_entries"/>
+    <functioncall functionName="streams_arg"/>
+    <functioncall functionName="streams_count"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="string2ull"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtoull"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="thisid"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="to_delete"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="use_id"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="value_buf"/>
+    <functioncall functionName="value_len"/>
+    <functioncall functionName="valuelen"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="xclaimCommand"/>
+    <functioncall functionName="xgroupCommand"/>
+    <functioncall functionName="xrangeGenericCommand"/>
+    <functioncall functionName="xreadgroup"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

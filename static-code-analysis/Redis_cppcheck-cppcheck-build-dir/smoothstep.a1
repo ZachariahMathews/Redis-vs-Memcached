@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3474134916">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="10"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="39"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="60"/>
+    <functiondecl functionName="main" lineNumber="97"/>
+    <functioncall functionName="KQU"/>
+    <functioncall functionName="SMOOTHSTEP"/>
+    <functioncall functionName="SMOOTHSTEP_NSTEPS"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="assert_u64_ge"/>
+    <functioncall functionName="assert_u64_le"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="prev_delta"/>
+    <functioncall functionName="prev_h"/>
+    <functioncall functionName="sum"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_smoothstep_integral"/>
+    <functioncall functionName="test_smoothstep_monotonic"/>
+    <functioncall functionName="test_smoothstep_slope"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2669667284">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\utils\hashtable\rehashing.c" file="C:\Users\bharm\Downloads\redis-unstable\utils\hashtable\rehashing.c" line="49"/>
+            <symbol>j</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="_redisAssert" lineNumber="4"/>
+    <functiondecl functionName="dictKeyHash" lineNumber="9"/>
+    <functiondecl functionName="dictKeyCompare" lineNumber="21"/>
+    <functiondecl functionName="showBuckets" lineNumber="36"/>
+    <functiondecl functionName="show" lineNumber="48"/>
+    <functiondecl functionName="sortPointers" lineNumber="63"/>
+    <functiondecl functionName="stressGetKeys" lineNumber="71"/>
+    <functiondecl functionName="main" lineNumber="101"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="approx_run"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="des"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGetSomeKeys"/>
+    <functioncall functionName="dictKeyCompare"/>
+    <functioncall functionName="dictKeyHash"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictResize"/>
+    <functioncall functionName="dictSize"/>
+    <functioncall functionName="dictTypeTest"/>
+    <functioncall functionName="dup"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="keyp"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="lb"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="perfect_run"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="rehashidx"/>
+    <functioncall functionName="requested"/>
+    <functioncall functionName="returned"/>
+    <functioncall functionName="show"/>
+    <functioncall functionName="showBuckets"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sortPointers"/>
+    <functioncall functionName="srand"/>
+    <functioncall functionName="stressGetKeys"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="y"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

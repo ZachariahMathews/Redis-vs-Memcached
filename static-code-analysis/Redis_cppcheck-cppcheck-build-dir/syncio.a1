@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="582602210">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nwritten&apos; can be reduced." verbose="The scope of the variable &apos;nwritten&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\syncio.c" file="C:\Users\bharm\Downloads\redis-unstable\src\syncio.c" line="50"/>
+            <symbol>nwritten</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nread&apos; can be reduced." verbose="The scope of the variable &apos;nread&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\syncio.c" file="C:\Users\bharm\Downloads\redis-unstable\src\syncio.c" line="86"/>
+            <symbol>nread</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="syncWrite" lineNumber="49"/>
+    <functiondecl functionName="syncRead" lineNumber="85"/>
+    <functiondecl functionName="syncReadLine" lineNumber="125"/>
+    <functioncall functionName="ETIMEDOUT"/>
+    <functioncall functionName="aeWait"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syncRead"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="wait"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

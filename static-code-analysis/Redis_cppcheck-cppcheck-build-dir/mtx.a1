@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="77399170">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="mtx_init" lineNumber="8"/>
+    <functiondecl functionName="mtx_fini" lineNumber="35"/>
+    <functiondecl functionName="mtx_lock" lineNumber="45"/>
+    <functiondecl functionName="mtx_unlock" lineNumber="58"/>
+    <functiondecl functionName="mtx_init" lineNumber="8"/>
+    <functiondecl functionName="mtx_fini" lineNumber="35"/>
+    <functiondecl functionName="mtx_lock" lineNumber="45"/>
+    <functiondecl functionName="mtx_unlock" lineNumber="58"/>
+    <functiondecl functionName="mtx_init" lineNumber="8"/>
+    <functiondecl functionName="mtx_fini" lineNumber="35"/>
+    <functiondecl functionName="mtx_lock" lineNumber="45"/>
+    <functiondecl functionName="mtx_unlock" lineNumber="58"/>
+    <functiondecl functionName="mtx_init" lineNumber="8"/>
+    <functiondecl functionName="mtx_fini" lineNumber="35"/>
+    <functiondecl functionName="mtx_lock" lineNumber="45"/>
+    <functiondecl functionName="mtx_unlock" lineNumber="58"/>
+    <functioncall functionName="EnterCriticalSection"/>
+    <functioncall functionName="InitializeCriticalSectionAndSpinCount"/>
+    <functioncall functionName="LeaveCriticalSection"/>
+    <functioncall functionName="OSSpinLockLock"/>
+    <functioncall functionName="OSSpinLockUnlock"/>
+    <functioncall functionName="OS_UNFAIR_LOCK_INIT"/>
+    <functioncall functionName="PTHREAD_MUTEX_DEFAULT"/>
+    <functioncall functionName="attr"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="os_unfair_lock_lock"/>
+    <functioncall functionName="os_unfair_lock_unlock"/>
+    <functioncall functionName="pthread_mutex_destroy"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="pthread_mutexattr_destroy"/>
+    <functioncall functionName="pthread_mutexattr_init"/>
+    <functioncall functionName="pthread_mutexattr_settype"/>
+  </FileInfo>
+</analyzerinfo>

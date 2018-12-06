@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="653944515">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="do_arena_create" lineNumber="14"/>
+    <functiondecl functionName="do_arena_destroy" lineNumber="24"/>
+    <functiondecl functionName="do_refresh" lineNumber="37"/>
+    <functiondecl functionName="do_get_size_impl" lineNumber="44"/>
+    <functiondecl functionName="do_get_active" lineNumber="60"/>
+    <functiondecl functionName="do_get_mapped" lineNumber="65"/>
+    <functiondecl functionName="thd_start" lineNumber="70"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="100"/>
+    <functiondecl functionName="main" lineNumber="178"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="ATOMIC_RELEASE"/>
+    <functioncall functionName="HUGEPAGE"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SPIN_INITIALIZER"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="allocated"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zu_le"/>
+    <functioncall functionName="assert_zu_lt"/>
+    <functioncall functionName="atomic_fetch_add_u"/>
+    <functioncall functionName="atomic_load_u"/>
+    <functioncall functionName="atomic_store_u"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="cur_epoch"/>
+    <functioncall functionName="do_arena_create"/>
+    <functioncall functionName="do_arena_destroy"/>
+    <functioncall functionName="do_get_active"/>
+    <functioncall functionName="do_get_mapped"/>
+    <functioncall functionName="do_get_size_impl"/>
+    <functioncall functionName="do_refresh"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="extent_grow_next"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mapped"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="next_epoch"/>
+    <functioncall functionName="nfinished"/>
+    <functioncall functionName="nthreads"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pind"/>
+    <functioncall functionName="psz_fragmented"/>
+    <functioncall functionName="psz_usable"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="spin_adaptive"/>
+    <functioncall functionName="spinner"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_large_pad"/>
+    <functioncall functionName="sz_pind2sz"/>
+    <functioncall functionName="sz_psz2ind"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_retained"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="thd_t"/>
+    <functioncall functionName="threads"/>
+    <functioncall functionName="tsdn_fetch"/>
+    <functioncall functionName="usable"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

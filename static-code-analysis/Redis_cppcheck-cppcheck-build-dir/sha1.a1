@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3447933650">
+        <error id="unusedStructMember" severity="style" msg="union member &apos;CHAR64LONG16::c&apos; is never used." verbose="union member &apos;CHAR64LONG16::c&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sha1.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sha1.c" line="60"/>
+            <symbol>CHAR64LONG16::c</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="SHA1Transform" lineNumber="56"/>
+    <functiondecl functionName="SHA1Init" lineNumber="117"/>
+    <functiondecl functionName="SHA1Update" lineNumber="131"/>
+    <functiondecl functionName="SHA1Final" lineNumber="155"/>
+    <functiondecl functionName="SHA1Transform" lineNumber="56"/>
+    <functiondecl functionName="SHA1Init" lineNumber="117"/>
+    <functiondecl functionName="SHA1Update" lineNumber="131"/>
+    <functiondecl functionName="SHA1Final" lineNumber="155"/>
+    <functioncall functionName="SHA1Transform"/>
+    <functioncall functionName="SHA1Update"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="block"/>
+    <functioncall functionName="buffer"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="context"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="finalcount"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

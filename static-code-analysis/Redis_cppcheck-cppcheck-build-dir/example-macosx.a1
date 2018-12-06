@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="716087167">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getCallback" lineNumber="12"/>
+    <functiondecl functionName="connectCallback" lineNumber="21"/>
+    <functiondecl functionName="disconnectCallback" lineNumber="29"/>
+    <functiondecl functionName="main" lineNumber="38"/>
+    <functioncall functionName="CFRunLoopGetCurrent"/>
+    <functioncall functionName="CFRunLoopRun"/>
+    <functioncall functionName="CFRunLoopStop"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="connectCallback"/>
+    <functioncall functionName="disconnectCallback"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="getCallback"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="loop"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="redisAsyncCommand"/>
+    <functioncall functionName="redisAsyncConnect"/>
+    <functioncall functionName="redisAsyncDisconnect"/>
+    <functioncall functionName="redisAsyncSetConnectCallback"/>
+    <functioncall functionName="redisAsyncSetDisconnectCallback"/>
+    <functioncall functionName="redisMacOSAttach"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strlen"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2465881224">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="dictStringKeyCompare" lineNumber="39"/>
+    <functiondecl functionName="dictStringHash" lineNumber="44"/>
+    <functiondecl functionName="THPGetAnonHugePagesSize" lineNumber="81"/>
+    <functiondecl functionName="latencyMonitorInit" lineNumber="90"/>
+    <functiondecl functionName="latencyAddSample" lineNumber="98"/>
+    <functiondecl functionName="latencyResetEvent" lineNumber="135"/>
+    <functiondecl functionName="analyzeLatencyForEvent" lineNumber="160"/>
+    <functiondecl functionName="createLatencyReport" lineNumber="217"/>
+    <functiondecl functionName="latencyCommandReplyWithSamples" lineNumber="478"/>
+    <functiondecl functionName="latencyCommandReplyWithLatestEvents" lineNumber="496"/>
+    <functiondecl functionName="latencyCommandGenSparkeline" lineNumber="517"/>
+    <functiondecl functionName="latencyCommand" lineNumber="569"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="THPGetAnonHugePagesSize"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="advise_better_vm"/>
+    <functioncall functionName="advise_data_writeback"/>
+    <functioncall functionName="advise_disable_thp"/>
+    <functioncall functionName="advise_disk_contention"/>
+    <functioncall functionName="advise_large_objects"/>
+    <functioncall functionName="advise_local_disk"/>
+    <functioncall functionName="advise_mass_eviction"/>
+    <functioncall functionName="advise_no_appendfsync"/>
+    <functioncall functionName="advise_scheduler"/>
+    <functioncall functionName="advise_slowlog_enabled"/>
+    <functioncall functionName="advise_slowlog_inspect"/>
+    <functioncall functionName="advise_slowlog_tuning"/>
+    <functioncall functionName="advise_ssd"/>
+    <functioncall functionName="advise_write_load_info"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="analyzeLatencyForEvent"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="avg"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createLatencyReport"/>
+    <functioncall functionName="createSparklineSequence"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictStringHash"/>
+    <functioncall functionName="dictStringKeyCompare"/>
+    <functioncall functionName="dictVanillaFree"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="event_to_reset"/>
+    <functioncall functionName="eventnum"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork_quality"/>
+    <functioncall functionName="freeSparklineSequence"/>
+    <functioncall functionName="graph"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int64_t"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="last"/>
+    <functioncall functionName="latency"/>
+    <functioncall functionName="latencyCommandGenSparkeline"/>
+    <functioncall functionName="latencyCommandReplyWithLatestEvents"/>
+    <functioncall functionName="latencyCommandReplyWithSamples"/>
+    <functioncall functionName="latencyResetEvent"/>
+    <functioncall functionName="latencyTimeSeriesDictType"/>
+    <functioncall functionName="latency_events"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="ls"/>
+    <functioncall functionName="mad"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="nodataerr"/>
+    <functioncall functionName="period"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="replylen"/>
+    <functioncall functionName="report"/>
+    <functioncall functionName="resets"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="samples"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sparklineRender"/>
+    <functioncall functionName="sparklineSequenceAddSample"/>
+    <functioncall functionName="stat_fork_rate"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_get_smap_bytes_by_field"/>
+    <functioncall functionName="zstrdup"/>
+  </FileInfo>
+</analyzerinfo>

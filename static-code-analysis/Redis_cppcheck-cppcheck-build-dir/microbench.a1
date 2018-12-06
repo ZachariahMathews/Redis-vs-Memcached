@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2070208712">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="time_func" lineNumber="4"/>
+    <functiondecl functionName="compare_funcs" lineNumber="19"/>
+    <functiondecl functionName="malloc_free" lineNumber="44"/>
+    <functiondecl functionName="mallocx_free" lineNumber="55"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="64"/>
+    <functiondecl functionName="malloc_dallocx" lineNumber="71"/>
+    <functiondecl functionName="malloc_sdallocx" lineNumber="81"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="90"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="96"/>
+    <functiondecl functionName="malloc_mus_free" lineNumber="103"/>
+    <functiondecl functionName="malloc_sallocx_free" lineNumber="116"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="130"/>
+    <functiondecl functionName="malloc_nallocx_free" lineNumber="137"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="151"/>
+    <functiondecl functionName="main" lineNumber="158"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="compare_funcs"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="func_a"/>
+    <functioncall functionName="func_b"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="malloc_dallocx"/>
+    <functioncall functionName="malloc_free"/>
+    <functioncall functionName="malloc_mus_free"/>
+    <functioncall functionName="malloc_nallocx_free"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_sallocx_free"/>
+    <functioncall functionName="malloc_sdallocx"/>
+    <functioncall functionName="malloc_usable_size"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mallocx_free"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="name_a"/>
+    <functioncall functionName="name_b"/>
+    <functioncall functionName="niter"/>
+    <functioncall functionName="nwarmup"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="ratio_buf"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="sdallocx"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="test_dallocx_vs_sdallocx"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_free_vs_dallocx"/>
+    <functioncall functionName="test_malloc_vs_mallocx"/>
+    <functioncall functionName="test_mus_vs_sallocx"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_sallocx_vs_nallocx"/>
+    <functioncall functionName="time_func"/>
+    <functioncall functionName="timer"/>
+    <functioncall functionName="timer_a"/>
+    <functioncall functionName="timer_b"/>
+    <functioncall functionName="timer_ratio"/>
+    <functioncall functionName="timer_start"/>
+    <functioncall functionName="timer_stop"/>
+    <functioncall functionName="timer_usec"/>
+    <functioncall functionName="void"/>
+  </FileInfo>
+</analyzerinfo>

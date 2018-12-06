@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1715862447">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="rtree_new" lineNumber="13"/>
+    <functiondecl functionName="rtree_node_alloc_impl" lineNumber="31"/>
+    <functiondecl functionName="rtree_node_dalloc_impl" lineNumber="38"/>
+    <functiondecl functionName="rtree_leaf_alloc_impl" lineNumber="46"/>
+    <functiondecl functionName="rtree_leaf_dalloc_impl" lineNumber="53"/>
+    <functiondecl functionName="rtree_node_init" lineNumber="102"/>
+    <functiondecl functionName="rtree_leaf_init" lineNumber="129"/>
+    <functiondecl functionName="rtree_node_valid" lineNumber="155"/>
+    <functiondecl functionName="rtree_leaf_valid" lineNumber="160"/>
+    <functiondecl functionName="rtree_child_node_tryread" lineNumber="165"/>
+    <functiondecl functionName="rtree_child_node_read" lineNumber="181"/>
+    <functiondecl functionName="rtree_child_leaf_tryread" lineNumber="194"/>
+    <functiondecl functionName="rtree_child_leaf_read" lineNumber="210"/>
+    <functiondecl functionName="rtree_leaf_elm_lookup_hard" lineNumber="223"/>
+    <functiondecl functionName="rtree_ctx_data_init" lineNumber="309"/>
+    <functiondecl functionName="rtree_new" lineNumber="13"/>
+    <functiondecl functionName="rtree_node_alloc_impl" lineNumber="31"/>
+    <functiondecl functionName="rtree_node_dalloc_impl" lineNumber="38"/>
+    <functiondecl functionName="rtree_leaf_alloc_impl" lineNumber="46"/>
+    <functiondecl functionName="rtree_leaf_dalloc_impl" lineNumber="53"/>
+    <functiondecl functionName="rtree_delete" lineNumber="94"/>
+    <functiondecl functionName="rtree_node_init" lineNumber="102"/>
+    <functiondecl functionName="rtree_leaf_init" lineNumber="129"/>
+    <functiondecl functionName="rtree_node_valid" lineNumber="155"/>
+    <functiondecl functionName="rtree_leaf_valid" lineNumber="160"/>
+    <functiondecl functionName="rtree_child_node_tryread" lineNumber="165"/>
+    <functiondecl functionName="rtree_child_node_read" lineNumber="181"/>
+    <functiondecl functionName="rtree_child_leaf_tryread" lineNumber="194"/>
+    <functiondecl functionName="rtree_child_leaf_read" lineNumber="210"/>
+    <functiondecl functionName="rtree_leaf_elm_lookup_hard" lineNumber="223"/>
+    <functiondecl functionName="rtree_ctx_data_init" lineNumber="309"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="ATOMIC_RELEASE"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="RTREE_CTX_NCACHE_L2"/>
+    <functioncall functionName="RTREE_HEIGHT"/>
+    <functioncall functionName="RTREE_LEAFKEY_INVALID"/>
+    <functioncall functionName="WITNESS_RANK_RTREE"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_load_p"/>
+    <functioncall functionName="atomic_store_p"/>
+    <functioncall functionName="b0get"/>
+    <functioncall functionName="base_alloc"/>
+    <functioncall functionName="bits"/>
+    <functioncall functionName="child"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="dependent"/>
+    <functioncall functionName="elm"/>
+    <functioncall functionName="elmp"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init_lock"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="leaf"/>
+    <functioncall functionName="leafkey"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="root"/>
+    <functioncall functionName="rtree"/>
+    <functioncall functionName="rtree_cache_direct_map"/>
+    <functioncall functionName="rtree_child_leaf_read"/>
+    <functioncall functionName="rtree_child_leaf_tryread"/>
+    <functioncall functionName="rtree_child_node_read"/>
+    <functioncall functionName="rtree_child_node_tryread"/>
+    <functioncall functionName="rtree_ctx_cache_elm_t"/>
+    <functioncall functionName="rtree_leaf_alloc"/>
+    <functioncall functionName="rtree_leaf_dalloc_impl"/>
+    <functioncall functionName="rtree_leaf_elm_t"/>
+    <functioncall functionName="rtree_leaf_init"/>
+    <functioncall functionName="rtree_leaf_valid"/>
+    <functioncall functionName="rtree_leafkey"/>
+    <functioncall functionName="rtree_node_alloc"/>
+    <functioncall functionName="rtree_node_dalloc_impl"/>
+    <functioncall functionName="rtree_node_elm_t"/>
+    <functioncall functionName="rtree_node_init"/>
+    <functioncall functionName="rtree_node_valid"/>
+    <functioncall functionName="rtree_subkey"/>
+    <functioncall functionName="rtree_t"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slot"/>
+    <functioncall functionName="subkey"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="unlikely"/>
+    <functioncall functionName="zeroed"/>
+  </FileInfo>
+</analyzerinfo>

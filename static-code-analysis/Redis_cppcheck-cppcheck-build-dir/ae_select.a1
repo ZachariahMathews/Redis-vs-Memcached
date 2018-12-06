@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="862149742">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ae_select.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ae_select.c" line="79"/>
+            <symbol>j</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aeApiCreate" lineNumber="42"/>
+    <functiondecl functionName="aeApiResize" lineNumber="52"/>
+    <functiondecl functionName="aeApiFree" lineNumber="58"/>
+    <functiondecl functionName="aeApiAddEvent" lineNumber="62"/>
+    <functiondecl functionName="aeApiDelEvent" lineNumber="70"/>
+    <functiondecl functionName="aeApiPoll" lineNumber="77"/>
+    <functiondecl functionName="aeApiName" lineNumber="104"/>
+    <functioncall functionName="FD_CLR"/>
+    <functioncall functionName="FD_ISSET"/>
+    <functioncall functionName="FD_SET"/>
+    <functioncall functionName="FD_ZERO"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_rfds"/>
+    <functioncall functionName="_wfds"/>
+    <functioncall functionName="apidata"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fd_set"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="maxfd"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="numevents"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="rfds"/>
+    <functioncall functionName="select"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="tvp"/>
+    <functioncall functionName="wfds"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

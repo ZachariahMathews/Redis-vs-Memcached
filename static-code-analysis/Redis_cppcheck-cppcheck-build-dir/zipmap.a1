@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1456315244">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;l&apos; can be reduced." verbose="The scope of the variable &apos;l&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\zipmap.c" file="C:\Users\bharm\Downloads\redis-unstable\src\zipmap.c" line="140"/>
+            <symbol>l</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;llen&apos; can be reduced." verbose="The scope of the variable &apos;llen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\zipmap.c" file="C:\Users\bharm\Downloads\redis-unstable\src\zipmap.c" line="140"/>
+            <symbol>llen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;freelen&apos; can be reduced." verbose="The scope of the variable &apos;freelen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\zipmap.c" file="C:\Users\bharm\Downloads\redis-unstable\src\zipmap.c" line="282"/>
+            <symbol>freelen</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="zipmapNew" lineNumber="96"/>
+    <functiondecl functionName="zipmapDecodeLength" lineNumber="105"/>
+    <functiondecl functionName="zipmapEncodeLength" lineNumber="116"/>
+    <functiondecl functionName="zipmapLookupRaw" lineNumber="138"/>
+    <functiondecl functionName="zipmapRequiredLength" lineNumber="168"/>
+    <functiondecl functionName="zipmapRawKeyLength" lineNumber="178"/>
+    <functiondecl functionName="zipmapRawValueLength" lineNumber="185"/>
+    <functiondecl functionName="zipmapRawEntryLength" lineNumber="197"/>
+    <functiondecl functionName="zipmapResize" lineNumber="202"/>
+    <functiondecl functionName="zipmapSet" lineNumber="211"/>
+    <functiondecl functionName="zipmapDel" lineNumber="281"/>
+    <functiondecl functionName="zipmapRewind" lineNumber="300"/>
+    <functiondecl functionName="zipmapNext" lineNumber="315"/>
+    <functiondecl functionName="zipmapGet" lineNumber="334"/>
+    <functiondecl functionName="zipmapExists" lineNumber="345"/>
+    <functiondecl functionName="zipmapLen" lineNumber="350"/>
+    <functiondecl functionName="zipmapBlobLen" lineNumber="367"/>
+    <functiondecl functionName="zipmapNew" lineNumber="96"/>
+    <functiondecl functionName="zipmapDecodeLength" lineNumber="105"/>
+    <functiondecl functionName="zipmapEncodeLength" lineNumber="116"/>
+    <functiondecl functionName="zipmapLookupRaw" lineNumber="138"/>
+    <functiondecl functionName="zipmapRequiredLength" lineNumber="168"/>
+    <functiondecl functionName="zipmapRawKeyLength" lineNumber="178"/>
+    <functiondecl functionName="zipmapRawValueLength" lineNumber="185"/>
+    <functiondecl functionName="zipmapRawEntryLength" lineNumber="197"/>
+    <functiondecl functionName="zipmapResize" lineNumber="202"/>
+    <functiondecl functionName="zipmapSet" lineNumber="211"/>
+    <functiondecl functionName="zipmapDel" lineNumber="281"/>
+    <functiondecl functionName="zipmapRewind" lineNumber="300"/>
+    <functiondecl functionName="zipmapNext" lineNumber="315"/>
+    <functiondecl functionName="zipmapGet" lineNumber="334"/>
+    <functiondecl functionName="zipmapExists" lineNumber="345"/>
+    <functiondecl functionName="zipmapLen" lineNumber="350"/>
+    <functiondecl functionName="zipmapBlobLen" lineNumber="367"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="empty"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freelen"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="klen"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="llen"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memrev32"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="reqlen"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="update"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vempty"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zipmapDecodeLength"/>
+    <functioncall functionName="zipmapEncodeLength"/>
+    <functioncall functionName="zipmapLookupRaw"/>
+    <functioncall functionName="zipmapNext"/>
+    <functioncall functionName="zipmapRawEntryLength"/>
+    <functioncall functionName="zipmapRawKeyLength"/>
+    <functioncall functionName="zipmapRawValueLength"/>
+    <functioncall functionName="zipmapRequiredLength"/>
+    <functioncall functionName="zipmapResize"/>
+    <functioncall functionName="zipmapRewind"/>
+    <functioncall functionName="zm"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmlen"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

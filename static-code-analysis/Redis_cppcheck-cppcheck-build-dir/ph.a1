@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1385302861">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="node_cmp" lineNumber="15"/>
+    <functiondecl functionName="node_cmp_magic" lineNumber="31"/>
+    <functiondecl functionName="node_print" lineNumber="43"/>
+    <functiondecl functionName="heap_print" lineNumber="65"/>
+    <functiondecl functionName="node_validate" lineNumber="88"/>
+    <functiondecl functionName="heap_validate" lineNumber="116"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="141"/>
+    <functiondecl functionName="node_remove" lineNumber="152"/>
+    <functiondecl functionName="node_remove_first" lineNumber="159"/>
+    <functiondecl functionName="node_remove_any" lineNumber="166"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="172"/>
+    <functiondecl functionName="main" lineNumber="314"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="assert_d_ge"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="auxelm"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fini_gen_rand"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gen_rand64_range"/>
+    <functioncall functionName="heap"/>
+    <functioncall functionName="heap_"/>
+    <functioncall functionName="heap_any"/>
+    <functioncall functionName="heap_empty"/>
+    <functioncall functionName="heap_first"/>
+    <functioncall functionName="heap_insert"/>
+    <functioncall functionName="heap_new"/>
+    <functioncall functionName="heap_print"/>
+    <functioncall functionName="heap_remove"/>
+    <functioncall functionName="heap_remove_any"/>
+    <functioncall functionName="heap_remove_first"/>
+    <functioncall functionName="heap_t"/>
+    <functioncall functionName="heap_validate"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init_gen_rand"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="leftmost_child"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="magic"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="node_cmp"/>
+    <functioncall functionName="node_cmp_magic"/>
+    <functioncall functionName="node_print"/>
+    <functioncall functionName="node_remove"/>
+    <functioncall functionName="node_remove_any"/>
+    <functioncall functionName="node_remove_first"/>
+    <functioncall functionName="node_validate"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="parent"/>
+    <functioncall functionName="ph_gen"/>
+    <functioncall functionName="ph_root"/>
+    <functioncall functionName="phn"/>
+    <functioncall functionName="phn_lchild_get"/>
+    <functioncall functionName="phn_next_get"/>
+    <functioncall functionName="phn_prev_get"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sfmt"/>
+    <functioncall functionName="sibling"/>
+    <functioncall functionName="static"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_ph_empty"/>
+    <functioncall functionName="test_ph_random"/>
+  </FileInfo>
+</analyzerinfo>

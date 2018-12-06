@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="211409287">
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="1195"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="1205"/>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: p" verbose="Possible null pointer dereference: p" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="362" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="776" info="Calling function &apos;zipStoreEntryEncoding&apos;, 1st argument &apos;p&apos; value is 0"/>
+            <symbol>p</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;rawlen&apos; can be reduced." verbose="The scope of the variable &apos;rawlen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="617"/>
+            <symbol>rawlen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;rawlensize&apos; can be reduced." verbose="The scope of the variable &apos;rawlensize&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="617"/>
+            <symbol>rawlensize</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;offset&apos; can be reduced." verbose="The scope of the variable &apos;offset&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="680"/>
+            <symbol>offset</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nextdiff&apos; can be reduced." verbose="The scope of the variable &apos;nextdiff&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="681"/>
+            <symbol>nextdiff</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;prevlensize&apos; can be reduced." verbose="The scope of the variable &apos;prevlensize&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="745"/>
+            <symbol>prevlensize</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;prevlensize&apos; can be reduced." verbose="The scope of the variable &apos;prevlensize&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="967"/>
+            <symbol>prevlensize</symbol>
+        </error>
+        <error id="funcArgOrderDifferent" severity="warning" msg="Function &apos;ziplistGet&apos; argument order different: declaration &apos;p, sval, slen, lval&apos; definition &apos;p, sstr, slen, sval&apos;" verbose="Function &apos;ziplistGet&apos; argument order different: declaration &apos;p, sval, slen, lval&apos; definition &apos;p, sstr, slen, sval&apos;" cwe="683">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="1034"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.h" line="43"/>
+            <symbol>ziplistGet</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;prevlen&apos; can be reduced." verbose="The scope of the variable &apos;prevlen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ziplist.c" line="967"/>
+            <symbol>prevlen</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="zipIntSize" lineNumber="306"/>
+    <functiondecl functionName="zipStoreEntryEncoding" lineNumber="332"/>
+    <functiondecl functionName="zipStorePrevEntryLengthLarge" lineNumber="397"/>
+    <functiondecl functionName="zipStorePrevEntryLength" lineNumber="408"/>
+    <functiondecl functionName="zipPrevLenByteDiff" lineNumber="464"/>
+    <functiondecl functionName="zipRawEntryLength" lineNumber="471"/>
+    <functiondecl functionName="zipTryEncoding" lineNumber="480"/>
+    <functiondecl functionName="zipSaveInteger" lineNumber="507"/>
+    <functiondecl functionName="zipLoadInteger" lineNumber="537"/>
+    <functiondecl functionName="zipEntry" lineNumber="569"/>
+    <functiondecl functionName="ziplistNew" lineNumber="578"/>
+    <functiondecl functionName="ziplistResize" lineNumber="589"/>
+    <functiondecl functionName="__ziplistCascadeUpdate" lineNumber="616"/>
+    <functiondecl functionName="__ziplistDelete" lineNumber="678"/>
+    <functiondecl functionName="__ziplistInsert" lineNumber="743"/>
+    <functiondecl functionName="ziplistMerge" lineNumber="856"/>
+    <functiondecl functionName="ziplistPush" lineNumber="956"/>
+    <functiondecl functionName="ziplistIndex" lineNumber="965"/>
+    <functiondecl functionName="ziplistNext" lineNumber="993"/>
+    <functiondecl functionName="ziplistPrev" lineNumber="1012"/>
+    <functiondecl functionName="ziplistGet" lineNumber="1034"/>
+    <functiondecl functionName="ziplistInsert" lineNumber="1054"/>
+    <functiondecl functionName="ziplistDelete" lineNumber="1061"/>
+    <functiondecl functionName="ziplistDeleteRange" lineNumber="1074"/>
+    <functiondecl functionName="ziplistCompare" lineNumber="1081"/>
+    <functiondecl functionName="ziplistFind" lineNumber="1108"/>
+    <functiondecl functionName="ziplistLen" lineNumber="1168"/>
+    <functiondecl functionName="ziplistBlobLen" lineNumber="1186"/>
+    <functiondecl functionName="ziplistRepr" lineNumber="1190"/>
+    <functiondecl functionName="zipIntSize" lineNumber="306"/>
+    <functiondecl functionName="zipStoreEntryEncoding" lineNumber="332"/>
+    <functiondecl functionName="zipStorePrevEntryLengthLarge" lineNumber="397"/>
+    <functiondecl functionName="zipStorePrevEntryLength" lineNumber="408"/>
+    <functiondecl functionName="zipPrevLenByteDiff" lineNumber="464"/>
+    <functiondecl functionName="zipRawEntryLength" lineNumber="471"/>
+    <functiondecl functionName="zipTryEncoding" lineNumber="480"/>
+    <functiondecl functionName="zipSaveInteger" lineNumber="507"/>
+    <functiondecl functionName="zipLoadInteger" lineNumber="537"/>
+    <functiondecl functionName="zipEntry" lineNumber="569"/>
+    <functiondecl functionName="ziplistNew" lineNumber="578"/>
+    <functiondecl functionName="ziplistResize" lineNumber="589"/>
+    <functiondecl functionName="__ziplistCascadeUpdate" lineNumber="616"/>
+    <functiondecl functionName="__ziplistDelete" lineNumber="678"/>
+    <functiondecl functionName="__ziplistInsert" lineNumber="743"/>
+    <functiondecl functionName="ziplistMerge" lineNumber="856"/>
+    <functiondecl functionName="ziplistPush" lineNumber="956"/>
+    <functiondecl functionName="ziplistIndex" lineNumber="965"/>
+    <functiondecl functionName="ziplistNext" lineNumber="993"/>
+    <functiondecl functionName="ziplistPrev" lineNumber="1012"/>
+    <functiondecl functionName="ziplistGet" lineNumber="1034"/>
+    <functiondecl functionName="ziplistInsert" lineNumber="1054"/>
+    <functiondecl functionName="ziplistDelete" lineNumber="1061"/>
+    <functiondecl functionName="ziplistDeleteRange" lineNumber="1074"/>
+    <functiondecl functionName="ziplistCompare" lineNumber="1081"/>
+    <functiondecl functionName="ziplistFind" lineNumber="1108"/>
+    <functiondecl functionName="ziplistLen" lineNumber="1168"/>
+    <functiondecl functionName="ziplistBlobLen" lineNumber="1186"/>
+    <functiondecl functionName="ziplistRepr" lineNumber="1190"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="UCHAR_MAX"/>
+    <functioncall functionName="__ziplistCascadeUpdate"/>
+    <functioncall functionName="__ziplistDelete"/>
+    <functioncall functionName="__ziplistInsert"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="append"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="case"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="entrylen"/>
+    <functioncall functionName="extra"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="first_bytes"/>
+    <functioncall functionName="first_offset"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forcelarge"/>
+    <functioncall functionName="fwrite"/>
+    <functioncall functionName="headersize"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i16"/>
+    <functioncall functionName="i32"/>
+    <functioncall functionName="i64"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int8_t"/>
+    <functioncall functionName="intrev16"/>
+    <functioncall functionName="intrev32"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lensize"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memrev16"/>
+    <functioncall functionName="memrev32"/>
+    <functioncall functionName="memrev64"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextdiff"/>
+    <functioncall functionName="np"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="prevlen"/>
+    <functioncall functionName="prevlensize"/>
+    <functioncall functionName="prevrawlen"/>
+    <functioncall functionName="prevrawlensize"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="ptail"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="rawlen"/>
+    <functioncall functionName="rawlensize"/>
+    <functioncall functionName="reqlen"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="second_bytes"/>
+    <functioncall functionName="second_len"/>
+    <functioncall functionName="sencoding"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="skip"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="sstr"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="sval"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="uint16_t"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vencoding"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vll"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zipEntry"/>
+    <functioncall functionName="zipIntSize"/>
+    <functioncall functionName="zipLoadInteger"/>
+    <functioncall functionName="zipPrevLenByteDiff"/>
+    <functioncall functionName="zipRawEntryLength"/>
+    <functioncall functionName="zipSaveInteger"/>
+    <functioncall functionName="zipStoreEntryEncoding"/>
+    <functioncall functionName="zipStorePrevEntryLength"/>
+    <functioncall functionName="zipStorePrevEntryLengthLarge"/>
+    <functioncall functionName="zipTryEncoding"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistResize"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zlbytes"/>
+    <functioncall functionName="zllength"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3022228805">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;f&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;f&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="603"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="598"/>
+            <symbol>f</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;aux&apos; can be reduced." verbose="The scope of the variable &apos;aux&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="447"/>
+            <symbol>aux</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;aux&apos; can be reduced." verbose="The scope of the variable &apos;aux&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="479"/>
+            <symbol>aux</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;start&apos; is assigned a value that is never used." verbose="Variable &apos;start&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="704"/>
+            <symbol>start</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;oldfree&apos; can be reduced." verbose="The scope of the variable &apos;oldfree&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="1249"/>
+            <symbol>oldfree</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;p&apos; can be reduced." verbose="The scope of the variable &apos;p&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="1250"/>
+            <symbol>p</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;oldfree&apos; is assigned a value that is never used." verbose="Variable &apos;oldfree&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sds.c" line="1268"/>
+            <symbol>oldfree</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="sdsHdrSize" lineNumber="44"/>
+    <functiondecl functionName="sdsReqType" lineNumber="60"/>
+    <functiondecl functionName="sdsnewlen" lineNumber="89"/>
+    <functiondecl functionName="sdsempty" lineNumber="149"/>
+    <functiondecl functionName="sdsnew" lineNumber="154"/>
+    <functiondecl functionName="sdsdup" lineNumber="160"/>
+    <functiondecl functionName="sdsfree" lineNumber="165"/>
+    <functiondecl functionName="sdsupdatelen" lineNumber="184"/>
+    <functiondecl functionName="sdsclear" lineNumber="193"/>
+    <functiondecl functionName="sdsMakeRoomFor" lineNumber="204"/>
+    <functiondecl functionName="sdsRemoveFreeSpace" lineNumber="255"/>
+    <functiondecl functionName="sdsAllocSize" lineNumber="295"/>
+    <functiondecl functionName="sdsAllocPtr" lineNumber="302"/>
+    <functiondecl functionName="sdsIncrLen" lineNumber="329"/>
+    <functiondecl functionName="sdsgrowzero" lineNumber="375"/>
+    <functiondecl functionName="sdscatlen" lineNumber="393"/>
+    <functiondecl functionName="sdscat" lineNumber="408"/>
+    <functiondecl functionName="sdscatsds" lineNumber="416"/>
+    <functiondecl functionName="sdscpylen" lineNumber="422"/>
+    <functiondecl functionName="sdscpy" lineNumber="435"/>
+    <functiondecl functionName="sdsll2str" lineNumber="446"/>
+    <functiondecl functionName="sdsull2str" lineNumber="478"/>
+    <functiondecl functionName="sdsfromlonglong" lineNumber="510"/>
+    <functiondecl functionName="sdscatvprintf" lineNumber="518"/>
+    <functiondecl functionName="sdscatprintf" lineNumber="571"/>
+    <functiondecl functionName="sdscatfmt" lineNumber="596"/>
+    <functiondecl functionName="sdstrim" lineNumber="700"/>
+    <functiondecl functionName="sdsrange" lineNumber="731"/>
+    <functiondecl functionName="sdstolower" lineNumber="760"/>
+    <functiondecl functionName="sdstoupper" lineNumber="767"/>
+    <functiondecl functionName="sdscmp" lineNumber="784"/>
+    <functiondecl functionName="sdssplitlen" lineNumber="812"/>
+    <functiondecl functionName="sdsfreesplitres" lineNumber="863"/>
+    <functiondecl functionName="sdscatrepr" lineNumber="876"/>
+    <functiondecl functionName="is_hex_digit" lineNumber="903"/>
+    <functiondecl functionName="hex_digit_to_int" lineNumber="910"/>
+    <functiondecl functionName="sdssplitargs" lineNumber="951"/>
+    <functiondecl functionName="sdsmapchars" lineNumber="1070"/>
+    <functiondecl functionName="sdsjoin" lineNumber="1086"/>
+    <functiondecl functionName="sdsjoinsds" lineNumber="1098"/>
+    <functiondecl functionName="sds_malloc" lineNumber="1114"/>
+    <functiondecl functionName="sds_realloc" lineNumber="1115"/>
+    <functiondecl functionName="sds_free" lineNumber="1116"/>
+    <functiondecl functionName="sdsHdrSize" lineNumber="44"/>
+    <functiondecl functionName="sdsReqType" lineNumber="60"/>
+    <functiondecl functionName="sdsnewlen" lineNumber="89"/>
+    <functiondecl functionName="sdsempty" lineNumber="149"/>
+    <functiondecl functionName="sdsnew" lineNumber="154"/>
+    <functiondecl functionName="sdsdup" lineNumber="160"/>
+    <functiondecl functionName="sdsfree" lineNumber="165"/>
+    <functiondecl functionName="sdsupdatelen" lineNumber="184"/>
+    <functiondecl functionName="sdsclear" lineNumber="193"/>
+    <functiondecl functionName="sdsMakeRoomFor" lineNumber="204"/>
+    <functiondecl functionName="sdsRemoveFreeSpace" lineNumber="255"/>
+    <functiondecl functionName="sdsAllocSize" lineNumber="295"/>
+    <functiondecl functionName="sdsAllocPtr" lineNumber="302"/>
+    <functiondecl functionName="sdsIncrLen" lineNumber="329"/>
+    <functiondecl functionName="sdsgrowzero" lineNumber="375"/>
+    <functiondecl functionName="sdscatlen" lineNumber="393"/>
+    <functiondecl functionName="sdscat" lineNumber="408"/>
+    <functiondecl functionName="sdscatsds" lineNumber="416"/>
+    <functiondecl functionName="sdscpylen" lineNumber="422"/>
+    <functiondecl functionName="sdscpy" lineNumber="435"/>
+    <functiondecl functionName="sdsll2str" lineNumber="446"/>
+    <functiondecl functionName="sdsull2str" lineNumber="478"/>
+    <functiondecl functionName="sdsfromlonglong" lineNumber="510"/>
+    <functiondecl functionName="sdscatvprintf" lineNumber="518"/>
+    <functiondecl functionName="sdscatprintf" lineNumber="571"/>
+    <functiondecl functionName="sdscatfmt" lineNumber="596"/>
+    <functiondecl functionName="sdstrim" lineNumber="700"/>
+    <functiondecl functionName="sdsrange" lineNumber="731"/>
+    <functiondecl functionName="sdstolower" lineNumber="760"/>
+    <functiondecl functionName="sdstoupper" lineNumber="767"/>
+    <functiondecl functionName="sdscmp" lineNumber="784"/>
+    <functiondecl functionName="sdssplitlen" lineNumber="812"/>
+    <functiondecl functionName="sdsfreesplitres" lineNumber="863"/>
+    <functiondecl functionName="sdscatrepr" lineNumber="876"/>
+    <functiondecl functionName="is_hex_digit" lineNumber="903"/>
+    <functiondecl functionName="hex_digit_to_int" lineNumber="910"/>
+    <functiondecl functionName="sdssplitargs" lineNumber="951"/>
+    <functiondecl functionName="sdsmapchars" lineNumber="1070"/>
+    <functiondecl functionName="sdsjoin" lineNumber="1086"/>
+    <functiondecl functionName="sdsjoinsds" lineNumber="1098"/>
+    <functiondecl functionName="sds_malloc" lineNumber="1114"/>
+    <functiondecl functionName="sds_realloc" lineNumber="1115"/>
+    <functiondecl functionName="sds_free" lineNumber="1116"/>
+    <functiondecl functionName="sdsHdrSize" lineNumber="44"/>
+    <functiondecl functionName="sdsReqType" lineNumber="60"/>
+    <functiondecl functionName="sdsnewlen" lineNumber="89"/>
+    <functiondecl functionName="sdsempty" lineNumber="149"/>
+    <functiondecl functionName="sdsnew" lineNumber="154"/>
+    <functiondecl functionName="sdsdup" lineNumber="160"/>
+    <functiondecl functionName="sdsfree" lineNumber="165"/>
+    <functiondecl functionName="sdsupdatelen" lineNumber="184"/>
+    <functiondecl functionName="sdsclear" lineNumber="193"/>
+    <functiondecl functionName="sdsMakeRoomFor" lineNumber="204"/>
+    <functiondecl functionName="sdsRemoveFreeSpace" lineNumber="255"/>
+    <functiondecl functionName="sdsAllocSize" lineNumber="295"/>
+    <functiondecl functionName="sdsAllocPtr" lineNumber="302"/>
+    <functiondecl functionName="sdsIncrLen" lineNumber="329"/>
+    <functiondecl functionName="sdsgrowzero" lineNumber="375"/>
+    <functiondecl functionName="sdscatlen" lineNumber="393"/>
+    <functiondecl functionName="sdscat" lineNumber="408"/>
+    <functiondecl functionName="sdscatsds" lineNumber="416"/>
+    <functiondecl functionName="sdscpylen" lineNumber="422"/>
+    <functiondecl functionName="sdscpy" lineNumber="435"/>
+    <functiondecl functionName="sdsll2str" lineNumber="446"/>
+    <functiondecl functionName="sdsull2str" lineNumber="478"/>
+    <functiondecl functionName="sdsfromlonglong" lineNumber="510"/>
+    <functiondecl functionName="sdscatvprintf" lineNumber="518"/>
+    <functiondecl functionName="sdscatprintf" lineNumber="571"/>
+    <functiondecl functionName="sdscatfmt" lineNumber="596"/>
+    <functiondecl functionName="sdstrim" lineNumber="700"/>
+    <functiondecl functionName="sdsrange" lineNumber="731"/>
+    <functiondecl functionName="sdstolower" lineNumber="760"/>
+    <functiondecl functionName="sdstoupper" lineNumber="767"/>
+    <functiondecl functionName="sdscmp" lineNumber="784"/>
+    <functiondecl functionName="sdssplitlen" lineNumber="812"/>
+    <functiondecl functionName="sdsfreesplitres" lineNumber="863"/>
+    <functiondecl functionName="sdscatrepr" lineNumber="876"/>
+    <functiondecl functionName="is_hex_digit" lineNumber="903"/>
+    <functiondecl functionName="hex_digit_to_int" lineNumber="910"/>
+    <functiondecl functionName="sdssplitargs" lineNumber="951"/>
+    <functiondecl functionName="sdsmapchars" lineNumber="1070"/>
+    <functiondecl functionName="sdsjoin" lineNumber="1086"/>
+    <functiondecl functionName="sdsjoinsds" lineNumber="1098"/>
+    <functiondecl functionName="sds_malloc" lineNumber="1114"/>
+    <functiondecl functionName="sds_realloc" lineNumber="1115"/>
+    <functiondecl functionName="sds_free" lineNumber="1116"/>
+    <functiondecl functionName="sdsTest" lineNumber="1124"/>
+    <functiondecl functionName="main" lineNumber="1289"/>
+    <functiondecl functionName="sdsHdrSize" lineNumber="44"/>
+    <functiondecl functionName="sdsReqType" lineNumber="60"/>
+    <functiondecl functionName="sdsnewlen" lineNumber="89"/>
+    <functiondecl functionName="sdsempty" lineNumber="149"/>
+    <functiondecl functionName="sdsnew" lineNumber="154"/>
+    <functiondecl functionName="sdsdup" lineNumber="160"/>
+    <functiondecl functionName="sdsfree" lineNumber="165"/>
+    <functiondecl functionName="sdsupdatelen" lineNumber="184"/>
+    <functiondecl functionName="sdsclear" lineNumber="193"/>
+    <functiondecl functionName="sdsMakeRoomFor" lineNumber="204"/>
+    <functiondecl functionName="sdsRemoveFreeSpace" lineNumber="255"/>
+    <functiondecl functionName="sdsAllocSize" lineNumber="295"/>
+    <functiondecl functionName="sdsAllocPtr" lineNumber="302"/>
+    <functiondecl functionName="sdsIncrLen" lineNumber="329"/>
+    <functiondecl functionName="sdsgrowzero" lineNumber="375"/>
+    <functiondecl functionName="sdscatlen" lineNumber="393"/>
+    <functiondecl functionName="sdscat" lineNumber="408"/>
+    <functiondecl functionName="sdscatsds" lineNumber="416"/>
+    <functiondecl functionName="sdscpylen" lineNumber="422"/>
+    <functiondecl functionName="sdscpy" lineNumber="435"/>
+    <functiondecl functionName="sdsll2str" lineNumber="446"/>
+    <functiondecl functionName="sdsull2str" lineNumber="478"/>
+    <functiondecl functionName="sdsfromlonglong" lineNumber="510"/>
+    <functiondecl functionName="sdscatvprintf" lineNumber="518"/>
+    <functiondecl functionName="sdscatprintf" lineNumber="571"/>
+    <functiondecl functionName="sdscatfmt" lineNumber="596"/>
+    <functiondecl functionName="sdstrim" lineNumber="700"/>
+    <functiondecl functionName="sdsrange" lineNumber="731"/>
+    <functiondecl functionName="sdstolower" lineNumber="760"/>
+    <functiondecl functionName="sdstoupper" lineNumber="767"/>
+    <functiondecl functionName="sdscmp" lineNumber="784"/>
+    <functiondecl functionName="sdssplitlen" lineNumber="812"/>
+    <functiondecl functionName="sdsfreesplitres" lineNumber="863"/>
+    <functiondecl functionName="sdscatrepr" lineNumber="876"/>
+    <functiondecl functionName="is_hex_digit" lineNumber="903"/>
+    <functiondecl functionName="hex_digit_to_int" lineNumber="910"/>
+    <functiondecl functionName="sdssplitargs" lineNumber="951"/>
+    <functiondecl functionName="sdsmapchars" lineNumber="1070"/>
+    <functiondecl functionName="sdsjoin" lineNumber="1086"/>
+    <functiondecl functionName="sdsjoinsds" lineNumber="1098"/>
+    <functiondecl functionName="sds_malloc" lineNumber="1114"/>
+    <functiondecl functionName="sds_realloc" lineNumber="1115"/>
+    <functiondecl functionName="sds_free" lineNumber="1116"/>
+    <functioncall functionName="LLONG_MAX"/>
+    <functioncall functionName="LLONG_MIN"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="UINT_MAX"/>
+    <functioncall functionName="ULLONG_MAX"/>
+    <functioncall functionName="__failed_tests"/>
+    <functioncall functionName="__test_num"/>
+    <functioncall functionName="addlen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="cpy"/>
+    <functioncall functionName="cset"/>
+    <functioncall functionName="curlen"/>
+    <functioncall functionName="current"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="done"/>
+    <functioncall functionName="elements"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="ep"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="hdrlen"/>
+    <functioncall functionName="hex_digit_to_int"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="init"/>
+    <functioncall functionName="initlen"/>
+    <functioncall functionName="inq"/>
+    <functioncall functionName="insq"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="is_hex_digit"/>
+    <functioncall functionName="isprint"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="join"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l1"/>
+    <functioncall functionName="l2"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="minlen"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newtokens"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="oldhdrlen"/>
+    <functioncall functionName="oldlen"/>
+    <functioncall functionName="oldtype"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="reallen"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s1"/>
+    <functioncall functionName="s2"/>
+    <functioncall functionName="sdsHdrSize"/>
+    <functioncall functionName="sdsIncrLen"/>
+    <functioncall functionName="sdsMakeRoomFor"/>
+    <functioncall functionName="sdsReqType"/>
+    <functioncall functionName="sdsTest"/>
+    <functioncall functionName="sdsalloc"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdscatvprintf"/>
+    <functioncall functionName="sdscmp"/>
+    <functioncall functionName="sdscpy"/>
+    <functioncall functionName="sdscpylen"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsinclen"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsll2str"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssetalloc"/>
+    <functioncall functionName="sdssetlen"/>
+    <functioncall functionName="sdstrim"/>
+    <functioncall functionName="sdsull2str"/>
+    <functioncall functionName="sep"/>
+    <functioncall functionName="seplen"/>
+    <functioncall functionName="sh"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sp"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="staticbuf"/>
+    <functioncall functionName="step"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="tokens"/>
+    <functioncall functionName="tolower"/>
+    <functioncall functionName="toupper"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unum"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_copy"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vector"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="y"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

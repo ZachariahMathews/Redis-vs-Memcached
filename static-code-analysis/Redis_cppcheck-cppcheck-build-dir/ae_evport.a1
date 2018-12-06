@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2804265964">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;mask&apos; can be reduced." verbose="The scope of the variable &apos;mask&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ae_evport.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ae_evport.c" line="246"/>
+            <symbol>mask</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aeApiCreate" lineNumber="75"/>
+    <functiondecl functionName="aeApiResize" lineNumber="97"/>
+    <functiondecl functionName="aeApiFree" lineNumber="102"/>
+    <functiondecl functionName="aeApiLookupPending" lineNumber="109"/>
+    <functiondecl functionName="aeApiAssociate" lineNumber="123"/>
+    <functiondecl functionName="aeApiAddEvent" lineNumber="152"/>
+    <functiondecl functionName="aeApiDelEvent" lineNumber="183"/>
+    <functiondecl functionName="aeApiPoll" lineNumber="243"/>
+    <functiondecl functionName="aeApiName" lineNumber="318"/>
+    <functioncall functionName="AE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PORT_SOURCE_FD"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="aeApiAssociate"/>
+    <functioncall functionName="aeApiLookupPending"/>
+    <functioncall functionName="apidata"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="events"/>
+    <functioncall functionName="evport_debug"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="fullmask"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="nevents"/>
+    <functioncall functionName="npending"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pfd"/>
+    <functioncall functionName="port_associate"/>
+    <functioncall functionName="port_create"/>
+    <functioncall functionName="port_dissociate"/>
+    <functioncall functionName="port_getn"/>
+    <functioncall functionName="portev_object"/>
+    <functioncall functionName="portev_user"/>
+    <functioncall functionName="portfd"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rv"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tsp"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="where"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

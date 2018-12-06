@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1700654807">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="thd_start" lineNumber="14"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="47"/>
+    <functiondecl functionName="main" lineNumber="63"/>
+    <functiondecl functionName="thd_start" lineNumber="14"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="47"/>
+    <functiondecl functionName="main" lineNumber="63"/>
+    <functioncall functionName="EFAULT"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="dss"/>
+    <functioncall functionName="dss_precs"/>
+    <functioncall functionName="expected_err"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prec_ind"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_MALLOCX_ARENA"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

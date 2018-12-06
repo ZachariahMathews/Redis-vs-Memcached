@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1459136547">
+        <error id="unreadVariable" severity="style" msg="Variable &apos;dst&apos; is assigned a value that is never used." verbose="Variable &apos;dst&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\listpack.c" file="C:\Users\bharm\Downloads\redis-unstable\src\listpack.c" line="696"/>
+            <symbol>dst</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="lpStringToInt64" lineNumber="141"/>
+    <functiondecl functionName="lpNew" lineNumber="206"/>
+    <functiondecl functionName="lpFree" lineNumber="216"/>
+    <functiondecl functionName="lpEncodeGetType" lineNumber="231"/>
+    <functiondecl functionName="lpEncodeBacklen" lineNumber="296"/>
+    <functiondecl functionName="lpDecodeBacklen" lineNumber="335"/>
+    <functiondecl functionName="lpEncodeString" lineNumber="352"/>
+    <functiondecl functionName="lpCurrentEncodedSize" lineNumber="372"/>
+    <functiondecl functionName="lpSkip" lineNumber="390"/>
+    <functiondecl functionName="lpNext" lineNumber="400"/>
+    <functiondecl functionName="lpPrev" lineNumber="410"/>
+    <functiondecl functionName="lpFirst" lineNumber="420"/>
+    <functiondecl functionName="lpLast" lineNumber="428"/>
+    <functiondecl functionName="lpLength" lineNumber="438"/>
+    <functiondecl functionName="lpGet" lineNumber="491"/>
+    <functiondecl functionName="lpInsert" lineNumber="595"/>
+    <functiondecl functionName="lpAppend" lineNumber="736"/>
+    <functiondecl functionName="lpDelete" lineNumber="746"/>
+    <functiondecl functionName="lpBytes" lineNumber="751"/>
+    <functiondecl functionName="lpSeek" lineNumber="760"/>
+    <functiondecl functionName="lpStringToInt64" lineNumber="141"/>
+    <functiondecl functionName="lpNew" lineNumber="206"/>
+    <functiondecl functionName="lpFree" lineNumber="216"/>
+    <functiondecl functionName="lpEncodeGetType" lineNumber="231"/>
+    <functiondecl functionName="lpEncodeBacklen" lineNumber="296"/>
+    <functiondecl functionName="lpDecodeBacklen" lineNumber="335"/>
+    <functiondecl functionName="lpEncodeString" lineNumber="352"/>
+    <functiondecl functionName="lpCurrentEncodedSize" lineNumber="372"/>
+    <functiondecl functionName="lpSkip" lineNumber="390"/>
+    <functiondecl functionName="lpNext" lineNumber="400"/>
+    <functiondecl functionName="lpPrev" lineNumber="410"/>
+    <functiondecl functionName="lpFirst" lineNumber="420"/>
+    <functiondecl functionName="lpLast" lineNumber="428"/>
+    <functiondecl functionName="lpLength" lineNumber="438"/>
+    <functiondecl functionName="lpGet" lineNumber="491"/>
+    <functiondecl functionName="lpInsert" lineNumber="595"/>
+    <functiondecl functionName="lpAppend" lineNumber="736"/>
+    <functiondecl functionName="lpDelete" lineNumber="746"/>
+    <functiondecl functionName="lpBytes" lineNumber="751"/>
+    <functiondecl functionName="lpSeek" lineNumber="760"/>
+    <functiondecl functionName="lpStringToInt64" lineNumber="141"/>
+    <functiondecl functionName="lpNew" lineNumber="206"/>
+    <functiondecl functionName="lpFree" lineNumber="216"/>
+    <functiondecl functionName="lpEncodeGetType" lineNumber="231"/>
+    <functiondecl functionName="lpEncodeBacklen" lineNumber="296"/>
+    <functiondecl functionName="lpDecodeBacklen" lineNumber="335"/>
+    <functiondecl functionName="lpEncodeString" lineNumber="352"/>
+    <functiondecl functionName="lpCurrentEncodedSize" lineNumber="372"/>
+    <functiondecl functionName="lpSkip" lineNumber="390"/>
+    <functiondecl functionName="lpNext" lineNumber="400"/>
+    <functiondecl functionName="lpPrev" lineNumber="410"/>
+    <functiondecl functionName="lpFirst" lineNumber="420"/>
+    <functiondecl functionName="lpLast" lineNumber="428"/>
+    <functiondecl functionName="lpLength" lineNumber="438"/>
+    <functiondecl functionName="lpGet" lineNumber="491"/>
+    <functiondecl functionName="lpInsert" lineNumber="595"/>
+    <functiondecl functionName="lpAppend" lineNumber="736"/>
+    <functiondecl functionName="lpDelete" lineNumber="746"/>
+    <functiondecl functionName="lpBytes" lineNumber="751"/>
+    <functiondecl functionName="lpSeek" lineNumber="760"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="backlen"/>
+    <functioncall functionName="backlen_size"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="enclen"/>
+    <functioncall functionName="entrylen"/>
+    <functioncall functionName="eofptr"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int64_t"/>
+    <functioncall functionName="intbuf"/>
+    <functioncall functionName="intenc"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lendiff"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lp"/>
+    <functioncall functionName="lpCurrentEncodedSize"/>
+    <functioncall functionName="lpDecodeBacklen"/>
+    <functioncall functionName="lpEncodeBacklen"/>
+    <functioncall functionName="lpEncodeGetType"/>
+    <functioncall functionName="lpEncodeString"/>
+    <functioncall functionName="lpFirst"/>
+    <functioncall functionName="lpInsert"/>
+    <functioncall functionName="lpLast"/>
+    <functioncall functionName="lpNext"/>
+    <functioncall functionName="lpPrev"/>
+    <functioncall functionName="lpSkip"/>
+    <functioncall functionName="lpStringToInt64"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="negative"/>
+    <functioncall functionName="new_listpack_bytes"/>
+    <functioncall functionName="newp"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="poff"/>
+    <functioncall functionName="prevlen"/>
+    <functioncall functionName="replaced_len"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="shift"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uval"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

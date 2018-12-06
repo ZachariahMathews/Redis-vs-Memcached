@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="166981803">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;reply&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;reply&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="1012"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="1010"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="76"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;parent&apos; can be reduced." verbose="The scope of the variable &apos;parent&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="103"/>
+            <symbol>parent</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;parent&apos; can be reduced." verbose="The scope of the variable &apos;parent&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="135"/>
+            <symbol>parent</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;parent&apos; can be reduced." verbose="The scope of the variable &apos;parent&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="160"/>
+            <symbol>parent</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;parent&apos; can be reduced." verbose="The scope of the variable &apos;parent&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="177"/>
+            <symbol>parent</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;len&apos; can be reduced." verbose="The scope of the variable &apos;len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="573"/>
+            <symbol>len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nwritten&apos; can be reduced." verbose="The scope of the variable &apos;nwritten&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\hiredis.c" line="832"/>
+            <symbol>nwritten</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="createReplyObject" lineNumber="63"/>
+    <functiondecl functionName="freeReplyObject" lineNumber="74"/>
+    <functiondecl functionName="createStringObject" lineNumber="102"/>
+    <functiondecl functionName="createArrayObject" lineNumber="134"/>
+    <functiondecl functionName="createIntegerObject" lineNumber="159"/>
+    <functiondecl functionName="createNilObject" lineNumber="176"/>
+    <functiondecl functionName="countDigits" lineNumber="193"/>
+    <functiondecl functionName="bulklen" lineNumber="206"/>
+    <functiondecl functionName="redisvFormatCommand" lineNumber="210"/>
+    <functiondecl functionName="redisFormatCommand" lineNumber="456"/>
+    <functiondecl functionName="redisFormatSdsCommandArgv" lineNumber="477"/>
+    <functiondecl functionName="redisFreeSdsCommand" lineNumber="521"/>
+    <functiondecl functionName="redisFormatCommandArgv" lineNumber="530"/>
+    <functiondecl functionName="redisFreeCommand" lineNumber="568"/>
+    <functiondecl functionName="__redisSetError" lineNumber="572"/>
+    <functiondecl functionName="redisReaderCreate" lineNumber="588"/>
+    <functiondecl functionName="redisContextInit" lineNumber="592"/>
+    <functiondecl functionName="redisFree" lineNumber="616"/>
+    <functiondecl functionName="redisFreeKeepFd" lineNumber="636"/>
+    <functiondecl functionName="redisReconnect" lineNumber="643"/>
+    <functiondecl functionName="redisConnect" lineNumber="674"/>
+    <functiondecl functionName="redisConnectWithTimeout" lineNumber="686"/>
+    <functiondecl functionName="redisConnectNonBlock" lineNumber="698"/>
+    <functiondecl functionName="redisConnectBindNonBlock" lineNumber="710"/>
+    <functiondecl functionName="redisConnectBindNonBlockWithReuse" lineNumber="718"/>
+    <functiondecl functionName="redisConnectUnix" lineNumber="727"/>
+    <functiondecl functionName="redisConnectUnixWithTimeout" lineNumber="739"/>
+    <functiondecl functionName="redisConnectUnixNonBlock" lineNumber="751"/>
+    <functiondecl functionName="redisConnectFd" lineNumber="763"/>
+    <functiondecl functionName="redisSetTimeout" lineNumber="776"/>
+    <functiondecl functionName="redisEnableKeepAlive" lineNumber="783"/>
+    <functiondecl functionName="redisBufferRead" lineNumber="794"/>
+    <functiondecl functionName="redisBufferWrite" lineNumber="831"/>
+    <functiondecl functionName="redisGetReplyFromReader" lineNumber="862"/>
+    <functiondecl functionName="redisGetReply" lineNumber="870"/>
+    <functiondecl functionName="__redisAppendCommand" lineNumber="907"/>
+    <functiondecl functionName="redisAppendFormattedCommand" lineNumber="920"/>
+    <functiondecl functionName="redisvAppendCommand" lineNumber="929"/>
+    <functiondecl functionName="redisAppendCommand" lineNumber="951"/>
+    <functiondecl functionName="redisAppendCommandArgv" lineNumber="961"/>
+    <functiondecl functionName="__redisBlockForReply" lineNumber="991"/>
+    <functiondecl functionName="redisvCommand" lineNumber="1002"/>
+    <functiondecl functionName="redisCommand" lineNumber="1008"/>
+    <functiondecl functionName="redisCommandArgv" lineNumber="1017"/>
+    <functiondecl functionName="createReplyObject" lineNumber="63"/>
+    <functiondecl functionName="freeReplyObject" lineNumber="74"/>
+    <functiondecl functionName="createStringObject" lineNumber="102"/>
+    <functiondecl functionName="createArrayObject" lineNumber="134"/>
+    <functiondecl functionName="createIntegerObject" lineNumber="159"/>
+    <functiondecl functionName="createNilObject" lineNumber="176"/>
+    <functiondecl functionName="countDigits" lineNumber="193"/>
+    <functiondecl functionName="bulklen" lineNumber="206"/>
+    <functiondecl functionName="redisvFormatCommand" lineNumber="210"/>
+    <functiondecl functionName="redisFormatCommand" lineNumber="456"/>
+    <functiondecl functionName="redisFormatSdsCommandArgv" lineNumber="477"/>
+    <functiondecl functionName="redisFreeSdsCommand" lineNumber="521"/>
+    <functiondecl functionName="redisFormatCommandArgv" lineNumber="530"/>
+    <functiondecl functionName="redisFreeCommand" lineNumber="568"/>
+    <functiondecl functionName="__redisSetError" lineNumber="572"/>
+    <functiondecl functionName="redisReaderCreate" lineNumber="588"/>
+    <functiondecl functionName="redisContextInit" lineNumber="592"/>
+    <functiondecl functionName="redisFree" lineNumber="616"/>
+    <functiondecl functionName="redisFreeKeepFd" lineNumber="636"/>
+    <functiondecl functionName="redisReconnect" lineNumber="643"/>
+    <functiondecl functionName="redisConnect" lineNumber="674"/>
+    <functiondecl functionName="redisConnectWithTimeout" lineNumber="686"/>
+    <functiondecl functionName="redisConnectNonBlock" lineNumber="698"/>
+    <functiondecl functionName="redisConnectBindNonBlock" lineNumber="710"/>
+    <functiondecl functionName="redisConnectBindNonBlockWithReuse" lineNumber="718"/>
+    <functiondecl functionName="redisConnectUnix" lineNumber="727"/>
+    <functiondecl functionName="redisConnectUnixWithTimeout" lineNumber="739"/>
+    <functiondecl functionName="redisConnectUnixNonBlock" lineNumber="751"/>
+    <functiondecl functionName="redisConnectFd" lineNumber="763"/>
+    <functiondecl functionName="redisSetTimeout" lineNumber="776"/>
+    <functiondecl functionName="redisEnableKeepAlive" lineNumber="783"/>
+    <functiondecl functionName="redisBufferRead" lineNumber="794"/>
+    <functiondecl functionName="redisBufferWrite" lineNumber="831"/>
+    <functiondecl functionName="redisGetReplyFromReader" lineNumber="862"/>
+    <functiondecl functionName="redisGetReply" lineNumber="870"/>
+    <functiondecl functionName="__redisAppendCommand" lineNumber="907"/>
+    <functiondecl functionName="redisAppendFormattedCommand" lineNumber="920"/>
+    <functiondecl functionName="redisvAppendCommand" lineNumber="929"/>
+    <functiondecl functionName="redisAppendCommand" lineNumber="951"/>
+    <functiondecl functionName="redisAppendCommandArgv" lineNumber="961"/>
+    <functiondecl functionName="__redisBlockForReply" lineNumber="991"/>
+    <functiondecl functionName="redisvCommand" lineNumber="1002"/>
+    <functiondecl functionName="redisCommand" lineNumber="1008"/>
+    <functiondecl functionName="redisCommandArgv" lineNumber="1017"/>
+    <functiondecl functionName="createReplyObject" lineNumber="63"/>
+    <functiondecl functionName="freeReplyObject" lineNumber="74"/>
+    <functiondecl functionName="createStringObject" lineNumber="102"/>
+    <functiondecl functionName="createArrayObject" lineNumber="134"/>
+    <functiondecl functionName="createIntegerObject" lineNumber="159"/>
+    <functiondecl functionName="createNilObject" lineNumber="176"/>
+    <functiondecl functionName="countDigits" lineNumber="193"/>
+    <functiondecl functionName="bulklen" lineNumber="206"/>
+    <functiondecl functionName="redisvFormatCommand" lineNumber="210"/>
+    <functiondecl functionName="redisFormatCommand" lineNumber="456"/>
+    <functiondecl functionName="redisFormatSdsCommandArgv" lineNumber="477"/>
+    <functiondecl functionName="redisFreeSdsCommand" lineNumber="521"/>
+    <functiondecl functionName="redisFormatCommandArgv" lineNumber="530"/>
+    <functiondecl functionName="redisFreeCommand" lineNumber="568"/>
+    <functiondecl functionName="__redisSetError" lineNumber="572"/>
+    <functiondecl functionName="redisReaderCreate" lineNumber="588"/>
+    <functiondecl functionName="redisContextInit" lineNumber="592"/>
+    <functiondecl functionName="redisFree" lineNumber="616"/>
+    <functiondecl functionName="redisFreeKeepFd" lineNumber="636"/>
+    <functiondecl functionName="redisReconnect" lineNumber="643"/>
+    <functiondecl functionName="redisConnect" lineNumber="674"/>
+    <functiondecl functionName="redisConnectWithTimeout" lineNumber="686"/>
+    <functiondecl functionName="redisConnectNonBlock" lineNumber="698"/>
+    <functiondecl functionName="redisConnectBindNonBlock" lineNumber="710"/>
+    <functiondecl functionName="redisConnectBindNonBlockWithReuse" lineNumber="718"/>
+    <functiondecl functionName="redisConnectUnix" lineNumber="727"/>
+    <functiondecl functionName="redisConnectUnixWithTimeout" lineNumber="739"/>
+    <functiondecl functionName="redisConnectUnixNonBlock" lineNumber="751"/>
+    <functiondecl functionName="redisConnectFd" lineNumber="763"/>
+    <functiondecl functionName="redisSetTimeout" lineNumber="776"/>
+    <functiondecl functionName="redisEnableKeepAlive" lineNumber="783"/>
+    <functiondecl functionName="redisBufferRead" lineNumber="794"/>
+    <functiondecl functionName="redisBufferWrite" lineNumber="831"/>
+    <functiondecl functionName="redisGetReplyFromReader" lineNumber="862"/>
+    <functiondecl functionName="redisGetReply" lineNumber="870"/>
+    <functiondecl functionName="__redisAppendCommand" lineNumber="907"/>
+    <functiondecl functionName="redisAppendFormattedCommand" lineNumber="920"/>
+    <functiondecl functionName="redisvAppendCommand" lineNumber="929"/>
+    <functiondecl functionName="redisAppendCommand" lineNumber="951"/>
+    <functiondecl functionName="redisAppendCommandArgv" lineNumber="961"/>
+    <functiondecl functionName="__redisBlockForReply" lineNumber="991"/>
+    <functiondecl functionName="redisvCommand" lineNumber="1002"/>
+    <functiondecl functionName="redisCommand" lineNumber="1008"/>
+    <functiondecl functionName="redisCommandArgv" lineNumber="1017"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="REDIS_CONN_TCP"/>
+    <functioncall functionName="REDIS_CONN_UNIX"/>
+    <functioncall functionName="__redisAppendCommand"/>
+    <functioncall functionName="__redisBlockForReply"/>
+    <functioncall functionName="__redisSetError"/>
+    <functioncall functionName="_cpy"/>
+    <functioncall functionName="_format"/>
+    <functioncall functionName="_l"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="argvlen"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bulklen"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="countDigits"/>
+    <functioncall functionName="createArrayObject"/>
+    <functioncall functionName="createIntegerObject"/>
+    <functioncall functionName="createNilObject"/>
+    <functioncall functionName="createReplyObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="curarg"/>
+    <functioncall functionName="curargv"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="defaultFunctions"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="element"/>
+    <functioncall functionName="elements"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="err_str"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fmt_invalid"/>
+    <functioncall functionName="fmt_valid"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="format_err"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeReplyObject"/>
+    <functioncall functionName="host"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intfmts"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="isdigit"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memory_err"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="newarg"/>
+    <functioncall functionName="newargv"/>
+    <functioncall functionName="newbuf"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="nwritten"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="obuf"/>
+    <functioncall functionName="parent"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="reader"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="redisAppendCommandArgv"/>
+    <functioncall functionName="redisBufferRead"/>
+    <functioncall functionName="redisBufferWrite"/>
+    <functioncall functionName="redisContextConnectBindTcp"/>
+    <functioncall functionName="redisContextConnectTcp"/>
+    <functioncall functionName="redisContextConnectUnix"/>
+    <functioncall functionName="redisContextInit"/>
+    <functioncall functionName="redisContextSetTimeout"/>
+    <functioncall functionName="redisFormatSdsCommandArgv"/>
+    <functioncall functionName="redisFree"/>
+    <functioncall functionName="redisGetReply"/>
+    <functioncall functionName="redisGetReplyFromReader"/>
+    <functioncall functionName="redisKeepAlive"/>
+    <functioncall functionName="redisReaderCreate"/>
+    <functioncall functionName="redisReaderCreateWithFunctions"/>
+    <functioncall functionName="redisReaderFeed"/>
+    <functioncall functionName="redisReaderFree"/>
+    <functioncall functionName="redisReaderGetReply"/>
+    <functioncall functionName="redisvAppendCommand"/>
+    <functioncall functionName="redisvCommand"/>
+    <functioncall functionName="redisvFormatCommand"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdsMakeRoomFor"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatvprintf"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="source_addr"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strerror_r"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="touched"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_copy"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="wdone"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

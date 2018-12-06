@@ -1,0 +1,666 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1670625817">
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: ri" verbose="Possible null pointer dereference: ri" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="613" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="782" info="Calling function &apos;sentinelEvent&apos;, 3rd argument &apos;ri&apos; value is 0"/>
+            <symbol>ri</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ap&apos; can be reduced." verbose="The scope of the variable &apos;ap&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="606"/>
+            <symbol>ap</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;channel&apos; can be reduced." verbose="The scope of the variable &apos;channel&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="608"/>
+            <symbol>channel</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;payload&apos; can be reduced." verbose="The scope of the variable &apos;payload&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="608"/>
+            <symbol>payload</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;di&apos; can be reduced." verbose="The scope of the variable &apos;di&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="1573"/>
+            <symbol>di</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;de&apos; can be reduced." verbose="The scope of the variable &apos;de&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="1574"/>
+            <symbol>de</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;si&apos; can be reduced." verbose="The scope of the variable &apos;si&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="1707"/>
+            <symbol>si</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;di2&apos; can be reduced." verbose="The scope of the variable &apos;di2&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="1757"/>
+            <symbol>di2</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;slave&apos; can be reduced." verbose="The scope of the variable &apos;slave&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="2097"/>
+            <symbol>slave</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;retval&apos; can be reduced." verbose="The scope of the variable &apos;retval&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="2662"/>
+            <symbol>retval</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;di&apos; can be reduced." verbose="The scope of the variable &apos;di&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="3646"/>
+            <symbol>di</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;de&apos; can be reduced." verbose="The scope of the variable &apos;de&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="3647"/>
+            <symbol>de</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;oldval&apos; can be reduced." verbose="The scope of the variable &apos;oldval&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="3819"/>
+            <symbol>oldval</symbol>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="656"/>
+        </error>
+        <error id="varFuncNullUB" severity="portability" msg="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour." verbose="Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.\012The C99 standard, in section 7.15.1.1, states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.\012The value of the NULL macro is an implementation-defined null pointer constant (7.17), which can be any integer constant expression with the value 0, or such an expression casted to (void*) (6.3.2.3). This includes values like 0, 0L, or even 0LL.\012In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.\012To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.\012#include &lt;stdarg.h&gt;\012#include &lt;stdio.h&gt;\012\012void f(char *s, ...) {\012    va_list ap;\012    va_start(ap,s);\012    for (;;) {\012        char *p = va_arg(ap,char*);\012        printf(&quot;%018p, %s\n&quot;, p, (long)p &amp; 255 ? p : &quot;&quot;);\012        if(!p) break;\012    }\012    va_end(ap);\012}\012\012void g() {\012    char *s2 = &quot;x&quot;;\012    char *s3 = &quot;ERROR&quot;;\012\012    // changing 0 to 0L for the 7th argument (which is intended to act as sentinel) makes the error go away on x86_64\012    f(&quot;first&quot;, s2, s2, s2, s2, s2, 0, s3, (char*)0);\012}\012\012void h() {\012    int i;\012    volatile unsigned char a[1000];\012    for (i = 0; i&lt;sizeof(a); i++)\012        a[i] = -1;\012}\012\012int main() {\012    h();\012    g();\012    return 0;\012}" cwe="475">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="945"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;sentinelLeader::votes&apos; is never used." verbose="struct member &apos;sentinelLeader::votes&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="3812"/>
+            <symbol>sentinelLeader::votes</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+    <ArraySize array="sentinelcmds" size="12"/>
+  </FileInfo>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sentinel.c" line="2222"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="redisAeReadEvent" lineNumber="278"/>
+    <functiondecl functionName="redisAeWriteEvent" lineNumber="285"/>
+    <functiondecl functionName="redisAeAddRead" lineNumber="292"/>
+    <functiondecl functionName="redisAeDelRead" lineNumber="301"/>
+    <functiondecl functionName="redisAeAddWrite" lineNumber="310"/>
+    <functiondecl functionName="redisAeDelWrite" lineNumber="319"/>
+    <functiondecl functionName="redisAeCleanup" lineNumber="328"/>
+    <functiondecl functionName="redisAeAttach" lineNumber="335"/>
+    <functiondecl functionName="dictInstancesValDestructor" lineNumber="395"/>
+    <functiondecl functionName="initSentinelConfig" lineNumber="461"/>
+    <functiondecl functionName="initSentinel" lineNumber="467"/>
+    <functiondecl functionName="sentinelIsRunning" lineNumber="498"/>
+    <functiondecl functionName="createSentinelAddr" lineNumber="539"/>
+    <functiondecl functionName="dupSentinelAddr" lineNumber="558"/>
+    <functiondecl functionName="releaseSentinelAddr" lineNumber="568"/>
+    <functiondecl functionName="sentinelAddrIsEqual" lineNumber="574"/>
+    <functiondecl functionName="sentinelEvent" lineNumber="604"/>
+    <functiondecl functionName="sentinelGenerateInitialMonitorEvents" lineNumber="665"/>
+    <functiondecl functionName="sentinelReleaseScriptJob" lineNumber="680"/>
+    <functiondecl functionName="sentinelScheduleScriptExecution" lineNumber="689"/>
+    <functiondecl functionName="sentinelGetScriptListNodeByPid" lineNumber="737"/>
+    <functiondecl functionName="sentinelRunPendingScripts" lineNumber="753"/>
+    <functiondecl functionName="sentinelScriptRetryDelay" lineNumber="806"/>
+    <functiondecl functionName="sentinelCollectTerminatedScripts" lineNumber="817"/>
+    <functiondecl functionName="sentinelKillTimedoutScripts" lineNumber="864"/>
+    <functiondecl functionName="sentinelPendingScriptsCommand" lineNumber="884"/>
+    <functiondecl functionName="sentinelCallClientReconfScript" lineNumber="936"/>
+    <functiondecl functionName="createInstanceLink" lineNumber="951"/>
+    <functiondecl functionName="instanceLinkCloseConnection" lineNumber="975"/>
+    <functiondecl functionName="releaseInstanceLink" lineNumber="996"/>
+    <functiondecl functionName="sentinelTryConnectionSharing" lineNumber="1040"/>
+    <functiondecl functionName="sentinelUpdateSentinelAddressInAllMasters" lineNumber="1076"/>
+    <functiondecl functionName="instanceLinkConnectionError" lineNumber="1118"/>
+    <functiondecl functionName="sentinelLinkEstablishedCallback" lineNumber="1134"/>
+    <functiondecl functionName="sentinelDisconnectCallback" lineNumber="1138"/>
+    <functiondecl functionName="createSentinelRedisInstance" lineNumber="1167"/>
+    <functiondecl functionName="releaseSentinelRedisInstance" lineNumber="1262"/>
+    <functiondecl functionName="sentinelRedisInstanceLookupSlave" lineNumber="1290"/>
+    <functiondecl functionName="sentinelRedisInstanceTypeStr" lineNumber="1306"/>
+    <functiondecl functionName="removeMatchingSentinelFromMaster" lineNumber="1324"/>
+    <functiondecl functionName="getSentinelRedisInstanceByAddrAndRunID" lineNumber="1350"/>
+    <functiondecl functionName="sentinelGetMasterByName" lineNumber="1374"/>
+    <functiondecl functionName="sentinelAddFlagsToDictOfRedisInstances" lineNumber="1384"/>
+    <functiondecl functionName="sentinelDelFlagsToDictOfRedisInstances" lineNumber="1398"/>
+    <functiondecl functionName="sentinelResetMaster" lineNumber="1422"/>
+    <functiondecl functionName="sentinelResetMastersByPattern" lineNumber="1457"/>
+    <functiondecl functionName="sentinelResetMasterAndChangeAddress" lineNumber="1484"/>
+    <functiondecl functionName="sentinelRedisInstanceNoDownFor" lineNumber="1543"/>
+    <functiondecl functionName="sentinelGetCurrentMasterAddress" lineNumber="1554"/>
+    <functiondecl functionName="sentinelPropagateDownAfterPeriod" lineNumber="1572"/>
+    <functiondecl functionName="sentinelGetInstanceTypeString" lineNumber="1588"/>
+    <functiondecl functionName="sentinelInstanceMapCommand" lineNumber="1602"/>
+    <functiondecl functionName="sentinelHandleConfiguration" lineNumber="1611"/>
+    <functiondecl functionName="rewriteConfigSentinelOption" lineNumber="1756"/>
+    <functiondecl functionName="sentinelFlushConfig" lineNumber="1921"/>
+    <functiondecl functionName="sentinelSendAuthIfNeeded" lineNumber="1955"/>
+    <functiondecl functionName="sentinelSetClientName" lineNumber="1979"/>
+    <functiondecl functionName="sentinelReconnectInstance" lineNumber="1995"/>
+    <functiondecl functionName="sentinelMasterLooksSane" lineNumber="2072"/>
+    <functiondecl functionName="sentinelRefreshInstanceInfo" lineNumber="2081"/>
+    <functiondecl functionName="sentinelInfoReplyCallback" lineNumber="2333"/>
+    <functiondecl functionName="sentinelDiscardReplyCallback" lineNumber="2348"/>
+    <functiondecl functionName="sentinelPingReplyCallback" lineNumber="2356"/>
+    <functiondecl functionName="sentinelPublishReplyCallback" lineNumber="2398"/>
+    <functiondecl functionName="sentinelProcessHelloMessage" lineNumber="2418"/>
+    <functiondecl functionName="sentinelReceiveHelloMessages" lineNumber="2522"/>
+    <functiondecl functionName="sentinelSendHello" lineNumber="2561"/>
+    <functiondecl functionName="sentinelForceHelloUpdateDictOfRedisInstances" lineNumber="2604"/>
+    <functiondecl functionName="sentinelForceHelloUpdateForMaster" lineNumber="2625"/>
+    <functiondecl functionName="sentinelSendPing" lineNumber="2639"/>
+    <functiondecl functionName="sentinelSendPeriodicCommands" lineNumber="2659"/>
+    <functiondecl functionName="sentinelFailoverStateStr" lineNumber="2725"/>
+    <functiondecl functionName="addReplySentinelRedisInstance" lineNumber="2739"/>
+    <functiondecl functionName="addReplyDictOfRedisInstances" lineNumber="2930"/>
+    <functiondecl functionName="sentinelGetMasterByNameOrReplyError" lineNumber="2947"/>
+    <functiondecl functionName="sentinelIsQuorumReachable" lineNumber="2963"/>
+    <functiondecl functionName="sentinelCommand" lineNumber="2985"/>
+    <functiondecl functionName="sentinelInfoCommand" lineNumber="3316"/>
+    <functiondecl functionName="sentinelRoleCommand" lineNumber="3381"/>
+    <functiondecl functionName="sentinelSetCommand" lineNumber="3399"/>
+    <functiondecl functionName="sentinelPublishCommand" lineNumber="3561"/>
+    <functiondecl functionName="sentinelCheckSubjectivelyDown" lineNumber="3573"/>
+    <functiondecl functionName="sentinelCheckObjectivelyDown" lineNumber="3645"/>
+    <functiondecl functionName="sentinelReceiveIsMasterDownReply" lineNumber="3682"/>
+    <functiondecl functionName="sentinelAskMasterStateToOtherSentinels" lineNumber="3725"/>
+    <functiondecl functionName="sentinelSimFailureCrash" lineNumber="3772"/>
+    <functiondecl functionName="sentinelVoteLeader" lineNumber="3783"/>
+    <functiondecl functionName="sentinelLeaderIncr" lineNumber="3817"/>
+    <functiondecl functionName="sentinelGetLeader" lineNumber="3839"/>
+    <functiondecl functionName="sentinelSendSlaveOf" lineNumber="3914"/>
+    <functiondecl functionName="sentinelStartFailover" lineNumber="3977"/>
+    <functiondecl functionName="sentinelStartFailoverIfNeeded" lineNumber="4001"/>
+    <functiondecl functionName="compareSlavesForPromotion" lineNumber="4063"/>
+    <functiondecl functionName="sentinelSelectSlave" lineNumber="4091"/>
+    <functiondecl functionName="sentinelFailoverWaitStart" lineNumber="4136"/>
+    <functiondecl functionName="sentinelFailoverSelectSlave" lineNumber="4169"/>
+    <functiondecl functionName="sentinelFailoverSendSlaveOfNoOne" lineNumber="4188"/>
+    <functiondecl functionName="sentinelFailoverWaitPromotion" lineNumber="4216"/>
+    <functiondecl functionName="sentinelFailoverDetectEnd" lineNumber="4225"/>
+    <functiondecl functionName="sentinelFailoverReconfNextSlave" lineNumber="4290"/>
+    <functiondecl functionName="sentinelFailoverSwitchToPromotedSlave" lineNumber="4352"/>
+    <functiondecl functionName="sentinelFailoverStateMachine" lineNumber="4363"/>
+    <functiondecl functionName="sentinelAbortFailover" lineNumber="4392"/>
+    <functiondecl functionName="sentinelHandleRedisInstance" lineNumber="4411"/>
+    <functiondecl functionName="sentinelHandleDictOfRedisInstances" lineNumber="4447"/>
+    <functiondecl functionName="sentinelCheckTiltCondition" lineNumber="4490"/>
+    <functiondecl functionName="sentinelTimer" lineNumber="4502"/>
+    <functioncall functionName="EBUSY"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ENOENT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_RDONLY"/>
+    <functioncall functionName="SIGKILL"/>
+    <functioncall functionName="WEXITSTATUS"/>
+    <functioncall functionName="WIFSIGNALED"/>
+    <functioncall functionName="WNOHANG"/>
+    <functioncall functionName="WTERMSIG"/>
+    <functioncall functionName="W_OK"/>
+    <functioncall functionName="X_OK"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="ac"/>
+    <functioncall functionName="access"/>
+    <functioncall functionName="act_ping_time"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="addReplyDictOfRedisInstances"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplySentinelRedisInstance"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeDeleteFileEvent"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="anetFormatAddr"/>
+    <functioncall functionName="anetResolve"/>
+    <functioncall functionName="anetResolveIP"/>
+    <functioncall functionName="anetSockName"/>
+    <functioncall functionName="announce_ip"/>
+    <functioncall functionName="announce_port"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="authCommand"/>
+    <functioncall functionName="auth_pass"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="badarg"/>
+    <functioncall functionName="badfmt"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bysignal"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cb"/>
+    <functioncall functionName="cc"/>
+    <functioncall functionName="cc_conn_time"/>
+    <functioncall functionName="changes"/>
+    <functioncall functionName="channel"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="clientCommand"/>
+    <functioncall functionName="client_reconfig_script"/>
+    <functioncall functionName="clock"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="command"/>
+    <functioncall functionName="commands"/>
+    <functioncall functionName="compareSlavesForPromotion"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="config_epoch"/>
+    <functioncall functionName="configfile"/>
+    <functioncall functionName="context"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy_keeper"/>
+    <functioncall functionName="counters"/>
+    <functioncall functionName="createInstanceLink"/>
+    <functioncall functionName="createSentinelAddr"/>
+    <functioncall functionName="createSentinelRedisInstance"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="ctime_r"/>
+    <functioncall functionName="ctimebuf"/>
+    <functioncall functionName="current_epoch"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delay"/>
+    <functioncall functionName="deny_scripts_reconfig"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="di2"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictAddRaw"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictEmpty"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictInstancesValDestructor"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictSdsCaseHash"/>
+    <functioncall functionName="dictSdsDestructor"/>
+    <functioncall functionName="dictSdsHash"/>
+    <functioncall functionName="dictSdsKeyCaseCompare"/>
+    <functioncall functionName="dictSdsKeyCompare"/>
+    <functioncall functionName="disconnected"/>
+    <functioncall functionName="down_after_period"/>
+    <functioncall functionName="dupSentinelAddr"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="election_timeout"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="environ"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="execve"/>
+    <functioncall functionName="existing"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exitcode"/>
+    <functioncall functionName="failover_epoch"/>
+    <functioncall functionName="failover_start_time"/>
+    <functioncall functionName="failover_state"/>
+    <functioncall functionName="failover_state_change_time"/>
+    <functioncall functionName="failover_timeout"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="fromport"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="genRedisInfoString"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObject"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getRandomHexChars"/>
+    <functioncall functionName="getSentinelRedisInstanceByAddrAndRunID"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hello"/>
+    <functioncall functionName="hello_len"/>
+    <functioncall functionName="host"/>
+    <functioncall functionName="hostname"/>
+    <functioncall functionName="hz"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="info_refresh"/>
+    <functioncall functionName="instance"/>
+    <functioncall functionName="instanceLinkCloseConnection"/>
+    <functioncall functionName="instanceLinkConnectionError"/>
+    <functioncall functionName="instances"/>
+    <functioncall functionName="instancesDictType"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="integer"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="isdigit"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="last_avail_time"/>
+    <functioncall functionName="last_hello_time"/>
+    <functioncall functionName="last_master_down_reply_time"/>
+    <functioncall functionName="last_ping_time"/>
+    <functioncall functionName="last_pong_time"/>
+    <functioncall functionName="last_pub_time"/>
+    <functioncall functionName="leader"/>
+    <functioncall functionName="leaderVotesDictType"/>
+    <functioncall functionName="leader_epoch"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="lines"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="loop"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="master"/>
+    <functioncall functionName="master_addr"/>
+    <functioncall functionName="master_config_epoch"/>
+    <functioncall functionName="master_link_down_time"/>
+    <functioncall functionName="master_port"/>
+    <functioncall functionName="masters"/>
+    <functioncall functionName="masters_local"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="mbl"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="most_recent"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="myid"/>
+    <functioncall functionName="myvote"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newaddr"/>
+    <functioncall functionName="newcmd"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newname"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="notification_script"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="nullmultibulk"/>
+    <functioncall functionName="numargs"/>
+    <functioncall functionName="numargserr"/>
+    <functioncall functionName="numlines"/>
+    <functioncall functionName="numtokens"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="o_down_since_time"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="odown"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="old_addr"/>
+    <functioncall functionName="old_j"/>
+    <functioncall functionName="oldaddr"/>
+    <functioncall functionName="oldcmd"/>
+    <functioncall functionName="oldname"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="option"/>
+    <functioncall functionName="other"/>
+    <functioncall functionName="parallel_syncs"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="pattern"/>
+    <functioncall functionName="payload"/>
+    <functioncall functionName="pc"/>
+    <functioncall functionName="pc_conn_time"/>
+    <functioncall functionName="pc_last_activity"/>
+    <functioncall functionName="pending_commands"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="pingCommand"/>
+    <functioncall functionName="ping_period"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="portstr"/>
+    <functioncall functionName="previous_time"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="promoted_slave"/>
+    <functioncall functionName="psubscribeCommand"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pubsub"/>
+    <functioncall functionName="pubsubPublishMessage"/>
+    <functioncall functionName="punsubscribeCommand"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="quorum"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="reading"/>
+    <functioncall functionName="reconfigured"/>
+    <functioncall functionName="redisAeAddRead"/>
+    <functioncall functionName="redisAeAddWrite"/>
+    <functioncall functionName="redisAeAttach"/>
+    <functioncall functionName="redisAeCleanup"/>
+    <functioncall functionName="redisAeDelRead"/>
+    <functioncall functionName="redisAeDelWrite"/>
+    <functioncall functionName="redisAeReadEvent"/>
+    <functioncall functionName="redisAeWriteEvent"/>
+    <functioncall functionName="redisAsyncCommand"/>
+    <functioncall functionName="redisAsyncConnectBind"/>
+    <functioncall functionName="redisAsyncFree"/>
+    <functioncall functionName="redisAsyncHandleRead"/>
+    <functioncall functionName="redisAsyncHandleWrite"/>
+    <functioncall functionName="redisAsyncSetConnectCallback"/>
+    <functioncall functionName="redisAsyncSetDisconnectCallback"/>
+    <functioncall functionName="redissection"/>
+    <functioncall functionName="refcount"/>
+    <functioncall functionName="releaseInstanceLink"/>
+    <functioncall functionName="releaseSentinelAddr"/>
+    <functioncall functionName="releaseSentinelRedisInstance"/>
+    <functioncall functionName="removeMatchingSentinelFromMaster"/>
+    <functioncall functionName="removed"/>
+    <functioncall functionName="renamedCommandsDictType"/>
+    <functioncall functionName="renamed_commands"/>
+    <functioncall functionName="replies"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="req_epoch"/>
+    <functioncall functionName="req_runid"/>
+    <functioncall functionName="requirepass"/>
+    <functioncall functionName="retry_num"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="rewriteConfig"/>
+    <functioncall functionName="rewriteConfigRewriteLine"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="role"/>
+    <functioncall functionName="role_reported"/>
+    <functioncall functionName="role_reported_time"/>
+    <functioncall functionName="runid"/>
+    <functioncall functionName="running_scripts"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s_down_since_time"/>
+    <functioncall functionName="sa"/>
+    <functioncall functionName="sa_runid"/>
+    <functioncall functionName="saved_hz"/>
+    <functioncall functionName="sb_runid"/>
+    <functioncall functionName="sc"/>
+    <functioncall functionName="scripts_queue"/>
+    <functioncall functionName="sde"/>
+    <functioncall functionName="sdi"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfreesplitres"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsname"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssplitlen"/>
+    <functioncall functionName="section"/>
+    <functioncall functionName="sentinelAbortFailover"/>
+    <functioncall functionName="sentinelAddrIsEqual"/>
+    <functioncall functionName="sentinelAskMasterStateToOtherSentinels"/>
+    <functioncall functionName="sentinelCallClientReconfScript"/>
+    <functioncall functionName="sentinelCheckObjectivelyDown"/>
+    <functioncall functionName="sentinelCheckSubjectivelyDown"/>
+    <functioncall functionName="sentinelCheckTiltCondition"/>
+    <functioncall functionName="sentinelCollectTerminatedScripts"/>
+    <functioncall functionName="sentinelCommand"/>
+    <functioncall functionName="sentinelDiscardReplyCallback"/>
+    <functioncall functionName="sentinelDisconnectCallback"/>
+    <functioncall functionName="sentinelEvent"/>
+    <functioncall functionName="sentinelFailoverDetectEnd"/>
+    <functioncall functionName="sentinelFailoverReconfNextSlave"/>
+    <functioncall functionName="sentinelFailoverSelectSlave"/>
+    <functioncall functionName="sentinelFailoverSendSlaveOfNoOne"/>
+    <functioncall functionName="sentinelFailoverStateMachine"/>
+    <functioncall functionName="sentinelFailoverStateStr"/>
+    <functioncall functionName="sentinelFailoverSwitchToPromotedSlave"/>
+    <functioncall functionName="sentinelFailoverWaitPromotion"/>
+    <functioncall functionName="sentinelFailoverWaitStart"/>
+    <functioncall functionName="sentinelFlushConfig"/>
+    <functioncall functionName="sentinelForceHelloUpdateDictOfRedisInstances"/>
+    <functioncall functionName="sentinelForceHelloUpdateForMaster"/>
+    <functioncall functionName="sentinelGenerateInitialMonitorEvents"/>
+    <functioncall functionName="sentinelGetCurrentMasterAddress"/>
+    <functioncall functionName="sentinelGetLeader"/>
+    <functioncall functionName="sentinelGetMasterByName"/>
+    <functioncall functionName="sentinelGetMasterByNameOrReplyError"/>
+    <functioncall functionName="sentinelGetScriptListNodeByPid"/>
+    <functioncall functionName="sentinelHandleDictOfRedisInstances"/>
+    <functioncall functionName="sentinelHandleRedisInstance"/>
+    <functioncall functionName="sentinelInfoCommand"/>
+    <functioncall functionName="sentinelInfoReplyCallback"/>
+    <functioncall functionName="sentinelInstanceMapCommand"/>
+    <functioncall functionName="sentinelIsQuorumReachable"/>
+    <functioncall functionName="sentinelKillTimedoutScripts"/>
+    <functioncall functionName="sentinelLeaderIncr"/>
+    <functioncall functionName="sentinelLinkEstablishedCallback"/>
+    <functioncall functionName="sentinelMasterLooksSane"/>
+    <functioncall functionName="sentinelPendingScriptsCommand"/>
+    <functioncall functionName="sentinelPingReplyCallback"/>
+    <functioncall functionName="sentinelProcessHelloMessage"/>
+    <functioncall functionName="sentinelPropagateDownAfterPeriod"/>
+    <functioncall functionName="sentinelPublishCommand"/>
+    <functioncall functionName="sentinelPublishReplyCallback"/>
+    <functioncall functionName="sentinelReceiveHelloMessages"/>
+    <functioncall functionName="sentinelReceiveIsMasterDownReply"/>
+    <functioncall functionName="sentinelReconnectInstance"/>
+    <functioncall functionName="sentinelRedisInstanceLookupSlave"/>
+    <functioncall functionName="sentinelRedisInstanceNoDownFor"/>
+    <functioncall functionName="sentinelRedisInstanceTypeStr"/>
+    <functioncall functionName="sentinelRefreshInstanceInfo"/>
+    <functioncall functionName="sentinelReleaseScriptJob"/>
+    <functioncall functionName="sentinelResetMaster"/>
+    <functioncall functionName="sentinelResetMasterAndChangeAddress"/>
+    <functioncall functionName="sentinelResetMastersByPattern"/>
+    <functioncall functionName="sentinelRoleCommand"/>
+    <functioncall functionName="sentinelRunPendingScripts"/>
+    <functioncall functionName="sentinelScheduleScriptExecution"/>
+    <functioncall functionName="sentinelScriptRetryDelay"/>
+    <functioncall functionName="sentinelSelectSlave"/>
+    <functioncall functionName="sentinelSendAuthIfNeeded"/>
+    <functioncall functionName="sentinelSendHello"/>
+    <functioncall functionName="sentinelSendPeriodicCommands"/>
+    <functioncall functionName="sentinelSendPing"/>
+    <functioncall functionName="sentinelSendSlaveOf"/>
+    <functioncall functionName="sentinelSetClientName"/>
+    <functioncall functionName="sentinelSetCommand"/>
+    <functioncall functionName="sentinelSimFailureCrash"/>
+    <functioncall functionName="sentinelStartFailover"/>
+    <functioncall functionName="sentinelStartFailoverIfNeeded"/>
+    <functioncall functionName="sentinelTryConnectionSharing"/>
+    <functioncall functionName="sentinelUpdateSentinelAddressInAllMasters"/>
+    <functioncall functionName="sentinelVoteLeader"/>
+    <functioncall functionName="sentinelcmds"/>
+    <functioncall functionName="sentinels"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="shutdownCommand"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="simfailure_flags"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sj"/>
+    <functioncall functionName="slave"/>
+    <functioncall functionName="slave_addr"/>
+    <functioncall functionName="slave_conf_change_time"/>
+    <functioncall functionName="slave_master_host"/>
+    <functioncall functionName="slave_master_port"/>
+    <functioncall functionName="slave_priority"/>
+    <functioncall functionName="slave_reconf_sent_time"/>
+    <functioncall functionName="slave_repl_offset"/>
+    <functioncall functionName="slavename"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="start_time"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="statloc"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="stringmatch"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="strtoull"/>
+    <functioncall functionName="subscribeCommand"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="switch_to_promoted"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="table"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="tilt"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="token"/>
+    <functioncall functionName="toport"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="u64"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unsubscribeCommand"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="usable"/>
+    <functioncall functionName="usableptr"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="verbosity"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="votes"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="wait3"/>
+    <functioncall functionName="wait_time"/>
+    <functioncall functionName="werr"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="winner"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writing"/>
+    <functioncall functionName="yesnotoi"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

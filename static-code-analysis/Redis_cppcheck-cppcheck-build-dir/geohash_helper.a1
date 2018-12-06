@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="56610720">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="deg_rad" lineNumber="57"/>
+    <functiondecl functionName="rad_deg" lineNumber="58"/>
+    <functiondecl functionName="geohashEstimateStepsByRadius" lineNumber="62"/>
+    <functiondecl functionName="geohashBoundingBox" lineNumber="103"/>
+    <functiondecl functionName="geohashGetAreasByRadius" lineNumber="116"/>
+    <functiondecl functionName="geohashGetAreasByRadiusWGS84" lineNumber="199"/>
+    <functiondecl functionName="geohashAlign52Bits" lineNumber="204"/>
+    <functiondecl functionName="geohashGetDistance" lineNumber="211"/>
+    <functiondecl functionName="geohashGetDistanceIfInRadius" lineNumber="223"/>
+    <functiondecl functionName="geohashGetDistanceIfInRadiusWGS84" lineNumber="231"/>
+    <functioncall functionName="EARTH_RADIUS_IN_METERS"/>
+    <functioncall functionName="GEOHASH_EAST"/>
+    <functioncall functionName="GEOHASH_NORT_EAST"/>
+    <functioncall functionName="GEOHASH_NORT_WEST"/>
+    <functioncall functionName="GEOHASH_SOUTH"/>
+    <functioncall functionName="GEOHASH_SOUTH_EAST"/>
+    <functioncall functionName="GEOHASH_SOUTH_WEST"/>
+    <functioncall functionName="GEOHASH_WEST"/>
+    <functioncall functionName="area"/>
+    <functioncall functionName="asin"/>
+    <functioncall functionName="bits"/>
+    <functioncall functionName="bounds"/>
+    <functioncall functionName="cos"/>
+    <functioncall functionName="deg_rad"/>
+    <functioncall functionName="distance"/>
+    <functioncall functionName="east"/>
+    <functioncall functionName="geohashBoundingBox"/>
+    <functioncall functionName="geohashDecode"/>
+    <functioncall functionName="geohashEncode"/>
+    <functioncall functionName="geohashEstimateStepsByRadius"/>
+    <functioncall functionName="geohashGetAreasByRadius"/>
+    <functioncall functionName="geohashGetCoordRange"/>
+    <functioncall functionName="geohashGetDistance"/>
+    <functioncall functionName="geohashGetDistanceIfInRadius"/>
+    <functioncall functionName="geohashNeighbors"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="lat"/>
+    <functioncall functionName="lat1d"/>
+    <functioncall functionName="lat1r"/>
+    <functioncall functionName="lat2d"/>
+    <functioncall functionName="lat2r"/>
+    <functioncall functionName="lat_range"/>
+    <functioncall functionName="latitude"/>
+    <functioncall functionName="lon1d"/>
+    <functioncall functionName="lon1r"/>
+    <functioncall functionName="lon2d"/>
+    <functioncall functionName="long_range"/>
+    <functioncall functionName="longitude"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="neighbors"/>
+    <functioncall functionName="north"/>
+    <functioncall functionName="rad_deg"/>
+    <functioncall functionName="radius"/>
+    <functioncall functionName="radius_meters"/>
+    <functioncall functionName="sin"/>
+    <functioncall functionName="south"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="step"/>
+    <functioncall functionName="steps"/>
+    <functioncall functionName="west"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x1"/>
+    <functioncall functionName="x2"/>
+    <functioncall functionName="y1"/>
+    <functioncall functionName="y2"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1514846872">
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 5) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 5) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="1890"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 6) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 6) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="1890"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;dst&apos; can be reduced." verbose="The scope of the variable &apos;dst&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="314"/>
+            <symbol>dst</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;branch&apos; can be reduced." verbose="The scope of the variable &apos;branch&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="1866"/>
+            <symbol>branch</symbol>
+        </error>
+        <error id="pointerSize" severity="warning" msg="Size of pointer &apos;dst&apos; used instead of size of its data." verbose="Size of pointer &apos;dst&apos; used instead of size of its data. This is likely to lead to a buffer overflow. You probably intend to write &apos;sizeof(*dst)&apos;." cwe="467">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="318"/>
+        </error>
+        <error id="pointerSize" severity="warning" msg="Size of pointer &apos;src&apos; used instead of size of its data." verbose="Size of pointer &apos;src&apos; used instead of size of its data. This is likely to lead to a buffer overflow. You probably intend to write &apos;sizeof(*src)&apos;." cwe="467">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="347"/>
+        </error>
+        <error id="pointerSize" severity="warning" msg="Size of pointer &apos;src&apos; used instead of size of its data." verbose="Size of pointer &apos;src&apos; used instead of size of its data. This is likely to lead to a buffer overflow. You probably intend to write &apos;sizeof(*src)&apos;." cwe="467">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="360"/>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;raxRemove&apos;." verbose="Non-pure function: &apos;raxRemove&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="894"/>
+            <symbol>raxRemove</symbol>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="687"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 4) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 4) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rax.c" line="1050"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="raxSetDebugMsg" lineNumber="79"/>
+    <functiondecl functionName="raxStackInit" lineNumber="92"/>
+    <functiondecl functionName="raxStackPush" lineNumber="100"/>
+    <functiondecl functionName="raxStackPop" lineNumber="129"/>
+    <functiondecl functionName="raxStackPeek" lineNumber="137"/>
+    <functiondecl functionName="raxStackFree" lineNumber="143"/>
+    <functiondecl functionName="raxNewNode" lineNumber="186"/>
+    <functiondecl functionName="raxNew" lineNumber="201"/>
+    <functiondecl functionName="raxReallocForData" lineNumber="217"/>
+    <functiondecl functionName="raxSetData" lineNumber="224"/>
+    <functiondecl functionName="raxGetData" lineNumber="237"/>
+    <functiondecl functionName="raxAddChild" lineNumber="254"/>
+    <functiondecl functionName="raxCompressNode" lineNumber="395"/>
+    <functiondecl functionName="raxLowWalk" lineNumber="457"/>
+    <functiondecl functionName="raxGenericInsert" lineNumber="507"/>
+    <functiondecl functionName="raxInsert" lineNumber="902"/>
+    <functiondecl functionName="raxTryInsert" lineNumber="909"/>
+    <functiondecl functionName="raxFind" lineNumber="916"/>
+    <functiondecl functionName="raxFindParentLink" lineNumber="932"/>
+    <functiondecl functionName="raxRemoveChild" lineNumber="947"/>
+    <functiondecl functionName="raxRemove" lineNumber="1020"/>
+    <functiondecl functionName="raxRecursiveFree" lineNumber="1221"/>
+    <functiondecl functionName="raxFreeWithCallback" lineNumber="1240"/>
+    <functiondecl functionName="raxFree" lineNumber="1247"/>
+    <functiondecl functionName="raxStart" lineNumber="1256"/>
+    <functiondecl functionName="raxIteratorAddChars" lineNumber="1270"/>
+    <functiondecl functionName="raxIteratorDelChars" lineNumber="1293"/>
+    <functiondecl functionName="raxIteratorNextStep" lineNumber="1311"/>
+    <functiondecl functionName="raxSeekGreatest" lineNumber="1412"/>
+    <functiondecl functionName="raxIteratorPrevStep" lineNumber="1431"/>
+    <functiondecl functionName="raxSeek" lineNumber="1508"/>
+    <functiondecl functionName="raxNext" lineNumber="1693"/>
+    <functiondecl functionName="raxPrev" lineNumber="1708"/>
+    <functiondecl functionName="raxRandomWalk" lineNumber="1732"/>
+    <functiondecl functionName="raxCompare" lineNumber="1774"/>
+    <functiondecl functionName="raxStop" lineNumber="1802"/>
+    <functiondecl functionName="raxEOF" lineNumber="1811"/>
+    <functiondecl functionName="raxSize" lineNumber="1816"/>
+    <functiondecl functionName="raxRecursiveShow" lineNumber="1848"/>
+    <functiondecl functionName="raxShow" lineNumber="1882"/>
+    <functiondecl functionName="raxDebugShowNode" lineNumber="1888"/>
+    <functiondecl functionName="raxTouch" lineNumber="1921"/>
+    <functiondecl functionName="raxSetDebugMsg" lineNumber="79"/>
+    <functiondecl functionName="raxStackInit" lineNumber="92"/>
+    <functiondecl functionName="raxStackPush" lineNumber="100"/>
+    <functiondecl functionName="raxStackPop" lineNumber="129"/>
+    <functiondecl functionName="raxStackPeek" lineNumber="137"/>
+    <functiondecl functionName="raxStackFree" lineNumber="143"/>
+    <functiondecl functionName="raxNewNode" lineNumber="186"/>
+    <functiondecl functionName="raxNew" lineNumber="201"/>
+    <functiondecl functionName="raxReallocForData" lineNumber="217"/>
+    <functiondecl functionName="raxSetData" lineNumber="224"/>
+    <functiondecl functionName="raxGetData" lineNumber="237"/>
+    <functiondecl functionName="raxAddChild" lineNumber="254"/>
+    <functiondecl functionName="raxCompressNode" lineNumber="395"/>
+    <functiondecl functionName="raxLowWalk" lineNumber="457"/>
+    <functiondecl functionName="raxGenericInsert" lineNumber="507"/>
+    <functiondecl functionName="raxInsert" lineNumber="902"/>
+    <functiondecl functionName="raxTryInsert" lineNumber="909"/>
+    <functiondecl functionName="raxFind" lineNumber="916"/>
+    <functiondecl functionName="raxFindParentLink" lineNumber="932"/>
+    <functiondecl functionName="raxRemoveChild" lineNumber="947"/>
+    <functiondecl functionName="raxRemove" lineNumber="1020"/>
+    <functiondecl functionName="raxRecursiveFree" lineNumber="1221"/>
+    <functiondecl functionName="raxFreeWithCallback" lineNumber="1240"/>
+    <functiondecl functionName="raxFree" lineNumber="1247"/>
+    <functiondecl functionName="raxStart" lineNumber="1256"/>
+    <functiondecl functionName="raxIteratorAddChars" lineNumber="1270"/>
+    <functiondecl functionName="raxIteratorDelChars" lineNumber="1293"/>
+    <functiondecl functionName="raxIteratorNextStep" lineNumber="1311"/>
+    <functiondecl functionName="raxSeekGreatest" lineNumber="1412"/>
+    <functiondecl functionName="raxIteratorPrevStep" lineNumber="1431"/>
+    <functiondecl functionName="raxSeek" lineNumber="1508"/>
+    <functiondecl functionName="raxNext" lineNumber="1693"/>
+    <functiondecl functionName="raxPrev" lineNumber="1708"/>
+    <functiondecl functionName="raxRandomWalk" lineNumber="1732"/>
+    <functiondecl functionName="raxCompare" lineNumber="1774"/>
+    <functiondecl functionName="raxStop" lineNumber="1802"/>
+    <functiondecl functionName="raxEOF" lineNumber="1811"/>
+    <functiondecl functionName="raxSize" lineNumber="1816"/>
+    <functiondecl functionName="raxRecursiveShow" lineNumber="1848"/>
+    <functiondecl functionName="raxShow" lineNumber="1882"/>
+    <functiondecl functionName="raxDebugShowNode" lineNumber="1888"/>
+    <functiondecl functionName="raxTouch" lineNumber="1921"/>
+    <functioncall functionName="ENOMEM"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="__FUNCTION__"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="branch"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="child"/>
+    <functioncall functionName="childfield"/>
+    <functioncall functionName="children"/>
+    <functioncall functionName="cldptr"/>
+    <functioncall functionName="cmp"/>
+    <functioncall functionName="comprsize"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="cp"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="datafield"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="floor"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free_callback"/>
+    <functioncall functionName="gt"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="iscompr"/>
+    <functioncall functionName="iskey"/>
+    <functioncall functionName="isnull"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="items"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_len"/>
+    <functioncall functionName="key_static_string"/>
+    <functioncall functionName="last"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lpad"/>
+    <functioncall functionName="lt"/>
+    <functioncall functionName="maxitems"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="minlen"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="ndata"/>
+    <functioncall functionName="new"/>
+    <functioncall functionName="new_max"/>
+    <functioncall functionName="new_parentlink"/>
+    <functioncall functionName="newalloc"/>
+    <functioncall functionName="newh"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newn"/>
+    <functioncall functionName="newnode"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="node_cb"/>
+    <functioncall functionName="nodechar"/>
+    <functioncall functionName="nodes"/>
+    <functioncall functionName="nodesize"/>
+    <functioncall functionName="noup"/>
+    <functioncall functionName="numchildren"/>
+    <functioncall functionName="numele"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="onoff"/>
+    <functioncall functionName="oom"/>
+    <functioncall functionName="orig_key_len"/>
+    <functioncall functionName="orig_node"/>
+    <functioncall functionName="orig_stack_items"/>
+    <functioncall functionName="overwrite"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="parent"/>
+    <functioncall functionName="parentlink"/>
+    <functioncall functionName="plink"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="postfix"/>
+    <functioncall functionName="postfixlen"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="putchar"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="rax"/>
+    <functioncall functionName="raxAddChild"/>
+    <functioncall functionName="raxCompressNode"/>
+    <functioncall functionName="raxDebugMsg"/>
+    <functioncall functionName="raxDebugShowNode"/>
+    <functioncall functionName="raxFindParentLink"/>
+    <functioncall functionName="raxFreeWithCallback"/>
+    <functioncall functionName="raxGenericInsert"/>
+    <functioncall functionName="raxGetData"/>
+    <functioncall functionName="raxIteratorAddChars"/>
+    <functioncall functionName="raxIteratorDelChars"/>
+    <functioncall functionName="raxIteratorNextStep"/>
+    <functioncall functionName="raxIteratorPrevStep"/>
+    <functioncall functionName="raxLowWalk"/>
+    <functioncall functionName="raxNewNode"/>
+    <functioncall functionName="raxReallocForData"/>
+    <functioncall functionName="raxRecursiveFree"/>
+    <functioncall functionName="raxRecursiveShow"/>
+    <functioncall functionName="raxRemove"/>
+    <functioncall functionName="raxRemoveChild"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxSeekGreatest"/>
+    <functioncall functionName="raxSetData"/>
+    <functioncall functionName="raxStackFree"/>
+    <functioncall functionName="raxStackInit"/>
+    <functioncall functionName="raxStackPeek"/>
+    <functioncall functionName="raxStackPop"/>
+    <functioncall functionName="raxStackPush"/>
+    <functioncall functionName="raxTouch"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rt"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="shift"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="split_node_is_key"/>
+    <functioncall functionName="splitchild"/>
+    <functioncall functionName="splitnode"/>
+    <functioncall functionName="splitpos"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="stack"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="static_items"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="steps"/>
+    <functioncall functionName="stopnode"/>
+    <functioncall functionName="taillen"/>
+    <functioncall functionName="todel"/>
+    <functioncall functionName="tofree"/>
+    <functioncall functionName="trimmed"/>
+    <functioncall functionName="trimmedlen"/>
+    <functioncall functionName="trycompress"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="valuelen"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

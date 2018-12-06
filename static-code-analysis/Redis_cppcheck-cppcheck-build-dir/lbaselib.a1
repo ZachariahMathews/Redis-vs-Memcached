@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3108793127">
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="luaB_print" lineNumber="31"/>
+    <functiondecl functionName="luaB_tonumber" lineNumber="53"/>
+    <functiondecl functionName="luaB_error" lineNumber="81"/>
+    <functiondecl functionName="luaB_getmetatable" lineNumber="93"/>
+    <functiondecl functionName="luaB_setmetatable" lineNumber="104"/>
+    <functiondecl functionName="getfunc" lineNumber="117"/>
+    <functiondecl functionName="luaB_getfenv" lineNumber="133"/>
+    <functiondecl functionName="luaB_setfenv" lineNumber="143"/>
+    <functiondecl functionName="luaB_rawequal" lineNumber="161"/>
+    <functiondecl functionName="luaB_rawget" lineNumber="169"/>
+    <functiondecl functionName="luaB_rawset" lineNumber="177"/>
+    <functiondecl functionName="luaB_gcinfo" lineNumber="187"/>
+    <functiondecl functionName="luaB_collectgarbage" lineNumber="193"/>
+    <functiondecl functionName="luaB_type" lineNumber="219"/>
+    <functiondecl functionName="luaB_next" lineNumber="226"/>
+    <functiondecl functionName="luaB_pairs" lineNumber="238"/>
+    <functiondecl functionName="ipairsaux" lineNumber="247"/>
+    <functiondecl functionName="luaB_ipairs" lineNumber="257"/>
+    <functiondecl functionName="load_aux" lineNumber="266"/>
+    <functiondecl functionName="luaB_loadstring" lineNumber="277"/>
+    <functiondecl functionName="luaB_loadfile" lineNumber="285"/>
+    <functiondecl functionName="generic_reader" lineNumber="297"/>
+    <functiondecl functionName="luaB_load" lineNumber="315"/>
+    <functiondecl functionName="luaB_dofile" lineNumber="325"/>
+    <functiondecl functionName="luaB_assert" lineNumber="334"/>
+    <functiondecl functionName="luaB_unpack" lineNumber="342"/>
+    <functiondecl functionName="luaB_select" lineNumber="358"/>
+    <functiondecl functionName="luaB_pcall" lineNumber="374"/>
+    <functiondecl functionName="luaB_xpcall" lineNumber="384"/>
+    <functiondecl functionName="luaB_tostring" lineNumber="396"/>
+    <functiondecl functionName="luaB_newproxy" lineNumber="421"/>
+    <functiondecl functionName="costatus" lineNumber="490"/>
+    <functiondecl functionName="luaB_costatus" lineNumber="510"/>
+    <functiondecl functionName="auxresume" lineNumber="518"/>
+    <functiondecl functionName="luaB_coresume" lineNumber="543"/>
+    <functiondecl functionName="luaB_auxwrap" lineNumber="561"/>
+    <functiondecl functionName="luaB_cocreate" lineNumber="576"/>
+    <functiondecl functionName="luaB_cowrap" lineNumber="586"/>
+    <functiondecl functionName="luaB_yield" lineNumber="593"/>
+    <functiondecl functionName="luaB_corunning" lineNumber="598"/>
+    <functiondecl functionName="auxopen" lineNumber="618"/>
+    <functiondecl functionName="base_open" lineNumber="626"/>
+    <functiondecl functionName="luaopen_base" lineNumber="648"/>
+    <functiondecl functionName="luaB_print" lineNumber="31"/>
+    <functiondecl functionName="luaB_tonumber" lineNumber="53"/>
+    <functiondecl functionName="luaB_error" lineNumber="81"/>
+    <functiondecl functionName="luaB_getmetatable" lineNumber="93"/>
+    <functiondecl functionName="luaB_setmetatable" lineNumber="104"/>
+    <functiondecl functionName="getfunc" lineNumber="117"/>
+    <functiondecl functionName="luaB_getfenv" lineNumber="133"/>
+    <functiondecl functionName="luaB_setfenv" lineNumber="143"/>
+    <functiondecl functionName="luaB_rawequal" lineNumber="161"/>
+    <functiondecl functionName="luaB_rawget" lineNumber="169"/>
+    <functiondecl functionName="luaB_rawset" lineNumber="177"/>
+    <functiondecl functionName="luaB_gcinfo" lineNumber="187"/>
+    <functiondecl functionName="luaB_collectgarbage" lineNumber="193"/>
+    <functiondecl functionName="luaB_type" lineNumber="219"/>
+    <functiondecl functionName="luaB_next" lineNumber="226"/>
+    <functiondecl functionName="luaB_pairs" lineNumber="238"/>
+    <functiondecl functionName="ipairsaux" lineNumber="247"/>
+    <functiondecl functionName="luaB_ipairs" lineNumber="257"/>
+    <functiondecl functionName="load_aux" lineNumber="266"/>
+    <functiondecl functionName="luaB_loadstring" lineNumber="277"/>
+    <functiondecl functionName="luaB_loadfile" lineNumber="285"/>
+    <functiondecl functionName="generic_reader" lineNumber="297"/>
+    <functiondecl functionName="luaB_load" lineNumber="315"/>
+    <functiondecl functionName="luaB_dofile" lineNumber="325"/>
+    <functiondecl functionName="luaB_assert" lineNumber="334"/>
+    <functiondecl functionName="luaB_unpack" lineNumber="342"/>
+    <functiondecl functionName="luaB_select" lineNumber="358"/>
+    <functiondecl functionName="luaB_pcall" lineNumber="374"/>
+    <functiondecl functionName="luaB_xpcall" lineNumber="384"/>
+    <functiondecl functionName="luaB_tostring" lineNumber="396"/>
+    <functiondecl functionName="luaB_newproxy" lineNumber="421"/>
+    <functiondecl functionName="costatus" lineNumber="490"/>
+    <functiondecl functionName="luaB_costatus" lineNumber="510"/>
+    <functiondecl functionName="auxresume" lineNumber="518"/>
+    <functiondecl functionName="luaB_coresume" lineNumber="543"/>
+    <functiondecl functionName="luaB_auxwrap" lineNumber="561"/>
+    <functiondecl functionName="luaB_cocreate" lineNumber="576"/>
+    <functiondecl functionName="luaB_cowrap" lineNumber="586"/>
+    <functiondecl functionName="luaB_yield" lineNumber="593"/>
+    <functiondecl functionName="luaB_corunning" lineNumber="598"/>
+    <functiondecl functionName="auxopen" lineNumber="618"/>
+    <functiondecl functionName="base_open" lineNumber="626"/>
+    <functiondecl functionName="luaopen_base" lineNumber="648"/>
+    <functioncall functionName="BUFSIZ"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NL"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="ar"/>
+    <functioncall functionName="auxopen"/>
+    <functioncall functionName="auxresume"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="base_funcs"/>
+    <functioncall functionName="base_open"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="chunkname"/>
+    <functioncall functionName="cname"/>
+    <functioncall functionName="co"/>
+    <functioncall functionName="co_funcs"/>
+    <functioncall functionName="costatus"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ex"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="fname"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fputs"/>
+    <functioncall functionName="generic_reader"/>
+    <functioncall functionName="getfunc"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="ipairsaux"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="load_aux"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="luaB_assert"/>
+    <functioncall functionName="luaB_auxwrap"/>
+    <functioncall functionName="luaB_cocreate"/>
+    <functioncall functionName="luaB_collectgarbage"/>
+    <functioncall functionName="luaB_coresume"/>
+    <functioncall functionName="luaB_corunning"/>
+    <functioncall functionName="luaB_costatus"/>
+    <functioncall functionName="luaB_cowrap"/>
+    <functioncall functionName="luaB_dofile"/>
+    <functioncall functionName="luaB_error"/>
+    <functioncall functionName="luaB_gcinfo"/>
+    <functioncall functionName="luaB_getfenv"/>
+    <functioncall functionName="luaB_getmetatable"/>
+    <functioncall functionName="luaB_ipairs"/>
+    <functioncall functionName="luaB_load"/>
+    <functioncall functionName="luaB_loadfile"/>
+    <functioncall functionName="luaB_loadstring"/>
+    <functioncall functionName="luaB_newproxy"/>
+    <functioncall functionName="luaB_next"/>
+    <functioncall functionName="luaB_pairs"/>
+    <functioncall functionName="luaB_pcall"/>
+    <functioncall functionName="luaB_print"/>
+    <functioncall functionName="luaB_rawequal"/>
+    <functioncall functionName="luaB_rawget"/>
+    <functioncall functionName="luaB_rawset"/>
+    <functioncall functionName="luaB_select"/>
+    <functioncall functionName="luaB_setfenv"/>
+    <functioncall functionName="luaB_setmetatable"/>
+    <functioncall functionName="luaB_tonumber"/>
+    <functioncall functionName="luaB_tostring"/>
+    <functioncall functionName="luaB_type"/>
+    <functioncall functionName="luaB_unpack"/>
+    <functioncall functionName="luaB_xpcall"/>
+    <functioncall functionName="luaB_yield"/>
+    <functioncall functionName="luaL_addlstring"/>
+    <functioncall functionName="luaL_addstring"/>
+    <functioncall functionName="luaL_addvalue"/>
+    <functioncall functionName="luaL_argerror"/>
+    <functioncall functionName="luaL_buffinit"/>
+    <functioncall functionName="luaL_callmeta"/>
+    <functioncall functionName="luaL_checkany"/>
+    <functioncall functionName="luaL_checkinteger"/>
+    <functioncall functionName="luaL_checklstring"/>
+    <functioncall functionName="luaL_checknumber"/>
+    <functioncall functionName="luaL_checkoption"/>
+    <functioncall functionName="luaL_checkstack"/>
+    <functioncall functionName="luaL_checktype"/>
+    <functioncall functionName="luaL_error"/>
+    <functioncall functionName="luaL_getmetafield"/>
+    <functioncall functionName="luaL_loadbuffer"/>
+    <functioncall functionName="luaL_loadfile"/>
+    <functioncall functionName="luaL_loadstring"/>
+    <functioncall functionName="luaL_newmetatable"/>
+    <functioncall functionName="luaL_openlib"/>
+    <functioncall functionName="luaL_openlibs"/>
+    <functioncall functionName="luaL_optinteger"/>
+    <functioncall functionName="luaL_optlstring"/>
+    <functioncall functionName="luaL_optnumber"/>
+    <functioncall functionName="luaL_pushresult"/>
+    <functioncall functionName="luaL_ref"/>
+    <functioncall functionName="luaL_register"/>
+    <functioncall functionName="luaL_typerror"/>
+    <functioncall functionName="luaL_unref"/>
+    <functioncall functionName="luaL_where"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getinfo"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_getstack"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_newthread"/>
+    <functioncall functionName="lua_newuserdata"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushfstring"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setlevel"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tolstring"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_topointer"/>
+    <functioncall functionName="lua_tothread"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_typename"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="luaopen_base"/>
+    <functioncall functionName="luaopen_debug"/>
+    <functioncall functionName="luaopen_io"/>
+    <functioncall functionName="luaopen_math"/>
+    <functioncall functionName="luaopen_os"/>
+    <functioncall functionName="luaopen_package"/>
+    <functioncall functionName="luaopen_string"/>
+    <functioncall functionName="luaopen_table"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="narg"/>
+    <functioncall functionName="nres"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="opts"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s1"/>
+    <functioncall functionName="s2"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="strtoul"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="ud"/>
+    <functioncall functionName="validproxy"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

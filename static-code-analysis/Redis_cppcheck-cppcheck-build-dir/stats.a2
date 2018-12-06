@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="558006458">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="28"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="68"/>
+    <functiondecl functionName="thd_start" lineNumber="131"/>
+    <functiondecl functionName="no_lazy_lock" lineNumber="136"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="143"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="188"/>
+    <functiondecl functionName="gen_mallctl_str" lineNumber="224"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="228"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="317"/>
+    <functiondecl functionName="main" lineNumber="359"/>
+    <functioncall functionName="EFAULT"/>
+    <functioncall functionName="ENOENT"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SMALL_MAXCLASS"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="allocated"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u64_ge"/>
+    <functioncall functionName="assert_u64_gt"/>
+    <functioncall functionName="assert_u64_le"/>
+    <functioncall functionName="assert_zu_gt"/>
+    <functioncall functionName="assert_zu_le"/>
+    <functioncall functionName="assert_zu_lt"/>
+    <functioncall functionName="background_thread_enabled"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="curlextents"/>
+    <functioncall functionName="curregs"/>
+    <functioncall functionName="curslabs"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="dirty_nmadvise"/>
+    <functioncall functionName="dirty_npurge"/>
+    <functioncall functionName="dirty_purged"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="gen_mallctl_str"/>
+    <functioncall functionName="hsize"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="large"/>
+    <functioncall functionName="little"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mapped"/>
+    <functioncall functionName="muzzy_nmadvise"/>
+    <functioncall functionName="muzzy_npurge"/>
+    <functioncall functionName="muzzy_purged"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="ndalloc"/>
+    <functioncall functionName="nfills"/>
+    <functioncall functionName="nflushes"/>
+    <functioncall functionName="nmalloc"/>
+    <functioncall functionName="no_lazy_lock"/>
+    <functioncall functionName="nrequests"/>
+    <functioncall functionName="nreslabs"/>
+    <functioncall functionName="nslabs"/>
+    <functioncall functionName="old_arena_ind"/>
+    <functioncall functionName="opt_tcache"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="resident"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_stats_arenas_bins"/>
+    <functioncall functionName="test_stats_arenas_large"/>
+    <functioncall functionName="test_stats_arenas_lextents"/>
+    <functioncall functionName="test_stats_arenas_small"/>
+    <functioncall functionName="test_stats_arenas_summary"/>
+    <functioncall functionName="test_stats_large"/>
+    <functioncall functionName="test_stats_summary"/>
+    <functioncall functionName="thd"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="uint64_t"/>
+  </FileInfo>
+</analyzerinfo>

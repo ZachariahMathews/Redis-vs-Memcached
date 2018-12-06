@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2086099622">
+        <error id="invalidPrintfArgType_sint" severity="portability" msg="%zd in format string (no. 1) requires &apos;ssize_t&apos; but the argument type is &apos;size_t {aka unsigned long long}&apos;." verbose="%zd in format string (no. 1) requires &apos;ssize_t&apos; but the argument type is &apos;size_t {aka unsigned long long}&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\msvc\test_threads\test_threads.cpp" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\msvc\test_threads\test_threads.cpp" line="82"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="test_threads" lineNumber="19"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="allocated1"/>
+    <functioncall functionName="allocated2"/>
+    <functioncall functionName="emplace_back"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getchar"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="je_free"/>
+    <functioncall functionName="je_mallctl"/>
+    <functioncall functionName="je_malloc"/>
+    <functioncall functionName="je_malloc_stats_print"/>
+    <functioncall functionName="join"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="leaked"/>
+    <functioncall functionName="narenas"/>
+    <functioncall functionName="numAllocsMax"/>
+    <functioncall functionName="numIter1"/>
+    <functioncall functionName="numIter2"/>
+    <functioncall functionName="numThreads"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="rnd"/>
+    <functioncall functionName="sizeDist"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sizes"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz1"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="tid"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="workers"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

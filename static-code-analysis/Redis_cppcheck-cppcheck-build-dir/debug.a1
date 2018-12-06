@@ -1,0 +1,397 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="740561120">
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." verbose="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" file="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" line="470"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 1) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." verbose="%lu in format string (no. 1) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" file="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" line="480"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" file="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" line="183"/>
+            <symbol>score</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;key&apos; can be reduced." verbose="The scope of the variable &apos;key&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" file="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" line="462"/>
+            <symbol>key</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;val&apos; can be reduced." verbose="The scope of the variable &apos;val&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" file="C:\Users\bharm\Downloads\redis-unstable\src\debug.c" line="951"/>
+            <symbol>val</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="xorDigest" lineNumber="60"/>
+    <functiondecl functionName="xorObjectDigest" lineNumber="73"/>
+    <functiondecl functionName="mixDigest" lineNumber="93"/>
+    <functiondecl functionName="mixObjectDigest" lineNumber="103"/>
+    <functiondecl functionName="computeDatasetDigest" lineNumber="115"/>
+    <functiondecl functionName="debugCommand" lineNumber="285"/>
+    <functiondecl functionName="_serverAssert" lineNumber="602"/>
+    <functiondecl functionName="_serverAssertPrintClientInfo" lineNumber="615"/>
+    <functiondecl functionName="serverLogObjectDebugInfo" lineNumber="639"/>
+    <functiondecl functionName="_serverAssertPrintObject" lineNumber="663"/>
+    <functiondecl functionName="_serverAssertWithInfo" lineNumber="669"/>
+    <functiondecl functionName="_serverPanic" lineNumber="675"/>
+    <functiondecl functionName="bugReportStart" lineNumber="693"/>
+    <functiondecl functionName="serverLogHexDump" lineNumber="1164"/>
+    <functiondecl functionName="watchdogSignalHandler" lineNumber="1189"/>
+    <functiondecl functionName="watchdogScheduleSignal" lineNumber="1210"/>
+    <functiondecl functionName="enableWatchdog" lineNumber="1223"/>
+    <functiondecl functionName="disableWatchdog" lineNumber="1246"/>
+    <functiondecl functionName="xorDigest" lineNumber="60"/>
+    <functiondecl functionName="xorObjectDigest" lineNumber="73"/>
+    <functiondecl functionName="mixDigest" lineNumber="93"/>
+    <functiondecl functionName="mixObjectDigest" lineNumber="103"/>
+    <functiondecl functionName="computeDatasetDigest" lineNumber="115"/>
+    <functiondecl functionName="debugCommand" lineNumber="285"/>
+    <functiondecl functionName="_serverAssert" lineNumber="602"/>
+    <functiondecl functionName="_serverAssertPrintClientInfo" lineNumber="615"/>
+    <functiondecl functionName="serverLogObjectDebugInfo" lineNumber="639"/>
+    <functiondecl functionName="_serverAssertPrintObject" lineNumber="663"/>
+    <functiondecl functionName="_serverAssertWithInfo" lineNumber="669"/>
+    <functiondecl functionName="_serverPanic" lineNumber="675"/>
+    <functiondecl functionName="bugReportStart" lineNumber="693"/>
+    <functiondecl functionName="getMcontextEip" lineNumber="702"/>
+    <functiondecl functionName="logStackContent" lineNumber="737"/>
+    <functiondecl functionName="logRegisters" lineNumber="750"/>
+    <functiondecl functionName="openDirectLogFiledes" lineNumber="885"/>
+    <functiondecl functionName="closeDirectLogFiledes" lineNumber="894"/>
+    <functiondecl functionName="logStackTrace" lineNumber="901"/>
+    <functiondecl functionName="logCurrentClient" lineNumber="929"/>
+    <functiondecl functionName="dumpX86Calls" lineNumber="1035"/>
+    <functiondecl functionName="sigsegvHandler" lineNumber="1058"/>
+    <functiondecl functionName="serverLogHexDump" lineNumber="1164"/>
+    <functiondecl functionName="watchdogSignalHandler" lineNumber="1189"/>
+    <functiondecl functionName="watchdogScheduleSignal" lineNumber="1210"/>
+    <functiondecl functionName="enableWatchdog" lineNumber="1223"/>
+    <functiondecl functionName="disableWatchdog" lineNumber="1246"/>
+    <functioncall functionName="ITIMER_REAL"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_WRONLY"/>
+    <functioncall functionName="SA_RESETHAND"/>
+    <functioncall functionName="SA_SIGINFO"/>
+    <functioncall functionName="SHA1Final"/>
+    <functioncall functionName="SHA1Init"/>
+    <functioncall functionName="SHA1Update"/>
+    <functioncall functionName="SIGALRM"/>
+    <functioncall functionName="SIG_DFL"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="STDOUT_FILENO"/>
+    <functioncall functionName="ULONG_MAX"/>
+    <functioncall functionName="_SC_PAGESIZE"/>
+    <functioncall functionName="__cs"/>
+    <functioncall functionName="__ds"/>
+    <functioncall functionName="__eax"/>
+    <functioncall functionName="__ebp"/>
+    <functioncall functionName="__ebx"/>
+    <functioncall functionName="__ecx"/>
+    <functioncall functionName="__edi"/>
+    <functioncall functionName="__edx"/>
+    <functioncall functionName="__eflags"/>
+    <functioncall functionName="__eip"/>
+    <functioncall functionName="__es"/>
+    <functioncall functionName="__esi"/>
+    <functioncall functionName="__esp"/>
+    <functioncall functionName="__fs"/>
+    <functioncall functionName="__gs"/>
+    <functioncall functionName="__ss"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertPrintClientInfo"/>
+    <functioncall functionName="_serverAssertPrintObject"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="act"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkSds"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="addReplyStatusFormat"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="aof_filename"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="assert_failed"/>
+    <functioncall functionName="assert_file"/>
+    <functioncall functionName="assert_line"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="avg"/>
+    <functioncall functionName="backtrace"/>
+    <functioncall functionName="backtrace_symbols_fd"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="bugReportStart"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="catClientInfoString"/>
+    <functioncall functionName="cc"/>
+    <functioncall functionName="changeReplicationId"/>
+    <functioncall functionName="clearReplicationId2"/>
+    <functioncall functionName="client"/>
+    <functioncall functionName="clients"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="closeDirectLogFiledes"/>
+    <functioncall functionName="compressed"/>
+    <functioncall functionName="computeDatasetDigest"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="current_client"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decoded"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="delay"/>
+    <functioncall functionName="descr"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictGetStats"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="digest"/>
+    <functioncall functionName="dladdr"/>
+    <functioncall functionName="dli_fbase"/>
+    <functioncall functionName="dli_fname"/>
+    <functioncall functionName="dli_saddr"/>
+    <functioncall functionName="dli_sname"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dumpX86Calls"/>
+    <functioncall functionName="eip"/>
+    <functioncall functionName="eledigest"/>
+    <functioncall functionName="eleobj"/>
+    <functioncall functionName="emptyDb"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="estimateObjectIdleTime"/>
+    <functioncall functionName="estr"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="extra"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="field_len"/>
+    <functioncall functionName="file"/>
+    <functioncall functionName="fill"/>
+    <functioncall functionName="final"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="flushAppendOnlyFile"/>
+    <functioncall functionName="fmtmsg"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="genRedisInfoString"/>
+    <functioncall functionName="getAllClientsInfoString"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getMcontextEip"/>
+    <functioncall functionName="getStringObjectSdsUsedMemory"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashTypeCurrentObjectNewSds"/>
+    <functioncall functionName="hashTypeInitIterator"/>
+    <functioncall functionName="hashTypeLength"/>
+    <functioncall functionName="hashTypeNext"/>
+    <functioncall functionName="hashTypeReleaseIterator"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="hi"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="htonl"/>
+    <functioncall functionName="hz"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="infostring"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="itemid"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyobj"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="listTypeGet"/>
+    <functioncall functionName="listTypeInitIterator"/>
+    <functioncall functionName="listTypeLength"/>
+    <functioncall functionName="listTypeNext"/>
+    <functioncall functionName="listTypeReleaseIterator"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="loadAppendOnlyFile"/>
+    <functioncall functionName="logCurrentClient"/>
+    <functioncall functionName="logRegisters"/>
+    <functioncall functionName="logStackContent"/>
+    <functioncall functionName="logStackTrace"/>
+    <functioncall functionName="log_to_stdout"/>
+    <functioncall functionName="logfile"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lru"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="md"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="min_period"/>
+    <functioncall functionName="mixDigest"/>
+    <functioncall functionName="mixObjectDigest"/>
+    <functioncall functionName="ms"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="msg1"/>
+    <functioncall functionName="msg2"/>
+    <functioncall functionName="nanosleep"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextra"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nokeyerr"/>
+    <functioncall functionName="numfields"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="objectCommandLookupOrReply"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="openDirectLogFiledes"/>
+    <functioncall functionName="period"/>
+    <functioncall functionName="pidfile"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="protectClient"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rdbLoad"/>
+    <functioncall functionName="rdbPopulateSaveInfo"/>
+    <functioncall functionName="rdbSave"/>
+    <functioncall functionName="rdbSavedObjectLen"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="refcount"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="repr"/>
+    <functioncall functionName="restartServer"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rsi"/>
+    <functioncall functionName="rsiptr"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa_mask"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="sdsZmallocSize"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsele"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsmapchars"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="secret"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="serverLogFromHandler"/>
+    <functioncall functionName="serverLogHexDump"/>
+    <functioncall functionName="serverLogObjectDebugInfo"/>
+    <functioncall functionName="serverLogRaw"/>
+    <functioncall functionName="setTypeInitIterator"/>
+    <functioncall functionName="setTypeNextObject"/>
+    <functioncall functionName="setTypeReleaseIterator"/>
+    <functioncall functionName="setTypeSize"/>
+    <functioncall functionName="setitimer"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="si_addr"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="sigaction"/>
+    <functioncall functionName="sigemptyset"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sizes"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sptr"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="strEncoding"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="streamIteratorGetField"/>
+    <functioncall functionName="streamIteratorGetID"/>
+    <functioncall functionName="streamIteratorStart"/>
+    <functioncall functionName="streamIteratorStop"/>
+    <functioncall functionName="strenc"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtod"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sysconf"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="trace"/>
+    <functioncall functionName="trace_size"/>
+    <functioncall functionName="tryObjectEncoding"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="uc"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="unprotectClient"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="valsize"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="value_len"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vll"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="watchdogScheduleSignal"/>
+    <functioncall functionName="watchdogSignalHandler"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="xorDigest"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="ziplistRepr"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zsetLength"/>
+    <functioncall functionName="zzlGetScore"/>
+    <functioncall functionName="zzlNext"/>
+  </FileInfo>
+</analyzerinfo>

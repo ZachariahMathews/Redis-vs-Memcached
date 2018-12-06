@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="652363100">
+        <error id="shiftNegativeLHS" severity="portability" msg="Shifting a negative value is technically undefined behaviour" verbose="Shifting a negative value is technically undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\nstime.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\nstime.c" line="81"/>
+        </error>
+        <error id="shiftTooManyBits" severity="error" msg="Shifting 32-bit value by 32 bits is undefined behaviour" verbose="Shifting 32-bit value by 32 bits is undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\nstime.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\nstime.c" line="81" info="Shift"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="nstime_init" lineNumber="12"/>
+    <functiondecl functionName="nstime_init2" lineNumber="17"/>
+    <functiondecl functionName="nstime_ns" lineNumber="22"/>
+    <functiondecl functionName="nstime_msec" lineNumber="27"/>
+    <functiondecl functionName="nstime_sec" lineNumber="32"/>
+    <functiondecl functionName="nstime_nsec" lineNumber="37"/>
+    <functiondecl functionName="nstime_copy" lineNumber="42"/>
+    <functiondecl functionName="nstime_compare" lineNumber="47"/>
+    <functiondecl functionName="nstime_add" lineNumber="52"/>
+    <functiondecl functionName="nstime_iadd" lineNumber="59"/>
+    <functiondecl functionName="nstime_subtract" lineNumber="66"/>
+    <functiondecl functionName="nstime_isubtract" lineNumber="73"/>
+    <functiondecl functionName="nstime_imultiply" lineNumber="80"/>
+    <functiondecl functionName="nstime_idivide" lineNumber="88"/>
+    <functiondecl functionName="nstime_divide" lineNumber="95"/>
+    <functiondecl functionName="nstime_get" lineNumber="140"/>
+    <functiondecl functionName="nstime_monotonic_impl" lineNumber="149"/>
+    <functiondecl functionName="nstime_update_impl" lineNumber="156"/>
+    <functiondecl functionName="nstime_init" lineNumber="12"/>
+    <functiondecl functionName="nstime_init2" lineNumber="17"/>
+    <functiondecl functionName="nstime_ns" lineNumber="22"/>
+    <functiondecl functionName="nstime_msec" lineNumber="27"/>
+    <functiondecl functionName="nstime_sec" lineNumber="32"/>
+    <functiondecl functionName="nstime_nsec" lineNumber="37"/>
+    <functiondecl functionName="nstime_copy" lineNumber="42"/>
+    <functiondecl functionName="nstime_compare" lineNumber="47"/>
+    <functiondecl functionName="nstime_add" lineNumber="52"/>
+    <functiondecl functionName="nstime_iadd" lineNumber="59"/>
+    <functiondecl functionName="nstime_subtract" lineNumber="66"/>
+    <functiondecl functionName="nstime_isubtract" lineNumber="73"/>
+    <functiondecl functionName="nstime_imultiply" lineNumber="80"/>
+    <functiondecl functionName="nstime_idivide" lineNumber="88"/>
+    <functiondecl functionName="nstime_divide" lineNumber="95"/>
+    <functiondecl functionName="nstime_get" lineNumber="125"/>
+    <functiondecl functionName="nstime_monotonic_impl" lineNumber="149"/>
+    <functiondecl functionName="nstime_update_impl" lineNumber="156"/>
+    <functiondecl functionName="nstime_init" lineNumber="12"/>
+    <functiondecl functionName="nstime_init2" lineNumber="17"/>
+    <functiondecl functionName="nstime_ns" lineNumber="22"/>
+    <functiondecl functionName="nstime_msec" lineNumber="27"/>
+    <functiondecl functionName="nstime_sec" lineNumber="32"/>
+    <functiondecl functionName="nstime_nsec" lineNumber="37"/>
+    <functiondecl functionName="nstime_copy" lineNumber="42"/>
+    <functiondecl functionName="nstime_compare" lineNumber="47"/>
+    <functiondecl functionName="nstime_add" lineNumber="52"/>
+    <functiondecl functionName="nstime_iadd" lineNumber="59"/>
+    <functiondecl functionName="nstime_subtract" lineNumber="66"/>
+    <functiondecl functionName="nstime_isubtract" lineNumber="73"/>
+    <functiondecl functionName="nstime_imultiply" lineNumber="80"/>
+    <functiondecl functionName="nstime_idivide" lineNumber="88"/>
+    <functiondecl functionName="nstime_divide" lineNumber="95"/>
+    <functiondecl functionName="nstime_get" lineNumber="116"/>
+    <functiondecl functionName="nstime_monotonic_impl" lineNumber="149"/>
+    <functiondecl functionName="nstime_update_impl" lineNumber="156"/>
+    <functiondecl functionName="nstime_init" lineNumber="12"/>
+    <functiondecl functionName="nstime_init2" lineNumber="17"/>
+    <functiondecl functionName="nstime_ns" lineNumber="22"/>
+    <functiondecl functionName="nstime_msec" lineNumber="27"/>
+    <functiondecl functionName="nstime_sec" lineNumber="32"/>
+    <functiondecl functionName="nstime_nsec" lineNumber="37"/>
+    <functiondecl functionName="nstime_copy" lineNumber="42"/>
+    <functiondecl functionName="nstime_compare" lineNumber="47"/>
+    <functiondecl functionName="nstime_add" lineNumber="52"/>
+    <functiondecl functionName="nstime_iadd" lineNumber="59"/>
+    <functiondecl functionName="nstime_subtract" lineNumber="66"/>
+    <functiondecl functionName="nstime_isubtract" lineNumber="73"/>
+    <functiondecl functionName="nstime_imultiply" lineNumber="80"/>
+    <functiondecl functionName="nstime_idivide" lineNumber="88"/>
+    <functiondecl functionName="nstime_divide" lineNumber="95"/>
+    <functiondecl functionName="nstime_get" lineNumber="134"/>
+    <functiondecl functionName="nstime_monotonic_impl" lineNumber="149"/>
+    <functiondecl functionName="nstime_update_impl" lineNumber="156"/>
+    <functiondecl functionName="nstime_init" lineNumber="12"/>
+    <functiondecl functionName="nstime_init2" lineNumber="17"/>
+    <functiondecl functionName="nstime_ns" lineNumber="22"/>
+    <functiondecl functionName="nstime_msec" lineNumber="27"/>
+    <functiondecl functionName="nstime_sec" lineNumber="32"/>
+    <functiondecl functionName="nstime_nsec" lineNumber="37"/>
+    <functiondecl functionName="nstime_copy" lineNumber="42"/>
+    <functiondecl functionName="nstime_compare" lineNumber="47"/>
+    <functiondecl functionName="nstime_add" lineNumber="52"/>
+    <functiondecl functionName="nstime_iadd" lineNumber="59"/>
+    <functiondecl functionName="nstime_subtract" lineNumber="66"/>
+    <functiondecl functionName="nstime_isubtract" lineNumber="73"/>
+    <functiondecl functionName="nstime_imultiply" lineNumber="80"/>
+    <functiondecl functionName="nstime_idivide" lineNumber="88"/>
+    <functiondecl functionName="nstime_divide" lineNumber="95"/>
+    <functiondecl functionName="nstime_get" lineNumber="104"/>
+    <functiondecl functionName="nstime_monotonic_impl" lineNumber="149"/>
+    <functiondecl functionName="nstime_update_impl" lineNumber="156"/>
+    <functioncall functionName="CLOCK_MONOTONIC"/>
+    <functioncall functionName="CLOCK_MONOTONIC_COARSE"/>
+    <functioncall functionName="GetSystemTimeAsFileTime"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="clock_gettime"/>
+    <functioncall functionName="dwHighDateTime"/>
+    <functioncall functionName="dwLowDateTime"/>
+    <functioncall functionName="ft"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="mach_absolute_time"/>
+    <functioncall functionName="multiplier"/>
+    <functioncall functionName="ns"/>
+    <functioncall functionName="nsec"/>
+    <functioncall functionName="nstime_compare"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_get"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_init2"/>
+    <functioncall functionName="old_time"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="subtrahend"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_nsec"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unlikely"/>
+  </FileInfo>
+</analyzerinfo>

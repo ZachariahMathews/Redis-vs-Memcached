@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3852073871">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="5"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="15"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="24"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="35"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="69"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="88"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="105"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="124"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="141"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="158"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="177"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="204"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="209"/>
+    <functiondecl functionName="main" lineNumber="234"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="addend"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="nst"/>
+    <functioncall functionName="nst0"/>
+    <functioncall functionName="nsta"/>
+    <functioncall functionName="nstb"/>
+    <functioncall functionName="nstc"/>
+    <functioncall functionName="nstime_add"/>
+    <functioncall functionName="nstime_compare"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_divide"/>
+    <functioncall functionName="nstime_iadd"/>
+    <functioncall functionName="nstime_idivide"/>
+    <functioncall functionName="nstime_imultiply"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_init2"/>
+    <functioncall functionName="nstime_isubtract"/>
+    <functioncall functionName="nstime_monotonic"/>
+    <functioncall functionName="nstime_ns"/>
+    <functioncall functionName="nstime_nsec"/>
+    <functioncall functionName="nstime_sec"/>
+    <functioncall functionName="nstime_subtract"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_nstime_add"/>
+    <functioncall functionName="test_nstime_compare"/>
+    <functioncall functionName="test_nstime_copy"/>
+    <functioncall functionName="test_nstime_divide"/>
+    <functioncall functionName="test_nstime_iadd"/>
+    <functioncall functionName="test_nstime_idivide"/>
+    <functioncall functionName="test_nstime_imultiply"/>
+    <functioncall functionName="test_nstime_init"/>
+    <functioncall functionName="test_nstime_init2"/>
+    <functioncall functionName="test_nstime_isubtract"/>
+    <functioncall functionName="test_nstime_monotonic"/>
+    <functioncall functionName="test_nstime_subtract"/>
+    <functioncall functionName="test_nstime_update"/>
+  </FileInfo>
+</analyzerinfo>

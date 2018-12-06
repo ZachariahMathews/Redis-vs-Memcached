@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3330273114">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="binind_compute" lineNumber="20"/>
+    <functiondecl functionName="nregs_per_run_compute" lineNumber="50"/>
+    <functiondecl functionName="arenas_create_mallctl" lineNumber="67"/>
+    <functiondecl functionName="arena_reset_mallctl" lineNumber="79"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="90"/>
+    <functiondecl functionName="main" lineNumber="163"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arena_reset_mallctl"/>
+    <functioncall functionName="arenas_create_mallctl"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="binind"/>
+    <functioncall functionName="binind_compute"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nbins"/>
+    <functioncall functionName="nregs"/>
+    <functioncall functionName="nregs_per_run_compute"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prof_enabled"/>
+    <functioncall functionName="ptrs"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_pack"/>
+    <functioncall functionName="test_skip_if"/>
+  </FileInfo>
+</analyzerinfo>

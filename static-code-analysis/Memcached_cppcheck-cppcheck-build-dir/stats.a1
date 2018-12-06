@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1459103055">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="my_sasl_hostname" size="1025"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="stats_prefix_init" lineNumber="38"/>
+    <functiondecl functionName="stats_prefix_clear" lineNumber="46"/>
+    <functiondecl functionName="stats_prefix_find" lineNumber="67"/>
+    <functiondecl functionName="stats_prefix_record_get" lineNumber="122"/>
+    <functiondecl functionName="stats_prefix_record_delete" lineNumber="139"/>
+    <functiondecl functionName="stats_prefix_record_set" lineNumber="153"/>
+    <functiondecl functionName="stats_prefix_dump" lineNumber="168"/>
+    <functiondecl functionName="fail" lineNumber="226"/>
+    <functiondecl functionName="test_equals_int" lineNumber="227"/>
+    <functiondecl functionName="test_equals_ptr" lineNumber="228"/>
+    <functiondecl functionName="test_equals_str" lineNumber="229"/>
+    <functiondecl functionName="test_equals_ull" lineNumber="230"/>
+    <functiondecl functionName="test_notequals_ptr" lineNumber="231"/>
+    <functiondecl functionName="test_notnull_ptr" lineNumber="232"/>
+    <functiondecl functionName="test_prefix_find" lineNumber="234"/>
+    <functiondecl functionName="test_prefix_record_get" lineNumber="253"/>
+    <functiondecl functionName="test_prefix_record_delete" lineNumber="271"/>
+    <functiondecl functionName="test_prefix_record_set" lineNumber="284"/>
+    <functiondecl functionName="test_prefix_dump" lineNumber="297"/>
+    <functiondecl functionName="run_test" lineNumber="350"/>
+    <functiondecl functionName="mt_stats_lock" lineNumber="362"/>
+    <functiondecl functionName="mt_stats_unlock" lineNumber="363"/>
+    <functiondecl functionName="main" lineNumber="365"/>
+    <functioncall functionName="CRAWLER_BADCLASS"/>
+    <functioncall functionName="CRAWLER_ERROR"/>
+    <functioncall functionName="CRAWLER_EXPIRED"/>
+    <functioncall functionName="CRAWLER_METADUMP"/>
+    <functioncall functionName="CRAWLER_NOTSTARTED"/>
+    <functioncall functionName="CRAWLER_RUNNING"/>
+    <functioncall functionName="DELTA_ITEM_CAS_MISMATCH"/>
+    <functioncall functionName="DELTA_ITEM_NOT_FOUND"/>
+    <functioncall functionName="EOM"/>
+    <functioncall functionName="EXISTS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_FAILED"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_OK"/>
+    <functioncall functionName="LOGGER_COMPACT_ABORT"/>
+    <functioncall functionName="LOGGER_COMPACT_END"/>
+    <functioncall functionName="LOGGER_COMPACT_FRAGINFO"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_END"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_START"/>
+    <functioncall functionName="LOGGER_COMPACT_START"/>
+    <functioncall functionName="LOGGER_CRAWLER_STATUS"/>
+    <functioncall functionName="LOGGER_EVICTION"/>
+    <functioncall functionName="LOGGER_EVICTION_ENTRY"/>
+    <functioncall functionName="LOGGER_EXTSTORE_WRITE"/>
+    <functioncall functionName="LOGGER_EXT_WRITE_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_GET"/>
+    <functioncall functionName="LOGGER_ITEM_GET_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_STORE"/>
+    <functioncall functionName="LOGGER_ITEM_STORE_ENTRY"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FAILED"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FULLBUF"/>
+    <functioncall functionName="LOGGER_RET_ERR"/>
+    <functioncall functionName="LOGGER_RET_NOSPACE"/>
+    <functioncall functionName="LOGGER_SLAB_MOVE"/>
+    <functioncall functionName="MURMUR3_HASH"/>
+    <functioncall functionName="NON_NUMERIC"/>
+    <functioncall functionName="NOT_FOUND"/>
+    <functioncall functionName="NO_MEMORY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="OK"/>
+    <functioncall functionName="PAUSE_ALL_THREADS"/>
+    <functioncall functionName="REASSIGN_BADCLASS"/>
+    <functioncall functionName="REASSIGN_NOSPARE"/>
+    <functioncall functionName="REASSIGN_RUNNING"/>
+    <functioncall functionName="REASSIGN_SRC_DST_SAME"/>
+    <functioncall functionName="RESUME_ALL_THREADS"/>
+    <functioncall functionName="RESUME_WORKER_THREADS"/>
+    <functioncall functionName="STATS_LOCK"/>
+    <functioncall functionName="STATS_UNLOCK"/>
+    <functioncall functionName="STORED"/>
+    <functioncall functionName="TOO_LARGE"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="bailout"/>
+    <functioncall functionName="bin_no_state"/>
+    <functioncall functionName="bin_read_flush_exptime"/>
+    <functioncall functionName="bin_read_set_value"/>
+    <functioncall functionName="bin_reading_cas_header"/>
+    <functioncall functionName="bin_reading_del_header"/>
+    <functioncall functionName="bin_reading_get_key"/>
+    <functioncall functionName="bin_reading_incr_header"/>
+    <functioncall functionName="bin_reading_sasl_auth"/>
+    <functioncall functionName="bin_reading_sasl_auth_data"/>
+    <functioncall functionName="bin_reading_set_header"/>
+    <functioncall functionName="bin_reading_stat"/>
+    <functioncall functionName="bin_reading_touch_key"/>
+    <functioncall functionName="binary_prot"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="conn_closed"/>
+    <functioncall functionName="conn_closing"/>
+    <functioncall functionName="conn_listening"/>
+    <functioncall functionName="conn_max_state"/>
+    <functioncall functionName="conn_mwrite"/>
+    <functioncall functionName="conn_new_cmd"/>
+    <functioncall functionName="conn_nread"/>
+    <functioncall functionName="conn_parse_cmd"/>
+    <functioncall functionName="conn_read"/>
+    <functioncall functionName="conn_swallow"/>
+    <functioncall functionName="conn_waiting"/>
+    <functioncall functionName="conn_watch"/>
+    <functioncall functionName="conn_write"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="fail"/>
+    <functioncall functionName="fail_count"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashval"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="is_hit"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keynum"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="local_transport"/>
+    <functioncall functionName="main"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="negotiating_prot"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nkey"/>
+    <functioncall functionName="num_deletes"/>
+    <functioncall functionName="num_gets"/>
+    <functioncall functionName="num_hits"/>
+    <functioncall functionName="num_sets"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pfs"/>
+    <functioncall functionName="pfs1"/>
+    <functioncall functionName="pfs2"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="prefix_delimiter"/>
+    <functioncall functionName="prefix_stats"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="puts"/>
+    <functioncall functionName="remain"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="run_test"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="stats_prefix_clear"/>
+    <functioncall functionName="stats_prefix_dump"/>
+    <functioncall functionName="stats_prefix_find"/>
+    <functioncall functionName="stats_prefix_init"/>
+    <functioncall functionName="stats_prefix_record_delete"/>
+    <functioncall functionName="stats_prefix_record_get"/>
+    <functioncall functionName="stats_prefix_record_set"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="tcp_transport"/>
+    <functioncall functionName="test_count"/>
+    <functioncall functionName="test_equals_int"/>
+    <functioncall functionName="test_equals_ptr"/>
+    <functioncall functionName="test_equals_str"/>
+    <functioncall functionName="test_equals_ull"/>
+    <functioncall functionName="test_notequals_ptr"/>
+    <functioncall functionName="test_notnull_ptr"/>
+    <functioncall functionName="test_prefix_dump"/>
+    <functioncall functionName="test_prefix_find"/>
+    <functioncall functionName="test_prefix_record_delete"/>
+    <functioncall functionName="test_prefix_record_get"/>
+    <functioncall functionName="test_prefix_record_set"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="udp_transport"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="what"/>
+  </FileInfo>
+</analyzerinfo>

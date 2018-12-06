@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>302</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redeclared names without usage</problem_class>
+    <description>Redeclared 'decision' defined above without usage</description>
+  </problem>
+</problems>
+

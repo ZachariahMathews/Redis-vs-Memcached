@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/replication.c</file>
+    <line>284</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/replication.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rdb.c</file>
+    <line>1072</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rdb.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>3725</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>4145</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>1534</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>3774</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '"32"'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/lzf_c.c</file>
+    <line>148</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lzf_c.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '(off = ip - ref - 1) &lt; MAX_OFF'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/debug.c</file>
+    <line>531</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/debug.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to '32'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sort.c</file>
+    <line>480</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sort.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Expression can be simplified to 'false'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/config.c</file>
+    <line>910</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/config.c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable statement</problem_class>
+    <description>Condition is always false</description>
+  </problem>
+</problems>

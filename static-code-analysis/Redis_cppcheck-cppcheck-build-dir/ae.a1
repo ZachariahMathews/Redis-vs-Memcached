@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1478860983">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ae_select.c" line="79"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;id&apos; can be reduced." verbose="The scope of the variable &apos;id&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" line="297"/>
+            <symbol>id</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;numevents&apos; can be reduced." verbose="The scope of the variable &apos;numevents&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" line="360"/>
+            <symbol>numevents</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;retmask&apos; can be reduced." verbose="The scope of the variable &apos;retmask&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" file="C:\Users\bharm\Downloads\redis-unstable\src\ae.c" line="478"/>
+            <symbol>retmask</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aeCreateEventLoop" lineNumber="63"/>
+    <functiondecl functionName="aeGetSetSize" lineNumber="96"/>
+    <functiondecl functionName="aeResizeSetSize" lineNumber="107"/>
+    <functiondecl functionName="aeDeleteEventLoop" lineNumber="125"/>
+    <functiondecl functionName="aeStop" lineNumber="132"/>
+    <functiondecl functionName="aeCreateFileEvent" lineNumber="136"/>
+    <functiondecl functionName="aeDeleteFileEvent" lineNumber="156"/>
+    <functiondecl functionName="aeGetFileEvents" lineNumber="178"/>
+    <functiondecl functionName="aeGetTime" lineNumber="185"/>
+    <functiondecl functionName="aeAddMillisecondsToNow" lineNumber="194"/>
+    <functiondecl functionName="aeCreateTimeEvent" lineNumber="208"/>
+    <functiondecl functionName="aeDeleteTimeEvent" lineNumber="230"/>
+    <functiondecl functionName="aeSearchNearestTimer" lineNumber="254"/>
+    <functiondecl functionName="processTimeEvents" lineNumber="270"/>
+    <functiondecl functionName="aeProcessEvents" lineNumber="358"/>
+    <functiondecl functionName="aeWait" lineNumber="476"/>
+    <functiondecl functionName="aeMain" lineNumber="496"/>
+    <functiondecl functionName="aeGetApiName" lineNumber="505"/>
+    <functiondecl functionName="aeSetBeforeSleepProc" lineNumber="509"/>
+    <functiondecl functionName="aeSetAfterSleepProc" lineNumber="513"/>
+    <functioncall functionName="ERANGE"/>
+    <functioncall functionName="FD_CLR"/>
+    <functioncall functionName="FD_ISSET"/>
+    <functioncall functionName="FD_SET"/>
+    <functioncall functionName="FD_ZERO"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_rfds"/>
+    <functioncall functionName="_wfds"/>
+    <functioncall functionName="aeAddMillisecondsToNow"/>
+    <functioncall functionName="aeApiAddEvent"/>
+    <functioncall functionName="aeApiCreate"/>
+    <functioncall functionName="aeApiDelEvent"/>
+    <functioncall functionName="aeApiFree"/>
+    <functioncall functionName="aeApiName"/>
+    <functioncall functionName="aeApiPoll"/>
+    <functioncall functionName="aeApiResize"/>
+    <functioncall functionName="aeGetTime"/>
+    <functioncall functionName="aeProcessEvents"/>
+    <functioncall functionName="aeSearchNearestTimer"/>
+    <functioncall functionName="aftersleep"/>
+    <functioncall functionName="apidata"/>
+    <functioncall functionName="beforesleep"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="clientData"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cur_ms"/>
+    <functioncall functionName="cur_sec"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="eventLoop"/>
+    <functioncall functionName="events"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fd_set"/>
+    <functioncall functionName="finalizerProc"/>
+    <functioncall functionName="fired"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="lastTime"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="maxfd"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="milliseconds"/>
+    <functioncall functionName="ms"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="now_ms"/>
+    <functioncall functionName="now_sec"/>
+    <functioncall functionName="numevents"/>
+    <functioncall functionName="pfd"/>
+    <functioncall functionName="poll"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="proc"/>
+    <functioncall functionName="processTimeEvents"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="rfds"/>
+    <functioncall functionName="rfileProc"/>
+    <functioncall functionName="select"/>
+    <functioncall functionName="setsize"/>
+    <functioncall functionName="shortest"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="stop"/>
+    <functioncall functionName="te"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timeEventHead"/>
+    <functioncall functionName="timeProc"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tvp"/>
+    <functioncall functionName="wfds"/>
+    <functioncall functionName="wfileProc"/>
+    <functioncall functionName="when_ms"/>
+    <functioncall functionName="when_sec"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

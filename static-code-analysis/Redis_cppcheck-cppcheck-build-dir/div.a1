@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1716030353">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="div_init" lineNumber="30"/>
+    <functiondecl functionName="div_init" lineNumber="30"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="magic"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3942656357">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;block&apos; can be reduced." verbose="The scope of the variable &apos;block&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="97"/>
+            <symbol>block</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nwritten&apos; can be reduced." verbose="The scope of the variable &apos;nwritten&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="182"/>
+            <symbol>nwritten</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cwd&apos; can be reduced." verbose="The scope of the variable &apos;cwd&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="243"/>
+            <symbol>cwd</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nwritten&apos; can be reduced." verbose="The scope of the variable &apos;nwritten&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="292"/>
+            <symbol>nwritten</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;o&apos; can be reduced." verbose="The scope of the variable &apos;o&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="496"/>
+            <symbol>o</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;count&apos; can be reduced." verbose="The scope of the variable &apos;count&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="896"/>
+            <symbol>count</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;score&apos; can be reduced." verbose="The scope of the variable &apos;score&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" file="C:\Users\bharm\Downloads\redis-unstable\src\aof.c" line="985"/>
+            <symbol>score</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aofRewriteBufferReset" lineNumber="70"/>
+    <functiondecl functionName="aofRewriteBufferSize" lineNumber="79"/>
+    <functiondecl functionName="aofChildWriteDiffData" lineNumber="95"/>
+    <functiondecl functionName="aofRewriteBufferAppend" lineNumber="125"/>
+    <functiondecl functionName="aofRewriteBufferWrite" lineNumber="174"/>
+    <functiondecl functionName="aof_background_fsync" lineNumber="202"/>
+    <functiondecl functionName="killAppendOnlyChild" lineNumber="207"/>
+    <functiondecl functionName="stopAppendOnly" lineNumber="228"/>
+    <functiondecl functionName="startAppendOnly" lineNumber="242"/>
+    <functiondecl functionName="aofWrite" lineNumber="291"/>
+    <functiondecl functionName="flushAppendOnlyFile" lineNumber="331"/>
+    <functiondecl functionName="catAppendOnlyGenericCommand" lineNumber="493"/>
+    <functiondecl functionName="catAppendOnlyExpireAtCommand" lineNumber="525"/>
+    <functiondecl functionName="feedAppendOnlyFile" lineNumber="555"/>
+    <functiondecl functionName="createFakeClient" lineNumber="627"/>
+    <functiondecl functionName="freeFakeClientArgv" lineNumber="654"/>
+    <functiondecl functionName="freeFakeClient" lineNumber="662"/>
+    <functiondecl functionName="loadAppendOnlyFile" lineNumber="673"/>
+    <functiondecl functionName="rioWriteBulkObject" lineNumber="881"/>
+    <functiondecl functionName="rewriteListObject" lineNumber="895"/>
+    <functiondecl functionName="rewriteSetObject" lineNumber="929"/>
+    <functiondecl functionName="rewriteSortedSetObject" lineNumber="976"/>
+    <functiondecl functionName="rioWriteHashIteratorCursor" lineNumber="1049"/>
+    <functiondecl functionName="rewriteHashObject" lineNumber="1071"/>
+    <functiondecl functionName="rioWriteBulkStreamID" lineNumber="1099"/>
+    <functiondecl functionName="rioWriteStreamPendingEntry" lineNumber="1112"/>
+    <functiondecl functionName="rewriteStreamObject" lineNumber="1135"/>
+    <functiondecl functionName="rewriteModuleObject" lineNumber="1234"/>
+    <functiondecl functionName="aofReadDiffFromParent" lineNumber="1250"/>
+    <functiondecl functionName="rewriteAppendOnlyFileRio" lineNumber="1262"/>
+    <functiondecl functionName="rewriteAppendOnlyFile" lineNumber="1344"/>
+    <functiondecl functionName="aofChildPipeReadable" lineNumber="1449"/>
+    <functiondecl functionName="aofCreatePipes" lineNumber="1477"/>
+    <functiondecl functionName="aofClosePipes" lineNumber="1505"/>
+    <functiondecl functionName="rewriteAppendOnlyFileBackground" lineNumber="1532"/>
+    <functiondecl functionName="bgrewriteaofCommand" lineNumber="1592"/>
+    <functiondecl functionName="aofRemoveTempFile" lineNumber="1605"/>
+    <functiondecl functionName="aofUpdateCurrentSize" lineNumber="1616"/>
+    <functiondecl functionName="backgroundRewriteDoneHandler" lineNumber="1633"/>
+    <functioncall functionName="EIO"/>
+    <functioncall functionName="ENOSPC"/>
+    <functioncall functionName="LLONG_MAX"/>
+    <functioncall functionName="MAXPATHLEN"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_APPEND"/>
+    <functioncall functionName="O_CREAT"/>
+    <functioncall functionName="O_NONBLOCK"/>
+    <functioncall functionName="SDS_NOINIT"/>
+    <functioncall functionName="SEEK_END"/>
+    <functioncall functionName="SEEK_SET"/>
+    <functioncall functionName="SIGUSR1"/>
+    <functioncall functionName="UINT_MAX"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeDeleteFileEvent"/>
+    <functioncall functionName="aeGetFileEvents"/>
+    <functioncall functionName="aeWait"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="aof"/>
+    <functioncall functionName="aofChildPipeReadable"/>
+    <functioncall functionName="aofChildWriteDiffData"/>
+    <functioncall functionName="aofClosePipes"/>
+    <functioncall functionName="aofCreatePipes"/>
+    <functioncall functionName="aofReadDiffFromParent"/>
+    <functioncall functionName="aofRemoveTempFile"/>
+    <functioncall functionName="aofRewriteBufferAppend"/>
+    <functioncall functionName="aofRewriteBufferReset"/>
+    <functioncall functionName="aofRewriteBufferSize"/>
+    <functioncall functionName="aofRewriteBufferWrite"/>
+    <functioncall functionName="aofUpdateCurrentSize"/>
+    <functioncall functionName="aofWrite"/>
+    <functioncall functionName="aof_background_fsync"/>
+    <functioncall functionName="aof_buf"/>
+    <functioncall functionName="aof_child_diff"/>
+    <functioncall functionName="aof_child_pid"/>
+    <functioncall functionName="aof_current_size"/>
+    <functioncall functionName="aof_fd"/>
+    <functioncall functionName="aof_filename"/>
+    <functioncall functionName="aof_last_fsync"/>
+    <functioncall functionName="aof_load_truncated"/>
+    <functioncall functionName="aof_pipe_read_ack_from_child"/>
+    <functioncall functionName="aof_pipe_read_ack_from_parent"/>
+    <functioncall functionName="aof_pipe_read_data_from_parent"/>
+    <functioncall functionName="aof_pipe_write_ack_to_child"/>
+    <functioncall functionName="aof_pipe_write_ack_to_parent"/>
+    <functioncall functionName="aof_pipe_write_data_to_child"/>
+    <functioncall functionName="aof_rewrite"/>
+    <functioncall functionName="aof_rewrite_buf_blocks"/>
+    <functioncall functionName="aof_rewrite_incremental_fsync"/>
+    <functioncall functionName="aof_rewrite_time_start"/>
+    <functioncall functionName="aof_selected_db"/>
+    <functioncall functionName="aof_state"/>
+    <functioncall functionName="aof_use_rdb_preamble"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argsds"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="bioCreateBackgroundJob"/>
+    <functioncall functionName="bioPendingJobsOfType"/>
+    <functioncall functionName="block"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bysignal"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="can_log"/>
+    <functioncall functionName="catAppendOnlyExpireAtCommand"/>
+    <functioncall functionName="catAppendOnlyGenericCommand"/>
+    <functioncall functionName="cgroups"/>
+    <functioncall functionName="childpid"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="closeChildInfoPipe"/>
+    <functioncall functionName="closeListeningSockets"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmd_items"/>
+    <functioncall functionName="consumer"/>
+    <functioncall functionName="consumers"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createFakeClient"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLong"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="cwd"/>
+    <functioncall functionName="cwdp"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="delivery_count"/>
+    <functioncall functionName="delivery_time"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictid"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="dupClientReplyValue"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="exarg"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exitFromChild"/>
+    <functioncall functionName="expireCommand"/>
+    <functioncall functionName="expiretime"/>
+    <functioncall functionName="fakeClient"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fds"/>
+    <functioncall functionName="feof"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="field_len"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="flushAppendOnlyFile"/>
+    <functioncall functionName="fmterr"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="force"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fread"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeClientMultiState"/>
+    <functioncall functionName="freeClientReplyValue"/>
+    <functioncall functionName="freeFakeClient"/>
+    <functioncall functionName="freeFakeClientArgv"/>
+    <functioncall functionName="fseek"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="ftello"/>
+    <functioncall functionName="ftruncate"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getcwd"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="groupname"/>
+    <functioncall functionName="groupname_len"/>
+    <functioncall functionName="hashTypeCurrentFromHashTable"/>
+    <functioncall functionName="hashTypeCurrentFromZiplist"/>
+    <functioncall functionName="hashTypeInitIterator"/>
+    <functioncall functionName="hashTypeLength"/>
+    <functioncall functionName="hashTypeNext"/>
+    <functioncall functionName="hashTypeReleaseIterator"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hi"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="initClientMultiState"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intsetGet"/>
+    <functioncall functionName="io"/>
+    <functioncall functionName="items"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_len"/>
+    <functioncall functionName="keystr"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="killAppendOnlyChild"/>
+    <functioncall functionName="last_id"/>
+    <functioncall functionName="last_write_error_log"/>
+    <functioncall functionName="latency"/>
+    <functioncall functionName="latencyAddSample"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="list"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listTypeLength"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llval"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="loaded_ok"/>
+    <functioncall functionName="loadingProgress"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="longval"/>
+    <functioncall functionName="lookupCommand"/>
+    <functioncall functionName="lseek"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="moduleFreeContext"/>
+    <functioncall functionName="ms"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="mt"/>
+    <functioncall functionName="multiCommand"/>
+    <functioncall functionName="nack"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newfd"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="numfields"/>
+    <functioncall functionName="nwritten"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="old_aof_state"/>
+    <functioncall functionName="oldfd"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="openChildInfoPipe"/>
+    <functioncall functionName="pel"/>
+    <functioncall functionName="pexpireCommand"/>
+    <functioncall functionName="pipe"/>
+    <functioncall functionName="private_dirty"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="proc"/>
+    <functioncall functionName="processEventsWhileBlocked"/>
+    <functioncall functionName="processed_bytes"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pxarg"/>
+    <functioncall functionName="querybuf"/>
+    <functioncall functionName="queueMultiCommand"/>
+    <functioncall functionName="quicklistGetIterator"/>
+    <functioncall functionName="quicklistNext"/>
+    <functioncall functionName="quicklistReleaseIterator"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rawid"/>
+    <functioncall functionName="raxNext"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxStart"/>
+    <functioncall functionName="raxStop"/>
+    <functioncall functionName="rdb"/>
+    <functioncall functionName="rdbLoadRio"/>
+    <functioncall functionName="rdbSaveRio"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readerr"/>
+    <functioncall functionName="redisSetProcTitle"/>
+    <functioncall functionName="rename"/>
+    <functioncall functionName="replicationScriptCacheFlush"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="replyid"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteAppendOnlyFile"/>
+    <functioncall functionName="rewriteAppendOnlyFileBackground"/>
+    <functioncall functionName="rewriteAppendOnlyFileRio"/>
+    <functioncall functionName="rewriteHashObject"/>
+    <functioncall functionName="rewriteListObject"/>
+    <functioncall functionName="rewriteModuleObject"/>
+    <functioncall functionName="rewriteSetObject"/>
+    <functioncall functionName="rewriteSortedSetObject"/>
+    <functioncall functionName="rewriteStreamObject"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="ri_cons"/>
+    <functioncall functionName="ri_pel"/>
+    <functioncall functionName="rioInitWithFile"/>
+    <functioncall functionName="rioSetAutoSync"/>
+    <functioncall functionName="rioWrite"/>
+    <functioncall functionName="rioWriteBulkCount"/>
+    <functioncall functionName="rioWriteBulkDouble"/>
+    <functioncall functionName="rioWriteBulkLongLong"/>
+    <functioncall functionName="rioWriteBulkObject"/>
+    <functioncall functionName="rioWriteBulkStreamID"/>
+    <functioncall functionName="rioWriteBulkString"/>
+    <functioncall functionName="rioWriteHashIteratorCursor"/>
+    <functioncall functionName="rioWriteStreamPendingEntry"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsclear"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="seconds"/>
+    <functioncall functionName="seldb"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="selectcmd"/>
+    <functioncall functionName="sendChildInfo"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setTypeSize"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sptr"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="startLoading"/>
+    <functioncall functionName="statloc"/>
+    <functioncall functionName="stopLoading"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="streamDecodeID"/>
+    <functioncall functionName="streamIteratorGetField"/>
+    <functioncall functionName="streamIteratorGetID"/>
+    <functioncall functionName="streamIteratorStart"/>
+    <functioncall functionName="streamIteratorStop"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syncRead"/>
+    <functioncall functionName="sync_in_progress"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="thislen"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="tmpargv"/>
+    <functioncall functionName="tmpfile"/>
+    <functioncall functionName="totwritten"/>
+    <functioncall functionName="truncate"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="unixtime"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="updateDictResizePolicy"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="uxeof"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="valid_before_multi"/>
+    <functioncall functionName="valid_up_to"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="value_len"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vll"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="wait3"/>
+    <functioncall functionName="watched_keys"/>
+    <functioncall functionName="werr"/>
+    <functioncall functionName="what"/>
+    <functioncall functionName="when"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_get_private_dirty"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+    <functioncall functionName="zsetLength"/>
+    <functioncall functionName="zzlGetScore"/>
+    <functioncall functionName="zzlNext"/>
+  </FileInfo>
+</analyzerinfo>

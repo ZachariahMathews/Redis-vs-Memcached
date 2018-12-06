@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2522188067">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="tsd_init_check_recursion" lineNumber="325"/>
+    <functiondecl functionName="tsd_init_finish" lineNumber="346"/>
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="tsd_init_check_recursion" lineNumber="325"/>
+    <functiondecl functionName="tsd_init_finish" lineNumber="346"/>
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="_malloc_thread_cleanup" lineNumber="174"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="_tls_callback" lineNumber="282"/>
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="_malloc_thread_cleanup" lineNumber="174"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="_malloc_thread_cleanup" lineNumber="174"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="_tls_callback" lineNumber="282"/>
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="tsd_slow_update" lineNumber="55"/>
+    <functiondecl functionName="tsd_data_init" lineNumber="67"/>
+    <functiondecl functionName="assert_tsd_data_cleanup_done" lineNumber="88"/>
+    <functiondecl functionName="tsd_data_init_nocleanup" lineNumber="99"/>
+    <functiondecl functionName="tsd_fetch_slow" lineNumber="117"/>
+    <functiondecl functionName="malloc_tsd_malloc" lineNumber="160"/>
+    <functiondecl functionName="malloc_tsd_dalloc" lineNumber="165"/>
+    <functiondecl functionName="_malloc_thread_cleanup" lineNumber="174"/>
+    <functiondecl functionName="malloc_tsd_cleanup_register" lineNumber="197"/>
+    <functiondecl functionName="tsd_do_data_cleanup" lineNumber="204"/>
+    <functiondecl functionName="tsd_cleanup" lineNumber="214"/>
+    <functiondecl functionName="malloc_tsd_boot0" lineNumber="259"/>
+    <functiondecl functionName="malloc_tsd_boot1" lineNumber="272"/>
+    <functiondecl functionName="_tls_callback" lineNumber="282"/>
+    <functioncall functionName="CACHELINE_CEILING"/>
+    <functioncall functionName="JEMALLOC_ATTR"/>
+    <functioncall functionName="JEMALLOC_SECTION"/>
+    <functioncall functionName="MALLOC_MUTEX_INITIALIZER"/>
+    <functioncall functionName="MALLOC_TSD_CLEANUPS_MAX"/>
+    <functioncall functionName="TSDN_NULL"/>
+    <functioncall functionName="TSD_INITIALIZER"/>
+    <functioncall functionName="_malloc_thread_cleanup"/>
+    <functioncall functionName="_tls_callback"/>
+    <functioncall functionName="a0dalloc"/>
+    <functioncall functionName="a0malloc"/>
+    <functioncall functionName="again"/>
+    <functioncall functionName="arena_cleanup"/>
+    <functioncall functionName="arenas_tdata_cleanup"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="assert_tsd_data_cleanup_done"/>
+    <functioncall functionName="block"/>
+    <functioncall functionName="blocks"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fdwReason"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="iarena_cleanup"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="minimal"/>
+    <functioncall functionName="ncleanups"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="prof_tdata_cleanup"/>
+    <functioncall functionName="pthread_self"/>
+    <functioncall functionName="ql_elm_new"/>
+    <functioncall functionName="ql_foreach"/>
+    <functioncall functionName="ql_head"/>
+    <functioncall functionName="ql_head_initializer"/>
+    <functioncall functionName="ql_remove"/>
+    <functioncall functionName="ql_tail_insert"/>
+    <functioncall functionName="rtree_ctx_data_init"/>
+    <functioncall functionName="self"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tcache_cleanup"/>
+    <functioncall functionName="test_callback"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_arenap_get_unsafe"/>
+    <functioncall functionName="tsd_arenas_tdata_bypassp_get"/>
+    <functioncall functionName="tsd_arenas_tdata_bypassp_get_unsafe"/>
+    <functioncall functionName="tsd_arenas_tdatap_get_unsafe"/>
+    <functioncall functionName="tsd_boot0"/>
+    <functioncall functionName="tsd_boot1"/>
+    <functioncall functionName="tsd_data_init"/>
+    <functioncall functionName="tsd_data_init_nocleanup"/>
+    <functioncall functionName="tsd_do_data_cleanup"/>
+    <functioncall functionName="tsd_fast"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_iarenap_get_unsafe"/>
+    <functioncall functionName="tsd_init_block_t"/>
+    <functioncall functionName="tsd_nominal"/>
+    <functioncall functionName="tsd_offset_statep_get"/>
+    <functioncall functionName="tsd_prof_tdatap_get_unsafe"/>
+    <functioncall functionName="tsd_reentrancy_level_get"/>
+    <functioncall functionName="tsd_reentrancy_levelp_get"/>
+    <functioncall functionName="tsd_rtree_ctxp_get_unsafe"/>
+    <functioncall functionName="tsd_set"/>
+    <functioncall functionName="tsd_slow_update"/>
+    <functioncall functionName="tsd_state_minimal_initialized"/>
+    <functioncall functionName="tsd_state_nominal"/>
+    <functioncall functionName="tsd_state_nominal_slow"/>
+    <functioncall functionName="tsd_state_purgatory"/>
+    <functioncall functionName="tsd_state_reincarnated"/>
+    <functioncall functionName="tsd_tcache_enabled_data_init"/>
+    <functioncall functionName="tsd_tcache_enabled_get"/>
+    <functioncall functionName="tsd_tcache_enabledp_get_unsafe"/>
+    <functioncall functionName="tsd_test_callbackp_get_unsafe"/>
+    <functioncall functionName="tsd_test_datap_get_unsafe"/>
+    <functioncall functionName="tsd_witness_tsdp_get_unsafe"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="witnesses_cleanup"/>
+    <functioncall functionName="wrapper"/>
+  </FileInfo>
+</analyzerinfo>

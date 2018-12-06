@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>1</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Invalid interpreter configured</problem_class>
+    <description>No Python interpreter configured for the module</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>1</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Invalid interpreter configured</problem_class>
+    <description>No Python interpreter configured for the module</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/devtools/slab_loadgen</file>
+    <line>1</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/devtools/slab_loadgen" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Invalid interpreter configured</problem_class>
+    <description>No Python interpreter configured for the module</description>
+  </problem>
+</problems>
+

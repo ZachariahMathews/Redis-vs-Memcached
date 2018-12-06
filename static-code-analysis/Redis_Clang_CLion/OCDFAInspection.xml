@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/lolwut5.c</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lolwut5.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/replication.c</file>
+    <line>52</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/replication.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/siphash.c</file>
+    <line>50</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/siphash.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/object.c</file>
+    <line>41</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/object.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rdb.c</file>
+    <line>51</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rdb.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/cluster.c</file>
+    <line>90</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/cluster.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/slowlog.c</file>
+    <line>48</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/slowlog.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/geohash.c</file>
+    <line>52</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/geohash.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/ae.c</file>
+    <line>63</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/ae.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sds.c</file>
+    <line>44</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sds.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/multi.c</file>
+    <line>35</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/multi.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sds.h</file>
+    <line>47</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sds.h" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/redis-check-aof.c</file>
+    <line>43</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/redis-check-aof.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/server.c</file>
+    <line>61</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/server.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/util.c</file>
+    <line>48</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/util.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/anet.c</file>
+    <line>51</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/anet.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/geohash_helper.c</file>
+    <line>57</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/geohash_helper.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rio.h</file>
+    <line>39</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rio.h" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sentinel.c</file>
+    <line>48</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sentinel.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/aof.c</file>
+    <line>62</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/aof.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/latency.c</file>
+    <line>39</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/latency.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/bio.c</file>
+    <line>79</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/bio.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/lzf_c.c</file>
+    <line>99</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lzf_c.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/redis-benchmark.c</file>
+    <line>52</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/redis-benchmark.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/debug.c</file>
+    <line>60</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/debug.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/quicklist.c</file>
+    <line>94</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/quicklist.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rio.c</file>
+    <line>61</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rio.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/adlist.c</file>
+    <line>41</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/adlist.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/zmalloc.c</file>
+    <line>39</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/zmalloc.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/notify.c</file>
+    <line>40</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/notify.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/ae_kqueue.c</file>
+    <line>36</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/ae_kqueue.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/redis-cli.c</file>
+    <line>161</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/redis-cli.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/networking.c</file>
+    <line>41</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/networking.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/expire.c</file>
+    <line>54</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/expire.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/t_stream.c</file>
+    <line>52</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/t_stream.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/ae_evport.c</file>
+    <line>68</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/ae_evport.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/hyperloglog.c</file>
+    <line>182</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/hyperloglog.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/ziplist.c</file>
+    <line>271</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/ziplist.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sparkline.c</file>
+    <line>57</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sparkline.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sha1.c</file>
+    <line>56</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sha1.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/module.c</file>
+    <line>44</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/module.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/t_string.c</file>
+    <line>37</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/t_string.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/sort.c</file>
+    <line>38</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/sort.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/memtest.c</file>
+    <line>59</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/memtest.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rax.c</file>
+    <line>79</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rax.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/dict.c</file>
+    <line>76</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/dict.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/t_set.c</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/t_set.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/redis-check-rdb.c</file>
+    <line>92</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/redis-check-rdb.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/listpack.c</file>
+    <line>141</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/listpack.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/rand.c</file>
+    <line>71</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/rand.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/t_hash.c</file>
+    <line>40</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/t_hash.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/ae_epoll.c</file>
+    <line>34</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/ae_epoll.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/evict.c</file>
+    <line>54</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/evict.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/zipmap.c</file>
+    <line>96</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/zipmap.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform context-sensitive data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/config.c</file>
+    <line>41</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/config.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/db.c</file>
+    <line>46</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/db.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/geo.c</file>
+    <line>53</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/geo.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/bitops.c</file>
+    <line>40</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/bitops.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/t_zset.c</file>
+    <line>71</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/t_zset.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/syncio.c</file>
+    <line>49</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/syncio.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/pqsort.c</file>
+    <line>69</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/pqsort.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/scripting.c</file>
+    <line>60</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/scripting.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/intset.c</file>
+    <line>45</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/intset.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/t_list.c</file>
+    <line>41</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/t_list.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/modules/hellotype.c</file>
+    <line>53</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/modules/hellotype.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/modules/hellodict.c</file>
+    <line>48</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/modules/hellodict.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/modules/testmodule.c</file>
+    <line>40</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/modules/testmodule.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/modules/helloblock.c</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/modules/helloblock.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/src/modules/helloworld.c</file>
+    <line>48</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/modules/helloworld.c" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Context-sensitive analysis</problem_class>
+    <description>File is too complex to perform data-flow analysis</description>
+  </problem>
+</problems>

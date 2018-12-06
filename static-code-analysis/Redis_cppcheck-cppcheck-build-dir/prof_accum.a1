@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1528084493">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="prof_dump_open_intercept" lineNumber="9"/>
+    <functiondecl functionName="alloc_from_permuted_backtrace" lineNumber="19"/>
+    <functiondecl functionName="thd_start" lineNumber="24"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="52"/>
+    <functiondecl functionName="main" lineNumber="78"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_WRONLY"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="alloc_from_permuted_backtrace"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_d_ne"/>
+    <functioncall functionName="assert_zu_le"/>
+    <functioncall functionName="bt_count"/>
+    <functioncall functionName="btalloc"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i_prev"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="iteration"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prof_bt_count"/>
+    <functioncall functionName="prof_dump_open_intercept"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="test_idump"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_ind"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="varg"/>
+  </FileInfo>
+</analyzerinfo>

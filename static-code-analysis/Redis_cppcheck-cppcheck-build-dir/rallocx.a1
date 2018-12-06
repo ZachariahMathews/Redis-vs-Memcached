@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3008738286">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;z&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;z&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" line="31"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" line="27"/>
+            <symbol>z</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;p&apos; can be reduced." verbose="The scope of the variable &apos;p&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" line="107"/>
+            <symbol>p</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;psz&apos; can be reduced." verbose="The scope of the variable &apos;psz&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" line="108"/>
+            <symbol>psz</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sz&apos; can be reduced." verbose="The scope of the variable &apos;sz&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\rallocx.c" line="177"/>
+            <symbol>sz</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="get_nsizes_impl" lineNumber="4"/>
+    <functiondecl functionName="get_nlarge" lineNumber="16"/>
+    <functiondecl functionName="get_size_impl" lineNumber="21"/>
+    <functiondecl functionName="get_large_size" lineNumber="39"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="43"/>
+    <functiondecl functionName="validate_fill" lineNumber="88"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="106"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="150"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="174"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="211"/>
+    <functiondecl functionName="main" lineNumber="238"/>
+    <functioncall functionName="MALLOCX_ALIGN"/>
+    <functioncall functionName="MALLOCX_LG_ALIGN"/>
+    <functioncall functionName="MALLOCX_ZERO"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PTRDIFF_MAX"/>
+    <functioncall functionName="SIZE_T_MAX"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="align"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_ne"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_large_size"/>
+    <functioncall functionName="get_nlarge"/>
+    <functioncall functionName="get_nsizes_impl"/>
+    <functioncall functionName="get_size_impl"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lg_align"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="psz"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="qsz"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start_size"/>
+    <functioncall functionName="start_sizes"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_align"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_grow_and_shrink"/>
+    <functioncall functionName="test_lg_align_and_zero"/>
+    <functioncall functionName="test_overflow"/>
+    <functioncall functionName="test_zero"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsz"/>
+    <functioncall functionName="validate_fill"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

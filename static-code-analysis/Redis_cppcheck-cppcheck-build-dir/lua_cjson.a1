@@ -1,0 +1,599 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="805428433">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;errmsg&apos; can be reduced." verbose="The scope of the variable &apos;errmsg&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" line="223"/>
+            <symbol>errmsg</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;value&apos; can be reduced." verbose="The scope of the variable &apos;value&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" line="224"/>
+            <symbol>value</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;escstr&apos; can be reduced." verbose="The scope of the variable &apos;escstr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" line="465"/>
+            <symbol>escstr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;k&apos; can be reduced." verbose="The scope of the variable &apos;k&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" line="495"/>
+            <symbol>k</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;keytype&apos; can be reduced." verbose="The scope of the variable &apos;keytype&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" line="621"/>
+            <symbol>keytype</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;surrogate_low&apos; can be reduced." verbose="The scope of the variable &apos;surrogate_low&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua_cjson.c" line="823"/>
+            <symbol>surrogate_low</symbol>
+        </error>
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_verify_invalid_number_setting" lineNumber="327"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functiondecl functionName="json_fetch_config" lineNumber="194"/>
+    <functiondecl functionName="json_arg_init" lineNumber="208"/>
+    <functiondecl functionName="json_integer_option" lineNumber="220"/>
+    <functiondecl functionName="json_enum_option" lineNumber="239"/>
+    <functiondecl functionName="json_cfg_encode_sparse_array" lineNumber="268"/>
+    <functiondecl functionName="json_cfg_encode_max_depth" lineNumber="281"/>
+    <functiondecl functionName="json_cfg_decode_max_depth" lineNumber="290"/>
+    <functiondecl functionName="json_cfg_encode_number_precision" lineNumber="298"/>
+    <functiondecl functionName="json_cfg_encode_keep_buffer" lineNumber="306"/>
+    <functiondecl functionName="json_cfg_encode_invalid_numbers" lineNumber="338"/>
+    <functiondecl functionName="json_cfg_decode_invalid_numbers" lineNumber="350"/>
+    <functiondecl functionName="json_destroy_config" lineNumber="361"/>
+    <functiondecl functionName="json_create_config" lineNumber="373"/>
+    <functiondecl functionName="json_encode_exception" lineNumber="448"/>
+    <functiondecl functionName="json_append_string" lineNumber="463"/>
+    <functiondecl functionName="lua_array_length" lineNumber="493"/>
+    <functiondecl functionName="json_check_encode_depth" lineNumber="536"/>
+    <functiondecl functionName="json_append_array" lineNumber="566"/>
+    <functiondecl functionName="json_append_number" lineNumber="588"/>
+    <functiondecl functionName="json_append_object" lineNumber="618"/>
+    <functiondecl functionName="json_append_data" lineNumber="660"/>
+    <functiondecl functionName="json_encode" lineNumber="703"/>
+    <functiondecl functionName="hexdigit2int" lineNumber="739"/>
+    <functiondecl functionName="decode_hex4" lineNumber="752"/>
+    <functiondecl functionName="codepoint_to_utf8" lineNumber="775"/>
+    <functiondecl functionName="json_append_unicode_escape" lineNumber="819"/>
+    <functiondecl functionName="json_set_token_error" lineNumber="877"/>
+    <functiondecl functionName="json_next_string_token" lineNumber="885"/>
+    <functiondecl functionName="json_is_invalid_number" lineNumber="960"/>
+    <functiondecl functionName="json_next_number_token" lineNumber="996"/>
+    <functiondecl functionName="json_next_token" lineNumber="1014"/>
+    <functiondecl functionName="json_throw_parse_error" lineNumber="1099"/>
+    <functiondecl functionName="json_decode_ascend" lineNumber="1116"/>
+    <functiondecl functionName="json_decode_descend" lineNumber="1121"/>
+    <functiondecl functionName="json_parse_object_context" lineNumber="1135"/>
+    <functiondecl functionName="json_parse_array_context" lineNumber="1186"/>
+    <functiondecl functionName="json_process_value" lineNumber="1224"/>
+    <functiondecl functionName="json_decode" lineNumber="1253"/>
+    <functiondecl functionName="luaL_setfuncs" lineNumber="1300"/>
+    <functiondecl functionName="json_protect_conversion" lineNumber="1318"/>
+    <functiondecl functionName="lua_cjson_new" lineNumber="1344"/>
+    <functiondecl functionName="lua_cjson_safe_new" lineNumber="1384"/>
+    <functiondecl functionName="luaopen_cjson" lineNumber="1404"/>
+    <functiondecl functionName="luaopen_cjson_safe" lineNumber="1418"/>
+    <functioncall functionName="BUFSIZ"/>
+    <functioncall functionName="INT_MAX"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="T_ARR_BEGIN"/>
+    <functioncall functionName="T_ARR_END"/>
+    <functioncall functionName="T_BOOLEAN"/>
+    <functioncall functionName="T_COLON"/>
+    <functioncall functionName="T_COMMA"/>
+    <functioncall functionName="T_END"/>
+    <functioncall functionName="T_ERROR"/>
+    <functioncall functionName="T_NULL"/>
+    <functioncall functionName="T_NUMBER"/>
+    <functioncall functionName="T_OBJ_BEGIN"/>
+    <functioncall functionName="T_OBJ_END"/>
+    <functioncall functionName="T_STRING"/>
+    <functioncall functionName="T_UNKNOWN"/>
+    <functioncall functionName="T_WHITESPACE"/>
+    <functioncall functionName="__builtin_expect"/>
+    <functioncall functionName="__extension__"/>
+    <functioncall functionName="__typeof"/>
+    <functioncall functionName="__x_f"/>
+    <functioncall functionName="__x_i"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="bool_options"/>
+    <functioncall functionName="boolean"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cfg"/>
+    <functioncall functionName="ch"/>
+    <functioncall functionName="ch2token"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="codepoint"/>
+    <functioncall functionName="codepoint_to_utf8"/>
+    <functioncall functionName="comma"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="current_depth"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="decode_hex4"/>
+    <functioncall functionName="decode_invalid_numbers"/>
+    <functioncall functionName="decode_max_depth"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="encode_buf"/>
+    <functioncall functionName="encode_invalid_numbers"/>
+    <functioncall functionName="encode_keep_buffer"/>
+    <functioncall functionName="encode_max_depth"/>
+    <functioncall functionName="encode_number_precision"/>
+    <functioncall functionName="encode_sparse_convert"/>
+    <functioncall functionName="encode_sparse_ratio"/>
+    <functioncall functionName="encode_sparse_safe"/>
+    <functioncall functionName="endptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errmsg"/>
+    <functioncall functionName="errtype"/>
+    <functioncall functionName="escape2char"/>
+    <functioncall functionName="escape_len"/>
+    <functioncall functionName="escstr"/>
+    <functioncall functionName="exp"/>
+    <functioncall functionName="floor"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="found"/>
+    <functioncall functionName="fpconv_g_fmt"/>
+    <functioncall functionName="fpconv_init"/>
+    <functioncall functionName="fpconv_strtod"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="hexdigit2int"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isinf"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="json"/>
+    <functioncall functionName="json_append_array"/>
+    <functioncall functionName="json_append_data"/>
+    <functioncall functionName="json_append_number"/>
+    <functioncall functionName="json_append_object"/>
+    <functioncall functionName="json_append_string"/>
+    <functioncall functionName="json_append_unicode_escape"/>
+    <functioncall functionName="json_arg_init"/>
+    <functioncall functionName="json_cfg_decode_invalid_numbers"/>
+    <functioncall functionName="json_cfg_decode_max_depth"/>
+    <functioncall functionName="json_cfg_encode_invalid_numbers"/>
+    <functioncall functionName="json_cfg_encode_keep_buffer"/>
+    <functioncall functionName="json_cfg_encode_max_depth"/>
+    <functioncall functionName="json_cfg_encode_number_precision"/>
+    <functioncall functionName="json_cfg_encode_sparse_array"/>
+    <functioncall functionName="json_check_encode_depth"/>
+    <functioncall functionName="json_create_config"/>
+    <functioncall functionName="json_decode"/>
+    <functioncall functionName="json_decode_ascend"/>
+    <functioncall functionName="json_decode_descend"/>
+    <functioncall functionName="json_destroy_config"/>
+    <functioncall functionName="json_encode"/>
+    <functioncall functionName="json_encode_exception"/>
+    <functioncall functionName="json_enum_option"/>
+    <functioncall functionName="json_fetch_config"/>
+    <functioncall functionName="json_integer_option"/>
+    <functioncall functionName="json_is_invalid_number"/>
+    <functioncall functionName="json_len"/>
+    <functioncall functionName="json_next_number_token"/>
+    <functioncall functionName="json_next_string_token"/>
+    <functioncall functionName="json_next_token"/>
+    <functioncall functionName="json_parse_array_context"/>
+    <functioncall functionName="json_parse_object_context"/>
+    <functioncall functionName="json_process_value"/>
+    <functioncall functionName="json_protect_conversion"/>
+    <functioncall functionName="json_set_token_error"/>
+    <functioncall functionName="json_throw_parse_error"/>
+    <functioncall functionName="json_verify_invalid_number_setting"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="lindex"/>
+    <functioncall functionName="local_encode_buf"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="luaL_addlstring"/>
+    <functioncall functionName="luaL_addstring"/>
+    <functioncall functionName="luaL_addvalue"/>
+    <functioncall functionName="luaL_argerror"/>
+    <functioncall functionName="luaL_buffinit"/>
+    <functioncall functionName="luaL_callmeta"/>
+    <functioncall functionName="luaL_checkany"/>
+    <functioncall functionName="luaL_checkinteger"/>
+    <functioncall functionName="luaL_checklstring"/>
+    <functioncall functionName="luaL_checknumber"/>
+    <functioncall functionName="luaL_checkoption"/>
+    <functioncall functionName="luaL_checkstack"/>
+    <functioncall functionName="luaL_checktype"/>
+    <functioncall functionName="luaL_error"/>
+    <functioncall functionName="luaL_getmetafield"/>
+    <functioncall functionName="luaL_loadbuffer"/>
+    <functioncall functionName="luaL_loadfile"/>
+    <functioncall functionName="luaL_loadstring"/>
+    <functioncall functionName="luaL_newmetatable"/>
+    <functioncall functionName="luaL_openlib"/>
+    <functioncall functionName="luaL_optinteger"/>
+    <functioncall functionName="luaL_optnumber"/>
+    <functioncall functionName="luaL_pushresult"/>
+    <functioncall functionName="luaL_ref"/>
+    <functioncall functionName="luaL_register"/>
+    <functioncall functionName="luaL_setfuncs"/>
+    <functioncall functionName="luaL_typerror"/>
+    <functioncall functionName="luaL_unref"/>
+    <functioncall functionName="luaL_where"/>
+    <functioncall functionName="lua_array_length"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_cjson_new"/>
+    <functioncall functionName="lua_cjson_safe_new"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_newuserdata"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tolstring"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_touserdata"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_typename"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="number"/>
+    <functioncall functionName="nup"/>
+    <functioncall functionName="optindex"/>
+    <functioncall functionName="options"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="reason"/>
+    <functioncall functionName="reg"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slots"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="strbuf_append_char"/>
+    <functioncall functionName="strbuf_append_char_unsafe"/>
+    <functioncall functionName="strbuf_append_mem"/>
+    <functioncall functionName="strbuf_append_mem_unsafe"/>
+    <functioncall functionName="strbuf_append_string"/>
+    <functioncall functionName="strbuf_empty_length"/>
+    <functioncall functionName="strbuf_empty_ptr"/>
+    <functioncall functionName="strbuf_ensure_empty_length"/>
+    <functioncall functionName="strbuf_ensure_null"/>
+    <functioncall functionName="strbuf_extend_length"/>
+    <functioncall functionName="strbuf_free"/>
+    <functioncall functionName="strbuf_init"/>
+    <functioncall functionName="strbuf_new"/>
+    <functioncall functionName="strbuf_reset"/>
+    <functioncall functionName="strbuf_resize"/>
+    <functioncall functionName="strbuf_string"/>
+    <functioncall functionName="string"/>
+    <functioncall functionName="string_len"/>
+    <functioncall functionName="strncasecmp"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="surrogate_low"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="token"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="utf8"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

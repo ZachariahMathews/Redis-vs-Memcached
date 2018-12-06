@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1017983882">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="_intsetValueEncoding" lineNumber="45"/>
+    <functiondecl functionName="_intsetGetEncoded" lineNumber="55"/>
+    <functiondecl functionName="_intsetGet" lineNumber="76"/>
+    <functiondecl functionName="_intsetSet" lineNumber="81"/>
+    <functiondecl functionName="intsetNew" lineNumber="97"/>
+    <functiondecl functionName="intsetResize" lineNumber="105"/>
+    <functiondecl functionName="intsetSearch" lineNumber="115"/>
+    <functiondecl functionName="intsetUpgradeAndAdd" lineNumber="157"/>
+    <functiondecl functionName="intsetMoveTail" lineNumber="182"/>
+    <functiondecl functionName="intsetAdd" lineNumber="204"/>
+    <functiondecl functionName="intsetRemove" lineNumber="234"/>
+    <functiondecl functionName="intsetFind" lineNumber="254"/>
+    <functiondecl functionName="intsetRandom" lineNumber="260"/>
+    <functiondecl functionName="intsetGet" lineNumber="266"/>
+    <functiondecl functionName="intsetLen" lineNumber="275"/>
+    <functiondecl functionName="intsetBlobLen" lineNumber="280"/>
+    <functiondecl functionName="_intsetValueEncoding" lineNumber="45"/>
+    <functiondecl functionName="_intsetGetEncoded" lineNumber="55"/>
+    <functiondecl functionName="_intsetGet" lineNumber="76"/>
+    <functiondecl functionName="_intsetSet" lineNumber="81"/>
+    <functiondecl functionName="intsetNew" lineNumber="97"/>
+    <functiondecl functionName="intsetResize" lineNumber="105"/>
+    <functiondecl functionName="intsetSearch" lineNumber="115"/>
+    <functiondecl functionName="intsetUpgradeAndAdd" lineNumber="157"/>
+    <functiondecl functionName="intsetMoveTail" lineNumber="182"/>
+    <functiondecl functionName="intsetAdd" lineNumber="204"/>
+    <functiondecl functionName="intsetRemove" lineNumber="234"/>
+    <functiondecl functionName="intsetFind" lineNumber="254"/>
+    <functiondecl functionName="intsetRandom" lineNumber="260"/>
+    <functiondecl functionName="intsetGet" lineNumber="266"/>
+    <functiondecl functionName="intsetLen" lineNumber="275"/>
+    <functiondecl functionName="intsetBlobLen" lineNumber="280"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_intsetGet"/>
+    <functioncall functionName="_intsetGetEncoded"/>
+    <functioncall functionName="_intsetSet"/>
+    <functioncall functionName="_intsetValueEncoding"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="contents"/>
+    <functioncall functionName="curenc"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="from"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="int16_t"/>
+    <functioncall functionName="int32_t"/>
+    <functioncall functionName="int64_t"/>
+    <functioncall functionName="intrev32"/>
+    <functioncall functionName="intsetMoveTail"/>
+    <functioncall functionName="intsetResize"/>
+    <functioncall functionName="intsetSearch"/>
+    <functioncall functionName="intsetUpgradeAndAdd"/>
+    <functioncall functionName="is"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memrev16"/>
+    <functioncall functionName="memrev32"/>
+    <functioncall functionName="memrev64"/>
+    <functioncall functionName="mid"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="newenc"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prepend"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="success"/>
+    <functioncall functionName="to"/>
+    <functioncall functionName="v16"/>
+    <functioncall functionName="v32"/>
+    <functioncall functionName="v64"/>
+    <functioncall functionName="valenc"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2659634730">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nread&apos; can be reduced." verbose="The scope of the variable &apos;nread&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\anet.c" file="C:\Users\bharm\Downloads\redis-unstable\src\anet.c" line="414"/>
+            <symbol>nread</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nwritten&apos; can be reduced." verbose="The scope of the variable &apos;nwritten&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\anet.c" file="C:\Users\bharm\Downloads\redis-unstable\src\anet.c" line="429"/>
+            <symbol>nwritten</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="anetSetError" lineNumber="51"/>
+    <functiondecl functionName="anetSetBlock" lineNumber="61"/>
+    <functiondecl functionName="anetNonBlock" lineNumber="84"/>
+    <functiondecl functionName="anetBlock" lineNumber="88"/>
+    <functiondecl functionName="anetKeepAlive" lineNumber="95"/>
+    <functiondecl functionName="anetSetTcpNoDelay" lineNumber="141"/>
+    <functiondecl functionName="anetEnableTcpNoDelay" lineNumber="151"/>
+    <functiondecl functionName="anetDisableTcpNoDelay" lineNumber="156"/>
+    <functiondecl functionName="anetSetSendBuffer" lineNumber="162"/>
+    <functiondecl functionName="anetTcpKeepAlive" lineNumber="172"/>
+    <functiondecl functionName="anetSendTimeout" lineNumber="184"/>
+    <functiondecl functionName="anetGenericResolve" lineNumber="203"/>
+    <functiondecl functionName="anetResolve" lineNumber="230"/>
+    <functiondecl functionName="anetResolveIP" lineNumber="234"/>
+    <functiondecl functionName="anetSetReuseAddr" lineNumber="238"/>
+    <functiondecl functionName="anetCreateSocket" lineNumber="249"/>
+    <functiondecl functionName="anetTcpGenericConnect" lineNumber="268"/>
+    <functiondecl functionName="anetTcpConnect" lineNumber="348"/>
+    <functiondecl functionName="anetTcpNonBlockConnect" lineNumber="353"/>
+    <functiondecl functionName="anetTcpNonBlockBindConnect" lineNumber="358"/>
+    <functiondecl functionName="anetTcpNonBlockBestEffortBindConnect" lineNumber="365"/>
+    <functiondecl functionName="anetUnixGenericConnect" lineNumber="372"/>
+    <functiondecl functionName="anetUnixConnect" lineNumber="400"/>
+    <functiondecl functionName="anetUnixNonBlockConnect" lineNumber="405"/>
+    <functiondecl functionName="anetRead" lineNumber="412"/>
+    <functiondecl functionName="anetWrite" lineNumber="427"/>
+    <functiondecl functionName="anetListen" lineNumber="440"/>
+    <functiondecl functionName="anetV6Only" lineNumber="455"/>
+    <functiondecl functionName="_anetTcpServer" lineNumber="465"/>
+    <functiondecl functionName="anetTcpServer" lineNumber="503"/>
+    <functiondecl functionName="anetTcp6Server" lineNumber="508"/>
+    <functiondecl functionName="anetUnixServer" lineNumber="513"/>
+    <functiondecl functionName="anetGenericAccept" lineNumber="531"/>
+    <functiondecl functionName="anetTcpAccept" lineNumber="548"/>
+    <functiondecl functionName="anetUnixAccept" lineNumber="567"/>
+    <functiondecl functionName="anetPeerToString" lineNumber="577"/>
+    <functiondecl functionName="anetFormatAddr" lineNumber="616"/>
+    <functiondecl functionName="anetFormatPeer" lineNumber="622"/>
+    <functiondecl functionName="anetSockName" lineNumber="630"/>
+    <functiondecl functionName="anetFormatSock" lineNumber="652"/>
+    <functiondecl functionName="anetSetError" lineNumber="51"/>
+    <functiondecl functionName="anetSetBlock" lineNumber="61"/>
+    <functiondecl functionName="anetNonBlock" lineNumber="84"/>
+    <functiondecl functionName="anetBlock" lineNumber="88"/>
+    <functiondecl functionName="anetKeepAlive" lineNumber="95"/>
+    <functiondecl functionName="anetSetTcpNoDelay" lineNumber="141"/>
+    <functiondecl functionName="anetEnableTcpNoDelay" lineNumber="151"/>
+    <functiondecl functionName="anetDisableTcpNoDelay" lineNumber="156"/>
+    <functiondecl functionName="anetSetSendBuffer" lineNumber="162"/>
+    <functiondecl functionName="anetTcpKeepAlive" lineNumber="172"/>
+    <functiondecl functionName="anetSendTimeout" lineNumber="184"/>
+    <functiondecl functionName="anetGenericResolve" lineNumber="203"/>
+    <functiondecl functionName="anetResolve" lineNumber="230"/>
+    <functiondecl functionName="anetResolveIP" lineNumber="234"/>
+    <functiondecl functionName="anetSetReuseAddr" lineNumber="238"/>
+    <functiondecl functionName="anetCreateSocket" lineNumber="249"/>
+    <functiondecl functionName="anetTcpGenericConnect" lineNumber="268"/>
+    <functiondecl functionName="anetTcpConnect" lineNumber="348"/>
+    <functiondecl functionName="anetTcpNonBlockConnect" lineNumber="353"/>
+    <functiondecl functionName="anetTcpNonBlockBindConnect" lineNumber="358"/>
+    <functiondecl functionName="anetTcpNonBlockBestEffortBindConnect" lineNumber="365"/>
+    <functiondecl functionName="anetUnixGenericConnect" lineNumber="372"/>
+    <functiondecl functionName="anetUnixConnect" lineNumber="400"/>
+    <functiondecl functionName="anetUnixNonBlockConnect" lineNumber="405"/>
+    <functiondecl functionName="anetRead" lineNumber="412"/>
+    <functiondecl functionName="anetWrite" lineNumber="427"/>
+    <functiondecl functionName="anetListen" lineNumber="440"/>
+    <functiondecl functionName="anetV6Only" lineNumber="455"/>
+    <functiondecl functionName="_anetTcpServer" lineNumber="465"/>
+    <functiondecl functionName="anetTcpServer" lineNumber="503"/>
+    <functiondecl functionName="anetTcp6Server" lineNumber="508"/>
+    <functiondecl functionName="anetUnixServer" lineNumber="513"/>
+    <functiondecl functionName="anetGenericAccept" lineNumber="531"/>
+    <functiondecl functionName="anetTcpAccept" lineNumber="548"/>
+    <functiondecl functionName="anetUnixAccept" lineNumber="567"/>
+    <functiondecl functionName="anetPeerToString" lineNumber="577"/>
+    <functiondecl functionName="anetFormatAddr" lineNumber="616"/>
+    <functiondecl functionName="anetFormatPeer" lineNumber="622"/>
+    <functiondecl functionName="anetSockName" lineNumber="630"/>
+    <functiondecl functionName="anetFormatSock" lineNumber="652"/>
+    <functiondecl functionName="anetSetError" lineNumber="51"/>
+    <functiondecl functionName="anetSetBlock" lineNumber="61"/>
+    <functiondecl functionName="anetNonBlock" lineNumber="84"/>
+    <functiondecl functionName="anetBlock" lineNumber="88"/>
+    <functiondecl functionName="anetKeepAlive" lineNumber="95"/>
+    <functiondecl functionName="anetSetTcpNoDelay" lineNumber="141"/>
+    <functiondecl functionName="anetEnableTcpNoDelay" lineNumber="151"/>
+    <functiondecl functionName="anetDisableTcpNoDelay" lineNumber="156"/>
+    <functiondecl functionName="anetSetSendBuffer" lineNumber="162"/>
+    <functiondecl functionName="anetTcpKeepAlive" lineNumber="172"/>
+    <functiondecl functionName="anetSendTimeout" lineNumber="184"/>
+    <functiondecl functionName="anetGenericResolve" lineNumber="203"/>
+    <functiondecl functionName="anetResolve" lineNumber="230"/>
+    <functiondecl functionName="anetResolveIP" lineNumber="234"/>
+    <functiondecl functionName="anetSetReuseAddr" lineNumber="238"/>
+    <functiondecl functionName="anetCreateSocket" lineNumber="249"/>
+    <functiondecl functionName="anetTcpGenericConnect" lineNumber="268"/>
+    <functiondecl functionName="anetTcpConnect" lineNumber="348"/>
+    <functiondecl functionName="anetTcpNonBlockConnect" lineNumber="353"/>
+    <functiondecl functionName="anetTcpNonBlockBindConnect" lineNumber="358"/>
+    <functiondecl functionName="anetTcpNonBlockBestEffortBindConnect" lineNumber="365"/>
+    <functiondecl functionName="anetUnixGenericConnect" lineNumber="372"/>
+    <functiondecl functionName="anetUnixConnect" lineNumber="400"/>
+    <functiondecl functionName="anetUnixNonBlockConnect" lineNumber="405"/>
+    <functiondecl functionName="anetRead" lineNumber="412"/>
+    <functiondecl functionName="anetWrite" lineNumber="427"/>
+    <functiondecl functionName="anetListen" lineNumber="440"/>
+    <functiondecl functionName="anetV6Only" lineNumber="455"/>
+    <functiondecl functionName="_anetTcpServer" lineNumber="465"/>
+    <functiondecl functionName="anetTcpServer" lineNumber="503"/>
+    <functiondecl functionName="anetTcp6Server" lineNumber="508"/>
+    <functiondecl functionName="anetUnixServer" lineNumber="513"/>
+    <functiondecl functionName="anetGenericAccept" lineNumber="531"/>
+    <functiondecl functionName="anetTcpAccept" lineNumber="548"/>
+    <functiondecl functionName="anetUnixAccept" lineNumber="567"/>
+    <functiondecl functionName="anetPeerToString" lineNumber="577"/>
+    <functiondecl functionName="anetFormatAddr" lineNumber="616"/>
+    <functiondecl functionName="anetFormatPeer" lineNumber="622"/>
+    <functiondecl functionName="anetSockName" lineNumber="630"/>
+    <functiondecl functionName="anetFormatSock" lineNumber="652"/>
+    <functioncall functionName="AF_INET"/>
+    <functioncall functionName="AF_INET6"/>
+    <functioncall functionName="AF_LOCAL"/>
+    <functioncall functionName="AF_UNIX"/>
+    <functioncall functionName="AF_UNSPEC"/>
+    <functioncall functionName="AI_NUMERICHOST"/>
+    <functioncall functionName="AI_PASSIVE"/>
+    <functioncall functionName="F_GETFL"/>
+    <functioncall functionName="F_SETFL"/>
+    <functioncall functionName="INET6_ADDRSTRLEN"/>
+    <functioncall functionName="IPPROTO_IPV6"/>
+    <functioncall functionName="IPPROTO_TCP"/>
+    <functioncall functionName="IPV6_V6ONLY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SOCK_STREAM"/>
+    <functioncall functionName="SOL_SOCKET"/>
+    <functioncall functionName="SO_KEEPALIVE"/>
+    <functioncall functionName="SO_REUSEADDR"/>
+    <functioncall functionName="SO_SNDBUF"/>
+    <functioncall functionName="SO_SNDTIMEO"/>
+    <functioncall functionName="TCP_KEEPCNT"/>
+    <functioncall functionName="TCP_KEEPIDLE"/>
+    <functioncall functionName="TCP_KEEPINTVL"/>
+    <functioncall functionName="TCP_NODELAY"/>
+    <functioncall functionName="_anetTcpServer"/>
+    <functioncall functionName="_port"/>
+    <functioncall functionName="accept"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="af"/>
+    <functioncall functionName="ai_addr"/>
+    <functioncall functionName="ai_addrlen"/>
+    <functioncall functionName="ai_family"/>
+    <functioncall functionName="ai_next"/>
+    <functioncall functionName="ai_protocol"/>
+    <functioncall functionName="ai_socktype"/>
+    <functioncall functionName="anetCreateSocket"/>
+    <functioncall functionName="anetFormatAddr"/>
+    <functioncall functionName="anetGenericAccept"/>
+    <functioncall functionName="anetGenericResolve"/>
+    <functioncall functionName="anetListen"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="anetPeerToString"/>
+    <functioncall functionName="anetSetBlock"/>
+    <functioncall functionName="anetSetError"/>
+    <functioncall functionName="anetSetReuseAddr"/>
+    <functioncall functionName="anetSetTcpNoDelay"/>
+    <functioncall functionName="anetSockName"/>
+    <functioncall functionName="anetTcpGenericConnect"/>
+    <functioncall functionName="anetUnixGenericConnect"/>
+    <functioncall functionName="anetV6Only"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="backlog"/>
+    <functioncall functionName="bind"/>
+    <functioncall functionName="bindaddr"/>
+    <functioncall functionName="bound"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bservinfo"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buf_len"/>
+    <functioncall functionName="buffsize"/>
+    <functioncall functionName="chmod"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="domain"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="fcntl"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fmt_len"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeaddrinfo"/>
+    <functioncall functionName="gai_strerror"/>
+    <functioncall functionName="getaddrinfo"/>
+    <functioncall functionName="getpeername"/>
+    <functioncall functionName="getsockname"/>
+    <functioncall functionName="hints"/>
+    <functioncall functionName="host"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inet_ntop"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="interval"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="ip_len"/>
+    <functioncall functionName="ipbuf"/>
+    <functioncall functionName="ipbuf_len"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="listen"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="non_block"/>
+    <functioncall functionName="ntohs"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="perm"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="portstr"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rv"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa"/>
+    <functioncall functionName="salen"/>
+    <functioncall functionName="servinfo"/>
+    <functioncall functionName="setsockopt"/>
+    <functioncall functionName="sin6_addr"/>
+    <functioncall functionName="sin6_port"/>
+    <functioncall functionName="sin_addr"/>
+    <functioncall functionName="sin_port"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="socket"/>
+    <functioncall functionName="source_addr"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="sun_path"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="yes"/>
+  </FileInfo>
+</analyzerinfo>

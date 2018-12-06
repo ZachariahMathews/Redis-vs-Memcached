@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1660433405">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="sz_size2index_tab" size="1"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="NSIZES"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="SIZE_CLASSES"/>
+  </FileInfo>
+</analyzerinfo>

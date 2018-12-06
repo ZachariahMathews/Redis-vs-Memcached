@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="494117318">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="fpconv_update_locale" lineNumber="52"/>
+    <functiondecl functionName="valid_number_character" lineNumber="75"/>
+    <functiondecl functionName="strtod_buffer_size" lineNumber="94"/>
+    <functiondecl functionName="fpconv_strtod" lineNumber="106"/>
+    <functiondecl functionName="set_number_format" lineNumber="153"/>
+    <functiondecl functionName="fpconv_g_fmt" lineNumber="174"/>
+    <functiondecl functionName="fpconv_init" lineNumber="199"/>
+    <functiondecl functionName="fpconv_update_locale" lineNumber="52"/>
+    <functiondecl functionName="valid_number_character" lineNumber="75"/>
+    <functiondecl functionName="strtod_buffer_size" lineNumber="94"/>
+    <functiondecl functionName="fpconv_strtod" lineNumber="106"/>
+    <functiondecl functionName="set_number_format" lineNumber="153"/>
+    <functiondecl functionName="fpconv_g_fmt" lineNumber="174"/>
+    <functiondecl functionName="fpconv_init" lineNumber="199"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="d1"/>
+    <functioncall functionName="d2"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dp"/>
+    <functioncall functionName="endbuf"/>
+    <functioncall functionName="endptr"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fpconv_update_locale"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="localbuf"/>
+    <functioncall functionName="locale_decimal_point"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="nptr"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="precision"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="set_number_format"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strtod"/>
+    <functioncall functionName="strtod_buffer_size"/>
+    <functioncall functionName="valid_number_character"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

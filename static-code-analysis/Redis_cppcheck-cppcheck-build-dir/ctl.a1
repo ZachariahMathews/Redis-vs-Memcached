@@ -1,0 +1,941 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1827482850">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ctl.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ctl.c" line="708"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ctl.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ctl.c" line="740"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="returnAddressOfAutoVariable" severity="error" msg="Address of auto-variable &apos;cont-&gt;ctl_arena&apos; returned" verbose="Address of auto-variable &apos;cont-&gt;ctl_arena&apos; returned" cwe="562">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ctl.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\ctl.c" line="674"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ctl_named_node" lineNumber="30"/>
+    <functiondecl functionName="ctl_named_children" lineNumber="35"/>
+    <functiondecl functionName="ctl_indexed_node" lineNumber="42"/>
+    <functiondecl functionName="ctl_accum_arena_stats_u64" lineNumber="569"/>
+    <functiondecl functionName="ctl_arena_stats_read_u64" lineNumber="581"/>
+    <functiondecl functionName="accum_atomic_zu" lineNumber="590"/>
+    <functiondecl functionName="arenas_i2a_impl" lineNumber="599"/>
+    <functiondecl functionName="arenas_i2a" lineNumber="637"/>
+    <functiondecl functionName="arenas_i_impl" lineNumber="642"/>
+    <functiondecl functionName="arenas_i" lineNumber="678"/>
+    <functiondecl functionName="ctl_arena_clear" lineNumber="685"/>
+    <functiondecl functionName="ctl_arena_stats_amerge" lineNumber="707"/>
+    <functiondecl functionName="ctl_arena_stats_sdmerge" lineNumber="738"/>
+    <functiondecl functionName="ctl_arena_refresh" lineNumber="874"/>
+    <functiondecl functionName="ctl_arena_init" lineNumber="885"/>
+    <functiondecl functionName="ctl_background_thread_stats_read" lineNumber="915"/>
+    <functiondecl functionName="ctl_refresh" lineNumber="925"/>
+    <functiondecl functionName="ctl_init" lineNumber="999"/>
+    <functiondecl functionName="ctl_lookup" lineNumber="1075"/>
+    <functiondecl functionName="ctl_byname" lineNumber="1173"/>
+    <functiondecl functionName="ctl_nametomib" lineNumber="1205"/>
+    <functiondecl functionName="ctl_bymib" lineNumber="1219"/>
+    <functiondecl functionName="ctl_boot" lineNumber="1268"/>
+    <functiondecl functionName="ctl_prefork" lineNumber="1280"/>
+    <functiondecl functionName="ctl_postfork_parent" lineNumber="1285"/>
+    <functiondecl functionName="ctl_postfork_child" lineNumber="1290"/>
+    <functiondecl functionName="version_ctl" lineNumber="1494"/>
+    <functiondecl functionName="epoch_ctl" lineNumber="1497"/>
+    <functiondecl functionName="background_thread_ctl" lineNumber="1516"/>
+    <functiondecl functionName="max_background_threads_ctl" lineNumber="1574"/>
+    <functiondecl functionName="config_cache_oblivious_ctl" lineNumber="1640"/>
+    <functiondecl functionName="config_debug_ctl" lineNumber="1641"/>
+    <functiondecl functionName="config_fill_ctl" lineNumber="1642"/>
+    <functiondecl functionName="config_lazy_lock_ctl" lineNumber="1643"/>
+    <functiondecl functionName="config_malloc_conf_ctl" lineNumber="1644"/>
+    <functiondecl functionName="config_prof_ctl" lineNumber="1645"/>
+    <functiondecl functionName="config_prof_libgcc_ctl" lineNumber="1646"/>
+    <functiondecl functionName="config_prof_libunwind_ctl" lineNumber="1647"/>
+    <functiondecl functionName="config_stats_ctl" lineNumber="1648"/>
+    <functiondecl functionName="config_utrace_ctl" lineNumber="1649"/>
+    <functiondecl functionName="config_xmalloc_ctl" lineNumber="1650"/>
+    <functiondecl functionName="opt_abort_ctl" lineNumber="1654"/>
+    <functiondecl functionName="opt_abort_conf_ctl" lineNumber="1655"/>
+    <functiondecl functionName="opt_metadata_thp_ctl" lineNumber="1656"/>
+    <functiondecl functionName="opt_retain_ctl" lineNumber="1658"/>
+    <functiondecl functionName="opt_dss_ctl" lineNumber="1659"/>
+    <functiondecl functionName="opt_narenas_ctl" lineNumber="1660"/>
+    <functiondecl functionName="opt_percpu_arena_ctl" lineNumber="1661"/>
+    <functiondecl functionName="opt_background_thread_ctl" lineNumber="1663"/>
+    <functiondecl functionName="opt_max_background_threads_ctl" lineNumber="1664"/>
+    <functiondecl functionName="opt_dirty_decay_ms_ctl" lineNumber="1665"/>
+    <functiondecl functionName="opt_muzzy_decay_ms_ctl" lineNumber="1666"/>
+    <functiondecl functionName="opt_stats_print_ctl" lineNumber="1667"/>
+    <functiondecl functionName="opt_stats_print_opts_ctl" lineNumber="1668"/>
+    <functiondecl functionName="opt_junk_ctl" lineNumber="1669"/>
+    <functiondecl functionName="opt_zero_ctl" lineNumber="1670"/>
+    <functiondecl functionName="opt_utrace_ctl" lineNumber="1671"/>
+    <functiondecl functionName="opt_xmalloc_ctl" lineNumber="1672"/>
+    <functiondecl functionName="opt_tcache_ctl" lineNumber="1673"/>
+    <functiondecl functionName="opt_thp_ctl" lineNumber="1674"/>
+    <functiondecl functionName="opt_lg_extent_max_active_fit_ctl" lineNumber="1675"/>
+    <functiondecl functionName="opt_lg_tcache_max_ctl" lineNumber="1677"/>
+    <functiondecl functionName="opt_prof_ctl" lineNumber="1678"/>
+    <functiondecl functionName="opt_prof_prefix_ctl" lineNumber="1679"/>
+    <functiondecl functionName="opt_prof_active_ctl" lineNumber="1680"/>
+    <functiondecl functionName="opt_prof_thread_active_init_ctl" lineNumber="1681"/>
+    <functiondecl functionName="opt_lg_prof_sample_ctl" lineNumber="1683"/>
+    <functiondecl functionName="opt_prof_accum_ctl" lineNumber="1684"/>
+    <functiondecl functionName="opt_lg_prof_interval_ctl" lineNumber="1685"/>
+    <functiondecl functionName="opt_prof_gdump_ctl" lineNumber="1686"/>
+    <functiondecl functionName="opt_prof_final_ctl" lineNumber="1687"/>
+    <functiondecl functionName="opt_prof_leak_ctl" lineNumber="1688"/>
+    <functiondecl functionName="thread_arena_ctl" lineNumber="1693"/>
+    <functiondecl functionName="thread_allocated_ctl" lineNumber="1748"/>
+    <functiondecl functionName="thread_allocatedp_ctl" lineNumber="1750"/>
+    <functiondecl functionName="thread_deallocated_ctl" lineNumber="1752"/>
+    <functiondecl functionName="thread_deallocatedp_ctl" lineNumber="1754"/>
+    <functiondecl functionName="thread_tcache_enabled_ctl" lineNumber="1758"/>
+    <functiondecl functionName="thread_tcache_flush_ctl" lineNumber="1779"/>
+    <functiondecl functionName="thread_prof_name_ctl" lineNumber="1799"/>
+    <functiondecl functionName="thread_prof_active_ctl" lineNumber="1830"/>
+    <functiondecl functionName="tcache_create_ctl" lineNumber="1860"/>
+    <functiondecl functionName="tcache_flush_ctl" lineNumber="1878"/>
+    <functiondecl functionName="tcache_destroy_ctl" lineNumber="1898"/>
+    <functiondecl functionName="arena_i_initialized_ctl" lineNumber="1920"/>
+    <functiondecl functionName="arena_i_decay" lineNumber="1942"/>
+    <functiondecl functionName="arena_i_decay_ctl" lineNumber="1989"/>
+    <functiondecl functionName="arena_i_purge_ctl" lineNumber="2005"/>
+    <functiondecl functionName="arena_i_reset_destroy_helper" lineNumber="2021"/>
+    <functiondecl functionName="arena_reset_prepare_background_thread" lineNumber="2042"/>
+    <functiondecl functionName="arena_reset_finish_background_thread" lineNumber="2059"/>
+    <functiondecl functionName="arena_i_reset_ctl" lineNumber="2075"/>
+    <functiondecl functionName="arena_i_destroy_ctl" lineNumber="2095"/>
+    <functiondecl functionName="arena_i_dss_ctl" lineNumber="2136"/>
+    <functiondecl functionName="arena_i_decay_ms_ctl_impl" lineNumber="2197"/>
+    <functiondecl functionName="arena_i_dirty_decay_ms_ctl" lineNumber="2234"/>
+    <functiondecl functionName="arena_i_muzzy_decay_ms_ctl" lineNumber="2241"/>
+    <functiondecl functionName="arena_i_extent_hooks_ctl" lineNumber="2248"/>
+    <functiondecl functionName="arena_i_retain_grow_limit_ctl" lineNumber="2303"/>
+    <functiondecl functionName="arena_i_index" lineNumber="2339"/>
+    <functiondecl functionName="arenas_narenas_ctl" lineNumber="2364"/>
+    <functiondecl functionName="arenas_decay_ms_ctl_impl" lineNumber="2385"/>
+    <functiondecl functionName="arenas_dirty_decay_ms_ctl" lineNumber="2412"/>
+    <functiondecl functionName="arenas_muzzy_decay_ms_ctl" lineNumber="2419"/>
+    <functiondecl functionName="arenas_quantum_ctl" lineNumber="2425"/>
+    <functiondecl functionName="arenas_page_ctl" lineNumber="2426"/>
+    <functiondecl functionName="arenas_tcache_max_ctl" lineNumber="2427"/>
+    <functiondecl functionName="arenas_nbins_ctl" lineNumber="2428"/>
+    <functiondecl functionName="arenas_nhbins_ctl" lineNumber="2429"/>
+    <functiondecl functionName="arenas_bin_i_size_ctl" lineNumber="2430"/>
+    <functiondecl functionName="arenas_bin_i_nregs_ctl" lineNumber="2431"/>
+    <functiondecl functionName="arenas_bin_i_slab_size_ctl" lineNumber="2432"/>
+    <functiondecl functionName="arenas_bin_i_index" lineNumber="2434"/>
+    <functiondecl functionName="arenas_nlextents_ctl" lineNumber="2441"/>
+    <functiondecl functionName="arenas_lextent_i_size_ctl" lineNumber="2442"/>
+    <functiondecl functionName="arenas_lextent_i_index" lineNumber="2445"/>
+    <functiondecl functionName="arenas_create_ctl" lineNumber="2454"/>
+    <functiondecl functionName="arenas_lookup_ctl" lineNumber="2477"/>
+    <functiondecl functionName="prof_thread_active_init_ctl" lineNumber="2509"/>
+    <functiondecl functionName="prof_active_ctl" lineNumber="2536"/>
+    <functiondecl functionName="prof_dump_ctl" lineNumber="2562"/>
+    <functiondecl functionName="prof_gdump_ctl" lineNumber="2585"/>
+    <functiondecl functionName="prof_reset_ctl" lineNumber="2611"/>
+    <functiondecl functionName="prof_interval_ctl" lineNumber="2633"/>
+    <functiondecl functionName="lg_prof_sample_ctl" lineNumber="2634"/>
+    <functiondecl functionName="stats_allocated_ctl" lineNumber="2638"/>
+    <functiondecl functionName="stats_active_ctl" lineNumber="2639"/>
+    <functiondecl functionName="stats_metadata_ctl" lineNumber="2640"/>
+    <functiondecl functionName="stats_metadata_thp_ctl" lineNumber="2641"/>
+    <functiondecl functionName="stats_resident_ctl" lineNumber="2642"/>
+    <functiondecl functionName="stats_mapped_ctl" lineNumber="2643"/>
+    <functiondecl functionName="stats_retained_ctl" lineNumber="2644"/>
+    <functiondecl functionName="stats_background_thread_num_threads_ctl" lineNumber="2646"/>
+    <functiondecl functionName="stats_background_thread_num_runs_ctl" lineNumber="2648"/>
+    <functiondecl functionName="stats_background_thread_run_interval_ctl" lineNumber="2650"/>
+    <functiondecl functionName="stats_arenas_i_dss_ctl" lineNumber="2653"/>
+    <functiondecl functionName="stats_arenas_i_dirty_decay_ms_ctl" lineNumber="2654"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_decay_ms_ctl" lineNumber="2656"/>
+    <functiondecl functionName="stats_arenas_i_nthreads_ctl" lineNumber="2658"/>
+    <functiondecl functionName="stats_arenas_i_uptime_ctl" lineNumber="2659"/>
+    <functiondecl functionName="stats_arenas_i_pactive_ctl" lineNumber="2661"/>
+    <functiondecl functionName="stats_arenas_i_pdirty_ctl" lineNumber="2662"/>
+    <functiondecl functionName="stats_arenas_i_pmuzzy_ctl" lineNumber="2663"/>
+    <functiondecl functionName="stats_arenas_i_mapped_ctl" lineNumber="2664"/>
+    <functiondecl functionName="stats_arenas_i_retained_ctl" lineNumber="2667"/>
+    <functiondecl functionName="stats_arenas_i_dirty_npurge_ctl" lineNumber="2671"/>
+    <functiondecl functionName="stats_arenas_i_dirty_nmadvise_ctl" lineNumber="2674"/>
+    <functiondecl functionName="stats_arenas_i_dirty_purged_ctl" lineNumber="2677"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_npurge_ctl" lineNumber="2681"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_nmadvise_ctl" lineNumber="2684"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_purged_ctl" lineNumber="2687"/>
+    <functiondecl functionName="stats_arenas_i_base_ctl" lineNumber="2691"/>
+    <functiondecl functionName="stats_arenas_i_internal_ctl" lineNumber="2694"/>
+    <functiondecl functionName="stats_arenas_i_metadata_thp_ctl" lineNumber="2697"/>
+    <functiondecl functionName="stats_arenas_i_tcache_bytes_ctl" lineNumber="2700"/>
+    <functiondecl functionName="stats_arenas_i_resident_ctl" lineNumber="2703"/>
+    <functiondecl functionName="stats_arenas_i_small_allocated_ctl" lineNumber="2707"/>
+    <functiondecl functionName="stats_arenas_i_small_nmalloc_ctl" lineNumber="2709"/>
+    <functiondecl functionName="stats_arenas_i_small_ndalloc_ctl" lineNumber="2711"/>
+    <functiondecl functionName="stats_arenas_i_small_nrequests_ctl" lineNumber="2713"/>
+    <functiondecl functionName="stats_arenas_i_large_allocated_ctl" lineNumber="2715"/>
+    <functiondecl functionName="stats_arenas_i_large_nmalloc_ctl" lineNumber="2718"/>
+    <functiondecl functionName="stats_arenas_i_large_ndalloc_ctl" lineNumber="2721"/>
+    <functiondecl functionName="stats_arenas_i_large_nrequests_ctl" lineNumber="2727"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_ops_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_wait_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_spin_acq_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_owner_switch_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_total_wait_time_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_max_wait_time_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_max_num_thds_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_mutexes_reset_ctl" lineNumber="2768"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nmalloc_ctl" lineNumber="2818"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_ndalloc_ctl" lineNumber="2820"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nrequests_ctl" lineNumber="2822"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_curregs_ctl" lineNumber="2824"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nfills_ctl" lineNumber="2826"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nflushes_ctl" lineNumber="2828"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nslabs_ctl" lineNumber="2830"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nreslabs_ctl" lineNumber="2832"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_curslabs_ctl" lineNumber="2834"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_index" lineNumber="2838"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_nmalloc_ctl" lineNumber="2846"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_ndalloc_ctl" lineNumber="2849"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_nrequests_ctl" lineNumber="2852"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_curlextents_ctl" lineNumber="2855"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_index" lineNumber="2859"/>
+    <functiondecl functionName="stats_arenas_i_index" lineNumber="2868"/>
+    <functiondecl functionName="ctl_named_node" lineNumber="30"/>
+    <functiondecl functionName="ctl_named_children" lineNumber="35"/>
+    <functiondecl functionName="ctl_indexed_node" lineNumber="42"/>
+    <functiondecl functionName="ctl_accum_arena_stats_u64" lineNumber="569"/>
+    <functiondecl functionName="ctl_arena_stats_read_u64" lineNumber="581"/>
+    <functiondecl functionName="accum_atomic_zu" lineNumber="590"/>
+    <functiondecl functionName="arenas_i2a_impl" lineNumber="599"/>
+    <functiondecl functionName="arenas_i2a" lineNumber="637"/>
+    <functiondecl functionName="arenas_i_impl" lineNumber="642"/>
+    <functiondecl functionName="arenas_i" lineNumber="678"/>
+    <functiondecl functionName="ctl_arena_clear" lineNumber="685"/>
+    <functiondecl functionName="ctl_arena_stats_amerge" lineNumber="707"/>
+    <functiondecl functionName="ctl_arena_stats_sdmerge" lineNumber="738"/>
+    <functiondecl functionName="ctl_arena_refresh" lineNumber="874"/>
+    <functiondecl functionName="ctl_arena_init" lineNumber="885"/>
+    <functiondecl functionName="ctl_background_thread_stats_read" lineNumber="915"/>
+    <functiondecl functionName="ctl_refresh" lineNumber="925"/>
+    <functiondecl functionName="ctl_init" lineNumber="999"/>
+    <functiondecl functionName="ctl_lookup" lineNumber="1075"/>
+    <functiondecl functionName="ctl_byname" lineNumber="1173"/>
+    <functiondecl functionName="ctl_nametomib" lineNumber="1205"/>
+    <functiondecl functionName="ctl_bymib" lineNumber="1219"/>
+    <functiondecl functionName="ctl_boot" lineNumber="1268"/>
+    <functiondecl functionName="ctl_prefork" lineNumber="1280"/>
+    <functiondecl functionName="ctl_postfork_parent" lineNumber="1285"/>
+    <functiondecl functionName="ctl_postfork_child" lineNumber="1290"/>
+    <functiondecl functionName="version_ctl" lineNumber="1494"/>
+    <functiondecl functionName="epoch_ctl" lineNumber="1497"/>
+    <functiondecl functionName="background_thread_ctl" lineNumber="1516"/>
+    <functiondecl functionName="max_background_threads_ctl" lineNumber="1574"/>
+    <functiondecl functionName="config_cache_oblivious_ctl" lineNumber="1640"/>
+    <functiondecl functionName="config_debug_ctl" lineNumber="1641"/>
+    <functiondecl functionName="config_fill_ctl" lineNumber="1642"/>
+    <functiondecl functionName="config_lazy_lock_ctl" lineNumber="1643"/>
+    <functiondecl functionName="config_malloc_conf_ctl" lineNumber="1644"/>
+    <functiondecl functionName="config_prof_ctl" lineNumber="1645"/>
+    <functiondecl functionName="config_prof_libgcc_ctl" lineNumber="1646"/>
+    <functiondecl functionName="config_prof_libunwind_ctl" lineNumber="1647"/>
+    <functiondecl functionName="config_stats_ctl" lineNumber="1648"/>
+    <functiondecl functionName="config_utrace_ctl" lineNumber="1649"/>
+    <functiondecl functionName="config_xmalloc_ctl" lineNumber="1650"/>
+    <functiondecl functionName="opt_abort_ctl" lineNumber="1654"/>
+    <functiondecl functionName="opt_abort_conf_ctl" lineNumber="1655"/>
+    <functiondecl functionName="opt_metadata_thp_ctl" lineNumber="1656"/>
+    <functiondecl functionName="opt_retain_ctl" lineNumber="1658"/>
+    <functiondecl functionName="opt_dss_ctl" lineNumber="1659"/>
+    <functiondecl functionName="opt_narenas_ctl" lineNumber="1660"/>
+    <functiondecl functionName="opt_percpu_arena_ctl" lineNumber="1661"/>
+    <functiondecl functionName="opt_background_thread_ctl" lineNumber="1663"/>
+    <functiondecl functionName="opt_max_background_threads_ctl" lineNumber="1664"/>
+    <functiondecl functionName="opt_dirty_decay_ms_ctl" lineNumber="1665"/>
+    <functiondecl functionName="opt_muzzy_decay_ms_ctl" lineNumber="1666"/>
+    <functiondecl functionName="opt_stats_print_ctl" lineNumber="1667"/>
+    <functiondecl functionName="opt_stats_print_opts_ctl" lineNumber="1668"/>
+    <functiondecl functionName="opt_junk_ctl" lineNumber="1669"/>
+    <functiondecl functionName="opt_zero_ctl" lineNumber="1670"/>
+    <functiondecl functionName="opt_utrace_ctl" lineNumber="1671"/>
+    <functiondecl functionName="opt_xmalloc_ctl" lineNumber="1672"/>
+    <functiondecl functionName="opt_tcache_ctl" lineNumber="1673"/>
+    <functiondecl functionName="opt_thp_ctl" lineNumber="1674"/>
+    <functiondecl functionName="opt_lg_extent_max_active_fit_ctl" lineNumber="1675"/>
+    <functiondecl functionName="opt_lg_tcache_max_ctl" lineNumber="1677"/>
+    <functiondecl functionName="opt_prof_ctl" lineNumber="1678"/>
+    <functiondecl functionName="opt_prof_prefix_ctl" lineNumber="1679"/>
+    <functiondecl functionName="opt_prof_active_ctl" lineNumber="1680"/>
+    <functiondecl functionName="opt_prof_thread_active_init_ctl" lineNumber="1681"/>
+    <functiondecl functionName="opt_lg_prof_sample_ctl" lineNumber="1683"/>
+    <functiondecl functionName="opt_prof_accum_ctl" lineNumber="1684"/>
+    <functiondecl functionName="opt_lg_prof_interval_ctl" lineNumber="1685"/>
+    <functiondecl functionName="opt_prof_gdump_ctl" lineNumber="1686"/>
+    <functiondecl functionName="opt_prof_final_ctl" lineNumber="1687"/>
+    <functiondecl functionName="opt_prof_leak_ctl" lineNumber="1688"/>
+    <functiondecl functionName="thread_arena_ctl" lineNumber="1693"/>
+    <functiondecl functionName="thread_allocated_ctl" lineNumber="1748"/>
+    <functiondecl functionName="thread_allocatedp_ctl" lineNumber="1750"/>
+    <functiondecl functionName="thread_deallocated_ctl" lineNumber="1752"/>
+    <functiondecl functionName="thread_deallocatedp_ctl" lineNumber="1754"/>
+    <functiondecl functionName="thread_tcache_enabled_ctl" lineNumber="1758"/>
+    <functiondecl functionName="thread_tcache_flush_ctl" lineNumber="1779"/>
+    <functiondecl functionName="thread_prof_name_ctl" lineNumber="1799"/>
+    <functiondecl functionName="thread_prof_active_ctl" lineNumber="1830"/>
+    <functiondecl functionName="tcache_create_ctl" lineNumber="1860"/>
+    <functiondecl functionName="tcache_flush_ctl" lineNumber="1878"/>
+    <functiondecl functionName="tcache_destroy_ctl" lineNumber="1898"/>
+    <functiondecl functionName="arena_i_initialized_ctl" lineNumber="1920"/>
+    <functiondecl functionName="arena_i_decay" lineNumber="1942"/>
+    <functiondecl functionName="arena_i_decay_ctl" lineNumber="1989"/>
+    <functiondecl functionName="arena_i_purge_ctl" lineNumber="2005"/>
+    <functiondecl functionName="arena_i_reset_destroy_helper" lineNumber="2021"/>
+    <functiondecl functionName="arena_reset_prepare_background_thread" lineNumber="2042"/>
+    <functiondecl functionName="arena_reset_finish_background_thread" lineNumber="2059"/>
+    <functiondecl functionName="arena_i_reset_ctl" lineNumber="2075"/>
+    <functiondecl functionName="arena_i_destroy_ctl" lineNumber="2095"/>
+    <functiondecl functionName="arena_i_dss_ctl" lineNumber="2136"/>
+    <functiondecl functionName="arena_i_decay_ms_ctl_impl" lineNumber="2197"/>
+    <functiondecl functionName="arena_i_dirty_decay_ms_ctl" lineNumber="2234"/>
+    <functiondecl functionName="arena_i_muzzy_decay_ms_ctl" lineNumber="2241"/>
+    <functiondecl functionName="arena_i_extent_hooks_ctl" lineNumber="2248"/>
+    <functiondecl functionName="arena_i_retain_grow_limit_ctl" lineNumber="2303"/>
+    <functiondecl functionName="arena_i_index" lineNumber="2339"/>
+    <functiondecl functionName="arenas_narenas_ctl" lineNumber="2364"/>
+    <functiondecl functionName="arenas_decay_ms_ctl_impl" lineNumber="2385"/>
+    <functiondecl functionName="arenas_dirty_decay_ms_ctl" lineNumber="2412"/>
+    <functiondecl functionName="arenas_muzzy_decay_ms_ctl" lineNumber="2419"/>
+    <functiondecl functionName="arenas_quantum_ctl" lineNumber="2425"/>
+    <functiondecl functionName="arenas_page_ctl" lineNumber="2426"/>
+    <functiondecl functionName="arenas_tcache_max_ctl" lineNumber="2427"/>
+    <functiondecl functionName="arenas_nbins_ctl" lineNumber="2428"/>
+    <functiondecl functionName="arenas_nhbins_ctl" lineNumber="2429"/>
+    <functiondecl functionName="arenas_bin_i_size_ctl" lineNumber="2430"/>
+    <functiondecl functionName="arenas_bin_i_nregs_ctl" lineNumber="2431"/>
+    <functiondecl functionName="arenas_bin_i_slab_size_ctl" lineNumber="2432"/>
+    <functiondecl functionName="arenas_bin_i_index" lineNumber="2434"/>
+    <functiondecl functionName="arenas_nlextents_ctl" lineNumber="2441"/>
+    <functiondecl functionName="arenas_lextent_i_size_ctl" lineNumber="2442"/>
+    <functiondecl functionName="arenas_lextent_i_index" lineNumber="2445"/>
+    <functiondecl functionName="arenas_create_ctl" lineNumber="2454"/>
+    <functiondecl functionName="arenas_lookup_ctl" lineNumber="2477"/>
+    <functiondecl functionName="prof_thread_active_init_ctl" lineNumber="2509"/>
+    <functiondecl functionName="prof_active_ctl" lineNumber="2536"/>
+    <functiondecl functionName="prof_dump_ctl" lineNumber="2562"/>
+    <functiondecl functionName="prof_gdump_ctl" lineNumber="2585"/>
+    <functiondecl functionName="prof_reset_ctl" lineNumber="2611"/>
+    <functiondecl functionName="prof_interval_ctl" lineNumber="2633"/>
+    <functiondecl functionName="lg_prof_sample_ctl" lineNumber="2634"/>
+    <functiondecl functionName="stats_allocated_ctl" lineNumber="2638"/>
+    <functiondecl functionName="stats_active_ctl" lineNumber="2639"/>
+    <functiondecl functionName="stats_metadata_ctl" lineNumber="2640"/>
+    <functiondecl functionName="stats_metadata_thp_ctl" lineNumber="2641"/>
+    <functiondecl functionName="stats_resident_ctl" lineNumber="2642"/>
+    <functiondecl functionName="stats_mapped_ctl" lineNumber="2643"/>
+    <functiondecl functionName="stats_retained_ctl" lineNumber="2644"/>
+    <functiondecl functionName="stats_background_thread_num_threads_ctl" lineNumber="2646"/>
+    <functiondecl functionName="stats_background_thread_num_runs_ctl" lineNumber="2648"/>
+    <functiondecl functionName="stats_background_thread_run_interval_ctl" lineNumber="2650"/>
+    <functiondecl functionName="stats_arenas_i_dss_ctl" lineNumber="2653"/>
+    <functiondecl functionName="stats_arenas_i_dirty_decay_ms_ctl" lineNumber="2654"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_decay_ms_ctl" lineNumber="2656"/>
+    <functiondecl functionName="stats_arenas_i_nthreads_ctl" lineNumber="2658"/>
+    <functiondecl functionName="stats_arenas_i_uptime_ctl" lineNumber="2659"/>
+    <functiondecl functionName="stats_arenas_i_pactive_ctl" lineNumber="2661"/>
+    <functiondecl functionName="stats_arenas_i_pdirty_ctl" lineNumber="2662"/>
+    <functiondecl functionName="stats_arenas_i_pmuzzy_ctl" lineNumber="2663"/>
+    <functiondecl functionName="stats_arenas_i_mapped_ctl" lineNumber="2664"/>
+    <functiondecl functionName="stats_arenas_i_retained_ctl" lineNumber="2667"/>
+    <functiondecl functionName="stats_arenas_i_dirty_npurge_ctl" lineNumber="2671"/>
+    <functiondecl functionName="stats_arenas_i_dirty_nmadvise_ctl" lineNumber="2674"/>
+    <functiondecl functionName="stats_arenas_i_dirty_purged_ctl" lineNumber="2677"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_npurge_ctl" lineNumber="2681"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_nmadvise_ctl" lineNumber="2684"/>
+    <functiondecl functionName="stats_arenas_i_muzzy_purged_ctl" lineNumber="2687"/>
+    <functiondecl functionName="stats_arenas_i_base_ctl" lineNumber="2691"/>
+    <functiondecl functionName="stats_arenas_i_internal_ctl" lineNumber="2694"/>
+    <functiondecl functionName="stats_arenas_i_metadata_thp_ctl" lineNumber="2697"/>
+    <functiondecl functionName="stats_arenas_i_tcache_bytes_ctl" lineNumber="2700"/>
+    <functiondecl functionName="stats_arenas_i_resident_ctl" lineNumber="2703"/>
+    <functiondecl functionName="stats_arenas_i_small_allocated_ctl" lineNumber="2707"/>
+    <functiondecl functionName="stats_arenas_i_small_nmalloc_ctl" lineNumber="2709"/>
+    <functiondecl functionName="stats_arenas_i_small_ndalloc_ctl" lineNumber="2711"/>
+    <functiondecl functionName="stats_arenas_i_small_nrequests_ctl" lineNumber="2713"/>
+    <functiondecl functionName="stats_arenas_i_large_allocated_ctl" lineNumber="2715"/>
+    <functiondecl functionName="stats_arenas_i_large_nmalloc_ctl" lineNumber="2718"/>
+    <functiondecl functionName="stats_arenas_i_large_ndalloc_ctl" lineNumber="2721"/>
+    <functiondecl functionName="stats_arenas_i_large_nrequests_ctl" lineNumber="2727"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_ops_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_wait_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_spin_acq_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_num_owner_switch_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_total_wait_time_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_max_wait_time_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_mutex_max_num_thds_ctl" lineNumber="2762"/>
+    <functiondecl functionName="stats_mutexes_reset_ctl" lineNumber="2768"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nmalloc_ctl" lineNumber="2818"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_ndalloc_ctl" lineNumber="2820"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nrequests_ctl" lineNumber="2822"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_curregs_ctl" lineNumber="2824"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nfills_ctl" lineNumber="2826"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nflushes_ctl" lineNumber="2828"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nslabs_ctl" lineNumber="2830"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_nreslabs_ctl" lineNumber="2832"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_curslabs_ctl" lineNumber="2834"/>
+    <functiondecl functionName="stats_arenas_i_bins_j_index" lineNumber="2838"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_nmalloc_ctl" lineNumber="2846"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_ndalloc_ctl" lineNumber="2849"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_nrequests_ctl" lineNumber="2852"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_curlextents_ctl" lineNumber="2855"/>
+    <functiondecl functionName="stats_arenas_i_lextents_j_index" lineNumber="2859"/>
+    <functiondecl functionName="stats_arenas_i_index" lineNumber="2868"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="CTL_MAX_DEPTH"/>
+    <functioncall functionName="EAGAIN"/>
+    <functioncall functionName="EFAULT"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ENOENT"/>
+    <functioncall functionName="EPERM"/>
+    <functioncall functionName="JEMALLOC_CC_SILENCE_INIT"/>
+    <functioncall functionName="JEMALLOC_VERSION"/>
+    <functioncall functionName="MALLCTL_ARENAS_ALL"/>
+    <functioncall functionName="MALLCTL_ARENAS_DESTROYED"/>
+    <functioncall functionName="MUTEX_PROF_ARENA_MUTEXES"/>
+    <functioncall functionName="NBINS"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="PERCPU_ARENA_ENABLED"/>
+    <functioncall functionName="QUANTUM"/>
+    <functioncall functionName="UINT_MAX"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="WITNESS_RANK_CTL"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="accum_atomic_zu"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="all"/>
+    <functioncall functionName="allocated"/>
+    <functioncall functionName="allocated_large"/>
+    <functioncall functionName="allocated_small"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_basic_stats_merge"/>
+    <functioncall functionName="arena_choose"/>
+    <functioncall functionName="arena_decay"/>
+    <functioncall functionName="arena_destroy"/>
+    <functioncall functionName="arena_dirty_decay_ms_default_get"/>
+    <functioncall functionName="arena_dirty_decay_ms_default_set"/>
+    <functioncall functionName="arena_dirty_decay_ms_get"/>
+    <functioncall functionName="arena_dirty_decay_ms_set"/>
+    <functioncall functionName="arena_dss_prec_get"/>
+    <functioncall functionName="arena_dss_prec_set"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arena_i_decay"/>
+    <functioncall functionName="arena_i_decay_ctl"/>
+    <functioncall functionName="arena_i_decay_ms_ctl_impl"/>
+    <functioncall functionName="arena_i_destroy_ctl"/>
+    <functioncall functionName="arena_i_dirty_decay_ms_ctl"/>
+    <functioncall functionName="arena_i_dss_ctl"/>
+    <functioncall functionName="arena_i_extent_hooks_ctl"/>
+    <functioncall functionName="arena_i_index"/>
+    <functioncall functionName="arena_i_initialized_ctl"/>
+    <functioncall functionName="arena_i_muzzy_decay_ms_ctl"/>
+    <functioncall functionName="arena_i_node"/>
+    <functioncall functionName="arena_i_purge_ctl"/>
+    <functioncall functionName="arena_i_reset_ctl"/>
+    <functioncall functionName="arena_i_reset_destroy_helper"/>
+    <functioncall functionName="arena_i_retain_grow_limit_ctl"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arena_ind_get"/>
+    <functioncall functionName="arena_init"/>
+    <functioncall functionName="arena_is_auto"/>
+    <functioncall functionName="arena_migrate"/>
+    <functioncall functionName="arena_muzzy_decay_ms_default_get"/>
+    <functioncall functionName="arena_muzzy_decay_ms_default_set"/>
+    <functioncall functionName="arena_muzzy_decay_ms_get"/>
+    <functioncall functionName="arena_muzzy_decay_ms_set"/>
+    <functioncall functionName="arena_node"/>
+    <functioncall functionName="arena_nthreads_get"/>
+    <functioncall functionName="arena_reset"/>
+    <functioncall functionName="arena_reset_finish_background_thread"/>
+    <functioncall functionName="arena_reset_prepare_background_thread"/>
+    <functioncall functionName="arena_retain_grow_limit_get_set"/>
+    <functioncall functionName="arena_stats_large_t"/>
+    <functioncall functionName="arena_stats_merge"/>
+    <functioncall functionName="arena_stats_t"/>
+    <functioncall functionName="arenas_bin_i_index"/>
+    <functioncall functionName="arenas_bin_i_node"/>
+    <functioncall functionName="arenas_bin_i_nregs_ctl"/>
+    <functioncall functionName="arenas_bin_i_size_ctl"/>
+    <functioncall functionName="arenas_bin_i_slab_size_ctl"/>
+    <functioncall functionName="arenas_bin_node"/>
+    <functioncall functionName="arenas_create_ctl"/>
+    <functioncall functionName="arenas_decay_ms_ctl_impl"/>
+    <functioncall functionName="arenas_dirty_decay_ms_ctl"/>
+    <functioncall functionName="arenas_i"/>
+    <functioncall functionName="arenas_i2a"/>
+    <functioncall functionName="arenas_i2a_impl"/>
+    <functioncall functionName="arenas_i_impl"/>
+    <functioncall functionName="arenas_lextent_i_index"/>
+    <functioncall functionName="arenas_lextent_i_node"/>
+    <functioncall functionName="arenas_lextent_i_size_ctl"/>
+    <functioncall functionName="arenas_lextent_node"/>
+    <functioncall functionName="arenas_lookup_ctl"/>
+    <functioncall functionName="arenas_muzzy_decay_ms_ctl"/>
+    <functioncall functionName="arenas_narenas_ctl"/>
+    <functioncall functionName="arenas_nbins_ctl"/>
+    <functioncall functionName="arenas_nhbins_ctl"/>
+    <functioncall functionName="arenas_nlextents_ctl"/>
+    <functioncall functionName="arenas_node"/>
+    <functioncall functionName="arenas_page_ctl"/>
+    <functioncall functionName="arenas_quantum_ctl"/>
+    <functioncall functionName="arenas_tcache_max_ctl"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="astats"/>
+    <functioncall functionName="atomic_load_u64"/>
+    <functioncall functionName="atomic_load_zu"/>
+    <functioncall functionName="atomic_store_u64"/>
+    <functioncall functionName="atomic_store_zu"/>
+    <functioncall functionName="b0get"/>
+    <functioncall functionName="background_thread"/>
+    <functioncall functionName="background_thread_ctl"/>
+    <functioncall functionName="background_thread_ctl_init"/>
+    <functioncall functionName="background_thread_enabled"/>
+    <functioncall functionName="background_thread_enabled_set"/>
+    <functioncall functionName="background_thread_lock"/>
+    <functioncall functionName="background_thread_paused"/>
+    <functioncall functionName="background_thread_started"/>
+    <functioncall functionName="background_thread_stats_read"/>
+    <functioncall functionName="background_thread_stats_t"/>
+    <functioncall functionName="background_threads_disable"/>
+    <functioncall functionName="background_threads_enable"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="base_alloc"/>
+    <functioncall functionName="bin_stats_t"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bstats"/>
+    <functioncall functionName="bt2gctx_mtx"/>
+    <functioncall functionName="can_enable_background_thread"/>
+    <functioncall functionName="child"/>
+    <functioncall functionName="children"/>
+    <functioncall functionName="compat"/>
+    <functioncall functionName="config_cache_oblivious"/>
+    <functioncall functionName="config_cache_oblivious_ctl"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_debug_ctl"/>
+    <functioncall functionName="config_fill"/>
+    <functioncall functionName="config_fill_ctl"/>
+    <functioncall functionName="config_lazy_lock"/>
+    <functioncall functionName="config_lazy_lock_ctl"/>
+    <functioncall functionName="config_malloc_conf"/>
+    <functioncall functionName="config_malloc_conf_ctl"/>
+    <functioncall functionName="config_node"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="config_prof_ctl"/>
+    <functioncall functionName="config_prof_libgcc"/>
+    <functioncall functionName="config_prof_libgcc_ctl"/>
+    <functioncall functionName="config_prof_libunwind"/>
+    <functioncall functionName="config_prof_libunwind_ctl"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="config_stats_ctl"/>
+    <functioncall functionName="config_utrace"/>
+    <functioncall functionName="config_utrace_ctl"/>
+    <functioncall functionName="config_xmalloc"/>
+    <functioncall functionName="config_xmalloc_ctl"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copylen"/>
+    <functioncall functionName="ctl"/>
+    <functioncall functionName="ctl_accum_arena_stats_u64"/>
+    <functioncall functionName="ctl_arena"/>
+    <functioncall functionName="ctl_arena_clear"/>
+    <functioncall functionName="ctl_arena_init"/>
+    <functioncall functionName="ctl_arena_refresh"/>
+    <functioncall functionName="ctl_arena_stats_amerge"/>
+    <functioncall functionName="ctl_arena_stats_read_u64"/>
+    <functioncall functionName="ctl_arena_stats_sdmerge"/>
+    <functioncall functionName="ctl_arena_t"/>
+    <functioncall functionName="ctl_arenas_t"/>
+    <functioncall functionName="ctl_background_thread_stats_read"/>
+    <functioncall functionName="ctl_darena"/>
+    <functioncall functionName="ctl_indexed_node"/>
+    <functioncall functionName="ctl_indexed_node_t"/>
+    <functioncall functionName="ctl_init"/>
+    <functioncall functionName="ctl_initialized"/>
+    <functioncall functionName="ctl_lookup"/>
+    <functioncall functionName="ctl_mtx"/>
+    <functioncall functionName="ctl_named_children"/>
+    <functioncall functionName="ctl_named_node"/>
+    <functioncall functionName="ctl_named_node_t"/>
+    <functioncall functionName="ctl_refresh"/>
+    <functioncall functionName="ctl_sarena"/>
+    <functioncall functionName="ctl_sdarena"/>
+    <functioncall functionName="ctl_stats_t"/>
+    <functioncall functionName="cur_src"/>
+    <functioncall functionName="curlextents"/>
+    <functioncall functionName="curregs"/>
+    <functioncall functionName="curslabs"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="depth"/>
+    <functioncall functionName="destroyed"/>
+    <functioncall functionName="destroyed_link"/>
+    <functioncall functionName="dirty_decay_ms"/>
+    <functioncall functionName="dss"/>
+    <functioncall functionName="dss_prec"/>
+    <functioncall functionName="dss_prec_limit"/>
+    <functioncall functionName="dss_prec_old"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="elen"/>
+    <functioncall functionName="elm"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="epoch_ctl"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_arena_get"/>
+    <functioncall functionName="extent_avail_mtx"/>
+    <functioncall functionName="extent_dss_prec_get"/>
+    <functioncall functionName="extent_dss_prec_set"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_hooks_default"/>
+    <functioncall functionName="extent_hooks_get"/>
+    <functioncall functionName="extent_hooks_set"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="global_prof_mutex_background_thread"/>
+    <functioncall functionName="global_prof_mutex_ctl"/>
+    <functioncall functionName="global_prof_mutex_prof"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="iealloc"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="init"/>
+    <functioncall functionName="initialized"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="internal"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="large_mtx"/>
+    <functioncall functionName="lg_prof_sample"/>
+    <functioncall functionName="lg_prof_sample_ctl"/>
+    <functioncall functionName="lg_sample"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lstats"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_prof_data_reset"/>
+    <functioncall functionName="malloc_mutex_prof_merge"/>
+    <functioncall functionName="malloc_mutex_prof_read"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_strtoumax"/>
+    <functioncall functionName="mapped"/>
+    <functioncall functionName="match"/>
+    <functioncall functionName="max_background_threads"/>
+    <functioncall functionName="max_background_threads_ctl"/>
+    <functioncall functionName="max_n_thds"/>
+    <functioncall functionName="max_wait_time"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="metadata"/>
+    <functioncall functionName="metadata_thp"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="miblenp"/>
+    <functioncall functionName="mibp"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="mutex_data"/>
+    <functioncall functionName="mutex_prof_data_t"/>
+    <functioncall functionName="muzzy_decay_ms"/>
+    <functioncall functionName="n_lock_ops"/>
+    <functioncall functionName="n_owner_switches"/>
+    <functioncall functionName="n_spin_acquired"/>
+    <functioncall functionName="n_wait_times"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="narenas"/>
+    <functioncall functionName="narenas_total_get"/>
+    <functioncall functionName="nchildren"/>
+    <functioncall functionName="ndalloc"/>
+    <functioncall functionName="ndalloc_large"/>
+    <functioncall functionName="ndalloc_small"/>
+    <functioncall functionName="new_extent_hooks"/>
+    <functioncall functionName="new_limit"/>
+    <functioncall functionName="newarena"/>
+    <functioncall functionName="newind"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newp"/>
+    <functioncall functionName="newval"/>
+    <functioncall functionName="nfills"/>
+    <functioncall functionName="nflushes"/>
+    <functioncall functionName="nhbins"/>
+    <functioncall functionName="nmadvise"/>
+    <functioncall functionName="nmalloc"/>
+    <functioncall functionName="nmalloc_large"/>
+    <functioncall functionName="nmalloc_small"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nodes"/>
+    <functioncall functionName="npurge"/>
+    <functioncall functionName="nregs"/>
+    <functioncall functionName="nrequests"/>
+    <functioncall functionName="nrequests_large"/>
+    <functioncall functionName="nrequests_small"/>
+    <functioncall functionName="nslabs"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_ns"/>
+    <functioncall functionName="nthreads"/>
+    <functioncall functionName="num_runs"/>
+    <functioncall functionName="num_threads"/>
+    <functioncall functionName="old_extent_hooks"/>
+    <functioncall functionName="old_limit"/>
+    <functioncall functionName="oldarena"/>
+    <functioncall functionName="oldind"/>
+    <functioncall functionName="oldlenp"/>
+    <functioncall functionName="oldname"/>
+    <functioncall functionName="oldp"/>
+    <functioncall functionName="oldval"/>
+    <functioncall functionName="opt_abort"/>
+    <functioncall functionName="opt_abort_conf"/>
+    <functioncall functionName="opt_abort_conf_ctl"/>
+    <functioncall functionName="opt_abort_ctl"/>
+    <functioncall functionName="opt_background_thread"/>
+    <functioncall functionName="opt_background_thread_ctl"/>
+    <functioncall functionName="opt_dirty_decay_ms"/>
+    <functioncall functionName="opt_dirty_decay_ms_ctl"/>
+    <functioncall functionName="opt_dss"/>
+    <functioncall functionName="opt_dss_ctl"/>
+    <functioncall functionName="opt_junk"/>
+    <functioncall functionName="opt_junk_ctl"/>
+    <functioncall functionName="opt_lg_extent_max_active_fit"/>
+    <functioncall functionName="opt_lg_extent_max_active_fit_ctl"/>
+    <functioncall functionName="opt_lg_prof_interval"/>
+    <functioncall functionName="opt_lg_prof_interval_ctl"/>
+    <functioncall functionName="opt_lg_prof_sample"/>
+    <functioncall functionName="opt_lg_prof_sample_ctl"/>
+    <functioncall functionName="opt_lg_tcache_max"/>
+    <functioncall functionName="opt_lg_tcache_max_ctl"/>
+    <functioncall functionName="opt_max_background_threads"/>
+    <functioncall functionName="opt_max_background_threads_ctl"/>
+    <functioncall functionName="opt_metadata_thp"/>
+    <functioncall functionName="opt_metadata_thp_ctl"/>
+    <functioncall functionName="opt_muzzy_decay_ms"/>
+    <functioncall functionName="opt_muzzy_decay_ms_ctl"/>
+    <functioncall functionName="opt_narenas"/>
+    <functioncall functionName="opt_narenas_ctl"/>
+    <functioncall functionName="opt_node"/>
+    <functioncall functionName="opt_percpu_arena"/>
+    <functioncall functionName="opt_percpu_arena_ctl"/>
+    <functioncall functionName="opt_prof"/>
+    <functioncall functionName="opt_prof_accum"/>
+    <functioncall functionName="opt_prof_accum_ctl"/>
+    <functioncall functionName="opt_prof_active"/>
+    <functioncall functionName="opt_prof_active_ctl"/>
+    <functioncall functionName="opt_prof_ctl"/>
+    <functioncall functionName="opt_prof_final"/>
+    <functioncall functionName="opt_prof_final_ctl"/>
+    <functioncall functionName="opt_prof_gdump"/>
+    <functioncall functionName="opt_prof_gdump_ctl"/>
+    <functioncall functionName="opt_prof_leak"/>
+    <functioncall functionName="opt_prof_leak_ctl"/>
+    <functioncall functionName="opt_prof_prefix"/>
+    <functioncall functionName="opt_prof_prefix_ctl"/>
+    <functioncall functionName="opt_prof_thread_active_init"/>
+    <functioncall functionName="opt_prof_thread_active_init_ctl"/>
+    <functioncall functionName="opt_retain"/>
+    <functioncall functionName="opt_retain_ctl"/>
+    <functioncall functionName="opt_stats_print"/>
+    <functioncall functionName="opt_stats_print_ctl"/>
+    <functioncall functionName="opt_stats_print_opts"/>
+    <functioncall functionName="opt_stats_print_opts_ctl"/>
+    <functioncall functionName="opt_tcache"/>
+    <functioncall functionName="opt_tcache_ctl"/>
+    <functioncall functionName="opt_thp"/>
+    <functioncall functionName="opt_thp_ctl"/>
+    <functioncall functionName="opt_utrace"/>
+    <functioncall functionName="opt_utrace_ctl"/>
+    <functioncall functionName="opt_xmalloc"/>
+    <functioncall functionName="opt_xmalloc_ctl"/>
+    <functioncall functionName="opt_zero"/>
+    <functioncall functionName="opt_zero_ctl"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pactive"/>
+    <functioncall functionName="pdirty"/>
+    <functioncall functionName="percpu_arena_ind_limit"/>
+    <functioncall functionName="pmuzzy"/>
+    <functioncall functionName="prof_active_ctl"/>
+    <functioncall functionName="prof_active_get"/>
+    <functioncall functionName="prof_active_set"/>
+    <functioncall functionName="prof_dump_ctl"/>
+    <functioncall functionName="prof_gdump_ctl"/>
+    <functioncall functionName="prof_gdump_get"/>
+    <functioncall functionName="prof_gdump_set"/>
+    <functioncall functionName="prof_interval"/>
+    <functioncall functionName="prof_interval_ctl"/>
+    <functioncall functionName="prof_mdump"/>
+    <functioncall functionName="prof_node"/>
+    <functioncall functionName="prof_reset"/>
+    <functioncall functionName="prof_reset_ctl"/>
+    <functioncall functionName="prof_thread_active_get"/>
+    <functioncall functionName="prof_thread_active_init_ctl"/>
+    <functioncall functionName="prof_thread_active_init_get"/>
+    <functioncall functionName="prof_thread_active_init_set"/>
+    <functioncall functionName="prof_thread_active_set"/>
+    <functioncall functionName="prof_thread_name_get"/>
+    <functioncall functionName="prof_thread_name_set"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="purged"/>
+    <functioncall functionName="ql_elm_new"/>
+    <functioncall functionName="ql_last"/>
+    <functioncall functionName="ql_new"/>
+    <functioncall functionName="ql_remove"/>
+    <functioncall functionName="ql_tail_insert"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="resident"/>
+    <functioncall functionName="reslabs"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="retained"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="root_node"/>
+    <functioncall functionName="run_interval"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab_size"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="stats_active_ctl"/>
+    <functioncall functionName="stats_allocated_ctl"/>
+    <functioncall functionName="stats_arenas_i_base_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_curregs_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_curslabs_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_index"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_max_num_thds_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_max_wait_time_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_node"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_num_ops_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_num_owner_switch_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_num_spin_acq_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_num_wait_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_mutex_total_wait_time_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_ndalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_nfills_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_nflushes_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_nmalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_node"/>
+    <functioncall functionName="stats_arenas_i_bins_j_nrequests_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_nreslabs_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_j_nslabs_ctl"/>
+    <functioncall functionName="stats_arenas_i_bins_node"/>
+    <functioncall functionName="stats_arenas_i_dirty_decay_ms_ctl"/>
+    <functioncall functionName="stats_arenas_i_dirty_nmadvise_ctl"/>
+    <functioncall functionName="stats_arenas_i_dirty_npurge_ctl"/>
+    <functioncall functionName="stats_arenas_i_dirty_purged_ctl"/>
+    <functioncall functionName="stats_arenas_i_dss_ctl"/>
+    <functioncall functionName="stats_arenas_i_index"/>
+    <functioncall functionName="stats_arenas_i_internal_ctl"/>
+    <functioncall functionName="stats_arenas_i_large_allocated_ctl"/>
+    <functioncall functionName="stats_arenas_i_large_ndalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_large_nmalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_large_node"/>
+    <functioncall functionName="stats_arenas_i_large_nrequests_ctl"/>
+    <functioncall functionName="stats_arenas_i_lextents_j_curlextents_ctl"/>
+    <functioncall functionName="stats_arenas_i_lextents_j_index"/>
+    <functioncall functionName="stats_arenas_i_lextents_j_ndalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_lextents_j_nmalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_lextents_j_node"/>
+    <functioncall functionName="stats_arenas_i_lextents_j_nrequests_ctl"/>
+    <functioncall functionName="stats_arenas_i_lextents_node"/>
+    <functioncall functionName="stats_arenas_i_mapped_ctl"/>
+    <functioncall functionName="stats_arenas_i_metadata_thp_ctl"/>
+    <functioncall functionName="stats_arenas_i_mutexes_node"/>
+    <functioncall functionName="stats_arenas_i_muzzy_decay_ms_ctl"/>
+    <functioncall functionName="stats_arenas_i_muzzy_nmadvise_ctl"/>
+    <functioncall functionName="stats_arenas_i_muzzy_npurge_ctl"/>
+    <functioncall functionName="stats_arenas_i_muzzy_purged_ctl"/>
+    <functioncall functionName="stats_arenas_i_node"/>
+    <functioncall functionName="stats_arenas_i_nthreads_ctl"/>
+    <functioncall functionName="stats_arenas_i_pactive_ctl"/>
+    <functioncall functionName="stats_arenas_i_pdirty_ctl"/>
+    <functioncall functionName="stats_arenas_i_pmuzzy_ctl"/>
+    <functioncall functionName="stats_arenas_i_resident_ctl"/>
+    <functioncall functionName="stats_arenas_i_retained_ctl"/>
+    <functioncall functionName="stats_arenas_i_small_allocated_ctl"/>
+    <functioncall functionName="stats_arenas_i_small_ndalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_small_nmalloc_ctl"/>
+    <functioncall functionName="stats_arenas_i_small_node"/>
+    <functioncall functionName="stats_arenas_i_small_nrequests_ctl"/>
+    <functioncall functionName="stats_arenas_i_tcache_bytes_ctl"/>
+    <functioncall functionName="stats_arenas_i_uptime_ctl"/>
+    <functioncall functionName="stats_arenas_node"/>
+    <functioncall functionName="stats_background_thread_node"/>
+    <functioncall functionName="stats_background_thread_num_runs_ctl"/>
+    <functioncall functionName="stats_background_thread_num_threads_ctl"/>
+    <functioncall functionName="stats_background_thread_run_interval_ctl"/>
+    <functioncall functionName="stats_mapped_ctl"/>
+    <functioncall functionName="stats_metadata_ctl"/>
+    <functioncall functionName="stats_metadata_thp_ctl"/>
+    <functioncall functionName="stats_mutexes_node"/>
+    <functioncall functionName="stats_mutexes_reset_ctl"/>
+    <functioncall functionName="stats_node"/>
+    <functioncall functionName="stats_resident_ctl"/>
+    <functioncall functionName="stats_retained_ctl"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="super_arena_i_node"/>
+    <functioncall functionName="super_root_node"/>
+    <functioncall functionName="super_stats_arenas_i_node"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz_index2size"/>
+    <functioncall functionName="szind_t"/>
+    <functioncall functionName="tarena"/>
+    <functioncall functionName="tarenas"/>
+    <functioncall functionName="tcache_arena_reassociate"/>
+    <functioncall functionName="tcache_available"/>
+    <functioncall functionName="tcache_bytes"/>
+    <functioncall functionName="tcache_create_ctl"/>
+    <functioncall functionName="tcache_destroy_ctl"/>
+    <functioncall functionName="tcache_enabled_get"/>
+    <functioncall functionName="tcache_enabled_set"/>
+    <functioncall functionName="tcache_flush"/>
+    <functioncall functionName="tcache_flush_ctl"/>
+    <functioncall functionName="tcache_ind"/>
+    <functioncall functionName="tcache_maxclass"/>
+    <functioncall functionName="tcache_node"/>
+    <functioncall functionName="tcache_ql_mtx"/>
+    <functioncall functionName="tcaches_create"/>
+    <functioncall functionName="tcaches_destroy"/>
+    <functioncall functionName="tcaches_flush"/>
+    <functioncall functionName="tdot"/>
+    <functioncall functionName="thread_allocated_ctl"/>
+    <functioncall functionName="thread_allocatedp_ctl"/>
+    <functioncall functionName="thread_arena_ctl"/>
+    <functioncall functionName="thread_deallocated_ctl"/>
+    <functioncall functionName="thread_deallocatedp_ctl"/>
+    <functioncall functionName="thread_node"/>
+    <functioncall functionName="thread_prof_active_ctl"/>
+    <functioncall functionName="thread_prof_name_ctl"/>
+    <functioncall functionName="thread_prof_node"/>
+    <functioncall functionName="thread_tcache_enabled_ctl"/>
+    <functioncall functionName="thread_tcache_flush_ctl"/>
+    <functioncall functionName="thread_tcache_node"/>
+    <functioncall functionName="tot_wait_time"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_tcachep_get"/>
+    <functioncall functionName="tsd_thread_allocated_get"/>
+    <functioncall functionName="tsd_thread_allocatedp_get"/>
+    <functioncall functionName="tsd_thread_deallocated_get"/>
+    <functioncall functionName="tsd_thread_deallocatedp_get"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uptime"/>
+    <functioncall functionName="version_ctl"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

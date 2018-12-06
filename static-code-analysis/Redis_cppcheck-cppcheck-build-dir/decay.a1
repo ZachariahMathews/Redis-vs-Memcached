@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2538010179">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nupdates0&apos; can be reduced." verbose="The scope of the variable &apos;nupdates0&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\decay.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\decay.c" line="491"/>
+            <symbol>nupdates0</symbol>
+        </error>
+        <error id="memleakOnRealloc" severity="error" msg="Common realloc mistake: &apos;p&apos; nulled but not freed upon failure" verbose="Common realloc mistake: &apos;p&apos; nulled but not freed upon failure" cwe="401">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\decay.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\decay.c" line="259"/>
+            <symbol>p</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="check_background_thread_enabled" lineNumber="13"/>
+    <functiondecl functionName="nstime_monotonic_mock" lineNumber="25"/>
+    <functiondecl functionName="nstime_update_mock" lineNumber="30"/>
+    <functiondecl functionName="do_arena_create" lineNumber="39"/>
+    <functiondecl functionName="do_arena_destroy" lineNumber="65"/>
+    <functiondecl functionName="do_epoch" lineNumber="76"/>
+    <functiondecl functionName="do_purge" lineNumber="83"/>
+    <functiondecl functionName="do_decay" lineNumber="94"/>
+    <functiondecl functionName="get_arena_npurge_impl" lineNumber="105"/>
+    <functiondecl functionName="get_arena_dirty_npurge" lineNumber="119"/>
+    <functiondecl functionName="get_arena_muzzy_npurge" lineNumber="125"/>
+    <functiondecl functionName="get_arena_npurge" lineNumber="131"/>
+    <functiondecl functionName="get_arena_pdirty" lineNumber="138"/>
+    <functiondecl functionName="get_arena_pmuzzy" lineNumber="153"/>
+    <functiondecl functionName="do_mallocx" lineNumber="168"/>
+    <functiondecl functionName="generate_dirty" lineNumber="175"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="181"/>
+    <functiondecl functionName="decay_ticker_helper" lineNumber="376"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="421"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="483"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="541"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="561"/>
+    <functiondecl functionName="main" lineNumber="592"/>
+    <functioncall functionName="ENOENT"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_TCACHE"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="aligned_alloc"/>
+    <functioncall functionName="allocx_sizes"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u32_ne"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="assert_u64_gt"/>
+    <functioncall functionName="assert_u_gt"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_gt"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="check_background_thread_enabled"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="ddt"/>
+    <functioncall functionName="deadline"/>
+    <functioncall functionName="decay_ms"/>
+    <functioncall functionName="decay_ticker"/>
+    <functioncall functionName="decay_ticker_get"/>
+    <functioncall functionName="decay_ticker_helper"/>
+    <functioncall functionName="dirty_decay_ms"/>
+    <functioncall functionName="dirty_npurge0"/>
+    <functioncall functionName="do_arena_create"/>
+    <functioncall functionName="do_arena_destroy"/>
+    <functioncall functionName="do_decay"/>
+    <functioncall functionName="do_epoch"/>
+    <functioncall functionName="do_mallocx"/>
+    <functioncall functionName="do_purge"/>
+    <functioncall functionName="dt"/>
+    <functioncall functionName="enabled"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="generate_dirty"/>
+    <functioncall functionName="get_arena_dirty_npurge"/>
+    <functioncall functionName="get_arena_muzzy_npurge"/>
+    <functioncall functionName="get_arena_npurge"/>
+    <functioncall functionName="get_arena_npurge_impl"/>
+    <functioncall functionName="get_arena_pdirty"/>
+    <functioncall functionName="get_arena_pmuzzy"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="large"/>
+    <functioncall functionName="large0"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mdt"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="mibname"/>
+    <functioncall functionName="monotonic_mock"/>
+    <functioncall functionName="muzzy_decay_ms"/>
+    <functioncall functionName="muzzy_npurge0"/>
+    <functioncall functionName="muzzy_npurge1"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="npurge"/>
+    <functioncall functionName="npurge0"/>
+    <functioncall functionName="npurge1"/>
+    <functioncall functionName="nstime_add"/>
+    <functioncall functionName="nstime_compare"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_idivide"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_init2"/>
+    <functioncall functionName="nstime_monotonic"/>
+    <functioncall functionName="nstime_monotonic_mock"/>
+    <functioncall functionName="nstime_monotonic_orig"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="nstime_update_mock"/>
+    <functioncall functionName="nstime_update_orig"/>
+    <functioncall functionName="nupdates0"/>
+    <functioncall functionName="nupdates_mock"/>
+    <functioncall functionName="old_arena_ind"/>
+    <functioncall functionName="opt_dirty_decay_ms"/>
+    <functioncall functionName="opt_muzzy_decay_ms"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pdirty"/>
+    <functioncall functionName="pdirty_prev"/>
+    <functioncall functionName="pmuzzy"/>
+    <functioncall functionName="pmuzzy_prev"/>
+    <functioncall functionName="posix_memalign"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="sdallocx"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sizes"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_arena_ind"/>
+    <functioncall functionName="sz_tcache_max"/>
+    <functioncall functionName="tcache_ind"/>
+    <functioncall functionName="tcache_max"/>
+    <functioncall functionName="tcache_sizes"/>
+    <functioncall functionName="terminate_asap"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_decay_never"/>
+    <functioncall functionName="test_decay_nonmonotonic"/>
+    <functioncall functionName="test_decay_now"/>
+    <functioncall functionName="test_decay_ticker"/>
+    <functioncall functionName="test_decay_ticks"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="tick0"/>
+    <functioncall functionName="tick1"/>
+    <functioncall functionName="ticker_read"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="time_mock"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="update_interval"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="xallocx"/>
+  </FileInfo>
+</analyzerinfo>

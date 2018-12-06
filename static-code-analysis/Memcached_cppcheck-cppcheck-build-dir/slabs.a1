@@ -1,0 +1,699 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3416396764">
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 1) requires &apos;unsigned int&apos; but the argument type is &apos;signed int&apos;." verbose="%u in format string (no. 1) requires &apos;unsigned int&apos; but the argument type is &apos;signed int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\slabs.c" file="C:\Users\bharm\Downloads\memcached-master\slabs.c" line="578"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;hv&apos; can be reduced." verbose="The scope of the variable &apos;hv&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\slabs.c" file="C:\Users\bharm\Downloads\memcached-master\slabs.c" line="877"/>
+            <symbol>hv</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;hold_lock&apos; can be reduced." verbose="The scope of the variable &apos;hold_lock&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\slabs.c" file="C:\Users\bharm\Downloads\memcached-master\slabs.c" line="878"/>
+            <symbol>hold_lock</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="my_sasl_hostname" size="1025"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_set_storage" lineNumber="79"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functiondecl functionName="slabs_clsid" lineNumber="91"/>
+    <functiondecl functionName="slabs_init" lineNumber="157"/>
+    <functiondecl functionName="slabs_prefill_global" lineNumber="234"/>
+    <functiondecl functionName="slabs_preallocate" lineNumber="247"/>
+    <functiondecl functionName="grow_slab_list" lineNumber="269"/>
+    <functiondecl functionName="split_slab_page_into_freelist" lineNumber="281"/>
+    <functiondecl functionName="get_page_from_global_pool" lineNumber="291"/>
+    <functiondecl functionName="do_slabs_newslab" lineNumber="301"/>
+    <functiondecl functionName="do_slabs_alloc" lineNumber="334"/>
+    <functiondecl functionName="do_slabs_free_chunked" lineNumber="382"/>
+    <functiondecl functionName="do_slabs_free" lineNumber="442"/>
+    <functiondecl functionName="fill_slab_stats_automove" lineNumber="484"/>
+    <functiondecl functionName="global_page_pool_size" lineNumber="501"/>
+    <functiondecl functionName="nz_strcmp" lineNumber="511"/>
+    <functiondecl functionName="get_stats" lineNumber="516"/>
+    <functiondecl functionName="do_slabs_stats" lineNumber="552"/>
+    <functiondecl functionName="memory_allocate" lineNumber="608"/>
+    <functiondecl functionName="memory_release" lineNumber="639"/>
+    <functiondecl functionName="slabs_alloc" lineNumber="654"/>
+    <functiondecl functionName="slabs_free" lineNumber="664"/>
+    <functiondecl functionName="slabs_stats" lineNumber="670"/>
+    <functiondecl functionName="do_slabs_adjust_mem_limit" lineNumber="676"/>
+    <functiondecl functionName="slabs_adjust_mem_limit" lineNumber="687"/>
+    <functiondecl functionName="slabs_adjust_mem_requested" lineNumber="695"/>
+    <functiondecl functionName="slabs_available_chunks" lineNumber="709"/>
+    <functiondecl functionName="slabs_mlock" lineNumber="733"/>
+    <functiondecl functionName="slabs_munlock" lineNumber="737"/>
+    <functiondecl functionName="slab_rebalance_start" lineNumber="748"/>
+    <functiondecl functionName="slab_rebalance_alloc" lineNumber="804"/>
+    <functiondecl functionName="slab_rebalance_cut_free" lineNumber="838"/>
+    <functiondecl functionName="slab_rebalance_move" lineNumber="872"/>
+    <functiondecl functionName="slab_rebalance_finish" lineNumber="1111"/>
+    <functiondecl functionName="slab_rebalance_thread" lineNumber="1201"/>
+    <functiondecl functionName="slabs_reassign_pick_any" lineNumber="1238"/>
+    <functiondecl functionName="do_slabs_reassign" lineNumber="1254"/>
+    <functiondecl functionName="slabs_reassign" lineNumber="1288"/>
+    <functiondecl functionName="slabs_rebalancer_pause" lineNumber="1299"/>
+    <functiondecl functionName="slabs_rebalancer_resume" lineNumber="1303"/>
+    <functiondecl functionName="start_slab_maintenance_thread" lineNumber="1309"/>
+    <functiondecl functionName="stop_slab_maintenance_thread" lineNumber="1337"/>
+    <functioncall functionName="CRAWLER_BADCLASS"/>
+    <functioncall functionName="CRAWLER_ERROR"/>
+    <functioncall functionName="CRAWLER_EXPIRED"/>
+    <functioncall functionName="CRAWLER_METADUMP"/>
+    <functioncall functionName="CRAWLER_NOTSTARTED"/>
+    <functioncall functionName="CRAWLER_RUNNING"/>
+    <functioncall functionName="DELTA_ITEM_CAS_MISMATCH"/>
+    <functioncall functionName="DELTA_ITEM_NOT_FOUND"/>
+    <functioncall functionName="EOM"/>
+    <functioncall functionName="EXISTS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="ITEM_schunk"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_FAILED"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_OK"/>
+    <functioncall functionName="LOGGER_COMPACT_ABORT"/>
+    <functioncall functionName="LOGGER_COMPACT_END"/>
+    <functioncall functionName="LOGGER_COMPACT_FRAGINFO"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_END"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_START"/>
+    <functioncall functionName="LOGGER_COMPACT_START"/>
+    <functioncall functionName="LOGGER_CRAWLER_STATUS"/>
+    <functioncall functionName="LOGGER_EVICTION"/>
+    <functioncall functionName="LOGGER_EVICTION_ENTRY"/>
+    <functioncall functionName="LOGGER_EXTSTORE_WRITE"/>
+    <functioncall functionName="LOGGER_EXT_WRITE_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_GET"/>
+    <functioncall functionName="LOGGER_ITEM_GET_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_STORE"/>
+    <functioncall functionName="LOGGER_ITEM_STORE_ENTRY"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FAILED"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FULLBUF"/>
+    <functioncall functionName="LOGGER_RET_ERR"/>
+    <functioncall functionName="LOGGER_RET_NOSPACE"/>
+    <functioncall functionName="LOGGER_SLAB_MOVE"/>
+    <functioncall functionName="MEMCACHED_SLABS_ALLOCATE"/>
+    <functioncall functionName="MEMCACHED_SLABS_ALLOCATE_FAILED"/>
+    <functioncall functionName="MEMCACHED_SLABS_FREE"/>
+    <functioncall functionName="MEMCACHED_SLABS_SLABCLASS_ALLOCATE"/>
+    <functioncall functionName="MEMCACHED_SLABS_SLABCLASS_ALLOCATE_FAILED"/>
+    <functioncall functionName="MOVE_BUSY"/>
+    <functioncall functionName="MOVE_FROM_LRU"/>
+    <functioncall functionName="MOVE_FROM_SLAB"/>
+    <functioncall functionName="MOVE_LOCKED"/>
+    <functioncall functionName="MOVE_PASS"/>
+    <functioncall functionName="MURMUR3_HASH"/>
+    <functioncall functionName="NON_NUMERIC"/>
+    <functioncall functionName="NOT_FOUND"/>
+    <functioncall functionName="NO_MEMORY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="OK"/>
+    <functioncall functionName="PAUSE_ALL_THREADS"/>
+    <functioncall functionName="PTHREAD_COND_INITIALIZER"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="REASSIGN_BADCLASS"/>
+    <functioncall functionName="REASSIGN_NOSPARE"/>
+    <functioncall functionName="REASSIGN_RUNNING"/>
+    <functioncall functionName="REASSIGN_SRC_DST_SAME"/>
+    <functioncall functionName="RESUME_ALL_THREADS"/>
+    <functioncall functionName="RESUME_WORKER_THREADS"/>
+    <functioncall functionName="STATS_LOCK"/>
+    <functioncall functionName="STATS_UNLOCK"/>
+    <functioncall functionName="STORED"/>
+    <functioncall functionName="TOO_LARGE"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="add_stats"/>
+    <functioncall functionName="append_stat"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="atol"/>
+    <functioncall functionName="bin_no_state"/>
+    <functioncall functionName="bin_read_flush_exptime"/>
+    <functioncall functionName="bin_read_set_value"/>
+    <functioncall functionName="bin_reading_cas_header"/>
+    <functioncall functionName="bin_reading_del_header"/>
+    <functioncall functionName="bin_reading_get_key"/>
+    <functioncall functionName="bin_reading_incr_header"/>
+    <functioncall functionName="bin_reading_sasl_auth"/>
+    <functioncall functionName="bin_reading_sasl_auth_data"/>
+    <functioncall functionName="bin_reading_set_header"/>
+    <functioncall functionName="bin_reading_stat"/>
+    <functioncall functionName="bin_reading_touch_key"/>
+    <functioncall functionName="binary_prot"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="busy_deletes"/>
+    <functioncall functionName="busy_items"/>
+    <functioncall functionName="busy_loops"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cas_badval"/>
+    <functioncall functionName="cas_hits"/>
+    <functioncall functionName="ch"/>
+    <functioncall functionName="chunk"/>
+    <functioncall functionName="chunk_rescues"/>
+    <functioncall functionName="chunk_size"/>
+    <functioncall functionName="conn_closed"/>
+    <functioncall functionName="conn_closing"/>
+    <functioncall functionName="conn_listening"/>
+    <functioncall functionName="conn_max_state"/>
+    <functioncall functionName="conn_mwrite"/>
+    <functioncall functionName="conn_new_cmd"/>
+    <functioncall functionName="conn_nread"/>
+    <functioncall functionName="conn_parse_cmd"/>
+    <functioncall functionName="conn_read"/>
+    <functioncall functionName="conn_swallow"/>
+    <functioncall functionName="conn_waiting"/>
+    <functioncall functionName="conn_watch"/>
+    <functioncall functionName="conn_write"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="curr_bytes"/>
+    <functioncall functionName="curr_items"/>
+    <functioncall functionName="d_clsid"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="decr_hits"/>
+    <functioncall functionName="delete_hits"/>
+    <functioncall functionName="do_item_replace"/>
+    <functioncall functionName="do_item_unlink"/>
+    <functioncall functionName="do_run_slab_rebalance_thread"/>
+    <functioncall functionName="do_slabs_adjust_mem_limit"/>
+    <functioncall functionName="do_slabs_alloc"/>
+    <functioncall functionName="do_slabs_free"/>
+    <functioncall functionName="do_slabs_free_chunked"/>
+    <functioncall functionName="do_slabs_newslab"/>
+    <functioncall functionName="do_slabs_reassign"/>
+    <functioncall functionName="do_slabs_stats"/>
+    <functioncall functionName="done"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="env"/>
+    <functioncall functionName="evictions_nomem"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="extstore_delete"/>
+    <functioncall functionName="factor"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fch"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="get_hits"/>
+    <functioncall functionName="get_page_from_global_pool"/>
+    <functioncall functionName="getenv"/>
+    <functioncall functionName="grow_slab_list"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hold_lock"/>
+    <functioncall functionName="hv"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="incr_hits"/>
+    <functioncall functionName="inline_reclaim"/>
+    <functioncall functionName="is_hdr"/>
+    <functioncall functionName="is_linked"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="item"/>
+    <functioncall functionName="item_is_flushed"/>
+    <functioncall functionName="item_size_max"/>
+    <functioncall functionName="item_stats"/>
+    <functioncall functionName="item_stats_sizes"/>
+    <functioncall functionName="item_stats_sizes_disable"/>
+    <functioncall functionName="item_stats_sizes_enable"/>
+    <functioncall functionName="item_stats_totals"/>
+    <functioncall functionName="item_trylock"/>
+    <functioncall functionName="item_trylock_unlock"/>
+    <functioncall functionName="key_str"/>
+    <functioncall functionName="klen"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="limit"/>
+    <functioncall functionName="list_size"/>
+    <functioncall functionName="local_transport"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="mem_base"/>
+    <functioncall functionName="mem_current"/>
+    <functioncall functionName="mem_limit"/>
+    <functioncall functionName="mem_malloced"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memory_allocate"/>
+    <functioncall functionName="memory_release"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="nbytes"/>
+    <functioncall functionName="nch"/>
+    <functioncall functionName="negotiating_prot"/>
+    <functioncall functionName="new_it"/>
+    <functioncall functionName="new_list"/>
+    <functioncall functionName="new_mem_limit"/>
+    <functioncall functionName="new_size"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="next_chunk"/>
+    <functioncall functionName="nkey"/>
+    <functioncall functionName="nospare"/>
+    <functioncall functionName="ntotal"/>
+    <functioncall functionName="nz"/>
+    <functioncall functionName="nz_strcmp"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="orig_clsid"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="page_id"/>
+    <functioncall functionName="page_version"/>
+    <functioncall functionName="perslab"/>
+    <functioncall functionName="power_largest"/>
+    <functioncall functionName="prealloc"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="pthread_cond_init"/>
+    <functioncall functionName="pthread_cond_signal"/>
+    <functioncall functionName="pthread_cond_wait"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_join"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_trylock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="rebalance_tid"/>
+    <functioncall functionName="refcount"/>
+    <functioncall functionName="remain"/>
+    <functioncall functionName="requested"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="rescues"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s_cls"/>
+    <functioncall functionName="s_clsid"/>
+    <functioncall functionName="save_item"/>
+    <functioncall functionName="set_cmds"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sl_curr"/>
+    <functioncall functionName="slab_chunk_size_max"/>
+    <functioncall functionName="slab_end"/>
+    <functioncall functionName="slab_list"/>
+    <functioncall functionName="slab_page_size"/>
+    <functioncall functionName="slab_pos"/>
+    <functioncall functionName="slab_reassign"/>
+    <functioncall functionName="slab_rebalance_alloc"/>
+    <functioncall functionName="slab_rebalance_cond"/>
+    <functioncall functionName="slab_rebalance_cut_free"/>
+    <functioncall functionName="slab_rebalance_finish"/>
+    <functioncall functionName="slab_rebalance_move"/>
+    <functioncall functionName="slab_rebalance_start"/>
+    <functioncall functionName="slab_rebalance_thread"/>
+    <functioncall functionName="slab_start"/>
+    <functioncall functionName="slabclass"/>
+    <functioncall functionName="slabs"/>
+    <functioncall functionName="slabs_clsid"/>
+    <functioncall functionName="slabs_free"/>
+    <functioncall functionName="slabs_lock"/>
+    <functioncall functionName="slabs_preallocate"/>
+    <functioncall functionName="slabs_reassign_pick_any"/>
+    <functioncall functionName="slabs_rebalance_lock"/>
+    <functioncall functionName="slabs_stats"/>
+    <functioncall functionName="slots"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="split_slab_page_into_freelist"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="stat_type"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="storage"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t_initial_malloc"/>
+    <functioncall functionName="tcp_transport"/>
+    <functioncall functionName="thread_stats"/>
+    <functioncall functionName="threadlocal_stats_aggregate"/>
+    <functioncall functionName="total"/>
+    <functioncall functionName="total_bytes"/>
+    <functioncall functionName="total_items"/>
+    <functioncall functionName="touch_hits"/>
+    <functioncall functionName="tries"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="udp_transport"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="use_cas"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="val_str"/>
+    <functioncall functionName="verbose"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="was_busy"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="z"/>
+    <functioncall functionName="zlength"/>
+  </FileInfo>
+</analyzerinfo>

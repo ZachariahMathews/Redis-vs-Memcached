@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3406235929">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="13"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="107"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="139"/>
+    <functiondecl functionName="main" lineNumber="252"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="UINTMAX_MAX"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ju_eq"/>
+    <functioncall functionName="assert_str_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="expected_errno"/>
+    <functioncall functionName="expected_errno_name"/>
+    <functioncall functionName="expected_remainder"/>
+    <functioncall functionName="expected_x"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_errno"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="input"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_snprintf"/>
+    <functioncall functionName="malloc_strtoumax"/>
+    <functioncall functionName="remainder"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="set_errno"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_malloc_snprintf"/>
+    <functioncall functionName="test_malloc_snprintf_truncated"/>
+    <functioncall functionName="test_malloc_strtoumax"/>
+    <functioncall functionName="test_malloc_strtoumax_no_endptr"/>
+    <functioncall functionName="tests"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

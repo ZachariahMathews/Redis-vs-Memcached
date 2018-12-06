@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3168662004">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="test_empty_list" lineNumber="17"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="38"/>
+    <functiondecl functionName="init_entries" lineNumber="47"/>
+    <functiondecl functionName="test_entries_list" lineNumber="57"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="92"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="107"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="126"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="141"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="160"/>
+    <functiondecl functionName="main" lineNumber="196"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="assert_c_eq"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="entries"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="g"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="init_entries"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="ql_after_insert"/>
+    <functioncall functionName="ql_before_insert"/>
+    <functioncall functionName="ql_elm"/>
+    <functioncall functionName="ql_elm_new"/>
+    <functioncall functionName="ql_first"/>
+    <functioncall functionName="ql_foreach"/>
+    <functioncall functionName="ql_head_insert"/>
+    <functioncall functionName="ql_head_remove"/>
+    <functioncall functionName="ql_last"/>
+    <functioncall functionName="ql_new"/>
+    <functioncall functionName="ql_next"/>
+    <functioncall functionName="ql_prev"/>
+    <functioncall functionName="ql_reverse_foreach"/>
+    <functioncall functionName="ql_tail_insert"/>
+    <functioncall functionName="ql_tail_remove"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_empty_list"/>
+    <functioncall functionName="test_entries_list"/>
+    <functioncall functionName="test_ql_empty"/>
+    <functioncall functionName="test_ql_head_insert"/>
+    <functioncall functionName="test_ql_head_remove"/>
+    <functioncall functionName="test_ql_insert"/>
+    <functioncall functionName="test_ql_tail_insert"/>
+    <functioncall functionName="test_ql_tail_remove"/>
+  </FileInfo>
+</analyzerinfo>

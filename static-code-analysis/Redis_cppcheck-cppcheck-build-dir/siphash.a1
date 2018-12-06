@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1799112070">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;m&apos; can be reduced." verbose="The scope of the variable &apos;m&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" line="126"/>
+            <symbol>m</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;m&apos; can be reduced." verbose="The scope of the variable &apos;m&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" line="186"/>
+            <symbol>m</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;v&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;v&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" line="325"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\siphash.c" line="324"/>
+            <symbol>v</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="siptlw" lineNumber="50"/>
+    <functiondecl functionName="siphash" lineNumber="115"/>
+    <functiondecl functionName="siphash_nocase" lineNumber="174"/>
+    <functiondecl functionName="siptlw" lineNumber="50"/>
+    <functiondecl functionName="siphash" lineNumber="115"/>
+    <functiondecl functionName="siphash_nocase" lineNumber="174"/>
+    <functiondecl functionName="siphash_test" lineNumber="313"/>
+    <functiondecl functionName="main" lineNumber="350"/>
+    <functiondecl functionName="siptlw" lineNumber="50"/>
+    <functiondecl functionName="siphash" lineNumber="115"/>
+    <functiondecl functionName="siphash_nocase" lineNumber="174"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="fails"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in"/>
+    <functioncall functionName="inlen"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="left"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="out"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="siphash"/>
+    <functioncall functionName="siphash_nocase"/>
+    <functioncall functionName="siphash_test"/>
+    <functioncall functionName="siptlw"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="v0"/>
+    <functioncall functionName="v1"/>
+    <functioncall functionName="v2"/>
+    <functioncall functionName="v3"/>
+    <functioncall functionName="vectors_sip64"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

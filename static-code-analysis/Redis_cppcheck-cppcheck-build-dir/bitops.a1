@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3425487785">
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;if(o&amp;&amp;o-&gt;encoding==1)&apos; is redundant or there is possible null pointer dereference: o." verbose="Either the condition &apos;if(o&amp;&amp;o-&gt;encoding==1)&apos; is redundant or there is possible null pointer dereference: o." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="507" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="512" info="Assuming that condition &apos;if(o&amp;&amp;o-&gt;encoding==1)&apos; is not redundant"/>
+            <symbol>o</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;byte&apos; can be reduced." verbose="The scope of the variable &apos;byte&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="210"/>
+            <symbol>byte</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;bit&apos; can be reduced." verbose="The scope of the variable &apos;bit&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="210"/>
+            <symbol>bit</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;byteval&apos; can be reduced." verbose="The scope of the variable &apos;byteval&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="210"/>
+            <symbol>byteval</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;bitval&apos; can be reduced." verbose="The scope of the variable &apos;bitval&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="210"/>
+            <symbol>bitval</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;byte&apos; can be reduced." verbose="The scope of the variable &apos;byte&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="230"/>
+            <symbol>byte</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;bit&apos; can be reduced." verbose="The scope of the variable &apos;bit&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="230"/>
+            <symbol>bit</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;byteval&apos; can be reduced." verbose="The scope of the variable &apos;byteval&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="230"/>
+            <symbol>byteval</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;bitval&apos; can be reduced." verbose="The scope of the variable &apos;bitval&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="230"/>
+            <symbol>bitval</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;byte&apos; can be reduced." verbose="The scope of the variable &apos;byte&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="380"/>
+            <symbol>byte</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;output&apos; can be reduced." verbose="The scope of the variable &apos;output&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="659"/>
+            <symbol>output</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;llbuf&apos; can be reduced." verbose="The scope of the variable &apos;llbuf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" file="C:\Users\bharm\Downloads\redis-unstable\src\bitops.c" line="1088"/>
+            <symbol>llbuf</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="redisPopcount" lineNumber="40"/>
+    <functiondecl functionName="redisBitpos" lineNumber="101"/>
+    <functiondecl functionName="setUnsignedBitfield" lineNumber="209"/>
+    <functiondecl functionName="setSignedBitfield" lineNumber="224"/>
+    <functiondecl functionName="getUnsignedBitfield" lineNumber="229"/>
+    <functiondecl functionName="getSignedBitfield" lineNumber="243"/>
+    <functiondecl functionName="checkUnsignedBitfieldOverflow" lineNumber="288"/>
+    <functiondecl functionName="checkSignedBitfieldOverflow" lineNumber="325"/>
+    <functiondecl functionName="printBits" lineNumber="379"/>
+    <functiondecl functionName="getBitOffsetFromArgument" lineNumber="411"/>
+    <functiondecl functionName="getBitfieldTypeFromArgument" lineNumber="447"/>
+    <functiondecl functionName="lookupStringForBitCommand" lineNumber="478"/>
+    <functiondecl functionName="getObjectReadOnlyString" lineNumber="506"/>
+    <functiondecl functionName="setbitCommand" lineNumber="525"/>
+    <functiondecl functionName="getbitCommand" lineNumber="564"/>
+    <functiondecl functionName="bitopCommand" lineNumber="591"/>
+    <functiondecl functionName="bitcountCommand" lineNumber="769"/>
+    <functiondecl functionName="bitposCommand" lineNumber="818"/>
+    <functiondecl functionName="bitfieldCommand" lineNumber="914"/>
+    <functiondecl functionName="redisPopcount" lineNumber="40"/>
+    <functiondecl functionName="redisBitpos" lineNumber="101"/>
+    <functiondecl functionName="setUnsignedBitfield" lineNumber="209"/>
+    <functiondecl functionName="setSignedBitfield" lineNumber="224"/>
+    <functiondecl functionName="getUnsignedBitfield" lineNumber="229"/>
+    <functiondecl functionName="getSignedBitfield" lineNumber="243"/>
+    <functiondecl functionName="checkUnsignedBitfieldOverflow" lineNumber="288"/>
+    <functiondecl functionName="checkSignedBitfieldOverflow" lineNumber="325"/>
+    <functiondecl functionName="printBits" lineNumber="379"/>
+    <functiondecl functionName="getBitOffsetFromArgument" lineNumber="411"/>
+    <functiondecl functionName="getBitfieldTypeFromArgument" lineNumber="447"/>
+    <functiondecl functionName="lookupStringForBitCommand" lineNumber="478"/>
+    <functiondecl functionName="getObjectReadOnlyString" lineNumber="506"/>
+    <functiondecl functionName="setbitCommand" lineNumber="525"/>
+    <functiondecl functionName="getbitCommand" lineNumber="564"/>
+    <functiondecl functionName="bitopCommand" lineNumber="591"/>
+    <functiondecl functionName="bitcountCommand" lineNumber="769"/>
+    <functiondecl functionName="bitposCommand" lineNumber="818"/>
+    <functiondecl functionName="bitfieldCommand" lineNumber="914"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="UCHAR_MAX"/>
+    <functioncall functionName="ULONG_MAX"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="bit"/>
+    <functioncall functionName="bitoffset"/>
+    <functioncall functionName="bits"/>
+    <functioncall functionName="bitval"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="byteval"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="changes"/>
+    <functioncall functionName="checkSignedBitfieldOverflow"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="checkUnsignedBitfieldOverflow"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="dbUnshareStringValue"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="found"/>
+    <functioncall functionName="getBitOffsetFromArgument"/>
+    <functioncall functionName="getBitfieldTypeFromArgument"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getObjectReadOnlyString"/>
+    <functioncall functionName="getSignedBitfield"/>
+    <functioncall functionName="getUnsignedBitfield"/>
+    <functioncall functionName="handle_wrap"/>
+    <functioncall functionName="highest_write_offset"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i64"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="int64_t"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="limit"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llbits"/>
+    <functioncall functionName="llbuf"/>
+    <functioncall functionName="loffset"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupStringForBitCommand"/>
+    <functioncall functionName="lp"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxlen"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="minlen"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newval"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="numops"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="objects"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="oldval"/>
+    <functioncall functionName="on"/>
+    <functioncall functionName="one"/>
+    <functioncall functionName="op"/>
+    <functioncall functionName="opcode"/>
+    <functioncall functionName="opname"/>
+    <functioncall functionName="ops"/>
+    <functioncall functionName="output"/>
+    <functioncall functionName="overflow"/>
+    <functioncall functionName="owtype"/>
+    <functioncall functionName="owtypename"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="p4"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readonly"/>
+    <functioncall functionName="redisBitpos"/>
+    <functioncall functionName="redisPopcount"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdsgrowzero"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="setKey"/>
+    <functioncall functionName="setSignedBitfield"/>
+    <functioncall functionName="setUnsignedBitfield"/>
+    <functioncall functionName="sign"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="subcmd"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="targetkey"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="usehash"/>
+    <functioncall functionName="uv"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="wrapped"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

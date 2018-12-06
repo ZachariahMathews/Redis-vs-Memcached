@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1533829424">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="14"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_RDWR"/>
+    <functioncall functionName="SEEK_SET"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="lseek"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="srand"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="stat"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writelen"/>
+  </FileInfo>
+</analyzerinfo>

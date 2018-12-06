@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="898730320">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;last_fast_cycle&apos; can be reduced." verbose="The scope of the variable &apos;last_fast_cycle&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\expire.c" file="C:\Users\bharm\Downloads\redis-unstable\src\expire.c" line="102"/>
+            <symbol>last_fast_cycle</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="activeExpireCycleTryExpire" lineNumber="54"/>
+    <functiondecl functionName="activeExpireCycle" lineNumber="97"/>
+    <functiondecl functionName="expireSlaveKeys" lineNumber="285"/>
+    <functiondecl functionName="rememberSlaveKeyWithExpire" lineNumber="344"/>
+    <functiondecl functionName="getSlaveKeyWithExpireCount" lineNumber="374"/>
+    <functiondecl functionName="flushSlaveKeysWithExpireList" lineNumber="387"/>
+    <functiondecl functionName="expireGenericCommand" lineNumber="405"/>
+    <functiondecl functionName="expireCommand" lineNumber="453"/>
+    <functiondecl functionName="expireatCommand" lineNumber="458"/>
+    <functiondecl functionName="pexpireCommand" lineNumber="463"/>
+    <functiondecl functionName="pexpireatCommand" lineNumber="468"/>
+    <functiondecl functionName="ttlGenericCommand" lineNumber="473"/>
+    <functiondecl functionName="ttlCommand" lineNumber="496"/>
+    <functiondecl functionName="pttlCommand" lineNumber="501"/>
+    <functiondecl functionName="persistCommand" lineNumber="506"/>
+    <functiondecl functionName="touchCommand" lineNumber="520"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="activeExpireCycleTryExpire"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="avg_ttl"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="clientsArePaused"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAsyncDelete"/>
+    <functioncall functionName="dbSyncDelete"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbids"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="dbs_per_call"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="del"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="dictAddOrFind"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetRandomKey"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictSdsDestructor"/>
+    <functioncall functionName="dictSdsHash"/>
+    <functioncall functionName="dictSdsKeyCompare"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dt"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="expire"/>
+    <functioncall functionName="expireGenericCommand"/>
+    <functioncall functionName="expired"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyname"/>
+    <functioncall functionName="keyobj"/>
+    <functioncall functionName="latencyAddSample"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="lazyfree_lazy_expire"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadWithFlags"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="masterhost"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="new_dbids"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="noexpire"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="param"/>
+    <functioncall functionName="propagateExpire"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="removeExpire"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteClientCommandVector"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="s64"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="setExpire"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slaveKeysWithExpire"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="timelimit_exit"/>
+    <functioncall functionName="total_sampled"/>
+    <functioncall functionName="touched"/>
+    <functioncall functionName="ttl"/>
+    <functioncall functionName="ttlGenericCommand"/>
+    <functioncall functionName="ttl_samples"/>
+    <functioncall functionName="u64"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="when"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

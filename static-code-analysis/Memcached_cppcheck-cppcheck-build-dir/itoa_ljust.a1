@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1438874970">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="out2" lineNumber="73"/>
+    <functiondecl functionName="out1" lineNumber="78"/>
+    <functiondecl functionName="digits" lineNumber="83"/>
+    <functiondecl functionName="itoa" lineNumber="92"/>
+    <functiondecl functionName="itoa_u32" lineNumber="109"/>
+    <functiondecl functionName="itoa_32" lineNumber="119"/>
+    <functiondecl functionName="itoa_u64" lineNumber="128"/>
+    <functiondecl functionName="itoa_64" lineNumber="142"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="digits"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in"/>
+    <functioncall functionName="itoa"/>
+    <functioncall functionName="itoa_u32"/>
+    <functioncall functionName="itoa_u64"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="lower"/>
+    <functioncall functionName="lut"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="out1"/>
+    <functioncall functionName="out2"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="upper"/>
+  </FileInfo>
+</analyzerinfo>

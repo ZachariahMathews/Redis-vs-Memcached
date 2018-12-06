@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3376033752">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="dss_prec_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="dss_prec_names" size="4"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="extent_dss_sbrk" lineNumber="42"/>
+    <functiondecl functionName="extent_dss_prec_get" lineNumber="52"/>
+    <functiondecl functionName="extent_dss_prec_set" lineNumber="63"/>
+    <functiondecl functionName="extent_dss_extending_start" lineNumber="72"/>
+    <functiondecl functionName="extent_dss_extending_finish" lineNumber="85"/>
+    <functiondecl functionName="extent_dss_max_update" lineNumber="92"/>
+    <functiondecl functionName="extent_alloc_dss" lineNumber="110"/>
+    <functiondecl functionName="extent_in_dss_helper" lineNumber="231"/>
+    <functiondecl functionName="extent_in_dss" lineNumber="237"/>
+    <functiondecl functionName="extent_dss_mergeable" lineNumber="245"/>
+    <functiondecl functionName="extent_dss_boot" lineNumber="261"/>
+    <functiondecl functionName="extent_dss_sbrk" lineNumber="42"/>
+    <functiondecl functionName="extent_dss_prec_get" lineNumber="52"/>
+    <functiondecl functionName="extent_dss_prec_set" lineNumber="63"/>
+    <functiondecl functionName="extent_dss_extending_start" lineNumber="72"/>
+    <functiondecl functionName="extent_dss_extending_finish" lineNumber="85"/>
+    <functiondecl functionName="extent_dss_max_update" lineNumber="92"/>
+    <functiondecl functionName="extent_alloc_dss" lineNumber="110"/>
+    <functiondecl functionName="extent_in_dss_helper" lineNumber="231"/>
+    <functiondecl functionName="extent_in_dss" lineNumber="237"/>
+    <functiondecl functionName="extent_dss_mergeable" lineNumber="245"/>
+    <functiondecl functionName="extent_dss_boot" lineNumber="261"/>
+    <functioncall functionName="ALIGNMENT_CEILING"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_ACQ_REL"/>
+    <functioncall functionName="ATOMIC_INIT"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="ATOMIC_RELEASE"/>
+    <functioncall functionName="DSS_DEFAULT"/>
+    <functioncall functionName="DSS_PREC_DEFAULT"/>
+    <functioncall functionName="EXTENT_HOOKS_INITIALIZER"/>
+    <functioncall functionName="NSIZES"/>
+    <functioncall functionName="PAGE_CEILING"/>
+    <functioncall functionName="SPIN_INITIALIZER"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="addr_a"/>
+    <functioncall functionName="addr_b"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_extent_sn_next"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_compare_exchange_weak_b"/>
+    <functioncall functionName="atomic_load_b"/>
+    <functioncall functionName="atomic_load_p"/>
+    <functioncall functionName="atomic_load_u"/>
+    <functioncall functionName="atomic_store_b"/>
+    <functioncall functionName="atomic_store_p"/>
+    <functioncall functionName="atomic_store_u"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cassert"/>
+    <functioncall functionName="dss_base"/>
+    <functioncall functionName="dss_exhausted"/>
+    <functioncall functionName="dss_extending"/>
+    <functioncall functionName="dss_max"/>
+    <functioncall functionName="dss_next"/>
+    <functioncall functionName="dss_prec"/>
+    <functioncall functionName="dss_prec_default"/>
+    <functioncall functionName="dss_prec_t"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_alloc"/>
+    <functioncall functionName="extent_dalloc"/>
+    <functioncall functionName="extent_dalloc_gap"/>
+    <functioncall functionName="extent_dss_extending_finish"/>
+    <functioncall functionName="extent_dss_extending_start"/>
+    <functioncall functionName="extent_dss_max_update"/>
+    <functioncall functionName="extent_dss_sbrk"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_in_dss_helper"/>
+    <functioncall functionName="extent_init"/>
+    <functioncall functionName="extent_purge_forced_wrapper"/>
+    <functioncall functionName="extent_state_active"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="gap"/>
+    <functioncall functionName="gap_addr_page"/>
+    <functioncall functionName="gap_addr_subpage"/>
+    <functioncall functionName="gap_size_page"/>
+    <functioncall functionName="have_dss"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="increment"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="label_oom"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_cur"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="new_addr"/>
+    <functioncall functionName="not_implemented"/>
+    <functioncall functionName="pages_decommit"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sbrk"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="spin_adaptive"/>
+    <functioncall functionName="spinner"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1667296760">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaX_tokens" size="32"/>
+  </FileInfo>
+        <error id="invalidFunctionArg" severity="warning" msg="Either the condition &apos;token&lt;257&apos; is redundant or iscntrl() argument nr 1 can have invalid value. The value is 256 but the valid values are &apos;0:255&apos;." verbose="Either the condition &apos;token&lt;257&apos; is redundant or iscntrl() argument nr 1 can have invalid value. The value is 256 but the valid values are &apos;0:255&apos;." cwe="628">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\llex.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\llex.c" line="81" info="Invalid argument"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\llex.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\llex.c" line="79" info="Assuming that condition &apos;token&lt;257&apos; is not redundant"/>
+            <symbol>iscntrl</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaX_tokens" size="32"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaX_tokens" size="32"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaX_tokens" size="32"/>
+  </FileInfo>
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaX_tokens" size="32"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="save" lineNumber="51"/>
+    <functiondecl functionName="luaX_init" lineNumber="64"/>
+    <functiondecl functionName="luaX_token2str" lineNumber="78"/>
+    <functiondecl functionName="txtToken" lineNumber="89"/>
+    <functiondecl functionName="luaX_lexerror" lineNumber="102"/>
+    <functiondecl functionName="luaX_syntaxerror" lineNumber="112"/>
+    <functiondecl functionName="luaX_newstring" lineNumber="117"/>
+    <functiondecl functionName="inclinenumber" lineNumber="129"/>
+    <functiondecl functionName="luaX_setinput" lineNumber="140"/>
+    <functiondecl functionName="check_next" lineNumber="163"/>
+    <functiondecl functionName="buffreplace" lineNumber="171"/>
+    <functiondecl functionName="trydecpoint" lineNumber="179"/>
+    <functiondecl functionName="read_numeral" lineNumber="194"/>
+    <functiondecl functionName="skip_sep" lineNumber="210"/>
+    <functiondecl functionName="read_long_string" lineNumber="223"/>
+    <functiondecl functionName="read_string" lineNumber="278"/>
+    <functiondecl functionName="llex" lineNumber="334"/>
+    <functiondecl functionName="luaX_next" lineNumber="448"/>
+    <functiondecl functionName="luaX_lookahead" lineNumber="459"/>
+    <functiondecl functionName="save" lineNumber="51"/>
+    <functiondecl functionName="luaX_init" lineNumber="64"/>
+    <functiondecl functionName="luaX_token2str" lineNumber="78"/>
+    <functiondecl functionName="txtToken" lineNumber="89"/>
+    <functiondecl functionName="luaX_lexerror" lineNumber="102"/>
+    <functiondecl functionName="luaX_syntaxerror" lineNumber="112"/>
+    <functiondecl functionName="luaX_newstring" lineNumber="117"/>
+    <functiondecl functionName="inclinenumber" lineNumber="129"/>
+    <functiondecl functionName="luaX_setinput" lineNumber="140"/>
+    <functiondecl functionName="check_next" lineNumber="163"/>
+    <functiondecl functionName="buffreplace" lineNumber="171"/>
+    <functiondecl functionName="trydecpoint" lineNumber="179"/>
+    <functiondecl functionName="read_numeral" lineNumber="194"/>
+    <functiondecl functionName="skip_sep" lineNumber="210"/>
+    <functiondecl functionName="read_long_string" lineNumber="223"/>
+    <functiondecl functionName="read_string" lineNumber="278"/>
+    <functiondecl functionName="llex" lineNumber="334"/>
+    <functiondecl functionName="luaX_next" lineNumber="448"/>
+    <functiondecl functionName="luaX_lookahead" lineNumber="459"/>
+    <functiondecl functionName="save" lineNumber="51"/>
+    <functiondecl functionName="luaX_init" lineNumber="64"/>
+    <functiondecl functionName="luaX_token2str" lineNumber="78"/>
+    <functiondecl functionName="txtToken" lineNumber="89"/>
+    <functiondecl functionName="luaX_lexerror" lineNumber="102"/>
+    <functiondecl functionName="luaX_syntaxerror" lineNumber="112"/>
+    <functiondecl functionName="luaX_newstring" lineNumber="117"/>
+    <functiondecl functionName="inclinenumber" lineNumber="129"/>
+    <functiondecl functionName="luaX_setinput" lineNumber="140"/>
+    <functiondecl functionName="check_next" lineNumber="163"/>
+    <functiondecl functionName="buffreplace" lineNumber="171"/>
+    <functiondecl functionName="trydecpoint" lineNumber="179"/>
+    <functiondecl functionName="read_numeral" lineNumber="194"/>
+    <functiondecl functionName="skip_sep" lineNumber="210"/>
+    <functiondecl functionName="read_long_string" lineNumber="223"/>
+    <functiondecl functionName="read_string" lineNumber="278"/>
+    <functiondecl functionName="llex" lineNumber="334"/>
+    <functiondecl functionName="luaX_next" lineNumber="448"/>
+    <functiondecl functionName="luaX_lookahead" lineNumber="459"/>
+    <functiondecl functionName="save" lineNumber="51"/>
+    <functiondecl functionName="luaX_init" lineNumber="64"/>
+    <functiondecl functionName="luaX_token2str" lineNumber="78"/>
+    <functiondecl functionName="txtToken" lineNumber="89"/>
+    <functiondecl functionName="luaX_lexerror" lineNumber="102"/>
+    <functiondecl functionName="luaX_syntaxerror" lineNumber="112"/>
+    <functiondecl functionName="luaX_newstring" lineNumber="117"/>
+    <functiondecl functionName="inclinenumber" lineNumber="129"/>
+    <functiondecl functionName="luaX_setinput" lineNumber="140"/>
+    <functiondecl functionName="check_next" lineNumber="163"/>
+    <functiondecl functionName="buffreplace" lineNumber="171"/>
+    <functiondecl functionName="trydecpoint" lineNumber="179"/>
+    <functiondecl functionName="read_numeral" lineNumber="194"/>
+    <functiondecl functionName="skip_sep" lineNumber="210"/>
+    <functiondecl functionName="read_long_string" lineNumber="223"/>
+    <functiondecl functionName="read_string" lineNumber="278"/>
+    <functiondecl functionName="llex" lineNumber="334"/>
+    <functiondecl functionName="luaX_next" lineNumber="448"/>
+    <functiondecl functionName="luaX_lookahead" lineNumber="459"/>
+    <functiondecl functionName="save" lineNumber="51"/>
+    <functiondecl functionName="luaX_init" lineNumber="64"/>
+    <functiondecl functionName="luaX_token2str" lineNumber="78"/>
+    <functiondecl functionName="txtToken" lineNumber="89"/>
+    <functiondecl functionName="luaX_lexerror" lineNumber="102"/>
+    <functiondecl functionName="luaX_syntaxerror" lineNumber="112"/>
+    <functiondecl functionName="luaX_newstring" lineNumber="117"/>
+    <functiondecl functionName="inclinenumber" lineNumber="129"/>
+    <functiondecl functionName="luaX_setinput" lineNumber="140"/>
+    <functiondecl functionName="check_next" lineNumber="163"/>
+    <functiondecl functionName="buffreplace" lineNumber="171"/>
+    <functiondecl functionName="trydecpoint" lineNumber="179"/>
+    <functiondecl functionName="read_numeral" lineNumber="194"/>
+    <functiondecl functionName="skip_sep" lineNumber="210"/>
+    <functiondecl functionName="read_long_string" lineNumber="223"/>
+    <functiondecl functionName="read_string" lineNumber="278"/>
+    <functiondecl functionName="llex" lineNumber="334"/>
+    <functiondecl functionName="luaX_next" lineNumber="448"/>
+    <functiondecl functionName="luaX_lookahead" lineNumber="459"/>
+    <functioncall functionName="GCthreshold"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TK_BREAK"/>
+    <functioncall functionName="TK_CONCAT"/>
+    <functioncall functionName="TK_DO"/>
+    <functioncall functionName="TK_DOTS"/>
+    <functioncall functionName="TK_ELSE"/>
+    <functioncall functionName="TK_ELSEIF"/>
+    <functioncall functionName="TK_END"/>
+    <functioncall functionName="TK_EOS"/>
+    <functioncall functionName="TK_EQ"/>
+    <functioncall functionName="TK_FALSE"/>
+    <functioncall functionName="TK_FOR"/>
+    <functioncall functionName="TK_FUNCTION"/>
+    <functioncall functionName="TK_GE"/>
+    <functioncall functionName="TK_IF"/>
+    <functioncall functionName="TK_IN"/>
+    <functioncall functionName="TK_LE"/>
+    <functioncall functionName="TK_LOCAL"/>
+    <functioncall functionName="TK_NAME"/>
+    <functioncall functionName="TK_NE"/>
+    <functioncall functionName="TK_NIL"/>
+    <functioncall functionName="TK_NOT"/>
+    <functioncall functionName="TK_NUMBER"/>
+    <functioncall functionName="TK_OR"/>
+    <functioncall functionName="TK_REPEAT"/>
+    <functioncall functionName="TK_RETURN"/>
+    <functioncall functionName="TK_STRING"/>
+    <functioncall functionName="TK_THEN"/>
+    <functioncall functionName="TK_TRUE"/>
+    <functioncall functionName="TK_UNTIL"/>
+    <functioncall functionName="TK_WHILE"/>
+    <functioncall functionName="TM_ADD"/>
+    <functioncall functionName="TM_CALL"/>
+    <functioncall functionName="TM_CONCAT"/>
+    <functioncall functionName="TM_DIV"/>
+    <functioncall functionName="TM_EQ"/>
+    <functioncall functionName="TM_GC"/>
+    <functioncall functionName="TM_INDEX"/>
+    <functioncall functionName="TM_LE"/>
+    <functioncall functionName="TM_LEN"/>
+    <functioncall functionName="TM_LT"/>
+    <functioncall functionName="TM_MOD"/>
+    <functioncall functionName="TM_MODE"/>
+    <functioncall functionName="TM_MUL"/>
+    <functioncall functionName="TM_N"/>
+    <functioncall functionName="TM_NEWINDEX"/>
+    <functioncall functionName="TM_POW"/>
+    <functioncall functionName="TM_SUB"/>
+    <functioncall functionName="TM_UNM"/>
+    <functioncall functionName="VCALL"/>
+    <functioncall functionName="VFALSE"/>
+    <functioncall functionName="VGLOBAL"/>
+    <functioncall functionName="VINDEXED"/>
+    <functioncall functionName="VJMP"/>
+    <functioncall functionName="VK"/>
+    <functioncall functionName="VKNUM"/>
+    <functioncall functionName="VLOCAL"/>
+    <functioncall functionName="VNIL"/>
+    <functioncall functionName="VNONRELOC"/>
+    <functioncall functionName="VRELOCABLE"/>
+    <functioncall functionName="VTRUE"/>
+    <functioncall functionName="VUPVAL"/>
+    <functioncall functionName="VVARARG"/>
+    <functioncall functionName="VVOID"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buff"/>
+    <functioncall functionName="buffer"/>
+    <functioncall functionName="buffreplace"/>
+    <functioncall functionName="buffsize"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="case"/>
+    <functioncall functionName="cast"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="check_next"/>
+    <functioncall functionName="cont"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="current"/>
+    <functioncall functionName="decpoint"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="endloop"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inclinenumber"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isalnum"/>
+    <functioncall functionName="isalpha"/>
+    <functioncall functionName="iscntrl"/>
+    <functioncall functionName="isdigit"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l_G"/>
+    <functioncall functionName="linenumber"/>
+    <functioncall functionName="llex"/>
+    <functioncall functionName="localeconv"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookahead"/>
+    <functioncall functionName="ls"/>
+    <functioncall functionName="luaC_step"/>
+    <functioncall functionName="luaD_reallocstack"/>
+    <functioncall functionName="luaD_throw"/>
+    <functioncall functionName="luaH_setstr"/>
+    <functioncall functionName="luaM_realloc_"/>
+    <functioncall functionName="luaM_toobig"/>
+    <functioncall functionName="luaO_chunkid"/>
+    <functioncall functionName="luaO_pushfstring"/>
+    <functioncall functionName="luaO_str2d"/>
+    <functioncall functionName="luaS_newlstr"/>
+    <functioncall functionName="luaX_lexerror"/>
+    <functioncall functionName="luaX_newstring"/>
+    <functioncall functionName="luaX_syntaxerror"/>
+    <functioncall functionName="luaX_token2str"/>
+    <functioncall functionName="luaZ_fill"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="marked"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read_long_string"/>
+    <functioncall functionName="read_numeral"/>
+    <functioncall functionName="read_string"/>
+    <functioncall functionName="reserved"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="save"/>
+    <functioncall functionName="seminfo"/>
+    <functioncall functionName="sep"/>
+    <functioncall functionName="set"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="skip_sep"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="to"/>
+    <functioncall functionName="token"/>
+    <functioncall functionName="trydecpoint"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="tt"/>
+    <functioncall functionName="txtToken"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

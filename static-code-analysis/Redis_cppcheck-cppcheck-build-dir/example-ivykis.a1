@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2894571216">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getCallback" lineNumber="10"/>
+    <functiondecl functionName="connectCallback" lineNumber="19"/>
+    <functiondecl functionName="disconnectCallback" lineNumber="27"/>
+    <functiondecl functionName="main" lineNumber="35"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="connectCallback"/>
+    <functioncall functionName="disconnectCallback"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="getCallback"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="iv_deinit"/>
+    <functioncall functionName="iv_init"/>
+    <functioncall functionName="iv_main"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="redisAsyncCommand"/>
+    <functioncall functionName="redisAsyncConnect"/>
+    <functioncall functionName="redisAsyncDisconnect"/>
+    <functioncall functionName="redisAsyncSetConnectCallback"/>
+    <functioncall functionName="redisAsyncSetDisconnectCallback"/>
+    <functioncall functionName="redisIvykisAttach"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strlen"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4248271205">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="signal_handler" lineNumber="12"/>
+    <functiondecl functionName="wait_for_process" lineNumber="17"/>
+    <functiondecl functionName="spawn_and_wait" lineNumber="70"/>
+    <functiondecl functionName="main" lineNumber="91"/>
+    <functioncall functionName="EX_OSERR"/>
+    <functioncall functionName="EX_SOFTWARE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIGALRM"/>
+    <functioncall functionName="SIGHUP"/>
+    <functioncall functionName="SIGINT"/>
+    <functioncall functionName="SIGKILL"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIGTERM"/>
+    <functioncall functionName="WEXITSTATUS"/>
+    <functioncall functionName="WIFEXITED"/>
+    <functioncall functionName="WTERMSIG"/>
+    <functioncall functionName="alarm"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="caught_sig"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="execvp"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="naptime"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="sig_handler"/>
+    <functioncall functionName="sigaction"/>
+    <functioncall functionName="signal_handler"/>
+    <functioncall functionName="spawn_and_wait"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="wait_for_process"/>
+    <functioncall functionName="waitpid"/>
+    <functioncall functionName="which"/>
+  </FileInfo>
+</analyzerinfo>

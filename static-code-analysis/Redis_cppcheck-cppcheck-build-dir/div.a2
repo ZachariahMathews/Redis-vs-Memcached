@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2400375426">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="5"/>
+    <functiondecl functionName="main" lineNumber="26"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="div_compute"/>
+    <functioncall functionName="div_info"/>
+    <functioncall functionName="div_init"/>
+    <functioncall functionName="dividend"/>
+    <functioncall functionName="divisor"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="quotient"/>
+    <functioncall functionName="test_div_exhaustive"/>
+    <functioncall functionName="test_no_reentrancy"/>
+  </FileInfo>
+</analyzerinfo>
