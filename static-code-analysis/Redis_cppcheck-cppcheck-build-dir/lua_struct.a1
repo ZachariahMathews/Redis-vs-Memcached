@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2778476999">
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getnum" lineNumber="92"/>
+    <functiondecl functionName="optsize" lineNumber="109"/>
+    <functiondecl functionName="gettoalign" lineNumber="135"/>
+    <functiondecl functionName="controloptions" lineNumber="146"/>
+    <functiondecl functionName="putinteger" lineNumber="167"/>
+    <functiondecl functionName="correctbytes" lineNumber="194"/>
+    <functiondecl functionName="b_pack" lineNumber="206"/>
+    <functiondecl functionName="getinteger" lineNumber="264"/>
+    <functiondecl functionName="b_unpack" lineNumber="291"/>
+    <functiondecl functionName="b_size" lineNumber="364"/>
+    <functiondecl functionName="luaopen_struct" lineNumber="399"/>
+    <functiondecl functionName="getnum" lineNumber="92"/>
+    <functiondecl functionName="optsize" lineNumber="109"/>
+    <functiondecl functionName="gettoalign" lineNumber="135"/>
+    <functiondecl functionName="controloptions" lineNumber="146"/>
+    <functiondecl functionName="putinteger" lineNumber="167"/>
+    <functiondecl functionName="correctbytes" lineNumber="194"/>
+    <functiondecl functionName="b_pack" lineNumber="206"/>
+    <functiondecl functionName="getinteger" lineNumber="264"/>
+    <functiondecl functionName="b_unpack" lineNumber="291"/>
+    <functiondecl functionName="b_size" lineNumber="364"/>
+    <functiondecl functionName="luaopen_struct" lineNumber="399"/>
+    <functioncall functionName="BUFSIZ"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="align"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="b_pack"/>
+    <functioncall functionName="b_size"/>
+    <functioncall functionName="b_unpack"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buff"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="controloptions"/>
+    <functioncall functionName="correctbytes"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="endian"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getinteger"/>
+    <functioncall functionName="getnum"/>
+    <functioncall functionName="gettoalign"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isalnum"/>
+    <functioncall functionName="isdigit"/>
+    <functioncall functionName="islower"/>
+    <functioncall functionName="issigned"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="ld"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="luaL_addlstring"/>
+    <functioncall functionName="luaL_addstring"/>
+    <functioncall functionName="luaL_addvalue"/>
+    <functioncall functionName="luaL_argerror"/>
+    <functioncall functionName="luaL_buffinit"/>
+    <functioncall functionName="luaL_callmeta"/>
+    <functioncall functionName="luaL_checkany"/>
+    <functioncall functionName="luaL_checkinteger"/>
+    <functioncall functionName="luaL_checklstring"/>
+    <functioncall functionName="luaL_checknumber"/>
+    <functioncall functionName="luaL_checkoption"/>
+    <functioncall functionName="luaL_checkstack"/>
+    <functioncall functionName="luaL_checktype"/>
+    <functioncall functionName="luaL_error"/>
+    <functioncall functionName="luaL_getmetafield"/>
+    <functioncall functionName="luaL_loadbuffer"/>
+    <functioncall functionName="luaL_loadfile"/>
+    <functioncall functionName="luaL_loadstring"/>
+    <functioncall functionName="luaL_newmetatable"/>
+    <functioncall functionName="luaL_openlib"/>
+    <functioncall functionName="luaL_optinteger"/>
+    <functioncall functionName="luaL_optnumber"/>
+    <functioncall functionName="luaL_prepbuffer"/>
+    <functioncall functionName="luaL_pushresult"/>
+    <functioncall functionName="luaL_ref"/>
+    <functioncall functionName="luaL_register"/>
+    <functioncall functionName="luaL_typerror"/>
+    <functioncall functionName="luaL_unref"/>
+    <functioncall functionName="luaL_where"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushfstring"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="memchr"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="opt"/>
+    <functioncall functionName="optsize"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="putinteger"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="short"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="temp"/>
+    <functioncall functionName="thislib"/>
+    <functioncall functionName="totalsize"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

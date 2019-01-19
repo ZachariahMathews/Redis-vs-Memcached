@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2141241096">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="redisLrand48" lineNumber="71"/>
+    <functiondecl functionName="redisSrand48" lineNumber="76"/>
+    <functiondecl functionName="next" lineNumber="80"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="carry0"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="int32_t"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="q"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="seedval"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

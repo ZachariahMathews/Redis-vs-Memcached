@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1467153249">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+        <error id="unpreciseMathCall" severity="style" msg="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." verbose="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sparkline.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sparkline.c" line="108"/>
+        </error>
+        <error id="unpreciseMathCall" severity="style" msg="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." verbose="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\sparkline.c" file="C:\Users\bharm\Downloads\redis-unstable\src\sparkline.c" line="121"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="createSparklineSequence" lineNumber="57"/>
+    <functiondecl functionName="sparklineSequenceAddSample" lineNumber="65"/>
+    <functiondecl functionName="freeSparklineSequence" lineNumber="81"/>
+    <functiondecl functionName="sparklineRenderRange" lineNumber="97"/>
+    <functiondecl functionName="sparklineRender" lineNumber="165"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="charidx"/>
+    <functioncall functionName="chars"/>
+    <functioncall functionName="charset"/>
+    <functioncall functionName="columns"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="label"/>
+    <functioncall functionName="label_char"/>
+    <functioncall functionName="label_len"/>
+    <functioncall functionName="label_margin_top"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="loop"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="opt_log"/>
+    <functioncall functionName="output"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="relmax"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rows"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="samples"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sparklineRenderRange"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="sublen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zstrdup"/>
+  </FileInfo>
+</analyzerinfo>

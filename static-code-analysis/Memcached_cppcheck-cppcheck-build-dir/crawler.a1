@@ -1,0 +1,414 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1807742668">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="my_sasl_hostname" size="1025"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="crawler_mod_regs" size="3"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functiondecl functionName="lru_crawler_close_client" lineNumber="111"/>
+    <functiondecl functionName="lru_crawler_release_client" lineNumber="120"/>
+    <functiondecl functionName="crawler_expired_init" lineNumber="129"/>
+    <functiondecl functionName="crawler_expired_doneclass" lineNumber="158"/>
+    <functiondecl functionName="crawler_expired_finalize" lineNumber="166"/>
+    <functiondecl functionName="crawler_expired_eval" lineNumber="181"/>
+    <functiondecl functionName="crawler_metadump_eval" lineNumber="239"/>
+    <functiondecl functionName="crawler_metadump_finalize" lineNumber="269"/>
+    <functiondecl functionName="lru_crawler_poll" lineNumber="278"/>
+    <functiondecl functionName="lru_crawler_client_getbuf" lineNumber="328"/>
+    <functiondecl functionName="lru_crawler_class_done" lineNumber="342"/>
+    <functiondecl functionName="item_crawler_thread" lineNumber="353"/>
+    <functiondecl functionName="stop_item_crawler_thread" lineNumber="469"/>
+    <functiondecl functionName="start_item_crawler_thread" lineNumber="494"/>
+    <functiondecl functionName="do_lru_crawler_start" lineNumber="518"/>
+    <functiondecl functionName="lru_crawler_set_client" lineNumber="562"/>
+    <functiondecl functionName="lru_crawler_start" lineNumber="577"/>
+    <functiondecl functionName="lru_crawler_crawl" lineNumber="634"/>
+    <functiondecl functionName="lru_crawler_pause" lineNumber="677"/>
+    <functiondecl functionName="lru_crawler_resume" lineNumber="681"/>
+    <functiondecl functionName="init_lru_crawler" lineNumber="685"/>
+    <functioncall functionName="CRAWLER_BADCLASS"/>
+    <functioncall functionName="CRAWLER_ERROR"/>
+    <functioncall functionName="CRAWLER_EXPIRED"/>
+    <functioncall functionName="CRAWLER_METADUMP"/>
+    <functioncall functionName="CRAWLER_NOTSTARTED"/>
+    <functioncall functionName="CRAWLER_RUNNING"/>
+    <functioncall functionName="DELTA_ITEM_CAS_MISMATCH"/>
+    <functioncall functionName="DELTA_ITEM_NOT_FOUND"/>
+    <functioncall functionName="EOM"/>
+    <functioncall functionName="EXISTS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_FAILED"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_OK"/>
+    <functioncall functionName="LOGGER_COMPACT_ABORT"/>
+    <functioncall functionName="LOGGER_COMPACT_END"/>
+    <functioncall functionName="LOGGER_COMPACT_FRAGINFO"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_END"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_START"/>
+    <functioncall functionName="LOGGER_COMPACT_START"/>
+    <functioncall functionName="LOGGER_CRAWLER_STATUS"/>
+    <functioncall functionName="LOGGER_EVICTION"/>
+    <functioncall functionName="LOGGER_EVICTION_ENTRY"/>
+    <functioncall functionName="LOGGER_EXTSTORE_WRITE"/>
+    <functioncall functionName="LOGGER_EXT_WRITE_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_GET"/>
+    <functioncall functionName="LOGGER_ITEM_GET_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_STORE"/>
+    <functioncall functionName="LOGGER_ITEM_STORE_ENTRY"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FAILED"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FULLBUF"/>
+    <functioncall functionName="LOGGER_RET_ERR"/>
+    <functioncall functionName="LOGGER_RET_NOSPACE"/>
+    <functioncall functionName="LOGGER_SLAB_MOVE"/>
+    <functioncall functionName="MURMUR3_HASH"/>
+    <functioncall functionName="NON_NUMERIC"/>
+    <functioncall functionName="NOT_FOUND"/>
+    <functioncall functionName="NO_MEMORY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="OK"/>
+    <functioncall functionName="PAUSE_ALL_THREADS"/>
+    <functioncall functionName="POLLERR"/>
+    <functioncall functionName="POLLOUT"/>
+    <functioncall functionName="PTHREAD_COND_INITIALIZER"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="REASSIGN_BADCLASS"/>
+    <functioncall functionName="REASSIGN_NOSPARE"/>
+    <functioncall functionName="REASSIGN_RUNNING"/>
+    <functioncall functionName="REASSIGN_SRC_DST_SAME"/>
+    <functioncall functionName="RESUME_ALL_THREADS"/>
+    <functioncall functionName="RESUME_WORKER_THREADS"/>
+    <functioncall functionName="STATS_LOCK"/>
+    <functioncall functionName="STATS_UNLOCK"/>
+    <functioncall functionName="STORED"/>
+    <functioncall functionName="TOO_LARGE"/>
+    <functioncall functionName="active_crawler_mod"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="bin_no_state"/>
+    <functioncall functionName="bin_read_flush_exptime"/>
+    <functioncall functionName="bin_read_set_value"/>
+    <functioncall functionName="bin_reading_cas_header"/>
+    <functioncall functionName="bin_reading_del_header"/>
+    <functioncall functionName="bin_reading_get_key"/>
+    <functioncall functionName="bin_reading_incr_header"/>
+    <functioncall functionName="bin_reading_sasl_auth"/>
+    <functioncall functionName="bin_reading_sasl_auth_data"/>
+    <functioncall functionName="bin_reading_set_header"/>
+    <functioncall functionName="bin_reading_stat"/>
+    <functioncall functionName="bin_reading_touch_key"/>
+    <functioncall functionName="binary_prot"/>
+    <functioncall functionName="bipbuf_free"/>
+    <functioncall functionName="bipbuf_new"/>
+    <functioncall functionName="bipbuf_peek_all"/>
+    <functioncall functionName="bipbuf_poll"/>
+    <functioncall functionName="bipbuf_push"/>
+    <functioncall functionName="bipbuf_request"/>
+    <functioncall functionName="bipbuf_used"/>
+    <functioncall functionName="bucket"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cas"/>
+    <functioncall functionName="cbuf"/>
+    <functioncall functionName="checked"/>
+    <functioncall functionName="conn_closed"/>
+    <functioncall functionName="conn_closing"/>
+    <functioncall functionName="conn_listening"/>
+    <functioncall functionName="conn_max_state"/>
+    <functioncall functionName="conn_mwrite"/>
+    <functioncall functionName="conn_new_cmd"/>
+    <functioncall functionName="conn_nread"/>
+    <functioncall functionName="conn_parse_cmd"/>
+    <functioncall functionName="conn_read"/>
+    <functioncall functionName="conn_swallow"/>
+    <functioncall functionName="conn_waiting"/>
+    <functioncall functionName="conn_watch"/>
+    <functioncall functionName="conn_write"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="crawler_count"/>
+    <functioncall functionName="crawler_expired_doneclass"/>
+    <functioncall functionName="crawler_expired_eval"/>
+    <functioncall functionName="crawler_expired_finalize"/>
+    <functioncall functionName="crawler_expired_init"/>
+    <functioncall functionName="crawler_expired_mod"/>
+    <functioncall functionName="crawler_metadump_eval"/>
+    <functioncall functionName="crawler_metadump_finalize"/>
+    <functioncall functionName="crawler_metadump_mod"/>
+    <functioncall functionName="crawlerstats"/>
+    <functioncall functionName="crawls_persleep"/>
+    <functioncall functionName="current_time"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="data_size"/>
+    <functioncall functionName="do_get_lru_size"/>
+    <functioncall functionName="do_item_crawl_q"/>
+    <functioncall functionName="do_item_linktail_q"/>
+    <functioncall functionName="do_item_remove"/>
+    <functioncall functionName="do_item_stats_add_crawl"/>
+    <functioncall functionName="do_item_unlink_nolock"/>
+    <functioncall functionName="do_item_unlinktail_q"/>
+    <functioncall functionName="do_lru_crawler_start"/>
+    <functioncall functionName="do_run_lru_crawler_thread"/>
+    <functioncall functionName="doneclass"/>
+    <functioncall functionName="eval"/>
+    <functioncall functionName="extstore_check"/>
+    <functioncall functionName="extstore_delete"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="finalize"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hold_lock"/>
+    <functioncall functionName="hv"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ii"/>
+    <functioncall functionName="init"/>
+    <functioncall functionName="is_external"/>
+    <functioncall functionName="is_flushed"/>
+    <functioncall functionName="is_running"/>
+    <functioncall functionName="is_valid"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="it_flags"/>
+    <functioncall functionName="item_crawler_thread"/>
+    <functioncall functionName="item_crawler_tid"/>
+    <functioncall functionName="item_is_flushed"/>
+    <functioncall functionName="item_trylock"/>
+    <functioncall functionName="item_trylock_unlock"/>
+    <functioncall functionName="keybuf"/>
+    <functioncall functionName="local_transport"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lru_crawler"/>
+    <functioncall functionName="lru_crawler_class_done"/>
+    <functioncall functionName="lru_crawler_client_getbuf"/>
+    <functioncall functionName="lru_crawler_close_client"/>
+    <functioncall functionName="lru_crawler_cond"/>
+    <functioncall functionName="lru_crawler_lock"/>
+    <functioncall functionName="lru_crawler_poll"/>
+    <functioncall functionName="lru_crawler_release_client"/>
+    <functioncall functionName="lru_crawler_running"/>
+    <functioncall functionName="lru_crawler_set_client"/>
+    <functioncall functionName="lru_crawler_sleep"/>
+    <functioncall functionName="lru_crawler_start"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="needs_client"/>
+    <functioncall functionName="needs_lock"/>
+    <functioncall functionName="negotiating_prot"/>
+    <functioncall functionName="nkey"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="page_id"/>
+    <functioncall functionName="page_version"/>
+    <functioncall functionName="poll"/>
+    <functioncall functionName="process_started"/>
+    <functioncall functionName="pthread_cond_init"/>
+    <functioncall functionName="pthread_cond_signal"/>
+    <functioncall functionName="pthread_cond_wait"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_join"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="reclaimed"/>
+    <functioncall functionName="redispatch_conn"/>
+    <functioncall functionName="refcount"/>
+    <functioncall functionName="remain"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="safe_strtoul"/>
+    <functioncall functionName="search"/>
+    <functioncall functionName="sfd"/>
+    <functioncall functionName="sid"/>
+    <functioncall functionName="sidethread_conn_close"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab_cls"/>
+    <functioncall functionName="slabs"/>
+    <functioncall functionName="slabs_clsid"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="starts"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="storage"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strtok_r"/>
+    <functioncall functionName="tcp_transport"/>
+    <functioncall functionName="to_poll"/>
+    <functioncall functionName="tocrawl"/>
+    <functioncall functionName="total"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="udp_transport"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="unfetched"/>
+    <functioncall functionName="uriencode"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="verbose"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

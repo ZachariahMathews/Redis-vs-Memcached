@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3453482488">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="connect_cb" lineNumber="10"/>
+    <functiondecl functionName="disconnect_cb" lineNumber="22"/>
+    <functiondecl functionName="command_cb" lineNumber="34"/>
+    <functiondecl functionName="main" lineNumber="48"/>
+    <functioncall functionName="EXIT_FAILURE"/>
+    <functioncall functionName="FALSE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="ac"/>
+    <functioncall functionName="command_cb"/>
+    <functioncall functionName="connect_cb"/>
+    <functioncall functionName="context"/>
+    <functioncall functionName="disconnect_cb"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="g_error"/>
+    <functioncall functionName="g_main_loop_new"/>
+    <functioncall functionName="g_main_loop_quit"/>
+    <functioncall functionName="g_main_loop_run"/>
+    <functioncall functionName="g_print"/>
+    <functioncall functionName="g_printerr"/>
+    <functioncall functionName="g_source_attach"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="mainloop"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="redisAsyncCommand"/>
+    <functioncall functionName="redisAsyncConnect"/>
+    <functioncall functionName="redisAsyncDisconnect"/>
+    <functioncall functionName="redisAsyncSetConnectCallback"/>
+    <functioncall functionName="redisAsyncSetDisconnectCallback"/>
+    <functioncall functionName="redis_source_new"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="str"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3674104910">
+        <error id="redundantCondition" severity="style" msg="Redundant condition: i&gt;=argc. &apos;i&lt;argc || (i&gt;=argc &amp;&amp; argv[i])&apos; is equivalent to &apos;i&lt;argc || argv[i]&apos;" verbose="The condition &apos;i&lt;argc || i&gt;=argc &amp;&amp; argv[i]&apos; is equivalent to &apos;i&lt;argc || argv[i]&apos;." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\setproctitle.c" file="C:\Users\bharm\Downloads\redis-unstable\src\setproctitle.c" line="138"/>
+        </error>
+        <error id="redundantCondition" severity="style" msg="Redundant condition: i&gt;=argc. &apos;i&lt;argc || (i&gt;=argc &amp;&amp; argv[i])&apos; is equivalent to &apos;i&lt;argc || argv[i]&apos;" verbose="The condition &apos;i&lt;argc || i&gt;=argc &amp;&amp; argv[i]&apos; is equivalent to &apos;i&lt;argc || argv[i]&apos;." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\setproctitle.c" file="C:\Users\bharm\Downloads\redis-unstable\src\setproctitle.c" line="163"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="spt_min" lineNumber="74"/>
+    <functiondecl functionName="spt_clearenv" lineNumber="83"/>
+    <functiondecl functionName="spt_copyenv" lineNumber="103"/>
+    <functiondecl functionName="spt_copyargs" lineNumber="134"/>
+    <functiondecl functionName="spt_init" lineNumber="152"/>
+    <functiondecl functionName="setproctitle" lineNumber="220"/>
+    <functiondecl functionName="spt_min" lineNumber="74"/>
+    <functiondecl functionName="spt_clearenv" lineNumber="83"/>
+    <functiondecl functionName="spt_copyenv" lineNumber="103"/>
+    <functiondecl functionName="spt_copyargs" lineNumber="134"/>
+    <functiondecl functionName="spt_init" lineNumber="152"/>
+    <functiondecl functionName="setproctitle" lineNumber="220"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arg0"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="clearenv"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="environ"/>
+    <functioncall functionName="envp"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getprogname"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="nul"/>
+    <functioncall functionName="oldenv"/>
+    <functioncall functionName="program_invocation_name"/>
+    <functioncall functionName="program_invocation_short_name"/>
+    <functioncall functionName="reset"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="setenv"/>
+    <functioncall functionName="setprogname"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="spt_clearenv"/>
+    <functioncall functionName="spt_copyargs"/>
+    <functioncall functionName="spt_copyenv"/>
+    <functioncall functionName="spt_min"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strdup"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="syerr"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="vsnprintf"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,1114 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="233445363">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;mfd!=-1&apos; is always false" verbose="Condition &apos;mfd!=-1&apos; is always false" cwe="570">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\prof.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\prof.c" line="1455" info="Condition &apos;mfd!=-1&apos; is always false"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\prof.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\src\prof.c" line="1444" info="Assignment &apos;mfd=-1&apos;, assigned value is -1"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="opt_prof_prefix" size="1"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="534"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="534"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="534"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_tdata_count_iter" lineNumber="914"/>
+    <functiondecl functionName="prof_tdata_count" lineNumber="924"/>
+    <functiondecl functionName="prof_bt_count" lineNumber="938"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_cnt_all" lineNumber="1675"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="534"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="371"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_unwind_init_callback" lineNumber="335"/>
+    <functiondecl functionName="prof_unwind_callback" lineNumber="342"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="362"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="320"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="534"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functiondecl functionName="prof_tctx_comp" lineNumber="152"/>
+    <functiondecl functionName="prof_malloc_sample_object" lineNumber="241"/>
+    <functiondecl functionName="prof_free_sampled_object" lineNumber="257"/>
+    <functiondecl functionName="bt_init" lineNumber="272"/>
+    <functiondecl functionName="prof_enter" lineNumber="280"/>
+    <functiondecl functionName="prof_leave" lineNumber="293"/>
+    <functiondecl functionName="prof_backtrace" lineNumber="534"/>
+    <functiondecl functionName="prof_gctx_mutex_choose" lineNumber="541"/>
+    <functiondecl functionName="prof_tdata_mutex_choose" lineNumber="548"/>
+    <functiondecl functionName="prof_gctx_create" lineNumber="553"/>
+    <functiondecl functionName="prof_gctx_try_destroy" lineNumber="579"/>
+    <functiondecl functionName="prof_tctx_should_destroy" lineNumber="614"/>
+    <functiondecl functionName="prof_gctx_should_destroy" lineNumber="630"/>
+    <functiondecl functionName="prof_tctx_destroy" lineNumber="644"/>
+    <functiondecl functionName="prof_lookup_global" lineNumber="720"/>
+    <functiondecl functionName="prof_lookup" lineNumber="785"/>
+    <functiondecl functionName="prof_sample_threshold_update" lineNumber="872"/>
+    <functiondecl functionName="prof_dump_open_impl" lineNumber="958"/>
+    <functiondecl functionName="prof_dump_flush" lineNumber="975"/>
+    <functiondecl functionName="prof_dump_close" lineNumber="998"/>
+    <functiondecl functionName="prof_dump_write" lineNumber="1010"/>
+    <functiondecl functionName="prof_dump_printf" lineNumber="1042"/>
+    <functiondecl functionName="prof_tctx_merge_tdata" lineNumber="1056"/>
+    <functiondecl functionName="prof_tctx_merge_gctx" lineNumber="1087"/>
+    <functiondecl functionName="prof_tctx_merge_iter" lineNumber="1099"/>
+    <functiondecl functionName="prof_tctx_dump_iter" lineNumber="1125"/>
+    <functiondecl functionName="prof_tctx_finish_iter" lineNumber="1153"/>
+    <functiondecl functionName="prof_dump_gctx_prep" lineNumber="1179"/>
+    <functiondecl functionName="prof_gctx_merge_iter" lineNumber="1203"/>
+    <functiondecl functionName="prof_gctx_finish" lineNumber="1219"/>
+    <functiondecl functionName="prof_tdata_merge_iter" lineNumber="1270"/>
+    <functiondecl functionName="prof_tdata_dump_iter" lineNumber="1305"/>
+    <functiondecl functionName="prof_dump_header_impl" lineNumber="1326"/>
+    <functiondecl functionName="prof_dump_gctx" lineNumber="1347"/>
+    <functiondecl functionName="prof_open_maps" lineNumber="1404"/>
+    <functiondecl functionName="prof_getpid" lineNumber="1427"/>
+    <functiondecl functionName="prof_dump_maps" lineNumber="1436"/>
+    <functiondecl functionName="prof_leakcheck" lineNumber="1496"/>
+    <functiondecl functionName="prof_gctx_dump_iter" lineNumber="1532"/>
+    <functiondecl functionName="prof_dump_prep" lineNumber="1552"/>
+    <functiondecl functionName="prof_dump_file" lineNumber="1594"/>
+    <functiondecl functionName="prof_dump" lineNumber="1635"/>
+    <functiondecl functionName="prof_dump_filename" lineNumber="1723"/>
+    <functiondecl functionName="prof_fdump" lineNumber="1741"/>
+    <functiondecl functionName="prof_accum_init" lineNumber="1762"/>
+    <functiondecl functionName="prof_idump" lineNumber="1778"/>
+    <functiondecl functionName="prof_mdump" lineNumber="1812"/>
+    <functiondecl functionName="prof_gdump" lineNumber="1835"/>
+    <functiondecl functionName="prof_bt_hash" lineNumber="1869"/>
+    <functiondecl functionName="prof_bt_keycomp" lineNumber="1878"/>
+    <functiondecl functionName="prof_thr_uid_alloc" lineNumber="1891"/>
+    <functiondecl functionName="prof_tdata_init_impl" lineNumber="1903"/>
+    <functiondecl functionName="prof_tdata_init" lineNumber="1949"/>
+    <functiondecl functionName="prof_tdata_should_destroy_unlocked" lineNumber="1955"/>
+    <functiondecl functionName="prof_tdata_should_destroy" lineNumber="1966"/>
+    <functiondecl functionName="prof_tdata_destroy_locked" lineNumber="1974"/>
+    <functiondecl functionName="prof_tdata_destroy" lineNumber="1991"/>
+    <functiondecl functionName="prof_tdata_detach" lineNumber="1998"/>
+    <functiondecl functionName="prof_tdata_reinit" lineNumber="2023"/>
+    <functiondecl functionName="prof_tdata_expire" lineNumber="2036"/>
+    <functiondecl functionName="prof_tdata_reset_iter" lineNumber="2053"/>
+    <functiondecl functionName="prof_reset" lineNumber="2061"/>
+    <functiondecl functionName="prof_tdata_cleanup" lineNumber="2088"/>
+    <functiondecl functionName="prof_active_get" lineNumber="2102"/>
+    <functiondecl functionName="prof_active_set" lineNumber="2112"/>
+    <functiondecl functionName="prof_thread_name_get" lineNumber="2123"/>
+    <functiondecl functionName="prof_thread_name_alloc" lineNumber="2134"/>
+    <functiondecl functionName="prof_thread_name_set" lineNumber="2157"/>
+    <functiondecl functionName="prof_thread_active_get" lineNumber="2195"/>
+    <functiondecl functionName="prof_thread_active_set" lineNumber="2206"/>
+    <functiondecl functionName="prof_thread_active_init_get" lineNumber="2218"/>
+    <functiondecl functionName="prof_thread_active_init_set" lineNumber="2228"/>
+    <functiondecl functionName="prof_gdump_get" lineNumber="2239"/>
+    <functiondecl functionName="prof_gdump_set" lineNumber="2249"/>
+    <functiondecl functionName="prof_boot0" lineNumber="2260"/>
+    <functiondecl functionName="prof_boot1" lineNumber="2268"/>
+    <functiondecl functionName="prof_boot2" lineNumber="2292"/>
+    <functiondecl functionName="prof_prefork0" lineNumber="2401"/>
+    <functiondecl functionName="prof_prefork1" lineNumber="2418"/>
+    <functiondecl functionName="prof_postfork_parent" lineNumber="2429"/>
+    <functiondecl functionName="prof_postfork_child" lineNumber="2452"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="FD_CLOEXEC"/>
+    <functioncall functionName="F_GETFD"/>
+    <functioncall functionName="F_SETFD"/>
+    <functioncall functionName="GetCurrentProcessId"/>
+    <functioncall functionName="JEMALLOC_HOOK"/>
+    <functioncall functionName="LG_PROF_INTERVAL_DEFAULT"/>
+    <functioncall functionName="LG_PROF_SAMPLE_DEFAULT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_RDONLY"/>
+    <functioncall functionName="PROF_BT_MAX"/>
+    <functioncall functionName="PROF_CKH_MINITEMS"/>
+    <functioncall functionName="PROF_DUMP_BUFSIZE"/>
+    <functioncall functionName="PROF_PREFIX_DEFAULT"/>
+    <functioncall functionName="PROF_PRINTF_BUFSIZE"/>
+    <functioncall functionName="TSDN_NULL"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="WITNESS_RANK_PROF_ACCUM"/>
+    <functioncall functionName="WITNESS_RANK_PROF_ACTIVE"/>
+    <functioncall functionName="WITNESS_RANK_PROF_BT2GCTX"/>
+    <functioncall functionName="WITNESS_RANK_PROF_DUMP"/>
+    <functioncall functionName="WITNESS_RANK_PROF_DUMP_SEQ"/>
+    <functioncall functionName="WITNESS_RANK_PROF_GCTX"/>
+    <functioncall functionName="WITNESS_RANK_PROF_GDUMP"/>
+    <functioncall functionName="WITNESS_RANK_PROF_NEXT_THR_UID"/>
+    <functioncall functionName="WITNESS_RANK_PROF_TDATA"/>
+    <functioncall functionName="WITNESS_RANK_PROF_TDATAS"/>
+    <functioncall functionName="WITNESS_RANK_PROF_THREAD_ACTIVE_INIT"/>
+    <functioncall functionName="_Unwind_Backtrace"/>
+    <functioncall functionName="_Unwind_GetIP"/>
+    <functioncall functionName="__builtin_frame_address"/>
+    <functioncall functionName="__builtin_return_address"/>
+    <functioncall functionName="a_discrim"/>
+    <functioncall functionName="a_len"/>
+    <functioncall functionName="a_tctx_uid"/>
+    <functioncall functionName="a_thr_discrim"/>
+    <functioncall functionName="a_thr_uid"/>
+    <functioncall functionName="a_uid"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="accumbytes"/>
+    <functioncall functionName="accumobjs"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="active_init"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arena_get"/>
+    <functioncall functionName="arena_ichoose"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atexit"/>
+    <functioncall functionName="atomic_fetch_add_u"/>
+    <functioncall functionName="atomic_store_u64"/>
+    <functioncall functionName="attached"/>
+    <functioncall functionName="b0get"/>
+    <functioncall functionName="b_len"/>
+    <functioncall functionName="base_alloc"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bt"/>
+    <functioncall functionName="bt2gctx"/>
+    <functioncall functionName="bt2gctx_mtx"/>
+    <functioncall functionName="bt2tctx"/>
+    <functioncall functionName="btkey"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cassert"/>
+    <functioncall functionName="ckh_count"/>
+    <functioncall functionName="ckh_delete"/>
+    <functioncall functionName="ckh_insert"/>
+    <functioncall functionName="ckh_iter"/>
+    <functioncall functionName="ckh_new"/>
+    <functioncall functionName="ckh_remove"/>
+    <functioncall functionName="ckh_search"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cnt_all"/>
+    <functioncall functionName="cnt_summed"/>
+    <functioncall functionName="cnts"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="context"/>
+    <functioncall functionName="creat"/>
+    <functioncall functionName="cum_gctxs"/>
+    <functioncall functionName="curbytes"/>
+    <functioncall functionName="curobjs"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="destroy_gctx"/>
+    <functioncall functionName="destroy_tctx"/>
+    <functioncall functionName="destroy_tdata"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dump_cnts"/>
+    <functioncall functionName="dump_link"/>
+    <functioncall functionName="dumping"/>
+    <functioncall functionName="enq"/>
+    <functioncall functionName="enq_gdump"/>
+    <functioncall functionName="enq_idump"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="even_if_attached"/>
+    <functioncall functionName="exp"/>
+    <functioncall functionName="expired"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fcntl"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="filename_buf"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="gctx"/>
+    <functioncall functionName="gctx_tree_"/>
+    <functioncall functionName="gctx_tree_first"/>
+    <functioncall functionName="gctx_tree_insert"/>
+    <functioncall functionName="gctx_tree_iter"/>
+    <functioncall functionName="gctx_tree_new"/>
+    <functioncall functionName="gctx_tree_remove"/>
+    <functioncall functionName="gctxs"/>
+    <functioncall functionName="gdump"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hooks_libc_hook"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="iallocztm"/>
+    <functioncall functionName="idalloctm"/>
+    <functioncall functionName="idump"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="isblank"/>
+    <functioncall functionName="isgraph"/>
+    <functioncall functionName="k1"/>
+    <functioncall functionName="k2"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="label_return"/>
+    <functioncall functionName="label_write_error"/>
+    <functioncall functionName="leak_ngctx"/>
+    <functioncall functionName="leakcheck"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lg_sample"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_assert_not_owner"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_t"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_read_fd"/>
+    <functioncall functionName="malloc_snprintf"/>
+    <functioncall functionName="malloc_vsnprintf"/>
+    <functioncall functionName="malloc_write"/>
+    <functioncall functionName="malloc_write_fd"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mfd"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="new_gctx"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="next_thr_uid"/>
+    <functioncall functionName="next_thr_uid_mtx"/>
+    <functioncall functionName="nframes"/>
+    <functioncall functionName="not_found"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="offsetof"/>
+    <functioncall functionName="opaque"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="opt_abort"/>
+    <functioncall functionName="opt_lg_prof_sample"/>
+    <functioncall functionName="opt_prof"/>
+    <functioncall functionName="opt_prof_accum"/>
+    <functioncall functionName="opt_prof_active"/>
+    <functioncall functionName="opt_prof_final"/>
+    <functioncall functionName="opt_prof_gdump"/>
+    <functioncall functionName="opt_prof_leak"/>
+    <functioncall functionName="opt_prof_prefix"/>
+    <functioncall functionName="opt_prof_thread_active_init"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="post_reentrancy"/>
+    <functioncall functionName="pre_reentrancy"/>
+    <functioncall functionName="prepared"/>
+    <functioncall functionName="prng_lg_range_u64"/>
+    <functioncall functionName="prng_state"/>
+    <functioncall functionName="prof_active"/>
+    <functioncall functionName="prof_active_get_unlocked"/>
+    <functioncall functionName="prof_active_mtx"/>
+    <functioncall functionName="prof_booted"/>
+    <functioncall functionName="prof_bt_hash"/>
+    <functioncall functionName="prof_bt_keycomp"/>
+    <functioncall functionName="prof_cnt_t"/>
+    <functioncall functionName="prof_dump"/>
+    <functioncall functionName="prof_dump_buf"/>
+    <functioncall functionName="prof_dump_buf_end"/>
+    <functioncall functionName="prof_dump_close"/>
+    <functioncall functionName="prof_dump_fd"/>
+    <functioncall functionName="prof_dump_file"/>
+    <functioncall functionName="prof_dump_filename"/>
+    <functioncall functionName="prof_dump_flush"/>
+    <functioncall functionName="prof_dump_gctx"/>
+    <functioncall functionName="prof_dump_gctx_prep"/>
+    <functioncall functionName="prof_dump_header"/>
+    <functioncall functionName="prof_dump_iseq"/>
+    <functioncall functionName="prof_dump_maps"/>
+    <functioncall functionName="prof_dump_mseq"/>
+    <functioncall functionName="prof_dump_mtx"/>
+    <functioncall functionName="prof_dump_open"/>
+    <functioncall functionName="prof_dump_prep"/>
+    <functioncall functionName="prof_dump_printf"/>
+    <functioncall functionName="prof_dump_seq"/>
+    <functioncall functionName="prof_dump_seq_mtx"/>
+    <functioncall functionName="prof_dump_useq"/>
+    <functioncall functionName="prof_dump_write"/>
+    <functioncall functionName="prof_enter"/>
+    <functioncall functionName="prof_fdump"/>
+    <functioncall functionName="prof_gctx_comp"/>
+    <functioncall functionName="prof_gctx_create"/>
+    <functioncall functionName="prof_gctx_dump_iter"/>
+    <functioncall functionName="prof_gctx_dump_iter_arg"/>
+    <functioncall functionName="prof_gctx_finish"/>
+    <functioncall functionName="prof_gctx_merge_iter"/>
+    <functioncall functionName="prof_gctx_merge_iter_arg"/>
+    <functioncall functionName="prof_gctx_mutex_choose"/>
+    <functioncall functionName="prof_gctx_should_destroy"/>
+    <functioncall functionName="prof_gctx_t"/>
+    <functioncall functionName="prof_gctx_tree_t"/>
+    <functioncall functionName="prof_gctx_try_destroy"/>
+    <functioncall functionName="prof_gdump"/>
+    <functioncall functionName="prof_gdump_mtx"/>
+    <functioncall functionName="prof_gdump_val"/>
+    <functioncall functionName="prof_getpid"/>
+    <functioncall functionName="prof_idump"/>
+    <functioncall functionName="prof_leakcheck"/>
+    <functioncall functionName="prof_leave"/>
+    <functioncall functionName="prof_lookup_global"/>
+    <functioncall functionName="prof_open_maps"/>
+    <functioncall functionName="prof_sample_threshold_update"/>
+    <functioncall functionName="prof_tctx_comp"/>
+    <functioncall functionName="prof_tctx_destroy"/>
+    <functioncall functionName="prof_tctx_dump_iter"/>
+    <functioncall functionName="prof_tctx_dump_iter_arg"/>
+    <functioncall functionName="prof_tctx_finish_iter"/>
+    <functioncall functionName="prof_tctx_merge_gctx"/>
+    <functioncall functionName="prof_tctx_merge_iter"/>
+    <functioncall functionName="prof_tctx_merge_tdata"/>
+    <functioncall functionName="prof_tctx_set"/>
+    <functioncall functionName="prof_tctx_should_destroy"/>
+    <functioncall functionName="prof_tctx_state_dumping"/>
+    <functioncall functionName="prof_tctx_state_initializing"/>
+    <functioncall functionName="prof_tctx_state_nominal"/>
+    <functioncall functionName="prof_tctx_state_purgatory"/>
+    <functioncall functionName="prof_tctx_t"/>
+    <functioncall functionName="prof_tctx_tree_t"/>
+    <functioncall functionName="prof_tdata_comp"/>
+    <functioncall functionName="prof_tdata_count_iter"/>
+    <functioncall functionName="prof_tdata_destroy"/>
+    <functioncall functionName="prof_tdata_destroy_locked"/>
+    <functioncall functionName="prof_tdata_detach"/>
+    <functioncall functionName="prof_tdata_dump_iter"/>
+    <functioncall functionName="prof_tdata_expire"/>
+    <functioncall functionName="prof_tdata_get"/>
+    <functioncall functionName="prof_tdata_init_impl"/>
+    <functioncall functionName="prof_tdata_merge_iter"/>
+    <functioncall functionName="prof_tdata_merge_iter_arg"/>
+    <functioncall functionName="prof_tdata_mutex_choose"/>
+    <functioncall functionName="prof_tdata_reset_iter"/>
+    <functioncall functionName="prof_tdata_should_destroy"/>
+    <functioncall functionName="prof_tdata_should_destroy_unlocked"/>
+    <functioncall functionName="prof_tdata_t"/>
+    <functioncall functionName="prof_tdata_tree_t"/>
+    <functioncall functionName="prof_thr_uid_alloc"/>
+    <functioncall functionName="prof_thread_active_init"/>
+    <functioncall functionName="prof_thread_active_init_get"/>
+    <functioncall functionName="prof_thread_active_init_mtx"/>
+    <functioncall functionName="prof_thread_name_alloc"/>
+    <functioncall functionName="prof_unwind_callback"/>
+    <functioncall functionName="prof_unwind_init_callback"/>
+    <functioncall functionName="propagate_err"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r_hash"/>
+    <functioncall functionName="ratio"/>
+    <functioncall functionName="rb_gen"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="round"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sample_period"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="tabind"/>
+    <functioncall functionName="tctx"/>
+    <functioncall functionName="tctx_link"/>
+    <functioncall functionName="tctx_tree_"/>
+    <functioncall functionName="tctx_tree_empty"/>
+    <functioncall functionName="tctx_tree_insert"/>
+    <functioncall functionName="tctx_tree_iter"/>
+    <functioncall functionName="tctx_tree_new"/>
+    <functioncall functionName="tctx_tree_next"/>
+    <functioncall functionName="tctx_tree_remove"/>
+    <functioncall functionName="tctx_uid"/>
+    <functioncall functionName="tctxs"/>
+    <functioncall functionName="tdata"/>
+    <functioncall functionName="tdata_count"/>
+    <functioncall functionName="tdata_link"/>
+    <functioncall functionName="tdata_self"/>
+    <functioncall functionName="tdata_tree_"/>
+    <functioncall functionName="tdata_tree_insert"/>
+    <functioncall functionName="tdata_tree_iter"/>
+    <functioncall functionName="tdata_tree_new"/>
+    <functioncall functionName="tdata_tree_next"/>
+    <functioncall functionName="tdata_tree_remove"/>
+    <functioncall functionName="tdatas"/>
+    <functioncall functionName="tdatas_mtx"/>
+    <functioncall functionName="thr_discrim"/>
+    <functioncall functionName="thr_uid"/>
+    <functioncall functionName="thread_name"/>
+    <functioncall functionName="to_destroy"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_prof_tdata_get"/>
+    <functioncall functionName="tsd_prof_tdata_set"/>
+    <functioncall functionName="tsd_reentrancy_level_get"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_fetch"/>
+    <functioncall functionName="tsdn_null"/>
+    <functioncall functionName="tsdn_tsd"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unw_backtrace"/>
+    <functioncall functionName="updated"/>
+    <functioncall functionName="usize"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="vec"/>
+    <functioncall functionName="vseq"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

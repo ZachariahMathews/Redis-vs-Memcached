@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="129446765">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="thd_create" lineNumber="24"/>
+    <functiondecl functionName="thd_join" lineNumber="31"/>
+    <functiondecl functionName="thd_create" lineNumber="5"/>
+    <functiondecl functionName="thd_join" lineNumber="14"/>
+    <functioncall functionName="CreateThread"/>
+    <functioncall functionName="GetExitCodeThread"/>
+    <functioncall functionName="INFINITE"/>
+    <functioncall functionName="LPTHREAD_START_ROUTINE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="WaitForSingleObject"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="exit_code"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="proc"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_join"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="routine"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="thd"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1433079205">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="thd_start" lineNumber="4"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="65"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="70"/>
+    <functiondecl functionName="main" lineNumber="79"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="e0"/>
+    <functioncall functionName="e1"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_main_thread"/>
+    <functioncall functionName="test_subthread"/>
+    <functioncall functionName="thd"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

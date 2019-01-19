@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2371624555">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="expect_no_logging" lineNumber="6"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="31"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="43"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="85"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="135"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="157"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="177"/>
+    <functiondecl functionName="main" lineNumber="185"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="LOG"/>
+    <functioncall functionName="LOG_VAR_INIT"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="atomic_store_b"/>
+    <functioncall functionName="config_log"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="expect_no_logging"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="log_do_begin"/>
+    <functioncall functionName="log_do_end"/>
+    <functioncall functionName="log_init_done"/>
+    <functioncall functionName="log_l1"/>
+    <functioncall functionName="log_l1_a"/>
+    <functioncall functionName="log_l1a"/>
+    <functioncall functionName="log_l2"/>
+    <functioncall functionName="log_l2_a"/>
+    <functioncall functionName="log_l2_a_a"/>
+    <functioncall functionName="log_l2_b_a"/>
+    <functioncall functionName="log_l2_b_b"/>
+    <functioncall functionName="log_var_names"/>
+    <functioncall functionName="names"/>
+    <functioncall functionName="strcpy"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_log_disabled"/>
+    <functioncall functionName="test_log_enabled_direct"/>
+    <functioncall functionName="test_log_enabled_global"/>
+    <functioncall functionName="test_log_enabled_indirect"/>
+    <functioncall functionName="test_log_only_format_string"/>
+    <functioncall functionName="test_logs_if_no_init"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="848521068">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="log_var_extract_segment" lineNumber="14"/>
+    <functiondecl functionName="log_var_matches_segment" lineNumber="22"/>
+    <functiondecl functionName="log_var_update_state" lineNumber="44"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_INIT"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="JEMALLOC_LOG_VAR_BUFSIZE"/>
+    <functioncall functionName="LOG_ENABLED"/>
+    <functioncall functionName="LOG_INITIALIZED_NOT_ENABLED"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_load_b"/>
+    <functioncall functionName="atomic_store_u"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="log_init_done"/>
+    <functioncall functionName="log_var_begin"/>
+    <functioncall functionName="log_var_end"/>
+    <functioncall functionName="log_var_extract_segment"/>
+    <functioncall functionName="log_var_matches_segment"/>
+    <functioncall functionName="log_var_names"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="segment_begin"/>
+    <functioncall functionName="segment_end"/>
+    <functioncall functionName="segment_len"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

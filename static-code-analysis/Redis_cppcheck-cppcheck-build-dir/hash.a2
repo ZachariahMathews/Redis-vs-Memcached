@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1356665403">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="hash_variant_bits" lineNumber="40"/>
+    <functiondecl functionName="hash_variant_string" lineNumber="50"/>
+    <functiondecl functionName="hash_variant_verify_key" lineNumber="61"/>
+    <functiondecl functionName="hash_variant_verify" lineNumber="140"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="152"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="157"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="162"/>
+    <functiondecl functionName="main" lineNumber="168"/>
+    <functiondecl functionName="hash_variant_bits" lineNumber="40"/>
+    <functiondecl functionName="hash_variant_string" lineNumber="50"/>
+    <functiondecl functionName="hash_variant_verify_key" lineNumber="61"/>
+    <functiondecl functionName="hash_variant_verify" lineNumber="140"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="152"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="157"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="162"/>
+    <functiondecl functionName="main" lineNumber="168"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="VARIABLE_ARRAY"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="computed"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="final"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="hash_variant_bits"/>
+    <functioncall functionName="hash_variant_string"/>
+    <functioncall functionName="hash_variant_verify"/>
+    <functioncall functionName="hash_variant_verify_key"/>
+    <functioncall functionName="hash_variant_x64_128"/>
+    <functioncall functionName="hash_variant_x86_128"/>
+    <functioncall functionName="hash_variant_x86_32"/>
+    <functioncall functionName="hash_x64_128"/>
+    <functioncall functionName="hash_x86_128"/>
+    <functioncall functionName="hash_x86_32"/>
+    <functioncall functionName="hashbytes"/>
+    <functioncall functionName="hashes"/>
+    <functioncall functionName="hashes_size"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="out"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_hash_x64_128"/>
+    <functioncall functionName="test_hash_x86_128"/>
+    <functioncall functionName="test_hash_x86_32"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="variant"/>
+  </FileInfo>
+</analyzerinfo>

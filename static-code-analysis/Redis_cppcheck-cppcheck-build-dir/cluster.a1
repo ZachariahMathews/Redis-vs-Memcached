@@ -1,0 +1,836 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="109689785">
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: node" verbose="Possible null pointer dereference: node" cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2638" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2631" info="Assignment &apos;node=NULL&apos;, assigned value is 0"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cfd&apos; can be reduced." verbose="The scope of the variable &apos;cfd&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="616"/>
+            <symbol>cfd</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;link&apos; can be reduced." verbose="The scope of the variable &apos;link&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="619"/>
+            <symbol>link</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;fr&apos; can be reduced." verbose="The scope of the variable &apos;fr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="768"/>
+            <symbol>fr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;fr&apos; can be reduced." verbose="The scope of the variable &apos;fr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="795"/>
+            <symbol>fr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ci&apos; can be reduced." verbose="The scope of the variable &apos;ci&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="1346"/>
+            <symbol>ci</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;failing&apos; can be reduced." verbose="The scope of the variable &apos;failing&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2001"/>
+            <symbol>failing</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;channel&apos; can be reduced." verbose="The scope of the variable &apos;channel&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2023"/>
+            <symbol>channel</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;message&apos; can be reduced." verbose="The scope of the variable &apos;message&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2023"/>
+            <symbol>message</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;channel_len&apos; can be reduced." verbose="The scope of the variable &apos;channel_len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2024"/>
+            <symbol>channel_len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;message_len&apos; can be reduced." verbose="The scope of the variable &apos;message_len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2024"/>
+            <symbol>message_len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nread&apos; can be reduced." verbose="The scope of the variable &apos;nread&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2143"/>
+            <symbol>nread</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;rcvbuflen&apos; can be reduced." verbose="The scope of the variable &apos;rcvbuflen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2146"/>
+            <symbol>rcvbuflen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;min_pong&apos; can be reduced." verbose="The scope of the variable &apos;min_pong&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="3315"/>
+            <symbol>min_pong</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;j&apos; can be reduced." verbose="The scope of the variable &apos;j&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="3759"/>
+            <symbol>j</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="4142"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;slot&apos; can be reduced." verbose="The scope of the variable &apos;slot&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="4279"/>
+            <symbol>slot</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;freshnodes&apos; is modified but its new value is never used." verbose="Variable &apos;freshnodes&apos; is modified but its new value is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="2458"/>
+            <symbol>freshnodes</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" file="C:\Users\bharm\Downloads\redis-unstable\src\cluster.c" line="3414"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="clusterLoadConfig" lineNumber="90"/>
+    <functiondecl functionName="clusterSaveConfig" lineNumber="312"/>
+    <functiondecl functionName="clusterSaveConfigOrDie" lineNumber="359"/>
+    <functiondecl functionName="clusterLockConfig" lineNumber="375"/>
+    <functiondecl functionName="clusterUpdateMyselfFlags" lineNumber="417"/>
+    <functiondecl functionName="clusterInit" lineNumber="429"/>
+    <functiondecl functionName="clusterReset" lineNumber="531"/>
+    <functiondecl functionName="createClusterLink" lineNumber="589"/>
+    <functiondecl functionName="freeClusterLink" lineNumber="602"/>
+    <functiondecl functionName="clusterAcceptHandler" lineNumber="615"/>
+    <functiondecl functionName="keyHashSlot" lineNumber="662"/>
+    <functiondecl functionName="createClusterNode" lineNumber="694"/>
+    <functiondecl functionName="clusterNodeAddFailureReport" lineNumber="734"/>
+    <functiondecl functionName="clusterNodeCleanupFailureReports" lineNumber="764"/>
+    <functiondecl functionName="clusterNodeDelFailureReport" lineNumber="791"/>
+    <functiondecl functionName="clusterNodeFailureReportsCount" lineNumber="814"/>
+    <functiondecl functionName="clusterNodeRemoveSlave" lineNumber="819"/>
+    <functiondecl functionName="clusterNodeAddSlave" lineNumber="838"/>
+    <functiondecl functionName="clusterCountNonFailingSlaves" lineNumber="852"/>
+    <functiondecl functionName="freeClusterNode" lineNumber="861"/>
+    <functiondecl functionName="clusterAddNode" lineNumber="886"/>
+    <functiondecl functionName="clusterDelNode" lineNumber="905"/>
+    <functiondecl functionName="clusterLookupNode" lineNumber="935"/>
+    <functiondecl functionName="clusterRenameNode" lineNumber="949"/>
+    <functiondecl functionName="clusterGetMaxEpoch" lineNumber="968"/>
+    <functiondecl functionName="clusterBumpConfigEpochWithoutConsensus" lineNumber="1012"/>
+    <functiondecl functionName="clusterHandleConfigEpochCollision" lineNumber="1077"/>
+    <functiondecl functionName="clusterBlacklistCleanup" lineNumber="1125"/>
+    <functiondecl functionName="clusterBlacklistAddNode" lineNumber="1140"/>
+    <functiondecl functionName="clusterBlacklistExists" lineNumber="1158"/>
+    <functiondecl functionName="markNodeAsFailingIfNeeded" lineNumber="1193"/>
+    <functiondecl functionName="clearNodeFailureIfNeeded" lineNumber="1222"/>
+    <functiondecl functionName="clusterHandshakeInProgress" lineNumber="1257"/>
+    <functiondecl functionName="clusterStartHandshake" lineNumber="1281"/>
+    <functiondecl functionName="clusterProcessGossipSection" lineNumber="1338"/>
+    <functiondecl functionName="nodeIp2String" lineNumber="1444"/>
+    <functiondecl functionName="nodeUpdateAddressIfNeeded" lineNumber="1465"/>
+    <functiondecl functionName="clusterSetNodeAsMaster" lineNumber="1503"/>
+    <functiondecl functionName="clusterUpdateSlotsConfigWith" lineNumber="1530"/>
+    <functiondecl functionName="clusterProcessPacket" lineNumber="1635"/>
+    <functiondecl functionName="handleLinkIOError" lineNumber="2113"/>
+    <functiondecl functionName="clusterWriteHandler" lineNumber="2120"/>
+    <functiondecl functionName="clusterReadHandler" lineNumber="2141"/>
+    <functiondecl functionName="clusterSendMessage" lineNumber="2209"/>
+    <functiondecl functionName="clusterBroadcastMessage" lineNumber="2229"/>
+    <functiondecl functionName="clusterBuildMessageHdr" lineNumber="2247"/>
+    <functiondecl functionName="clusterNodeIsInGossipSection" lineNumber="2324"/>
+    <functiondecl functionName="clusterSetGossipEntry" lineNumber="2335"/>
+    <functiondecl functionName="clusterSendPing" lineNumber="2350"/>
+    <functiondecl functionName="clusterBroadcastPong" lineNumber="2494"/>
+    <functiondecl functionName="clusterSendPublish" lineNumber="2518"/>
+    <functiondecl functionName="clusterSendFail" lineNumber="2564"/>
+    <functiondecl functionName="clusterSendUpdate" lineNumber="2576"/>
+    <functiondecl functionName="clusterSendModule" lineNumber="2591"/>
+    <functiondecl functionName="clusterSendModuleMessageToTarget" lineNumber="2630"/>
+    <functiondecl functionName="clusterPropagatePublish" lineNumber="2650"/>
+    <functiondecl functionName="clusterRequestFailoverAuth" lineNumber="2664"/>
+    <functiondecl functionName="clusterSendFailoverAuth" lineNumber="2680"/>
+    <functiondecl functionName="clusterSendMFStart" lineNumber="2693"/>
+    <functiondecl functionName="clusterSendFailoverAuthIfNeeded" lineNumber="2706"/>
+    <functiondecl functionName="clusterGetSlaveRank" lineNumber="2821"/>
+    <functiondecl functionName="clusterLogCantFailover" lineNumber="2860"/>
+    <functiondecl functionName="clusterFailoverReplaceYourMaster" lineNumber="2908"/>
+    <functiondecl functionName="clusterHandleSlaveFailover" lineNumber="2946"/>
+    <functiondecl functionName="clusterHandleSlaveMigration" lineNumber="3143"/>
+    <functiondecl functionName="resetManualFailover" lineNumber="3262"/>
+    <functiondecl functionName="manualFailoverCheckTimeout" lineNumber="3274"/>
+    <functiondecl functionName="clusterHandleManualFailover" lineNumber="3283"/>
+    <functiondecl functionName="clusterCron" lineNumber="3308"/>
+    <functiondecl functionName="clusterBeforeSleep" lineNumber="3593"/>
+    <functiondecl functionName="clusterDoBeforeSleep" lineNumber="3615"/>
+    <functiondecl functionName="bitmapTestBit" lineNumber="3625"/>
+    <functiondecl functionName="bitmapSetBit" lineNumber="3632"/>
+    <functiondecl functionName="bitmapClearBit" lineNumber="3639"/>
+    <functiondecl functionName="clusterMastersHaveSlaves" lineNumber="3648"/>
+    <functiondecl functionName="clusterNodeSetSlotBit" lineNumber="3663"/>
+    <functiondecl functionName="clusterNodeClearSlotBit" lineNumber="3688"/>
+    <functiondecl functionName="clusterNodeGetSlotBit" lineNumber="3696"/>
+    <functiondecl functionName="clusterAddSlot" lineNumber="3704"/>
+    <functiondecl functionName="clusterDelSlot" lineNumber="3714"/>
+    <functiondecl functionName="clusterDelNodeSlots" lineNumber="3725"/>
+    <functiondecl functionName="clusterCloseAllSlots" lineNumber="3739"/>
+    <functiondecl functionName="clusterUpdateState" lineNumber="3758"/>
+    <functiondecl functionName="verifyClusterConfigWithData" lineNumber="3876"/>
+    <functiondecl functionName="clusterSetMaster" lineNumber="3931"/>
+    <functiondecl functionName="representClusterNodeFlags" lineNumber="3971"/>
+    <functiondecl functionName="clusterGenNodeDescription" lineNumber="3988"/>
+    <functiondecl functionName="clusterGenNodesDescription" lineNumber="4065"/>
+    <functiondecl functionName="clusterGetMessageTypeString" lineNumber="4088"/>
+    <functiondecl functionName="getSlotOrReply" lineNumber="4104"/>
+    <functiondecl functionName="clusterReplyMultiBulkSlots" lineNumber="4116"/>
+    <functiondecl functionName="clusterCommand" lineNumber="4190"/>
+    <functiondecl functionName="createDumpPayload" lineNumber="4778"/>
+    <functiondecl functionName="verifyDumpPayload" lineNumber="4811"/>
+    <functiondecl functionName="dumpCommand" lineNumber="4833"/>
+    <functiondecl functionName="restoreCommand" lineNumber="4854"/>
+    <functiondecl functionName="migrateGetSocket" lineNumber="4964"/>
+    <functiondecl functionName="migrateCloseSocket" lineNumber="5020"/>
+    <functiondecl functionName="migrateCloseTimedoutSockets" lineNumber="5039"/>
+    <functiondecl functionName="migrateCommand" lineNumber="5061"/>
+    <functiondecl functionName="askingCommand" lineNumber="5392"/>
+    <functiondecl functionName="readonlyCommand" lineNumber="5404"/>
+    <functiondecl functionName="readwriteCommand" lineNumber="5414"/>
+    <functiondecl functionName="getNodeByQuery" lineNumber="5451"/>
+    <functiondecl functionName="clusterRedirectClient" lineNumber="5630"/>
+    <functiondecl functionName="clusterRedirectBlockedClientIfNeeded" lineNumber="5665"/>
+    <functiondecl functionName="clusterLoadConfig" lineNumber="90"/>
+    <functiondecl functionName="clusterSaveConfig" lineNumber="312"/>
+    <functiondecl functionName="clusterSaveConfigOrDie" lineNumber="359"/>
+    <functiondecl functionName="clusterLockConfig" lineNumber="375"/>
+    <functiondecl functionName="clusterUpdateMyselfFlags" lineNumber="417"/>
+    <functiondecl functionName="clusterInit" lineNumber="429"/>
+    <functiondecl functionName="clusterReset" lineNumber="531"/>
+    <functiondecl functionName="createClusterLink" lineNumber="589"/>
+    <functiondecl functionName="freeClusterLink" lineNumber="602"/>
+    <functiondecl functionName="clusterAcceptHandler" lineNumber="615"/>
+    <functiondecl functionName="keyHashSlot" lineNumber="662"/>
+    <functiondecl functionName="createClusterNode" lineNumber="694"/>
+    <functiondecl functionName="clusterNodeAddFailureReport" lineNumber="734"/>
+    <functiondecl functionName="clusterNodeCleanupFailureReports" lineNumber="764"/>
+    <functiondecl functionName="clusterNodeDelFailureReport" lineNumber="791"/>
+    <functiondecl functionName="clusterNodeFailureReportsCount" lineNumber="814"/>
+    <functiondecl functionName="clusterNodeRemoveSlave" lineNumber="819"/>
+    <functiondecl functionName="clusterNodeAddSlave" lineNumber="838"/>
+    <functiondecl functionName="clusterCountNonFailingSlaves" lineNumber="852"/>
+    <functiondecl functionName="freeClusterNode" lineNumber="861"/>
+    <functiondecl functionName="clusterAddNode" lineNumber="886"/>
+    <functiondecl functionName="clusterDelNode" lineNumber="905"/>
+    <functiondecl functionName="clusterLookupNode" lineNumber="935"/>
+    <functiondecl functionName="clusterRenameNode" lineNumber="949"/>
+    <functiondecl functionName="clusterGetMaxEpoch" lineNumber="968"/>
+    <functiondecl functionName="clusterBumpConfigEpochWithoutConsensus" lineNumber="1012"/>
+    <functiondecl functionName="clusterHandleConfigEpochCollision" lineNumber="1077"/>
+    <functiondecl functionName="clusterBlacklistCleanup" lineNumber="1125"/>
+    <functiondecl functionName="clusterBlacklistAddNode" lineNumber="1140"/>
+    <functiondecl functionName="clusterBlacklistExists" lineNumber="1158"/>
+    <functiondecl functionName="markNodeAsFailingIfNeeded" lineNumber="1193"/>
+    <functiondecl functionName="clearNodeFailureIfNeeded" lineNumber="1222"/>
+    <functiondecl functionName="clusterHandshakeInProgress" lineNumber="1257"/>
+    <functiondecl functionName="clusterStartHandshake" lineNumber="1281"/>
+    <functiondecl functionName="clusterProcessGossipSection" lineNumber="1338"/>
+    <functiondecl functionName="nodeIp2String" lineNumber="1444"/>
+    <functiondecl functionName="nodeUpdateAddressIfNeeded" lineNumber="1465"/>
+    <functiondecl functionName="clusterSetNodeAsMaster" lineNumber="1503"/>
+    <functiondecl functionName="clusterUpdateSlotsConfigWith" lineNumber="1530"/>
+    <functiondecl functionName="clusterProcessPacket" lineNumber="1635"/>
+    <functiondecl functionName="handleLinkIOError" lineNumber="2113"/>
+    <functiondecl functionName="clusterWriteHandler" lineNumber="2120"/>
+    <functiondecl functionName="clusterReadHandler" lineNumber="2141"/>
+    <functiondecl functionName="clusterSendMessage" lineNumber="2209"/>
+    <functiondecl functionName="clusterBroadcastMessage" lineNumber="2229"/>
+    <functiondecl functionName="clusterBuildMessageHdr" lineNumber="2247"/>
+    <functiondecl functionName="clusterNodeIsInGossipSection" lineNumber="2324"/>
+    <functiondecl functionName="clusterSetGossipEntry" lineNumber="2335"/>
+    <functiondecl functionName="clusterSendPing" lineNumber="2350"/>
+    <functiondecl functionName="clusterBroadcastPong" lineNumber="2494"/>
+    <functiondecl functionName="clusterSendPublish" lineNumber="2518"/>
+    <functiondecl functionName="clusterSendFail" lineNumber="2564"/>
+    <functiondecl functionName="clusterSendUpdate" lineNumber="2576"/>
+    <functiondecl functionName="clusterSendModule" lineNumber="2591"/>
+    <functiondecl functionName="clusterSendModuleMessageToTarget" lineNumber="2630"/>
+    <functiondecl functionName="clusterPropagatePublish" lineNumber="2650"/>
+    <functiondecl functionName="clusterRequestFailoverAuth" lineNumber="2664"/>
+    <functiondecl functionName="clusterSendFailoverAuth" lineNumber="2680"/>
+    <functiondecl functionName="clusterSendMFStart" lineNumber="2693"/>
+    <functiondecl functionName="clusterSendFailoverAuthIfNeeded" lineNumber="2706"/>
+    <functiondecl functionName="clusterGetSlaveRank" lineNumber="2821"/>
+    <functiondecl functionName="clusterLogCantFailover" lineNumber="2860"/>
+    <functiondecl functionName="clusterFailoverReplaceYourMaster" lineNumber="2908"/>
+    <functiondecl functionName="clusterHandleSlaveFailover" lineNumber="2946"/>
+    <functiondecl functionName="clusterHandleSlaveMigration" lineNumber="3143"/>
+    <functiondecl functionName="resetManualFailover" lineNumber="3262"/>
+    <functiondecl functionName="manualFailoverCheckTimeout" lineNumber="3274"/>
+    <functiondecl functionName="clusterHandleManualFailover" lineNumber="3283"/>
+    <functiondecl functionName="clusterCron" lineNumber="3308"/>
+    <functiondecl functionName="clusterBeforeSleep" lineNumber="3593"/>
+    <functiondecl functionName="clusterDoBeforeSleep" lineNumber="3615"/>
+    <functiondecl functionName="bitmapTestBit" lineNumber="3625"/>
+    <functiondecl functionName="bitmapSetBit" lineNumber="3632"/>
+    <functiondecl functionName="bitmapClearBit" lineNumber="3639"/>
+    <functiondecl functionName="clusterMastersHaveSlaves" lineNumber="3648"/>
+    <functiondecl functionName="clusterNodeSetSlotBit" lineNumber="3663"/>
+    <functiondecl functionName="clusterNodeClearSlotBit" lineNumber="3688"/>
+    <functiondecl functionName="clusterNodeGetSlotBit" lineNumber="3696"/>
+    <functiondecl functionName="clusterAddSlot" lineNumber="3704"/>
+    <functiondecl functionName="clusterDelSlot" lineNumber="3714"/>
+    <functiondecl functionName="clusterDelNodeSlots" lineNumber="3725"/>
+    <functiondecl functionName="clusterCloseAllSlots" lineNumber="3739"/>
+    <functiondecl functionName="clusterUpdateState" lineNumber="3758"/>
+    <functiondecl functionName="verifyClusterConfigWithData" lineNumber="3876"/>
+    <functiondecl functionName="clusterSetMaster" lineNumber="3931"/>
+    <functiondecl functionName="representClusterNodeFlags" lineNumber="3971"/>
+    <functiondecl functionName="clusterGenNodeDescription" lineNumber="3988"/>
+    <functiondecl functionName="clusterGenNodesDescription" lineNumber="4065"/>
+    <functiondecl functionName="clusterGetMessageTypeString" lineNumber="4088"/>
+    <functiondecl functionName="getSlotOrReply" lineNumber="4104"/>
+    <functiondecl functionName="clusterReplyMultiBulkSlots" lineNumber="4116"/>
+    <functiondecl functionName="clusterCommand" lineNumber="4190"/>
+    <functiondecl functionName="createDumpPayload" lineNumber="4778"/>
+    <functiondecl functionName="verifyDumpPayload" lineNumber="4811"/>
+    <functiondecl functionName="dumpCommand" lineNumber="4833"/>
+    <functiondecl functionName="restoreCommand" lineNumber="4854"/>
+    <functiondecl functionName="migrateGetSocket" lineNumber="4964"/>
+    <functiondecl functionName="migrateCloseSocket" lineNumber="5020"/>
+    <functiondecl functionName="migrateCloseTimedoutSockets" lineNumber="5039"/>
+    <functiondecl functionName="migrateCommand" lineNumber="5061"/>
+    <functiondecl functionName="askingCommand" lineNumber="5392"/>
+    <functiondecl functionName="readonlyCommand" lineNumber="5404"/>
+    <functiondecl functionName="readwriteCommand" lineNumber="5414"/>
+    <functiondecl functionName="getNodeByQuery" lineNumber="5451"/>
+    <functiondecl functionName="clusterRedirectClient" lineNumber="5630"/>
+    <functiondecl functionName="clusterRedirectBlockedClientIfNeeded" lineNumber="5665"/>
+    <functioncall functionName="AF_INET"/>
+    <functioncall functionName="AF_INET6"/>
+    <functioncall functionName="EAGAIN"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="LOCK_NB"/>
+    <functioncall functionName="LRU_CLOCK"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_CREAT"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_ms"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="absttl"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="added_delay"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeDeleteFileEvent"/>
+    <functioncall functionName="aeWait"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="anetEnableTcpNoDelay"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="anetPeerToString"/>
+    <functioncall functionName="anetSockName"/>
+    <functioncall functionName="anetTcpAccept"/>
+    <functioncall functionName="anetTcpNonBlockBindConnect"/>
+    <functioncall functionName="anetTcpNonBlockConnect"/>
+    <functioncall functionName="announced_cport"/>
+    <functioncall functionName="announced_ip"/>
+    <functioncall functionName="announced_port"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="argv_rewritten"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="auth_age"/>
+    <functioncall functionName="bitmapClearBit"/>
+    <functioncall functionName="bitmapSetBit"/>
+    <functioncall functionName="bitmapTestBit"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buf0"/>
+    <functioncall functionName="buf1"/>
+    <functioncall functionName="buf2"/>
+    <functioncall functionName="bulk_data"/>
+    <functioncall functionName="busp"/>
+    <functioncall functionName="busykeyerr"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cfd"/>
+    <functioncall functionName="cfd_count"/>
+    <functioncall functionName="changed"/>
+    <functioncall functionName="channel"/>
+    <functioncall functionName="channel_len"/>
+    <functioncall functionName="ci"/>
+    <functioncall functionName="cip"/>
+    <functioncall functionName="claimed_slots"/>
+    <functioncall functionName="clearNodeFailureIfNeeded"/>
+    <functioncall functionName="clientsArePaused"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="clusterAcceptHandler"/>
+    <functioncall functionName="clusterAddNode"/>
+    <functioncall functionName="clusterAddSlot"/>
+    <functioncall functionName="clusterBlacklistAddNode"/>
+    <functioncall functionName="clusterBlacklistCleanup"/>
+    <functioncall functionName="clusterBlacklistExists"/>
+    <functioncall functionName="clusterBroadcastMessage"/>
+    <functioncall functionName="clusterBroadcastPong"/>
+    <functioncall functionName="clusterBuildMessageHdr"/>
+    <functioncall functionName="clusterBumpConfigEpochWithoutConsensus"/>
+    <functioncall functionName="clusterCloseAllSlots"/>
+    <functioncall functionName="clusterCountNonFailingSlaves"/>
+    <functioncall functionName="clusterDelNode"/>
+    <functioncall functionName="clusterDelNodeSlots"/>
+    <functioncall functionName="clusterDelSlot"/>
+    <functioncall functionName="clusterDoBeforeSleep"/>
+    <functioncall functionName="clusterFailoverReplaceYourMaster"/>
+    <functioncall functionName="clusterGenNodeDescription"/>
+    <functioncall functionName="clusterGenNodesDescription"/>
+    <functioncall functionName="clusterGetMaxEpoch"/>
+    <functioncall functionName="clusterGetMessageTypeString"/>
+    <functioncall functionName="clusterGetSlaveRank"/>
+    <functioncall functionName="clusterHandleConfigEpochCollision"/>
+    <functioncall functionName="clusterHandleManualFailover"/>
+    <functioncall functionName="clusterHandleSlaveFailover"/>
+    <functioncall functionName="clusterHandleSlaveMigration"/>
+    <functioncall functionName="clusterHandshakeInProgress"/>
+    <functioncall functionName="clusterLoadConfig"/>
+    <functioncall functionName="clusterLockConfig"/>
+    <functioncall functionName="clusterLogCantFailover"/>
+    <functioncall functionName="clusterLookupNode"/>
+    <functioncall functionName="clusterMastersHaveSlaves"/>
+    <functioncall functionName="clusterNodeAddFailureReport"/>
+    <functioncall functionName="clusterNodeAddSlave"/>
+    <functioncall functionName="clusterNodeCleanupFailureReports"/>
+    <functioncall functionName="clusterNodeClearSlotBit"/>
+    <functioncall functionName="clusterNodeDelFailureReport"/>
+    <functioncall functionName="clusterNodeFailureReportsCount"/>
+    <functioncall functionName="clusterNodeGetSlotBit"/>
+    <functioncall functionName="clusterNodeIsInGossipSection"/>
+    <functioncall functionName="clusterNodeRemoveSlave"/>
+    <functioncall functionName="clusterNodeSetSlotBit"/>
+    <functioncall functionName="clusterNodesBlackListDictType"/>
+    <functioncall functionName="clusterNodesDictType"/>
+    <functioncall functionName="clusterProcessGossipSection"/>
+    <functioncall functionName="clusterProcessPacket"/>
+    <functioncall functionName="clusterReadHandler"/>
+    <functioncall functionName="clusterRedirectClient"/>
+    <functioncall functionName="clusterRenameNode"/>
+    <functioncall functionName="clusterReplyMultiBulkSlots"/>
+    <functioncall functionName="clusterRequestFailoverAuth"/>
+    <functioncall functionName="clusterReset"/>
+    <functioncall functionName="clusterSaveConfig"/>
+    <functioncall functionName="clusterSaveConfigOrDie"/>
+    <functioncall functionName="clusterSendFail"/>
+    <functioncall functionName="clusterSendFailoverAuth"/>
+    <functioncall functionName="clusterSendFailoverAuthIfNeeded"/>
+    <functioncall functionName="clusterSendMFStart"/>
+    <functioncall functionName="clusterSendMessage"/>
+    <functioncall functionName="clusterSendModule"/>
+    <functioncall functionName="clusterSendPing"/>
+    <functioncall functionName="clusterSendPublish"/>
+    <functioncall functionName="clusterSendUpdate"/>
+    <functioncall functionName="clusterSetGossipEntry"/>
+    <functioncall functionName="clusterSetMaster"/>
+    <functioncall functionName="clusterSetNodeAsMaster"/>
+    <functioncall functionName="clusterStartHandshake"/>
+    <functioncall functionName="clusterUpdateMyselfFlags"/>
+    <functioncall functionName="clusterUpdateSlotsConfigWith"/>
+    <functioncall functionName="clusterUpdateState"/>
+    <functioncall functionName="clusterWriteHandler"/>
+    <functioncall functionName="cluster_announce_bus_port"/>
+    <functioncall functionName="cluster_announce_ip"/>
+    <functioncall functionName="cluster_announce_port"/>
+    <functioncall functionName="cluster_configfile"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cluster_migration_barrier"/>
+    <functioncall functionName="cluster_node_timeout"/>
+    <functioncall functionName="cluster_require_full_coverage"/>
+    <functioncall functionName="cluster_slave_validity_factor"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cn"/>
+    <functioncall functionName="configEpoch"/>
+    <functioncall functionName="content_size"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="countKeysInSlot"/>
+    <functioncall functionName="cport"/>
+    <functioncall functionName="crc"/>
+    <functioncall functionName="crc16"/>
+    <functioncall functionName="crc64"/>
+    <functioncall functionName="createClusterLink"/>
+    <functioncall functionName="createClusterNode"/>
+    <functioncall functionName="createDumpPayload"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="crlf"/>
+    <functioncall functionName="cs"/>
+    <functioncall functionName="ctime"/>
+    <functioncall functionName="curr_ip"/>
+    <functioncall functionName="currentEpoch"/>
+    <functioncall functionName="data_age"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delKeysInSlot"/>
+    <functioncall functionName="del_idx"/>
+    <functioncall functionName="delay"/>
+    <functioncall functionName="delnode"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetRandomKey"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dirty_slots_count"/>
+    <functioncall functionName="do_fsync"/>
+    <functioncall functionName="dumpobj"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="emptyDb"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="equalStringObjects"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error_code"/>
+    <functioncall functionName="error_from_target"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fail_reports"/>
+    <functioncall functionName="fail_time"/>
+    <functioncall functionName="failover_auth_epoch"/>
+    <functioncall functionName="failover_auth_rank"/>
+    <functioncall functionName="failover_auth_time"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="firstkey"/>
+    <functioncall functionName="flag"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flock"/>
+    <functioncall functionName="floor"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fmterr"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="force"/>
+    <functioncall functionName="force_ack"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fr"/>
+    <functioncall functionName="freeClusterLink"/>
+    <functioncall functionName="freeClusterNode"/>
+    <functioncall functionName="freshnodes"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="ftruncate"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getKeysFreeResult"/>
+    <functioncall functionName="getKeysFromCommand"/>
+    <functioncall functionName="getKeysInSlot"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObject"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getRandomHexChars"/>
+    <functioncall functionName="getSlotOrReply"/>
+    <functioncall functionName="gossip"/>
+    <functioncall functionName="gossipcount"/>
+    <functioncall functionName="handleLinkIOError"/>
+    <functioncall functionName="hard"/>
+    <functioncall functionName="hashslot"/>
+    <functioncall functionName="hdr"/>
+    <functioncall functionName="heapbuf"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="htonl"/>
+    <functioncall functionName="htons"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="importing_slots_from"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="inet_ntop"/>
+    <functioncall functionName="inet_pton"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intrev64"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="is_orphaned"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyHashSlot"/>
+    <functioncall functionName="keyindex"/>
+    <functioncall functionName="keylen"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="keys_in_slot"/>
+    <functioncall functionName="kv"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="lastVoteEpoch"/>
+    <functioncall functionName="last_use_time"/>
+    <functioncall functionName="lastinteraction"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lfu_freq"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listenToPort"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="loading"/>
+    <functioncall functionName="local_slave"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lru_clock"/>
+    <functioncall functionName="lru_idle"/>
+    <functioncall functionName="manualFailoverCheckTimeout"/>
+    <functioncall functionName="manual_failover"/>
+    <functioncall functionName="margc"/>
+    <functioncall functionName="margv"/>
+    <functioncall functionName="markNodeAsFailingIfNeeded"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="master"/>
+    <functioncall functionName="master_repl_offset"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="max_slaves"/>
+    <functioncall functionName="maxkeys"/>
+    <functioncall functionName="maxline"/>
+    <functioncall functionName="mc"/>
+    <functioncall functionName="mcmd"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memrev64"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="message"/>
+    <functioncall functionName="message_len"/>
+    <functioncall functionName="mf_can_start"/>
+    <functioncall functionName="mf_end"/>
+    <functioncall functionName="mf_master_offset"/>
+    <functioncall functionName="migrateCloseSocket"/>
+    <functioncall functionName="migrateGetSocket"/>
+    <functioncall functionName="migrate_cached_sockets"/>
+    <functioncall functionName="migrating_slots_to"/>
+    <functioncall functionName="min_pong_node"/>
+    <functioncall functionName="moduleCallClusterReceivers"/>
+    <functioncall functionName="module_id"/>
+    <functioncall functionName="moreargs"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="msglen"/>
+    <functioncall functionName="mstate"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="myepoch"/>
+    <functioncall functionName="myip"/>
+    <functioncall functionName="myself"/>
+    <functioncall functionName="myslots"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="nested_elements"/>
+    <functioncall functionName="nested_replylen"/>
+    <functioncall functionName="neterr"/>
+    <functioncall functionName="new_state"/>
+    <functioncall functionName="newargv"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newname"/>
+    <functioncall functionName="newrank"/>
+    <functioncall functionName="ni"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nodeIp2String"/>
+    <functioncall functionName="nodeUpdateAddressIfNeeded"/>
+    <functioncall functionName="nodeid"/>
+    <functioncall functionName="nodename"/>
+    <functioncall functionName="nodes"/>
+    <functioncall functionName="nodes_black_list"/>
+    <functioncall functionName="non_expired"/>
+    <functioncall functionName="norm_ip"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="ntohl"/>
+    <functioncall functionName="ntohs"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="num_masters"/>
+    <functioncall functionName="numkeys"/>
+    <functioncall functionName="numslaves"/>
+    <functioncall functionName="numslots"/>
+    <functioncall functionName="nwritten"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="objectSetLRUOrLFU"/>
+    <functioncall functionName="off_t"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="oi"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="okslaves"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="old_ping_sent"/>
+    <functioncall functionName="oldmaster"/>
+    <functioncall functionName="oldname"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="orphaned_time"/>
+    <functioncall functionName="ov"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="password"/>
+    <functioncall functionName="pauseClients"/>
+    <functioncall functionName="payload"/>
+    <functioncall functionName="pfail_wanted"/>
+    <functioncall functionName="ping_sent"/>
+    <functioncall functionName="pong_received"/>
+    <functioncall functionName="pongtime"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prev_ip"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pubsubPublishMessage"/>
+    <functioncall functionName="pubsub_channels"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="random"/>
+    <functioncall functionName="raxNew"/>
+    <functioncall functionName="rcvbuf"/>
+    <functioncall functionName="rcvbuflen"/>
+    <functioncall functionName="rdbLoadObject"/>
+    <functioncall functionName="rdbLoadObjectType"/>
+    <functioncall functionName="rdbSaveObject"/>
+    <functioncall functionName="rdbSaveObjectType"/>
+    <functioncall functionName="rdbver"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readlen"/>
+    <functioncall functionName="reason"/>
+    <functioncall functionName="redisNodeFlagsTable"/>
+    <functioncall functionName="rejoin_delay"/>
+    <functioncall functionName="repl_down_since"/>
+    <functioncall functionName="repl_offset"/>
+    <functioncall functionName="replace"/>
+    <functioncall functionName="replaceClientCommandVector"/>
+    <functioncall functionName="replicationGetSlaveOffset"/>
+    <functioncall functionName="replicationSetMaster"/>
+    <functioncall functionName="replicationUnsetMaster"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="reportedConfigEpoch"/>
+    <functioncall functionName="representClusterNodeFlags"/>
+    <functioncall functionName="requestConfigEpoch"/>
+    <functioncall functionName="requestCurrentEpoch"/>
+    <functioncall functionName="resetManualFailover"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rioInitWithBuffer"/>
+    <functioncall functionName="rioWriteBulkCount"/>
+    <functioncall functionName="rioWriteBulkLongLong"/>
+    <functioncall functionName="rioWriteBulkString"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa"/>
+    <functioncall functionName="saveconf"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="sdsIncrLen"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfreesplitres"/>
+    <functioncall functionName="sdsgrowzero"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssplitargs"/>
+    <functioncall functionName="select"/>
+    <functioncall functionName="sender"/>
+    <functioncall functionName="senderConfigEpoch"/>
+    <functioncall functionName="senderCurrentEpoch"/>
+    <functioncall functionName="sender_master"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setExpire"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sin6_addr"/>
+    <functioncall functionName="sin_addr"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slave"/>
+    <functioncall functionName="slaveof"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="slot"/>
+    <functioncall functionName="slot_replylen"/>
+    <functioncall functionName="slots"/>
+    <functioncall functionName="slots_assigned"/>
+    <functioncall functionName="slots_fail"/>
+    <functioncall functionName="slots_keys_count"/>
+    <functioncall functionName="slots_ok"/>
+    <functioncall functionName="slots_pfail"/>
+    <functioncall functionName="sndbuf"/>
+    <functioncall functionName="socket_err"/>
+    <functioncall functionName="socket_error"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="stats_pfail_nodes"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="strrchr"/>
+    <functioncall functionName="strtoull"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syncReadLine"/>
+    <functioncall functionName="syncWrite"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="takeover"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="this"/>
+    <functioncall functionName="thiskey"/>
+    <functioncall functionName="thisslot"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="tot_msg_received"/>
+    <functioncall functionName="tot_msg_sent"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="towrite"/>
+    <functioncall functionName="try_again"/>
+    <functioncall functionName="ttl"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="u64"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unixtime"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="update_config"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="ver"/>
+    <functioncall functionName="verifyDumpPayload"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="voted_time"/>
+    <functioncall functionName="wanted"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zstrdup"/>
+  </FileInfo>
+</analyzerinfo>

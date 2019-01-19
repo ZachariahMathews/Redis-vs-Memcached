@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2503761080">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="btalloc" lineNumber="4"/>
+    <functioncall functionName="bits"/>
+    <functioncall functionName="btalloc_0"/>
+    <functioncall functionName="size"/>
+  </FileInfo>
+</analyzerinfo>

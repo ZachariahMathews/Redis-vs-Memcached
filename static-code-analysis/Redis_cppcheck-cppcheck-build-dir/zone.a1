@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1394687658">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="zone_size" lineNumber="133"/>
+    <functiondecl functionName="zone_malloc" lineNumber="147"/>
+    <functiondecl functionName="zone_calloc" lineNumber="152"/>
+    <functiondecl functionName="zone_valloc" lineNumber="157"/>
+    <functiondecl functionName="zone_free" lineNumber="166"/>
+    <functiondecl functionName="zone_realloc" lineNumber="176"/>
+    <functiondecl functionName="zone_memalign" lineNumber="185"/>
+    <functiondecl functionName="zone_free_definite_size" lineNumber="194"/>
+    <functiondecl functionName="zone_destroy" lineNumber="208"/>
+    <functiondecl functionName="zone_batch_malloc" lineNumber="214"/>
+    <functiondecl functionName="zone_batch_free" lineNumber="228"/>
+    <functiondecl functionName="zone_pressure_relief" lineNumber="239"/>
+    <functiondecl functionName="zone_good_size" lineNumber="244"/>
+    <functiondecl functionName="zone_enumerator" lineNumber="252"/>
+    <functiondecl functionName="zone_check" lineNumber="259"/>
+    <functiondecl functionName="zone_print" lineNumber="264"/>
+    <functiondecl functionName="zone_log" lineNumber="268"/>
+    <functiondecl functionName="zone_force_lock" lineNumber="272"/>
+    <functiondecl functionName="zone_force_unlock" lineNumber="285"/>
+    <functiondecl functionName="zone_statistics" lineNumber="310"/>
+    <functiondecl functionName="zone_locked" lineNumber="319"/>
+    <functiondecl functionName="zone_reinit_lock" lineNumber="325"/>
+    <functiondecl functionName="zone_init" lineNumber="332"/>
+    <functiondecl functionName="zone_default_get" lineNumber="370"/>
+    <functiondecl functionName="zone_promote" lineNumber="401"/>
+    <functiondecl functionName="zone_register" lineNumber="438"/>
+    <functioncall functionName="JEMALLOC_ATTR"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="default_zone"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isthreaded"/>
+    <functioncall functionName="ivsalloc"/>
+    <functioncall functionName="je_calloc"/>
+    <functioncall functionName="je_free"/>
+    <functioncall functionName="je_malloc"/>
+    <functioncall functionName="je_posix_memalign"/>
+    <functioncall functionName="je_realloc"/>
+    <functioncall functionName="jemalloc_postfork_child"/>
+    <functioncall functionName="jemalloc_postfork_parent"/>
+    <functioncall functionName="jemalloc_prefork"/>
+    <functioncall functionName="jemalloc_zone"/>
+    <functioncall functionName="jemalloc_zone_introspect"/>
+    <functioncall functionName="kern_return_t"/>
+    <functioncall functionName="malloc_default_purgeable_zone"/>
+    <functioncall functionName="malloc_default_zone"/>
+    <functioncall functionName="malloc_get_all_zones"/>
+    <functioncall functionName="malloc_zone_register"/>
+    <functioncall functionName="malloc_zone_unregister"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="num_zones"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="purgeable_zone"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="sz_s2u"/>
+    <functioncall functionName="task_t"/>
+    <functioncall functionName="tsdn_fetch"/>
+    <functioncall functionName="vm_address_t"/>
+    <functioncall functionName="vm_size_t"/>
+    <functioncall functionName="weak_import"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zone"/>
+    <functioncall functionName="zone_batch_free"/>
+    <functioncall functionName="zone_batch_malloc"/>
+    <functioncall functionName="zone_calloc"/>
+    <functioncall functionName="zone_check"/>
+    <functioncall functionName="zone_default_get"/>
+    <functioncall functionName="zone_destroy"/>
+    <functioncall functionName="zone_enumerator"/>
+    <functioncall functionName="zone_force_lock"/>
+    <functioncall functionName="zone_force_unlock"/>
+    <functioncall functionName="zone_free"/>
+    <functioncall functionName="zone_free_definite_size"/>
+    <functioncall functionName="zone_good_size"/>
+    <functioncall functionName="zone_init"/>
+    <functioncall functionName="zone_locked"/>
+    <functioncall functionName="zone_log"/>
+    <functioncall functionName="zone_malloc"/>
+    <functioncall functionName="zone_memalign"/>
+    <functioncall functionName="zone_name"/>
+    <functioncall functionName="zone_pressure_relief"/>
+    <functioncall functionName="zone_print"/>
+    <functioncall functionName="zone_promote"/>
+    <functioncall functionName="zone_realloc"/>
+    <functioncall functionName="zone_reinit_lock"/>
+    <functioncall functionName="zone_size"/>
+    <functioncall functionName="zone_statistics"/>
+    <functioncall functionName="zone_valloc"/>
+    <functioncall functionName="zones"/>
+  </FileInfo>
+</analyzerinfo>

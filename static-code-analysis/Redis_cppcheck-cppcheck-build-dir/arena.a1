@@ -1,0 +1,534 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4104665068">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="percpu_arena_mode_names" size="5"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="arena_basic_stats_merge" lineNumber="64"/>
+    <functiondecl functionName="arena_stats_merge" lineNumber="77"/>
+    <functiondecl functionName="arena_extents_dirty_dalloc" lineNumber="209"/>
+    <functiondecl functionName="arena_slab_reg_alloc" lineNumber="224"/>
+    <functiondecl functionName="arena_slab_regind" lineNumber="243"/>
+    <functiondecl functionName="arena_slab_reg_dalloc" lineNumber="264"/>
+    <functiondecl functionName="arena_nactive_add" lineNumber="278"/>
+    <functiondecl functionName="arena_nactive_sub" lineNumber="283"/>
+    <functiondecl functionName="arena_large_malloc_stats_update" lineNumber="289"/>
+    <functiondecl functionName="arena_large_dalloc_stats_update" lineNumber="305"/>
+    <functiondecl functionName="arena_large_ralloc_stats_update" lineNumber="321"/>
+    <functiondecl functionName="arena_extent_alloc_large" lineNumber="328"/>
+    <functiondecl functionName="arena_extent_dalloc_large_prep" lineNumber="380"/>
+    <functiondecl functionName="arena_extent_ralloc_large_shrink" lineNumber="391"/>
+    <functiondecl functionName="arena_extent_ralloc_large_expand" lineNumber="405"/>
+    <functiondecl functionName="arena_decay_ms_read" lineNumber="419"/>
+    <functiondecl functionName="arena_decay_ms_write" lineNumber="424"/>
+    <functiondecl functionName="arena_decay_deadline_init" lineNumber="429"/>
+    <functiondecl functionName="arena_decay_deadline_reached" lineNumber="446"/>
+    <functiondecl functionName="arena_decay_backlog_npages_limit" lineNumber="451"/>
+    <functiondecl functionName="arena_decay_backlog_update_last" lineNumber="471"/>
+    <functiondecl functionName="arena_decay_backlog_update" lineNumber="489"/>
+    <functiondecl functionName="arena_decay_try_purge" lineNumber="511"/>
+    <functiondecl functionName="arena_decay_epoch_advance_helper" lineNumber="522"/>
+    <functiondecl functionName="arena_decay_epoch_advance" lineNumber="546"/>
+    <functiondecl functionName="arena_decay_reinit" lineNumber="563"/>
+    <functiondecl functionName="arena_decay_init" lineNumber="580"/>
+    <functiondecl functionName="arena_decay_ms_valid" lineNumber="602"/>
+    <functiondecl functionName="arena_maybe_decay" lineNumber="614"/>
+    <functiondecl functionName="arena_decay_ms_get" lineNumber="672"/>
+    <functiondecl functionName="arena_dirty_decay_ms_get" lineNumber="677"/>
+    <functiondecl functionName="arena_muzzy_decay_ms_get" lineNumber="682"/>
+    <functiondecl functionName="arena_decay_ms_set" lineNumber="687"/>
+    <functiondecl functionName="arena_dirty_decay_ms_set" lineNumber="710"/>
+    <functiondecl functionName="arena_muzzy_decay_ms_set" lineNumber="717"/>
+    <functiondecl functionName="arena_stash_decayed" lineNumber="724"/>
+    <functiondecl functionName="arena_decay_stashed" lineNumber="743"/>
+    <functiondecl functionName="arena_decay_to_limit" lineNumber="816"/>
+    <functiondecl functionName="arena_decay_impl" lineNumber="848"/>
+    <functiondecl functionName="arena_decay_dirty" lineNumber="883"/>
+    <functiondecl functionName="arena_decay_muzzy" lineNumber="890"/>
+    <functiondecl functionName="arena_decay" lineNumber="897"/>
+    <functiondecl functionName="arena_slab_dalloc" lineNumber="905"/>
+    <functiondecl functionName="arena_bin_slabs_nonfull_insert" lineNumber="913"/>
+    <functiondecl functionName="arena_bin_slabs_nonfull_remove" lineNumber="919"/>
+    <functiondecl functionName="arena_bin_slabs_nonfull_tryget" lineNumber="924"/>
+    <functiondecl functionName="arena_bin_slabs_full_insert" lineNumber="936"/>
+    <functiondecl functionName="arena_bin_slabs_full_remove" lineNumber="950"/>
+    <functiondecl functionName="arena_reset" lineNumber="958"/>
+    <functiondecl functionName="arena_destroy_retained" lineNumber="1037"/>
+    <functiondecl functionName="arena_destroy" lineNumber="1056"/>
+    <functiondecl functionName="arena_slab_alloc_hard" lineNumber="1092"/>
+    <functiondecl functionName="arena_slab_alloc" lineNumber="1115"/>
+    <functiondecl functionName="arena_bin_nonfull_slab_get" lineNumber="1152"/>
+    <functiondecl functionName="arena_bin_malloc_hard" lineNumber="1195"/>
+    <functiondecl functionName="arena_tcache_fill_small" lineNumber="1250"/>
+    <functiondecl functionName="arena_alloc_junk_small" lineNumber="1303"/>
+    <functiondecl functionName="arena_dalloc_junk_small_impl" lineNumber="1310"/>
+    <functiondecl functionName="arena_malloc_small" lineNumber="1317"/>
+    <functiondecl functionName="arena_malloc_hard" lineNumber="1371"/>
+    <functiondecl functionName="arena_palloc" lineNumber="1389"/>
+    <functiondecl functionName="arena_prof_promote" lineNumber="1409"/>
+    <functiondecl functionName="arena_prof_demote" lineNumber="1433"/>
+    <functiondecl functionName="arena_dalloc_promoted" lineNumber="1449"/>
+    <functiondecl functionName="arena_dissociate_bin_slab" lineNumber="1465"/>
+    <functiondecl functionName="arena_dalloc_bin_slab" lineNumber="1487"/>
+    <functiondecl functionName="arena_bin_lower_slab" lineNumber="1502"/>
+    <functiondecl functionName="arena_dalloc_bin_locked_impl" lineNumber="1529"/>
+    <functiondecl functionName="arena_dalloc_bin_junked_locked" lineNumber="1557"/>
+    <functiondecl functionName="arena_dalloc_bin" lineNumber="1563"/>
+    <functiondecl functionName="arena_dalloc_small" lineNumber="1573"/>
+    <functiondecl functionName="arena_ralloc_no_move" lineNumber="1582"/>
+    <functiondecl functionName="arena_ralloc_move_helper" lineNumber="1618"/>
+    <functiondecl functionName="arena_ralloc" lineNumber="1632"/>
+    <functiondecl functionName="arena_dss_prec_get" lineNumber="1673"/>
+    <functiondecl functionName="arena_dss_prec_set" lineNumber="1678"/>
+    <functiondecl functionName="arena_dirty_decay_ms_default_get" lineNumber="1687"/>
+    <functiondecl functionName="arena_dirty_decay_ms_default_set" lineNumber="1692"/>
+    <functiondecl functionName="arena_muzzy_decay_ms_default_get" lineNumber="1701"/>
+    <functiondecl functionName="arena_muzzy_decay_ms_default_set" lineNumber="1706"/>
+    <functiondecl functionName="arena_retain_grow_limit_get_set" lineNumber="1715"/>
+    <functiondecl functionName="arena_nthreads_get" lineNumber="1742"/>
+    <functiondecl functionName="arena_nthreads_inc" lineNumber="1747"/>
+    <functiondecl functionName="arena_nthreads_dec" lineNumber="1752"/>
+    <functiondecl functionName="arena_extent_sn_next" lineNumber="1757"/>
+    <functiondecl functionName="arena_new" lineNumber="1762"/>
+    <functiondecl functionName="arena_boot" lineNumber="1918"/>
+    <functiondecl functionName="arena_prefork0" lineNumber="1934"/>
+    <functiondecl functionName="arena_prefork1" lineNumber="1940"/>
+    <functiondecl functionName="arena_prefork2" lineNumber="1947"/>
+    <functiondecl functionName="arena_prefork3" lineNumber="1952"/>
+    <functiondecl functionName="arena_prefork4" lineNumber="1959"/>
+    <functiondecl functionName="arena_prefork5" lineNumber="1964"/>
+    <functiondecl functionName="arena_prefork6" lineNumber="1969"/>
+    <functiondecl functionName="arena_prefork7" lineNumber="1974"/>
+    <functiondecl functionName="arena_postfork_parent" lineNumber="1981"/>
+    <functiondecl functionName="arena_postfork_child" lineNumber="2002"/>
+    <functioncall functionName="ATOMIC_ACQUIRE"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="ATOMIC_RELEASE"/>
+    <functioncall functionName="CACHELINE"/>
+    <functioncall functionName="DIRTY_DECAY_MS_DEFAULT"/>
+    <functioncall functionName="EXTENT_GROW_MAX_PIND"/>
+    <functioncall functionName="EXTENT_HOOKS_INITIALIZER"/>
+    <functioncall functionName="HUGEPAGE"/>
+    <functioncall functionName="JEMALLOC_ALLOC_JUNK"/>
+    <functioncall functionName="JEMALLOC_CC_SILENCE_INIT"/>
+    <functioncall functionName="JEMALLOC_FREE_JUNK"/>
+    <functioncall functionName="KQU"/>
+    <functioncall functionName="LARGE_MINCLASS"/>
+    <functioncall functionName="MUZZY_DECAY_MS_DEFAULT"/>
+    <functioncall functionName="NBINS"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="PERCPU_ARENA_DEFAULT"/>
+    <functioncall functionName="SIZE_CLASSES"/>
+    <functioncall functionName="SMOOTHSTEP"/>
+    <functioncall functionName="SMOOTHSTEP_NSTEPS"/>
+    <functioncall functionName="WITNESS_RANK_ARENA_LARGE"/>
+    <functioncall functionName="WITNESS_RANK_CORE"/>
+    <functioncall functionName="WITNESS_RANK_DECAY"/>
+    <functioncall functionName="WITNESS_RANK_EXTENT_AVAIL"/>
+    <functioncall functionName="WITNESS_RANK_EXTENT_GROW"/>
+    <functioncall functionName="WITNESS_RANK_TCACHE_QL"/>
+    <functioncall functionName="add_pages"/>
+    <functioncall functionName="advance_epoch"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="all"/>
+    <functioncall functionName="alloc_ctx"/>
+    <functioncall functionName="allocated_large"/>
+    <functioncall functionName="arena"/>
+    <functioncall functionName="arena_alloc_junk_small"/>
+    <functioncall functionName="arena_background_thread_inactivity_check"/>
+    <functioncall functionName="arena_basic_stats_merge"/>
+    <functioncall functionName="arena_bin_lower_slab"/>
+    <functioncall functionName="arena_bin_malloc_hard"/>
+    <functioncall functionName="arena_bin_nonfull_slab_get"/>
+    <functioncall functionName="arena_bin_slabs_full_insert"/>
+    <functioncall functionName="arena_bin_slabs_full_remove"/>
+    <functioncall functionName="arena_bin_slabs_nonfull_insert"/>
+    <functioncall functionName="arena_bin_slabs_nonfull_remove"/>
+    <functioncall functionName="arena_bin_slabs_nonfull_tryget"/>
+    <functioncall functionName="arena_choose"/>
+    <functioncall functionName="arena_dalloc_bin"/>
+    <functioncall functionName="arena_dalloc_bin_locked_impl"/>
+    <functioncall functionName="arena_dalloc_bin_slab"/>
+    <functioncall functionName="arena_dalloc_junk_small"/>
+    <functioncall functionName="arena_decay_backlog_npages_limit"/>
+    <functioncall functionName="arena_decay_backlog_update"/>
+    <functioncall functionName="arena_decay_backlog_update_last"/>
+    <functioncall functionName="arena_decay_deadline_init"/>
+    <functioncall functionName="arena_decay_deadline_reached"/>
+    <functioncall functionName="arena_decay_dirty"/>
+    <functioncall functionName="arena_decay_epoch_advance"/>
+    <functioncall functionName="arena_decay_epoch_advance_helper"/>
+    <functioncall functionName="arena_decay_impl"/>
+    <functioncall functionName="arena_decay_init"/>
+    <functioncall functionName="arena_decay_ms_get"/>
+    <functioncall functionName="arena_decay_ms_read"/>
+    <functioncall functionName="arena_decay_ms_set"/>
+    <functioncall functionName="arena_decay_ms_valid"/>
+    <functioncall functionName="arena_decay_ms_write"/>
+    <functioncall functionName="arena_decay_muzzy"/>
+    <functioncall functionName="arena_decay_reinit"/>
+    <functioncall functionName="arena_decay_stashed"/>
+    <functioncall functionName="arena_decay_t"/>
+    <functioncall functionName="arena_decay_tick"/>
+    <functioncall functionName="arena_decay_to_limit"/>
+    <functioncall functionName="arena_decay_try_purge"/>
+    <functioncall functionName="arena_destroy_retained"/>
+    <functioncall functionName="arena_dirty_decay_ms_default_get"/>
+    <functioncall functionName="arena_dirty_decay_ms_default_set"/>
+    <functioncall functionName="arena_dirty_decay_ms_get"/>
+    <functioncall functionName="arena_dissociate_bin_slab"/>
+    <functioncall functionName="arena_dss_prec_get"/>
+    <functioncall functionName="arena_extents_dirty_dalloc"/>
+    <functioncall functionName="arena_internal_get"/>
+    <functioncall functionName="arena_is_auto"/>
+    <functioncall functionName="arena_large_dalloc_stats_update"/>
+    <functioncall functionName="arena_large_malloc_stats_update"/>
+    <functioncall functionName="arena_large_ralloc_stats_update"/>
+    <functioncall functionName="arena_malloc"/>
+    <functioncall functionName="arena_malloc_small"/>
+    <functioncall functionName="arena_maybe_decay"/>
+    <functioncall functionName="arena_muzzy_decay_ms_default_get"/>
+    <functioncall functionName="arena_muzzy_decay_ms_default_set"/>
+    <functioncall functionName="arena_muzzy_decay_ms_get"/>
+    <functioncall functionName="arena_nactive_add"/>
+    <functioncall functionName="arena_nactive_sub"/>
+    <functioncall functionName="arena_nthreads_get"/>
+    <functioncall functionName="arena_nthreads_inc"/>
+    <functioncall functionName="arena_prof_accum"/>
+    <functioncall functionName="arena_prof_demote"/>
+    <functioncall functionName="arena_prof_mutex_base"/>
+    <functioncall functionName="arena_prof_mutex_decay_dirty"/>
+    <functioncall functionName="arena_prof_mutex_decay_muzzy"/>
+    <functioncall functionName="arena_prof_mutex_extent_avail"/>
+    <functioncall functionName="arena_prof_mutex_extents_dirty"/>
+    <functioncall functionName="arena_prof_mutex_extents_muzzy"/>
+    <functioncall functionName="arena_prof_mutex_extents_retained"/>
+    <functioncall functionName="arena_prof_mutex_large"/>
+    <functioncall functionName="arena_prof_mutex_tcache_list"/>
+    <functioncall functionName="arena_ralloc_move_helper"/>
+    <functioncall functionName="arena_ralloc_no_move"/>
+    <functioncall functionName="arena_set"/>
+    <functioncall functionName="arena_slab_alloc"/>
+    <functioncall functionName="arena_slab_alloc_hard"/>
+    <functioncall functionName="arena_slab_dalloc"/>
+    <functioncall functionName="arena_slab_reg_alloc"/>
+    <functioncall functionName="arena_slab_reg_dalloc"/>
+    <functioncall functionName="arena_slab_regind"/>
+    <functioncall functionName="arena_stash_decayed"/>
+    <functioncall functionName="arena_stats_accum_u64"/>
+    <functioncall functionName="arena_stats_accum_zu"/>
+    <functioncall functionName="arena_stats_add_u64"/>
+    <functioncall functionName="arena_stats_add_zu"/>
+    <functioncall functionName="arena_stats_init"/>
+    <functioncall functionName="arena_stats_lock"/>
+    <functioncall functionName="arena_stats_mapped_add"/>
+    <functioncall functionName="arena_stats_read_u64"/>
+    <functioncall functionName="arena_stats_read_zu"/>
+    <functioncall functionName="arena_stats_sub_zu"/>
+    <functioncall functionName="arena_stats_unlock"/>
+    <functioncall functionName="arena_t"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_fetch_add_u"/>
+    <functioncall functionName="atomic_fetch_add_zu"/>
+    <functioncall functionName="atomic_fetch_sub_u"/>
+    <functioncall functionName="atomic_fetch_sub_zu"/>
+    <functioncall functionName="atomic_load_u"/>
+    <functioncall functionName="atomic_load_zd"/>
+    <functioncall functionName="atomic_load_zu"/>
+    <functioncall functionName="atomic_store_u"/>
+    <functioncall functionName="atomic_store_zd"/>
+    <functioncall functionName="atomic_store_zu"/>
+    <functioncall functionName="b0get"/>
+    <functioncall functionName="background_thread_enabled"/>
+    <functioncall functionName="background_thread_interval_check"/>
+    <functioncall functionName="backlog"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="base_alloc"/>
+    <functioncall functionName="base_allocated"/>
+    <functioncall functionName="base_delete"/>
+    <functioncall functionName="base_ind_get"/>
+    <functioncall functionName="base_mapped"/>
+    <functioncall functionName="base_new"/>
+    <functioncall functionName="base_postfork_child"/>
+    <functioncall functionName="base_postfork_parent"/>
+    <functioncall functionName="base_prefork"/>
+    <functioncall functionName="base_resident"/>
+    <functioncall functionName="base_stats_get"/>
+    <functioncall functionName="bin"/>
+    <functioncall functionName="bin_info"/>
+    <functioncall functionName="bin_init"/>
+    <functioncall functionName="bin_postfork_child"/>
+    <functioncall functionName="bin_postfork_parent"/>
+    <functioncall functionName="bin_prefork"/>
+    <functioncall functionName="bin_stats_merge"/>
+    <functioncall functionName="binind"/>
+    <functioncall functionName="bins_large"/>
+    <functioncall functionName="bins_small"/>
+    <functioncall functionName="bitmap"/>
+    <functioncall functionName="bitmap_full"/>
+    <functioncall functionName="bitmap_get"/>
+    <functioncall functionName="bitmap_info"/>
+    <functioncall functionName="bitmap_init"/>
+    <functioncall functionName="bitmap_sfu"/>
+    <functioncall functionName="bitmap_unset"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cache_bin_array_descriptor"/>
+    <functioncall functionName="cache_bin_array_descriptor_init"/>
+    <functioncall functionName="cache_bin_array_descriptor_ql"/>
+    <functioncall functionName="cassert"/>
+    <functioncall functionName="ceil_npages"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="config_cache_oblivious"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="config_fill"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="copysize"/>
+    <functioncall functionName="create_time"/>
+    <functioncall functionName="current_npages"/>
+    <functioncall functionName="deadline"/>
+    <functioncall functionName="decay"/>
+    <functioncall functionName="decay_dirty"/>
+    <functioncall functionName="decay_extents"/>
+    <functioncall functionName="decay_ms"/>
+    <functioncall functionName="decay_muzzy"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="descriptor"/>
+    <functioncall functionName="diff"/>
+    <functioncall functionName="dirty_decay_ms"/>
+    <functioncall functionName="dirty_decay_ms_default"/>
+    <functioncall functionName="div_compute"/>
+    <functioncall functionName="dss"/>
+    <functioncall functionName="dss_prec"/>
+    <functioncall functionName="dss_prec_t"/>
+    <functioncall functionName="epoch"/>
+    <functioncall functionName="epoch_advanced"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="extent"/>
+    <functioncall functionName="extent_addr_get"/>
+    <functioncall functionName="extent_alloc_wrapper"/>
+    <functioncall functionName="extent_arena_get"/>
+    <functioncall functionName="extent_avail"/>
+    <functioncall functionName="extent_avail_mtx"/>
+    <functioncall functionName="extent_avail_new"/>
+    <functioncall functionName="extent_base_get"/>
+    <functioncall functionName="extent_dalloc_wrapper"/>
+    <functioncall functionName="extent_destroy_wrapper"/>
+    <functioncall functionName="extent_dss_prec_get"/>
+    <functioncall functionName="extent_grow_mtx"/>
+    <functioncall functionName="extent_heap_insert"/>
+    <functioncall functionName="extent_heap_remove"/>
+    <functioncall functionName="extent_heap_remove_first"/>
+    <functioncall functionName="extent_hooks"/>
+    <functioncall functionName="extent_hooks_get"/>
+    <functioncall functionName="extent_list_append"/>
+    <functioncall functionName="extent_list_first"/>
+    <functioncall functionName="extent_list_init"/>
+    <functioncall functionName="extent_list_remove"/>
+    <functioncall functionName="extent_nfree_dec"/>
+    <functioncall functionName="extent_nfree_get"/>
+    <functioncall functionName="extent_nfree_inc"/>
+    <functioncall functionName="extent_nfree_set"/>
+    <functioncall functionName="extent_past_get"/>
+    <functioncall functionName="extent_purge_lazy_wrapper"/>
+    <functioncall functionName="extent_size_get"/>
+    <functioncall functionName="extent_slab_data_get"/>
+    <functioncall functionName="extent_slab_get"/>
+    <functioncall functionName="extent_sn_next"/>
+    <functioncall functionName="extent_snad_comp"/>
+    <functioncall functionName="extent_state_dirty"/>
+    <functioncall functionName="extent_state_muzzy"/>
+    <functioncall functionName="extent_state_retained"/>
+    <functioncall functionName="extent_szind_get"/>
+    <functioncall functionName="extent_szind_set"/>
+    <functioncall functionName="extent_usize_get"/>
+    <functioncall functionName="extents"/>
+    <functioncall functionName="extents_alloc"/>
+    <functioncall functionName="extents_dalloc"/>
+    <functioncall functionName="extents_dirty"/>
+    <functioncall functionName="extents_evict"/>
+    <functioncall functionName="extents_init"/>
+    <functioncall functionName="extents_muzzy"/>
+    <functioncall functionName="extents_npages_get"/>
+    <functioncall functionName="extents_postfork_child"/>
+    <functioncall functionName="extents_postfork_parent"/>
+    <functioncall functionName="extents_prefork"/>
+    <functioncall functionName="extents_retained"/>
+    <functioncall functionName="extents_rtree"/>
+    <functioncall functionName="extents_state_get"/>
+    <functioncall functionName="extra"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="have_dss"/>
+    <functioncall functionName="hindex"/>
+    <functioncall functionName="hooks_arena_new_hook"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="iealloc"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="internal"/>
+    <functioncall functionName="interval"/>
+    <functioncall functionName="ipalloct"/>
+    <functioncall functionName="is_background_thread"/>
+    <functioncall functionName="isalloc"/>
+    <functioncall functionName="isdalloct"/>
+    <functioncall functionName="jitter"/>
+    <functioncall functionName="jitter_state"/>
+    <functioncall functionName="label_error"/>
+    <functioncall functionName="large"/>
+    <functioncall functionName="large_dalloc"/>
+    <functioncall functionName="large_malloc"/>
+    <functioncall functionName="large_mtx"/>
+    <functioncall functionName="large_palloc"/>
+    <functioncall functionName="large_ralloc"/>
+    <functioncall functionName="large_ralloc_no_move"/>
+    <functioncall functionName="likely"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc_mutex_assert_owner"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_postfork_child"/>
+    <functioncall functionName="malloc_mutex_postfork_parent"/>
+    <functioncall functionName="malloc_mutex_prefork"/>
+    <functioncall functionName="malloc_mutex_prof_read"/>
+    <functioncall functionName="malloc_mutex_rank_exclusive"/>
+    <functioncall functionName="malloc_mutex_trylock"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="mapped"/>
+    <functioncall functionName="mapped_add"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="metadata_thp"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="muzzy_decay_ms"/>
+    <functioncall functionName="muzzy_decay_ms_default"/>
+    <functioncall functionName="nactive"/>
+    <functioncall functionName="nadvance_u64"/>
+    <functioncall functionName="nadvance_z"/>
+    <functioncall functionName="ndalloc"/>
+    <functioncall functionName="ndalloc_large"/>
+    <functioncall functionName="ndirty"/>
+    <functioncall functionName="new_ind"/>
+    <functioncall functionName="nfill"/>
+    <functioncall functionName="nmadvise"/>
+    <functioncall functionName="nmalloc"/>
+    <functioncall functionName="nmalloc_large"/>
+    <functioncall functionName="nmuzzy"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="npages_decay_max"/>
+    <functioncall functionName="npages_delta"/>
+    <functioncall functionName="npages_limit"/>
+    <functioncall functionName="npages_new"/>
+    <functioncall functionName="npurge"/>
+    <functioncall functionName="npurged"/>
+    <functioncall functionName="nregs"/>
+    <functioncall functionName="nrequests"/>
+    <functioncall functionName="nrequests_large"/>
+    <functioncall functionName="nstime_add"/>
+    <functioncall functionName="nstime_compare"/>
+    <functioncall functionName="nstime_copy"/>
+    <functioncall functionName="nstime_divide"/>
+    <functioncall functionName="nstime_idivide"/>
+    <functioncall functionName="nstime_imultiply"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_monotonic"/>
+    <functioncall functionName="nstime_ns"/>
+    <functioncall functionName="nstime_subtract"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="nthreads"/>
+    <functioncall functionName="nunpurged"/>
+    <functioncall functionName="offset_state"/>
+    <functioncall functionName="oldsize"/>
+    <functioncall functionName="oldusize"/>
+    <functioncall functionName="opt_dirty_decay_ms"/>
+    <functioncall functionName="opt_junk_alloc"/>
+    <functioncall functionName="opt_junk_free"/>
+    <functioncall functionName="opt_muzzy_decay_ms"/>
+    <functioncall functionName="opt_prof"/>
+    <functioncall functionName="opt_retain"/>
+    <functioncall functionName="opt_zero"/>
+    <functioncall functionName="post_reentrancy"/>
+    <functioncall functionName="pre_reentrancy"/>
+    <functioncall functionName="prng_range_u64"/>
+    <functioncall functionName="prof_accum"/>
+    <functioncall functionName="prof_accum_cancel"/>
+    <functioncall functionName="prof_accum_init"/>
+    <functioncall functionName="prof_accumbytes"/>
+    <functioncall functionName="prof_free"/>
+    <functioncall functionName="prof_idump"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="purged"/>
+    <functioncall functionName="purging"/>
+    <functioncall functionName="ql_elm_new"/>
+    <functioncall functionName="ql_foreach"/>
+    <functioncall functionName="ql_new"/>
+    <functioncall functionName="ql_tail_insert"/>
+    <functioncall functionName="r_extent_hooks"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="regind"/>
+    <functioncall functionName="resident"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="retain_grow_limit"/>
+    <functioncall functionName="retained"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rtree_ctx"/>
+    <functioncall functionName="rtree_ctx_fallback"/>
+    <functioncall functionName="rtree_extent_read"/>
+    <functioncall functionName="rtree_szind_slab_read"/>
+    <functioncall functionName="rtree_szind_slab_update"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab"/>
+    <functioncall functionName="slab_data"/>
+    <functioncall functionName="slab_size"/>
+    <functioncall functionName="slabcur"/>
+    <functioncall functionName="slabs_full"/>
+    <functioncall functionName="slabs_nonfull"/>
+    <functioncall functionName="slow_path"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="sub_pages"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz_index2size"/>
+    <functioncall functionName="sz_large_pad"/>
+    <functioncall functionName="sz_pind2sz"/>
+    <functioncall functionName="sz_psz2ind"/>
+    <functioncall functionName="sz_s2u"/>
+    <functioncall functionName="sz_sa2u"/>
+    <functioncall functionName="sz_size2index"/>
+    <functioncall functionName="szind"/>
+    <functioncall functionName="tcache"/>
+    <functioncall functionName="tcache_bytes"/>
+    <functioncall functionName="tcache_dalloc_large"/>
+    <functioncall functionName="tcache_get"/>
+    <functioncall functionName="tcache_ql"/>
+    <functioncall functionName="tcache_ql_mtx"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="time_ms"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_arena_get"/>
+    <functioncall functionName="tsd_iarena_get"/>
+    <functioncall functionName="tsd_rtree_ctx"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="tsdn"/>
+    <functioncall functionName="tsdn_null"/>
+    <functioncall functionName="tsdn_rtree_ctx"/>
+    <functioncall functionName="tsdn_tsd"/>
+    <functioncall functionName="tsdn_witness_tsdp_get"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unlikely"/>
+    <functioncall functionName="uptime"/>
+    <functioncall functionName="usize"/>
+    <functioncall functionName="usize_max"/>
+    <functioncall functionName="usize_min"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="witness_assert_depth_to_rank"/>
+    <functioncall functionName="zero"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3625579175">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="swapfunc" lineNumber="69"/>
+    <functiondecl functionName="med3" lineNumber="89"/>
+    <functiondecl functionName="_pqsort" lineNumber="99"/>
+    <functiondecl functionName="pqsort" lineNumber="180"/>
+    <functioncall functionName="_pqsort"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="cmp"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="es"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="loop"/>
+    <functioncall functionName="lrange"/>
+    <functioncall functionName="med3"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="pa"/>
+    <functioncall functionName="pb"/>
+    <functioncall functionName="pc"/>
+    <functioncall functionName="pd"/>
+    <functioncall functionName="pl"/>
+    <functioncall functionName="pm"/>
+    <functioncall functionName="pn"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rrange"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="swapfunc"/>
+    <functioncall functionName="swaptype"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

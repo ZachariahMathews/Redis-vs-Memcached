@@ -1,0 +1,1356 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="778820261">
+        <error id="clarifyCondition" severity="style" msg="Suspicious condition (assignment + comparison); Clarify expression with parentheses." verbose="Suspicious condition (assignment + comparison); Clarify expression with parentheses." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4529"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." verbose="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4427"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 3) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." verbose="%lu in format string (no. 3) requires &apos;unsigned long&apos; but the argument type is &apos;signed long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4427"/>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;!r&apos; is redundant or there is possible null pointer dereference: r." verbose="Either the condition &apos;!r&apos; is redundant or there is possible null pointer dereference: r." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2170" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2167" info="Assuming that condition &apos;!r&apos; is not redundant"/>
+            <symbol>r</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;!r&apos; is redundant or there is possible null pointer dereference: r." verbose="Either the condition &apos;!r&apos; is redundant or there is possible null pointer dereference: r." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2171" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2167" info="Assuming that condition &apos;!r&apos; is not redundant"/>
+            <symbol>r</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;!r&apos; is redundant or there is possible null pointer dereference: r." verbose="Either the condition &apos;!r&apos; is redundant or there is possible null pointer dereference: r." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2172" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2167" info="Assuming that condition &apos;!r&apos; is not redundant"/>
+            <symbol>r</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;reply!=NULL&apos; is redundant or there is possible null pointer dereference: reply." verbose="Either the condition &apos;reply!=NULL&apos; is redundant or there is possible null pointer dereference: reply." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2645" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2645" info="Assuming that condition &apos;reply!=NULL&apos; is not redundant"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;reply==NULL&apos; is redundant or there is possible null pointer dereference: reply." verbose="Either the condition &apos;reply==NULL&apos; is redundant or there is possible null pointer dereference: reply." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2977" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2975" info="Assuming that condition &apos;reply==NULL&apos; is not redundant"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;reply==NULL&apos; is redundant or there is possible null pointer dereference: reply." verbose="Either the condition &apos;reply==NULL&apos; is redundant or there is possible null pointer dereference: reply." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2978" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2975" info="Assuming that condition &apos;reply==NULL&apos; is not redundant"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;path&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;path&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="298"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="294"/>
+            <symbol>path</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;reply&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;reply&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2822"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="2821"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;node&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;node&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4141"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4138"/>
+            <symbol>node</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;reply&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;reply&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4509"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4508"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;reply&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;reply&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4525"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4524"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;table&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;table&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5112"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5110"/>
+            <symbol>table</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;host&apos; can be reduced." verbose="The scope of the variable &apos;host&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="363"/>
+            <symbol>host</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;tmp&apos; can be reduced." verbose="The scope of the variable &apos;tmp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="828"/>
+            <symbol>tmp</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;tmp&apos; can be reduced." verbose="The scope of the variable &apos;tmp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="910"/>
+            <symbol>tmp</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;buf&apos; can be reduced." verbose="The scope of the variable &apos;buf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="1617"/>
+            <symbol>buf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;fp&apos; can be reduced." verbose="The scope of the variable &apos;fp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="1775"/>
+            <symbol>fp</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nread&apos; can be reduced." verbose="The scope of the variable &apos;nread&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="1777"/>
+            <symbol>nread</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;argv2&apos; can be reduced." verbose="The scope of the variable &apos;argv2&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="1778"/>
+            <symbol>argv2</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;got_comma&apos; can be reduced." verbose="The scope of the variable &apos;got_comma&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="1779"/>
+            <symbol>got_comma</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;keys&apos; can be reduced." verbose="The scope of the variable &apos;keys&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="1779"/>
+            <symbol>keys</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;invalid_node_msg&apos; can be reduced." verbose="The scope of the variable &apos;invalid_node_msg&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="4139"/>
+            <symbol>invalid_node_msg</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;reply&apos; can be reduced." verbose="The scope of the variable &apos;reply&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5455"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;start&apos; can be reduced." verbose="The scope of the variable &apos;start&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5456"/>
+            <symbol>start</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;latency&apos; can be reduced." verbose="The scope of the variable &apos;latency&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5456"/>
+            <symbol>latency</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;reply&apos; can be reduced." verbose="The scope of the variable &apos;reply&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5579"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;start&apos; can be reduced." verbose="The scope of the variable &apos;start&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5580"/>
+            <symbol>start</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;latency&apos; can be reduced." verbose="The scope of the variable &apos;latency&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5580"/>
+            <symbol>latency</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;nread&apos; can be reduced." verbose="The scope of the variable &apos;nread&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="5668"/>
+            <symbol>nread</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;pct&apos; can be reduced." verbose="The scope of the variable &apos;pct&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="6098"/>
+            <symbol>pct</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;pct&apos; can be reduced." verbose="The scope of the variable &apos;pct&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="6257"/>
+            <symbol>pct</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;reply&apos; can be reduced." verbose="The scope of the variable &apos;reply&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="6405"/>
+            <symbol>reply</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;aux&apos; can be reduced." verbose="The scope of the variable &apos;aux&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="6406"/>
+            <symbol>aux</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;start_cycle&apos; can be reduced." verbose="The scope of the variable &apos;start_cycle&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="6556"/>
+            <symbol>start_cycle</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;t&apos; can be reduced." verbose="The scope of the variable &apos;t&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-cli.c" line="6626"/>
+            <symbol>t</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clusterManagerCommands" size="12"/>
+    <ArraySize array="commandHelp" size="227"/>
+    <ArraySize array="spectrum_palette_color" size="19"/>
+    <ArraySize array="spectrum_palette_mono" size="13"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clusterManagerCommands" size="12"/>
+    <ArraySize array="commandHelp" size="227"/>
+    <ArraySize array="spectrum_palette_color" size="19"/>
+    <ArraySize array="spectrum_palette_mono" size="13"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clusterManagerCommands" size="12"/>
+    <ArraySize array="commandHelp" size="227"/>
+    <ArraySize array="spectrum_palette_color" size="19"/>
+    <ArraySize array="spectrum_palette_mono" size="13"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ustime" lineNumber="249"/>
+    <functiondecl functionName="mstime" lineNumber="259"/>
+    <functiondecl functionName="cliRefreshPrompt" lineNumber="263"/>
+    <functiondecl functionName="getDotfilePath" lineNumber="293"/>
+    <functiondecl functionName="percentDecode" lineNumber="321"/>
+    <functiondecl functionName="parseRedisUri" lineNumber="358"/>
+    <functiondecl functionName="dictSdsHash" lineNumber="402"/>
+    <functiondecl functionName="dictSdsKeyCompare" lineNumber="406"/>
+    <functiondecl functionName="dictSdsDestructor" lineNumber="418"/>
+    <functiondecl functionName="dictListDestructor" lineNumber="424"/>
+    <functiondecl functionName="_serverAssert" lineNumber="431"/>
+    <functiondecl functionName="cliVersion" lineNumber="457"/>
+    <functiondecl functionName="cliInitHelp" lineNumber="471"/>
+    <functiondecl functionName="cliIntegrateHelp" lineNumber="504"/>
+    <functiondecl functionName="cliOutputCommandHelp" lineNumber="560"/>
+    <functiondecl functionName="cliOutputGenericHelp" lineNumber="570"/>
+    <functiondecl functionName="cliOutputHelp" lineNumber="590"/>
+    <functiondecl functionName="completionCallback" lineNumber="635"/>
+    <functiondecl functionName="hintsCallback" lineNumber="664"/>
+    <functiondecl functionName="freeHintsCallback" lineNumber="711"/>
+    <functiondecl functionName="cliAuth" lineNumber="720"/>
+    <functiondecl functionName="cliSelect" lineNumber="733"/>
+    <functiondecl functionName="cliConnect" lineNumber="751"/>
+    <functiondecl functionName="cliPrintContextError" lineNumber="793"/>
+    <functiondecl functionName="cliFormatReplyTTY" lineNumber="798"/>
+    <functiondecl functionName="isColorTerm" lineNumber="865"/>
+    <functiondecl functionName="sdscatcolor" lineNumber="872"/>
+    <functiondecl functionName="sdsCatColorizedLdbReply" lineNumber="893"/>
+    <functiondecl functionName="cliFormatReplyRaw" lineNumber="909"/>
+    <functiondecl functionName="cliFormatReplyCSV" lineNumber="960"/>
+    <functiondecl functionName="cliReadReply" lineNumber="996"/>
+    <functiondecl functionName="cliSendCommand" lineNumber="1076"/>
+    <functiondecl functionName="reconnectingRedisCommand" lineNumber="1186"/>
+    <functiondecl functionName="parseOptions" lineNumber="1223"/>
+    <functiondecl functionName="readArgFromStdin" lineNumber="1422"/>
+    <functiondecl functionName="usage" lineNumber="1439"/>
+    <functiondecl functionName="confirmWithYes" lineNumber="1524"/>
+    <functiondecl functionName="convertToSds" lineNumber="1534"/>
+    <functiondecl functionName="issueCommandRepeat" lineNumber="1544"/>
+    <functiondecl functionName="issueCommand" lineNumber="1567"/>
+    <functiondecl functionName="cliSplitArgs" lineNumber="1577"/>
+    <functiondecl functionName="cliSetPreferences" lineNumber="1596"/>
+    <functiondecl functionName="cliLoadPreferences" lineNumber="1613"/>
+    <functiondecl functionName="repl" lineNumber="1633"/>
+    <functiondecl functionName="noninteractive" lineNumber="1757"/>
+    <functiondecl functionName="evalMode" lineNumber="1773"/>
+    <functiondecl functionName="createClusterManagerCommand" lineNumber="2002"/>
+    <functiondecl functionName="validateClusterManagerCommand" lineNumber="2011"/>
+    <functiondecl functionName="getClusterHostFromCmdArgs" lineNumber="2039"/>
+    <functiondecl functionName="freeClusterManagerNodeFlags" lineNumber="2065"/>
+    <functiondecl functionName="freeClusterManagerNode" lineNumber="2076"/>
+    <functiondecl functionName="freeClusterManager" lineNumber="2109"/>
+    <functiondecl functionName="clusterManagerNewNode" lineNumber="2134"/>
+    <functiondecl functionName="clusterManagerCheckRedisReply" lineNumber="2163"/>
+    <functiondecl functionName="clusterManagerNodeConnect" lineNumber="2179"/>
+    <functiondecl functionName="clusterManagerRemoveNodeFromList" lineNumber="2204"/>
+    <functiondecl functionName="clusterManagerNodeByName" lineNumber="2218"/>
+    <functiondecl functionName="clusterManagerNodeByAbbreviatedName" lineNumber="2242"/>
+    <functiondecl functionName="clusterManagerNodeResetSlots" lineNumber="2264"/>
+    <functiondecl functionName="clusterManagerGetNodeRedisInfo" lineNumber="2270"/>
+    <functiondecl functionName="clusterManagerNodeIsCluster" lineNumber="2287"/>
+    <functiondecl functionName="clusterManagerNodeIsEmpty" lineNumber="2297"/>
+    <functiondecl functionName="clusterManagerGetAntiAffinityScore" lineNumber="2348"/>
+    <functiondecl functionName="clusterManagerOptimizeAntiAffinity" lineNumber="2418"/>
+    <functiondecl functionName="clusterManagerNodeFlagString" lineNumber="2497"/>
+    <functiondecl functionName="clusterManagerNodeSlotsString" lineNumber="2515"/>
+    <functiondecl functionName="clusterManagerKeyHashSlot" lineNumber="2554"/>
+    <functiondecl functionName="clusterManagerNodeInfo" lineNumber="2576"/>
+    <functiondecl functionName="clusterManagerShowNodes" lineNumber="2607"/>
+    <functiondecl functionName="clusterManagerShowClusterInfo" lineNumber="2619"/>
+    <functiondecl functionName="clusterManagerAddSlots" lineNumber="2669"/>
+    <functiondecl functionName="clusterManagerSetSlot" lineNumber="2714"/>
+    <functiondecl functionName="clusterManagerMigrateKeysInReply" lineNumber="2740"/>
+    <functiondecl functionName="clusterManagerMigrateKeysInSlot" lineNumber="2810"/>
+    <functiondecl functionName="clusterManagerMoveSlot" lineNumber="2904"/>
+    <functiondecl functionName="clusterManagerFlushNodeConfig" lineNumber="2967"/>
+    <functiondecl functionName="clusterManagerWaitForClusterJoin" lineNumber="2998"/>
+    <functiondecl functionName="clusterManagerNodeLoadInfo" lineNumber="3013"/>
+    <functiondecl functionName="clusterManagerLoadInfoFromNode" lineNumber="3193"/>
+    <functiondecl functionName="clusterManagerSlotCompare" lineNumber="3269"/>
+    <functiondecl functionName="clusterManagerSlotCountCompareDesc" lineNumber="3275"/>
+    <functiondecl functionName="clusterManagerCompareNodeBalance" lineNumber="3281"/>
+    <functiondecl functionName="clusterManagerGetConfigSignature" lineNumber="3287"/>
+    <functiondecl functionName="clusterManagerIsConfigConsistent" lineNumber="3380"/>
+    <functiondecl functionName="clusterManagerOnError" lineNumber="3408"/>
+    <functiondecl functionName="clusterManagerGetCoveredSlots" lineNumber="3418"/>
+    <functiondecl functionName="clusterManagerPrintSlotsList" lineNumber="3436"/>
+    <functiondecl functionName="clusterManagerGetNodeWithMostKeysInSlot" lineNumber="3452"/>
+    <functiondecl functionName="clusterManagerNodeWithLeastReplicas" lineNumber="3491"/>
+    <functiondecl functionName="clusterManagerFixSlotsCoverage" lineNumber="3508"/>
+    <functiondecl functionName="clusterManagerFixOpenSlot" lineNumber="3748"/>
+    <functiondecl functionName="clusterManagerCheckCluster" lineNumber="4019"/>
+    <functiondecl functionName="clusterNodeForResharding" lineNumber="4134"/>
+    <functiondecl functionName="clusterManagerComputeReshardTable" lineNumber="4158"/>
+    <functiondecl functionName="clusterManagerShowReshardTable" lineNumber="4193"/>
+    <functiondecl functionName="clusterManagerReleaseReshardTable" lineNumber="4204"/>
+    <functiondecl functionName="clusterManagerLog" lineNumber="4217"/>
+    <functiondecl functionName="clusterManagerNodeArrayInit" lineNumber="4237"/>
+    <functiondecl functionName="clusterManagerNodeArrayReset" lineNumber="4248"/>
+    <functiondecl functionName="clusterManagerNodeArrayShift" lineNumber="4261"/>
+    <functiondecl functionName="clusterManagerNodeArrayAdd" lineNumber="4274"/>
+    <functiondecl functionName="clusterManagerPrintNotEmptyNodeError" lineNumber="4283"/>
+    <functiondecl functionName="clusterManagerPrintNotClusterNodeError" lineNumber="4296"/>
+    <functiondecl functionName="clusterManagerMode" lineNumber="4304"/>
+    <functiondecl functionName="clusterManagerCommandCreate" lineNumber="4320"/>
+    <functiondecl functionName="clusterManagerCommandAddNode" lineNumber="4589"/>
+    <functiondecl functionName="clusterManagerCommandDeleteNode" lineNumber="4686"/>
+    <functiondecl functionName="clusterManagerCommandInfo" lineNumber="4752"/>
+    <functiondecl functionName="clusterManagerCommandCheck" lineNumber="4765"/>
+    <functiondecl functionName="clusterManagerCommandFix" lineNumber="4778"/>
+    <functiondecl functionName="clusterManagerCommandReshard" lineNumber="4783"/>
+    <functiondecl functionName="clusterManagerCommandRebalance" lineNumber="4970"/>
+    <functiondecl functionName="clusterManagerCommandSetTimeout" lineNumber="5159"/>
+    <functiondecl functionName="clusterManagerCommandImport" lineNumber="5217"/>
+    <functiondecl functionName="clusterManagerCommandCall" lineNumber="5356"/>
+    <functiondecl functionName="clusterManagerCommandHelp" lineNumber="5396"/>
+    <functiondecl functionName="latencyModePrint" lineNumber="5440"/>
+    <functiondecl functionName="latencyMode" lineNumber="5454"/>
+    <functiondecl functionName="showLatencyDistSamples" lineNumber="5538"/>
+    <functiondecl functionName="showLatencyDistLegend" lineNumber="5561"/>
+    <functiondecl functionName="latencyDistMode" lineNumber="5578"/>
+    <functiondecl functionName="sendSync" lineNumber="5662"/>
+    <functiondecl functionName="slaveMode" lineNumber="5695"/>
+    <functiondecl functionName="getRDB" lineNumber="5729"/>
+    <functiondecl functionName="pipeMode" lineNumber="5778"/>
+    <functiondecl functionName="sendScan" lineNumber="5946"/>
+    <functiondecl functionName="getDbSize" lineNumber="5974"/>
+    <functiondecl functionName="toIntType" lineNumber="5992"/>
+    <functiondecl functionName="getKeyTypes" lineNumber="6013"/>
+    <functiondecl functionName="getKeySizes" lineNumber="6044"/>
+    <functiondecl functionName="findBigKeys" lineNumber="6089"/>
+    <functiondecl functionName="getKeyFreqs" lineNumber="6220"/>
+    <functiondecl functionName="findHotKeys" lineNumber="6251"/>
+    <functiondecl functionName="getInfoField" lineNumber="6350"/>
+    <functiondecl functionName="getLongInfoField" lineNumber="6368"/>
+    <functiondecl functionName="bytesToHuman" lineNumber="6380"/>
+    <functiondecl functionName="statMode" lineNumber="6404"/>
+    <functiondecl functionName="scanMode" lineNumber="6494"/>
+    <functiondecl functionName="powerLawRand" lineNumber="6533"/>
+    <functiondecl functionName="LRUTestGenKey" lineNumber="6546"/>
+    <functiondecl functionName="LRUTestMode" lineNumber="6553"/>
+    <functiondecl functionName="compute_something_fast" lineNumber="6625"/>
+    <functiondecl functionName="intrinsicLatencyModeStop" lineNumber="6645"/>
+    <functiondecl functionName="intrinsicLatencyMode" lineNumber="6650"/>
+    <functiondecl functionName="main" lineNumber="6691"/>
+    <functiondecl functionName="ustime" lineNumber="249"/>
+    <functiondecl functionName="mstime" lineNumber="259"/>
+    <functiondecl functionName="cliRefreshPrompt" lineNumber="263"/>
+    <functiondecl functionName="getDotfilePath" lineNumber="293"/>
+    <functiondecl functionName="percentDecode" lineNumber="321"/>
+    <functiondecl functionName="parseRedisUri" lineNumber="358"/>
+    <functiondecl functionName="dictSdsHash" lineNumber="402"/>
+    <functiondecl functionName="dictSdsKeyCompare" lineNumber="406"/>
+    <functiondecl functionName="dictSdsDestructor" lineNumber="418"/>
+    <functiondecl functionName="dictListDestructor" lineNumber="424"/>
+    <functiondecl functionName="_serverAssert" lineNumber="431"/>
+    <functiondecl functionName="cliVersion" lineNumber="457"/>
+    <functiondecl functionName="cliInitHelp" lineNumber="471"/>
+    <functiondecl functionName="cliIntegrateHelp" lineNumber="504"/>
+    <functiondecl functionName="cliOutputCommandHelp" lineNumber="560"/>
+    <functiondecl functionName="cliOutputGenericHelp" lineNumber="570"/>
+    <functiondecl functionName="cliOutputHelp" lineNumber="590"/>
+    <functiondecl functionName="completionCallback" lineNumber="635"/>
+    <functiondecl functionName="hintsCallback" lineNumber="664"/>
+    <functiondecl functionName="freeHintsCallback" lineNumber="711"/>
+    <functiondecl functionName="cliAuth" lineNumber="720"/>
+    <functiondecl functionName="cliSelect" lineNumber="733"/>
+    <functiondecl functionName="cliConnect" lineNumber="751"/>
+    <functiondecl functionName="cliPrintContextError" lineNumber="793"/>
+    <functiondecl functionName="cliFormatReplyTTY" lineNumber="798"/>
+    <functiondecl functionName="isColorTerm" lineNumber="865"/>
+    <functiondecl functionName="sdscatcolor" lineNumber="872"/>
+    <functiondecl functionName="sdsCatColorizedLdbReply" lineNumber="893"/>
+    <functiondecl functionName="cliFormatReplyRaw" lineNumber="909"/>
+    <functiondecl functionName="cliFormatReplyCSV" lineNumber="960"/>
+    <functiondecl functionName="cliReadReply" lineNumber="996"/>
+    <functiondecl functionName="cliSendCommand" lineNumber="1076"/>
+    <functiondecl functionName="reconnectingRedisCommand" lineNumber="1186"/>
+    <functiondecl functionName="parseOptions" lineNumber="1223"/>
+    <functiondecl functionName="readArgFromStdin" lineNumber="1422"/>
+    <functiondecl functionName="usage" lineNumber="1439"/>
+    <functiondecl functionName="confirmWithYes" lineNumber="1524"/>
+    <functiondecl functionName="convertToSds" lineNumber="1534"/>
+    <functiondecl functionName="issueCommandRepeat" lineNumber="1544"/>
+    <functiondecl functionName="issueCommand" lineNumber="1567"/>
+    <functiondecl functionName="cliSplitArgs" lineNumber="1577"/>
+    <functiondecl functionName="cliSetPreferences" lineNumber="1596"/>
+    <functiondecl functionName="cliLoadPreferences" lineNumber="1613"/>
+    <functiondecl functionName="repl" lineNumber="1633"/>
+    <functiondecl functionName="noninteractive" lineNumber="1757"/>
+    <functiondecl functionName="evalMode" lineNumber="1773"/>
+    <functiondecl functionName="createClusterManagerCommand" lineNumber="2002"/>
+    <functiondecl functionName="validateClusterManagerCommand" lineNumber="2011"/>
+    <functiondecl functionName="getClusterHostFromCmdArgs" lineNumber="2039"/>
+    <functiondecl functionName="freeClusterManagerNodeFlags" lineNumber="2065"/>
+    <functiondecl functionName="freeClusterManagerNode" lineNumber="2076"/>
+    <functiondecl functionName="freeClusterManager" lineNumber="2109"/>
+    <functiondecl functionName="clusterManagerNewNode" lineNumber="2134"/>
+    <functiondecl functionName="clusterManagerCheckRedisReply" lineNumber="2163"/>
+    <functiondecl functionName="clusterManagerNodeConnect" lineNumber="2179"/>
+    <functiondecl functionName="clusterManagerRemoveNodeFromList" lineNumber="2204"/>
+    <functiondecl functionName="clusterManagerNodeByName" lineNumber="2218"/>
+    <functiondecl functionName="clusterManagerNodeByAbbreviatedName" lineNumber="2242"/>
+    <functiondecl functionName="clusterManagerNodeResetSlots" lineNumber="2264"/>
+    <functiondecl functionName="clusterManagerGetNodeRedisInfo" lineNumber="2270"/>
+    <functiondecl functionName="clusterManagerNodeIsCluster" lineNumber="2287"/>
+    <functiondecl functionName="clusterManagerNodeIsEmpty" lineNumber="2297"/>
+    <functiondecl functionName="clusterManagerGetAntiAffinityScore" lineNumber="2348"/>
+    <functiondecl functionName="clusterManagerOptimizeAntiAffinity" lineNumber="2418"/>
+    <functiondecl functionName="clusterManagerNodeFlagString" lineNumber="2497"/>
+    <functiondecl functionName="clusterManagerNodeSlotsString" lineNumber="2515"/>
+    <functiondecl functionName="clusterManagerKeyHashSlot" lineNumber="2554"/>
+    <functiondecl functionName="clusterManagerNodeInfo" lineNumber="2576"/>
+    <functiondecl functionName="clusterManagerShowNodes" lineNumber="2607"/>
+    <functiondecl functionName="clusterManagerShowClusterInfo" lineNumber="2619"/>
+    <functiondecl functionName="clusterManagerAddSlots" lineNumber="2669"/>
+    <functiondecl functionName="clusterManagerSetSlot" lineNumber="2714"/>
+    <functiondecl functionName="clusterManagerMigrateKeysInReply" lineNumber="2740"/>
+    <functiondecl functionName="clusterManagerMigrateKeysInSlot" lineNumber="2810"/>
+    <functiondecl functionName="clusterManagerMoveSlot" lineNumber="2904"/>
+    <functiondecl functionName="clusterManagerFlushNodeConfig" lineNumber="2967"/>
+    <functiondecl functionName="clusterManagerWaitForClusterJoin" lineNumber="2998"/>
+    <functiondecl functionName="clusterManagerNodeLoadInfo" lineNumber="3013"/>
+    <functiondecl functionName="clusterManagerLoadInfoFromNode" lineNumber="3193"/>
+    <functiondecl functionName="clusterManagerSlotCompare" lineNumber="3269"/>
+    <functiondecl functionName="clusterManagerSlotCountCompareDesc" lineNumber="3275"/>
+    <functiondecl functionName="clusterManagerCompareNodeBalance" lineNumber="3281"/>
+    <functiondecl functionName="clusterManagerGetConfigSignature" lineNumber="3287"/>
+    <functiondecl functionName="clusterManagerIsConfigConsistent" lineNumber="3380"/>
+    <functiondecl functionName="clusterManagerOnError" lineNumber="3408"/>
+    <functiondecl functionName="clusterManagerGetCoveredSlots" lineNumber="3418"/>
+    <functiondecl functionName="clusterManagerPrintSlotsList" lineNumber="3436"/>
+    <functiondecl functionName="clusterManagerGetNodeWithMostKeysInSlot" lineNumber="3452"/>
+    <functiondecl functionName="clusterManagerNodeWithLeastReplicas" lineNumber="3491"/>
+    <functiondecl functionName="clusterManagerFixSlotsCoverage" lineNumber="3508"/>
+    <functiondecl functionName="clusterManagerFixOpenSlot" lineNumber="3748"/>
+    <functiondecl functionName="clusterManagerCheckCluster" lineNumber="4019"/>
+    <functiondecl functionName="clusterNodeForResharding" lineNumber="4134"/>
+    <functiondecl functionName="clusterManagerComputeReshardTable" lineNumber="4158"/>
+    <functiondecl functionName="clusterManagerShowReshardTable" lineNumber="4193"/>
+    <functiondecl functionName="clusterManagerReleaseReshardTable" lineNumber="4204"/>
+    <functiondecl functionName="clusterManagerLog" lineNumber="4217"/>
+    <functiondecl functionName="clusterManagerNodeArrayInit" lineNumber="4237"/>
+    <functiondecl functionName="clusterManagerNodeArrayReset" lineNumber="4248"/>
+    <functiondecl functionName="clusterManagerNodeArrayShift" lineNumber="4261"/>
+    <functiondecl functionName="clusterManagerNodeArrayAdd" lineNumber="4274"/>
+    <functiondecl functionName="clusterManagerPrintNotEmptyNodeError" lineNumber="4283"/>
+    <functiondecl functionName="clusterManagerPrintNotClusterNodeError" lineNumber="4296"/>
+    <functiondecl functionName="clusterManagerMode" lineNumber="4304"/>
+    <functiondecl functionName="clusterManagerCommandCreate" lineNumber="4320"/>
+    <functiondecl functionName="clusterManagerCommandAddNode" lineNumber="4589"/>
+    <functiondecl functionName="clusterManagerCommandDeleteNode" lineNumber="4686"/>
+    <functiondecl functionName="clusterManagerCommandInfo" lineNumber="4752"/>
+    <functiondecl functionName="clusterManagerCommandCheck" lineNumber="4765"/>
+    <functiondecl functionName="clusterManagerCommandFix" lineNumber="4778"/>
+    <functiondecl functionName="clusterManagerCommandReshard" lineNumber="4783"/>
+    <functiondecl functionName="clusterManagerCommandRebalance" lineNumber="4970"/>
+    <functiondecl functionName="clusterManagerCommandSetTimeout" lineNumber="5159"/>
+    <functiondecl functionName="clusterManagerCommandImport" lineNumber="5217"/>
+    <functiondecl functionName="clusterManagerCommandCall" lineNumber="5356"/>
+    <functiondecl functionName="clusterManagerCommandHelp" lineNumber="5396"/>
+    <functiondecl functionName="latencyModePrint" lineNumber="5440"/>
+    <functiondecl functionName="latencyMode" lineNumber="5454"/>
+    <functiondecl functionName="showLatencyDistSamples" lineNumber="5538"/>
+    <functiondecl functionName="showLatencyDistLegend" lineNumber="5561"/>
+    <functiondecl functionName="latencyDistMode" lineNumber="5578"/>
+    <functiondecl functionName="sendSync" lineNumber="5662"/>
+    <functiondecl functionName="slaveMode" lineNumber="5695"/>
+    <functiondecl functionName="getRDB" lineNumber="5729"/>
+    <functiondecl functionName="pipeMode" lineNumber="5778"/>
+    <functiondecl functionName="sendScan" lineNumber="5946"/>
+    <functiondecl functionName="getDbSize" lineNumber="5974"/>
+    <functiondecl functionName="toIntType" lineNumber="5992"/>
+    <functiondecl functionName="getKeyTypes" lineNumber="6013"/>
+    <functiondecl functionName="getKeySizes" lineNumber="6044"/>
+    <functiondecl functionName="findBigKeys" lineNumber="6089"/>
+    <functiondecl functionName="getKeyFreqs" lineNumber="6220"/>
+    <functiondecl functionName="findHotKeys" lineNumber="6251"/>
+    <functiondecl functionName="getInfoField" lineNumber="6350"/>
+    <functiondecl functionName="getLongInfoField" lineNumber="6368"/>
+    <functiondecl functionName="bytesToHuman" lineNumber="6380"/>
+    <functiondecl functionName="statMode" lineNumber="6404"/>
+    <functiondecl functionName="scanMode" lineNumber="6494"/>
+    <functiondecl functionName="powerLawRand" lineNumber="6533"/>
+    <functiondecl functionName="LRUTestGenKey" lineNumber="6546"/>
+    <functiondecl functionName="LRUTestMode" lineNumber="6553"/>
+    <functiondecl functionName="compute_something_fast" lineNumber="6625"/>
+    <functiondecl functionName="intrinsicLatencyModeStop" lineNumber="6645"/>
+    <functiondecl functionName="intrinsicLatencyMode" lineNumber="6650"/>
+    <functiondecl functionName="main" lineNumber="6691"/>
+    <functiondecl functionName="ustime" lineNumber="249"/>
+    <functiondecl functionName="mstime" lineNumber="259"/>
+    <functiondecl functionName="cliRefreshPrompt" lineNumber="263"/>
+    <functiondecl functionName="getDotfilePath" lineNumber="293"/>
+    <functiondecl functionName="percentDecode" lineNumber="321"/>
+    <functiondecl functionName="parseRedisUri" lineNumber="358"/>
+    <functiondecl functionName="dictSdsHash" lineNumber="402"/>
+    <functiondecl functionName="dictSdsKeyCompare" lineNumber="406"/>
+    <functiondecl functionName="dictSdsDestructor" lineNumber="418"/>
+    <functiondecl functionName="dictListDestructor" lineNumber="424"/>
+    <functiondecl functionName="_serverAssert" lineNumber="431"/>
+    <functiondecl functionName="cliVersion" lineNumber="457"/>
+    <functiondecl functionName="cliInitHelp" lineNumber="471"/>
+    <functiondecl functionName="cliIntegrateHelp" lineNumber="504"/>
+    <functiondecl functionName="cliOutputCommandHelp" lineNumber="560"/>
+    <functiondecl functionName="cliOutputGenericHelp" lineNumber="570"/>
+    <functiondecl functionName="cliOutputHelp" lineNumber="590"/>
+    <functiondecl functionName="completionCallback" lineNumber="635"/>
+    <functiondecl functionName="hintsCallback" lineNumber="664"/>
+    <functiondecl functionName="freeHintsCallback" lineNumber="711"/>
+    <functiondecl functionName="cliAuth" lineNumber="720"/>
+    <functiondecl functionName="cliSelect" lineNumber="733"/>
+    <functiondecl functionName="cliConnect" lineNumber="751"/>
+    <functiondecl functionName="cliPrintContextError" lineNumber="793"/>
+    <functiondecl functionName="cliFormatReplyTTY" lineNumber="798"/>
+    <functiondecl functionName="isColorTerm" lineNumber="865"/>
+    <functiondecl functionName="sdscatcolor" lineNumber="872"/>
+    <functiondecl functionName="sdsCatColorizedLdbReply" lineNumber="893"/>
+    <functiondecl functionName="cliFormatReplyRaw" lineNumber="909"/>
+    <functiondecl functionName="cliFormatReplyCSV" lineNumber="960"/>
+    <functiondecl functionName="cliReadReply" lineNumber="996"/>
+    <functiondecl functionName="cliSendCommand" lineNumber="1076"/>
+    <functiondecl functionName="reconnectingRedisCommand" lineNumber="1186"/>
+    <functiondecl functionName="parseOptions" lineNumber="1223"/>
+    <functiondecl functionName="readArgFromStdin" lineNumber="1422"/>
+    <functiondecl functionName="usage" lineNumber="1439"/>
+    <functiondecl functionName="confirmWithYes" lineNumber="1524"/>
+    <functiondecl functionName="convertToSds" lineNumber="1534"/>
+    <functiondecl functionName="issueCommandRepeat" lineNumber="1544"/>
+    <functiondecl functionName="issueCommand" lineNumber="1567"/>
+    <functiondecl functionName="cliSplitArgs" lineNumber="1577"/>
+    <functiondecl functionName="cliSetPreferences" lineNumber="1596"/>
+    <functiondecl functionName="cliLoadPreferences" lineNumber="1613"/>
+    <functiondecl functionName="repl" lineNumber="1633"/>
+    <functiondecl functionName="noninteractive" lineNumber="1757"/>
+    <functiondecl functionName="evalMode" lineNumber="1773"/>
+    <functiondecl functionName="createClusterManagerCommand" lineNumber="2002"/>
+    <functiondecl functionName="validateClusterManagerCommand" lineNumber="2011"/>
+    <functiondecl functionName="getClusterHostFromCmdArgs" lineNumber="2039"/>
+    <functiondecl functionName="freeClusterManagerNodeFlags" lineNumber="2065"/>
+    <functiondecl functionName="freeClusterManagerNode" lineNumber="2076"/>
+    <functiondecl functionName="freeClusterManager" lineNumber="2109"/>
+    <functiondecl functionName="clusterManagerNewNode" lineNumber="2134"/>
+    <functiondecl functionName="clusterManagerCheckRedisReply" lineNumber="2163"/>
+    <functiondecl functionName="clusterManagerNodeConnect" lineNumber="2179"/>
+    <functiondecl functionName="clusterManagerRemoveNodeFromList" lineNumber="2204"/>
+    <functiondecl functionName="clusterManagerNodeByName" lineNumber="2218"/>
+    <functiondecl functionName="clusterManagerNodeByAbbreviatedName" lineNumber="2242"/>
+    <functiondecl functionName="clusterManagerNodeResetSlots" lineNumber="2264"/>
+    <functiondecl functionName="clusterManagerGetNodeRedisInfo" lineNumber="2270"/>
+    <functiondecl functionName="clusterManagerNodeIsCluster" lineNumber="2287"/>
+    <functiondecl functionName="clusterManagerNodeIsEmpty" lineNumber="2297"/>
+    <functiondecl functionName="clusterManagerGetAntiAffinityScore" lineNumber="2348"/>
+    <functiondecl functionName="clusterManagerOptimizeAntiAffinity" lineNumber="2418"/>
+    <functiondecl functionName="clusterManagerNodeFlagString" lineNumber="2497"/>
+    <functiondecl functionName="clusterManagerNodeSlotsString" lineNumber="2515"/>
+    <functiondecl functionName="clusterManagerKeyHashSlot" lineNumber="2554"/>
+    <functiondecl functionName="clusterManagerNodeInfo" lineNumber="2576"/>
+    <functiondecl functionName="clusterManagerShowNodes" lineNumber="2607"/>
+    <functiondecl functionName="clusterManagerShowClusterInfo" lineNumber="2619"/>
+    <functiondecl functionName="clusterManagerAddSlots" lineNumber="2669"/>
+    <functiondecl functionName="clusterManagerSetSlot" lineNumber="2714"/>
+    <functiondecl functionName="clusterManagerMigrateKeysInReply" lineNumber="2740"/>
+    <functiondecl functionName="clusterManagerMigrateKeysInSlot" lineNumber="2810"/>
+    <functiondecl functionName="clusterManagerMoveSlot" lineNumber="2904"/>
+    <functiondecl functionName="clusterManagerFlushNodeConfig" lineNumber="2967"/>
+    <functiondecl functionName="clusterManagerWaitForClusterJoin" lineNumber="2998"/>
+    <functiondecl functionName="clusterManagerNodeLoadInfo" lineNumber="3013"/>
+    <functiondecl functionName="clusterManagerLoadInfoFromNode" lineNumber="3193"/>
+    <functiondecl functionName="clusterManagerSlotCompare" lineNumber="3269"/>
+    <functiondecl functionName="clusterManagerSlotCountCompareDesc" lineNumber="3275"/>
+    <functiondecl functionName="clusterManagerCompareNodeBalance" lineNumber="3281"/>
+    <functiondecl functionName="clusterManagerGetConfigSignature" lineNumber="3287"/>
+    <functiondecl functionName="clusterManagerIsConfigConsistent" lineNumber="3380"/>
+    <functiondecl functionName="clusterManagerOnError" lineNumber="3408"/>
+    <functiondecl functionName="clusterManagerGetCoveredSlots" lineNumber="3418"/>
+    <functiondecl functionName="clusterManagerPrintSlotsList" lineNumber="3436"/>
+    <functiondecl functionName="clusterManagerGetNodeWithMostKeysInSlot" lineNumber="3452"/>
+    <functiondecl functionName="clusterManagerNodeWithLeastReplicas" lineNumber="3491"/>
+    <functiondecl functionName="clusterManagerFixSlotsCoverage" lineNumber="3508"/>
+    <functiondecl functionName="clusterManagerFixOpenSlot" lineNumber="3748"/>
+    <functiondecl functionName="clusterManagerCheckCluster" lineNumber="4019"/>
+    <functiondecl functionName="clusterNodeForResharding" lineNumber="4134"/>
+    <functiondecl functionName="clusterManagerComputeReshardTable" lineNumber="4158"/>
+    <functiondecl functionName="clusterManagerShowReshardTable" lineNumber="4193"/>
+    <functiondecl functionName="clusterManagerReleaseReshardTable" lineNumber="4204"/>
+    <functiondecl functionName="clusterManagerLog" lineNumber="4217"/>
+    <functiondecl functionName="clusterManagerNodeArrayInit" lineNumber="4237"/>
+    <functiondecl functionName="clusterManagerNodeArrayReset" lineNumber="4248"/>
+    <functiondecl functionName="clusterManagerNodeArrayShift" lineNumber="4261"/>
+    <functiondecl functionName="clusterManagerNodeArrayAdd" lineNumber="4274"/>
+    <functiondecl functionName="clusterManagerPrintNotEmptyNodeError" lineNumber="4283"/>
+    <functiondecl functionName="clusterManagerPrintNotClusterNodeError" lineNumber="4296"/>
+    <functiondecl functionName="clusterManagerMode" lineNumber="4304"/>
+    <functiondecl functionName="clusterManagerCommandCreate" lineNumber="4320"/>
+    <functiondecl functionName="clusterManagerCommandAddNode" lineNumber="4589"/>
+    <functiondecl functionName="clusterManagerCommandDeleteNode" lineNumber="4686"/>
+    <functiondecl functionName="clusterManagerCommandInfo" lineNumber="4752"/>
+    <functiondecl functionName="clusterManagerCommandCheck" lineNumber="4765"/>
+    <functiondecl functionName="clusterManagerCommandFix" lineNumber="4778"/>
+    <functiondecl functionName="clusterManagerCommandReshard" lineNumber="4783"/>
+    <functiondecl functionName="clusterManagerCommandRebalance" lineNumber="4970"/>
+    <functiondecl functionName="clusterManagerCommandSetTimeout" lineNumber="5159"/>
+    <functiondecl functionName="clusterManagerCommandImport" lineNumber="5217"/>
+    <functiondecl functionName="clusterManagerCommandCall" lineNumber="5356"/>
+    <functiondecl functionName="clusterManagerCommandHelp" lineNumber="5396"/>
+    <functiondecl functionName="latencyModePrint" lineNumber="5440"/>
+    <functiondecl functionName="latencyMode" lineNumber="5454"/>
+    <functiondecl functionName="showLatencyDistSamples" lineNumber="5538"/>
+    <functiondecl functionName="showLatencyDistLegend" lineNumber="5561"/>
+    <functiondecl functionName="latencyDistMode" lineNumber="5578"/>
+    <functiondecl functionName="sendSync" lineNumber="5662"/>
+    <functiondecl functionName="slaveMode" lineNumber="5695"/>
+    <functiondecl functionName="getRDB" lineNumber="5729"/>
+    <functiondecl functionName="pipeMode" lineNumber="5778"/>
+    <functiondecl functionName="sendScan" lineNumber="5946"/>
+    <functiondecl functionName="getDbSize" lineNumber="5974"/>
+    <functiondecl functionName="toIntType" lineNumber="5992"/>
+    <functiondecl functionName="getKeyTypes" lineNumber="6013"/>
+    <functiondecl functionName="getKeySizes" lineNumber="6044"/>
+    <functiondecl functionName="findBigKeys" lineNumber="6089"/>
+    <functiondecl functionName="getKeyFreqs" lineNumber="6220"/>
+    <functiondecl functionName="findHotKeys" lineNumber="6251"/>
+    <functiondecl functionName="getInfoField" lineNumber="6350"/>
+    <functiondecl functionName="getLongInfoField" lineNumber="6368"/>
+    <functiondecl functionName="bytesToHuman" lineNumber="6380"/>
+    <functiondecl functionName="statMode" lineNumber="6404"/>
+    <functiondecl functionName="scanMode" lineNumber="6494"/>
+    <functiondecl functionName="powerLawRand" lineNumber="6533"/>
+    <functiondecl functionName="LRUTestGenKey" lineNumber="6546"/>
+    <functiondecl functionName="LRUTestMode" lineNumber="6553"/>
+    <functiondecl functionName="compute_something_fast" lineNumber="6625"/>
+    <functiondecl functionName="intrinsicLatencyModeStop" lineNumber="6645"/>
+    <functiondecl functionName="intrinsicLatencyMode" lineNumber="6650"/>
+    <functiondecl functionName="main" lineNumber="6691"/>
+    <functioncall functionName="LRUTestGenKey"/>
+    <functioncall functionName="LRUTestMode"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_WRONLY"/>
+    <functioncall functionName="RAND_MAX"/>
+    <functioncall functionName="REDIS_ERR"/>
+    <functioncall functionName="REDIS_ERR_EOF"/>
+    <functioncall functionName="REDIS_OK"/>
+    <functioncall functionName="SIGINT"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="STDIN_FILENO"/>
+    <functioncall functionName="STDOUT_FILENO"/>
+    <functioncall functionName="_prefix"/>
+    <functioncall functionName="_prefixfmt"/>
+    <functioncall functionName="_prefixlen"/>
+    <functioncall functionName="_reply"/>
+    <functioncall functionName="abs"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="aeWait"/>
+    <functioncall functionName="all"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alloc_len"/>
+    <functioncall functionName="anetFormatAddr"/>
+    <functioncall functionName="anetKeepAlive"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="aneterr"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="args"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="argv2"/>
+    <functioncall functionName="argv_idx"/>
+    <functioncall functionName="argv_len"/>
+    <functioncall functionName="argvlen"/>
+    <functioncall functionName="arity"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="assign_replicas"/>
+    <functioncall functionName="assign_unused"/>
+    <functioncall functionName="atof"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="atoll"/>
+    <functioncall functionName="auth"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="avg"/>
+    <functioncall functionName="avg_ns"/>
+    <functioncall functionName="avg_us"/>
+    <functioncall functionName="balance"/>
+    <functioncall functionName="bigkeys"/>
+    <functioncall functionName="bold"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buflen"/>
+    <functioncall functionName="bytesToHuman"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="ccode"/>
+    <functioncall functionName="ceil"/>
+    <functioncall functionName="cfg"/>
+    <functioncall functionName="ch"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="character"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="cliAuth"/>
+    <functioncall functionName="cliConnect"/>
+    <functioncall functionName="cliFormatReplyCSV"/>
+    <functioncall functionName="cliFormatReplyRaw"/>
+    <functioncall functionName="cliFormatReplyTTY"/>
+    <functioncall functionName="cliInitHelp"/>
+    <functioncall functionName="cliIntegrateHelp"/>
+    <functioncall functionName="cliLoadPreferences"/>
+    <functioncall functionName="cliOutputCommandHelp"/>
+    <functioncall functionName="cliOutputGenericHelp"/>
+    <functioncall functionName="cliOutputHelp"/>
+    <functioncall functionName="cliPrintContextError"/>
+    <functioncall functionName="cliReadReply"/>
+    <functioncall functionName="cliRefreshPrompt"/>
+    <functioncall functionName="cliSelect"/>
+    <functioncall functionName="cliSendCommand"/>
+    <functioncall functionName="cliSetPreferences"/>
+    <functioncall functionName="cliSplitArgs"/>
+    <functioncall functionName="cliVersion"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="closing_bracket"/>
+    <functioncall functionName="clusterManagerAddSlots"/>
+    <functioncall functionName="clusterManagerCheckCluster"/>
+    <functioncall functionName="clusterManagerCheckRedisReply"/>
+    <functioncall functionName="clusterManagerCommandAddNode"/>
+    <functioncall functionName="clusterManagerCommandCall"/>
+    <functioncall functionName="clusterManagerCommandCheck"/>
+    <functioncall functionName="clusterManagerCommandCreate"/>
+    <functioncall functionName="clusterManagerCommandDeleteNode"/>
+    <functioncall functionName="clusterManagerCommandFix"/>
+    <functioncall functionName="clusterManagerCommandHelp"/>
+    <functioncall functionName="clusterManagerCommandImport"/>
+    <functioncall functionName="clusterManagerCommandInfo"/>
+    <functioncall functionName="clusterManagerCommandRebalance"/>
+    <functioncall functionName="clusterManagerCommandReshard"/>
+    <functioncall functionName="clusterManagerCommandSetTimeout"/>
+    <functioncall functionName="clusterManagerCommands"/>
+    <functioncall functionName="clusterManagerCompareNodeBalance"/>
+    <functioncall functionName="clusterManagerComputeReshardTable"/>
+    <functioncall functionName="clusterManagerDictType"/>
+    <functioncall functionName="clusterManagerFixOpenSlot"/>
+    <functioncall functionName="clusterManagerFixSlotsCoverage"/>
+    <functioncall functionName="clusterManagerFlushNodeConfig"/>
+    <functioncall functionName="clusterManagerGetAntiAffinityScore"/>
+    <functioncall functionName="clusterManagerGetConfigSignature"/>
+    <functioncall functionName="clusterManagerGetCoveredSlots"/>
+    <functioncall functionName="clusterManagerGetNodeRedisInfo"/>
+    <functioncall functionName="clusterManagerGetNodeWithMostKeysInSlot"/>
+    <functioncall functionName="clusterManagerIsConfigConsistent"/>
+    <functioncall functionName="clusterManagerKeyHashSlot"/>
+    <functioncall functionName="clusterManagerLoadInfoFromNode"/>
+    <functioncall functionName="clusterManagerLog"/>
+    <functioncall functionName="clusterManagerMigrateKeysInReply"/>
+    <functioncall functionName="clusterManagerMigrateKeysInSlot"/>
+    <functioncall functionName="clusterManagerMode"/>
+    <functioncall functionName="clusterManagerMoveSlot"/>
+    <functioncall functionName="clusterManagerNewNode"/>
+    <functioncall functionName="clusterManagerNodeArrayAdd"/>
+    <functioncall functionName="clusterManagerNodeArrayInit"/>
+    <functioncall functionName="clusterManagerNodeArrayReset"/>
+    <functioncall functionName="clusterManagerNodeArrayShift"/>
+    <functioncall functionName="clusterManagerNodeByAbbreviatedName"/>
+    <functioncall functionName="clusterManagerNodeByName"/>
+    <functioncall functionName="clusterManagerNodeConnect"/>
+    <functioncall functionName="clusterManagerNodeFlagString"/>
+    <functioncall functionName="clusterManagerNodeInfo"/>
+    <functioncall functionName="clusterManagerNodeIsCluster"/>
+    <functioncall functionName="clusterManagerNodeIsEmpty"/>
+    <functioncall functionName="clusterManagerNodeLoadInfo"/>
+    <functioncall functionName="clusterManagerNodeResetSlots"/>
+    <functioncall functionName="clusterManagerNodeSlotsString"/>
+    <functioncall functionName="clusterManagerNodeWithLeastReplicas"/>
+    <functioncall functionName="clusterManagerOnError"/>
+    <functioncall functionName="clusterManagerOptimizeAntiAffinity"/>
+    <functioncall functionName="clusterManagerPrintNotClusterNodeError"/>
+    <functioncall functionName="clusterManagerPrintNotEmptyNodeError"/>
+    <functioncall functionName="clusterManagerPrintSlotsList"/>
+    <functioncall functionName="clusterManagerReleaseReshardTable"/>
+    <functioncall functionName="clusterManagerRemoveNodeFromList"/>
+    <functioncall functionName="clusterManagerSetSlot"/>
+    <functioncall functionName="clusterManagerShowClusterInfo"/>
+    <functioncall functionName="clusterManagerShowNodes"/>
+    <functioncall functionName="clusterManagerShowReshardTable"/>
+    <functioncall functionName="clusterManagerSlotCompare"/>
+    <functioncall functionName="clusterManagerSlotCountCompareDesc"/>
+    <functioncall functionName="clusterManagerUncoveredSlots"/>
+    <functioncall functionName="clusterManagerWaitForClusterJoin"/>
+    <functioncall functionName="clusterNodeForResharding"/>
+    <functioncall functionName="cluster_manager_command"/>
+    <functioncall functionName="cluster_manager_err"/>
+    <functioncall functionName="cluster_reissue_command"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmd_argc"/>
+    <functioncall functionName="cmdfmt"/>
+    <functioncall functionName="cmdname"/>
+    <functioncall functionName="color"/>
+    <functioncall functionName="coloridx"/>
+    <functioncall functionName="command"/>
+    <functioncall functionName="commandGroups"/>
+    <functioncall functionName="commandHelp"/>
+    <functioncall functionName="completionCallback"/>
+    <functioncall functionName="compute_something_fast"/>
+    <functioncall functionName="config_epoch"/>
+    <functioncall functionName="confirmWithYes"/>
+    <functioncall functionName="consistent"/>
+    <functioncall functionName="context"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="convertToSds"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="counters"/>
+    <functioncall functionName="covered"/>
+    <functioncall functionName="crc16"/>
+    <functioncall functionName="createClusterManagerCommand"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="curr"/>
+    <functioncall functionName="currentNode"/>
+    <functioncall functionName="cursor"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="dash"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="dbsize"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="deflen"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictListDestructor"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictReplace"/>
+    <functioncall functionName="dictSdsDestructor"/>
+    <functioncall functionName="dictSdsHash"/>
+    <functioncall functionName="dictSdsKeyCompare"/>
+    <functioncall functionName="dirty"/>
+    <functioncall functionName="do_fix"/>
+    <functioncall functionName="done"/>
+    <functioncall functionName="dotfilename"/>
+    <functioncall functionName="dots"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="dst_idx"/>
+    <functioncall functionName="dtype"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="echo"/>
+    <functioncall functionName="elements"/>
+    <functioncall functionName="elen"/>
+    <functioncall functionName="empty"/>
+    <functioncall functionName="enable_ldb_on_eval"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="end_move"/>
+    <functioncall functionName="endptr"/>
+    <functioncall functionName="endspace"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="envoverride"/>
+    <functioncall functionName="eof"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="err_count"/>
+    <functioncall functionName="err_perc"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="errors"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="estr"/>
+    <functioncall functionName="eval"/>
+    <functioncall functionName="evalMode"/>
+    <functioncall functionName="eval_ldb"/>
+    <functioncall functionName="eval_ldb_end"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="fabs"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="file"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="findBigKeys"/>
+    <functioncall functionName="findHotKeys"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="firstNodeIdx"/>
+    <functioncall functionName="first_cfg"/>
+    <functioncall functionName="first_master"/>
+    <functioncall functionName="first_node"/>
+    <functioncall functionName="fixed"/>
+    <functioncall functionName="flag"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flags_str"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="floor"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fn"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="formatted_reply"/>
+    <functioncall functionName="found"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="fputs"/>
+    <functioncall functionName="fread"/>
+    <functioncall functionName="freeClusterManager"/>
+    <functioncall functionName="freeClusterManagerNode"/>
+    <functioncall functionName="freeClusterManagerNodeFlags"/>
+    <functioncall functionName="freeHintsCallback"/>
+    <functioncall functionName="freeReplyObject"/>
+    <functioncall functionName="freqs"/>
+    <functioncall functionName="friend"/>
+    <functioncall functionName="friends"/>
+    <functioncall functionName="from"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="full"/>
+    <functioncall functionName="fwrite"/>
+    <functioncall functionName="getClusterHostFromCmdArgs"/>
+    <functioncall functionName="getDbSize"/>
+    <functioncall functionName="getDotfilePath"/>
+    <functioncall functionName="getInfoField"/>
+    <functioncall functionName="getKeyFreqs"/>
+    <functioncall functionName="getKeySizes"/>
+    <functioncall functionName="getKeyTypes"/>
+    <functioncall functionName="getLongInfoField"/>
+    <functioncall functionName="getRDB"/>
+    <functioncall functionName="getchar"/>
+    <functioncall functionName="getenv"/>
+    <functioncall functionName="getfriends"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="getrdb_mode"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="got_comma"/>
+    <functioncall functionName="group"/>
+    <functioncall functionName="groupslen"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="has_slot"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="helpEntries"/>
+    <functioncall functionName="hint"/>
+    <functioncall functionName="hints"/>
+    <functioncall functionName="hintsCallback"/>
+    <functioncall functionName="history"/>
+    <functioncall functionName="history_start"/>
+    <functioncall functionName="historyfile"/>
+    <functioncall functionName="hits"/>
+    <functioncall functionName="home"/>
+    <functioncall functionName="hostip"/>
+    <functioncall functionName="hostport"/>
+    <functioncall functionName="hostsocket"/>
+    <functioncall functionName="hotkeys"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="ibuf"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="idxlen"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="importing"/>
+    <functioncall functionName="importing_count"/>
+    <functioncall functionName="importing_slot"/>
+    <functioncall functionName="importing_str"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="indent"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="integer"/>
+    <functioncall functionName="interactive"/>
+    <functioncall functionName="interleaved"/>
+    <functioncall functionName="interleaved_len"/>
+    <functioncall functionName="interval"/>
+    <functioncall functionName="intrinsicLatencyMode"/>
+    <functioncall functionName="intrinsicLatencyModeStop"/>
+    <functioncall functionName="intrinsic_latency_mode"/>
+    <functioncall functionName="invalid_args"/>
+    <functioncall functionName="invalid_args_msg"/>
+    <functioncall functionName="invalid_friend"/>
+    <functioncall functionName="invalid_node_msg"/>
+    <functioncall functionName="involved"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="ip_count"/>
+    <functioncall functionName="ip_nodes"/>
+    <functioncall functionName="ipnodes"/>
+    <functioncall functionName="ips"/>
+    <functioncall functionName="isColorTerm"/>
+    <functioncall functionName="is_busy"/>
+    <functioncall functionName="is_err"/>
+    <functioncall functionName="isatty"/>
+    <functioncall functionName="isdigit"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="issueCommand"/>
+    <functioncall functionName="issueCommandRepeat"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="item"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="keylen"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="keys_per_slot"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l1"/>
+    <functioncall functionName="last"/>
+    <functioncall functionName="last_idx"/>
+    <functioncall functionName="last_read_time"/>
+    <functioncall functionName="last_slot_idx"/>
+    <functioncall functionName="lastarg"/>
+    <functioncall functionName="latency"/>
+    <functioncall functionName="latencyDistMode"/>
+    <functioncall functionName="latencyMode"/>
+    <functioncall functionName="latencyModePrint"/>
+    <functioncall functionName="latency_dist_mode"/>
+    <functioncall functionName="latency_history"/>
+    <functioncall functionName="latency_mode"/>
+    <functioncall functionName="lc"/>
+    <functioncall functionName="lcname"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="linenoise"/>
+    <functioncall functionName="linenoiseAddCompletion"/>
+    <functioncall functionName="linenoiseClearScreen"/>
+    <functioncall functionName="linenoiseFree"/>
+    <functioncall functionName="linenoiseHistoryAdd"/>
+    <functioncall functionName="linenoiseHistoryLoad"/>
+    <functioncall functionName="linenoiseHistorySave"/>
+    <functioncall functionName="linenoiseSetCompletionCallback"/>
+    <functioncall functionName="linenoiseSetFreeHintsCallback"/>
+    <functioncall functionName="linenoiseSetHintsCallback"/>
+    <functioncall functionName="linenoiseSetMultiLine"/>
+    <functioncall functionName="lines"/>
+    <functioncall functionName="link_status"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listEmpty"/>
+    <functioncall functionName="listIndex"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="llabs"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="log_level"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lround"/>
+    <functioncall functionName="lru_test_mode"/>
+    <functioncall functionName="lru_test_sample_size"/>
+    <functioncall functionName="lsrc"/>
+    <functioncall functionName="magic"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="master_id"/>
+    <functioncall functionName="master_node"/>
+    <functioncall functionName="masters"/>
+    <functioncall functionName="masters_count"/>
+    <functioncall functionName="matchlen"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_latency"/>
+    <functioncall functionName="maxiter"/>
+    <functioncall functionName="mb_delim"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="migrate_reply"/>
+    <functioncall functionName="migrating"/>
+    <functioncall functionName="migrating_count"/>
+    <functioncall functionName="migrating_slot"/>
+    <functioncall functionName="migrating_str"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="misses"/>
+    <functioncall functionName="monitor_mode"/>
+    <functioncall functionName="move_opts"/>
+    <functioncall functionName="moved"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="multi"/>
+    <functioncall functionName="myself"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="n1"/>
+    <functioncall functionName="n2"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="name_len"/>
+    <functioncall functionName="namelen"/>
+    <functioncall functionName="need_free"/>
+    <functioncall functionName="new_node"/>
+    <functioncall functionName="new_score"/>
+    <functioncall functionName="newhint"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nli"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="node_array"/>
+    <functioncall functionName="node_configs"/>
+    <functioncall functionName="node_count"/>
+    <functioncall functionName="node_id"/>
+    <functioncall functionName="node_len"/>
+    <functioncall functionName="nodelist"/>
+    <functioncall functionName="nodename"/>
+    <functioncall functionName="nodes"/>
+    <functioncall functionName="nodes_involved"/>
+    <functioncall functionName="none"/>
+    <functioncall functionName="noninteractive"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="numslots"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obuf"/>
+    <functioncall functionName="obuf_len"/>
+    <functioncall functionName="obuf_pos"/>
+    <functioncall functionName="offenders"/>
+    <functioncall functionName="offending_len"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="ok_count"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="open_slots"/>
+    <functioncall functionName="option_cold"/>
+    <functioncall functionName="options"/>
+    <functioncall functionName="opts"/>
+    <functioncall functionName="optslen"/>
+    <functioncall functionName="org"/>
+    <functioncall functionName="original_output"/>
+    <functioncall functionName="other_replicas"/>
+    <functioncall functionName="otypes"/>
+    <functioncall functionName="out"/>
+    <functioncall functionName="output"/>
+    <functioncall functionName="output_raw"/>
+    <functioncall functionName="output_raw_strings"/>
+    <functioncall functionName="over_threshold"/>
+    <functioncall functionName="owner"/>
+    <functioncall functionName="owners"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="params"/>
+    <functioncall functionName="parseOptions"/>
+    <functioncall functionName="parseRedisUri"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="pattern"/>
+    <functioncall functionName="payload"/>
+    <functioncall functionName="pct"/>
+    <functioncall functionName="pe"/>
+    <functioncall functionName="percentDecode"/>
+    <functioncall functionName="perfect"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="ping_recv"/>
+    <functioncall functionName="ping_sent"/>
+    <functioncall functionName="pipeMode"/>
+    <functioncall functionName="pipe_mode"/>
+    <functioncall functionName="pipe_timeout"/>
+    <functioncall functionName="pipeline"/>
+    <functioncall functionName="pl"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="portstr"/>
+    <functioncall functionName="pow"/>
+    <functioncall functionName="powerLawRand"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="print_dots"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="proc"/>
+    <functioncall functionName="prompt"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pubsub_mode"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="quiet"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="raise_err"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="rand_idx"/>
+    <functioncall functionName="rcfile"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readArgFromStdin"/>
+    <functioncall functionName="reader"/>
+    <functioncall functionName="reconnectingRedisCommand"/>
+    <functioncall functionName="redisAppendCommand"/>
+    <functioncall functionName="redisAppendCommandArgv"/>
+    <functioncall functionName="redisCommand"/>
+    <functioncall functionName="redisConnect"/>
+    <functioncall functionName="redisConnectUnix"/>
+    <functioncall functionName="redisFree"/>
+    <functioncall functionName="redisGetReply"/>
+    <functioncall functionName="redisGitDirty"/>
+    <functioncall functionName="redisGitSHA1"/>
+    <functioncall functionName="redisReaderCreate"/>
+    <functioncall functionName="redisReaderFeed"/>
+    <functioncall functionName="redisReaderFree"/>
+    <functioncall functionName="redisReaderGetReply"/>
+    <functioncall functionName="redisvCommand"/>
+    <functioncall functionName="ref_ip"/>
+    <functioncall functionName="ref_node"/>
+    <functioncall functionName="ref_port"/>
+    <functioncall functionName="refnode"/>
+    <functioncall functionName="related"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="repeat"/>
+    <functioncall functionName="repl"/>
+    <functioncall functionName="replace"/>
+    <functioncall functionName="replicas"/>
+    <functioncall functionName="replicas_count"/>
+    <functioncall functionName="replicate"/>
+    <functioncall functionName="replies"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="reply_err"/>
+    <functioncall functionName="requests"/>
+    <functioncall functionName="result"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="role"/>
+    <functioncall functionName="run_time"/>
+    <functioncall functionName="runs"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sampled"/>
+    <functioncall functionName="samples"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="scanMode"/>
+    <functioncall functionName="scan_mode"/>
+    <functioncall functionName="scheme"/>
+    <functioncall functionName="script"/>
+    <functioncall functionName="sdsCatColorizedLdbReply"/>
+    <functioncall functionName="sds_malloc"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatcolor"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdscmp"/>
+    <functioncall functionName="sdscpy"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfreesplitres"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssplitargs"/>
+    <functioncall functionName="sdstolower"/>
+    <functioncall functionName="sdstoupper"/>
+    <functioncall functionName="second_master"/>
+    <functioncall functionName="sendScan"/>
+    <functioncall functionName="sendSync"/>
+    <functioncall functionName="sep"/>
+    <functioncall functionName="showLatencyDistLegend"/>
+    <functioncall functionName="showLatencyDistSamples"/>
+    <functioncall functionName="shutdown"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="signature"/>
+    <functioncall functionName="simulate"/>
+    <functioncall functionName="since"/>
+    <functioncall functionName="single"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sizes"/>
+    <functioncall functionName="skipargs"/>
+    <functioncall functionName="slaveMode"/>
+    <functioncall functionName="slave_mode"/>
+    <functioncall functionName="sleep"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="slot"/>
+    <functioncall functionName="slot1"/>
+    <functioncall functionName="slot2"/>
+    <functioncall functionName="slot_nodes"/>
+    <functioncall functionName="slot_nodes_str"/>
+    <functioncall functionName="slots"/>
+    <functioncall functionName="slots_count"/>
+    <functioncall functionName="slots_map"/>
+    <functioncall functionName="slotsdef"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sorted"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="sources"/>
+    <functioncall functionName="sp"/>
+    <functioncall functionName="spaces"/>
+    <functioncall functionName="spectrum_palette_color"/>
+    <functioncall functionName="spectrum_palette_color_size"/>
+    <functioncall functionName="spectrum_palette_mono"/>
+    <functioncall functionName="spectrum_palette_mono_size"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="srand"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="src_count"/>
+    <functioncall functionName="src_ctx"/>
+    <functioncall functionName="src_host"/>
+    <functioncall functionName="src_idx"/>
+    <functioncall functionName="src_ip"/>
+    <functioncall functionName="src_port"/>
+    <functioncall functionName="src_reply"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="start_time"/>
+    <functioncall functionName="startpos"/>
+    <functioncall functionName="statMode"/>
+    <functioncall functionName="stat_mode"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdin"/>
+    <functioncall functionName="stdinarg"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strcat"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strcpy"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strncasecmp"/>
+    <functioncall functionName="strncmp"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="strrchr"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="strtoull"/>
+    <functioncall functionName="success"/>
+    <functioncall functionName="summary"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="table"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="threshold"/>
+    <functioncall functionName="threshold_reached"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="timeoutstr"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="to"/>
+    <functioncall functionName="toIntType"/>
+    <functioncall functionName="token"/>
+    <functioncall functionName="tolower"/>
+    <functioncall functionName="toremove"/>
+    <functioncall functionName="total_balance"/>
+    <functioncall functionName="total_keys"/>
+    <functioncall functionName="total_weight"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="tries"/>
+    <functioncall functionName="try_to_close_slot"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="types"/>
+    <functioncall functionName="uri"/>
+    <functioncall functionName="usage"/>
+    <functioncall functionName="use_colors"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="validateClusterManagerCommand"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="verbose"/>
+    <functioncall functionName="version"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vprintf"/>
+    <functioncall functionName="w"/>
+    <functioncall functionName="wargc"/>
+    <functioncall functionName="weight"/>
+    <functioncall functionName="weight_argc"/>
+    <functioncall functionName="weightedNodes"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="widx"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

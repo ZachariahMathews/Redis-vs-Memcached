@@ -1,0 +1,498 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3676324491">
+        <error id="nullPointerRedundantCheck" severity="warning" msg="Either the condition &apos;(argv=ldbReplParseCommand(&amp;argc))==NULL&apos; is redundant or there is possible null pointer dereference: argv." verbose="Either the condition &apos;(argv=ldbReplParseCommand(&amp;argc))==NULL&apos; is redundant or there is possible null pointer dereference: argv." cwe="476">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\scripting.c" file="C:\Users\bharm\Downloads\redis-unstable\src\scripting.c" line="2312" info="Null pointer dereference"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\scripting.c" file="C:\Users\bharm\Downloads\redis-unstable\src\scripting.c" line="2294" info="Assuming that condition &apos;(argv=ldbReplParseCommand(&amp;argc))==NULL&apos; is not redundant"/>
+            <symbol>argv</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="sha1hex" lineNumber="89"/>
+    <functiondecl functionName="redisProtocolToLuaType" lineNumber="127"/>
+    <functiondecl functionName="redisProtocolToLuaType_Int" lineNumber="140"/>
+    <functiondecl functionName="redisProtocolToLuaType_Bulk" lineNumber="149"/>
+    <functiondecl functionName="redisProtocolToLuaType_Status" lineNumber="163"/>
+    <functiondecl functionName="redisProtocolToLuaType_Error" lineNumber="173"/>
+    <functiondecl functionName="redisProtocolToLuaType_MultiBulk" lineNumber="183"/>
+    <functiondecl functionName="luaPushError" lineNumber="208"/>
+    <functiondecl functionName="luaRaiseError" lineNumber="236"/>
+    <functiondecl functionName="luaSortArray" lineNumber="248"/>
+    <functiondecl functionName="luaReplyToRedisReply" lineNumber="277"/>
+    <functiondecl functionName="luaRedisGenericCommand" lineNumber="348"/>
+    <functiondecl functionName="luaRedisCallCommand" lineNumber="652"/>
+    <functiondecl functionName="luaRedisPCallCommand" lineNumber="657"/>
+    <functiondecl functionName="luaRedisSha1hexCommand" lineNumber="663"/>
+    <functiondecl functionName="luaRedisReturnSingleFieldTable" lineNumber="687"/>
+    <functiondecl functionName="luaRedisErrorReplyCommand" lineNumber="701"/>
+    <functiondecl functionName="luaRedisStatusReplyCommand" lineNumber="706"/>
+    <functiondecl functionName="luaRedisReplicateCommandsCommand" lineNumber="716"/>
+    <functiondecl functionName="luaRedisBreakpointCommand" lineNumber="735"/>
+    <functiondecl functionName="luaRedisDebugCommand" lineNumber="750"/>
+    <functiondecl functionName="luaRedisSetReplCommand" lineNumber="766"/>
+    <functiondecl functionName="luaLogCommand" lineNumber="788"/>
+    <functiondecl functionName="luaLoadLib" lineNumber="827"/>
+    <functiondecl functionName="luaLoadLibraries" lineNumber="838"/>
+    <functiondecl functionName="luaRemoveUnsupportedFunctions" lineNumber="857"/>
+    <functiondecl functionName="scriptingEnableGlobalsProtection" lineNumber="869"/>
+    <functiondecl functionName="scriptingInit" lineNumber="913"/>
+    <functiondecl functionName="scriptingRelease" lineNumber="1087"/>
+    <functiondecl functionName="scriptingReset" lineNumber="1093"/>
+    <functiondecl functionName="luaSetGlobalArray" lineNumber="1100"/>
+    <functiondecl functionName="redis_math_random" lineNumber="1121"/>
+    <functiondecl functionName="redis_math_randomseed" lineNumber="1149"/>
+    <functiondecl functionName="luaCreateFunction" lineNumber="1175"/>
+    <functiondecl functionName="luaMaskCountHook" lineNumber="1230"/>
+    <functiondecl functionName="evalGenericCommand" lineNumber="1255"/>
+    <functiondecl functionName="evalCommand" lineNumber="1461"/>
+    <functiondecl functionName="evalShaCommand" lineNumber="1468"/>
+    <functiondecl functionName="scriptCommand" lineNumber="1485"/>
+    <functiondecl functionName="ldbInit" lineNumber="1556"/>
+    <functiondecl functionName="ldbFlushLog" lineNumber="1568"/>
+    <functiondecl functionName="ldbEnable" lineNumber="1576"/>
+    <functiondecl functionName="ldbDisable" lineNumber="1592"/>
+    <functiondecl functionName="ldbLog" lineNumber="1597"/>
+    <functiondecl functionName="ldbLogWithMaxLen" lineNumber="1605"/>
+    <functiondecl functionName="ldbSendLogs" lineNumber="1623"/>
+    <functiondecl functionName="ldbStartSession" lineNumber="1654"/>
+    <functiondecl functionName="ldbEndSession" lineNumber="1708"/>
+    <functiondecl functionName="ldbRemoveChild" lineNumber="1740"/>
+    <functiondecl functionName="ldbPendingChildren" lineNumber="1751"/>
+    <functiondecl functionName="ldbKillForkedSessions" lineNumber="1756"/>
+    <functiondecl functionName="evalGenericCommandWithDebugging" lineNumber="1772"/>
+    <functiondecl functionName="ldbGetSourceLine" lineNumber="1783"/>
+    <functiondecl functionName="ldbIsBreakpoint" lineNumber="1790"/>
+    <functiondecl functionName="ldbAddBreakpoint" lineNumber="1801"/>
+    <functiondecl functionName="ldbDelBreakpoint" lineNumber="1812"/>
+    <functiondecl functionName="ldbReplParseCommand" lineNumber="1828"/>
+    <functiondecl functionName="ldbLogSourceLine" lineNumber="1875"/>
+    <functiondecl functionName="ldbList" lineNumber="1898"/>
+    <functiondecl functionName="ldbCatStackValueRec" lineNumber="1915"/>
+    <functiondecl functionName="ldbCatStackValue" lineNumber="2000"/>
+    <functiondecl functionName="ldbLogStackValue" lineNumber="2007"/>
+    <functiondecl functionName="ldbRedisProtocolToHuman" lineNumber="2023"/>
+    <functiondecl functionName="ldbRedisProtocolToHuman_Int" lineNumber="2038"/>
+    <functiondecl functionName="ldbRedisProtocolToHuman_Bulk" lineNumber="2044"/>
+    <functiondecl functionName="ldbRedisProtocolToHuman_Status" lineNumber="2058"/>
+    <functiondecl functionName="ldbRedisProtocolToHuman_MultiBulk" lineNumber="2065"/>
+    <functiondecl functionName="ldbLogRedisReply" lineNumber="2088"/>
+    <functiondecl functionName="ldbPrint" lineNumber="2097"/>
+    <functiondecl functionName="ldbPrintAll" lineNumber="2129"/>
+    <functiondecl functionName="ldbBreak" lineNumber="2154"/>
+    <functiondecl functionName="ldbEval" lineNumber="2198"/>
+    <functiondecl functionName="ldbRedis" lineNumber="2231"/>
+    <functiondecl functionName="ldbTrace" lineNumber="2249"/>
+    <functiondecl functionName="ldbMaxlen" lineNumber="2270"/>
+    <functiondecl functionName="ldbRepl" lineNumber="2287"/>
+    <functiondecl functionName="luaLdbLineHook" lineNumber="2404"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="LUA_DBLIBNAME"/>
+    <functioncall functionName="LUA_GCSTEP"/>
+    <functioncall functionName="LUA_MASKCOUNT"/>
+    <functioncall functionName="LUA_MATHLIBNAME"/>
+    <functioncall functionName="LUA_STRLIBNAME"/>
+    <functioncall functionName="LUA_TABLIBNAME"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SHA1Final"/>
+    <functioncall functionName="SHA1Init"/>
+    <functioncall functionName="SHA1Update"/>
+    <functioncall functionName="SIGINT"/>
+    <functioncall functionName="SIGKILL"/>
+    <functioncall functionName="SIGTERM"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="abs"/>
+    <functioncall functionName="act"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alsoPropagate"/>
+    <functioncall functionName="anetBlock"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="anetSendTimeout"/>
+    <functioncall functionName="aof_last_write_errno"/>
+    <functioncall functionName="aof_write_err"/>
+    <functioncall functionName="ar"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="arity"/>
+    <functioncall functionName="around"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="body"/>
+    <functioncall functionName="bp"/>
+    <functioncall functionName="bpcount"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufpos"/>
+    <functioncall functionName="bulklen"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="call"/>
+    <functioncall functionName="call_flags"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cbuf"/>
+    <functioncall functionName="children"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="clientHasPendingReplies"/>
+    <functioncall functionName="closeListeningSockets"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmdlog"/>
+    <functioncall functionName="code"/>
+    <functioncall functionName="compare_func"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="cp"/>
+    <functioncall functionName="createClient"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="current"/>
+    <functioncall functionName="currentline"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="dbg"/>
+    <functioncall functionName="dbuf"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delhook"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="digest"/>
+    <functioncall functionName="dirty"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errh_func"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="evalGenericCommand"/>
+    <functioncall functionName="evalGenericCommandWithDebugging"/>
+    <functioncall functionName="evalsha"/>
+    <functioncall functionName="execCommand"/>
+    <functioncall functionName="execCommandPropagateMulti"/>
+    <functioncall functionName="exitFromChild"/>
+    <functioncall functionName="expr"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="floor"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forceCommandPropagation"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="forked"/>
+    <functioncall functionName="freeClientAsync"/>
+    <functioncall functionName="funcdef"/>
+    <functioncall functionName="funcname"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getMaxmemoryState"/>
+    <functioncall functionName="getNodeByQuery"/>
+    <functioncall functionName="getStringObjectSdsUsedMemory"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="inuse"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="kill"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="ldbAddBreakpoint"/>
+    <functioncall functionName="ldbBreak"/>
+    <functioncall functionName="ldbCatStackValue"/>
+    <functioncall functionName="ldbCatStackValueRec"/>
+    <functioncall functionName="ldbDelBreakpoint"/>
+    <functioncall functionName="ldbDisable"/>
+    <functioncall functionName="ldbEnable"/>
+    <functioncall functionName="ldbEndSession"/>
+    <functioncall functionName="ldbEval"/>
+    <functioncall functionName="ldbFlushLog"/>
+    <functioncall functionName="ldbGetSourceLine"/>
+    <functioncall functionName="ldbInit"/>
+    <functioncall functionName="ldbIsBreakpoint"/>
+    <functioncall functionName="ldbList"/>
+    <functioncall functionName="ldbLog"/>
+    <functioncall functionName="ldbLogRedisReply"/>
+    <functioncall functionName="ldbLogSourceLine"/>
+    <functioncall functionName="ldbLogStackValue"/>
+    <functioncall functionName="ldbLogWithMaxLen"/>
+    <functioncall functionName="ldbMaxlen"/>
+    <functioncall functionName="ldbPrint"/>
+    <functioncall functionName="ldbPrintAll"/>
+    <functioncall functionName="ldbRedis"/>
+    <functioncall functionName="ldbRedisProtocolToHuman"/>
+    <functioncall functionName="ldbRedisProtocolToHuman_Bulk"/>
+    <functioncall functionName="ldbRedisProtocolToHuman_Int"/>
+    <functioncall functionName="ldbRedisProtocolToHuman_MultiBulk"/>
+    <functioncall functionName="ldbRedisProtocolToHuman_Status"/>
+    <functioncall functionName="ldbRepl"/>
+    <functioncall functionName="ldbReplParseCommand"/>
+    <functioncall functionName="ldbSendLogs"/>
+    <functioncall functionName="ldbStartSession"/>
+    <functioncall functionName="ldbTrace"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="libname"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="lines"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listSearchKey"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="lnum"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="logs"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupCommand"/>
+    <functioncall functionName="lua"/>
+    <functioncall functionName="luaCreateFunction"/>
+    <functioncall functionName="luaL_argcheck"/>
+    <functioncall functionName="luaL_checkint"/>
+    <functioncall functionName="luaL_error"/>
+    <functioncall functionName="luaL_loadbuffer"/>
+    <functioncall functionName="luaLdbLineHook"/>
+    <functioncall functionName="luaLoadLib"/>
+    <functioncall functionName="luaLoadLibraries"/>
+    <functioncall functionName="luaLogCommand"/>
+    <functioncall functionName="luaMaskCountHook"/>
+    <functioncall functionName="luaPushError"/>
+    <functioncall functionName="luaRaiseError"/>
+    <functioncall functionName="luaRedisBreakpointCommand"/>
+    <functioncall functionName="luaRedisCallCommand"/>
+    <functioncall functionName="luaRedisDebugCommand"/>
+    <functioncall functionName="luaRedisErrorReplyCommand"/>
+    <functioncall functionName="luaRedisGenericCommand"/>
+    <functioncall functionName="luaRedisPCallCommand"/>
+    <functioncall functionName="luaRedisReplicateCommandsCommand"/>
+    <functioncall functionName="luaRedisReturnSingleFieldTable"/>
+    <functioncall functionName="luaRedisSetReplCommand"/>
+    <functioncall functionName="luaRedisSha1hexCommand"/>
+    <functioncall functionName="luaRedisStatusReplyCommand"/>
+    <functioncall functionName="luaRemoveUnsupportedFunctions"/>
+    <functioncall functionName="luaReplyToRedisReply"/>
+    <functioncall functionName="luaSetGlobalArray"/>
+    <functioncall functionName="luaSortArray"/>
+    <functioncall functionName="lua_Number"/>
+    <functioncall functionName="lua_always_replicate_commands"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_caller"/>
+    <functioncall functionName="lua_client"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getglobal"/>
+    <functioncall functionName="lua_getinfo"/>
+    <functioncall functionName="lua_getlocal"/>
+    <functioncall functionName="lua_getstack"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_isnil"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_kill"/>
+    <functioncall functionName="lua_multi_emitted"/>
+    <functioncall functionName="lua_newtable"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_open"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pop"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcfunction"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_replicate_commands"/>
+    <functioncall functionName="lua_scripts"/>
+    <functioncall functionName="lua_setglobal"/>
+    <functioncall functionName="lua_sethook"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_strlen"/>
+    <functioncall functionName="lua_time_limit"/>
+    <functioncall functionName="lua_time_start"/>
+    <functioncall functionName="lua_timedout"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tolstring"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_topointer"/>
+    <functioncall functionName="lua_tostring"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_write_dirty"/>
+    <functioncall functionName="luabp"/>
+    <functioncall functionName="luafunc"/>
+    <functioncall functionName="luaopen_base"/>
+    <functioncall functionName="luaopen_bit"/>
+    <functioncall functionName="luaopen_cjson"/>
+    <functioncall functionName="luaopen_cmsgpack"/>
+    <functioncall functionName="luaopen_debug"/>
+    <functioncall functionName="luaopen_math"/>
+    <functioncall functionName="luaopen_string"/>
+    <functioncall functionName="luaopen_struct"/>
+    <functioncall functionName="luaopen_table"/>
+    <functioncall functionName="master"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxlen"/>
+    <functioncall functionName="mbulklen"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="myself"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newval"/>
+    <functioncall functionName="noscripterr"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="numkeys"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj_len"/>
+    <functioncall functionName="obj_s"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="plen"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="preventCommandPropagation"/>
+    <functioncall functionName="processEventsWhileBlocked"/>
+    <functioncall functionName="propargv"/>
+    <functioncall functionName="protectClient"/>
+    <functioncall functionName="proto"/>
+    <functioncall functionName="protoerr"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="queueClientForReprocessing"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="raise_error"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="reason"/>
+    <functioncall functionName="recursion_warning"/>
+    <functioncall functionName="redisLrand48"/>
+    <functioncall functionName="redisProtocolToLuaType"/>
+    <functioncall functionName="redisProtocolToLuaType_Bulk"/>
+    <functioncall functionName="redisProtocolToLuaType_Error"/>
+    <functioncall functionName="redisProtocolToLuaType_Int"/>
+    <functioncall functionName="redisProtocolToLuaType_MultiBulk"/>
+    <functioncall functionName="redisProtocolToLuaType_Status"/>
+    <functioncall functionName="redisSrand48"/>
+    <functioncall functionName="redis_math_random"/>
+    <functioncall functionName="redis_math_randomseed"/>
+    <functioncall functionName="replicationScriptCacheAdd"/>
+    <functioncall functionName="replicationScriptCacheExists"/>
+    <functioncall functionName="replicationScriptCacheFlush"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="replylen"/>
+    <functioncall functionName="repr1"/>
+    <functioncall functionName="repr2"/>
+    <functioncall functionName="resetRefCount"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteClientCommandArgument"/>
+    <functioncall functionName="rewriteClientCommandVector"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa_mask"/>
+    <functioncall functionName="saved_rc"/>
+    <functioncall functionName="script"/>
+    <functioncall functionName="scriptingEnableGlobalsProtection"/>
+    <functioncall functionName="scriptingInit"/>
+    <functioncall functionName="scriptingRelease"/>
+    <functioncall functionName="scriptingReset"/>
+    <functioncall functionName="sdsZmallocSize"/>
+    <functioncall functionName="sdsalloc"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfreesplitres"/>
+    <functioncall functionName="sdsjoinsds"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsmapchars"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssetlen"/>
+    <functioncall functionName="sdssplitlen"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="serverLogRaw"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setup"/>
+    <functioncall functionName="sha"/>
+    <functioncall functionName="sha1hex"/>
+    <functioncall functionName="shaScriptObjectDictType"/>
+    <functioncall functionName="short_src"/>
+    <functioncall functionName="sigaction"/>
+    <functioncall functionName="sigemptyset"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="srclen"/>
+    <functioncall functionName="srcstring"/>
+    <functioncall functionName="step"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="string2l"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="strl"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strp"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="thisline"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="typename"/>
+    <functioncall functionName="unprotectClient"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="var"/>
+    <functioncall functionName="varname"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writeCommandsDeniedByDiskError"/>
+    <functioncall functionName="writeToClient"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

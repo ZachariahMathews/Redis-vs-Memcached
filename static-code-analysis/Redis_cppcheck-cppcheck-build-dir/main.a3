@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3925039839">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="4"/>
+    <functioncall functionName="printf"/>
+  </FileInfo>
+</analyzerinfo>

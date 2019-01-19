@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="178578649">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="mutex_pool_init" lineNumber="10"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="malloc_mutex_address_ordered"/>
+    <functioncall functionName="malloc_mutex_init"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="rank"/>
+  </FileInfo>
+</analyzerinfo>

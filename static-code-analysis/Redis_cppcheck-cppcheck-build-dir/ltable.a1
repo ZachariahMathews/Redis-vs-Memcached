@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3610847046">
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="hashnum" lineNumber="84"/>
+    <functiondecl functionName="mainposition" lineNumber="100"/>
+    <functiondecl functionName="arrayindex" lineNumber="120"/>
+    <functiondecl functionName="findindex" lineNumber="137"/>
+    <functiondecl functionName="luaH_next" lineNumber="162"/>
+    <functiondecl functionName="computesizes" lineNumber="189"/>
+    <functiondecl functionName="countint" lineNumber="211"/>
+    <functiondecl functionName="numusearray" lineNumber="222"/>
+    <functiondecl functionName="numusehash" lineNumber="247"/>
+    <functiondecl functionName="setarrayvector" lineNumber="263"/>
+    <functiondecl functionName="setnodevector" lineNumber="272"/>
+    <functiondecl functionName="resize" lineNumber="297"/>
+    <functiondecl functionName="luaH_resizearray" lineNumber="327"/>
+    <functiondecl functionName="rehash" lineNumber="333"/>
+    <functiondecl functionName="luaH_new" lineNumber="358"/>
+    <functiondecl functionName="luaH_free" lineNumber="374"/>
+    <functiondecl functionName="getfreepos" lineNumber="382"/>
+    <functiondecl functionName="newkey" lineNumber="399"/>
+    <functiondecl functionName="luaH_getnum" lineNumber="435"/>
+    <functiondecl functionName="luaH_getstr" lineNumber="455"/>
+    <functiondecl functionName="luaH_get" lineNumber="469"/>
+    <functiondecl functionName="luaH_set" lineNumber="494"/>
+    <functiondecl functionName="luaH_setnum" lineNumber="508"/>
+    <functiondecl functionName="luaH_setstr" lineNumber="520"/>
+    <functiondecl functionName="unbound_search" lineNumber="532"/>
+    <functiondecl functionName="luaH_getn" lineNumber="560"/>
+    <functiondecl functionName="hashnum" lineNumber="84"/>
+    <functiondecl functionName="mainposition" lineNumber="100"/>
+    <functiondecl functionName="arrayindex" lineNumber="120"/>
+    <functiondecl functionName="findindex" lineNumber="137"/>
+    <functiondecl functionName="luaH_next" lineNumber="162"/>
+    <functiondecl functionName="computesizes" lineNumber="189"/>
+    <functiondecl functionName="countint" lineNumber="211"/>
+    <functiondecl functionName="numusearray" lineNumber="222"/>
+    <functiondecl functionName="numusehash" lineNumber="247"/>
+    <functiondecl functionName="setarrayvector" lineNumber="263"/>
+    <functiondecl functionName="setnodevector" lineNumber="272"/>
+    <functiondecl functionName="resize" lineNumber="297"/>
+    <functiondecl functionName="luaH_resizearray" lineNumber="327"/>
+    <functiondecl functionName="rehash" lineNumber="333"/>
+    <functiondecl functionName="luaH_new" lineNumber="358"/>
+    <functiondecl functionName="luaH_free" lineNumber="374"/>
+    <functiondecl functionName="getfreepos" lineNumber="382"/>
+    <functiondecl functionName="newkey" lineNumber="399"/>
+    <functiondecl functionName="luaH_getnum" lineNumber="435"/>
+    <functiondecl functionName="luaH_getstr" lineNumber="455"/>
+    <functiondecl functionName="luaH_get" lineNumber="469"/>
+    <functiondecl functionName="luaH_set" lineNumber="494"/>
+    <functiondecl functionName="luaH_setnum" lineNumber="508"/>
+    <functiondecl functionName="luaH_setstr" lineNumber="520"/>
+    <functiondecl functionName="unbound_search" lineNumber="532"/>
+    <functiondecl functionName="luaH_getn" lineNumber="560"/>
+    <functiondecl functionName="hashnum" lineNumber="84"/>
+    <functiondecl functionName="mainposition" lineNumber="100"/>
+    <functiondecl functionName="arrayindex" lineNumber="120"/>
+    <functiondecl functionName="findindex" lineNumber="137"/>
+    <functiondecl functionName="luaH_next" lineNumber="162"/>
+    <functiondecl functionName="computesizes" lineNumber="189"/>
+    <functiondecl functionName="countint" lineNumber="211"/>
+    <functiondecl functionName="numusearray" lineNumber="222"/>
+    <functiondecl functionName="numusehash" lineNumber="247"/>
+    <functiondecl functionName="setarrayvector" lineNumber="263"/>
+    <functiondecl functionName="setnodevector" lineNumber="272"/>
+    <functiondecl functionName="resize" lineNumber="297"/>
+    <functiondecl functionName="luaH_resizearray" lineNumber="327"/>
+    <functiondecl functionName="rehash" lineNumber="333"/>
+    <functiondecl functionName="luaH_new" lineNumber="358"/>
+    <functiondecl functionName="luaH_free" lineNumber="374"/>
+    <functiondecl functionName="getfreepos" lineNumber="382"/>
+    <functiondecl functionName="newkey" lineNumber="399"/>
+    <functiondecl functionName="luaH_getnum" lineNumber="435"/>
+    <functiondecl functionName="luaH_getstr" lineNumber="455"/>
+    <functiondecl functionName="luaH_get" lineNumber="469"/>
+    <functiondecl functionName="luaH_set" lineNumber="494"/>
+    <functiondecl functionName="luaH_setnum" lineNumber="508"/>
+    <functiondecl functionName="luaH_setstr" lineNumber="520"/>
+    <functiondecl functionName="unbound_search" lineNumber="532"/>
+    <functiondecl functionName="luaH_getn" lineNumber="560"/>
+    <functiondecl functionName="luaH_mainposition" lineNumber="582"/>
+    <functiondecl functionName="luaH_isdummy" lineNumber="586"/>
+    <functiondecl functionName="hashnum" lineNumber="84"/>
+    <functiondecl functionName="mainposition" lineNumber="100"/>
+    <functiondecl functionName="arrayindex" lineNumber="120"/>
+    <functiondecl functionName="findindex" lineNumber="137"/>
+    <functiondecl functionName="luaH_next" lineNumber="162"/>
+    <functiondecl functionName="computesizes" lineNumber="189"/>
+    <functiondecl functionName="countint" lineNumber="211"/>
+    <functiondecl functionName="numusearray" lineNumber="222"/>
+    <functiondecl functionName="numusehash" lineNumber="247"/>
+    <functiondecl functionName="setarrayvector" lineNumber="263"/>
+    <functiondecl functionName="setnodevector" lineNumber="272"/>
+    <functiondecl functionName="resize" lineNumber="297"/>
+    <functiondecl functionName="luaH_resizearray" lineNumber="327"/>
+    <functiondecl functionName="rehash" lineNumber="333"/>
+    <functiondecl functionName="luaH_new" lineNumber="358"/>
+    <functiondecl functionName="luaH_free" lineNumber="374"/>
+    <functiondecl functionName="getfreepos" lineNumber="382"/>
+    <functiondecl functionName="newkey" lineNumber="399"/>
+    <functiondecl functionName="luaH_getnum" lineNumber="435"/>
+    <functiondecl functionName="luaH_getstr" lineNumber="455"/>
+    <functiondecl functionName="luaH_get" lineNumber="469"/>
+    <functiondecl functionName="luaH_set" lineNumber="494"/>
+    <functiondecl functionName="luaH_setnum" lineNumber="508"/>
+    <functiondecl functionName="luaH_setstr" lineNumber="520"/>
+    <functiondecl functionName="unbound_search" lineNumber="532"/>
+    <functiondecl functionName="luaH_getn" lineNumber="560"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TM_ADD"/>
+    <functioncall functionName="TM_CALL"/>
+    <functioncall functionName="TM_CONCAT"/>
+    <functioncall functionName="TM_DIV"/>
+    <functioncall functionName="TM_EQ"/>
+    <functioncall functionName="TM_GC"/>
+    <functioncall functionName="TM_INDEX"/>
+    <functioncall functionName="TM_LE"/>
+    <functioncall functionName="TM_LEN"/>
+    <functioncall functionName="TM_LT"/>
+    <functioncall functionName="TM_MOD"/>
+    <functioncall functionName="TM_MODE"/>
+    <functioncall functionName="TM_MUL"/>
+    <functioncall functionName="TM_N"/>
+    <functioncall functionName="TM_NEWINDEX"/>
+    <functioncall functionName="TM_POW"/>
+    <functioncall functionName="TM_SUB"/>
+    <functioncall functionName="TM_UNM"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="array"/>
+    <functioncall functionName="arrayindex"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cast"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="computesizes"/>
+    <functioncall functionName="countint"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="dummynode_"/>
+    <functioncall functionName="ek"/>
+    <functioncall functionName="findindex"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="gc"/>
+    <functioncall functionName="getfreepos"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashnum"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i_val"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="lastfree"/>
+    <functioncall functionName="lg"/>
+    <functioncall functionName="lim"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lsize"/>
+    <functioncall functionName="lsizenode"/>
+    <functioncall functionName="luaC_barrierback"/>
+    <functioncall functionName="luaC_link"/>
+    <functioncall functionName="luaG_runerror"/>
+    <functioncall functionName="luaH_get"/>
+    <functioncall functionName="luaH_getnum"/>
+    <functioncall functionName="luaH_getstr"/>
+    <functioncall functionName="luaH_set"/>
+    <functioncall functionName="luaH_setnum"/>
+    <functioncall functionName="luaM_realloc_"/>
+    <functioncall functionName="luaM_toobig"/>
+    <functioncall functionName="luaO_log2"/>
+    <functioncall functionName="luaO_nilobject_"/>
+    <functioncall functionName="luaO_rawequalObj"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="m"/>
+    <functioncall functionName="mainposition"/>
+    <functioncall functionName="marked"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="mp"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="na"/>
+    <functioncall functionName="narray"/>
+    <functioncall functionName="nasize"/>
+    <functioncall functionName="newkey"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nhash"/>
+    <functioncall functionName="nhsize"/>
+    <functioncall functionName="nk"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nold"/>
+    <functioncall functionName="nsize"/>
+    <functioncall functionName="nums"/>
+    <functioncall functionName="numusearray"/>
+    <functioncall functionName="numusehash"/>
+    <functioncall functionName="old"/>
+    <functioncall functionName="oldasize"/>
+    <functioncall functionName="oldhsize"/>
+    <functioncall functionName="othern"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="rehash"/>
+    <functioncall functionName="resize"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="setarrayvector"/>
+    <functioncall functionName="setnodevector"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizearray"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="tt"/>
+    <functioncall functionName="ttlg"/>
+    <functioncall functionName="tvk"/>
+    <functioncall functionName="twotoi"/>
+    <functioncall functionName="unbound_search"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

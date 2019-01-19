@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3390604070">
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="luaS_resize" lineNumber="22"/>
+    <functiondecl functionName="newlstr" lineNumber="50"/>
+    <functiondecl functionName="luaS_newlstr" lineNumber="75"/>
+    <functiondecl functionName="luaS_newudata" lineNumber="96"/>
+    <functiondecl functionName="luaS_resize" lineNumber="22"/>
+    <functiondecl functionName="newlstr" lineNumber="50"/>
+    <functiondecl functionName="luaS_newlstr" lineNumber="75"/>
+    <functiondecl functionName="luaS_newudata" lineNumber="96"/>
+    <functiondecl functionName="luaS_resize" lineNumber="22"/>
+    <functiondecl functionName="newlstr" lineNumber="50"/>
+    <functiondecl functionName="luaS_newlstr" lineNumber="75"/>
+    <functiondecl functionName="luaS_newudata" lineNumber="96"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TM_ADD"/>
+    <functioncall functionName="TM_CALL"/>
+    <functioncall functionName="TM_CONCAT"/>
+    <functioncall functionName="TM_DIV"/>
+    <functioncall functionName="TM_EQ"/>
+    <functioncall functionName="TM_GC"/>
+    <functioncall functionName="TM_INDEX"/>
+    <functioncall functionName="TM_LE"/>
+    <functioncall functionName="TM_LEN"/>
+    <functioncall functionName="TM_LT"/>
+    <functioncall functionName="TM_MOD"/>
+    <functioncall functionName="TM_MODE"/>
+    <functioncall functionName="TM_MUL"/>
+    <functioncall functionName="TM_N"/>
+    <functioncall functionName="TM_NEWINDEX"/>
+    <functioncall functionName="TM_POW"/>
+    <functioncall functionName="TM_SUB"/>
+    <functioncall functionName="TM_UNM"/>
+    <functioncall functionName="cast"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="h1"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l_G"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="luaM_realloc_"/>
+    <functioncall functionName="luaM_toobig"/>
+    <functioncall functionName="luaS_resize"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="newhash"/>
+    <functioncall functionName="newlstr"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nuse"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strt"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="tsv"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

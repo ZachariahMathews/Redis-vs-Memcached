@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3825502935">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;auto_arena_created&apos; can be reduced." verbose="The scope of the variable &apos;auto_arena_created&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\extent.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\extent.c" line="130"/>
+            <symbol>auto_arena_created</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="check_background_thread_enabled" lineNumber="6"/>
+    <functiondecl functionName="test_extent_body" lineNumber="18"/>
+    <functiondecl functionName="test_manual_hook_auto_arena" lineNumber="102"/>
+    <functiondecl functionName="test_manual_hook_body" lineNumber="139"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="208"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="225"/>
+    <functiondecl functionName="main" lineNumber="244"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="assert_b_eq"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_ne"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="auto_arena_created"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="called_alloc"/>
+    <functioncall functionName="called_dalloc"/>
+    <functioncall functionName="called_decommit"/>
+    <functioncall functionName="called_split"/>
+    <functioncall functionName="check_background_thread_enabled"/>
+    <functioncall functionName="commit"/>
+    <functioncall functionName="dalloc"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="decommit"/>
+    <functioncall functionName="default_hooks"/>
+    <functioncall functionName="did_commit"/>
+    <functioncall functionName="did_decommit"/>
+    <functioncall functionName="did_merge"/>
+    <functioncall functionName="did_split"/>
+    <functioncall functionName="enabled"/>
+    <functioncall functionName="extent_alloc_hook"/>
+    <functioncall functionName="extent_commit_hook"/>
+    <functioncall functionName="extent_dalloc_hook"/>
+    <functioncall functionName="extent_decommit_hook"/>
+    <functioncall functionName="extent_hooks_prep"/>
+    <functioncall functionName="extent_merge_hook"/>
+    <functioncall functionName="extent_purge_forced_hook"/>
+    <functioncall functionName="extent_purge_lazy_hook"/>
+    <functioncall functionName="extent_split_hook"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="hooks"/>
+    <functioncall functionName="hooks_mib"/>
+    <functioncall functionName="hooks_miblen"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="large0"/>
+    <functioncall functionName="large1"/>
+    <functioncall functionName="large2"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="merge"/>
+    <functioncall functionName="narenas"/>
+    <functioncall functionName="new_hooks"/>
+    <functioncall functionName="new_size"/>
+    <functioncall functionName="old_hooks"/>
+    <functioncall functionName="old_size"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="purge_forced"/>
+    <functioncall functionName="purge_lazy"/>
+    <functioncall functionName="purge_mib"/>
+    <functioncall functionName="purge_miblen"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="split"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_extent_auto_hook"/>
+    <functioncall functionName="test_extent_body"/>
+    <functioncall functionName="test_extent_manual_hook"/>
+    <functioncall functionName="test_manual_hook_auto_arena"/>
+    <functioncall functionName="test_manual_hook_body"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="xallocx"/>
+    <functioncall functionName="xallocx_success_a"/>
+    <functioncall functionName="xallocx_success_b"/>
+  </FileInfo>
+</analyzerinfo>

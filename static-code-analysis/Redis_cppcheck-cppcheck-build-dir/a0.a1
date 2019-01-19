@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3331792454">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="main" lineNumber="13"/>
+    <functioncall functionName="a0dalloc"/>
+    <functioncall functionName="a0malloc"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="test_a0"/>
+    <functioncall functionName="test_no_malloc_init"/>
+  </FileInfo>
+</analyzerinfo>

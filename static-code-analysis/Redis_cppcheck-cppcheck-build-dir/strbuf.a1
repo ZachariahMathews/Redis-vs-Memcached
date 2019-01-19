@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1973089701">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;empty_len&apos; can be reduced." verbose="The scope of the variable &apos;empty_len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\strbuf.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\strbuf.c" line="225"/>
+            <symbol>empty_len</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="die" lineNumber="32"/>
+    <functiondecl functionName="strbuf_init" lineNumber="44"/>
+    <functiondecl functionName="strbuf_new" lineNumber="68"/>
+    <functiondecl functionName="strbuf_set_increment" lineNumber="84"/>
+    <functiondecl functionName="debug_stats" lineNumber="94"/>
+    <functiondecl functionName="strbuf_free" lineNumber="104"/>
+    <functiondecl functionName="strbuf_free_to_string" lineNumber="116"/>
+    <functiondecl functionName="calculate_new_size" lineNumber="134"/>
+    <functiondecl functionName="strbuf_resize" lineNumber="164"/>
+    <functiondecl functionName="strbuf_append_string" lineNumber="182"/>
+    <functiondecl functionName="strbuf_append_fmt" lineNumber="202"/>
+    <functiondecl functionName="strbuf_append_fmt_retry" lineNumber="221"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="calculate_new_size"/>
+    <functioncall functionName="debug"/>
+    <functioncall functionName="debug_stats"/>
+    <functioncall functionName="die"/>
+    <functioncall functionName="dynamic"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fmt_len"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="increment"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="reallocs"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="strbuf_empty_length"/>
+    <functioncall functionName="strbuf_ensure_empty_length"/>
+    <functioncall functionName="strbuf_ensure_null"/>
+    <functioncall functionName="strbuf_init"/>
+    <functioncall functionName="strbuf_resize"/>
+    <functioncall functionName="try"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="vfprintf"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

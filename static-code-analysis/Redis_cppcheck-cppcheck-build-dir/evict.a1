@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1418649257">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;k&apos; can be reduced." verbose="The scope of the variable &apos;k&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\evict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\evict.c" line="163"/>
+            <symbol>k</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;keys&apos; can be reduced." verbose="The scope of the variable &apos;keys&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\evict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\evict.c" line="484"/>
+            <symbol>keys</symbol>
+        </error>
+        <error id="signConversion" severity="warning" msg="Suspicious code: sign conversion of - in calculation, even though - can have a negative value" verbose="Suspicious code: sign conversion of - in calculation, even though - can have a negative value" cwe="195">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\evict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\evict.c" line="228"/>
+            <symbol>-</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getLRUClock" lineNumber="70"/>
+    <functiondecl functionName="LRU_CLOCK" lineNumber="78"/>
+    <functiondecl functionName="estimateObjectIdleTime" lineNumber="90"/>
+    <functiondecl functionName="evictionPoolAlloc" lineNumber="139"/>
+    <functiondecl functionName="evictionPoolPopulate" lineNumber="162"/>
+    <functiondecl functionName="LFUGetTimeInMinutes" lineNumber="299"/>
+    <functiondecl functionName="LFUTimeElapsed" lineNumber="307"/>
+    <functiondecl functionName="LFULogIncr" lineNumber="315"/>
+    <functiondecl functionName="LFUDecrAndReturn" lineNumber="335"/>
+    <functiondecl functionName="freeMemoryGetNotCountedMemory" lineNumber="352"/>
+    <functiondecl functionName="getMaxmemoryState" lineNumber="396"/>
+    <functiondecl functionName="freeMemoryIfNeeded" lineNumber="446"/>
+    <functioncall functionName="EvictionPoolLRU"/>
+    <functioncall functionName="LFUDecrAndReturn"/>
+    <functioncall functionName="LFUGetTimeInMinutes"/>
+    <functioncall functionName="LFUTimeElapsed"/>
+    <functioncall functionName="LRU_CLOCK"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="RAND_MAX"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="aofRewriteBufferSize"/>
+    <functioncall functionName="aof_buf"/>
+    <functioncall functionName="bestdbid"/>
+    <functioncall functionName="bestkey"/>
+    <functioncall functionName="bioPendingJobsOfType"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="cached"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cant_free"/>
+    <functioncall functionName="clientsArePaused"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAsyncDelete"/>
+    <functioncall functionName="dbSyncDelete"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetRandomKey"/>
+    <functioncall functionName="dictGetSomeKeys"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ep"/>
+    <functioncall functionName="estimateObjectIdleTime"/>
+    <functioncall functionName="evictionPoolPopulate"/>
+    <functioncall functionName="eviction_latency"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="flushSlavesOutputBuffers"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeMemoryGetNotCountedMemory"/>
+    <functioncall functionName="getClientOutputBufferMemoryUsage"/>
+    <functioncall functionName="getLRUClock"/>
+    <functioncall functionName="getMaxmemoryState"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idle"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="k"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keydict"/>
+    <functioncall functionName="keyobj"/>
+    <functioncall functionName="keys_freed"/>
+    <functioncall functionName="klen"/>
+    <functioncall functionName="latency"/>
+    <functioncall functionName="latencyAddSample"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="lazyfree_lazy_eviction"/>
+    <functioncall functionName="ldt"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="lfu_decay_time"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="logical"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lru"/>
+    <functioncall functionName="lruclock"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxmemory"/>
+    <functioncall functionName="maxmemory_samples"/>
+    <functioncall functionName="mem_freed"/>
+    <functioncall functionName="mem_reported"/>
+    <functioncall functionName="mem_tofree"/>
+    <functioncall functionName="mem_used"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="num_periods"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="overhead"/>
+    <functioncall functionName="pool"/>
+    <functioncall functionName="propagateExpire"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="repl_slave_ignore_maxmemory"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="return_ok_asap"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sampledict"/>
+    <functioncall functionName="samples"/>
+    <functioncall functionName="sdsalloc"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdssetlen"/>
+    <functioncall functionName="server.lruclock_mutex"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slave"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="tofree"/>
+    <functioncall functionName="total"/>
+    <functioncall functionName="total_keys"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+  </FileInfo>
+</analyzerinfo>

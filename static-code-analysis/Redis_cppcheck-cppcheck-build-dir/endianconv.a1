@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2664173693">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="memrev16" lineNumber="49"/>
+    <functiondecl functionName="memrev32" lineNumber="59"/>
+    <functiondecl functionName="memrev64" lineNumber="72"/>
+    <functiondecl functionName="intrev16" lineNumber="89"/>
+    <functiondecl functionName="intrev32" lineNumber="94"/>
+    <functiondecl functionName="intrev64" lineNumber="99"/>
+    <functiondecl functionName="memrev16" lineNumber="49"/>
+    <functiondecl functionName="memrev32" lineNumber="59"/>
+    <functiondecl functionName="memrev64" lineNumber="72"/>
+    <functiondecl functionName="intrev16" lineNumber="89"/>
+    <functiondecl functionName="intrev32" lineNumber="94"/>
+    <functiondecl functionName="intrev64" lineNumber="99"/>
+    <functiondecl functionName="endianconvTest" lineNumber="108"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="memrev16"/>
+    <functioncall functionName="memrev32"/>
+    <functioncall functionName="memrev64"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="void"/>
+  </FileInfo>
+</analyzerinfo>

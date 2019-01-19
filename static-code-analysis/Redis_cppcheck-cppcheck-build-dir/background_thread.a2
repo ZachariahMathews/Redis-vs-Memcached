@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1318251503">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="test_switch_background_thread_ctl" lineNumber="6"/>
+    <functiondecl functionName="test_repeat_background_thread_ctl" lineNumber="25"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="43"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="73"/>
+    <functiondecl functionName="main" lineNumber="114"/>
+    <functiondecl functionName="test_switch_background_thread_ctl" lineNumber="6"/>
+    <functiondecl functionName="test_repeat_background_thread_ctl" lineNumber="25"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="43"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="73"/>
+    <functiondecl functionName="main" lineNumber="114"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_b_eq"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_u64_lt"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_gt"/>
+    <functioncall functionName="background_thread_info"/>
+    <functioncall functionName="background_thread_started"/>
+    <functioncall functionName="before"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="config_stats"/>
+    <functioncall functionName="e0"/>
+    <functioncall functionName="e1"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="have_background_thread"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="malloc_mutex_lock"/>
+    <functioncall functionName="malloc_mutex_unlock"/>
+    <functioncall functionName="mtx"/>
+    <functioncall functionName="n_background_threads"/>
+    <functioncall functionName="new_val"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nstime_init"/>
+    <functioncall functionName="nstime_sec"/>
+    <functioncall functionName="nstime_subtract"/>
+    <functioncall functionName="nstime_update"/>
+    <functioncall functionName="ran"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sleep"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test_background_thread_ctl"/>
+    <functioncall functionName="test_background_thread_running"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_repeat_background_thread_ctl"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="test_switch_background_thread_ctl"/>
+    <functioncall functionName="tot_n_runs"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsd"/>
+    <functioncall functionName="tsd_fetch"/>
+    <functioncall functionName="tsd_tsdn"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

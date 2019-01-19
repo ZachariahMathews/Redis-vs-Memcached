@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="741225941">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;append&apos; can be reduced." verbose="The scope of the variable &apos;append&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_string.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_string.c" line="435"/>
+            <symbol>append</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="checkStringLength" lineNumber="37"/>
+    <functiondecl functionName="setGenericCommand" lineNumber="67"/>
+    <functiondecl functionName="setCommand" lineNumber="96"/>
+    <functiondecl functionName="setnxCommand" lineNumber="142"/>
+    <functiondecl functionName="setexCommand" lineNumber="147"/>
+    <functiondecl functionName="psetexCommand" lineNumber="152"/>
+    <functiondecl functionName="getGenericCommand" lineNumber="157"/>
+    <functiondecl functionName="getCommand" lineNumber="172"/>
+    <functiondecl functionName="getsetCommand" lineNumber="176"/>
+    <functiondecl functionName="setrangeCommand" lineNumber="184"/>
+    <functiondecl functionName="getrangeCommand" lineNumber="244"/>
+    <functiondecl functionName="mgetCommand" lineNumber="285"/>
+    <functiondecl functionName="msetGenericCommand" lineNumber="303"/>
+    <functiondecl functionName="msetCommand" lineNumber="331"/>
+    <functiondecl functionName="msetnxCommand" lineNumber="335"/>
+    <functiondecl functionName="incrDecrCommand" lineNumber="339"/>
+    <functiondecl functionName="incrCommand" lineNumber="377"/>
+    <functiondecl functionName="decrCommand" lineNumber="381"/>
+    <functiondecl functionName="incrbyCommand" lineNumber="385"/>
+    <functiondecl functionName="decrbyCommand" lineNumber="392"/>
+    <functiondecl functionName="incrbyfloatCommand" lineNumber="399"/>
+    <functiondecl functionName="appendCommand" lineNumber="433"/>
+    <functiondecl functionName="strlenCommand" lineNumber="466"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="abort_reply"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="checkStringLength"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="colon"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongDouble"/>
+    <functioncall functionName="createStringObjectFromLongLongForValue"/>
+    <functioncall functionName="crlf"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbOverwrite"/>
+    <functioncall functionName="dbUnshareStringValue"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="emptybulk"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="expire"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getGenericCommand"/>
+    <functioncall functionName="getLongDoubleFromObjectOrReply"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="incrDecrCommand"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="isinf"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llbuf"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="milliseconds"/>
+    <functioncall functionName="msetGenericCommand"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="new"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="nx"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="ok_reply"/>
+    <functioncall functionName="oldvalue"/>
+    <functioncall functionName="olen"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteClientCommandArgument"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdsgrowzero"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="setExpire"/>
+    <functioncall functionName="setGenericCommand"/>
+    <functioncall functionName="setKey"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="stringObjectLen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="totlen"/>
+    <functioncall functionName="tryObjectEncoding"/>
+    <functioncall functionName="unit"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+  </FileInfo>
+</analyzerinfo>

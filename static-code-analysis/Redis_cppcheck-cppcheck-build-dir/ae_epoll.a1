@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3456298631">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aeApiCreate" lineNumber="39"/>
+    <functiondecl functionName="aeApiResize" lineNumber="58"/>
+    <functiondecl functionName="aeApiFree" lineNumber="65"/>
+    <functiondecl functionName="aeApiAddEvent" lineNumber="73"/>
+    <functiondecl functionName="aeApiDelEvent" lineNumber="90"/>
+    <functiondecl functionName="aeApiPoll" lineNumber="108"/>
+    <functiondecl functionName="aeApiName" lineNumber="133"/>
+    <functioncall functionName="EPOLL_CTL_ADD"/>
+    <functioncall functionName="EPOLL_CTL_DEL"/>
+    <functioncall functionName="EPOLL_CTL_MOD"/>
+    <functioncall functionName="apidata"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="ee"/>
+    <functioncall functionName="epfd"/>
+    <functioncall functionName="epoll_create"/>
+    <functioncall functionName="epoll_ctl"/>
+    <functioncall functionName="epoll_wait"/>
+    <functioncall functionName="events"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="op"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="setsize"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

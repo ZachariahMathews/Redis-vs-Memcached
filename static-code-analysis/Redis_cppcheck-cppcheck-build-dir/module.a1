@@ -1,0 +1,1121 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1740444412">
+        <error id="selfAssignment" severity="warning" msg="Redundant assignment of &apos;expiretime&apos; to itself." verbose="Redundant assignment of &apos;expiretime&apos; to itself." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="4244"/>
+            <symbol>expiretime</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;emptystring&apos; can be reduced." verbose="The scope of the variable &apos;emptystring&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="1639"/>
+            <symbol>emptystring</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sptr&apos; can be reduced." verbose="The scope of the variable &apos;sptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="2034"/>
+            <symbol>sptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;valueptr&apos; can be reduced." verbose="The scope of the variable &apos;valueptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="2344"/>
+            <symbol>valueptr</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;existsptr&apos; can be reduced." verbose="The scope of the variable &apos;existsptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="2345"/>
+            <symbol>existsptr</symbol>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;moduleClusterNodeInfo::ip&apos; is never used." verbose="struct member &apos;moduleClusterNodeInfo::ip&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="3961"/>
+            <symbol>moduleClusterNodeInfo::ip</symbol>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;moduleClusterNodeInfo::master_id&apos; is never used." verbose="struct member &apos;moduleClusterNodeInfo::master_id&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="3963"/>
+            <symbol>moduleClusterNodeInfo::master_id</symbol>
+        </error>
+        <error id="unassignedVariable" severity="style" msg="Variable &apos;rediscmd&apos; is not assigned a value." verbose="Variable &apos;rediscmd&apos; is not assigned a value." cwe="665">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="654"/>
+            <symbol>rediscmd</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+        <error id="uninitvar" severity="error" msg="Uninitialized variable: str" verbose="Uninitialized variable: str" cwe="908">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="2049"/>
+            <symbol>str</symbol>
+        </error>
+        <error id="uninitvar" severity="error" msg="Uninitialized variable: str" verbose="Uninitialized variable: str" cwe="908">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\module.c" file="C:\Users\bharm\Downloads\redis-unstable\src\module.c" line="2050"/>
+            <symbol>str</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="RM_Alloc" lineNumber="282"/>
+    <functiondecl functionName="RM_Calloc" lineNumber="290"/>
+    <functiondecl functionName="RM_Realloc" lineNumber="295"/>
+    <functiondecl functionName="RM_Free" lineNumber="302"/>
+    <functiondecl functionName="RM_Strdup" lineNumber="307"/>
+    <functiondecl functionName="poolAllocRelease" lineNumber="316"/>
+    <functiondecl functionName="RM_PoolAlloc" lineNumber="339"/>
+    <functiondecl functionName="moduleCreateEmptyKey" lineNumber="385"/>
+    <functiondecl functionName="moduleDelKeyIfEmpty" lineNumber="421"/>
+    <functiondecl functionName="RM_GetApi" lineNumber="459"/>
+    <functiondecl functionName="moduleFreeContext" lineNumber="467"/>
+    <functiondecl functionName="moduleHandlePropagationAfterCommandCallback" lineNumber="485"/>
+    <functiondecl functionName="RedisModuleCommandDispatcher" lineNumber="503"/>
+    <functiondecl functionName="moduleGetCommandKeysViaAPI" lineNumber="523"/>
+    <functiondecl functionName="RM_IsKeysPositionRequest" lineNumber="540"/>
+    <functiondecl functionName="RM_KeyAtPos" lineNumber="558"/>
+    <functiondecl functionName="commandFlagsFromString" lineNumber="569"/>
+    <functiondecl functionName="RM_CreateCommand" lineNumber="648"/>
+    <functiondecl functionName="RM_SetModuleAttribs" lineNumber="694"/>
+    <functiondecl functionName="RM_IsModuleNameBusy" lineNumber="708"/>
+    <functiondecl functionName="RM_Milliseconds" lineNumber="716"/>
+    <functiondecl functionName="RM_AutoMemory" lineNumber="728"/>
+    <functiondecl functionName="autoMemoryAdd" lineNumber="733"/>
+    <functiondecl functionName="autoMemoryFreed" lineNumber="750"/>
+    <functiondecl functionName="autoMemoryCollect" lineNumber="781"/>
+    <functiondecl functionName="RM_CreateString" lineNumber="818"/>
+    <functiondecl functionName="RM_CreateStringPrintf" lineNumber="832"/>
+    <functiondecl functionName="RM_CreateStringFromLongLong" lineNumber="855"/>
+    <functiondecl functionName="RM_CreateStringFromString" lineNumber="869"/>
+    <functiondecl functionName="RM_FreeString" lineNumber="887"/>
+    <functiondecl functionName="RM_RetainString" lineNumber="916"/>
+    <functiondecl functionName="RM_StringPtrLen" lineNumber="934"/>
+    <functiondecl functionName="RM_StringToLongLong" lineNumber="952"/>
+    <functiondecl functionName="RM_StringToDouble" lineNumber="960"/>
+    <functiondecl functionName="RM_StringCompare" lineNumber="968"/>
+    <functiondecl functionName="moduleAssertUnsharedString" lineNumber="974"/>
+    <functiondecl functionName="RM_StringAppendBuffer" lineNumber="998"/>
+    <functiondecl functionName="RM_WrongArity" lineNumber="1023"/>
+    <functiondecl functionName="moduleGetReplyClient" lineNumber="1044"/>
+    <functiondecl functionName="RM_ReplyWithLongLong" lineNumber="1061"/>
+    <functiondecl functionName="replyWithStatus" lineNumber="1071"/>
+    <functiondecl functionName="RM_ReplyWithError" lineNumber="1095"/>
+    <functiondecl functionName="RM_ReplyWithSimpleString" lineNumber="1104"/>
+    <functiondecl functionName="RM_ReplyWithArray" lineNumber="1119"/>
+    <functiondecl functionName="RM_ReplySetArrayLength" lineNumber="1160"/>
+    <functiondecl functionName="RM_ReplyWithStringBuffer" lineNumber="1184"/>
+    <functiondecl functionName="RM_ReplyWithString" lineNumber="1194"/>
+    <functiondecl functionName="RM_ReplyWithNull" lineNumber="1205"/>
+    <functiondecl functionName="RM_ReplyWithCallReply" lineNumber="1218"/>
+    <functiondecl functionName="RM_ReplyWithDouble" lineNumber="1232"/>
+    <functiondecl functionName="moduleReplicateMultiIfNeeded" lineNumber="1246"/>
+    <functiondecl functionName="RM_Replicate" lineNumber="1279"/>
+    <functiondecl functionName="RM_ReplicateVerbatim" lineNumber="1317"/>
+    <functiondecl functionName="RM_GetClientId" lineNumber="1340"/>
+    <functiondecl functionName="RM_GetSelectedDb" lineNumber="1346"/>
+    <functiondecl functionName="RM_GetContextFlags" lineNumber="1384"/>
+    <functiondecl functionName="RM_SelectDb" lineNumber="1440"/>
+    <functiondecl functionName="RM_OpenKey" lineNumber="1459"/>
+    <functiondecl functionName="RM_CloseKey" lineNumber="1487"/>
+    <functiondecl functionName="RM_KeyType" lineNumber="1499"/>
+    <functiondecl functionName="RM_ValueLength" lineNumber="1519"/>
+    <functiondecl functionName="RM_DeleteKey" lineNumber="1535"/>
+    <functiondecl functionName="RM_UnlinkKey" lineNumber="1549"/>
+    <functiondecl functionName="RM_GetExpire" lineNumber="1561"/>
+    <functiondecl functionName="RM_SetExpire" lineNumber="1577"/>
+    <functiondecl functionName="RM_StringSet" lineNumber="1597"/>
+    <functiondecl functionName="RM_StringDMA" lineNumber="1634"/>
+    <functiondecl functionName="RM_StringTruncate" lineNumber="1668"/>
+    <functiondecl functionName="RM_ListPush" lineNumber="1707"/>
+    <functiondecl functionName="RM_ListPop" lineNumber="1723"/>
+    <functiondecl functionName="RM_ZsetAddFlagsToCoreFlags" lineNumber="1742"/>
+    <functiondecl functionName="RM_ZsetAddFlagsFromCoreFlags" lineNumber="1750"/>
+    <functiondecl functionName="RM_ZsetAdd" lineNumber="1786"/>
+    <functiondecl functionName="RM_ZsetIncrby" lineNumber="1813"/>
+    <functiondecl functionName="RM_ZsetRem" lineNumber="1851"/>
+    <functiondecl functionName="RM_ZsetScore" lineNumber="1870"/>
+    <functiondecl functionName="zsetKeyReset" lineNumber="1881"/>
+    <functiondecl functionName="RM_ZsetRangeStop" lineNumber="1888"/>
+    <functiondecl functionName="RM_ZsetRangeEndReached" lineNumber="1899"/>
+    <functiondecl functionName="zsetInitScoreRange" lineNumber="1909"/>
+    <functiondecl functionName="RM_ZsetFirstInScoreRange" lineNumber="1954"/>
+    <functiondecl functionName="RM_ZsetLastInScoreRange" lineNumber="1960"/>
+    <functiondecl functionName="zsetInitLexRange" lineNumber="1973"/>
+    <functiondecl functionName="RM_ZsetFirstInLexRange" lineNumber="2016"/>
+    <functiondecl functionName="RM_ZsetLastInLexRange" lineNumber="2022"/>
+    <functiondecl functionName="RM_ZsetRangeCurrentElement" lineNumber="2029"/>
+    <functiondecl functionName="RM_ZsetRangeNext" lineNumber="2056"/>
+    <functiondecl functionName="RM_ZsetRangePrev" lineNumber="2119"/>
+    <functiondecl functionName="RM_HashSet" lineNumber="2235"/>
+    <functiondecl functionName="RM_HashGet" lineNumber="2338"/>
+    <functiondecl functionName="moduleCreateCallReplyFromProto" lineNumber="2394"/>
+    <functiondecl functionName="moduleParseCallReply" lineNumber="2421"/>
+    <functiondecl functionName="moduleParseCallReply_Int" lineNumber="2434"/>
+    <functiondecl functionName="moduleParseCallReply_BulkString" lineNumber="2443"/>
+    <functiondecl functionName="moduleParseCallReply_SimpleString" lineNumber="2460"/>
+    <functiondecl functionName="moduleParseCallReply_Array" lineNumber="2471"/>
+    <functiondecl functionName="RM_FreeCallReply_Rec" lineNumber="2502"/>
+    <functiondecl functionName="RM_FreeCallReply" lineNumber="2530"/>
+    <functiondecl functionName="RM_CallReplyType" lineNumber="2538"/>
+    <functiondecl functionName="RM_CallReplyLength" lineNumber="2544"/>
+    <functiondecl functionName="RM_CallReplyArrayElement" lineNumber="2558"/>
+    <functiondecl functionName="RM_CallReplyInteger" lineNumber="2566"/>
+    <functiondecl functionName="RM_CallReplyStringPtr" lineNumber="2573"/>
+    <functiondecl functionName="RM_CreateStringFromCallReply" lineNumber="2583"/>
+    <functiondecl functionName="moduleCreateArgvFromUserFormat" lineNumber="2612"/>
+    <functiondecl functionName="RM_Call" lineNumber="2681"/>
+    <functiondecl functionName="RM_CallReplyProto" lineNumber="2768"/>
+    <functiondecl functionName="moduleTypeEncodeId" lineNumber="2811"/>
+    <functiondecl functionName="moduleTypeLookupModuleByName" lineNumber="2832"/>
+    <functiondecl functionName="moduleTypeLookupModuleByID" lineNumber="2859"/>
+    <functiondecl functionName="moduleTypeNameByID" lineNumber="2905"/>
+    <functiondecl functionName="RM_CreateDataType" lineNumber="2981"/>
+    <functiondecl functionName="RM_ModuleTypeSetValue" lineNumber="3017"/>
+    <functiondecl functionName="RM_ModuleTypeGetType" lineNumber="3032"/>
+    <functiondecl functionName="RM_ModuleTypeGetValue" lineNumber="3046"/>
+    <functiondecl functionName="moduleRDBLoadError" lineNumber="3060"/>
+    <functiondecl functionName="RM_SaveUnsigned" lineNumber="3074"/>
+    <functiondecl functionName="RM_LoadUnsigned" lineNumber="3093"/>
+    <functiondecl functionName="RM_SaveSigned" lineNumber="3109"/>
+    <functiondecl functionName="RM_LoadSigned" lineNumber="3116"/>
+    <functiondecl functionName="RM_SaveString" lineNumber="3128"/>
+    <functiondecl functionName="RM_SaveStringBuffer" lineNumber="3146"/>
+    <functiondecl functionName="moduleLoadString" lineNumber="3163"/>
+    <functiondecl functionName="RM_LoadString" lineNumber="3187"/>
+    <functiondecl functionName="RM_LoadStringBuffer" lineNumber="3198"/>
+    <functiondecl functionName="RM_SaveDouble" lineNumber="3205"/>
+    <functiondecl functionName="RM_LoadDouble" lineNumber="3223"/>
+    <functiondecl functionName="RM_SaveFloat" lineNumber="3241"/>
+    <functiondecl functionName="RM_LoadFloat" lineNumber="3259"/>
+    <functiondecl functionName="RM_DigestAddStringBuffer" lineNumber="3316"/>
+    <functiondecl functionName="RM_DigestAddLongLong" lineNumber="3322"/>
+    <functiondecl functionName="RM_DigestEndSequence" lineNumber="3329"/>
+    <functiondecl functionName="RM_EmitAOF" lineNumber="3343"/>
+    <functiondecl functionName="RM_GetContextFromIO" lineNumber="3393"/>
+    <functiondecl functionName="RM_LogRaw" lineNumber="3413"/>
+    <functiondecl functionName="RM_Log" lineNumber="3443"/>
+    <functiondecl functionName="RM_LogIOError" lineNumber="3457"/>
+    <functiondecl functionName="moduleBlockedClientPipeReadable" lineNumber="3472"/>
+    <functiondecl functionName="unblockClientFromModule" lineNumber="3491"/>
+    <functiondecl functionName="RM_BlockClient" lineNumber="3528"/>
+    <functiondecl functionName="RM_UnblockClient" lineNumber="3574"/>
+    <functiondecl functionName="RM_AbortBlock" lineNumber="3587"/>
+    <functiondecl functionName="RM_SetDisconnectCallback" lineNumber="3609"/>
+    <functiondecl functionName="moduleHandleBlockedClients" lineNumber="3621"/>
+    <functiondecl functionName="moduleBlockedClientTimedOut" lineNumber="3712"/>
+    <functiondecl functionName="RM_IsBlockedReplyRequest" lineNumber="3729"/>
+    <functiondecl functionName="RM_IsBlockedTimeoutRequest" lineNumber="3735"/>
+    <functiondecl functionName="RM_GetBlockedClientPrivateData" lineNumber="3740"/>
+    <functiondecl functionName="RM_GetBlockedClientHandle" lineNumber="3748"/>
+    <functiondecl functionName="RM_BlockedClientDisconnected" lineNumber="3755"/>
+    <functiondecl functionName="RM_GetThreadSafeContext" lineNumber="3782"/>
+    <functiondecl functionName="RM_FreeThreadSafeContext" lineNumber="3801"/>
+    <functiondecl functionName="RM_ThreadSafeContextLock" lineNumber="3809"/>
+    <functiondecl functionName="RM_ThreadSafeContextUnlock" lineNumber="3815"/>
+    <functiondecl functionName="moduleAcquireGIL" lineNumber="3820"/>
+    <functiondecl functionName="moduleReleaseGIL" lineNumber="3824"/>
+    <functiondecl functionName="RM_SubscribeToKeyspaceEvents" lineNumber="3882"/>
+    <functiondecl functionName="moduleNotifyKeyspaceEvent" lineNumber="3896"/>
+    <functiondecl functionName="moduleUnsubscribeNotifications" lineNumber="3929"/>
+    <functiondecl functionName="moduleCallClusterReceivers" lineNumber="3971"/>
+    <functiondecl functionName="RM_RegisterClusterMessageReceiver" lineNumber="3992"/>
+    <functiondecl functionName="RM_SendClusterMessage" lineNumber="4036"/>
+    <functiondecl functionName="RM_GetClusterNodesList" lineNumber="4067"/>
+    <functiondecl functionName="RM_FreeClusterNodesList" lineNumber="4091"/>
+    <functiondecl functionName="RM_GetMyClusterID" lineNumber="4099"/>
+    <functiondecl functionName="RM_GetClusterSize" lineNumber="4108"/>
+    <functiondecl functionName="RM_GetClusterNodeInfo" lineNumber="4135"/>
+    <functiondecl functionName="RM_SetClusterFlags" lineNumber="4187"/>
+    <functiondecl functionName="moduleTimerHandler" lineNumber="4229"/>
+    <functiondecl functionName="RM_CreateTimer" lineNumber="4271"/>
+    <functiondecl functionName="RM_StopTimer" lineNumber="4319"/>
+    <functiondecl functionName="RM_GetTimerInfo" lineNumber="4335"/>
+    <functiondecl functionName="RM_CreateDict" lineNumber="4369"/>
+    <functiondecl functionName="RM_FreeDict" lineNumber="4379"/>
+    <functiondecl functionName="RM_DictSize" lineNumber="4386"/>
+    <functiondecl functionName="RM_DictSetC" lineNumber="4394"/>
+    <functiondecl functionName="RM_DictReplaceC" lineNumber="4401"/>
+    <functiondecl functionName="RM_DictSet" lineNumber="4407"/>
+    <functiondecl functionName="RM_DictReplace" lineNumber="4412"/>
+    <functiondecl functionName="RM_DictGetC" lineNumber="4421"/>
+    <functiondecl functionName="RM_DictGet" lineNumber="4428"/>
+    <functiondecl functionName="RM_DictDelC" lineNumber="4439"/>
+    <functiondecl functionName="RM_DictDel" lineNumber="4445"/>
+    <functiondecl functionName="RM_DictIteratorStartC" lineNumber="4469"/>
+    <functiondecl functionName="RM_DictIteratorStart" lineNumber="4479"/>
+    <functiondecl functionName="RM_DictIteratorStop" lineNumber="4485"/>
+    <functiondecl functionName="RM_DictIteratorReseekC" lineNumber="4497"/>
+    <functiondecl functionName="RM_DictIteratorReseek" lineNumber="4503"/>
+    <functiondecl functionName="RM_DictNextC" lineNumber="4532"/>
+    <functiondecl functionName="RM_DictPrevC" lineNumber="4542"/>
+    <functiondecl functionName="RM_DictNext" lineNumber="4556"/>
+    <functiondecl functionName="RM_DictPrev" lineNumber="4566"/>
+    <functiondecl functionName="RM_DictCompareC" lineNumber="4585"/>
+    <functiondecl functionName="RM_DictCompare" lineNumber="4593"/>
+    <functiondecl functionName="RM_GetRandomBytes" lineNumber="4607"/>
+    <functiondecl functionName="RM_GetRandomHexChars" lineNumber="4614"/>
+    <functiondecl functionName="dictCStringKeyHash" lineNumber="4625"/>
+    <functiondecl functionName="dictCStringKeyCompare" lineNumber="4629"/>
+    <functiondecl functionName="moduleRegisterApi" lineNumber="4643"/>
+    <functiondecl functionName="moduleInitModulesSystem" lineNumber="4653"/>
+    <functiondecl functionName="moduleLoadFromQueue" lineNumber="4692"/>
+    <functiondecl functionName="moduleFreeModuleStructure" lineNumber="4710"/>
+    <functiondecl functionName="moduleUnregisterCommands" lineNumber="4716"/>
+    <functiondecl functionName="moduleLoad" lineNumber="4740"/>
+    <functiondecl functionName="moduleUnload" lineNumber="4784"/>
+    <functiondecl functionName="moduleCommand" lineNumber="4824"/>
+    <functiondecl functionName="moduleCount" lineNumber="4889"/>
+    <functiondecl functionName="moduleRegisterCoreAPI" lineNumber="4895"/>
+    <functiondecl functionName="RM_Alloc" lineNumber="282"/>
+    <functiondecl functionName="RM_Calloc" lineNumber="290"/>
+    <functiondecl functionName="RM_Realloc" lineNumber="295"/>
+    <functiondecl functionName="RM_Free" lineNumber="302"/>
+    <functiondecl functionName="RM_Strdup" lineNumber="307"/>
+    <functiondecl functionName="poolAllocRelease" lineNumber="316"/>
+    <functiondecl functionName="RM_PoolAlloc" lineNumber="339"/>
+    <functiondecl functionName="moduleCreateEmptyKey" lineNumber="385"/>
+    <functiondecl functionName="moduleDelKeyIfEmpty" lineNumber="421"/>
+    <functiondecl functionName="RM_GetApi" lineNumber="459"/>
+    <functiondecl functionName="moduleFreeContext" lineNumber="467"/>
+    <functiondecl functionName="moduleHandlePropagationAfterCommandCallback" lineNumber="485"/>
+    <functiondecl functionName="RedisModuleCommandDispatcher" lineNumber="503"/>
+    <functiondecl functionName="moduleGetCommandKeysViaAPI" lineNumber="523"/>
+    <functiondecl functionName="RM_IsKeysPositionRequest" lineNumber="540"/>
+    <functiondecl functionName="RM_KeyAtPos" lineNumber="558"/>
+    <functiondecl functionName="commandFlagsFromString" lineNumber="569"/>
+    <functiondecl functionName="RM_CreateCommand" lineNumber="648"/>
+    <functiondecl functionName="RM_SetModuleAttribs" lineNumber="694"/>
+    <functiondecl functionName="RM_IsModuleNameBusy" lineNumber="708"/>
+    <functiondecl functionName="RM_Milliseconds" lineNumber="716"/>
+    <functiondecl functionName="RM_AutoMemory" lineNumber="728"/>
+    <functiondecl functionName="autoMemoryAdd" lineNumber="733"/>
+    <functiondecl functionName="autoMemoryFreed" lineNumber="750"/>
+    <functiondecl functionName="autoMemoryCollect" lineNumber="781"/>
+    <functiondecl functionName="RM_CreateString" lineNumber="818"/>
+    <functiondecl functionName="RM_CreateStringPrintf" lineNumber="832"/>
+    <functiondecl functionName="RM_CreateStringFromLongLong" lineNumber="855"/>
+    <functiondecl functionName="RM_CreateStringFromString" lineNumber="869"/>
+    <functiondecl functionName="RM_FreeString" lineNumber="887"/>
+    <functiondecl functionName="RM_RetainString" lineNumber="916"/>
+    <functiondecl functionName="RM_StringPtrLen" lineNumber="934"/>
+    <functiondecl functionName="RM_StringToLongLong" lineNumber="952"/>
+    <functiondecl functionName="RM_StringToDouble" lineNumber="960"/>
+    <functiondecl functionName="RM_StringCompare" lineNumber="968"/>
+    <functiondecl functionName="moduleAssertUnsharedString" lineNumber="974"/>
+    <functiondecl functionName="RM_StringAppendBuffer" lineNumber="998"/>
+    <functiondecl functionName="RM_WrongArity" lineNumber="1023"/>
+    <functiondecl functionName="moduleGetReplyClient" lineNumber="1044"/>
+    <functiondecl functionName="RM_ReplyWithLongLong" lineNumber="1061"/>
+    <functiondecl functionName="replyWithStatus" lineNumber="1071"/>
+    <functiondecl functionName="RM_ReplyWithError" lineNumber="1095"/>
+    <functiondecl functionName="RM_ReplyWithSimpleString" lineNumber="1104"/>
+    <functiondecl functionName="RM_ReplyWithArray" lineNumber="1119"/>
+    <functiondecl functionName="RM_ReplySetArrayLength" lineNumber="1160"/>
+    <functiondecl functionName="RM_ReplyWithStringBuffer" lineNumber="1184"/>
+    <functiondecl functionName="RM_ReplyWithString" lineNumber="1194"/>
+    <functiondecl functionName="RM_ReplyWithNull" lineNumber="1205"/>
+    <functiondecl functionName="RM_ReplyWithCallReply" lineNumber="1218"/>
+    <functiondecl functionName="RM_ReplyWithDouble" lineNumber="1232"/>
+    <functiondecl functionName="moduleReplicateMultiIfNeeded" lineNumber="1246"/>
+    <functiondecl functionName="RM_Replicate" lineNumber="1279"/>
+    <functiondecl functionName="RM_ReplicateVerbatim" lineNumber="1317"/>
+    <functiondecl functionName="RM_GetClientId" lineNumber="1340"/>
+    <functiondecl functionName="RM_GetSelectedDb" lineNumber="1346"/>
+    <functiondecl functionName="RM_GetContextFlags" lineNumber="1384"/>
+    <functiondecl functionName="RM_SelectDb" lineNumber="1440"/>
+    <functiondecl functionName="RM_OpenKey" lineNumber="1459"/>
+    <functiondecl functionName="RM_CloseKey" lineNumber="1487"/>
+    <functiondecl functionName="RM_KeyType" lineNumber="1499"/>
+    <functiondecl functionName="RM_ValueLength" lineNumber="1519"/>
+    <functiondecl functionName="RM_DeleteKey" lineNumber="1535"/>
+    <functiondecl functionName="RM_UnlinkKey" lineNumber="1549"/>
+    <functiondecl functionName="RM_GetExpire" lineNumber="1561"/>
+    <functiondecl functionName="RM_SetExpire" lineNumber="1577"/>
+    <functiondecl functionName="RM_StringSet" lineNumber="1597"/>
+    <functiondecl functionName="RM_StringDMA" lineNumber="1634"/>
+    <functiondecl functionName="RM_StringTruncate" lineNumber="1668"/>
+    <functiondecl functionName="RM_ListPush" lineNumber="1707"/>
+    <functiondecl functionName="RM_ListPop" lineNumber="1723"/>
+    <functiondecl functionName="RM_ZsetAddFlagsToCoreFlags" lineNumber="1742"/>
+    <functiondecl functionName="RM_ZsetAddFlagsFromCoreFlags" lineNumber="1750"/>
+    <functiondecl functionName="RM_ZsetAdd" lineNumber="1786"/>
+    <functiondecl functionName="RM_ZsetIncrby" lineNumber="1813"/>
+    <functiondecl functionName="RM_ZsetRem" lineNumber="1851"/>
+    <functiondecl functionName="RM_ZsetScore" lineNumber="1870"/>
+    <functiondecl functionName="zsetKeyReset" lineNumber="1881"/>
+    <functiondecl functionName="RM_ZsetRangeStop" lineNumber="1888"/>
+    <functiondecl functionName="RM_ZsetRangeEndReached" lineNumber="1899"/>
+    <functiondecl functionName="zsetInitScoreRange" lineNumber="1909"/>
+    <functiondecl functionName="RM_ZsetFirstInScoreRange" lineNumber="1954"/>
+    <functiondecl functionName="RM_ZsetLastInScoreRange" lineNumber="1960"/>
+    <functiondecl functionName="zsetInitLexRange" lineNumber="1973"/>
+    <functiondecl functionName="RM_ZsetFirstInLexRange" lineNumber="2016"/>
+    <functiondecl functionName="RM_ZsetLastInLexRange" lineNumber="2022"/>
+    <functiondecl functionName="RM_ZsetRangeCurrentElement" lineNumber="2029"/>
+    <functiondecl functionName="RM_ZsetRangeNext" lineNumber="2056"/>
+    <functiondecl functionName="RM_ZsetRangePrev" lineNumber="2119"/>
+    <functiondecl functionName="RM_HashSet" lineNumber="2235"/>
+    <functiondecl functionName="RM_HashGet" lineNumber="2338"/>
+    <functiondecl functionName="moduleCreateCallReplyFromProto" lineNumber="2394"/>
+    <functiondecl functionName="moduleParseCallReply" lineNumber="2421"/>
+    <functiondecl functionName="moduleParseCallReply_Int" lineNumber="2434"/>
+    <functiondecl functionName="moduleParseCallReply_BulkString" lineNumber="2443"/>
+    <functiondecl functionName="moduleParseCallReply_SimpleString" lineNumber="2460"/>
+    <functiondecl functionName="moduleParseCallReply_Array" lineNumber="2471"/>
+    <functiondecl functionName="RM_FreeCallReply_Rec" lineNumber="2502"/>
+    <functiondecl functionName="RM_FreeCallReply" lineNumber="2530"/>
+    <functiondecl functionName="RM_CallReplyType" lineNumber="2538"/>
+    <functiondecl functionName="RM_CallReplyLength" lineNumber="2544"/>
+    <functiondecl functionName="RM_CallReplyArrayElement" lineNumber="2558"/>
+    <functiondecl functionName="RM_CallReplyInteger" lineNumber="2566"/>
+    <functiondecl functionName="RM_CallReplyStringPtr" lineNumber="2573"/>
+    <functiondecl functionName="RM_CreateStringFromCallReply" lineNumber="2583"/>
+    <functiondecl functionName="moduleCreateArgvFromUserFormat" lineNumber="2612"/>
+    <functiondecl functionName="RM_Call" lineNumber="2681"/>
+    <functiondecl functionName="RM_CallReplyProto" lineNumber="2768"/>
+    <functiondecl functionName="moduleTypeEncodeId" lineNumber="2811"/>
+    <functiondecl functionName="moduleTypeLookupModuleByName" lineNumber="2832"/>
+    <functiondecl functionName="moduleTypeLookupModuleByID" lineNumber="2859"/>
+    <functiondecl functionName="moduleTypeNameByID" lineNumber="2905"/>
+    <functiondecl functionName="RM_CreateDataType" lineNumber="2981"/>
+    <functiondecl functionName="RM_ModuleTypeSetValue" lineNumber="3017"/>
+    <functiondecl functionName="RM_ModuleTypeGetType" lineNumber="3032"/>
+    <functiondecl functionName="RM_ModuleTypeGetValue" lineNumber="3046"/>
+    <functiondecl functionName="moduleRDBLoadError" lineNumber="3060"/>
+    <functiondecl functionName="RM_SaveUnsigned" lineNumber="3074"/>
+    <functiondecl functionName="RM_LoadUnsigned" lineNumber="3093"/>
+    <functiondecl functionName="RM_SaveSigned" lineNumber="3109"/>
+    <functiondecl functionName="RM_LoadSigned" lineNumber="3116"/>
+    <functiondecl functionName="RM_SaveString" lineNumber="3128"/>
+    <functiondecl functionName="RM_SaveStringBuffer" lineNumber="3146"/>
+    <functiondecl functionName="moduleLoadString" lineNumber="3163"/>
+    <functiondecl functionName="RM_LoadString" lineNumber="3187"/>
+    <functiondecl functionName="RM_LoadStringBuffer" lineNumber="3198"/>
+    <functiondecl functionName="RM_SaveDouble" lineNumber="3205"/>
+    <functiondecl functionName="RM_LoadDouble" lineNumber="3223"/>
+    <functiondecl functionName="RM_SaveFloat" lineNumber="3241"/>
+    <functiondecl functionName="RM_LoadFloat" lineNumber="3259"/>
+    <functiondecl functionName="RM_DigestAddStringBuffer" lineNumber="3316"/>
+    <functiondecl functionName="RM_DigestAddLongLong" lineNumber="3322"/>
+    <functiondecl functionName="RM_DigestEndSequence" lineNumber="3329"/>
+    <functiondecl functionName="RM_EmitAOF" lineNumber="3343"/>
+    <functiondecl functionName="RM_GetContextFromIO" lineNumber="3393"/>
+    <functiondecl functionName="RM_LogRaw" lineNumber="3413"/>
+    <functiondecl functionName="RM_Log" lineNumber="3443"/>
+    <functiondecl functionName="RM_LogIOError" lineNumber="3457"/>
+    <functiondecl functionName="moduleBlockedClientPipeReadable" lineNumber="3472"/>
+    <functiondecl functionName="unblockClientFromModule" lineNumber="3491"/>
+    <functiondecl functionName="RM_BlockClient" lineNumber="3528"/>
+    <functiondecl functionName="RM_UnblockClient" lineNumber="3574"/>
+    <functiondecl functionName="RM_AbortBlock" lineNumber="3587"/>
+    <functiondecl functionName="RM_SetDisconnectCallback" lineNumber="3609"/>
+    <functiondecl functionName="moduleHandleBlockedClients" lineNumber="3621"/>
+    <functiondecl functionName="moduleBlockedClientTimedOut" lineNumber="3712"/>
+    <functiondecl functionName="RM_IsBlockedReplyRequest" lineNumber="3729"/>
+    <functiondecl functionName="RM_IsBlockedTimeoutRequest" lineNumber="3735"/>
+    <functiondecl functionName="RM_GetBlockedClientPrivateData" lineNumber="3740"/>
+    <functiondecl functionName="RM_GetBlockedClientHandle" lineNumber="3748"/>
+    <functiondecl functionName="RM_BlockedClientDisconnected" lineNumber="3755"/>
+    <functiondecl functionName="RM_GetThreadSafeContext" lineNumber="3782"/>
+    <functiondecl functionName="RM_FreeThreadSafeContext" lineNumber="3801"/>
+    <functiondecl functionName="RM_ThreadSafeContextLock" lineNumber="3809"/>
+    <functiondecl functionName="RM_ThreadSafeContextUnlock" lineNumber="3815"/>
+    <functiondecl functionName="moduleAcquireGIL" lineNumber="3820"/>
+    <functiondecl functionName="moduleReleaseGIL" lineNumber="3824"/>
+    <functiondecl functionName="RM_SubscribeToKeyspaceEvents" lineNumber="3882"/>
+    <functiondecl functionName="moduleNotifyKeyspaceEvent" lineNumber="3896"/>
+    <functiondecl functionName="moduleUnsubscribeNotifications" lineNumber="3929"/>
+    <functiondecl functionName="moduleCallClusterReceivers" lineNumber="3971"/>
+    <functiondecl functionName="RM_RegisterClusterMessageReceiver" lineNumber="3992"/>
+    <functiondecl functionName="RM_SendClusterMessage" lineNumber="4036"/>
+    <functiondecl functionName="RM_GetClusterNodesList" lineNumber="4067"/>
+    <functiondecl functionName="RM_FreeClusterNodesList" lineNumber="4091"/>
+    <functiondecl functionName="RM_GetMyClusterID" lineNumber="4099"/>
+    <functiondecl functionName="RM_GetClusterSize" lineNumber="4108"/>
+    <functiondecl functionName="RM_GetClusterNodeInfo" lineNumber="4135"/>
+    <functiondecl functionName="RM_SetClusterFlags" lineNumber="4187"/>
+    <functiondecl functionName="moduleTimerHandler" lineNumber="4229"/>
+    <functiondecl functionName="RM_CreateTimer" lineNumber="4271"/>
+    <functiondecl functionName="RM_StopTimer" lineNumber="4319"/>
+    <functiondecl functionName="RM_GetTimerInfo" lineNumber="4335"/>
+    <functiondecl functionName="RM_CreateDict" lineNumber="4369"/>
+    <functiondecl functionName="RM_FreeDict" lineNumber="4379"/>
+    <functiondecl functionName="RM_DictSize" lineNumber="4386"/>
+    <functiondecl functionName="RM_DictSetC" lineNumber="4394"/>
+    <functiondecl functionName="RM_DictReplaceC" lineNumber="4401"/>
+    <functiondecl functionName="RM_DictSet" lineNumber="4407"/>
+    <functiondecl functionName="RM_DictReplace" lineNumber="4412"/>
+    <functiondecl functionName="RM_DictGetC" lineNumber="4421"/>
+    <functiondecl functionName="RM_DictGet" lineNumber="4428"/>
+    <functiondecl functionName="RM_DictDelC" lineNumber="4439"/>
+    <functiondecl functionName="RM_DictDel" lineNumber="4445"/>
+    <functiondecl functionName="RM_DictIteratorStartC" lineNumber="4469"/>
+    <functiondecl functionName="RM_DictIteratorStart" lineNumber="4479"/>
+    <functiondecl functionName="RM_DictIteratorStop" lineNumber="4485"/>
+    <functiondecl functionName="RM_DictIteratorReseekC" lineNumber="4497"/>
+    <functiondecl functionName="RM_DictIteratorReseek" lineNumber="4503"/>
+    <functiondecl functionName="RM_DictNextC" lineNumber="4532"/>
+    <functiondecl functionName="RM_DictPrevC" lineNumber="4542"/>
+    <functiondecl functionName="RM_DictNext" lineNumber="4556"/>
+    <functiondecl functionName="RM_DictPrev" lineNumber="4566"/>
+    <functiondecl functionName="RM_DictCompareC" lineNumber="4585"/>
+    <functiondecl functionName="RM_DictCompare" lineNumber="4593"/>
+    <functiondecl functionName="RM_GetRandomBytes" lineNumber="4607"/>
+    <functiondecl functionName="RM_GetRandomHexChars" lineNumber="4614"/>
+    <functiondecl functionName="dictCStringKeyHash" lineNumber="4625"/>
+    <functiondecl functionName="dictCStringKeyCompare" lineNumber="4629"/>
+    <functiondecl functionName="moduleRegisterApi" lineNumber="4643"/>
+    <functiondecl functionName="moduleInitModulesSystem" lineNumber="4653"/>
+    <functiondecl functionName="moduleLoadFromQueue" lineNumber="4692"/>
+    <functiondecl functionName="moduleFreeModuleStructure" lineNumber="4710"/>
+    <functiondecl functionName="moduleUnregisterCommands" lineNumber="4716"/>
+    <functiondecl functionName="moduleLoad" lineNumber="4740"/>
+    <functiondecl functionName="moduleUnload" lineNumber="4784"/>
+    <functiondecl functionName="moduleCommand" lineNumber="4824"/>
+    <functiondecl functionName="moduleCount" lineNumber="4889"/>
+    <functiondecl functionName="moduleRegisterCoreAPI" lineNumber="4895"/>
+    <functioncall functionName="EBUSY"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="ENOENT"/>
+    <functioncall functionName="EPERM"/>
+    <functioncall functionName="ModuleTypeNameCharSet"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="RM_AbortBlock"/>
+    <functioncall functionName="RM_Alloc"/>
+    <functioncall functionName="RM_AutoMemory"/>
+    <functioncall functionName="RM_BlockClient"/>
+    <functioncall functionName="RM_BlockedClientDisconnected"/>
+    <functioncall functionName="RM_Call"/>
+    <functioncall functionName="RM_CallReplyArrayElement"/>
+    <functioncall functionName="RM_CallReplyInteger"/>
+    <functioncall functionName="RM_CallReplyLength"/>
+    <functioncall functionName="RM_CallReplyProto"/>
+    <functioncall functionName="RM_CallReplyStringPtr"/>
+    <functioncall functionName="RM_CallReplyType"/>
+    <functioncall functionName="RM_Calloc"/>
+    <functioncall functionName="RM_CloseKey"/>
+    <functioncall functionName="RM_CreateCommand"/>
+    <functioncall functionName="RM_CreateDataType"/>
+    <functioncall functionName="RM_CreateDict"/>
+    <functioncall functionName="RM_CreateString"/>
+    <functioncall functionName="RM_CreateStringFromCallReply"/>
+    <functioncall functionName="RM_CreateStringFromLongLong"/>
+    <functioncall functionName="RM_CreateStringFromString"/>
+    <functioncall functionName="RM_CreateStringPrintf"/>
+    <functioncall functionName="RM_CreateTimer"/>
+    <functioncall functionName="RM_DeleteKey"/>
+    <functioncall functionName="RM_DictCompare"/>
+    <functioncall functionName="RM_DictCompareC"/>
+    <functioncall functionName="RM_DictDel"/>
+    <functioncall functionName="RM_DictDelC"/>
+    <functioncall functionName="RM_DictGet"/>
+    <functioncall functionName="RM_DictGetC"/>
+    <functioncall functionName="RM_DictIteratorReseek"/>
+    <functioncall functionName="RM_DictIteratorReseekC"/>
+    <functioncall functionName="RM_DictIteratorStart"/>
+    <functioncall functionName="RM_DictIteratorStartC"/>
+    <functioncall functionName="RM_DictIteratorStop"/>
+    <functioncall functionName="RM_DictNext"/>
+    <functioncall functionName="RM_DictNextC"/>
+    <functioncall functionName="RM_DictPrev"/>
+    <functioncall functionName="RM_DictPrevC"/>
+    <functioncall functionName="RM_DictReplace"/>
+    <functioncall functionName="RM_DictReplaceC"/>
+    <functioncall functionName="RM_DictSet"/>
+    <functioncall functionName="RM_DictSetC"/>
+    <functioncall functionName="RM_DictSize"/>
+    <functioncall functionName="RM_DigestAddLongLong"/>
+    <functioncall functionName="RM_DigestAddStringBuffer"/>
+    <functioncall functionName="RM_DigestEndSequence"/>
+    <functioncall functionName="RM_EmitAOF"/>
+    <functioncall functionName="RM_Free"/>
+    <functioncall functionName="RM_FreeCallReply"/>
+    <functioncall functionName="RM_FreeCallReply_Rec"/>
+    <functioncall functionName="RM_FreeClusterNodesList"/>
+    <functioncall functionName="RM_FreeDict"/>
+    <functioncall functionName="RM_FreeString"/>
+    <functioncall functionName="RM_FreeThreadSafeContext"/>
+    <functioncall functionName="RM_GetApi"/>
+    <functioncall functionName="RM_GetBlockedClientHandle"/>
+    <functioncall functionName="RM_GetBlockedClientPrivateData"/>
+    <functioncall functionName="RM_GetClientId"/>
+    <functioncall functionName="RM_GetClusterNodeInfo"/>
+    <functioncall functionName="RM_GetClusterNodesList"/>
+    <functioncall functionName="RM_GetClusterSize"/>
+    <functioncall functionName="RM_GetContextFlags"/>
+    <functioncall functionName="RM_GetContextFromIO"/>
+    <functioncall functionName="RM_GetExpire"/>
+    <functioncall functionName="RM_GetMyClusterID"/>
+    <functioncall functionName="RM_GetRandomBytes"/>
+    <functioncall functionName="RM_GetRandomHexChars"/>
+    <functioncall functionName="RM_GetSelectedDb"/>
+    <functioncall functionName="RM_GetThreadSafeContext"/>
+    <functioncall functionName="RM_GetTimerInfo"/>
+    <functioncall functionName="RM_HashGet"/>
+    <functioncall functionName="RM_HashSet"/>
+    <functioncall functionName="RM_IsBlockedReplyRequest"/>
+    <functioncall functionName="RM_IsBlockedTimeoutRequest"/>
+    <functioncall functionName="RM_IsKeysPositionRequest"/>
+    <functioncall functionName="RM_IsModuleNameBusy"/>
+    <functioncall functionName="RM_KeyAtPos"/>
+    <functioncall functionName="RM_KeyType"/>
+    <functioncall functionName="RM_ListPop"/>
+    <functioncall functionName="RM_ListPush"/>
+    <functioncall functionName="RM_LoadDouble"/>
+    <functioncall functionName="RM_LoadFloat"/>
+    <functioncall functionName="RM_LoadSigned"/>
+    <functioncall functionName="RM_LoadString"/>
+    <functioncall functionName="RM_LoadStringBuffer"/>
+    <functioncall functionName="RM_LoadUnsigned"/>
+    <functioncall functionName="RM_Log"/>
+    <functioncall functionName="RM_LogIOError"/>
+    <functioncall functionName="RM_LogRaw"/>
+    <functioncall functionName="RM_Milliseconds"/>
+    <functioncall functionName="RM_ModuleTypeGetType"/>
+    <functioncall functionName="RM_ModuleTypeGetValue"/>
+    <functioncall functionName="RM_ModuleTypeSetValue"/>
+    <functioncall functionName="RM_OpenKey"/>
+    <functioncall functionName="RM_PoolAlloc"/>
+    <functioncall functionName="RM_Realloc"/>
+    <functioncall functionName="RM_RegisterClusterMessageReceiver"/>
+    <functioncall functionName="RM_Replicate"/>
+    <functioncall functionName="RM_ReplicateVerbatim"/>
+    <functioncall functionName="RM_ReplySetArrayLength"/>
+    <functioncall functionName="RM_ReplyWithArray"/>
+    <functioncall functionName="RM_ReplyWithCallReply"/>
+    <functioncall functionName="RM_ReplyWithDouble"/>
+    <functioncall functionName="RM_ReplyWithError"/>
+    <functioncall functionName="RM_ReplyWithLongLong"/>
+    <functioncall functionName="RM_ReplyWithNull"/>
+    <functioncall functionName="RM_ReplyWithSimpleString"/>
+    <functioncall functionName="RM_ReplyWithString"/>
+    <functioncall functionName="RM_ReplyWithStringBuffer"/>
+    <functioncall functionName="RM_RetainString"/>
+    <functioncall functionName="RM_SaveDouble"/>
+    <functioncall functionName="RM_SaveFloat"/>
+    <functioncall functionName="RM_SaveSigned"/>
+    <functioncall functionName="RM_SaveString"/>
+    <functioncall functionName="RM_SaveStringBuffer"/>
+    <functioncall functionName="RM_SaveUnsigned"/>
+    <functioncall functionName="RM_SelectDb"/>
+    <functioncall functionName="RM_SendClusterMessage"/>
+    <functioncall functionName="RM_SetClusterFlags"/>
+    <functioncall functionName="RM_SetDisconnectCallback"/>
+    <functioncall functionName="RM_SetExpire"/>
+    <functioncall functionName="RM_SetModuleAttribs"/>
+    <functioncall functionName="RM_StopTimer"/>
+    <functioncall functionName="RM_Strdup"/>
+    <functioncall functionName="RM_StringAppendBuffer"/>
+    <functioncall functionName="RM_StringCompare"/>
+    <functioncall functionName="RM_StringDMA"/>
+    <functioncall functionName="RM_StringPtrLen"/>
+    <functioncall functionName="RM_StringSet"/>
+    <functioncall functionName="RM_StringToDouble"/>
+    <functioncall functionName="RM_StringToLongLong"/>
+    <functioncall functionName="RM_StringTruncate"/>
+    <functioncall functionName="RM_SubscribeToKeyspaceEvents"/>
+    <functioncall functionName="RM_ThreadSafeContextLock"/>
+    <functioncall functionName="RM_ThreadSafeContextUnlock"/>
+    <functioncall functionName="RM_UnblockClient"/>
+    <functioncall functionName="RM_UnlinkKey"/>
+    <functioncall functionName="RM_ValueLength"/>
+    <functioncall functionName="RM_WrongArity"/>
+    <functioncall functionName="RM_ZsetAdd"/>
+    <functioncall functionName="RM_ZsetAddFlagsFromCoreFlags"/>
+    <functioncall functionName="RM_ZsetAddFlagsToCoreFlags"/>
+    <functioncall functionName="RM_ZsetFirstInLexRange"/>
+    <functioncall functionName="RM_ZsetFirstInScoreRange"/>
+    <functioncall functionName="RM_ZsetIncrby"/>
+    <functioncall functionName="RM_ZsetLastInLexRange"/>
+    <functioncall functionName="RM_ZsetLastInScoreRange"/>
+    <functioncall functionName="RM_ZsetRangeCurrentElement"/>
+    <functioncall functionName="RM_ZsetRangeEndReached"/>
+    <functioncall functionName="RM_ZsetRangeNext"/>
+    <functioncall functionName="RM_ZsetRangePrev"/>
+    <functioncall functionName="RM_ZsetRangeStop"/>
+    <functioncall functionName="RM_ZsetRem"/>
+    <functioncall functionName="RM_ZsetScore"/>
+    <functioncall functionName="RTLD_LOCAL"/>
+    <functioncall functionName="RedisModuleCommandDispatcher"/>
+    <functioncall functionName="Timers"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyDouble"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyString"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="aeCreateTimeEvent"/>
+    <functioncall functionName="aeDeleteTimeEvent"/>
+    <functioncall functionName="aeTimer"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="alsoPropagate"/>
+    <functioncall functionName="amqueue"/>
+    <functioncall functionName="amqueue_len"/>
+    <functioncall functionName="amqueue_used"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="aof_rewrite"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="apiver"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="arity"/>
+    <functioncall functionName="array"/>
+    <functioncall functionName="arraylen"/>
+    <functioncall functionName="autoMemoryAdd"/>
+    <functioncall functionName="autoMemoryCollect"/>
+    <functioncall functionName="autoMemoryFreed"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="backward"/>
+    <functioncall functionName="bc"/>
+    <functioncall functionName="blockClient"/>
+    <functioncall functionName="blocked_client"/>
+    <functioncall functionName="blocked_privdata"/>
+    <functioncall functionName="blocksize"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufpos"/>
+    <functioncall functionName="bulklen"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="call"/>
+    <functioncall functionName="call_flags"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cfield"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="client"/>
+    <functioncall functionName="clientData"/>
+    <functioncall functionName="clientHasPendingReplies"/>
+    <functioncall functionName="clients_pending_write"/>
+    <functioncall functionName="clusterLookupNode"/>
+    <functioncall functionName="clusterSendModuleMessageToTarget"/>
+    <functioncall functionName="cluster_enabled"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmdfunc"/>
+    <functioncall functionName="cmdname"/>
+    <functioncall functionName="commandFlagsFromString"/>
+    <functioncall functionName="commands"/>
+    <functioncall functionName="compareStringObjects"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="cp"/>
+    <functioncall functionName="createClient"/>
+    <functioncall functionName="createHashObject"/>
+    <functioncall functionName="createModuleObject"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createQuicklistObject"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createZsetZiplistObject"/>
+    <functioncall functionName="cset"/>
+    <functioncall functionName="cstr"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="ctxtemplate"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="dataptr"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbAsyncDelete"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="dbUnshareStringValue"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decoded"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCStringKeyCompare"/>
+    <functioncall functionName="dictCStringKeyHash"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictFetchValue"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="digest"/>
+    <functioncall functionName="disconnect_callback"/>
+    <functioncall functionName="dlclose"/>
+    <functioncall functionName="dlerror"/>
+    <functioncall functionName="dlopen"/>
+    <functioncall functionName="dlsym"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="dupStringObject"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="empty"/>
+    <functioncall functionName="encver"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errmsg"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="eventLoop"/>
+    <functioncall functionName="execCommand"/>
+    <functioncall functionName="execCommandPropagateMulti"/>
+    <functioncall functionName="exists"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="expire"/>
+    <functioncall functionName="expiretime"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="firstkey"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flagsptr"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fmterr"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="forward"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeClient"/>
+    <functioncall functionName="free_privdata"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="funcname"/>
+    <functioncall functionName="funcptr"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getDoubleFromObject"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getMaxmemoryState"/>
+    <functioncall functionName="getNodeByQuery"/>
+    <functioncall functionName="getRandomBytes"/>
+    <functioncall functionName="getRandomHexChars"/>
+    <functioncall functionName="getkeys_proc"/>
+    <functioncall functionName="handle"/>
+    <functioncall functionName="hashTypeDelete"/>
+    <functioncall functionName="hashTypeExists"/>
+    <functioncall functionName="hashTypeGetValueObject"/>
+    <functioncall functionName="hashTypeLength"/>
+    <functioncall functionName="hashTypeSet"/>
+    <functioncall functionName="hashTypeTryConversion"/>
+    <functioncall functionName="he"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="ids"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intrev64"/>
+    <functioncall functionName="io"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="isempty"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="key_len"/>
+    <functioncall functionName="keylen"/>
+    <functioncall functionName="keyname"/>
+    <functioncall functionName="keys_count"/>
+    <functioncall functionName="keys_pos"/>
+    <functioncall functionName="keystep"/>
+    <functioncall functionName="kp"/>
+    <functioncall functionName="lastkey"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lenptr"/>
+    <functioncall functionName="level"/>
+    <functioncall functionName="levelstr"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="listAddNodeHead"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listJoin"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listTypeLength"/>
+    <functioncall functionName="listTypePop"/>
+    <functioncall functionName="listTypePush"/>
+    <functioncall functionName="list_compress_depth"/>
+    <functioncall functionName="list_max_ziplist_size"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="loaderr"/>
+    <functioncall functionName="loadmodule_queue"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupCommand"/>
+    <functioncall functionName="lookupCommandByCString"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="low_flags"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="master_id"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxex"/>
+    <functioncall functionName="maxmemory"/>
+    <functioncall functionName="mem_usage"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="minex"/>
+    <functioncall functionName="mixDigest"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="module"/>
+    <functioncall functionName="moduleAPIDictType"/>
+    <functioncall functionName="moduleAcquireGIL"/>
+    <functioncall functionName="moduleAssertUnsharedString"/>
+    <functioncall functionName="moduleCreateArgvFromUserFormat"/>
+    <functioncall functionName="moduleCreateCallReplyFromProto"/>
+    <functioncall functionName="moduleCreateEmptyKey"/>
+    <functioncall functionName="moduleDelKeyIfEmpty"/>
+    <functioncall functionName="moduleFreeContext"/>
+    <functioncall functionName="moduleFreeContextReusedClient"/>
+    <functioncall functionName="moduleFreeModuleStructure"/>
+    <functioncall functionName="moduleGIL"/>
+    <functioncall functionName="moduleGetReplyClient"/>
+    <functioncall functionName="moduleHandlePropagationAfterCommandCallback"/>
+    <functioncall functionName="moduleKeyspaceSubscribers"/>
+    <functioncall functionName="moduleLoad"/>
+    <functioncall functionName="moduleLoadString"/>
+    <functioncall functionName="moduleParseCallReply"/>
+    <functioncall functionName="moduleParseCallReply_Array"/>
+    <functioncall functionName="moduleParseCallReply_BulkString"/>
+    <functioncall functionName="moduleParseCallReply_Int"/>
+    <functioncall functionName="moduleParseCallReply_SimpleString"/>
+    <functioncall functionName="moduleRDBLoadError"/>
+    <functioncall functionName="moduleRegisterApi"/>
+    <functioncall functionName="moduleRegisterCoreAPI"/>
+    <functioncall functionName="moduleReleaseGIL"/>
+    <functioncall functionName="moduleReplicateMultiIfNeeded"/>
+    <functioncall functionName="moduleTimerHandler"/>
+    <functioncall functionName="moduleTypeEncodeId"/>
+    <functioncall functionName="moduleTypeLookupModuleByName"/>
+    <functioncall functionName="moduleUnblockedClients"/>
+    <functioncall functionName="moduleUnblockedClientsMutex"/>
+    <functioncall functionName="moduleUnload"/>
+    <functioncall functionName="moduleUnregisterCommands"/>
+    <functioncall functionName="moduleUnsubscribeNotifications"/>
+    <functioncall functionName="module_argc"/>
+    <functioncall functionName="module_argv"/>
+    <functioncall functionName="module_blocked_handle"/>
+    <functioncall functionName="module_blocked_pipe"/>
+    <functioncall functionName="module_id"/>
+    <functioncall functionName="moduleapi"/>
+    <functioncall functionName="modulename"/>
+    <functioncall functionName="modules"/>
+    <functioncall functionName="modulesDictType"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="mt"/>
+    <functioncall functionName="myself"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="name_len"/>
+    <functioncall functionName="newid"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newscore"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="next_period"/>
+    <functioncall functionName="nodes"/>
+    <functioncall functionName="nokey"/>
+    <functioncall functionName="notify_callback"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="numkeys"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="oldval"/>
+    <functioncall functionName="onload"/>
+    <functioncall functionName="op"/>
+    <functioncall functionName="orig_commands"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pa_head"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="payload"/>
+    <functioncall functionName="period"/>
+    <functioncall functionName="pipe"/>
+    <functioncall functionName="poolAllocRelease"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="postponed_arrays"/>
+    <functioncall functionName="postponed_arrays_count"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="propargv"/>
+    <functioncall functionName="proto"/>
+    <functioncall functionName="protolen"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="quicklistSetOptions"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rax"/>
+    <functioncall functionName="raxCompare"/>
+    <functioncall functionName="raxEOF"/>
+    <functioncall functionName="raxFind"/>
+    <functioncall functionName="raxFree"/>
+    <functioncall functionName="raxInsert"/>
+    <functioncall functionName="raxNew"/>
+    <functioncall functionName="raxNext"/>
+    <functioncall functionName="raxPrev"/>
+    <functioncall functionName="raxRemove"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxSize"/>
+    <functioncall functionName="raxStart"/>
+    <functioncall functionName="raxStop"/>
+    <functioncall functionName="raxTryInsert"/>
+    <functioncall functionName="rdbGenericLoadStringObject"/>
+    <functioncall functionName="rdbLoadBinaryDoubleValue"/>
+    <functioncall functionName="rdbLoadBinaryFloatValue"/>
+    <functioncall functionName="rdbLoadLen"/>
+    <functioncall functionName="rdbLoadLenByRef"/>
+    <functioncall functionName="rdbSaveBinaryDoubleValue"/>
+    <functioncall functionName="rdbSaveBinaryFloatValue"/>
+    <functioncall functionName="rdbSaveLen"/>
+    <functioncall functionName="rdbSaveRawString"/>
+    <functioncall functionName="rdbSaveStringObject"/>
+    <functioncall functionName="rdb_load"/>
+    <functioncall functionName="rdb_save"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="rediscmd"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="removeExpire"/>
+    <functioncall functionName="repl_slave_ro"/>
+    <functioncall functionName="replicate"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="replyWithStatus"/>
+    <functioncall functionName="reply_bytes"/>
+    <functioncall functionName="reply_callback"/>
+    <functioncall functionName="reply_client"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="resetClient"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="rio"/>
+    <functioncall functionName="rioWriteBulkCount"/>
+    <functioncall functionName="rioWriteBulkObject"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="saved_next"/>
+    <functioncall functionName="saved_prev"/>
+    <functioncall functionName="saveerr"/>
+    <functioncall functionName="saveparamslen"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="sdsRemoveFreeSpace"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatvprintf"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfreesplitres"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdsgrowzero"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssplitlen"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="sender_id"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="serverLogRaw"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setExpire"/>
+    <functioncall functionName="setKey"/>
+    <functioncall functionName="setTypeSize"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slaveof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sptr"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strflags"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="stringObjectLen"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strmsg"/>
+    <functioncall functionName="sub"/>
+    <functioncall functionName="subcmd"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="target_id"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="this_mt"/>
+    <functioncall functionName="timeout_callback"/>
+    <functioncall functionName="timeout_ms"/>
+    <functioncall functionName="timer"/>
+    <functioncall functionName="tokens"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="typemethods_ptr"/>
+    <functioncall functionName="types"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="unblockClient"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="ver"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="xorDigest"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zcurrent"/>
+    <functioncall functionName="zer"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistGetObject"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="ziplistPrev"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zlrs"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zrs"/>
+    <functioncall functionName="zsetAdd"/>
+    <functioncall functionName="zsetDel"/>
+    <functioncall functionName="zsetInitLexRange"/>
+    <functioncall functionName="zsetInitScoreRange"/>
+    <functioncall functionName="zsetKeyReset"/>
+    <functioncall functionName="zsetLength"/>
+    <functioncall functionName="zsetScore"/>
+    <functioncall functionName="zsl"/>
+    <functioncall functionName="zslFirstInLexRange"/>
+    <functioncall functionName="zslFirstInRange"/>
+    <functioncall functionName="zslFreeLexRange"/>
+    <functioncall functionName="zslLastInLexRange"/>
+    <functioncall functionName="zslLastInRange"/>
+    <functioncall functionName="zslLexValueGteMin"/>
+    <functioncall functionName="zslLexValueLteMax"/>
+    <functioncall functionName="zslParseLexRange"/>
+    <functioncall functionName="zslValueGteMin"/>
+    <functioncall functionName="zslValueLteMax"/>
+    <functioncall functionName="zstrdup"/>
+    <functioncall functionName="zzlFirstInLexRange"/>
+    <functioncall functionName="zzlFirstInRange"/>
+    <functioncall functionName="zzlGetScore"/>
+    <functioncall functionName="zzlLastInLexRange"/>
+    <functioncall functionName="zzlLastInRange"/>
+    <functioncall functionName="zzlLexValueGteMin"/>
+    <functioncall functionName="zzlLexValueLteMax"/>
+  </FileInfo>
+</analyzerinfo>

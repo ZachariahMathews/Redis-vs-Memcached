@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="687665213">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;se&apos; can be reduced." verbose="The scope of the variable &apos;se&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\slowlog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\slowlog.c" line="165"/>
+            <symbol>se</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="slowlogCreateEntry" lineNumber="48"/>
+    <functiondecl functionName="slowlogFreeEntry" lineNumber="100"/>
+    <functiondecl functionName="slowlogInit" lineNumber="114"/>
+    <functiondecl functionName="slowlogPushEntryIfNeeded" lineNumber="123"/>
+    <functiondecl functionName="slowlogReset" lineNumber="135"/>
+    <functiondecl functionName="slowlogCommand" lineNumber="142"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySubcommandSyntaxError"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cname"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="dupStringObject"/>
+    <functioncall functionName="duration"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getClientPeerId"/>
+    <functioncall functionName="getLongFromObjectOrReply"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="listAddNodeHead"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="peerid"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="se"/>
+    <functioncall functionName="sent"/>
+    <functioncall functionName="septr"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slargc"/>
+    <functioncall functionName="slowlog"/>
+    <functioncall functionName="slowlogCreateEntry"/>
+    <functioncall functionName="slowlogFreeEntry"/>
+    <functioncall functionName="slowlogReset"/>
+    <functioncall functionName="slowlog_log_slower_than"/>
+    <functioncall functionName="slowlog_max_len"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="totentries"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

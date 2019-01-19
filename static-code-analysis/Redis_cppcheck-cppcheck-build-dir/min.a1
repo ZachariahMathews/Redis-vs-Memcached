@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1229605580">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="print" lineNumber="12"/>
+    <functiondecl functionName="main" lineNumber="32"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="luaL_dofile"/>
+    <functioncall functionName="luaL_typename"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_isboolean"/>
+    <functioncall functionName="lua_isnil"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_open"/>
+    <functioncall functionName="lua_register"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_topointer"/>
+    <functioncall functionName="lua_tostring"/>
+    <functioncall functionName="print"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="stderr"/>
+  </FileInfo>
+</analyzerinfo>

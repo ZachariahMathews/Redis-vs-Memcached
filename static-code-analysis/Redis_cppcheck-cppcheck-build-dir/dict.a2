@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="283747255">
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1069"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 4) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 4) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1069"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 5) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 5) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1069"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 6) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 6) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1069"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 2) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 2) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1085"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." verbose="%ld in format string (no. 3) requires &apos;long&apos; but the argument type is &apos;unsigned long&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1085"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;idx&apos; can be reduced." verbose="The scope of the variable &apos;idx&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="365"/>
+            <symbol>idx</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;prevHe&apos; can be reduced." verbose="The scope of the variable &apos;prevHe&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="366"/>
+            <symbol>prevHe</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;idx&apos; can be reduced." verbose="The scope of the variable &apos;idx&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="479"/>
+            <symbol>idx</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;heref&apos; can be reduced." verbose="The scope of the variable &apos;heref&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1013"/>
+            <symbol>heref</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;idx&apos; can be reduced." verbose="The scope of the variable &apos;idx&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" file="C:\Users\bharm\Downloads\redis-unstable\src\dict.c" line="1014"/>
+            <symbol>idx</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="dictSetHashFunctionSeed" lineNumber="76"/>
+    <functiondecl functionName="dictGetHashFunctionSeed" lineNumber="80"/>
+    <functiondecl functionName="dictGenHashFunction" lineNumber="90"/>
+    <functiondecl functionName="dictGenCaseHashFunction" lineNumber="94"/>
+    <functiondecl functionName="_dictReset" lineNumber="102"/>
+    <functiondecl functionName="dictCreate" lineNumber="111"/>
+    <functiondecl functionName="_dictInit" lineNumber="121"/>
+    <functiondecl functionName="dictResize" lineNumber="135"/>
+    <functiondecl functionName="dictExpand" lineNumber="147"/>
+    <functiondecl functionName="dictRehash" lineNumber="188"/>
+    <functiondecl functionName="timeInMilliseconds" lineNumber="233"/>
+    <functiondecl functionName="dictRehashMilliseconds" lineNumber="241"/>
+    <functiondecl functionName="_dictRehashStep" lineNumber="260"/>
+    <functiondecl functionName="dictAdd" lineNumber="265"/>
+    <functiondecl functionName="dictAddRaw" lineNumber="292"/>
+    <functiondecl functionName="dictReplace" lineNumber="325"/>
+    <functiondecl functionName="dictAddOrFind" lineNumber="355"/>
+    <functiondecl functionName="dictGenericDelete" lineNumber="364"/>
+    <functiondecl functionName="dictDelete" lineNumber="403"/>
+    <functiondecl functionName="dictUnlink" lineNumber="428"/>
+    <functiondecl functionName="dictFreeUnlinkedEntry" lineNumber="434"/>
+    <functiondecl functionName="_dictClear" lineNumber="442"/>
+    <functiondecl functionName="dictRelease" lineNumber="469"/>
+    <functiondecl functionName="dictFind" lineNumber="476"/>
+    <functiondecl functionName="dictFetchValue" lineNumber="497"/>
+    <functiondecl functionName="dictFingerprint" lineNumber="510"/>
+    <functiondecl functionName="dictGetIterator" lineNumber="542"/>
+    <functiondecl functionName="dictGetSafeIterator" lineNumber="555"/>
+    <functiondecl functionName="dictNext" lineNumber="562"/>
+    <functiondecl functionName="dictReleaseIterator" lineNumber="597"/>
+    <functiondecl functionName="dictGetRandomKey" lineNumber="610"/>
+    <functiondecl functionName="dictGetSomeKeys" lineNumber="673"/>
+    <functiondecl functionName="rev" lineNumber="744"/>
+    <functiondecl functionName="dictScan" lineNumber="838"/>
+    <functiondecl functionName="_dictExpandIfNeeded" lineNumber="922"/>
+    <functiondecl functionName="_dictNextPower" lineNumber="944"/>
+    <functiondecl functionName="_dictKeyIndex" lineNumber="963"/>
+    <functiondecl functionName="dictEmpty" lineNumber="988"/>
+    <functiondecl functionName="dictEnableResize" lineNumber="995"/>
+    <functiondecl functionName="dictDisableResize" lineNumber="999"/>
+    <functiondecl functionName="dictGetHash" lineNumber="1003"/>
+    <functiondecl functionName="dictFindEntryRefByPtrAndHash" lineNumber="1012"/>
+    <functiondecl functionName="_dictGetStatsHt" lineNumber="1035"/>
+    <functiondecl functionName="dictGetStats" lineNumber="1096"/>
+    <functiondecl functionName="dictSetHashFunctionSeed" lineNumber="76"/>
+    <functiondecl functionName="dictGetHashFunctionSeed" lineNumber="80"/>
+    <functiondecl functionName="dictGenHashFunction" lineNumber="90"/>
+    <functiondecl functionName="dictGenCaseHashFunction" lineNumber="94"/>
+    <functiondecl functionName="_dictReset" lineNumber="102"/>
+    <functiondecl functionName="dictCreate" lineNumber="111"/>
+    <functiondecl functionName="_dictInit" lineNumber="121"/>
+    <functiondecl functionName="dictResize" lineNumber="135"/>
+    <functiondecl functionName="dictExpand" lineNumber="147"/>
+    <functiondecl functionName="dictRehash" lineNumber="188"/>
+    <functiondecl functionName="timeInMilliseconds" lineNumber="233"/>
+    <functiondecl functionName="dictRehashMilliseconds" lineNumber="241"/>
+    <functiondecl functionName="_dictRehashStep" lineNumber="260"/>
+    <functiondecl functionName="dictAdd" lineNumber="265"/>
+    <functiondecl functionName="dictAddRaw" lineNumber="292"/>
+    <functiondecl functionName="dictReplace" lineNumber="325"/>
+    <functiondecl functionName="dictAddOrFind" lineNumber="355"/>
+    <functiondecl functionName="dictGenericDelete" lineNumber="364"/>
+    <functiondecl functionName="dictDelete" lineNumber="403"/>
+    <functiondecl functionName="dictUnlink" lineNumber="428"/>
+    <functiondecl functionName="dictFreeUnlinkedEntry" lineNumber="434"/>
+    <functiondecl functionName="_dictClear" lineNumber="442"/>
+    <functiondecl functionName="dictRelease" lineNumber="469"/>
+    <functiondecl functionName="dictFind" lineNumber="476"/>
+    <functiondecl functionName="dictFetchValue" lineNumber="497"/>
+    <functiondecl functionName="dictFingerprint" lineNumber="510"/>
+    <functiondecl functionName="dictGetIterator" lineNumber="542"/>
+    <functiondecl functionName="dictGetSafeIterator" lineNumber="555"/>
+    <functiondecl functionName="dictNext" lineNumber="562"/>
+    <functiondecl functionName="dictReleaseIterator" lineNumber="597"/>
+    <functiondecl functionName="dictGetRandomKey" lineNumber="610"/>
+    <functiondecl functionName="dictGetSomeKeys" lineNumber="673"/>
+    <functiondecl functionName="rev" lineNumber="744"/>
+    <functiondecl functionName="dictScan" lineNumber="838"/>
+    <functiondecl functionName="_dictExpandIfNeeded" lineNumber="922"/>
+    <functiondecl functionName="_dictNextPower" lineNumber="944"/>
+    <functiondecl functionName="_dictKeyIndex" lineNumber="963"/>
+    <functiondecl functionName="dictEmpty" lineNumber="988"/>
+    <functiondecl functionName="dictEnableResize" lineNumber="995"/>
+    <functiondecl functionName="dictDisableResize" lineNumber="999"/>
+    <functiondecl functionName="dictGetHash" lineNumber="1003"/>
+    <functiondecl functionName="dictFindEntryRefByPtrAndHash" lineNumber="1012"/>
+    <functiondecl functionName="_dictGetStatsHt" lineNumber="1035"/>
+    <functiondecl functionName="dictGetStats" lineNumber="1096"/>
+    <functiondecl functionName="hashCallback" lineNumber="1117"/>
+    <functiondecl functionName="compareCallback" lineNumber="1121"/>
+    <functiondecl functionName="freeCallback" lineNumber="1131"/>
+    <functiondecl functionName="main" lineNumber="1153"/>
+    <functiondecl functionName="dictSetHashFunctionSeed" lineNumber="76"/>
+    <functiondecl functionName="dictGetHashFunctionSeed" lineNumber="80"/>
+    <functiondecl functionName="dictGenHashFunction" lineNumber="90"/>
+    <functiondecl functionName="dictGenCaseHashFunction" lineNumber="94"/>
+    <functiondecl functionName="_dictReset" lineNumber="102"/>
+    <functiondecl functionName="dictCreate" lineNumber="111"/>
+    <functiondecl functionName="_dictInit" lineNumber="121"/>
+    <functiondecl functionName="dictResize" lineNumber="135"/>
+    <functiondecl functionName="dictExpand" lineNumber="147"/>
+    <functiondecl functionName="dictRehash" lineNumber="188"/>
+    <functiondecl functionName="timeInMilliseconds" lineNumber="233"/>
+    <functiondecl functionName="dictRehashMilliseconds" lineNumber="241"/>
+    <functiondecl functionName="_dictRehashStep" lineNumber="260"/>
+    <functiondecl functionName="dictAdd" lineNumber="265"/>
+    <functiondecl functionName="dictAddRaw" lineNumber="292"/>
+    <functiondecl functionName="dictReplace" lineNumber="325"/>
+    <functiondecl functionName="dictAddOrFind" lineNumber="355"/>
+    <functiondecl functionName="dictGenericDelete" lineNumber="364"/>
+    <functiondecl functionName="dictDelete" lineNumber="403"/>
+    <functiondecl functionName="dictUnlink" lineNumber="428"/>
+    <functiondecl functionName="dictFreeUnlinkedEntry" lineNumber="434"/>
+    <functiondecl functionName="_dictClear" lineNumber="442"/>
+    <functiondecl functionName="dictRelease" lineNumber="469"/>
+    <functiondecl functionName="dictFind" lineNumber="476"/>
+    <functiondecl functionName="dictFetchValue" lineNumber="497"/>
+    <functiondecl functionName="dictFingerprint" lineNumber="510"/>
+    <functiondecl functionName="dictGetIterator" lineNumber="542"/>
+    <functiondecl functionName="dictGetSafeIterator" lineNumber="555"/>
+    <functiondecl functionName="dictNext" lineNumber="562"/>
+    <functiondecl functionName="dictReleaseIterator" lineNumber="597"/>
+    <functiondecl functionName="dictGetRandomKey" lineNumber="610"/>
+    <functiondecl functionName="dictGetSomeKeys" lineNumber="673"/>
+    <functiondecl functionName="rev" lineNumber="744"/>
+    <functiondecl functionName="dictScan" lineNumber="838"/>
+    <functiondecl functionName="_dictExpandIfNeeded" lineNumber="922"/>
+    <functiondecl functionName="_dictNextPower" lineNumber="944"/>
+    <functiondecl functionName="_dictKeyIndex" lineNumber="963"/>
+    <functiondecl functionName="dictEmpty" lineNumber="988"/>
+    <functiondecl functionName="dictEnableResize" lineNumber="995"/>
+    <functiondecl functionName="dictDisableResize" lineNumber="999"/>
+    <functiondecl functionName="dictGetHash" lineNumber="1003"/>
+    <functiondecl functionName="dictFindEntryRefByPtrAndHash" lineNumber="1012"/>
+    <functiondecl functionName="_dictGetStatsHt" lineNumber="1035"/>
+    <functiondecl functionName="dictGetStats" lineNumber="1096"/>
+    <functiondecl functionName="dictSetHashFunctionSeed" lineNumber="76"/>
+    <functiondecl functionName="dictGetHashFunctionSeed" lineNumber="80"/>
+    <functiondecl functionName="dictGenHashFunction" lineNumber="90"/>
+    <functiondecl functionName="dictGenCaseHashFunction" lineNumber="94"/>
+    <functiondecl functionName="_dictReset" lineNumber="102"/>
+    <functiondecl functionName="dictCreate" lineNumber="111"/>
+    <functiondecl functionName="_dictInit" lineNumber="121"/>
+    <functiondecl functionName="dictResize" lineNumber="135"/>
+    <functiondecl functionName="dictExpand" lineNumber="147"/>
+    <functiondecl functionName="dictRehash" lineNumber="188"/>
+    <functiondecl functionName="timeInMilliseconds" lineNumber="233"/>
+    <functiondecl functionName="dictRehashMilliseconds" lineNumber="241"/>
+    <functiondecl functionName="_dictRehashStep" lineNumber="260"/>
+    <functiondecl functionName="dictAdd" lineNumber="265"/>
+    <functiondecl functionName="dictAddRaw" lineNumber="292"/>
+    <functiondecl functionName="dictReplace" lineNumber="325"/>
+    <functiondecl functionName="dictAddOrFind" lineNumber="355"/>
+    <functiondecl functionName="dictGenericDelete" lineNumber="364"/>
+    <functiondecl functionName="dictDelete" lineNumber="403"/>
+    <functiondecl functionName="dictUnlink" lineNumber="428"/>
+    <functiondecl functionName="dictFreeUnlinkedEntry" lineNumber="434"/>
+    <functiondecl functionName="_dictClear" lineNumber="442"/>
+    <functiondecl functionName="dictRelease" lineNumber="469"/>
+    <functiondecl functionName="dictFind" lineNumber="476"/>
+    <functiondecl functionName="dictFetchValue" lineNumber="497"/>
+    <functiondecl functionName="dictFingerprint" lineNumber="510"/>
+    <functiondecl functionName="dictGetIterator" lineNumber="542"/>
+    <functiondecl functionName="dictGetSafeIterator" lineNumber="555"/>
+    <functiondecl functionName="dictNext" lineNumber="562"/>
+    <functiondecl functionName="dictReleaseIterator" lineNumber="597"/>
+    <functiondecl functionName="dictGetRandomKey" lineNumber="610"/>
+    <functiondecl functionName="dictGetSomeKeys" lineNumber="673"/>
+    <functiondecl functionName="rev" lineNumber="744"/>
+    <functiondecl functionName="dictScan" lineNumber="838"/>
+    <functiondecl functionName="_dictExpandIfNeeded" lineNumber="922"/>
+    <functiondecl functionName="_dictNextPower" lineNumber="944"/>
+    <functiondecl functionName="_dictKeyIndex" lineNumber="963"/>
+    <functiondecl functionName="dictEmpty" lineNumber="988"/>
+    <functiondecl functionName="dictEnableResize" lineNumber="995"/>
+    <functiondecl functionName="dictDisableResize" lineNumber="999"/>
+    <functiondecl functionName="dictGetHash" lineNumber="1003"/>
+    <functiondecl functionName="dictFindEntryRefByPtrAndHash" lineNumber="1012"/>
+    <functiondecl functionName="_dictGetStatsHt" lineNumber="1035"/>
+    <functiondecl functionName="dictGetStats" lineNumber="1096"/>
+    <functioncall functionName="BenchmarkDictType"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_dictClear"/>
+    <functioncall functionName="_dictExpandIfNeeded"/>
+    <functioncall functionName="_dictGetStatsHt"/>
+    <functioncall functionName="_dictInit"/>
+    <functioncall functionName="_dictKeyIndex"/>
+    <functioncall functionName="_dictNextPower"/>
+    <functioncall functionName="_dictRehashStep"/>
+    <functioncall functionName="_dictReset"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bucketfn"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufsize"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="chainlen"/>
+    <functioncall functionName="compareCallback"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictAddRaw"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictFingerprint"/>
+    <functioncall functionName="dictGenHashFunction"/>
+    <functioncall functionName="dictGenericDelete"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictRehash"/>
+    <functioncall functionName="dictRehashMilliseconds"/>
+    <functioncall functionName="dict_hash_function_seed"/>
+    <functioncall functionName="elapsed"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="existing"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="fn"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeCallback"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="hashCallback"/>
+    <functioncall functionName="hashFunction"/>
+    <functioncall functionName="he"/>
+    <functioncall functionName="ht"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idx"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key1"/>
+    <functioncall functionName="key2"/>
+    <functioncall functionName="keyCompare"/>
+    <functioncall functionName="keyDestructor"/>
+    <functioncall functionName="keyDup"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l1"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="maxchainlen"/>
+    <functioncall functionName="maxsizemask"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="minimal"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nextEntry"/>
+    <functioncall functionName="nextHe"/>
+    <functioncall functionName="nextde"/>
+    <functioncall functionName="nofree"/>
+    <functioncall functionName="orig_bufsize"/>
+    <functioncall functionName="orighe"/>
+    <functioncall functionName="prevHe"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privDataPtr"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="random"/>
+    <functioncall functionName="realsize"/>
+    <functioncall functionName="rehashidx"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rev"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="safe"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="seed"/>
+    <functioncall functionName="siphash"/>
+    <functioncall functionName="siphash_nocase"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizemask"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slots"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtol"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="table"/>
+    <functioncall functionName="tableid"/>
+    <functioncall functionName="tables"/>
+    <functioncall functionName="timeInMilliseconds"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="valDestructor"/>
+    <functioncall functionName="valDup"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zcalloc"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

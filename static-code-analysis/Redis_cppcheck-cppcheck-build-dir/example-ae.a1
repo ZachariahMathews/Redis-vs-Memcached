@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4269070780">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="getCallback" lineNumber="13"/>
+    <functiondecl functionName="connectCallback" lineNumber="22"/>
+    <functiondecl functionName="disconnectCallback" lineNumber="32"/>
+    <functiondecl functionName="main" lineNumber="43"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="aeCreateEventLoop"/>
+    <functioncall functionName="aeMain"/>
+    <functioncall functionName="aeStop"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="connectCallback"/>
+    <functioncall functionName="disconnectCallback"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="getCallback"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="loop"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="redisAeAttach"/>
+    <functioncall functionName="redisAsyncCommand"/>
+    <functioncall functionName="redisAsyncConnect"/>
+    <functioncall functionName="redisAsyncDisconnect"/>
+    <functioncall functionName="redisAsyncSetConnectCallback"/>
+    <functioncall functionName="redisAsyncSetDisconnectCallback"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strlen"/>
+  </FileInfo>
+</analyzerinfo>

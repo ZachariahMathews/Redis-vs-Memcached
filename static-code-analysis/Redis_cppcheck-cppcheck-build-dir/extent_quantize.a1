@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2480285571">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="37"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="101"/>
+    <functiondecl functionName="main" lineNumber="136"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PAGE"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_ge"/>
+    <functioncall functionName="assert_zu_le"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="cache_oblivious"/>
+    <functioncall functionName="ceil"/>
+    <functioncall functionName="ceil_prev"/>
+    <functioncall functionName="extent_size"/>
+    <functioncall functionName="extent_size_prev"/>
+    <functioncall functionName="extent_size_quantize_ceil"/>
+    <functioncall functionName="extent_size_quantize_floor"/>
+    <functioncall functionName="floor"/>
+    <functioncall functionName="floor_prev"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="lextent_size"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nbins"/>
+    <functioncall functionName="nlextents"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_large_extent_size"/>
+    <functioncall functionName="test_monotonic"/>
+    <functioncall functionName="test_small_extent_size"/>
+  </FileInfo>
+</analyzerinfo>

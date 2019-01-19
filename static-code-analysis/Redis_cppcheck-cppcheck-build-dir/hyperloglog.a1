@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1674867440">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r0&apos; can be reduced." verbose="The scope of the variable &apos;r0&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r0</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r1&apos; can be reduced." verbose="The scope of the variable &apos;r1&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r1</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r2&apos; can be reduced." verbose="The scope of the variable &apos;r2&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r2</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r3&apos; can be reduced." verbose="The scope of the variable &apos;r3&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r3</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r4&apos; can be reduced." verbose="The scope of the variable &apos;r4&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r4</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r5&apos; can be reduced." verbose="The scope of the variable &apos;r5&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r5</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r6&apos; can be reduced." verbose="The scope of the variable &apos;r6&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r6</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r7&apos; can be reduced." verbose="The scope of the variable &apos;r7&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r7</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r8&apos; can be reduced." verbose="The scope of the variable &apos;r8&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r8</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r9&apos; can be reduced." verbose="The scope of the variable &apos;r9&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="527"/>
+            <symbol>r9</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r10&apos; can be reduced." verbose="The scope of the variable &apos;r10&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="528"/>
+            <symbol>r10</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r11&apos; can be reduced." verbose="The scope of the variable &apos;r11&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="528"/>
+            <symbol>r11</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r12&apos; can be reduced." verbose="The scope of the variable &apos;r12&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="528"/>
+            <symbol>r12</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r13&apos; can be reduced." verbose="The scope of the variable &apos;r13&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="528"/>
+            <symbol>r13</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r14&apos; can be reduced." verbose="The scope of the variable &apos;r14&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="528"/>
+            <symbol>r14</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;r15&apos; can be reduced." verbose="The scope of the variable &apos;r15&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="528"/>
+            <symbol>r15</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;card&apos; can be reduced." verbose="The scope of the variable &apos;card&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" file="C:\Users\bharm\Downloads\redis-unstable\src\hyperloglog.c" line="1217"/>
+            <symbol>card</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="MurmurHash64A" lineNumber="396"/>
+    <functiondecl functionName="hllPatLen" lineNumber="451"/>
+    <functiondecl functionName="hllDenseSet" lineNumber="493"/>
+    <functiondecl functionName="hllDenseAdd" lineNumber="511"/>
+    <functiondecl functionName="hllDenseRegHisto" lineNumber="519"/>
+    <functiondecl functionName="hllSparseToDense" lineNumber="584"/>
+    <functiondecl functionName="hllSparseSet" lineNumber="653"/>
+    <functiondecl functionName="hllSparseAdd" lineNumber="902"/>
+    <functiondecl functionName="hllSparseRegHisto" lineNumber="910"/>
+    <functiondecl functionName="hllRawRegHisto" lineNumber="944"/>
+    <functiondecl functionName="hllSigma" lineNumber="970"/>
+    <functiondecl functionName="hllTau" lineNumber="987"/>
+    <functiondecl functionName="hllCount" lineNumber="1012"/>
+    <functiondecl functionName="hllAdd" lineNumber="1045"/>
+    <functiondecl functionName="hllMerge" lineNumber="1062"/>
+    <functiondecl functionName="createHLLObject" lineNumber="1107"/>
+    <functiondecl functionName="isHLLObjectOrReply" lineNumber="1142"/>
+    <functiondecl functionName="pfaddCommand" lineNumber="1174"/>
+    <functiondecl functionName="pfcountCommand" lineNumber="1214"/>
+    <functiondecl functionName="pfmergeCommand" lineNumber="1304"/>
+    <functiondecl functionName="pfselftestCommand" lineNumber="1383"/>
+    <functiondecl functionName="pfdebugCommand" lineNumber="1487"/>
+    <functiondecl functionName="MurmurHash64A" lineNumber="396"/>
+    <functiondecl functionName="hllPatLen" lineNumber="451"/>
+    <functiondecl functionName="hllDenseSet" lineNumber="493"/>
+    <functiondecl functionName="hllDenseAdd" lineNumber="511"/>
+    <functiondecl functionName="hllDenseRegHisto" lineNumber="519"/>
+    <functiondecl functionName="hllSparseToDense" lineNumber="584"/>
+    <functiondecl functionName="hllSparseSet" lineNumber="653"/>
+    <functiondecl functionName="hllSparseAdd" lineNumber="902"/>
+    <functiondecl functionName="hllSparseRegHisto" lineNumber="910"/>
+    <functiondecl functionName="hllRawRegHisto" lineNumber="944"/>
+    <functiondecl functionName="hllSigma" lineNumber="970"/>
+    <functiondecl functionName="hllTau" lineNumber="987"/>
+    <functiondecl functionName="hllCount" lineNumber="1012"/>
+    <functiondecl functionName="hllAdd" lineNumber="1045"/>
+    <functiondecl functionName="hllMerge" lineNumber="1062"/>
+    <functiondecl functionName="createHLLObject" lineNumber="1107"/>
+    <functiondecl functionName="isHLLObjectOrReply" lineNumber="1142"/>
+    <functiondecl functionName="pfaddCommand" lineNumber="1174"/>
+    <functiondecl functionName="pfcountCommand" lineNumber="1214"/>
+    <functiondecl functionName="pfmergeCommand" lineNumber="1304"/>
+    <functiondecl functionName="pfselftestCommand" lineNumber="1383"/>
+    <functiondecl functionName="pfdebugCommand" lineNumber="1487"/>
+    <functioncall functionName="E"/>
+    <functioncall functionName="MurmurHash64A"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_byte"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_fb"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="abserr"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="arityerr"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="bitcounters"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="card"/>
+    <functioncall functionName="ceil"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="checkpoint"/>
+    <functioncall functionName="cleanup"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="createHLLObject"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbUnshareStringValue"/>
+    <functioncall functionName="decoded"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="deltalen"/>
+    <functioncall functionName="dense"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="elesize"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="hdr"/>
+    <functioncall functionName="hllAdd"/>
+    <functioncall functionName="hllCount"/>
+    <functioncall functionName="hllDenseAdd"/>
+    <functioncall functionName="hllDenseRegHisto"/>
+    <functioncall functionName="hllDenseSet"/>
+    <functioncall functionName="hllMerge"/>
+    <functioncall functionName="hllPatLen"/>
+    <functioncall functionName="hllRawRegHisto"/>
+    <functioncall functionName="hllSigma"/>
+    <functioncall functionName="hllSparseAdd"/>
+    <functioncall functionName="hllSparseRegHisto"/>
+    <functioncall functionName="hllSparseSet"/>
+    <functioncall functionName="hllSparseToDense"/>
+    <functioncall functionName="hllTau"/>
+    <functioncall functionName="hll_sparse_max_bytes"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="int64_t"/>
+    <functioncall functionName="invalid"/>
+    <functioncall functionName="invalid_hll_err"/>
+    <functioncall functionName="isHLLObjectOrReply"/>
+    <functioncall functionName="is_val"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="llroundl"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="m"/>
+    <functioncall functionName="magic"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxerr"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="oldlen"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pow"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="promote"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="r0"/>
+    <functioncall functionName="r1"/>
+    <functioncall functionName="r10"/>
+    <functioncall functionName="r11"/>
+    <functioncall functionName="r12"/>
+    <functioncall functionName="r13"/>
+    <functioncall functionName="r14"/>
+    <functioncall functionName="r15"/>
+    <functioncall functionName="r2"/>
+    <functioncall functionName="r3"/>
+    <functioncall functionName="r4"/>
+    <functioncall functionName="r5"/>
+    <functioncall functionName="r6"/>
+    <functioncall functionName="r7"/>
+    <functioncall functionName="r8"/>
+    <functioncall functionName="r9"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="reg"/>
+    <functioncall functionName="reghisto"/>
+    <functioncall functionName="registers"/>
+    <functioncall functionName="regval"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="runlen"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdsIncrLen"/>
+    <functioncall functionName="sdsMakeRoomFor"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdstrim"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="seqlen"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sparse"/>
+    <functioncall functionName="sparselen"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="stringObjectLen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="updated"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="word"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="xzero"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

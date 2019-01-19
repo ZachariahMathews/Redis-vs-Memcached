@@ -1,0 +1,559 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="585202464">
+        <error id="nullPointerArithmeticRedundantCheck" severity="warning" msg="Either the condition &apos;newline&apos; is redundant or there is overflow in pointer subtraction." verbose="Either the condition &apos;newline&apos; is redundant or there is overflow in pointer subtraction." cwe="682">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="1188" info="Null pointer subtraction"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="1184" info="Assuming that condition &apos;newline&apos; is not redundant"/>
+        </error>
+        <error id="selfAssignment" severity="warning" msg="Redundant assignment of &apos;id&apos; to itself." verbose="Redundant assignment of &apos;id&apos; to itself." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="954"/>
+            <symbol>id</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;dbuf&apos; can be reduced." verbose="The scope of the variable &apos;dbuf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="478"/>
+            <symbol>dbuf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;sbuf&apos; can be reduced." verbose="The scope of the variable &apos;sbuf&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="478"/>
+            <symbol>sbuf</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;dlen&apos; can be reduced." verbose="The scope of the variable &apos;dlen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="479"/>
+            <symbol>dlen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;slen&apos; can be reduced." verbose="The scope of the variable &apos;slen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="479"/>
+            <symbol>slen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cfd&apos; can be reduced." verbose="The scope of the variable &apos;cfd&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="727"/>
+            <symbol>cfd</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cfd&apos; can be reduced." verbose="The scope of the variable &apos;cfd&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="747"/>
+            <symbol>cfd</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="1574"/>
+            <symbol>c</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;peerid&apos; can be reduced." verbose="The scope of the variable &apos;peerid&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="1617"/>
+            <symbol>peerid</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;client&apos; can be reduced." verbose="The scope of the variable &apos;client&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="1682"/>
+            <symbol>client</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="2184"/>
+            <symbol>c</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="369"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &apos;&amp;&apos; and &apos;?&apos;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &apos;&apos;a&amp;b?c:d&apos;&apos; should be written as either &apos;&apos;(a&amp;b)?c:d&apos;&apos; or &apos;&apos;a&amp;(b?c:d)&apos;&apos;." cwe="783">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" file="C:\Users\bharm\Downloads\redis-unstable\src\networking.c" line="370"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="sdsZmallocSize" lineNumber="41"/>
+    <functiondecl functionName="getStringObjectSdsUsedMemory" lineNumber="48"/>
+    <functiondecl functionName="dupClientReplyValue" lineNumber="58"/>
+    <functiondecl functionName="freeClientReplyValue" lineNumber="65"/>
+    <functiondecl functionName="listMatchObjects" lineNumber="69"/>
+    <functiondecl functionName="linkClient" lineNumber="75"/>
+    <functiondecl functionName="createClient" lineNumber="85"/>
+    <functiondecl functionName="clientInstallWriteHandler" lineNumber="170"/>
+    <functiondecl functionName="prepareClientToWrite" lineNumber="211"/>
+    <functiondecl functionName="_addReplyToBuffer" lineNumber="238"/>
+    <functiondecl functionName="_addReplyStringToList" lineNumber="255"/>
+    <functiondecl functionName="addReply" lineNumber="297"/>
+    <functiondecl functionName="addReplySds" lineNumber="318"/>
+    <functiondecl functionName="addReplyString" lineNumber="337"/>
+    <functiondecl functionName="addReplyErrorLength" lineNumber="351"/>
+    <functiondecl functionName="addReplyError" lineNumber="384"/>
+    <functiondecl functionName="addReplyErrorFormat" lineNumber="388"/>
+    <functiondecl functionName="addReplyStatusLength" lineNumber="404"/>
+    <functiondecl functionName="addReplyStatus" lineNumber="410"/>
+    <functiondecl functionName="addReplyStatusFormat" lineNumber="414"/>
+    <functiondecl functionName="addDeferredMultiBulkLength" lineNumber="425"/>
+    <functiondecl functionName="setDeferredMultiBulkLength" lineNumber="435"/>
+    <functiondecl functionName="addReplyDouble" lineNumber="477"/>
+    <functiondecl functionName="addReplyHumanLongDouble" lineNumber="494"/>
+    <functiondecl functionName="addReplyLongLongWithPrefix" lineNumber="502"/>
+    <functiondecl functionName="addReplyLongLong" lineNumber="524"/>
+    <functiondecl functionName="addReplyMultiBulkLen" lineNumber="533"/>
+    <functiondecl functionName="addReplyBulkLen" lineNumber="541"/>
+    <functiondecl functionName="addReplyBulk" lineNumber="567"/>
+    <functiondecl functionName="addReplyBulkCBuffer" lineNumber="574"/>
+    <functiondecl functionName="addReplyBulkSds" lineNumber="581"/>
+    <functiondecl functionName="addReplyBulkCString" lineNumber="588"/>
+    <functiondecl functionName="addReplyBulkLongLong" lineNumber="597"/>
+    <functiondecl functionName="addReplyHelp" lineNumber="609"/>
+    <functiondecl functionName="addReplySubcommandSyntaxError" lineNumber="628"/>
+    <functiondecl functionName="copyClientOutputBuffer" lineNumber="640"/>
+    <functiondecl functionName="clientHasPendingReplies" lineNumber="651"/>
+    <functiondecl functionName="acceptCommonHandler" lineNumber="656"/>
+    <functiondecl functionName="acceptTcpHandler" lineNumber="726"/>
+    <functiondecl functionName="acceptUnixHandler" lineNumber="746"/>
+    <functiondecl functionName="freeClientArgv" lineNumber="765"/>
+    <functiondecl functionName="disconnectSlaves" lineNumber="776"/>
+    <functiondecl functionName="unlinkClient" lineNumber="786"/>
+    <functiondecl functionName="freeClient" lineNumber="829"/>
+    <functiondecl functionName="freeClientAsync" lineNumber="933"/>
+    <functiondecl functionName="freeClientsInAsyncFreeQueue" lineNumber="939"/>
+    <functiondecl functionName="lookupClientByID" lineNumber="953"/>
+    <functiondecl functionName="writeToClient" lineNumber="961"/>
+    <functiondecl functionName="sendReplyToClient" lineNumber="1054"/>
+    <functiondecl functionName="handleClientsWithPendingWrites" lineNumber="1064"/>
+    <functiondecl functionName="resetClient" lineNumber="1107"/>
+    <functiondecl functionName="protectClient" lineNumber="1143"/>
+    <functiondecl functionName="unprotectClient" lineNumber="1150"/>
+    <functiondecl functionName="processInlineBuffer" lineNumber="1165"/>
+    <functiondecl functionName="setProtocolError" lineNumber="1229"/>
+    <functiondecl functionName="processMultibulkBuffer" lineNumber="1267"/>
+    <functiondecl functionName="processInputBuffer" lineNumber="1406"/>
+    <functiondecl functionName="processInputBufferAndReplicate" lineNumber="1485"/>
+    <functiondecl functionName="readQueryFromClient" lineNumber="1500"/>
+    <functiondecl functionName="getClientsMaxBuffers" lineNumber="1572"/>
+    <functiondecl functionName="genClientPeerId" lineNumber="1601"/>
+    <functiondecl functionName="getClientPeerId" lineNumber="1616"/>
+    <functiondecl functionName="catClientInfoString" lineNumber="1628"/>
+    <functiondecl functionName="getAllClientsInfoString" lineNumber="1679"/>
+    <functiondecl functionName="clientCommand" lineNumber="1695"/>
+    <functiondecl functionName="securityWarningCommand" lineNumber="1924"/>
+    <functiondecl functionName="rewriteClientCommandVector" lineNumber="1938"/>
+    <functiondecl functionName="replaceClientCommandVector" lineNumber="1966"/>
+    <functiondecl functionName="rewriteClientCommandArgument" lineNumber="1986"/>
+    <functiondecl functionName="getClientOutputBufferMemoryUsage" lineNumber="2019"/>
+    <functiondecl functionName="getClientType" lineNumber="2033"/>
+    <functiondecl functionName="getClientTypeByName" lineNumber="2041"/>
+    <functiondecl functionName="getClientTypeName" lineNumber="2050"/>
+    <functiondecl functionName="checkClientOutputBufferLimits" lineNumber="2066"/>
+    <functiondecl functionName="asyncCloseClientOnOutputBufferLimitReached" lineNumber="2111"/>
+    <functiondecl functionName="flushSlavesOutputBuffers" lineNumber="2128"/>
+    <functiondecl functionName="pauseClients" lineNumber="2170"/>
+    <functiondecl functionName="clientsArePaused" lineNumber="2178"/>
+    <functiondecl functionName="processEventsWhileBlocked" lineNumber="2215"/>
+    <functiondecl functionName="sdsZmallocSize" lineNumber="41"/>
+    <functiondecl functionName="getStringObjectSdsUsedMemory" lineNumber="48"/>
+    <functiondecl functionName="dupClientReplyValue" lineNumber="58"/>
+    <functiondecl functionName="freeClientReplyValue" lineNumber="65"/>
+    <functiondecl functionName="listMatchObjects" lineNumber="69"/>
+    <functiondecl functionName="linkClient" lineNumber="75"/>
+    <functiondecl functionName="createClient" lineNumber="85"/>
+    <functiondecl functionName="clientInstallWriteHandler" lineNumber="170"/>
+    <functiondecl functionName="prepareClientToWrite" lineNumber="211"/>
+    <functiondecl functionName="_addReplyToBuffer" lineNumber="238"/>
+    <functiondecl functionName="_addReplyStringToList" lineNumber="255"/>
+    <functiondecl functionName="addReply" lineNumber="297"/>
+    <functiondecl functionName="addReplySds" lineNumber="318"/>
+    <functiondecl functionName="addReplyString" lineNumber="337"/>
+    <functiondecl functionName="addReplyErrorLength" lineNumber="351"/>
+    <functiondecl functionName="addReplyError" lineNumber="384"/>
+    <functiondecl functionName="addReplyErrorFormat" lineNumber="388"/>
+    <functiondecl functionName="addReplyStatusLength" lineNumber="404"/>
+    <functiondecl functionName="addReplyStatus" lineNumber="410"/>
+    <functiondecl functionName="addReplyStatusFormat" lineNumber="414"/>
+    <functiondecl functionName="addDeferredMultiBulkLength" lineNumber="425"/>
+    <functiondecl functionName="setDeferredMultiBulkLength" lineNumber="435"/>
+    <functiondecl functionName="addReplyDouble" lineNumber="477"/>
+    <functiondecl functionName="addReplyHumanLongDouble" lineNumber="494"/>
+    <functiondecl functionName="addReplyLongLongWithPrefix" lineNumber="502"/>
+    <functiondecl functionName="addReplyLongLong" lineNumber="524"/>
+    <functiondecl functionName="addReplyMultiBulkLen" lineNumber="533"/>
+    <functiondecl functionName="addReplyBulkLen" lineNumber="541"/>
+    <functiondecl functionName="addReplyBulk" lineNumber="567"/>
+    <functiondecl functionName="addReplyBulkCBuffer" lineNumber="574"/>
+    <functiondecl functionName="addReplyBulkSds" lineNumber="581"/>
+    <functiondecl functionName="addReplyBulkCString" lineNumber="588"/>
+    <functiondecl functionName="addReplyBulkLongLong" lineNumber="597"/>
+    <functiondecl functionName="addReplyHelp" lineNumber="609"/>
+    <functiondecl functionName="addReplySubcommandSyntaxError" lineNumber="628"/>
+    <functiondecl functionName="copyClientOutputBuffer" lineNumber="640"/>
+    <functiondecl functionName="clientHasPendingReplies" lineNumber="651"/>
+    <functiondecl functionName="acceptCommonHandler" lineNumber="656"/>
+    <functiondecl functionName="acceptTcpHandler" lineNumber="726"/>
+    <functiondecl functionName="acceptUnixHandler" lineNumber="746"/>
+    <functiondecl functionName="freeClientArgv" lineNumber="765"/>
+    <functiondecl functionName="disconnectSlaves" lineNumber="776"/>
+    <functiondecl functionName="unlinkClient" lineNumber="786"/>
+    <functiondecl functionName="freeClient" lineNumber="829"/>
+    <functiondecl functionName="freeClientAsync" lineNumber="933"/>
+    <functiondecl functionName="freeClientsInAsyncFreeQueue" lineNumber="939"/>
+    <functiondecl functionName="lookupClientByID" lineNumber="953"/>
+    <functiondecl functionName="writeToClient" lineNumber="961"/>
+    <functiondecl functionName="sendReplyToClient" lineNumber="1054"/>
+    <functiondecl functionName="handleClientsWithPendingWrites" lineNumber="1064"/>
+    <functiondecl functionName="resetClient" lineNumber="1107"/>
+    <functiondecl functionName="protectClient" lineNumber="1143"/>
+    <functiondecl functionName="unprotectClient" lineNumber="1150"/>
+    <functiondecl functionName="processInlineBuffer" lineNumber="1165"/>
+    <functiondecl functionName="setProtocolError" lineNumber="1229"/>
+    <functiondecl functionName="processMultibulkBuffer" lineNumber="1267"/>
+    <functiondecl functionName="processInputBuffer" lineNumber="1406"/>
+    <functiondecl functionName="processInputBufferAndReplicate" lineNumber="1485"/>
+    <functiondecl functionName="readQueryFromClient" lineNumber="1500"/>
+    <functiondecl functionName="getClientsMaxBuffers" lineNumber="1572"/>
+    <functiondecl functionName="genClientPeerId" lineNumber="1601"/>
+    <functiondecl functionName="getClientPeerId" lineNumber="1616"/>
+    <functiondecl functionName="catClientInfoString" lineNumber="1628"/>
+    <functiondecl functionName="getAllClientsInfoString" lineNumber="1679"/>
+    <functiondecl functionName="clientCommand" lineNumber="1695"/>
+    <functiondecl functionName="securityWarningCommand" lineNumber="1924"/>
+    <functiondecl functionName="rewriteClientCommandVector" lineNumber="1938"/>
+    <functiondecl functionName="replaceClientCommandVector" lineNumber="1966"/>
+    <functiondecl functionName="rewriteClientCommandArgument" lineNumber="1986"/>
+    <functiondecl functionName="getClientOutputBufferMemoryUsage" lineNumber="2019"/>
+    <functiondecl functionName="getClientType" lineNumber="2033"/>
+    <functiondecl functionName="getClientTypeByName" lineNumber="2041"/>
+    <functiondecl functionName="getClientTypeName" lineNumber="2050"/>
+    <functiondecl functionName="checkClientOutputBufferLimits" lineNumber="2066"/>
+    <functiondecl functionName="asyncCloseClientOnOutputBufferLimitReached" lineNumber="2111"/>
+    <functiondecl functionName="flushSlavesOutputBuffers" lineNumber="2128"/>
+    <functiondecl functionName="pauseClients" lineNumber="2170"/>
+    <functiondecl functionName="clientsArePaused" lineNumber="2178"/>
+    <functiondecl functionName="processEventsWhileBlocked" lineNumber="2215"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SDS_NOINIT"/>
+    <functioncall functionName="_addReplyStringToList"/>
+    <functioncall functionName="_addReplyToBuffer"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="acceptCommonHandler"/>
+    <functioncall functionName="addDeferredMultiBulkLength"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulk"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkCString"/>
+    <functioncall functionName="addReplyBulkLen"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyErrorFormat"/>
+    <functioncall functionName="addReplyErrorLength"/>
+    <functioncall functionName="addReplyHelp"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyLongLongWithPrefix"/>
+    <functioncall functionName="addReplySds"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="addReplyStatusFormat"/>
+    <functioncall functionName="addReplyStatusLength"/>
+    <functioncall functionName="addReplyString"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeDeleteFileEvent"/>
+    <functioncall functionName="aeGetFileEvents"/>
+    <functioncall functionName="aeProcessEvents"/>
+    <functioncall functionName="ae_flags"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="anetEnableTcpNoDelay"/>
+    <functioncall functionName="anetFormatPeer"/>
+    <functioncall functionName="anetKeepAlive"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="anetTcpAccept"/>
+    <functioncall functionName="anetUnixAccept"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="applied"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="asyncCloseClientOnOutputBufferLimitReached"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="avail"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="bib"/>
+    <functioncall functionName="blen"/>
+    <functioncall functionName="blenp"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufpos"/>
+    <functioncall functionName="bulklen"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="catClientInfoString"/>
+    <functioncall functionName="cfd"/>
+    <functioncall functionName="checkClientOutputBufferLimits"/>
+    <functioncall functionName="ci"/>
+    <functioncall functionName="cip"/>
+    <functioncall functionName="class"/>
+    <functioncall functionName="client"/>
+    <functioncall functionName="clientHasPendingReplies"/>
+    <functioncall functionName="clientInstallWriteHandler"/>
+    <functioncall functionName="client_id"/>
+    <functioncall functionName="client_list_node"/>
+    <functioncall functionName="client_max_querybuf_len"/>
+    <functioncall functionName="clients"/>
+    <functioncall functionName="clientsArePaused"/>
+    <functioncall functionName="clients_index"/>
+    <functioncall functionName="clients_pause_end_time"/>
+    <functioncall functionName="clients_paused"/>
+    <functioncall functionName="clients_pending_write"/>
+    <functioncall functionName="clients_to_close"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="close_this_client"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="cmdname"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="cport"/>
+    <functioncall functionName="createClient"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongDouble"/>
+    <functioncall functionName="crlf"/>
+    <functioncall functionName="ctime"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="dbuf"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="decrRefCountVoid"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictRelease"/>
+    <functioncall functionName="dlen"/>
+    <functioncall functionName="dupClientReplyValue"/>
+    <functioncall functionName="duration"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="equalStringObjects"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="events"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeClient"/>
+    <functioncall functionName="freeClientArgv"/>
+    <functioncall functionName="freeClientAsync"/>
+    <functioncall functionName="freeClientMultiState"/>
+    <functioncall functionName="freeClientReplyValue"/>
+    <functioncall functionName="from"/>
+    <functioncall functionName="genClientPeerId"/>
+    <functioncall functionName="getAllClientsInfoString"/>
+    <functioncall functionName="getClientOutputBufferMemoryUsage"/>
+    <functioncall functionName="getClientPeerId"/>
+    <functioncall functionName="getClientType"/>
+    <functioncall functionName="getClientTypeByName"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="getTimeoutFromObjectOrReply"/>
+    <functioncall functionName="handleClientsWithPendingWrites"/>
+    <functioncall functionName="handler_installed"/>
+    <functioncall functionName="hard_limit_bytes"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="help"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incrRefCount"/>
+    <functioncall functionName="initClientMultiState"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="intrev64"/>
+    <functioncall functionName="ip"/>
+    <functioncall functionName="isinf"/>
+    <functioncall functionName="isprint"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="killed"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="labs"/>
+    <functioncall functionName="lastinteraction"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="lenstr"/>
+    <functioncall functionName="lenstr_len"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="linefeed_chars"/>
+    <functioncall functionName="linkClient"/>
+    <functioncall functionName="listAddNodeHead"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listDup"/>
+    <functioncall functionName="listMatchObjects"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listSearchKey"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="logged_time"/>
+    <functioncall functionName="lol"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lookupClientByID"/>
+    <functioncall functionName="lookupCommandOrOriginal"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="maxclients"/>
+    <functioncall functionName="maxmemory"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memmove"/>
+    <functioncall functionName="monitors"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="multibulklen"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="neterr"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newval"/>
+    <functioncall functionName="next_client_id"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="nread"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="objectKeyHeapPointerValueDictType"/>
+    <functioncall functionName="objectKeyPointerValueDictType"/>
+    <functioncall functionName="obuf_soft_limit_reached_time"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="oldval"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pauseClients"/>
+    <functioncall functionName="peerid"/>
+    <functioncall functionName="peerid_len"/>
+    <functioncall functionName="pending_querybuf"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="prepareClientToWrite"/>
+    <functioncall functionName="prev_offset"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="proc"/>
+    <functioncall functionName="processCommand"/>
+    <functioncall functionName="processInlineBuffer"/>
+    <functioncall functionName="processInputBuffer"/>
+    <functioncall functionName="processInputBufferAndReplicate"/>
+    <functioncall functionName="processMultibulkBuffer"/>
+    <functioncall functionName="proto_max_bulk_len"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pubsubUnsubscribeAllChannels"/>
+    <functioncall functionName="pubsubUnsubscribeAllPatterns"/>
+    <functioncall functionName="pubsub_channels"/>
+    <functioncall functionName="pubsub_patterns"/>
+    <functioncall functionName="qb_pos"/>
+    <functioncall functionName="qblen"/>
+    <functioncall functionName="querybuf"/>
+    <functioncall functionName="querylen"/>
+    <functioncall functionName="queueClientForReprocessing"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="raxFind"/>
+    <functioncall functionName="raxInsert"/>
+    <functioncall functionName="raxRemove"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readQueryFromClient"/>
+    <functioncall functionName="readlen"/>
+    <functioncall functionName="refreshGoodSlavesCount"/>
+    <functioncall functionName="remaining"/>
+    <functioncall functionName="repl_put_online_on_ack"/>
+    <functioncall functionName="repldbfd"/>
+    <functioncall functionName="replicationCacheMaster"/>
+    <functioncall functionName="replicationFeedSlavesFromMasterStream"/>
+    <functioncall functionName="replicationGetSlaveName"/>
+    <functioncall functionName="replicationHandleMasterDisconnection"/>
+    <functioncall functionName="reploff"/>
+    <functioncall functionName="replpreamble"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="replyToBlockedClientTimedOut"/>
+    <functioncall functionName="reply_bytes"/>
+    <functioncall functionName="reqtype"/>
+    <functioncall functionName="resetClient"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sbuf"/>
+    <functioncall functionName="sdsAllocPtr"/>
+    <functioncall functionName="sdsIncrLen"/>
+    <functioncall functionName="sdsMakeRoomFor"/>
+    <functioncall functionName="sdsZmallocSize"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscatfmt"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatrepr"/>
+    <functioncall functionName="sdscatvprintf"/>
+    <functioncall functionName="sdsclear"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdssplitargs"/>
+    <functioncall functionName="sdstoupper"/>
+    <functioncall functionName="selectDb"/>
+    <functioncall functionName="sendReplyToClient"/>
+    <functioncall functionName="sentlen"/>
+    <functioncall functionName="server.next_client_id_mutex"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="setDeferredMultiBulkLength"/>
+    <functioncall functionName="setProtocolError"/>
+    <functioncall functionName="sh"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slave"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="soft"/>
+    <functioncall functionName="soft_limit_bytes"/>
+    <functioncall functionName="soft_limit_seconds"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="target"/>
+    <functioncall functionName="tcpkeepalive"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="to"/>
+    <functioncall functionName="totwritten"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="unblockClient"/>
+    <functioncall functionName="unblock_error"/>
+    <functioncall functionName="unblocked_clients"/>
+    <functioncall functionName="unixsocket"/>
+    <functioncall functionName="unixtime"/>
+    <functioncall functionName="unlinkClient"/>
+    <functioncall functionName="unwatchAllKeys"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="watched_keys"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writeToClient"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_size"/>
+    <functioncall functionName="zmalloc_usable"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

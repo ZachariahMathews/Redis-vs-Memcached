@@ -1,0 +1,823 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3026722312">
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;dst==0&apos; is always true" verbose="Condition &apos;dst==0&apos; is always true" cwe="571">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\items.c" file="C:\Users\bharm\Downloads\memcached-master\items.c" line="1647" info="Condition &apos;dst==0&apos; is always true"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\items.c" file="C:\Users\bharm\Downloads\memcached-master\items.c" line="678"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\items.c" file="C:\Users\bharm\Downloads\memcached-master\items.c" line="737"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;be&apos; can be reduced." verbose="The scope of the variable &apos;be&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\items.c" file="C:\Users\bharm\Downloads\memcached-master\items.c" line="1311"/>
+            <symbol>be</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cold_age&apos; can be reduced." verbose="The scope of the variable &apos;cold_age&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\items.c" file="C:\Users\bharm\Downloads\memcached-master\items.c" line="1386"/>
+            <symbol>cold_age</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="my_sasl_hostname" size="1025"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArrayUsage array="lru_locks" index="255" fileName="C:/Users/bharm/Downloads/memcached-master/items.c" linenr="72"/>
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functiondecl functionName="item_stats_reset" lineNumber="69"/>
+    <functiondecl functionName="do_item_stats_add_crawl" lineNumber="79"/>
+    <functiondecl functionName="get_cas_id" lineNumber="110"/>
+    <functiondecl functionName="item_is_flushed" lineNumber="118"/>
+    <functiondecl functionName="temp_lru_size" lineNumber="131"/>
+    <functiondecl functionName="do_get_lru_size" lineNumber="142"/>
+    <functiondecl functionName="item_make_header" lineNumber="169"/>
+    <functiondecl functionName="do_item_alloc_pull" lineNumber="184"/>
+    <functiondecl functionName="do_item_alloc_chunk" lineNumber="231"/>
+    <functiondecl functionName="do_item_alloc" lineNumber="257"/>
+    <functiondecl functionName="item_free" lineNumber="360"/>
+    <functiondecl functionName="item_size_ok" lineNumber="378"/>
+    <functiondecl functionName="do_item_link_q" lineNumber="393"/>
+    <functiondecl functionName="item_link_q" lineNumber="420"/>
+    <functiondecl functionName="item_link_q_warm" lineNumber="426"/>
+    <functiondecl functionName="do_item_unlink_q" lineNumber="433"/>
+    <functiondecl functionName="item_unlink_q" lineNumber="465"/>
+    <functiondecl functionName="do_item_link" lineNumber="471"/>
+    <functiondecl functionName="do_item_unlink" lineNumber="493"/>
+    <functiondecl functionName="do_item_unlink_nolock" lineNumber="509"/>
+    <functiondecl functionName="do_item_remove" lineNumber="524"/>
+    <functiondecl functionName="do_item_update_nolock" lineNumber="536"/>
+    <functiondecl functionName="do_item_update" lineNumber="550"/>
+    <functiondecl functionName="do_item_replace" lineNumber="579"/>
+    <functiondecl functionName="item_cachedump" lineNumber="595"/>
+    <functiondecl functionName="fill_item_stats_automove" lineNumber="648"/>
+    <functiondecl functionName="item_stats_totals" lineNumber="672"/>
+    <functiondecl functionName="item_stats" lineNumber="729"/>
+    <functiondecl functionName="item_stats_sizes_status" lineNumber="860"/>
+    <functiondecl functionName="item_stats_sizes_init" lineNumber="869"/>
+    <functiondecl functionName="item_stats_sizes_enable" lineNumber="877"/>
+    <functiondecl functionName="item_stats_sizes_disable" lineNumber="896"/>
+    <functiondecl functionName="item_stats_sizes_add" lineNumber="906"/>
+    <functiondecl functionName="item_stats_sizes_remove" lineNumber="918"/>
+    <functiondecl functionName="item_stats_sizes" lineNumber="933"/>
+    <functiondecl functionName="do_item_get" lineNumber="954"/>
+    <functiondecl functionName="do_item_touch" lineNumber="1059"/>
+    <functiondecl functionName="lru_pull_tail" lineNumber="1072"/>
+    <functiondecl functionName="lru_bump_buf_link_q" lineNumber="1249"/>
+    <functiondecl functionName="item_lru_bump_buf_create" lineNumber="1262"/>
+    <functiondecl functionName="lru_bump_async" lineNumber="1280"/>
+    <functiondecl functionName="lru_maintainer_bumps" lineNumber="1309"/>
+    <functiondecl functionName="lru_total_bumps_dropped" lineNumber="1344"/>
+    <functiondecl functionName="lru_maintainer_juggle" lineNumber="1365"/>
+    <functiondecl functionName="lru_maintainer_crawler_check" lineNumber="1431"/>
+    <functiondecl functionName="lru_maintainer_thread" lineNumber="1542"/>
+    <functiondecl functionName="stop_lru_maintainer_thread" lineNumber="1663"/>
+    <functiondecl functionName="start_lru_maintainer_thread" lineNumber="1677"/>
+    <functiondecl functionName="lru_maintainer_pause" lineNumber="1696"/>
+    <functiondecl functionName="lru_maintainer_resume" lineNumber="1700"/>
+    <functiondecl functionName="init_lru_maintainer" lineNumber="1704"/>
+    <functiondecl functionName="do_item_linktail_q" lineNumber="1713"/>
+    <functiondecl functionName="do_item_unlinktail_q" lineNumber="1734"/>
+    <functiondecl functionName="do_item_crawl_q" lineNumber="1757"/>
+    <functioncall functionName="CRAWLER_AUTOEXPIRE"/>
+    <functioncall functionName="CRAWLER_BADCLASS"/>
+    <functioncall functionName="CRAWLER_ERROR"/>
+    <functioncall functionName="CRAWLER_EXPIRED"/>
+    <functioncall functionName="CRAWLER_METADUMP"/>
+    <functioncall functionName="CRAWLER_NOTSTARTED"/>
+    <functioncall functionName="CRAWLER_RUNNING"/>
+    <functioncall functionName="DELTA_ITEM_CAS_MISMATCH"/>
+    <functioncall functionName="DELTA_ITEM_NOT_FOUND"/>
+    <functioncall functionName="EOM"/>
+    <functioncall functionName="EXISTS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="ITEM_schunk"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_FAILED"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_OK"/>
+    <functioncall functionName="LOGGER_COMPACT_ABORT"/>
+    <functioncall functionName="LOGGER_COMPACT_END"/>
+    <functioncall functionName="LOGGER_COMPACT_FRAGINFO"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_END"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_START"/>
+    <functioncall functionName="LOGGER_COMPACT_START"/>
+    <functioncall functionName="LOGGER_CRAWLER_STATUS"/>
+    <functioncall functionName="LOGGER_EVICTION"/>
+    <functioncall functionName="LOGGER_EVICTION_ENTRY"/>
+    <functioncall functionName="LOGGER_EXTSTORE_WRITE"/>
+    <functioncall functionName="LOGGER_EXT_WRITE_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_GET"/>
+    <functioncall functionName="LOGGER_ITEM_GET_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_STORE"/>
+    <functioncall functionName="LOGGER_ITEM_STORE_ENTRY"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FAILED"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FULLBUF"/>
+    <functioncall functionName="LOGGER_RET_ERR"/>
+    <functioncall functionName="LOGGER_RET_NOSPACE"/>
+    <functioncall functionName="LOGGER_SLAB_MOVE"/>
+    <functioncall functionName="MEMCACHED_ITEM_LINK"/>
+    <functioncall functionName="MEMCACHED_ITEM_REMOVE"/>
+    <functioncall functionName="MEMCACHED_ITEM_REPLACE"/>
+    <functioncall functionName="MEMCACHED_ITEM_UNLINK"/>
+    <functioncall functionName="MEMCACHED_ITEM_UPDATE"/>
+    <functioncall functionName="MURMUR3_HASH"/>
+    <functioncall functionName="NON_NUMERIC"/>
+    <functioncall functionName="NOT_FOUND"/>
+    <functioncall functionName="NO_MEMORY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="OK"/>
+    <functioncall functionName="PAUSE_ALL_THREADS"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="REASSIGN_BADCLASS"/>
+    <functioncall functionName="REASSIGN_NOSPARE"/>
+    <functioncall functionName="REASSIGN_RUNNING"/>
+    <functioncall functionName="REASSIGN_SRC_DST_SAME"/>
+    <functioncall functionName="RESUME_ALL_THREADS"/>
+    <functioncall functionName="RESUME_WORKER_THREADS"/>
+    <functioncall functionName="STATS_LOCK"/>
+    <functioncall functionName="STATS_UNLOCK"/>
+    <functioncall functionName="STORED"/>
+    <functioncall functionName="TOO_LARGE"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="add_stats"/>
+    <functioncall functionName="age"/>
+    <functioncall functionName="age_hot"/>
+    <functioncall functionName="age_warm"/>
+    <functioncall functionName="am"/>
+    <functioncall functionName="append_stat"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="assoc_delete"/>
+    <functioncall functionName="assoc_find"/>
+    <functioncall functionName="assoc_insert"/>
+    <functioncall functionName="available_reclaims"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="bin_no_state"/>
+    <functioncall functionName="bin_read_flush_exptime"/>
+    <functioncall functionName="bin_read_set_value"/>
+    <functioncall functionName="bin_reading_cas_header"/>
+    <functioncall functionName="bin_reading_del_header"/>
+    <functioncall functionName="bin_reading_get_key"/>
+    <functioncall functionName="bin_reading_incr_header"/>
+    <functioncall functionName="bin_reading_sasl_auth"/>
+    <functioncall functionName="bin_reading_sasl_auth_data"/>
+    <functioncall functionName="bin_reading_set_header"/>
+    <functioncall functionName="bin_reading_stat"/>
+    <functioncall functionName="bin_reading_touch_key"/>
+    <functioncall functionName="binary_prot"/>
+    <functioncall functionName="bipbuf_new"/>
+    <functioncall functionName="bipbuf_peek_all"/>
+    <functioncall functionName="bipbuf_poll"/>
+    <functioncall functionName="bipbuf_push"/>
+    <functioncall functionName="bipbuf_request"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bucket"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bufcurr"/>
+    <functioncall functionName="bump_buf_head"/>
+    <functioncall functionName="bump_buf_lock"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cas"/>
+    <functioncall functionName="cas_id_lock"/>
+    <functioncall functionName="cdata"/>
+    <functioncall functionName="ch"/>
+    <functioncall functionName="chunks_perslab"/>
+    <functioncall functionName="clsid"/>
+    <functioncall functionName="conn_closed"/>
+    <functioncall functionName="conn_closing"/>
+    <functioncall functionName="conn_listening"/>
+    <functioncall functionName="conn_max_state"/>
+    <functioncall functionName="conn_mwrite"/>
+    <functioncall functionName="conn_new_cmd"/>
+    <functioncall functionName="conn_nread"/>
+    <functioncall functionName="conn_parse_cmd"/>
+    <functioncall functionName="conn_read"/>
+    <functioncall functionName="conn_swallow"/>
+    <functioncall functionName="conn_waiting"/>
+    <functioncall functionName="conn_watch"/>
+    <functioncall functionName="conn_write"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="crawler_items_checked"/>
+    <functioncall functionName="crawler_reclaimed"/>
+    <functioncall functionName="cur_lru"/>
+    <functioncall functionName="current_time"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="direct_reclaims"/>
+    <functioncall functionName="do_item_alloc_pull"/>
+    <functioncall functionName="do_item_get"/>
+    <functioncall functionName="do_item_link"/>
+    <functioncall functionName="do_item_link_q"/>
+    <functioncall functionName="do_item_remove"/>
+    <functioncall functionName="do_item_unlink"/>
+    <functioncall functionName="do_item_unlink_nolock"/>
+    <functioncall functionName="do_item_unlink_q"/>
+    <functioncall functionName="do_item_update"/>
+    <functioncall functionName="do_item_update_nolock"/>
+    <functioncall functionName="do_run"/>
+    <functioncall functionName="do_run_lru_maintainer_thread"/>
+    <functioncall functionName="do_update"/>
+    <functioncall functionName="dropped"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="end_time"/>
+    <functioncall functionName="evicted"/>
+    <functioncall functionName="evicted_active"/>
+    <functioncall functionName="evicted_nonzero"/>
+    <functioncall functionName="evicted_time"/>
+    <functioncall functionName="evicted_unfetched"/>
+    <functioncall functionName="expired_unfetched"/>
+    <functioncall functionName="exptime"/>
+    <functioncall functionName="ext_storage"/>
+    <functioncall functionName="extstore_delete"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="get_cas_id"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hdr_id"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hits_to_cold"/>
+    <functioncall functionName="hits_to_hot"/>
+    <functioncall functionName="hits_to_temp"/>
+    <functioncall functionName="hits_to_warm"/>
+    <functioncall functionName="hold_lock"/>
+    <functioncall functionName="hot_age"/>
+    <functioncall functionName="hot_max_factor"/>
+    <functioncall functionName="htotal"/>
+    <functioncall functionName="hv"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ii"/>
+    <functioncall functionName="init"/>
+    <functioncall functionName="inline_ascii_response"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="item"/>
+    <functioncall functionName="item_free"/>
+    <functioncall functionName="item_is_flushed"/>
+    <functioncall functionName="item_link_q"/>
+    <functioncall functionName="item_link_q_warm"/>
+    <functioncall functionName="item_lock"/>
+    <functioncall functionName="item_make_header"/>
+    <functioncall functionName="item_stats_sizes_add"/>
+    <functioncall functionName="item_stats_sizes_init"/>
+    <functioncall functionName="item_stats_sizes_remove"/>
+    <functioncall functionName="item_trylock"/>
+    <functioncall functionName="item_trylock_unlock"/>
+    <functioncall functionName="item_unlink_q"/>
+    <functioncall functionName="item_unlock"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_str"/>
+    <functioncall functionName="key_temp"/>
+    <functioncall functionName="klen"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="last_sleep"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="local_transport"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="logger_create"/>
+    <functioncall functionName="logger_key"/>
+    <functioncall functionName="logger_log"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="low_watermark"/>
+    <functioncall functionName="lru_bump_async"/>
+    <functioncall functionName="lru_bump_buf"/>
+    <functioncall functionName="lru_bump_buf_link_q"/>
+    <functioncall functionName="lru_crawler_start"/>
+    <functioncall functionName="lru_crawler_tocrawl"/>
+    <functioncall functionName="lru_maintainer_bumps"/>
+    <functioncall functionName="lru_maintainer_crawler_check"/>
+    <functioncall functionName="lru_maintainer_juggle"/>
+    <functioncall functionName="lru_maintainer_lock"/>
+    <functioncall functionName="lru_maintainer_thread"/>
+    <functioncall functionName="lru_maintainer_tid"/>
+    <functioncall functionName="lru_name"/>
+    <functioncall functionName="lru_pull_tail"/>
+    <functioncall functionName="lru_segmented"/>
+    <functioncall functionName="lru_total_bumps_dropped"/>
+    <functioncall functionName="lrutail_reflocked"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memlimit"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="move_to_lru"/>
+    <functioncall functionName="moves_to_cold"/>
+    <functioncall functionName="moves_to_warm"/>
+    <functioncall functionName="moves_within_lru"/>
+    <functioncall functionName="mutex"/>
+    <functioncall functionName="myl"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="nbytes"/>
+    <functioncall functionName="nch"/>
+    <functioncall functionName="negotiating_prot"/>
+    <functioncall functionName="new_it"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="next_it"/>
+    <functioncall functionName="nkey"/>
+    <functioncall functionName="noexp"/>
+    <functioncall functionName="nsuffix"/>
+    <functioncall functionName="ntotal"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="oldest_cas"/>
+    <functioncall functionName="oldest_live"/>
+    <functioncall functionName="orig_id"/>
+    <functioncall functionName="outofmemory"/>
+    <functioncall functionName="page_id"/>
+    <functioncall functionName="page_version"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="process_started"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_getspecific"/>
+    <functioncall functionName="pthread_join"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="reclaimed"/>
+    <functioncall functionName="refcount"/>
+    <functioncall functionName="remain"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="run"/>
+    <functioncall functionName="run_complete"/>
+    <functioncall functionName="search"/>
+    <functioncall functionName="seen"/>
+    <functioncall functionName="settings"/>
+    <functioncall functionName="since_run"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab_automove_default"/>
+    <functioncall functionName="slab_automove_extstore"/>
+    <functioncall functionName="slab_automove_extstore_free"/>
+    <functioncall functionName="slab_automove_extstore_init"/>
+    <functioncall functionName="slab_automove_extstore_run"/>
+    <functioncall functionName="slab_automove_free"/>
+    <functioncall functionName="slab_automove_init"/>
+    <functioncall functionName="slab_automove_ratio"/>
+    <functioncall functionName="slab_automove_run"/>
+    <functioncall functionName="slab_chunk_size_max"/>
+    <functioncall functionName="slabs_alloc"/>
+    <functioncall functionName="slabs_available_chunks"/>
+    <functioncall functionName="slabs_clsid"/>
+    <functioncall functionName="slabs_free"/>
+    <functioncall functionName="slabs_mlock"/>
+    <functioncall functionName="slabs_munlock"/>
+    <functioncall functionName="slabs_reassign"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="src"/>
+    <functioncall functionName="start_time"/>
+    <functioncall functionName="stats_sizes_buckets"/>
+    <functioncall functionName="stats_sizes_hist"/>
+    <functioncall functionName="stats_sizes_lock"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="storage"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="suffix"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tailrepairs"/>
+    <functioncall functionName="tcp_transport"/>
+    <functioncall functionName="temp"/>
+    <functioncall functionName="temp_lru"/>
+    <functioncall functionName="temp_lru_size"/>
+    <functioncall functionName="temporary_ttl"/>
+    <functioncall functionName="thread_stats"/>
+    <functioncall functionName="threadlocal_stats_aggregate"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="to_sleep"/>
+    <functioncall functionName="tocrawl_limit"/>
+    <functioncall functionName="todo"/>
+    <functioncall functionName="total_bytes"/>
+    <functioncall functionName="totals"/>
+    <functioncall functionName="tries"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="udp_transport"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="use_cas"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="val_str"/>
+    <functioncall functionName="verbose"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="warm_age"/>
+    <functioncall functionName="warm_max_factor"/>
+    <functioncall functionName="was_found"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="415863712">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="interleave64" lineNumber="52"/>
+    <functiondecl functionName="deinterleave64" lineNumber="82"/>
+    <functiondecl functionName="geohashGetCoordRange" lineNumber="112"/>
+    <functiondecl functionName="geohashEncode" lineNumber="121"/>
+    <functiondecl functionName="geohashEncodeType" lineNumber="153"/>
+    <functiondecl functionName="geohashEncodeWGS84" lineNumber="159"/>
+    <functiondecl functionName="geohashDecode" lineNumber="164"/>
+    <functiondecl functionName="geohashDecodeType" lineNumber="196"/>
+    <functiondecl functionName="geohashDecodeWGS84" lineNumber="202"/>
+    <functiondecl functionName="geohashDecodeAreaToLongLat" lineNumber="206"/>
+    <functiondecl functionName="geohashDecodeToLongLatType" lineNumber="213"/>
+    <functiondecl functionName="geohashDecodeToLongLatWGS84" lineNumber="220"/>
+    <functiondecl functionName="geohash_move_x" lineNumber="224"/>
+    <functiondecl functionName="geohash_move_y" lineNumber="244"/>
+    <functiondecl functionName="geohashNeighbors" lineNumber="262"/>
+    <functioncall functionName="GEOHASH_EAST"/>
+    <functioncall functionName="GEOHASH_NORT_EAST"/>
+    <functioncall functionName="GEOHASH_NORT_WEST"/>
+    <functioncall functionName="GEOHASH_SOUTH"/>
+    <functioncall functionName="GEOHASH_SOUTH_EAST"/>
+    <functioncall functionName="GEOHASH_SOUTH_WEST"/>
+    <functioncall functionName="GEOHASH_WEST"/>
+    <functioncall functionName="area"/>
+    <functioncall functionName="bits"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="deinterleave64"/>
+    <functioncall functionName="east"/>
+    <functioncall functionName="geohashDecode"/>
+    <functioncall functionName="geohashDecodeAreaToLongLat"/>
+    <functioncall functionName="geohashDecodeToLongLatType"/>
+    <functioncall functionName="geohashDecodeType"/>
+    <functioncall functionName="geohashEncode"/>
+    <functioncall functionName="geohashEncodeType"/>
+    <functioncall functionName="geohashGetCoordRange"/>
+    <functioncall functionName="geohash_move_x"/>
+    <functioncall functionName="geohash_move_y"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hash_sep"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="interleave64"/>
+    <functioncall functionName="interleaved"/>
+    <functioncall functionName="lat_offset"/>
+    <functioncall functionName="latitude"/>
+    <functioncall functionName="long_offset"/>
+    <functioncall functionName="longitude"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="min"/>
+    <functioncall functionName="north"/>
+    <functioncall functionName="north_east"/>
+    <functioncall functionName="north_west"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="south"/>
+    <functioncall functionName="south_east"/>
+    <functioncall functionName="south_west"/>
+    <functioncall functionName="step"/>
+    <functioncall functionName="west"/>
+    <functioncall functionName="xlo"/>
+    <functioncall functionName="xy"/>
+    <functioncall functionName="y"/>
+    <functioncall functionName="ylo"/>
+    <functioncall functionName="zz"/>
+  </FileInfo>
+</analyzerinfo>

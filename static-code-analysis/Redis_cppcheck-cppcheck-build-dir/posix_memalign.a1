@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3198446899">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;total&apos; can be reduced." verbose="The scope of the variable &apos;total&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\posix_memalign.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\posix_memalign.c" line="75"/>
+            <symbol>total</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="purge" lineNumber="11"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="16"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="35"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="73"/>
+    <functiondecl functionName="main" lineNumber="122"/>
+    <functiondecl functionName="purge" lineNumber="11"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="16"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="35"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="73"/>
+    <functiondecl functionName="main" lineNumber="122"/>
+    <functioncall functionName="BUFERROR_BUF"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_d_ne"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buferror"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="get_errno"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="malloc_usable_size"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="posix_memalign"/>
+    <functioncall functionName="purge"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_alignment_and_size"/>
+    <functioncall functionName="test_alignment_errors"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_oom_errors"/>
+  </FileInfo>
+</analyzerinfo>

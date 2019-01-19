@@ -1,0 +1,534 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="311692887">
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\logger.c" file="C:\Users\bharm\Downloads\memcached-master\logger.c" line="214"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;e&apos; can be reduced." verbose="The scope of the variable &apos;e&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\logger.c" file="C:\Users\bharm\Downloads\memcached-master\logger.c" line="344"/>
+            <symbol>e</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="my_sasl_hostname" size="1025"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 7) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\logger.c" file="C:\Users\bharm\Downloads\memcached-master\logger.c" line="228"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\logger.c" file="C:\Users\bharm\Downloads\memcached-master\logger.c" line="352"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 3) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 3) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\logger.c" file="C:\Users\bharm\Downloads\memcached-master\logger.c" line="471"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="portability" msg="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;size_t {aka unsigned long}&apos;." verbose="%lu in format string (no. 2) requires &apos;unsigned long&apos; but the argument type is &apos;size_t {aka unsigned long}&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\logger.c" file="C:\Users\bharm\Downloads\memcached-master\logger.c" line="773"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="watchers" size="20"/>
+    <ArraySize array="watchers_pollfds" size="20"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="_logger_thread_parse_extw" lineNumber="223"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_ext_write" lineNumber="636"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functiondecl functionName="logger_get_gid" lineNumber="90"/>
+    <functiondecl functionName="logger_link_q" lineNumber="108"/>
+    <functiondecl functionName="logger_set_flags" lineNumber="146"/>
+    <functiondecl functionName="_logger_thread_parse_ise" lineNumber="173"/>
+    <functiondecl functionName="_logger_thread_parse_ige" lineNumber="194"/>
+    <functiondecl functionName="_logger_thread_parse_ee" lineNumber="209"/>
+    <functiondecl functionName="logger_thread_parse_entry" lineNumber="238"/>
+    <functiondecl functionName="logger_thread_write_entry" lineNumber="276"/>
+    <functiondecl functionName="logger_thread_close_watcher" lineNumber="326"/>
+    <functiondecl functionName="logger_thread_read" lineNumber="339"/>
+    <functiondecl functionName="logger_thread_poll_watchers" lineNumber="395"/>
+    <functiondecl functionName="logger_thread_sum_stats" lineNumber="491"/>
+    <functiondecl functionName="logger_thread" lineNumber="504"/>
+    <functiondecl functionName="start_logger_thread" lineNumber="544"/>
+    <functiondecl functionName="logger_init" lineNumber="567"/>
+    <functiondecl functionName="logger_create" lineNumber="596"/>
+    <functiondecl functionName="_logger_log_evictions" lineNumber="621"/>
+    <functiondecl functionName="_logger_log_item_get" lineNumber="654"/>
+    <functiondecl functionName="_logger_log_item_store" lineNumber="664"/>
+    <functiondecl functionName="logger_log" lineNumber="684"/>
+    <functiondecl functionName="logger_add_watcher" lineNumber="789"/>
+    <functioncall functionName="CRAWLER_BADCLASS"/>
+    <functioncall functionName="CRAWLER_ERROR"/>
+    <functioncall functionName="CRAWLER_EXPIRED"/>
+    <functioncall functionName="CRAWLER_METADUMP"/>
+    <functioncall functionName="CRAWLER_NOTSTARTED"/>
+    <functioncall functionName="CRAWLER_RUNNING"/>
+    <functioncall functionName="DELTA_ITEM_CAS_MISMATCH"/>
+    <functioncall functionName="DELTA_ITEM_NOT_FOUND"/>
+    <functioncall functionName="EOM"/>
+    <functioncall functionName="EXISTS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_FAILED"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_OK"/>
+    <functioncall functionName="LOGGER_ASCII_CMD"/>
+    <functioncall functionName="LOGGER_COMPACT_ABORT"/>
+    <functioncall functionName="LOGGER_COMPACT_END"/>
+    <functioncall functionName="LOGGER_COMPACT_FRAGINFO"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_END"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_START"/>
+    <functioncall functionName="LOGGER_COMPACT_START"/>
+    <functioncall functionName="LOGGER_CRAWLER_STATUS"/>
+    <functioncall functionName="LOGGER_EVICTION"/>
+    <functioncall functionName="LOGGER_EVICTION_ENTRY"/>
+    <functioncall functionName="LOGGER_EXTSTORE_WRITE"/>
+    <functioncall functionName="LOGGER_EXT_WRITE_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_GET"/>
+    <functioncall functionName="LOGGER_ITEM_GET_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_STORE"/>
+    <functioncall functionName="LOGGER_ITEM_STORE_ENTRY"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FAILED"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FULLBUF"/>
+    <functioncall functionName="LOGGER_RET_ERR"/>
+    <functioncall functionName="LOGGER_RET_NOSPACE"/>
+    <functioncall functionName="LOGGER_SLAB_MOVE"/>
+    <functioncall functionName="LOGGER_TEXT_ENTRY"/>
+    <functioncall functionName="LOGGER_WATCHER_CLIENT"/>
+    <functioncall functionName="LOGGER_WATCHER_STDERR"/>
+    <functioncall functionName="MURMUR3_HASH"/>
+    <functioncall functionName="NON_NUMERIC"/>
+    <functioncall functionName="NOT_FOUND"/>
+    <functioncall functionName="NO_MEMORY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="OK"/>
+    <functioncall functionName="PAUSE_ALL_THREADS"/>
+    <functioncall functionName="POLLERR"/>
+    <functioncall functionName="POLLIN"/>
+    <functioncall functionName="POLLOUT"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="REASSIGN_BADCLASS"/>
+    <functioncall functionName="REASSIGN_NOSPARE"/>
+    <functioncall functionName="REASSIGN_RUNNING"/>
+    <functioncall functionName="REASSIGN_SRC_DST_SAME"/>
+    <functioncall functionName="RESUME_ALL_THREADS"/>
+    <functioncall functionName="RESUME_WORKER_THREADS"/>
+    <functioncall functionName="STATS_LOCK"/>
+    <functioncall functionName="STATS_UNLOCK"/>
+    <functioncall functionName="STORED"/>
+    <functioncall functionName="TOO_LARGE"/>
+    <functioncall functionName="__sync_add_and_fetch"/>
+    <functioncall functionName="_logger_log_evictions"/>
+    <functioncall functionName="_logger_log_ext_write"/>
+    <functioncall functionName="_logger_log_item_get"/>
+    <functioncall functionName="_logger_log_item_store"/>
+    <functioncall functionName="_logger_thread_parse_ee"/>
+    <functioncall functionName="_logger_thread_parse_extw"/>
+    <functioncall functionName="_logger_thread_parse_ige"/>
+    <functioncall functionName="_logger_thread_parse_ise"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atomic_inc_64_nv"/>
+    <functioncall functionName="bin_no_state"/>
+    <functioncall functionName="bin_read_flush_exptime"/>
+    <functioncall functionName="bin_read_set_value"/>
+    <functioncall functionName="bin_reading_cas_header"/>
+    <functioncall functionName="bin_reading_del_header"/>
+    <functioncall functionName="bin_reading_get_key"/>
+    <functioncall functionName="bin_reading_incr_header"/>
+    <functioncall functionName="bin_reading_sasl_auth"/>
+    <functioncall functionName="bin_reading_sasl_auth_data"/>
+    <functioncall functionName="bin_reading_set_header"/>
+    <functioncall functionName="bin_reading_stat"/>
+    <functioncall functionName="bin_reading_touch_key"/>
+    <functioncall functionName="binary_prot"/>
+    <functioncall functionName="bipbuf_free"/>
+    <functioncall functionName="bipbuf_new"/>
+    <functioncall functionName="bipbuf_offer"/>
+    <functioncall functionName="bipbuf_peek_all"/>
+    <functioncall functionName="bipbuf_poll"/>
+    <functioncall functionName="bipbuf_push"/>
+    <functioncall functionName="bipbuf_request"/>
+    <functioncall functionName="bipbuf_used"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bucket"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="clsid"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="comm"/>
+    <functioncall functionName="conn_closed"/>
+    <functioncall functionName="conn_closing"/>
+    <functioncall functionName="conn_listening"/>
+    <functioncall functionName="conn_max_state"/>
+    <functioncall functionName="conn_mwrite"/>
+    <functioncall functionName="conn_new_cmd"/>
+    <functioncall functionName="conn_nread"/>
+    <functioncall functionName="conn_parse_cmd"/>
+    <functioncall functionName="conn_read"/>
+    <functioncall functionName="conn_swallow"/>
+    <functioncall functionName="conn_waiting"/>
+    <functioncall functionName="conn_watch"/>
+    <functioncall functionName="conn_write"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="current_time"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="data_size"/>
+    <functioncall functionName="default_entries"/>
+    <functioncall functionName="do_run_logger_thread"/>
+    <functioncall functionName="dropped"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="eflags"/>
+    <functioncall functionName="entry"/>
+    <functioncall functionName="event"/>
+    <functioncall functionName="ew_bucket"/>
+    <functioncall functionName="exptime"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="failed_flush"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="force_poll"/>
+    <functioncall functionName="format"/>
+    <functioncall functionName="found_logs"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="fwrite"/>
+    <functioncall functionName="gclsid"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="gid"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="it"/>
+    <functioncall functionName="it_flags"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keybuf"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="latime"/>
+    <functioncall functionName="local_transport"/>
+    <functioncall functionName="logger_atomics_mutex"/>
+    <functioncall functionName="logger_buf_size"/>
+    <functioncall functionName="logger_get_gid"/>
+    <functioncall functionName="logger_gid"/>
+    <functioncall functionName="logger_key"/>
+    <functioncall functionName="logger_link_q"/>
+    <functioncall functionName="logger_set_flags"/>
+    <functioncall functionName="logger_stack_head"/>
+    <functioncall functionName="logger_stack_lock"/>
+    <functioncall functionName="logger_thread"/>
+    <functioncall functionName="logger_thread_close_watcher"/>
+    <functioncall functionName="logger_thread_parse_entry"/>
+    <functioncall functionName="logger_thread_poll_watchers"/>
+    <functioncall functionName="logger_thread_read"/>
+    <functioncall functionName="logger_thread_sum_stats"/>
+    <functioncall functionName="logger_thread_write_entry"/>
+    <functioncall functionName="logger_tid"/>
+    <functioncall functionName="logger_watcher_buf_size"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="ls"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mutex"/>
+    <functioncall functionName="negotiating_prot"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nfd"/>
+    <functioncall functionName="nkey"/>
+    <functioncall functionName="nospace"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="pad"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="poll"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_key_create"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="pthread_setspecific"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="remain"/>
+    <functioncall functionName="reqlen"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sclsid"/>
+    <functioncall functionName="scratch"/>
+    <functioncall functionName="scratch_len"/>
+    <functioncall functionName="sfd"/>
+    <functioncall functionName="sidethread_conn_close"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="skey"/>
+    <functioncall functionName="skip_scr"/>
+    <functioncall functionName="skipped"/>
+    <functioncall functionName="snkey"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="start_logger_thread"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="sttl"/>
+    <functioncall functionName="subtype"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="tcp_transport"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="to_sleep"/>
+    <functioncall functionName="total"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="ttl"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="udp_transport"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uriencode"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="w"/>
+    <functioncall functionName="was_found"/>
+    <functioncall functionName="watcher_sent"/>
+    <functioncall functionName="watcher_skipped"/>
+    <functioncall functionName="watchers_pollfds"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="worker_dropped"/>
+    <functioncall functionName="worker_written"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="written"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

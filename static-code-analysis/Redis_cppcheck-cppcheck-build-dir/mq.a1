@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="981491464">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="mq_nanosleep" lineNumber="8"/>
+    <functiondecl functionName="mq_nanosleep" lineNumber="8"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="Sleep"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="nanosleep"/>
+    <functioncall functionName="ns"/>
+    <functioncall functionName="timeout"/>
+  </FileInfo>
+</analyzerinfo>

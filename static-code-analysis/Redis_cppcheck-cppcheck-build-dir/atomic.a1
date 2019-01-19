@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2135946377">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="179"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="190"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="196"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="202"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="208"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="215"/>
+    <functiondecl functionName="main" lineNumber="221"/>
+    <functioncall functionName="ATOMIC_INIT"/>
+    <functioncall functionName="ATOMIC_RELAXED"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="assert_b_eq"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_u32_eq"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zd_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="atom"/>
+    <functioncall functionName="atomic_compare_exchange_strong_p"/>
+    <functioncall functionName="atomic_compare_exchange_strong_u"/>
+    <functioncall functionName="atomic_compare_exchange_strong_u32"/>
+    <functioncall functionName="atomic_compare_exchange_strong_zd"/>
+    <functioncall functionName="atomic_compare_exchange_strong_zu"/>
+    <functioncall functionName="atomic_compare_exchange_weak_p"/>
+    <functioncall functionName="atomic_compare_exchange_weak_u"/>
+    <functioncall functionName="atomic_compare_exchange_weak_u32"/>
+    <functioncall functionName="atomic_compare_exchange_weak_zd"/>
+    <functioncall functionName="atomic_compare_exchange_weak_zu"/>
+    <functioncall functionName="atomic_exchange_p"/>
+    <functioncall functionName="atomic_exchange_u"/>
+    <functioncall functionName="atomic_exchange_u32"/>
+    <functioncall functionName="atomic_exchange_zd"/>
+    <functioncall functionName="atomic_exchange_zu"/>
+    <functioncall functionName="atomic_fetch_add_u"/>
+    <functioncall functionName="atomic_fetch_add_u32"/>
+    <functioncall functionName="atomic_fetch_add_zd"/>
+    <functioncall functionName="atomic_fetch_add_zu"/>
+    <functioncall functionName="atomic_fetch_and_u"/>
+    <functioncall functionName="atomic_fetch_and_u32"/>
+    <functioncall functionName="atomic_fetch_and_zd"/>
+    <functioncall functionName="atomic_fetch_and_zu"/>
+    <functioncall functionName="atomic_fetch_or_u"/>
+    <functioncall functionName="atomic_fetch_or_u32"/>
+    <functioncall functionName="atomic_fetch_or_zd"/>
+    <functioncall functionName="atomic_fetch_or_zu"/>
+    <functioncall functionName="atomic_fetch_sub_u"/>
+    <functioncall functionName="atomic_fetch_sub_u32"/>
+    <functioncall functionName="atomic_fetch_sub_zd"/>
+    <functioncall functionName="atomic_fetch_sub_zu"/>
+    <functioncall functionName="atomic_fetch_xor_u"/>
+    <functioncall functionName="atomic_fetch_xor_u32"/>
+    <functioncall functionName="atomic_fetch_xor_zd"/>
+    <functioncall functionName="atomic_fetch_xor_zu"/>
+    <functioncall functionName="atomic_load_p"/>
+    <functioncall functionName="atomic_load_u"/>
+    <functioncall functionName="atomic_load_u32"/>
+    <functioncall functionName="atomic_load_zd"/>
+    <functioncall functionName="atomic_load_zu"/>
+    <functioncall functionName="atomic_store_p"/>
+    <functioncall functionName="atomic_store_u"/>
+    <functioncall functionName="atomic_store_u32"/>
+    <functioncall functionName="atomic_store_zd"/>
+    <functioncall functionName="atomic_store_zu"/>
+    <functioncall functionName="expected"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="success"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_atomic_p"/>
+    <functioncall functionName="test_atomic_u"/>
+    <functioncall functionName="test_atomic_u32"/>
+    <functioncall functionName="test_atomic_u64"/>
+    <functioncall functionName="test_atomic_zd"/>
+    <functioncall functionName="test_atomic_zu"/>
+    <functioncall functionName="test_skip"/>
+    <functioncall functionName="tests"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="val1"/>
+    <functioncall functionName="val2"/>
+    <functioncall functionName="val3"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2215848403">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;p&apos; can be reduced." verbose="The scope of the variable &apos;p&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="110"/>
+            <symbol>p</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;dec&apos; can be reduced." verbose="The scope of the variable &apos;dec&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="150"/>
+            <symbol>dec</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;len&apos; can be reduced." verbose="The scope of the variable &apos;len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="177"/>
+            <symbol>len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;cur&apos; can be reduced." verbose="The scope of the variable &apos;cur&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="191"/>
+            <symbol>cur</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;prv&apos; can be reduced." verbose="The scope of the variable &apos;prv&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="191"/>
+            <symbol>prv</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;len&apos; can be reduced." verbose="The scope of the variable &apos;len&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="253"/>
+            <symbol>len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;bytelen&apos; can be reduced." verbose="The scope of the variable &apos;bytelen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="254"/>
+            <symbol>bytelen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;success&apos; can be reduced." verbose="The scope of the variable &apos;success&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="255"/>
+            <symbol>success</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;elements&apos; can be reduced." verbose="The scope of the variable &apos;elements&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="306"/>
+            <symbol>elements</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;root&apos; can be reduced." verbose="The scope of the variable &apos;root&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="307"/>
+            <symbol>root</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;p&apos; can be reduced." verbose="The scope of the variable &apos;p&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\hiredis\read.c" line="369"/>
+            <symbol>p</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="__redisReaderSetError" lineNumber="46"/>
+    <functiondecl functionName="chrtos" lineNumber="72"/>
+    <functiondecl functionName="__redisReaderSetErrorProtocolByte" lineNumber="96"/>
+    <functiondecl functionName="__redisReaderSetErrorOOM" lineNumber="105"/>
+    <functiondecl functionName="readBytes" lineNumber="109"/>
+    <functiondecl functionName="seekNewline" lineNumber="120"/>
+    <functiondecl functionName="readLongLong" lineNumber="148"/>
+    <functiondecl functionName="readLine" lineNumber="175"/>
+    <functiondecl functionName="moveToNextTask" lineNumber="190"/>
+    <functiondecl functionName="processLineItem" lineNumber="215"/>
+    <functiondecl functionName="processBulkItem" lineNumber="249"/>
+    <functiondecl functionName="processMultiBulkItem" lineNumber="302"/>
+    <functiondecl functionName="processItem" lineNumber="367"/>
+    <functiondecl functionName="redisReaderCreateWithFunctions" lineNumber="416"/>
+    <functiondecl functionName="redisReaderFree" lineNumber="437"/>
+    <functiondecl functionName="redisReaderFeed" lineNumber="445"/>
+    <functiondecl functionName="redisReaderGetReply" lineNumber="477"/>
+    <functiondecl functionName="__redisReaderSetError" lineNumber="46"/>
+    <functiondecl functionName="chrtos" lineNumber="72"/>
+    <functiondecl functionName="__redisReaderSetErrorProtocolByte" lineNumber="96"/>
+    <functiondecl functionName="__redisReaderSetErrorOOM" lineNumber="105"/>
+    <functiondecl functionName="readBytes" lineNumber="109"/>
+    <functiondecl functionName="seekNewline" lineNumber="120"/>
+    <functiondecl functionName="readLongLong" lineNumber="148"/>
+    <functiondecl functionName="readLine" lineNumber="175"/>
+    <functiondecl functionName="moveToNextTask" lineNumber="190"/>
+    <functiondecl functionName="processLineItem" lineNumber="215"/>
+    <functiondecl functionName="processBulkItem" lineNumber="249"/>
+    <functiondecl functionName="processMultiBulkItem" lineNumber="302"/>
+    <functiondecl functionName="processItem" lineNumber="367"/>
+    <functiondecl functionName="redisReaderCreateWithFunctions" lineNumber="416"/>
+    <functiondecl functionName="redisReaderFree" lineNumber="437"/>
+    <functiondecl functionName="redisReaderFeed" lineNumber="445"/>
+    <functiondecl functionName="redisReaderGetReply" lineNumber="477"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="__redisReaderSetError"/>
+    <functioncall functionName="__redisReaderSetErrorOOM"/>
+    <functioncall functionName="__redisReaderSetErrorProtocolByte"/>
+    <functioncall functionName="_len"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cbuf"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="chrtos"/>
+    <functioncall functionName="createArray"/>
+    <functioncall functionName="createInteger"/>
+    <functioncall functionName="createNil"/>
+    <functioncall functionName="createString"/>
+    <functioncall functionName="cur"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="elements"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fn"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeObject"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="isprint"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="maxbuf"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="moveToNextTask"/>
+    <functioncall functionName="newbuf"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="processBulkItem"/>
+    <functioncall functionName="processItem"/>
+    <functioncall functionName="processLineItem"/>
+    <functioncall functionName="processMultiBulkItem"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="readBytes"/>
+    <functioncall functionName="readLine"/>
+    <functioncall functionName="readLongLong"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="ridx"/>
+    <functioncall functionName="root"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sbuf"/>
+    <functioncall functionName="sdsavail"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="seekNewline"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="success"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3327262178">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="luaP_opmodes" size="38"/>
+    <ArraySize array="luaP_opnames" size="39"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OP_ADD"/>
+    <functioncall functionName="OP_CALL"/>
+    <functioncall functionName="OP_CLOSE"/>
+    <functioncall functionName="OP_CLOSURE"/>
+    <functioncall functionName="OP_CONCAT"/>
+    <functioncall functionName="OP_DIV"/>
+    <functioncall functionName="OP_EQ"/>
+    <functioncall functionName="OP_FORLOOP"/>
+    <functioncall functionName="OP_FORPREP"/>
+    <functioncall functionName="OP_GETGLOBAL"/>
+    <functioncall functionName="OP_GETTABLE"/>
+    <functioncall functionName="OP_GETUPVAL"/>
+    <functioncall functionName="OP_JMP"/>
+    <functioncall functionName="OP_LE"/>
+    <functioncall functionName="OP_LEN"/>
+    <functioncall functionName="OP_LOADBOOL"/>
+    <functioncall functionName="OP_LOADK"/>
+    <functioncall functionName="OP_LOADNIL"/>
+    <functioncall functionName="OP_LT"/>
+    <functioncall functionName="OP_MOD"/>
+    <functioncall functionName="OP_MOVE"/>
+    <functioncall functionName="OP_MUL"/>
+    <functioncall functionName="OP_NEWTABLE"/>
+    <functioncall functionName="OP_NOT"/>
+    <functioncall functionName="OP_POW"/>
+    <functioncall functionName="OP_RETURN"/>
+    <functioncall functionName="OP_SELF"/>
+    <functioncall functionName="OP_SETGLOBAL"/>
+    <functioncall functionName="OP_SETLIST"/>
+    <functioncall functionName="OP_SETTABLE"/>
+    <functioncall functionName="OP_SETUPVAL"/>
+    <functioncall functionName="OP_SUB"/>
+    <functioncall functionName="OP_TAILCALL"/>
+    <functioncall functionName="OP_TEST"/>
+    <functioncall functionName="OP_TESTSET"/>
+    <functioncall functionName="OP_TFORLOOP"/>
+    <functioncall functionName="OP_UNM"/>
+    <functioncall functionName="OP_VARARG"/>
+    <functioncall functionName="OpArgK"/>
+    <functioncall functionName="OpArgN"/>
+    <functioncall functionName="OpArgR"/>
+    <functioncall functionName="OpArgU"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="iABC"/>
+    <functioncall functionName="iABx"/>
+    <functioncall functionName="iAsBx"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="void"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1154538871">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="thd_start" lineNumber="6"/>
+    <functiondecl functionName="mallctl_failure" lineNumber="41"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="48"/>
+    <functiondecl functionName="main" lineNumber="83"/>
+    <functioncall functionName="BUFERROR_BUF"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zd_eq"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buferror"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="join_ret"/>
+    <functioncall functionName="main_arena_ind"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctl_failure"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="old_arena_ind"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_thread_arena"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+  </FileInfo>
+</analyzerinfo>

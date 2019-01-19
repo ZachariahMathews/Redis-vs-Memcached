@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2431017766">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="witness_lock_error_intercept" lineNumber="14"/>
+    <functiondecl functionName="witness_owner_error_intercept" lineNumber="20"/>
+    <functiondecl functionName="witness_not_owner_error_intercept" lineNumber="25"/>
+    <functiondecl functionName="witness_depth_error_intercept" lineNumber="30"/>
+    <functiondecl functionName="witness_comp" lineNumber="36"/>
+    <functiondecl functionName="witness_comp_reverse" lineNumber="46"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="56"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="96"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="148"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="179"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="214"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="238"/>
+    <functiondecl functionName="main" lineNumber="272"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="WITNESS_TSD_INITIALIZER"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="config_debug"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="rank"/>
+    <functioncall functionName="saw_depth_error"/>
+    <functioncall functionName="saw_lock_error"/>
+    <functioncall functionName="saw_not_owner_error"/>
+    <functioncall functionName="saw_owner_error"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="test_witness"/>
+    <functioncall functionName="test_witness_comp"/>
+    <functioncall functionName="test_witness_depth"/>
+    <functioncall functionName="test_witness_recursive"/>
+    <functioncall functionName="test_witness_reversal"/>
+    <functioncall functionName="test_witness_unlock_not_owned"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="witness_assert_depth"/>
+    <functioncall functionName="witness_assert_depth_to_rank"/>
+    <functioncall functionName="witness_assert_lockless"/>
+    <functioncall functionName="witness_assert_not_owner"/>
+    <functioncall functionName="witness_assert_owner"/>
+    <functioncall functionName="witness_comp"/>
+    <functioncall functionName="witness_comp_reverse"/>
+    <functioncall functionName="witness_depth_error"/>
+    <functioncall functionName="witness_depth_error_intercept"/>
+    <functioncall functionName="witness_depth_error_orig"/>
+    <functioncall functionName="witness_init"/>
+    <functioncall functionName="witness_lock"/>
+    <functioncall functionName="witness_lock_error"/>
+    <functioncall functionName="witness_lock_error_intercept"/>
+    <functioncall functionName="witness_lock_error_orig"/>
+    <functioncall functionName="witness_not_owner_error"/>
+    <functioncall functionName="witness_not_owner_error_intercept"/>
+    <functioncall functionName="witness_owner_error"/>
+    <functioncall functionName="witness_owner_error_intercept"/>
+    <functioncall functionName="witness_owner_error_orig"/>
+    <functioncall functionName="witness_rank_t"/>
+    <functioncall functionName="witness_tsdn"/>
+    <functioncall functionName="witness_unlock"/>
+  </FileInfo>
+</analyzerinfo>

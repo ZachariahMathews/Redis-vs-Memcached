@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2207830349">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;end&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;end&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\extstore.c" file="C:\Users\bharm\Downloads\memcached-master\extstore.c" line="721"/>
+            <location file0="C:\Users\bharm\Downloads\memcached-master\extstore.c" file="C:\Users\bharm\Downloads\memcached-master\extstore.c" line="719"/>
+            <symbol>end</symbol>
+        </error>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;tmp&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;tmp&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\extstore.c" file="C:\Users\bharm\Downloads\memcached-master\extstore.c" line="813"/>
+            <location file0="C:\Users\bharm\Downloads\memcached-master\extstore.c" file="C:\Users\bharm\Downloads\memcached-master\extstore.c" line="803"/>
+            <symbol>tmp</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="wbuf_new" lineNumber="113"/>
+    <functiondecl functionName="_get_io_thread" lineNumber="128"/>
+    <functiondecl functionName="_next_version" lineNumber="149"/>
+    <functiondecl functionName="extstore_get_stats" lineNumber="157"/>
+    <functiondecl functionName="extstore_get_page_data" lineNumber="180"/>
+    <functiondecl functionName="extstore_err" lineNumber="188"/>
+    <functiondecl functionName="extstore_init" lineNumber="216"/>
+    <functiondecl functionName="extstore_run_maint" lineNumber="366"/>
+    <functiondecl functionName="_allocate_page" lineNumber="372"/>
+    <functiondecl functionName="_allocate_wbuf" lineNumber="409"/>
+    <functiondecl functionName="_wbuf_cb" lineNumber="437"/>
+    <functiondecl functionName="_submit_wbuf" lineNumber="468"/>
+    <functiondecl functionName="extstore_write_request" lineNumber="500"/>
+    <functiondecl functionName="extstore_write" lineNumber="556"/>
+    <functiondecl functionName="extstore_submit" lineNumber="581"/>
+    <functiondecl functionName="extstore_delete" lineNumber="616"/>
+    <functiondecl functionName="extstore_check" lineNumber="651"/>
+    <functiondecl functionName="extstore_close_page" lineNumber="664"/>
+    <functiondecl functionName="_read_from_wbuf" lineNumber="682"/>
+    <functiondecl functionName="extstore_io_thread" lineNumber="706"/>
+    <functiondecl functionName="_free_page" lineNumber="802"/>
+    <functiondecl functionName="extstore_maint_thread" lineNumber="863"/>
+    <functiondecl functionName="wbuf_new" lineNumber="113"/>
+    <functiondecl functionName="_get_io_thread" lineNumber="128"/>
+    <functiondecl functionName="_next_version" lineNumber="149"/>
+    <functiondecl functionName="extstore_get_stats" lineNumber="157"/>
+    <functiondecl functionName="extstore_get_page_data" lineNumber="180"/>
+    <functiondecl functionName="extstore_err" lineNumber="188"/>
+    <functiondecl functionName="extstore_init" lineNumber="216"/>
+    <functiondecl functionName="extstore_run_maint" lineNumber="366"/>
+    <functiondecl functionName="_allocate_page" lineNumber="372"/>
+    <functiondecl functionName="_allocate_wbuf" lineNumber="409"/>
+    <functiondecl functionName="_wbuf_cb" lineNumber="437"/>
+    <functiondecl functionName="_submit_wbuf" lineNumber="468"/>
+    <functiondecl functionName="extstore_write_request" lineNumber="500"/>
+    <functiondecl functionName="extstore_write" lineNumber="556"/>
+    <functiondecl functionName="extstore_submit" lineNumber="581"/>
+    <functiondecl functionName="extstore_delete" lineNumber="616"/>
+    <functiondecl functionName="extstore_check" lineNumber="651"/>
+    <functiondecl functionName="extstore_close_page" lineNumber="664"/>
+    <functiondecl functionName="_read_from_wbuf" lineNumber="682"/>
+    <functiondecl functionName="extstore_io_thread" lineNumber="706"/>
+    <functiondecl functionName="_free_page" lineNumber="802"/>
+    <functiondecl functionName="extstore_maint_thread" lineNumber="863"/>
+    <functioncall functionName="EXTSTORE_INIT_BAD_WBUF_SIZE"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="LLONG_MAX"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="O_TRUNC"/>
+    <functioncall functionName="ULLONG_MAX"/>
+    <functioncall functionName="_allocate_page"/>
+    <functioncall functionName="_allocate_wbuf"/>
+    <functioncall functionName="_free_page"/>
+    <functioncall functionName="_get_io_thread"/>
+    <functioncall functionName="_next_version"/>
+    <functioncall functionName="_read_from_wbuf"/>
+    <functioncall functionName="_submit_wbuf"/>
+    <functioncall functionName="_wbuf_cb"/>
+    <functioncall functionName="allocated"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bucket"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="buf_pos"/>
+    <functioncall functionName="bytes_used"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cb"/>
+    <functioncall functionName="closed"/>
+    <functioncall functionName="cond"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="cur_io"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="depth"/>
+    <functioncall functionName="do_op"/>
+    <functioncall functionName="e"/>
+    <functioncall functionName="ep"/>
+    <functioncall functionName="extstore_io_thread"/>
+    <functioncall functionName="extstore_maint_thread"/>
+    <functioncall functionName="extstore_run_maint"/>
+    <functioncall functionName="extstore_submit"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fb"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fh"/>
+    <functioncall functionName="file"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="free_bucket"/>
+    <functioncall functionName="full"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="io"/>
+    <functioncall functionName="io_depth"/>
+    <functioncall functionName="io_stack"/>
+    <functioncall functionName="io_threadcount"/>
+    <functioncall functionName="iov"/>
+    <functioncall functionName="iov_base"/>
+    <functioncall functionName="iov_len"/>
+    <functioncall functionName="iovcnt"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="low_page"/>
+    <functioncall functionName="maint_thread"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="mutex"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="obj_count"/>
+    <functioncall functionName="off"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="page_bucketcount"/>
+    <functioncall functionName="page_buckets"/>
+    <functioncall functionName="page_count"/>
+    <functioncall functionName="page_data"/>
+    <functioncall functionName="page_free"/>
+    <functioncall functionName="page_freelist"/>
+    <functioncall functionName="page_id"/>
+    <functioncall functionName="page_size"/>
+    <functioncall functionName="page_version"/>
+    <functioncall functionName="pd"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pread"/>
+    <functioncall functionName="preadv"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="pthread_cond_init"/>
+    <functioncall functionName="pthread_cond_signal"/>
+    <functioncall functionName="pthread_cond_wait"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pwrite"/>
+    <functioncall functionName="queue"/>
+    <functioncall functionName="res"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="st"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="stats_mutex"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="store_engine"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="thread"/>
+    <functioncall functionName="tid"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="version"/>
+    <functioncall functionName="w"/>
+    <functioncall functionName="wbuf"/>
+    <functioncall functionName="wbuf_count"/>
+    <functioncall functionName="wbuf_new"/>
+    <functioncall functionName="wbuf_size"/>
+    <functioncall functionName="wbuf_stack"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="written"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

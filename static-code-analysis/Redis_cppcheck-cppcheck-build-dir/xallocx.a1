@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1102710942">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;z&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;z&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\xallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\xallocx.c" line="99"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\xallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\xallocx.c" line="95"/>
+            <symbol>z</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="arena_ind" lineNumber="9"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="21"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="36"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="51"/>
+    <functiondecl functionName="get_nsizes_impl" lineNumber="67"/>
+    <functiondecl functionName="get_nsmall" lineNumber="79"/>
+    <functiondecl functionName="get_nlarge" lineNumber="84"/>
+    <functiondecl functionName="get_size_impl" lineNumber="89"/>
+    <functiondecl functionName="get_small_size" lineNumber="107"/>
+    <functiondecl functionName="get_large_size" lineNumber="112"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="116"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="145"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="176"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="207"/>
+    <functiondecl functionName="print_filled_extents" lineNumber="277"/>
+    <functiondecl functionName="validate_fill" lineNumber="296"/>
+    <functiondecl functionName="test_zero" lineNumber="315"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="362"/>
+    <functiondecl functionName="main" lineNumber="374"/>
+    <functioncall functionName="MALLOCX_ARENA"/>
+    <functioncall functionName="MALLOCX_ZERO"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SIZE_T_MAX"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_ge"/>
+    <functioncall functionName="assert_zu_le"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="c0"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_large_size"/>
+    <functioncall functionName="get_nlarge"/>
+    <functioncall functionName="get_nsizes_impl"/>
+    <functioncall functionName="get_nsmall"/>
+    <functioncall functionName="get_size_impl"/>
+    <functioncall functionName="get_small_size"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="large1"/>
+    <functioncall functionName="large2"/>
+    <functioncall functionName="large3"/>
+    <functioncall functionName="largemax"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="nsz"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="print_filled_extents"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="range0"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="small0"/>
+    <functioncall functionName="small1"/>
+    <functioncall functionName="smallmax"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="szmax"/>
+    <functioncall functionName="szmin"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_extra_large"/>
+    <functioncall functionName="test_extra_no_move"/>
+    <functioncall functionName="test_extra_small"/>
+    <functioncall functionName="test_no_move_fail"/>
+    <functioncall functionName="test_same_size"/>
+    <functioncall functionName="test_size"/>
+    <functioncall functionName="test_size_extra_overflow"/>
+    <functioncall functionName="test_zero"/>
+    <functioncall functionName="test_zero_large"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="tsz"/>
+    <functioncall functionName="validate_fill"/>
+    <functioncall functionName="xallocx"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

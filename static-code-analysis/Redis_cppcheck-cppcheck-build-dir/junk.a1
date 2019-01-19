@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3828856860">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="watch_junking" lineNumber="12"/>
+    <functiondecl functionName="arena_dalloc_junk_small_intercept" lineNumber="18"/>
+    <functiondecl functionName="large_dalloc_junk_intercept" lineNumber="33"/>
+    <functiondecl functionName="large_dalloc_maybe_junk_intercept" lineNumber="48"/>
+    <functiondecl functionName="test_junk" lineNumber="56"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="124"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="130"/>
+    <functiondecl functionName="main" lineNumber="137"/>
+    <functioncall functionName="JEMALLOC_ALLOC_JUNK"/>
+    <functioncall functionName="JEMALLOC_FREE_JUNK"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="arena_dalloc_junk_small"/>
+    <functioncall functionName="arena_dalloc_junk_small_intercept"/>
+    <functioncall functionName="arena_dalloc_junk_small_orig"/>
+    <functioncall functionName="assert_ptr_ne"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="assert_zu_ge"/>
+    <functioncall functionName="background_thread_enabled"/>
+    <functioncall functionName="bin_info"/>
+    <functioncall functionName="config_fill"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="large_dalloc_junk"/>
+    <functioncall functionName="large_dalloc_junk_intercept"/>
+    <functioncall functionName="large_dalloc_junk_orig"/>
+    <functioncall functionName="large_dalloc_maybe_junk"/>
+    <functioncall functionName="large_dalloc_maybe_junk_intercept"/>
+    <functioncall functionName="large_dalloc_maybe_junk_orig"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="opt_junk_alloc"/>
+    <functioncall functionName="opt_junk_free"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_min"/>
+    <functioncall functionName="sz_prev"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_junk"/>
+    <functioncall functionName="test_junk_large"/>
+    <functioncall functionName="test_junk_small"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="usize"/>
+    <functioncall functionName="watch_junking"/>
+    <functioncall functionName="xallocx"/>
+  </FileInfo>
+</analyzerinfo>

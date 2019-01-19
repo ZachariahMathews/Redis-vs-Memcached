@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="657192582">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="prof_dump_open_intercept" lineNumber="4"/>
+    <functiondecl functionName="set_prof_active" lineNumber="14"/>
+    <functiondecl functionName="get_lg_prof_sample" lineNumber="20"/>
+    <functiondecl functionName="do_prof_reset" lineNumber="31"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="39"/>
+    <functiondecl functionName="prof_dump_header_intercept" lineNumber="87"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="95"/>
+    <functiondecl functionName="thd_start" lineNumber="139"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="182"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="227"/>
+    <functiondecl functionName="main" lineNumber="277"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="O_WRONLY"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="active"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_d_ne"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_u64_eq"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="bt_count"/>
+    <functioncall functionName="btalloc"/>
+    <functioncall functionName="cnt_all"/>
+    <functioncall functionName="cnt_all_copy"/>
+    <functioncall functionName="config_prof"/>
+    <functioncall functionName="curobjs"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="do_prof_reset"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_lg_prof_sample"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="lg_prof_sample"/>
+    <functioncall functionName="lg_prof_sample_next"/>
+    <functioncall functionName="lg_prof_sample_orig"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="nsz"/>
+    <functioncall functionName="objs"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="prof_bt_count"/>
+    <functioncall functionName="prof_cnt_t"/>
+    <functioncall functionName="prof_dump_header"/>
+    <functioncall functionName="prof_dump_header_intercept"/>
+    <functioncall functionName="prof_dump_header_intercepted"/>
+    <functioncall functionName="prof_dump_header_orig"/>
+    <functioncall functionName="prof_dump_open_intercept"/>
+    <functioncall functionName="prof_tdata_count"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="set_prof_active"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="tdata_count"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_prof_reset"/>
+    <functioncall functionName="test_prof_reset_basic"/>
+    <functioncall functionName="test_prof_reset_cleanup"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="test_xallocx"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_start"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="varg"/>
+    <functioncall functionName="xallocx"/>
+  </FileInfo>
+</analyzerinfo>

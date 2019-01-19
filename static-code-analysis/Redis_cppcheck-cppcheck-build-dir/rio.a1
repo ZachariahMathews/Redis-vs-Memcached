@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1993522788">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="rioBufferWrite" lineNumber="61"/>
+    <functiondecl functionName="rioBufferRead" lineNumber="68"/>
+    <functiondecl functionName="rioBufferTell" lineNumber="77"/>
+    <functiondecl functionName="rioBufferFlush" lineNumber="83"/>
+    <functiondecl functionName="rioInitWithBuffer" lineNumber="100"/>
+    <functiondecl functionName="rioFileWrite" lineNumber="109"/>
+    <functiondecl functionName="rioFileRead" lineNumber="126"/>
+    <functiondecl functionName="rioFileTell" lineNumber="131"/>
+    <functiondecl functionName="rioFileFlush" lineNumber="137"/>
+    <functiondecl functionName="rioInitWithFile" lineNumber="153"/>
+    <functiondecl functionName="rioFdsetWrite" lineNumber="169"/>
+    <functiondecl functionName="rioFdsetRead" lineNumber="234"/>
+    <functiondecl functionName="rioFdsetTell" lineNumber="242"/>
+    <functiondecl functionName="rioFdsetFlush" lineNumber="248"/>
+    <functiondecl functionName="rioInitWithFdset" lineNumber="266"/>
+    <functiondecl functionName="rioFreeFdset" lineNumber="280"/>
+    <functiondecl functionName="rioGenericUpdateChecksum" lineNumber="290"/>
+    <functiondecl functionName="rioSetAutoSync" lineNumber="302"/>
+    <functiondecl functionName="rioWriteBulkCount" lineNumber="313"/>
+    <functiondecl functionName="rioWriteBulkString" lineNumber="326"/>
+    <functiondecl functionName="rioWriteBulkLongLong" lineNumber="336"/>
+    <functiondecl functionName="rioWriteBulkDouble" lineNumber="345"/>
+    <functioncall functionName="EIO"/>
+    <functioncall functionName="ETIMEDOUT"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="autosync"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cbuf"/>
+    <functioncall functionName="cksum"/>
+    <functioncall functionName="clen"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="crc64"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="dbuf"/>
+    <functioncall functionName="dlen"/>
+    <functioncall functionName="doflush"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="fds"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fread"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="ftello"/>
+    <functioncall functionName="fwrite"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="lbuf"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llen"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="numfds"/>
+    <functioncall functionName="nwritten"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rioBufferFlush"/>
+    <functioncall functionName="rioBufferIO"/>
+    <functioncall functionName="rioBufferRead"/>
+    <functioncall functionName="rioBufferTell"/>
+    <functioncall functionName="rioBufferWrite"/>
+    <functioncall functionName="rioFdsetFlush"/>
+    <functioncall functionName="rioFdsetIO"/>
+    <functioncall functionName="rioFdsetRead"/>
+    <functioncall functionName="rioFdsetTell"/>
+    <functioncall functionName="rioFdsetWrite"/>
+    <functioncall functionName="rioFileFlush"/>
+    <functioncall functionName="rioFileIO"/>
+    <functioncall functionName="rioFileRead"/>
+    <functioncall functionName="rioFileTell"/>
+    <functioncall functionName="rioFileWrite"/>
+    <functioncall functionName="rioWrite"/>
+    <functioncall functionName="rioWriteBulkCount"/>
+    <functioncall functionName="rioWriteBulkString"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdsclear"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

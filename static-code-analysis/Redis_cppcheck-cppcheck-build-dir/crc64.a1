@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="354149137">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="crc64" lineNumber="173"/>
+    <functiondecl functionName="crc64" lineNumber="173"/>
+    <functiondecl functionName="crc64Test" lineNumber="188"/>
+    <functioncall functionName="UINT64_C"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="crc64"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="void"/>
+  </FileInfo>
+</analyzerinfo>

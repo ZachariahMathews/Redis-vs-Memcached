@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="351675398">
+        <error id="ignoredReturnValue" severity="warning" msg="Return value of function malloc() is not used." verbose="Return value of function malloc() is not used." cwe="252">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\fork.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\fork.c" line="78"/>
+            <symbol>malloc</symbol>
+        </error>
+        <error id="leakReturnValNotUsed" severity="error" msg="Return value of allocation function &apos;malloc&apos; is not stored." verbose="Return value of allocation function &apos;malloc&apos; is not stored." cwe="771">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\fork.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\unit\fork.c" line="78"/>
+            <symbol>malloc</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="wait_for_child_exit" lineNumber="9"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="31"/>
+    <functiondecl functionName="do_fork_thd" lineNumber="77"/>
+    <functiondecl functionName="do_test_fork_multithreaded" lineNumber="98"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="106"/>
+    <functiondecl functionName="main" lineNumber="137"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="31"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="106"/>
+    <functiondecl functionName="main" lineNumber="137"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="WEXITSTATUS"/>
+    <functioncall functionName="WIFEXITED"/>
+    <functioncall functionName="WIFSIGNALED"/>
+    <functioncall functionName="WTERMSIG"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="args"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="child"/>
+    <functioncall functionName="do_fork_thd"/>
+    <functioncall functionName="do_test_fork_multithreaded"/>
+    <functioncall functionName="execvp"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="old_arena_ind"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pid"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="status"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_fork"/>
+    <functioncall functionName="test_fork_multithreaded"/>
+    <functioncall functionName="test_no_reentrancy"/>
+    <functioncall functionName="test_skip"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="wait_for_child_exit"/>
+    <functioncall functionName="waitpid"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4264353932">
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="746"/>
+            <symbol>string2l</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="750"/>
+            <symbol>string2l</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="753"/>
+            <symbol>string2l</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="757"/>
+            <symbol>string2l</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="761"/>
+            <symbol>string2l</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="765"/>
+            <symbol>string2l</symbol>
+        </error>
+        <error id="assertWithSideEffect" severity="warning" msg="Assert statement calls a function which may have desired side effects: &apos;string2l&apos;." verbose="Non-pure function: &apos;string2l&apos; is called inside assert statement. Assert statements are removed from release builds so the code inside assert statement is not executed. If the code is needed also in release builds, this is a bug." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\util.c" file="C:\Users\bharm\Downloads\redis-unstable\src\util.c" line="769"/>
+            <symbol>string2l</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="stringmatchlen" lineNumber="48"/>
+    <functiondecl functionName="stringmatch" lineNumber="170"/>
+    <functiondecl functionName="memtoll" lineNumber="181"/>
+    <functiondecl functionName="digits10" lineNumber="235"/>
+    <functiondecl functionName="sdigits10" lineNumber="256"/>
+    <functiondecl functionName="ll2string" lineNumber="278"/>
+    <functiondecl functionName="string2ll" lineNumber="344"/>
+    <functiondecl functionName="string2l" lineNumber="413"/>
+    <functiondecl functionName="string2ld" lineNumber="433"/>
+    <functiondecl functionName="d2string" lineNumber="460"/>
+    <functiondecl functionName="ld2string" lineNumber="504"/>
+    <functiondecl functionName="getRandomBytes" lineNumber="548"/>
+    <functiondecl functionName="getRandomHexChars" lineNumber="596"/>
+    <functiondecl functionName="getAbsolutePath" lineNumber="611"/>
+    <functiondecl functionName="getTimeZone" lineNumber="661"/>
+    <functiondecl functionName="pathIsBaseName" lineNumber="678"/>
+    <functiondecl functionName="stringmatchlen" lineNumber="48"/>
+    <functiondecl functionName="stringmatch" lineNumber="170"/>
+    <functiondecl functionName="memtoll" lineNumber="181"/>
+    <functiondecl functionName="digits10" lineNumber="235"/>
+    <functiondecl functionName="sdigits10" lineNumber="256"/>
+    <functiondecl functionName="ll2string" lineNumber="278"/>
+    <functiondecl functionName="string2ll" lineNumber="344"/>
+    <functiondecl functionName="string2l" lineNumber="413"/>
+    <functiondecl functionName="string2ld" lineNumber="433"/>
+    <functiondecl functionName="d2string" lineNumber="460"/>
+    <functiondecl functionName="ld2string" lineNumber="504"/>
+    <functiondecl functionName="getRandomBytes" lineNumber="548"/>
+    <functiondecl functionName="getRandomHexChars" lineNumber="596"/>
+    <functiondecl functionName="getAbsolutePath" lineNumber="611"/>
+    <functiondecl functionName="getTimeZone" lineNumber="661"/>
+    <functiondecl functionName="pathIsBaseName" lineNumber="678"/>
+    <functiondecl functionName="test_string2ll" lineNumber="685"/>
+    <functiondecl functionName="test_string2l" lineNumber="740"/>
+    <functiondecl functionName="test_ll2string" lineNumber="789"/>
+    <functiondecl functionName="utilTest" lineNumber="831"/>
+    <functiondecl functionName="stringmatchlen" lineNumber="48"/>
+    <functiondecl functionName="stringmatch" lineNumber="170"/>
+    <functiondecl functionName="memtoll" lineNumber="181"/>
+    <functiondecl functionName="digits10" lineNumber="235"/>
+    <functiondecl functionName="sdigits10" lineNumber="256"/>
+    <functiondecl functionName="ll2string" lineNumber="278"/>
+    <functiondecl functionName="string2ll" lineNumber="344"/>
+    <functiondecl functionName="string2l" lineNumber="413"/>
+    <functiondecl functionName="string2ld" lineNumber="433"/>
+    <functiondecl functionName="d2string" lineNumber="460"/>
+    <functiondecl functionName="ld2string" lineNumber="504"/>
+    <functiondecl functionName="getRandomBytes" lineNumber="548"/>
+    <functiondecl functionName="getRandomHexChars" lineNumber="596"/>
+    <functiondecl functionName="getAbsolutePath" lineNumber="611"/>
+    <functiondecl functionName="getTimeZone" lineNumber="661"/>
+    <functiondecl functionName="pathIsBaseName" lineNumber="678"/>
+    <functioncall functionName="LLONG_MAX"/>
+    <functioncall functionName="LLONG_MIN"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SHA1Final"/>
+    <functioncall functionName="SHA1Init"/>
+    <functioncall functionName="SHA1Update"/>
+    <functioncall functionName="abspath"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="copylen"/>
+    <functioncall functionName="counter"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="cwd"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="digest"/>
+    <functioncall functionName="digits"/>
+    <functioncall functionName="digits10"/>
+    <functioncall functionName="dp"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="endptr"/>
+    <functioncall functionName="eptr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fread"/>
+    <functioncall functionName="getRandomBytes"/>
+    <functioncall functionName="getcwd"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="humanfriendly"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isdigit"/>
+    <functioncall functionName="isinf"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="isspace"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llval"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="match"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="negative"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nocase"/>
+    <functioncall functionName="not"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="pattern"/>
+    <functioncall functionName="patternLen"/>
+    <functioncall functionName="relpath"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatsds"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdstrim"/>
+    <functioncall functionName="seed"/>
+    <functioncall functionName="seed_initialized"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slen"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strcpy"/>
+    <functioncall functionName="string"/>
+    <functioncall functionName="string2l"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="stringLen"/>
+    <functioncall functionName="stringmatchlen"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtold"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="svalue"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="test_ll2string"/>
+    <functioncall functionName="test_string2l"/>
+    <functioncall functionName="test_string2ll"/>
+    <functioncall functionName="tolower"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tz"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="uv"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

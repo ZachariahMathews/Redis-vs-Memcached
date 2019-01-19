@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="849309930">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="7"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="elements"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeReplyObject"/>
+    <functioncall functionName="hostname"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="integer"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="redisCommand"/>
+    <functioncall functionName="redisConnectWithTimeout"/>
+    <functioncall functionName="redisFree"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="timeout"/>
+  </FileInfo>
+</analyzerinfo>

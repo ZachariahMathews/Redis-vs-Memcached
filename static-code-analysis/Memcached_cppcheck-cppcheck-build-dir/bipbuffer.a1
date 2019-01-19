@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1619544668">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="bipbuf_sizeof" lineNumber="18"/>
+    <functiondecl functionName="bipbuf_unused" lineNumber="23"/>
+    <functiondecl functionName="bipbuf_size" lineNumber="32"/>
+    <functiondecl functionName="bipbuf_used" lineNumber="37"/>
+    <functiondecl functionName="bipbuf_init" lineNumber="42"/>
+    <functiondecl functionName="bipbuf_new" lineNumber="49"/>
+    <functiondecl functionName="bipbuf_free" lineNumber="58"/>
+    <functiondecl functionName="bipbuf_is_empty" lineNumber="63"/>
+    <functiondecl functionName="__check_for_switch_to_b" lineNumber="70"/>
+    <functiondecl functionName="bipbuf_request" lineNumber="77"/>
+    <functiondecl functionName="bipbuf_push" lineNumber="91"/>
+    <functiondecl functionName="bipbuf_offer" lineNumber="109"/>
+    <functiondecl functionName="bipbuf_peek" lineNumber="130"/>
+    <functiondecl functionName="bipbuf_peek_all" lineNumber="142"/>
+    <functiondecl functionName="bipbuf_poll" lineNumber="151"/>
+    <functioncall functionName="__check_for_switch_to_b"/>
+    <functioncall functionName="a_end"/>
+    <functioncall functionName="a_start"/>
+    <functioncall functionName="b_end"/>
+    <functioncall functionName="b_inuse"/>
+    <functioncall functionName="bipbuf_init"/>
+    <functioncall functionName="bipbuf_is_empty"/>
+    <functioncall functionName="bipbuf_sizeof"/>
+    <functioncall functionName="bipbuf_unused"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="me"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+  </FileInfo>
+</analyzerinfo>

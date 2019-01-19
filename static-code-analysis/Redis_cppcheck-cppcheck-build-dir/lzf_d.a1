@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2105915249">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="lzf_decompress" lineNumber="60"/>
+    <functiondecl functionName="lzf_decompress" lineNumber="60"/>
+    <functioncall functionName="E2BIG"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="ctrl"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in_data"/>
+    <functioncall functionName="in_len"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="op"/>
+    <functioncall functionName="out_data"/>
+    <functioncall functionName="out_len"/>
+    <functioncall functionName="ref"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

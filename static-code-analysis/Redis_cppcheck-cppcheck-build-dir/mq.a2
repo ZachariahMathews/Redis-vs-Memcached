@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="57952400">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="thd_receiver_start" lineNumber="33"/>
+    <functiondecl functionName="thd_sender_start" lineNumber="46"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="61"/>
+    <functiondecl functionName="main" lineNumber="84"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_ptr_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="link"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mq"/>
+    <functioncall functionName="mq_"/>
+    <functioncall functionName="mq_count"/>
+    <functioncall functionName="mq_fini"/>
+    <functioncall functionName="mq_gen"/>
+    <functioncall functionName="mq_get"/>
+    <functioncall functionName="mq_init"/>
+    <functioncall functionName="mq_msg"/>
+    <functioncall functionName="mq_put"/>
+    <functioncall functionName="mq_t"/>
+    <functioncall functionName="mq_tryget"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="receiver"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="static"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_mq_basic"/>
+    <functioncall functionName="test_mq_threaded"/>
+    <functioncall functionName="thd_create"/>
+    <functioncall functionName="thd_join"/>
+    <functioncall functionName="thd_receiver_start"/>
+    <functioncall functionName="thd_sender_start"/>
+  </FileInfo>
+</analyzerinfo>

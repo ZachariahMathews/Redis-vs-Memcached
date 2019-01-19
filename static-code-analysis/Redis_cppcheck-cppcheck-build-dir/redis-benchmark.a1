@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="430788888">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" line="432"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;curlat&apos; can be reduced." verbose="The scope of the variable &apos;curlat&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" line="432"/>
+            <symbol>curlat</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;perc&apos; can be reduced." verbose="The scope of the variable &apos;perc&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" line="433"/>
+            <symbol>perc</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;c&apos; can be reduced." verbose="The scope of the variable &apos;c&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" line="653"/>
+            <symbol>c</symbol>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct member &apos;config::keysize&apos; is never used." verbose="struct member &apos;config::keysize&apos; is never used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" file="C:\Users\bharm\Downloads\redis-unstable\src\redis-benchmark.c" line="62"/>
+            <symbol>config::keysize</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ustime" lineNumber="105"/>
+    <functiondecl functionName="mstime" lineNumber="115"/>
+    <functiondecl functionName="freeClient" lineNumber="125"/>
+    <functiondecl functionName="freeAllClients" lineNumber="139"/>
+    <functiondecl functionName="resetClient" lineNumber="149"/>
+    <functiondecl functionName="randomizeClientKey" lineNumber="157"/>
+    <functiondecl functionName="clientDone" lineNumber="173"/>
+    <functiondecl functionName="readHandler" lineNumber="189"/>
+    <functiondecl functionName="writeHandler" lineNumber="258"/>
+    <functiondecl functionName="createClient" lineNumber="316"/>
+    <functiondecl functionName="createMissingClients" lineNumber="413"/>
+    <functiondecl functionName="compareLatency" lineNumber="427"/>
+    <functiondecl functionName="showLatencyReport" lineNumber="431"/>
+    <functiondecl functionName="benchmark" lineNumber="461"/>
+    <functiondecl functionName="parseOptions" lineNumber="480"/>
+    <functiondecl functionName="showThroughput" lineNumber="612"/>
+    <functiondecl functionName="test_is_selected" lineNumber="636"/>
+    <functiondecl functionName="main" lineNumber="648"/>
+    <functiondecl functionName="ustime" lineNumber="105"/>
+    <functiondecl functionName="mstime" lineNumber="115"/>
+    <functiondecl functionName="freeClient" lineNumber="125"/>
+    <functiondecl functionName="freeAllClients" lineNumber="139"/>
+    <functiondecl functionName="resetClient" lineNumber="149"/>
+    <functiondecl functionName="randomizeClientKey" lineNumber="157"/>
+    <functiondecl functionName="clientDone" lineNumber="173"/>
+    <functiondecl functionName="readHandler" lineNumber="189"/>
+    <functiondecl functionName="writeHandler" lineNumber="258"/>
+    <functiondecl functionName="createClient" lineNumber="316"/>
+    <functiondecl functionName="createMissingClients" lineNumber="413"/>
+    <functiondecl functionName="compareLatency" lineNumber="427"/>
+    <functiondecl functionName="showLatencyReport" lineNumber="431"/>
+    <functiondecl functionName="benchmark" lineNumber="461"/>
+    <functiondecl functionName="parseOptions" lineNumber="480"/>
+    <functiondecl functionName="showThroughput" lineNumber="612"/>
+    <functiondecl functionName="test_is_selected" lineNumber="636"/>
+    <functiondecl functionName="main" lineNumber="648"/>
+    <functiondecl functionName="ustime" lineNumber="105"/>
+    <functiondecl functionName="mstime" lineNumber="115"/>
+    <functiondecl functionName="freeClient" lineNumber="125"/>
+    <functiondecl functionName="freeAllClients" lineNumber="139"/>
+    <functiondecl functionName="resetClient" lineNumber="149"/>
+    <functiondecl functionName="randomizeClientKey" lineNumber="157"/>
+    <functiondecl functionName="clientDone" lineNumber="173"/>
+    <functiondecl functionName="readHandler" lineNumber="189"/>
+    <functiondecl functionName="writeHandler" lineNumber="258"/>
+    <functiondecl functionName="createClient" lineNumber="316"/>
+    <functiondecl functionName="createMissingClients" lineNumber="413"/>
+    <functiondecl functionName="compareLatency" lineNumber="427"/>
+    <functiondecl functionName="showLatencyReport" lineNumber="431"/>
+    <functiondecl functionName="benchmark" lineNumber="461"/>
+    <functiondecl functionName="parseOptions" lineNumber="480"/>
+    <functiondecl functionName="showThroughput" lineNumber="612"/>
+    <functiondecl functionName="test_is_selected" lineNumber="636"/>
+    <functiondecl functionName="main" lineNumber="648"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="REDIS_REPLY_ERROR"/>
+    <functioncall functionName="SIGHUP"/>
+    <functioncall functionName="SIGPIPE"/>
+    <functioncall functionName="SIG_IGN"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="aeCreateEventLoop"/>
+    <functioncall functionName="aeCreateFileEvent"/>
+    <functioncall functionName="aeCreateTimeEvent"/>
+    <functioncall functionName="aeDeleteFileEvent"/>
+    <functioncall functionName="aeMain"/>
+    <functioncall functionName="aeStop"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="auth"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="benchmark"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="clientData"/>
+    <functioncall functionName="clientDone"/>
+    <functioncall functionName="clients"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="compareLatency"/>
+    <functioncall functionName="context"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createClient"/>
+    <functioncall functionName="createMissingClients"/>
+    <functioncall functionName="csv"/>
+    <functioncall functionName="curlat"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="datasize"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="dbnumstr"/>
+    <functioncall functionName="dt"/>
+    <functioncall functionName="el"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="errstr"/>
+    <functioncall functionName="eventLoop"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exit_status"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeAllClients"/>
+    <functioncall functionName="freeClient"/>
+    <functioncall functionName="freeReplyObject"/>
+    <functioncall functionName="from"/>
+    <functioncall functionName="gettimeofday"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hostip"/>
+    <functioncall functionName="hostport"/>
+    <functioncall functionName="hostsocket"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idlemode"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="invalid"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="keepalive"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="lastarg"/>
+    <functioncall functionName="latency"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listDelNode"/>
+    <functioncall functionName="listSearchKey"/>
+    <functioncall functionName="liveclients"/>
+    <functioncall functionName="ln"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="loop"/>
+    <functioncall functionName="mask"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="now"/>
+    <functioncall functionName="numclients"/>
+    <functioncall functionName="obuf"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="parseOptions"/>
+    <functioncall functionName="pending"/>
+    <functioncall functionName="perc"/>
+    <functioncall functionName="pipeline"/>
+    <functioncall functionName="prefix_pending"/>
+    <functioncall functionName="prefixlen"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="privdata"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="qsort"/>
+    <functioncall functionName="randfree"/>
+    <functioncall functionName="randlen"/>
+    <functioncall functionName="random"/>
+    <functioncall functionName="randomizeClientKey"/>
+    <functioncall functionName="randomkeys"/>
+    <functioncall functionName="randomkeys_keyspacelen"/>
+    <functioncall functionName="randptr"/>
+    <functioncall functionName="readHandler"/>
+    <functioncall functionName="redisBufferRead"/>
+    <functioncall functionName="redisConnectNonBlock"/>
+    <functioncall functionName="redisConnectUnixNonBlock"/>
+    <functioncall functionName="redisFormatCommand"/>
+    <functioncall functionName="redisFormatCommandArgv"/>
+    <functioncall functionName="redisFree"/>
+    <functioncall functionName="redisGetReply"/>
+    <functioncall functionName="reply"/>
+    <functioncall functionName="reqpersec"/>
+    <functioncall functionName="requests"/>
+    <functioncall functionName="requests_finished"/>
+    <functioncall functionName="resetClient"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rps"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sdscat"/>
+    <functioncall functionName="sdscatlen"/>
+    <functioncall functionName="sdscatprintf"/>
+    <functioncall functionName="sdsempty"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnew"/>
+    <functioncall functionName="sdsrange"/>
+    <functioncall functionName="sdstolower"/>
+    <functioncall functionName="showLatencyReport"/>
+    <functioncall functionName="showThroughput"/>
+    <functioncall functionName="showerrors"/>
+    <functioncall functionName="signal"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="srandom"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strdup"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="test_is_selected"/>
+    <functioncall functionName="tests"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="title"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="usage"/>
+    <functioncall functionName="usleep"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writeHandler"/>
+    <functioncall functionName="written"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zrealloc"/>
+  </FileInfo>
+</analyzerinfo>

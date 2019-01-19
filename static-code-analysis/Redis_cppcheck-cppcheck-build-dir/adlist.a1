@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3304184015">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="listCreate" lineNumber="41"/>
+    <functiondecl functionName="listEmpty" lineNumber="56"/>
+    <functiondecl functionName="listRelease" lineNumber="76"/>
+    <functiondecl functionName="listAddNodeHead" lineNumber="88"/>
+    <functiondecl functionName="listAddNodeTail" lineNumber="114"/>
+    <functiondecl functionName="listInsertNode" lineNumber="134"/>
+    <functiondecl functionName="listDelNode" lineNumber="167"/>
+    <functiondecl functionName="listGetIterator" lineNumber="186"/>
+    <functiondecl functionName="listReleaseIterator" lineNumber="200"/>
+    <functiondecl functionName="listRewind" lineNumber="205"/>
+    <functiondecl functionName="listRewindTail" lineNumber="210"/>
+    <functiondecl functionName="listNext" lineNumber="229"/>
+    <functiondecl functionName="listDup" lineNumber="250"/>
+    <functiondecl functionName="listSearchKey" lineNumber="290"/>
+    <functiondecl functionName="listIndex" lineNumber="315"/>
+    <functiondecl functionName="listRotate" lineNumber="330"/>
+    <functiondecl functionName="listJoin" lineNumber="347"/>
+    <functiondecl functionName="listCreate" lineNumber="41"/>
+    <functiondecl functionName="listEmpty" lineNumber="56"/>
+    <functiondecl functionName="listRelease" lineNumber="76"/>
+    <functiondecl functionName="listAddNodeHead" lineNumber="88"/>
+    <functiondecl functionName="listAddNodeTail" lineNumber="114"/>
+    <functiondecl functionName="listInsertNode" lineNumber="134"/>
+    <functiondecl functionName="listDelNode" lineNumber="167"/>
+    <functiondecl functionName="listGetIterator" lineNumber="186"/>
+    <functiondecl functionName="listReleaseIterator" lineNumber="200"/>
+    <functiondecl functionName="listRewind" lineNumber="205"/>
+    <functiondecl functionName="listRewindTail" lineNumber="210"/>
+    <functiondecl functionName="listNext" lineNumber="229"/>
+    <functiondecl functionName="listDup" lineNumber="250"/>
+    <functiondecl functionName="listSearchKey" lineNumber="290"/>
+    <functiondecl functionName="listIndex" lineNumber="315"/>
+    <functiondecl functionName="listRotate" lineNumber="330"/>
+    <functiondecl functionName="listJoin" lineNumber="347"/>
+    <functiondecl functionName="listCreate" lineNumber="41"/>
+    <functiondecl functionName="listEmpty" lineNumber="56"/>
+    <functiondecl functionName="listRelease" lineNumber="76"/>
+    <functiondecl functionName="listAddNodeHead" lineNumber="88"/>
+    <functiondecl functionName="listAddNodeTail" lineNumber="114"/>
+    <functiondecl functionName="listInsertNode" lineNumber="134"/>
+    <functiondecl functionName="listDelNode" lineNumber="167"/>
+    <functiondecl functionName="listGetIterator" lineNumber="186"/>
+    <functiondecl functionName="listReleaseIterator" lineNumber="200"/>
+    <functiondecl functionName="listRewind" lineNumber="205"/>
+    <functiondecl functionName="listRewindTail" lineNumber="210"/>
+    <functiondecl functionName="listNext" lineNumber="229"/>
+    <functiondecl functionName="listDup" lineNumber="250"/>
+    <functiondecl functionName="listSearchKey" lineNumber="290"/>
+    <functiondecl functionName="listIndex" lineNumber="315"/>
+    <functiondecl functionName="listRotate" lineNumber="330"/>
+    <functiondecl functionName="listJoin" lineNumber="347"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="after"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="current"/>
+    <functioncall functionName="direction"/>
+    <functioncall functionName="dup"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="list"/>
+    <functioncall functionName="listAddNodeTail"/>
+    <functioncall functionName="listCreate"/>
+    <functioncall functionName="listEmpty"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRelease"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="match"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="old_node"/>
+    <functioncall functionName="orig"/>
+    <functioncall functionName="prev"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

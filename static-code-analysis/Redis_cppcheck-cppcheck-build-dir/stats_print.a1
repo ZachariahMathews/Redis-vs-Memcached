@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2952246546">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="token_init" lineNumber="43"/>
+    <functiondecl functionName="token_error" lineNumber="54"/>
+    <functiondecl functionName="parser_init" lineNumber="76"/>
+    <functiondecl functionName="parser_fini" lineNumber="86"/>
+    <functiondecl functionName="parser_append" lineNumber="93"/>
+    <functiondecl functionName="parser_tokenize" lineNumber="108"/>
+    <functiondecl functionName="parser_parse_value" lineNumber="669"/>
+    <functiondecl functionName="parser_parse_pair" lineNumber="688"/>
+    <functiondecl functionName="parser_parse_values" lineNumber="706"/>
+    <functiondecl functionName="parser_parse_array" lineNumber="733"/>
+    <functiondecl functionName="parser_parse_pairs" lineNumber="749"/>
+    <functiondecl functionName="parser_parse_object" lineNumber="784"/>
+    <functiondecl functionName="parser_parse" lineNumber="802"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="826"/>
+    <functiondecl functionName="write_cb" lineNumber="923"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="930"/>
+    <functiondecl functionName="main" lineNumber="995"/>
+    <functioncall functionName="JEMALLOC_CC_SILENCE_INIT"/>
+    <functioncall functionName="MALLOCX_TCACHE_NONE"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="STATE_ACCEPT"/>
+    <functioncall functionName="STATE_CHARS"/>
+    <functioncall functionName="STATE_CHAR_ESCAPE"/>
+    <functioncall functionName="STATE_CHAR_U"/>
+    <functioncall functionName="STATE_CHAR_UD"/>
+    <functioncall functionName="STATE_CHAR_UDD"/>
+    <functioncall functionName="STATE_CHAR_UDDD"/>
+    <functioncall functionName="STATE_COLON"/>
+    <functioncall functionName="STATE_COMMA"/>
+    <functioncall functionName="STATE_DECIMAL"/>
+    <functioncall functionName="STATE_DIGITS"/>
+    <functioncall functionName="STATE_EOI"/>
+    <functioncall functionName="STATE_EXP"/>
+    <functioncall functionName="STATE_EXP_DIGITS"/>
+    <functioncall functionName="STATE_EXP_SIGN"/>
+    <functioncall functionName="STATE_F"/>
+    <functioncall functionName="STATE_FA"/>
+    <functioncall functionName="STATE_FAL"/>
+    <functioncall functionName="STATE_FALS"/>
+    <functioncall functionName="STATE_FALSE"/>
+    <functioncall functionName="STATE_FRAC_DIGITS"/>
+    <functioncall functionName="STATE_LBRACE"/>
+    <functioncall functionName="STATE_LBRACKET"/>
+    <functioncall functionName="STATE_LEADING_ZERO"/>
+    <functioncall functionName="STATE_MINUS"/>
+    <functioncall functionName="STATE_N"/>
+    <functioncall functionName="STATE_NU"/>
+    <functioncall functionName="STATE_NUL"/>
+    <functioncall functionName="STATE_NULL"/>
+    <functioncall functionName="STATE_RBRACE"/>
+    <functioncall functionName="STATE_RBRACKET"/>
+    <functioncall functionName="STATE_START"/>
+    <functioncall functionName="STATE_STRING"/>
+    <functioncall functionName="STATE_T"/>
+    <functioncall functionName="STATE_TR"/>
+    <functioncall functionName="STATE_TRU"/>
+    <functioncall functionName="STATE_TRUE"/>
+    <functioncall functionName="STDERR_FILENO"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="TOKEN_TYPE_COLON"/>
+    <functioncall functionName="TOKEN_TYPE_COMMA"/>
+    <functioncall functionName="TOKEN_TYPE_EOI"/>
+    <functioncall functionName="TOKEN_TYPE_ERROR"/>
+    <functioncall functionName="TOKEN_TYPE_FALSE"/>
+    <functioncall functionName="TOKEN_TYPE_LBRACE"/>
+    <functioncall functionName="TOKEN_TYPE_LBRACKET"/>
+    <functioncall functionName="TOKEN_TYPE_NONE"/>
+    <functioncall functionName="TOKEN_TYPE_NULL"/>
+    <functioncall functionName="TOKEN_TYPE_NUMBER"/>
+    <functioncall functionName="TOKEN_TYPE_RBRACE"/>
+    <functioncall functionName="TOKEN_TYPE_RBRACKET"/>
+    <functioncall functionName="TOKEN_TYPE_STRING"/>
+    <functioncall functionName="TOKEN_TYPE_TRUE"/>
+    <functioncall functionName="arena_ind"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_false"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_zu_le"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="col"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="input"/>
+    <functioncall functionName="invalid_inputs"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="label_error"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="malloc_printf"/>
+    <functioncall functionName="malloc_stats_print"/>
+    <functioncall functionName="malloc_write_fd"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="not_reached"/>
+    <functioncall functionName="opaque"/>
+    <functioncall functionName="opts"/>
+    <functioncall functionName="parser"/>
+    <functioncall functionName="parser_append"/>
+    <functioncall functionName="parser_fini"/>
+    <functioncall functionName="parser_init"/>
+    <functioncall functionName="parser_parse"/>
+    <functioncall functionName="parser_parse_array"/>
+    <functioncall functionName="parser_parse_object"/>
+    <functioncall functionName="parser_parse_pair"/>
+    <functioncall functionName="parser_parse_pairs"/>
+    <functioncall functionName="parser_parse_value"/>
+    <functioncall functionName="parser_parse_values"/>
+    <functioncall functionName="parser_tokenize"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_fail"/>
+    <functioncall functionName="test_json_parser"/>
+    <functioncall functionName="test_stats_print_json"/>
+    <functioncall functionName="token"/>
+    <functioncall functionName="token_col"/>
+    <functioncall functionName="token_error"/>
+    <functioncall functionName="token_init"/>
+    <functioncall functionName="token_line"/>
+    <functioncall functionName="token_pos"/>
+    <functioncall functionName="token_type"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="valid_inputs"/>
+    <functioncall functionName="verbose"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write_cb"/>
+  </FileInfo>
+</analyzerinfo>

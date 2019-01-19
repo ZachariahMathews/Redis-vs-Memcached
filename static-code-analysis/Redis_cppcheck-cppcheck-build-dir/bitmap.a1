@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="774866098">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="bitmap_info_init" lineNumber="86"/>
+    <functiondecl functionName="bitmap_info_ngroups" lineNumber="95"/>
+    <functiondecl functionName="bitmap_init" lineNumber="100"/>
+    <functiondecl functionName="bitmap_size" lineNumber="119"/>
+    <functiondecl functionName="bitmap_info_init" lineNumber="12"/>
+    <functiondecl functionName="bitmap_info_ngroups" lineNumber="40"/>
+    <functiondecl functionName="bitmap_init" lineNumber="45"/>
+    <functiondecl functionName="bitmap_size" lineNumber="119"/>
+    <functioncall functionName="BITMAP_BITS2GROUPS"/>
+    <functioncall functionName="BITMAP_GROUP_NBITS_MASK"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="binfo"/>
+    <functioncall functionName="bitmap"/>
+    <functioncall functionName="bitmap_info_ngroups"/>
+    <functioncall functionName="bitmap_size"/>
+    <functioncall functionName="fill"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="group_count"/>
+    <functioncall functionName="group_offset"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="nbits"/>
+    <functioncall functionName="ngroups"/>
+    <functioncall functionName="nlevels"/>
+    <functioncall functionName="return"/>
+  </FileInfo>
+</analyzerinfo>

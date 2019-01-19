@@ -1,0 +1,607 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2267015816">
+        <error id="selfAssignment" severity="warning" msg="Redundant assignment of &apos;len&apos; to itself." verbose="Redundant assignment of &apos;len&apos; to itself." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="166"/>
+            <symbol>len</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;enclen&apos; can be reduced." verbose="The scope of the variable &apos;enclen&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="406"/>
+            <symbol>enclen</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;n&apos; can be reduced." verbose="The scope of the variable &apos;n&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="440"/>
+            <symbol>n</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ret&apos; can be reduced." verbose="The scope of the variable &apos;ret&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="1491"/>
+            <symbol>ret</symbol>
+        </error>
+        <error id="shiftNegativeLHS" severity="portability" msg="Shifting a negative value is technically undefined behaviour" verbose="Shifting a negative value is technically undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="242"/>
+        </error>
+        <error id="shiftNegativeLHS" severity="portability" msg="Shifting a negative value is technically undefined behaviour" verbose="Shifting a negative value is technically undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="247"/>
+        </error>
+        <error id="shiftNegativeLHS" severity="portability" msg="Shifting a negative value is technically undefined behaviour" verbose="Shifting a negative value is technically undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="248"/>
+        </error>
+        <error id="shiftNegativeLHS" severity="portability" msg="Shifting a negative value is technically undefined behaviour" verbose="Shifting a negative value is technically undefined behaviour" cwe="758">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" file="C:\Users\bharm\Downloads\redis-unstable\src\rdb.c" line="249"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="rdbCheckThenExit" lineNumber="51"/>
+    <functiondecl functionName="rdbWriteRaw" lineNumber="72"/>
+    <functiondecl functionName="rdbLoadRaw" lineNumber="81"/>
+    <functiondecl functionName="rdbSaveType" lineNumber="90"/>
+    <functiondecl functionName="rdbLoadType" lineNumber="97"/>
+    <functiondecl functionName="rdbLoadTime" lineNumber="106"/>
+    <functiondecl functionName="rdbSaveMillisecondTime" lineNumber="112"/>
+    <functiondecl functionName="rdbLoadMillisecondTime" lineNumber="129"/>
+    <functiondecl functionName="rdbSaveLen" lineNumber="140"/>
+    <functiondecl functionName="rdbLoadLenByRef" lineNumber="183"/>
+    <functiondecl functionName="rdbLoadLen" lineNumber="223"/>
+    <functiondecl functionName="rdbEncodeInteger" lineNumber="234"/>
+    <functiondecl functionName="rdbLoadIntegerObject" lineNumber="259"/>
+    <functiondecl functionName="rdbTryIntegerEncoding" lineNumber="300"/>
+    <functiondecl functionName="rdbSaveLzfBlob" lineNumber="316"/>
+    <functiondecl functionName="rdbSaveLzfStringObject" lineNumber="341"/>
+    <functiondecl functionName="rdbLoadLzfStringObject" lineNumber="362"/>
+    <functiondecl functionName="rdbSaveRawString" lineNumber="405"/>
+    <functiondecl functionName="rdbSaveLongLongAsStringObject" lineNumber="438"/>
+    <functiondecl functionName="rdbSaveStringObject" lineNumber="457"/>
+    <functiondecl functionName="rdbGenericLoadStringObject" lineNumber="481"/>
+    <functiondecl functionName="rdbLoadStringObject" lineNumber="525"/>
+    <functiondecl functionName="rdbLoadEncodedStringObject" lineNumber="529"/>
+    <functiondecl functionName="rdbSaveDoubleValue" lineNumber="541"/>
+    <functiondecl functionName="rdbLoadDoubleValue" lineNumber="576"/>
+    <functiondecl functionName="rdbSaveBinaryDoubleValue" lineNumber="598"/>
+    <functiondecl functionName="rdbLoadBinaryDoubleValue" lineNumber="605"/>
+    <functiondecl functionName="rdbSaveBinaryFloatValue" lineNumber="612"/>
+    <functiondecl functionName="rdbLoadBinaryFloatValue" lineNumber="618"/>
+    <functiondecl functionName="rdbSaveObjectType" lineNumber="625"/>
+    <functiondecl functionName="rdbLoadObjectType" lineNumber="667"/>
+    <functiondecl functionName="rdbSaveStreamPEL" lineNumber="681"/>
+    <functiondecl functionName="rdbSaveStreamConsumers" lineNumber="717"/>
+    <functiondecl functionName="rdbSaveObject" lineNumber="754"/>
+    <functiondecl functionName="rdbSavedObjectLen" lineNumber="998"/>
+    <functiondecl functionName="rdbSaveKeyValuePair" lineNumber="1008"/>
+    <functiondecl functionName="rdbSaveAuxField" lineNumber="1046"/>
+    <functiondecl functionName="rdbSaveAuxFieldStrStr" lineNumber="1059"/>
+    <functiondecl functionName="rdbSaveAuxFieldStrInt" lineNumber="1064"/>
+    <functiondecl functionName="rdbSaveInfoAuxFields" lineNumber="1071"/>
+    <functiondecl functionName="rdbSaveRio" lineNumber="1102"/>
+    <functiondecl functionName="rdbSaveRioWithEOFMark" lineNumber="1200"/>
+    <functiondecl functionName="rdbSave" lineNumber="1219"/>
+    <functiondecl functionName="rdbSaveBackground" lineNumber="1282"/>
+    <functiondecl functionName="rdbRemoveTempFile" lineNumber="1335"/>
+    <functiondecl functionName="rdbLoadCheckModuleValue" lineNumber="1346"/>
+    <functiondecl functionName="rdbLoadObject" lineNumber="1383"/>
+    <functiondecl functionName="startLoading" lineNumber="1800"/>
+    <functiondecl functionName="loadingProgress" lineNumber="1815"/>
+    <functiondecl functionName="stopLoading" lineNumber="1822"/>
+    <functiondecl functionName="rdbLoadProgressCallback" lineNumber="1828"/>
+    <functiondecl functionName="rdbLoadRio" lineNumber="1847"/>
+    <functiondecl functionName="rdbLoad" lineNumber="2066"/>
+    <functiondecl functionName="backgroundSaveDoneHandlerDisk" lineNumber="2082"/>
+    <functiondecl functionName="backgroundSaveDoneHandlerSocket" lineNumber="2118"/>
+    <functiondecl functionName="backgroundSaveDoneHandler" lineNumber="2211"/>
+    <functiondecl functionName="rdbSaveToSlavesSockets" lineNumber="2227"/>
+    <functiondecl functionName="saveCommand" lineNumber="2386"/>
+    <functiondecl functionName="bgsaveCommand" lineNumber="2401"/>
+    <functiondecl functionName="rdbPopulateSaveInfo" lineNumber="2446"/>
+    <functiondecl functionName="rdbCheckThenExit" lineNumber="51"/>
+    <functiondecl functionName="rdbWriteRaw" lineNumber="72"/>
+    <functiondecl functionName="rdbLoadRaw" lineNumber="81"/>
+    <functiondecl functionName="rdbSaveType" lineNumber="90"/>
+    <functiondecl functionName="rdbLoadType" lineNumber="97"/>
+    <functiondecl functionName="rdbLoadTime" lineNumber="106"/>
+    <functiondecl functionName="rdbSaveMillisecondTime" lineNumber="112"/>
+    <functiondecl functionName="rdbLoadMillisecondTime" lineNumber="129"/>
+    <functiondecl functionName="rdbSaveLen" lineNumber="140"/>
+    <functiondecl functionName="rdbLoadLenByRef" lineNumber="183"/>
+    <functiondecl functionName="rdbLoadLen" lineNumber="223"/>
+    <functiondecl functionName="rdbEncodeInteger" lineNumber="234"/>
+    <functiondecl functionName="rdbLoadIntegerObject" lineNumber="259"/>
+    <functiondecl functionName="rdbTryIntegerEncoding" lineNumber="300"/>
+    <functiondecl functionName="rdbSaveLzfBlob" lineNumber="316"/>
+    <functiondecl functionName="rdbSaveLzfStringObject" lineNumber="341"/>
+    <functiondecl functionName="rdbLoadLzfStringObject" lineNumber="362"/>
+    <functiondecl functionName="rdbSaveRawString" lineNumber="405"/>
+    <functiondecl functionName="rdbSaveLongLongAsStringObject" lineNumber="438"/>
+    <functiondecl functionName="rdbSaveStringObject" lineNumber="457"/>
+    <functiondecl functionName="rdbGenericLoadStringObject" lineNumber="481"/>
+    <functiondecl functionName="rdbLoadStringObject" lineNumber="525"/>
+    <functiondecl functionName="rdbLoadEncodedStringObject" lineNumber="529"/>
+    <functiondecl functionName="rdbSaveDoubleValue" lineNumber="541"/>
+    <functiondecl functionName="rdbLoadDoubleValue" lineNumber="576"/>
+    <functiondecl functionName="rdbSaveBinaryDoubleValue" lineNumber="598"/>
+    <functiondecl functionName="rdbLoadBinaryDoubleValue" lineNumber="605"/>
+    <functiondecl functionName="rdbSaveBinaryFloatValue" lineNumber="612"/>
+    <functiondecl functionName="rdbLoadBinaryFloatValue" lineNumber="618"/>
+    <functiondecl functionName="rdbSaveObjectType" lineNumber="625"/>
+    <functiondecl functionName="rdbLoadObjectType" lineNumber="667"/>
+    <functiondecl functionName="rdbSaveStreamPEL" lineNumber="681"/>
+    <functiondecl functionName="rdbSaveStreamConsumers" lineNumber="717"/>
+    <functiondecl functionName="rdbSaveObject" lineNumber="754"/>
+    <functiondecl functionName="rdbSavedObjectLen" lineNumber="998"/>
+    <functiondecl functionName="rdbSaveKeyValuePair" lineNumber="1008"/>
+    <functiondecl functionName="rdbSaveAuxField" lineNumber="1046"/>
+    <functiondecl functionName="rdbSaveAuxFieldStrStr" lineNumber="1059"/>
+    <functiondecl functionName="rdbSaveAuxFieldStrInt" lineNumber="1064"/>
+    <functiondecl functionName="rdbSaveInfoAuxFields" lineNumber="1071"/>
+    <functiondecl functionName="rdbSaveRio" lineNumber="1102"/>
+    <functiondecl functionName="rdbSaveRioWithEOFMark" lineNumber="1200"/>
+    <functiondecl functionName="rdbSave" lineNumber="1219"/>
+    <functiondecl functionName="rdbSaveBackground" lineNumber="1282"/>
+    <functiondecl functionName="rdbRemoveTempFile" lineNumber="1335"/>
+    <functiondecl functionName="rdbLoadCheckModuleValue" lineNumber="1346"/>
+    <functiondecl functionName="rdbLoadObject" lineNumber="1383"/>
+    <functiondecl functionName="startLoading" lineNumber="1800"/>
+    <functiondecl functionName="loadingProgress" lineNumber="1815"/>
+    <functiondecl functionName="stopLoading" lineNumber="1822"/>
+    <functiondecl functionName="rdbLoadProgressCallback" lineNumber="1828"/>
+    <functiondecl functionName="rdbLoadRio" lineNumber="1847"/>
+    <functiondecl functionName="rdbLoad" lineNumber="2066"/>
+    <functiondecl functionName="backgroundSaveDoneHandlerDisk" lineNumber="2082"/>
+    <functiondecl functionName="backgroundSaveDoneHandlerSocket" lineNumber="2118"/>
+    <functiondecl functionName="backgroundSaveDoneHandler" lineNumber="2211"/>
+    <functiondecl functionName="rdbSaveToSlavesSockets" lineNumber="2227"/>
+    <functiondecl functionName="saveCommand" lineNumber="2386"/>
+    <functiondecl functionName="bgsaveCommand" lineNumber="2401"/>
+    <functiondecl functionName="rdbPopulateSaveInfo" lineNumber="2446"/>
+    <functioncall functionName="EINVAL"/>
+    <functioncall functionName="LFUDecrAndReturn"/>
+    <functioncall functionName="LRU_CLOCK"/>
+    <functioncall functionName="MAXPATHLEN"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="R_Nan"/>
+    <functioncall functionName="R_NegInf"/>
+    <functioncall functionName="R_PosInf"/>
+    <functioncall functionName="SDS_NOINIT"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverAssertWithInfo"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyStatus"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="anetBlock"/>
+    <functioncall functionName="anetNonBlock"/>
+    <functioncall functionName="anetSendTimeout"/>
+    <functioncall functionName="aofReadDiffFromParent"/>
+    <functioncall functionName="aof_preamble"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="auxkey"/>
+    <functioncall functionName="auxval"/>
+    <functioncall functionName="backgroundSaveDoneHandlerDisk"/>
+    <functioncall functionName="backgroundSaveDoneHandlerSocket"/>
+    <functioncall functionName="backward"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bysignal"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="bytes"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cached_master"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cg"/>
+    <functioncall functionName="cg_id"/>
+    <functioncall functionName="cgname"/>
+    <functioncall functionName="cgroup"/>
+    <functioncall functionName="cgroups"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="childpid"/>
+    <functioncall functionName="cksum"/>
+    <functioncall functionName="clen"/>
+    <functioncall functionName="clientids"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="closeChildInfoPipe"/>
+    <functioncall functionName="closeListeningSockets"/>
+    <functioncall functionName="cname"/>
+    <functioncall functionName="compress_len"/>
+    <functioncall functionName="comprlen"/>
+    <functioncall functionName="consumer"/>
+    <functioncall functionName="consumers"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createHashObject"/>
+    <functioncall functionName="createIntsetObject"/>
+    <functioncall functionName="createModuleObject"/>
+    <functioncall functionName="createObject"/>
+    <functioncall functionName="createQuicklistObject"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="createSetObject"/>
+    <functioncall functionName="createStreamObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLongForValue"/>
+    <functioncall functionName="createZsetObject"/>
+    <functioncall functionName="ctx"/>
+    <functioncall functionName="cwd"/>
+    <functioncall functionName="cwdp"/>
+    <functioncall functionName="d"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="db_size"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="dbnum"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="dec"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delivery_count"/>
+    <functioncall functionName="delivery_time"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictExpand"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictGetSafeIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dirty"/>
+    <functioncall functionName="dirty_before_bgsave"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="enc"/>
+    <functioncall functionName="enclen"/>
+    <functioncall functionName="encode"/>
+    <functioncall functionName="encoded"/>
+    <functioncall functionName="enctype"/>
+    <functioncall functionName="endptr"/>
+    <functioncall functionName="eoferr"/>
+    <functioncall functionName="eofmark"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="errorcode"/>
+    <functioncall functionName="estimateObjectIdleTime"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exitFromChild"/>
+    <functioncall functionName="exitcode"/>
+    <functioncall functionName="expire"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="expires_size"/>
+    <functioncall functionName="expiretime"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fds"/>
+    <functioncall functionName="fflush"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="fileno"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flen"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fork"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="freeClient"/>
+    <functioncall functionName="fstat"/>
+    <functioncall functionName="fstr"/>
+    <functioncall functionName="fsync"/>
+    <functioncall functionName="getDecodedObject"/>
+    <functioncall functionName="getExpire"/>
+    <functioncall functionName="getPsyncInitialOffset"/>
+    <functioncall functionName="getRandomHexChars"/>
+    <functioncall functionName="getcwd"/>
+    <functioncall functionName="getpid"/>
+    <functioncall functionName="hashTypeConvert"/>
+    <functioncall functionName="hashTypeLength"/>
+    <functioncall functionName="hash_max_ziplist_entries"/>
+    <functioncall functionName="hash_max_ziplist_value"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="htonl"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="idletime"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="int16_t"/>
+    <functioncall functionName="int32_t"/>
+    <functioncall functionName="int64_t"/>
+    <functioncall functionName="intrev64"/>
+    <functioncall functionName="intsetAdd"/>
+    <functioncall functionName="intsetBlobLen"/>
+    <functioncall functionName="intsetLen"/>
+    <functioncall functionName="io"/>
+    <functioncall functionName="isSdsRepresentableAsLongLong"/>
+    <functioncall functionName="isencoded"/>
+    <functioncall functionName="isfinite"/>
+    <functioncall functionName="isnan"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_len"/>
+    <functioncall functionName="keylen"/>
+    <functioncall functionName="keystr"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="latency"/>
+    <functioncall functionName="latencyAddSample"/>
+    <functioncall functionName="latency_monitor_threshold"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="len32"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="lenptr"/>
+    <functioncall functionName="lfu_freq"/>
+    <functioncall functionName="li"/>
+    <functioncall functionName="linenum"/>
+    <functioncall functionName="listNext"/>
+    <functioncall functionName="listRewind"/>
+    <functioncall functionName="listTypeConvert"/>
+    <functioncall functionName="list_compress_depth"/>
+    <functioncall functionName="list_max_ziplist_size"/>
+    <functioncall functionName="ll2string"/>
+    <functioncall functionName="llval"/>
+    <functioncall functionName="loadingProgress"/>
+    <functioncall functionName="loading_process_events_interval_bytes"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lp"/>
+    <functioncall functionName="lpBytes"/>
+    <functioncall functionName="lpFirst"/>
+    <functioncall functionName="lp_bytes"/>
+    <functioncall functionName="lru_clock"/>
+    <functioncall functionName="lru_idle"/>
+    <functioncall functionName="lua"/>
+    <functioncall functionName="luaCreateFunction"/>
+    <functioncall functionName="lua_scripts"/>
+    <functioncall functionName="lzf_compress"/>
+    <functioncall functionName="lzf_decompress"/>
+    <functioncall functionName="magic"/>
+    <functioncall functionName="master"/>
+    <functioncall functionName="master_repl_offset"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memrev32"/>
+    <functioncall functionName="memrev64"/>
+    <functioncall functionName="moduleFreeContext"/>
+    <functioncall functionName="moduleTypeLookupModuleByID"/>
+    <functioncall functionName="moduleTypeNameByID"/>
+    <functioncall functionName="moduleid"/>
+    <functioncall functionName="modulename"/>
+    <functioncall functionName="ms"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="msglen"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="mt"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="nack"/>
+    <functioncall functionName="nacks"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="node"/>
+    <functioncall functionName="nodekey"/>
+    <functioncall functionName="ntohl"/>
+    <functioncall functionName="num_cgroups"/>
+    <functioncall functionName="numfds"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="obj"/>
+    <functioncall functionName="objectSetLRUOrLFU"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="ok_slaves"/>
+    <functioncall functionName="openChildInfoPipe"/>
+    <functioncall functionName="original_len"/>
+    <functioncall functionName="out"/>
+    <functioncall functionName="outlen"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="pel"/>
+    <functioncall functionName="pipe"/>
+    <functioncall functionName="pipefds"/>
+    <functioncall functionName="plain"/>
+    <functioncall functionName="pos"/>
+    <functioncall functionName="private_dirty"/>
+    <functioncall functionName="processEventsWhileBlocked"/>
+    <functioncall functionName="processed_bytes"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="quicklistAppendZiplist"/>
+    <functioncall functionName="quicklistGetLzf"/>
+    <functioncall functionName="quicklistPushTail"/>
+    <functioncall functionName="quicklistSetOptions"/>
+    <functioncall functionName="qword"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rawid"/>
+    <functioncall functionName="rax"/>
+    <functioncall functionName="raxFind"/>
+    <functioncall functionName="raxInsert"/>
+    <functioncall functionName="raxNext"/>
+    <functioncall functionName="raxSeek"/>
+    <functioncall functionName="raxSize"/>
+    <functioncall functionName="raxStart"/>
+    <functioncall functionName="raxStop"/>
+    <functioncall functionName="rdb"/>
+    <functioncall functionName="rdbCheckError"/>
+    <functioncall functionName="rdbCheckMode"/>
+    <functioncall functionName="rdbCheckSetError"/>
+    <functioncall functionName="rdbCheckThenExit"/>
+    <functioncall functionName="rdbEncodeInteger"/>
+    <functioncall functionName="rdbGenericLoadStringObject"/>
+    <functioncall functionName="rdbLoadBinaryDoubleValue"/>
+    <functioncall functionName="rdbLoadBinaryFloatValue"/>
+    <functioncall functionName="rdbLoadCheckModuleValue"/>
+    <functioncall functionName="rdbLoadDoubleValue"/>
+    <functioncall functionName="rdbLoadEncodedStringObject"/>
+    <functioncall functionName="rdbLoadIntegerObject"/>
+    <functioncall functionName="rdbLoadLen"/>
+    <functioncall functionName="rdbLoadLenByRef"/>
+    <functioncall functionName="rdbLoadLzfStringObject"/>
+    <functioncall functionName="rdbLoadMillisecondTime"/>
+    <functioncall functionName="rdbLoadObject"/>
+    <functioncall functionName="rdbLoadProgressCallback"/>
+    <functioncall functionName="rdbLoadRaw"/>
+    <functioncall functionName="rdbLoadRio"/>
+    <functioncall functionName="rdbLoadStringObject"/>
+    <functioncall functionName="rdbLoadTime"/>
+    <functioncall functionName="rdbLoadType"/>
+    <functioncall functionName="rdbPopulateSaveInfo"/>
+    <functioncall functionName="rdbRemoveTempFile"/>
+    <functioncall functionName="rdbSave"/>
+    <functioncall functionName="rdbSaveAuxField"/>
+    <functioncall functionName="rdbSaveAuxFieldStrInt"/>
+    <functioncall functionName="rdbSaveAuxFieldStrStr"/>
+    <functioncall functionName="rdbSaveBackground"/>
+    <functioncall functionName="rdbSaveBinaryDoubleValue"/>
+    <functioncall functionName="rdbSaveInfoAuxFields"/>
+    <functioncall functionName="rdbSaveKeyValuePair"/>
+    <functioncall functionName="rdbSaveLen"/>
+    <functioncall functionName="rdbSaveLongLongAsStringObject"/>
+    <functioncall functionName="rdbSaveLzfBlob"/>
+    <functioncall functionName="rdbSaveLzfStringObject"/>
+    <functioncall functionName="rdbSaveMillisecondTime"/>
+    <functioncall functionName="rdbSaveObject"/>
+    <functioncall functionName="rdbSaveObjectType"/>
+    <functioncall functionName="rdbSaveRawString"/>
+    <functioncall functionName="rdbSaveRio"/>
+    <functioncall functionName="rdbSaveRioWithEOFMark"/>
+    <functioncall functionName="rdbSaveStreamConsumers"/>
+    <functioncall functionName="rdbSaveStreamPEL"/>
+    <functioncall functionName="rdbSaveStringObject"/>
+    <functioncall functionName="rdbSaveType"/>
+    <functioncall functionName="rdbTryIntegerEncoding"/>
+    <functioncall functionName="rdbWriteRaw"/>
+    <functioncall functionName="rdb_checksum"/>
+    <functioncall functionName="rdb_child_pid"/>
+    <functioncall functionName="rdb_child_type"/>
+    <functioncall functionName="rdb_filename"/>
+    <functioncall functionName="rdb_load"/>
+    <functioncall functionName="rdb_pipe_read_result_from_child"/>
+    <functioncall functionName="rdb_pipe_write_result_to_parent"/>
+    <functioncall functionName="rdb_save"/>
+    <functioncall functionName="rdb_save_incremental_fsync"/>
+    <functioncall functionName="rdb_save_time_start"/>
+    <functioncall functionName="rdbtype"/>
+    <functioncall functionName="rdbver"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="readlen"/>
+    <functioncall functionName="reason"/>
+    <functioncall functionName="redisSetProcTitle"/>
+    <functioncall functionName="redis_bits"/>
+    <functioncall functionName="redis_check_rdb_main"/>
+    <functioncall functionName="rename"/>
+    <functioncall functionName="repl_backlog"/>
+    <functioncall functionName="repl_id"/>
+    <functioncall functionName="repl_stream_db"/>
+    <functioncall functionName="replicationGetSlaveName"/>
+    <functioncall functionName="replicationSendNewlineToMaster"/>
+    <functioncall functionName="replicationSetupSlaveForFullResync"/>
+    <functioncall functionName="replid"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="ri"/>
+    <functioncall functionName="rioFlush"/>
+    <functioncall functionName="rioFreeFdset"/>
+    <functioncall functionName="rioGenericUpdateChecksum"/>
+    <functioncall functionName="rioInitWithFdset"/>
+    <functioncall functionName="rioInitWithFile"/>
+    <functioncall functionName="rioRead"/>
+    <functioncall functionName="rioSetAutoSync"/>
+    <functioncall functionName="rioWrite"/>
+    <functioncall functionName="rsi"/>
+    <functioncall functionName="rsi_init"/>
+    <functioncall functionName="rsiptr"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="savelfu"/>
+    <functioncall functionName="savelru"/>
+    <functioncall functionName="sb"/>
+    <functioncall functionName="schedule"/>
+    <functioncall functionName="score"/>
+    <functioncall functionName="sdsele"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="seen_time"/>
+    <functioncall functionName="sendChildInfo"/>
+    <functioncall functionName="seq"/>
+    <functioncall functionName="serverLog"/>
+    <functioncall functionName="set"/>
+    <functioncall functionName="setExpire"/>
+    <functioncall functionName="setTypeConvert"/>
+    <functioncall functionName="set_max_intset_entries"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slave"/>
+    <functioncall functionName="slave_sockets"/>
+    <functioncall functionName="slaves"/>
+    <functioncall functionName="slaveseldb"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="sscanf"/>
+    <functioncall functionName="st_size"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="startLoading"/>
+    <functioncall functionName="stopLoading"/>
+    <functioncall functionName="strcasecmp"/>
+    <functioncall functionName="streamCreateCG"/>
+    <functioncall functionName="streamCreateNACK"/>
+    <functioncall functionName="streamLookupConsumer"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strtoll"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="syntaxerr"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="t32"/>
+    <functioncall functionName="t64"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="time_t"/>
+    <functioncall functionName="tmpfile"/>
+    <functioncall functionName="tryObjectEncoding"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="unlink"/>
+    <functioncall functionName="updateCachedTime"/>
+    <functioncall functionName="updateDictResizePolicy"/>
+    <functioncall functionName="updateSlavesWaitingBgsave"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="ustime"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="vallen"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="werr"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="writeerr"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="zi"/>
+    <functioncall functionName="ziplistBlobLen"/>
+    <functioncall functionName="ziplistNew"/>
+    <functioncall functionName="ziplistPush"/>
+    <functioncall functionName="zipmapNext"/>
+    <functioncall functionName="zipmapRewind"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+    <functioncall functionName="zmalloc_get_private_dirty"/>
+    <functioncall functionName="zmalloc_used_memory"/>
+    <functioncall functionName="zrealloc"/>
+    <functioncall functionName="zsetConvert"/>
+    <functioncall functionName="zsetLength"/>
+    <functioncall functionName="zset_max_ziplist_entries"/>
+    <functioncall functionName="zset_max_ziplist_value"/>
+    <functioncall functionName="zsetlen"/>
+    <functioncall functionName="zsl"/>
+    <functioncall functionName="zslInsert"/>
+  </FileInfo>
+</analyzerinfo>

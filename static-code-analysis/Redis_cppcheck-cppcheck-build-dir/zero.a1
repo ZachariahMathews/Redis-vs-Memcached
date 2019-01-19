@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2152136292">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="test_zero" lineNumber="4"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="42"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="48"/>
+    <functiondecl functionName="main" lineNumber="55"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_u_eq"/>
+    <functioncall functionName="config_fill"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="rallocx"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="sz_min"/>
+    <functioncall functionName="sz_prev"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_skip_if"/>
+    <functioncall functionName="test_zero"/>
+    <functioncall functionName="test_zero_large"/>
+    <functioncall functionName="test_zero_small"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="xallocx"/>
+  </FileInfo>
+</analyzerinfo>

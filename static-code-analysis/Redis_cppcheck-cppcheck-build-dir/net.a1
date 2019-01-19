@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3801693451">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="redisContextCloseFd" lineNumber="60"/>
+    <functiondecl functionName="__redisSetErrorFromErrno" lineNumber="67"/>
+    <functiondecl functionName="redisSetReuseAddr" lineNumber="77"/>
+    <functiondecl functionName="redisCreateSocket" lineNumber="87"/>
+    <functiondecl functionName="redisSetBlocking" lineNumber="102"/>
+    <functiondecl functionName="redisKeepAlive" lineNumber="127"/>
+    <functiondecl functionName="redisSetTcpNoDelay" lineNumber="169"/>
+    <functiondecl functionName="redisContextTimeoutMsec" lineNumber="181"/>
+    <functiondecl functionName="redisContextWaitReady" lineNumber="204"/>
+    <functiondecl functionName="redisCheckSocketError" lineNumber="235"/>
+    <functiondecl functionName="redisContextSetTimeout" lineNumber="253"/>
+    <functiondecl functionName="_redisContextConnectTcp" lineNumber="265"/>
+    <functiondecl functionName="redisContextConnectTcp" lineNumber="418"/>
+    <functiondecl functionName="redisContextConnectBindTcp" lineNumber="423"/>
+    <functiondecl functionName="redisContextConnectUnix" lineNumber="429"/>
+    <functiondecl functionName="redisContextCloseFd" lineNumber="60"/>
+    <functiondecl functionName="__redisSetErrorFromErrno" lineNumber="67"/>
+    <functiondecl functionName="redisSetReuseAddr" lineNumber="77"/>
+    <functiondecl functionName="redisCreateSocket" lineNumber="87"/>
+    <functiondecl functionName="redisSetBlocking" lineNumber="102"/>
+    <functiondecl functionName="redisKeepAlive" lineNumber="127"/>
+    <functiondecl functionName="redisSetTcpNoDelay" lineNumber="169"/>
+    <functiondecl functionName="redisContextTimeoutMsec" lineNumber="181"/>
+    <functiondecl functionName="redisContextWaitReady" lineNumber="204"/>
+    <functiondecl functionName="redisCheckSocketError" lineNumber="235"/>
+    <functiondecl functionName="redisContextSetTimeout" lineNumber="253"/>
+    <functiondecl functionName="_redisContextConnectTcp" lineNumber="265"/>
+    <functiondecl functionName="redisContextConnectTcp" lineNumber="418"/>
+    <functiondecl functionName="redisContextConnectBindTcp" lineNumber="423"/>
+    <functiondecl functionName="redisContextConnectUnix" lineNumber="429"/>
+    <functiondecl functionName="redisContextCloseFd" lineNumber="60"/>
+    <functiondecl functionName="__redisSetErrorFromErrno" lineNumber="67"/>
+    <functiondecl functionName="redisSetReuseAddr" lineNumber="77"/>
+    <functiondecl functionName="redisCreateSocket" lineNumber="87"/>
+    <functiondecl functionName="redisSetBlocking" lineNumber="102"/>
+    <functiondecl functionName="redisKeepAlive" lineNumber="127"/>
+    <functiondecl functionName="redisSetTcpNoDelay" lineNumber="169"/>
+    <functiondecl functionName="redisContextTimeoutMsec" lineNumber="181"/>
+    <functiondecl functionName="redisContextWaitReady" lineNumber="204"/>
+    <functiondecl functionName="redisCheckSocketError" lineNumber="235"/>
+    <functiondecl functionName="redisContextSetTimeout" lineNumber="253"/>
+    <functiondecl functionName="_redisContextConnectTcp" lineNumber="265"/>
+    <functiondecl functionName="redisContextConnectTcp" lineNumber="418"/>
+    <functiondecl functionName="redisContextConnectBindTcp" lineNumber="423"/>
+    <functiondecl functionName="redisContextConnectUnix" lineNumber="429"/>
+    <functiondecl functionName="redisContextCloseFd" lineNumber="60"/>
+    <functiondecl functionName="__redisSetErrorFromErrno" lineNumber="67"/>
+    <functiondecl functionName="redisSetReuseAddr" lineNumber="77"/>
+    <functiondecl functionName="redisCreateSocket" lineNumber="87"/>
+    <functiondecl functionName="redisSetBlocking" lineNumber="102"/>
+    <functiondecl functionName="redisKeepAlive" lineNumber="127"/>
+    <functiondecl functionName="redisSetTcpNoDelay" lineNumber="169"/>
+    <functiondecl functionName="redisContextTimeoutMsec" lineNumber="181"/>
+    <functiondecl functionName="redisContextWaitReady" lineNumber="204"/>
+    <functiondecl functionName="redisCheckSocketError" lineNumber="235"/>
+    <functiondecl functionName="redisContextSetTimeout" lineNumber="253"/>
+    <functiondecl functionName="_redisContextConnectTcp" lineNumber="265"/>
+    <functiondecl functionName="redisContextConnectTcp" lineNumber="418"/>
+    <functiondecl functionName="redisContextConnectBindTcp" lineNumber="423"/>
+    <functiondecl functionName="redisContextConnectUnix" lineNumber="429"/>
+    <functiondecl functionName="redisContextCloseFd" lineNumber="60"/>
+    <functiondecl functionName="__redisSetErrorFromErrno" lineNumber="67"/>
+    <functiondecl functionName="redisSetReuseAddr" lineNumber="77"/>
+    <functiondecl functionName="redisCreateSocket" lineNumber="87"/>
+    <functiondecl functionName="redisSetBlocking" lineNumber="102"/>
+    <functiondecl functionName="redisKeepAlive" lineNumber="127"/>
+    <functiondecl functionName="redisSetTcpNoDelay" lineNumber="169"/>
+    <functiondecl functionName="redisContextTimeoutMsec" lineNumber="181"/>
+    <functiondecl functionName="redisContextWaitReady" lineNumber="204"/>
+    <functiondecl functionName="redisCheckSocketError" lineNumber="235"/>
+    <functiondecl functionName="redisContextSetTimeout" lineNumber="253"/>
+    <functiondecl functionName="_redisContextConnectTcp" lineNumber="265"/>
+    <functiondecl functionName="redisContextConnectTcp" lineNumber="418"/>
+    <functiondecl functionName="redisContextConnectBindTcp" lineNumber="423"/>
+    <functiondecl functionName="redisContextConnectUnix" lineNumber="429"/>
+    <functioncall functionName="AF_INET"/>
+    <functioncall functionName="AF_INET6"/>
+    <functioncall functionName="AF_LOCAL"/>
+    <functioncall functionName="AF_UNIX"/>
+    <functioncall functionName="ETIMEDOUT"/>
+    <functioncall functionName="F_GETFL"/>
+    <functioncall functionName="F_SETFL"/>
+    <functioncall functionName="INT_MAX"/>
+    <functioncall functionName="IPPROTO_TCP"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="POLLOUT"/>
+    <functioncall functionName="REDIS_CONN_TCP"/>
+    <functioncall functionName="REDIS_CONN_UNIX"/>
+    <functioncall functionName="SOCK_STREAM"/>
+    <functioncall functionName="SOL_SOCKET"/>
+    <functioncall functionName="SO_ERROR"/>
+    <functioncall functionName="SO_KEEPALIVE"/>
+    <functioncall functionName="SO_RCVTIMEO"/>
+    <functioncall functionName="SO_REUSEADDR"/>
+    <functioncall functionName="SO_SNDTIMEO"/>
+    <functioncall functionName="TCP_KEEPALIVE"/>
+    <functioncall functionName="TCP_NODELAY"/>
+    <functioncall functionName="__redisSetError"/>
+    <functioncall functionName="__redisSetErrorFromErrno"/>
+    <functioncall functionName="_port"/>
+    <functioncall functionName="_redisContextConnectTcp"/>
+    <functioncall functionName="addr"/>
+    <functioncall functionName="addrretry"/>
+    <functioncall functionName="ai_addr"/>
+    <functioncall functionName="ai_addrlen"/>
+    <functioncall functionName="ai_family"/>
+    <functioncall functionName="ai_next"/>
+    <functioncall functionName="ai_protocol"/>
+    <functioncall functionName="ai_socktype"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="bind"/>
+    <functioncall functionName="blocking"/>
+    <functioncall functionName="bound"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="bservinfo"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="err_str"/>
+    <functioncall functionName="errlen"/>
+    <functioncall functionName="errno"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="fcntl"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="freeaddrinfo"/>
+    <functioncall functionName="gai_strerror"/>
+    <functioncall functionName="getaddrinfo"/>
+    <functioncall functionName="getsockopt"/>
+    <functioncall functionName="hints"/>
+    <functioncall functionName="host"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="interval"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="msec"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="on"/>
+    <functioncall functionName="path"/>
+    <functioncall functionName="poll"/>
+    <functioncall functionName="port"/>
+    <functioncall functionName="prefix"/>
+    <functioncall functionName="redisCheckSocketError"/>
+    <functioncall functionName="redisContextCloseFd"/>
+    <functioncall functionName="redisContextTimeoutMsec"/>
+    <functioncall functionName="redisContextWaitReady"/>
+    <functioncall functionName="redisCreateSocket"/>
+    <functioncall functionName="redisSetBlocking"/>
+    <functioncall functionName="redisSetReuseAddr"/>
+    <functioncall functionName="redisSetTcpNoDelay"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="reuseaddr"/>
+    <functioncall functionName="rv"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa"/>
+    <functioncall functionName="servinfo"/>
+    <functioncall functionName="setsockopt"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="socket"/>
+    <functioncall functionName="source_addr"/>
+    <functioncall functionName="strdup"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="strerror_r"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="sun_path"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="timeout"/>
+    <functioncall functionName="timeout_msec"/>
+    <functioncall functionName="tv"/>
+    <functioncall functionName="tv_sec"/>
+    <functioncall functionName="tv_usec"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="wfd"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="yes"/>
+  </FileInfo>
+</analyzerinfo>

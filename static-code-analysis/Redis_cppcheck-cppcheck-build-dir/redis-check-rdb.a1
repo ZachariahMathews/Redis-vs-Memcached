@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3689065101">
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+    <ArraySize array="rdb_check_doing_string" size="8"/>
+    <ArraySize array="rdb_type_string" size="16"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+    <ArraySize array="rdb_check_doing_string" size="8"/>
+    <ArraySize array="rdb_type_string" size="16"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="rdbShowGenericInfo" lineNumber="92"/>
+    <functiondecl functionName="rdbCheckError" lineNumber="100"/>
+    <functiondecl functionName="rdbCheckInfo" lineNumber="127"/>
+    <functiondecl functionName="rdbCheckSetError" lineNumber="142"/>
+    <functiondecl functionName="rdbCheckHandleCrash" lineNumber="154"/>
+    <functiondecl functionName="rdbCheckSetupSignals" lineNumber="163"/>
+    <functiondecl functionName="redis_check_rdb" lineNumber="179"/>
+    <functiondecl functionName="redis_check_rdb_main" lineNumber="342"/>
+    <functiondecl functionName="rdbShowGenericInfo" lineNumber="92"/>
+    <functiondecl functionName="rdbCheckError" lineNumber="100"/>
+    <functiondecl functionName="rdbCheckInfo" lineNumber="127"/>
+    <functiondecl functionName="rdbCheckSetError" lineNumber="142"/>
+    <functiondecl functionName="rdbCheckHandleCrash" lineNumber="154"/>
+    <functiondecl functionName="rdbCheckSetupSignals" lineNumber="163"/>
+    <functiondecl functionName="redis_check_rdb" lineNumber="179"/>
+    <functiondecl functionName="redis_check_rdb_main" lineNumber="342"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="SA_SIGINFO"/>
+    <functioncall functionName="SIGBUS"/>
+    <functioncall functionName="SIGFPE"/>
+    <functioncall functionName="SIGILL"/>
+    <functioncall functionName="SIGSEGV"/>
+    <functioncall functionName="act"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="already_expired"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="auxkey"/>
+    <functioncall functionName="auxval"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="byte"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="cksum"/>
+    <functioncall functionName="closefile"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="createSharedObjects"/>
+    <functioncall functionName="dbid"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="doing"/>
+    <functioncall functionName="eoferr"/>
+    <functioncall functionName="err"/>
+    <functioncall functionName="error"/>
+    <functioncall functionName="error_set"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="expires"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="fmt"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="fp"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="info"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="key_type"/>
+    <functioncall functionName="keys"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="memcmp"/>
+    <functioncall functionName="memrev64"/>
+    <functioncall functionName="msg"/>
+    <functioncall functionName="mstime"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="processed_bytes"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="rdb"/>
+    <functioncall functionName="rdbCheckError"/>
+    <functioncall functionName="rdbCheckHandleCrash"/>
+    <functioncall functionName="rdbCheckInfo"/>
+    <functioncall functionName="rdbCheckSetupSignals"/>
+    <functioncall functionName="rdbLoadLen"/>
+    <functioncall functionName="rdbLoadMillisecondTime"/>
+    <functioncall functionName="rdbLoadObject"/>
+    <functioncall functionName="rdbLoadProgressCallback"/>
+    <functioncall functionName="rdbLoadStringObject"/>
+    <functioncall functionName="rdbLoadTime"/>
+    <functioncall functionName="rdbLoadType"/>
+    <functioncall functionName="rdbShowGenericInfo"/>
+    <functioncall functionName="rdb_checksum"/>
+    <functioncall functionName="rdb_type_string"/>
+    <functioncall functionName="rdbfilename"/>
+    <functioncall functionName="rdbver"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="redis_check_rdb"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="retval"/>
+    <functioncall functionName="rioInitWithFile"/>
+    <functioncall functionName="rioRead"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sa_mask"/>
+    <functioncall functionName="secret"/>
+    <functioncall functionName="sig"/>
+    <functioncall functionName="sigaction"/>
+    <functioncall functionName="sigemptyset"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="startLoading"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>

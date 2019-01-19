@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3155046619">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="luaX_init" lineNumber="21"/>
+    <functiondecl functionName="luaY_parser" lineNumber="25"/>
+    <functiondecl functionName="luaX_init" lineNumber="21"/>
+    <functiondecl functionName="luaY_parser" lineNumber="25"/>
+    <functiondecl functionName="luaU_dump" lineNumber="37"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="UNUSED"/>
+    <functioncall functionName="buff"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_pushliteral"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="strip"/>
+    <functioncall functionName="w"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

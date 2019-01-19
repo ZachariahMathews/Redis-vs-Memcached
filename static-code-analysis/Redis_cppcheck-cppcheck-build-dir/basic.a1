@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4238623582">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="4"/>
+    <functiondecl functionName="main" lineNumber="22"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="bar"/>
+    <functioncall functionName="foo"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="nullptr"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_basic"/>
+  </FileInfo>
+</analyzerinfo>

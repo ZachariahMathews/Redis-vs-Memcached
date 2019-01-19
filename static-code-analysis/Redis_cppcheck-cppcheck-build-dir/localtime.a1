@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3356910154">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="is_leap_year" lineNumber="52"/>
+    <functiondecl functionName="nolocks_localtime" lineNumber="59"/>
+    <functiondecl functionName="is_leap_year" lineNumber="52"/>
+    <functiondecl functionName="nolocks_localtime" lineNumber="59"/>
+    <functiondecl functionName="main" lineNumber="109"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="daylight_active"/>
+    <functioncall functionName="days"/>
+    <functioncall functionName="days_this_year"/>
+    <functioncall functionName="dst"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="is_leap_year"/>
+    <functioncall functionName="localtime"/>
+    <functioncall functionName="nolocks_localtime"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="secs_day"/>
+    <functioncall functionName="secs_hour"/>
+    <functioncall functionName="secs_min"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strftime"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="time"/>
+    <functioncall functionName="timezone"/>
+    <functioncall functionName="tm"/>
+    <functioncall functionName="tm_isdst"/>
+    <functioncall functionName="tm_mon"/>
+    <functioncall functionName="tm_year"/>
+    <functioncall functionName="tzset"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>34</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'history' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>37</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'history' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>42</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'totals' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>66</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>86</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>107</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>114</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>114</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>127</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>128</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'totals' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>153</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>180</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove</file>
+    <line>180</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'totals' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>38</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'history' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>41</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>46</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'history' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>55</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'history' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>55</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'stats' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>55</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>55</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'memfree' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>79</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>118</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>122</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>139</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>145</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>157</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>164</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>164</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'decision' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>177</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>178</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'totals' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>203</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>225</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>226</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'stats' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>246</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>246</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'totals' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>261</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 's' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>261</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'diffs' from outer scope</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/scripts/memcached-automove-extstore</file>
+    <line>261</line>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/scripts/memcached-automove-extstore" />
+    <problem_class severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Shadowing names from outer scopes</problem_class>
+    <description>Shadows name 'totals' from outer scope</description>
+  </problem>
+</problems>
+

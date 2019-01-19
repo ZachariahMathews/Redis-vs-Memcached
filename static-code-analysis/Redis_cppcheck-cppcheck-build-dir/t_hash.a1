@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1040171697">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ret&apos; can be reduced." verbose="The scope of the variable &apos;ret&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_hash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_hash.c" line="63"/>
+            <symbol>ret</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ret&apos; can be reduced." verbose="The scope of the variable &apos;ret&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_hash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_hash.c" line="474"/>
+            <symbol>ret</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ret&apos; can be reduced." verbose="The scope of the variable &apos;ret&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\src\t_hash.c" file="C:\Users\bharm\Downloads\redis-unstable\src\t_hash.c" line="641"/>
+            <symbol>ret</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="clientBufferLimitsDefaults" size="3"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="hashTypeTryConversion" lineNumber="40"/>
+    <functiondecl functionName="hashTypeGetFromZiplist" lineNumber="57"/>
+    <functiondecl functionName="hashTypeGetFromHashTable" lineNumber="90"/>
+    <functiondecl functionName="hashTypeGetValue" lineNumber="109"/>
+    <functiondecl functionName="hashTypeGetValueObject" lineNumber="131"/>
+    <functiondecl functionName="hashTypeGetValueLength" lineNumber="144"/>
+    <functiondecl functionName="hashTypeExists" lineNumber="166"/>
+    <functiondecl functionName="hashTypeSet" lineNumber="202"/>
+    <functiondecl functionName="hashTypeDelete" lineNumber="279"/>
+    <functiondecl functionName="hashTypeLength" lineNumber="311"/>
+    <functiondecl functionName="hashTypeInitIterator" lineNumber="324"/>
+    <functiondecl functionName="hashTypeReleaseIterator" lineNumber="340"/>
+    <functiondecl functionName="hashTypeNext" lineNumber="348"/>
+    <functiondecl functionName="hashTypeCurrentFromZiplist" lineNumber="385"/>
+    <functiondecl functionName="hashTypeCurrentFromHashTable" lineNumber="406"/>
+    <functiondecl functionName="hashTypeCurrentObject" lineNumber="426"/>
+    <functiondecl functionName="hashTypeCurrentObjectNewSds" lineNumber="441"/>
+    <functiondecl functionName="hashTypeLookupWriteOrCreate" lineNumber="451"/>
+    <functiondecl functionName="hashTypeConvertZiplist" lineNumber="465"/>
+    <functiondecl functionName="hashTypeConvert" lineNumber="500"/>
+    <functiondecl functionName="hsetnxCommand" lineNumber="514"/>
+    <functiondecl functionName="hsetCommand" lineNumber="530"/>
+    <functiondecl functionName="hincrbyCommand" lineNumber="559"/>
+    <functiondecl functionName="hincrbyfloatCommand" lineNumber="594"/>
+    <functiondecl functionName="addHashFieldToReply" lineNumber="640"/>
+    <functiondecl functionName="hgetCommand" lineNumber="675"/>
+    <functiondecl functionName="hmgetCommand" lineNumber="684"/>
+    <functiondecl functionName="hdelCommand" lineNumber="702"/>
+    <functiondecl functionName="hlenCommand" lineNumber="730"/>
+    <functiondecl functionName="hstrlenCommand" lineNumber="739"/>
+    <functiondecl functionName="addHashIteratorCursorToReply" lineNumber="747"/>
+    <functiondecl functionName="genericHgetallCommand" lineNumber="766"/>
+    <functiondecl functionName="hkeysCommand" lineNumber="797"/>
+    <functiondecl functionName="hvalsCommand" lineNumber="801"/>
+    <functiondecl functionName="hgetallCommand" lineNumber="805"/>
+    <functiondecl functionName="hexistsCommand" lineNumber="809"/>
+    <functiondecl functionName="hscanCommand" lineNumber="817"/>
+    <functioncall functionName="LLONG_MAX"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="UINT_MAX"/>
+    <functioncall functionName="ULONG_MAX"/>
+    <functioncall functionName="_exit"/>
+    <functioncall functionName="_serverAssert"/>
+    <functioncall functionName="_serverPanic"/>
+    <functioncall functionName="addHashFieldToReply"/>
+    <functioncall functionName="addHashIteratorCursorToReply"/>
+    <functioncall functionName="addReply"/>
+    <functioncall functionName="addReplyBulkCBuffer"/>
+    <functioncall functionName="addReplyBulkLongLong"/>
+    <functioncall functionName="addReplyError"/>
+    <functioncall functionName="addReplyLongLong"/>
+    <functioncall functionName="addReplyMultiBulkLen"/>
+    <functioncall functionName="alloc"/>
+    <functioncall functionName="argc"/>
+    <functioncall functionName="argv"/>
+    <functioncall functionName="aux"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_to_read"/>
+    <functioncall functionName="bytes_to_write"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="callback"/>
+    <functioncall functionName="checkType"/>
+    <functioncall functionName="cone"/>
+    <functioncall functionName="createHashObject"/>
+    <functioncall functionName="createRawStringObject"/>
+    <functioncall functionName="createStringObject"/>
+    <functioncall functionName="createStringObjectFromLongLong"/>
+    <functioncall functionName="created"/>
+    <functioncall functionName="cursor"/>
+    <functioncall functionName="czero"/>
+    <functioncall functionName="db"/>
+    <functioncall functionName="dbAdd"/>
+    <functioncall functionName="dbDelete"/>
+    <functioncall functionName="de"/>
+    <functioncall functionName="decrRefCount"/>
+    <functioncall functionName="deleted"/>
+    <functioncall functionName="di"/>
+    <functioncall functionName="dict"/>
+    <functioncall functionName="dictAdd"/>
+    <functioncall functionName="dictCreate"/>
+    <functioncall functionName="dictDelete"/>
+    <functioncall functionName="dictFind"/>
+    <functioncall functionName="dictGetIterator"/>
+    <functioncall functionName="dictNext"/>
+    <functioncall functionName="dictReleaseIterator"/>
+    <functioncall functionName="dictResize"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="ele"/>
+    <functioncall functionName="emptymultibulk"/>
+    <functioncall functionName="emptyscan"/>
+    <functioncall functionName="enc"/>
+    <functioncall functionName="encoding"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="field"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fptr"/>
+    <functioncall functionName="genericHgetallCommand"/>
+    <functioncall functionName="getLongDoubleFromObjectOrReply"/>
+    <functioncall functionName="getLongLongFromObjectOrReply"/>
+    <functioncall functionName="hashDictType"/>
+    <functioncall functionName="hashTypeConvert"/>
+    <functioncall functionName="hashTypeConvertZiplist"/>
+    <functioncall functionName="hashTypeCurrentFromHashTable"/>
+    <functioncall functionName="hashTypeCurrentFromZiplist"/>
+    <functioncall functionName="hashTypeCurrentObject"/>
+    <functioncall functionName="hashTypeCurrentObjectNewSds"/>
+    <functioncall functionName="hashTypeDelete"/>
+    <functioncall functionName="hashTypeExists"/>
+    <functioncall functionName="hashTypeGetFromHashTable"/>
+    <functioncall functionName="hashTypeGetFromZiplist"/>
+    <functioncall functionName="hashTypeGetValue"/>
+    <functioncall functionName="hashTypeGetValueLength"/>
+    <functioncall functionName="hashTypeInitIterator"/>
+    <functioncall functionName="hashTypeLength"/>
+    <functioncall functionName="hashTypeLookupWriteOrCreate"/>
+    <functioncall functionName="hashTypeNext"/>
+    <functioncall functionName="hashTypeReleaseIterator"/>
+    <functioncall functionName="hashTypeSet"/>
+    <functioncall functionName="hashTypeTryConversion"/>
+    <functioncall functionName="hash_max_ziplist_entries"/>
+    <functioncall functionName="hash_max_ziplist_value"/>
+    <functioncall functionName="hi"/>
+    <functioncall functionName="htNeedsResize"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="keyremoved"/>
+    <functioncall functionName="ld2string"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="ll"/>
+    <functioncall functionName="lookupKeyRead"/>
+    <functioncall functionName="lookupKeyReadOrReply"/>
+    <functioncall functionName="lookupKeyWrite"/>
+    <functioncall functionName="lookupKeyWriteOrReply"/>
+    <functioncall functionName="max_processing_chunk"/>
+    <functioncall functionName="new"/>
+    <functioncall functionName="newlen"/>
+    <functioncall functionName="newobj"/>
+    <functioncall functionName="notifyKeyspaceEvent"/>
+    <functioncall functionName="nullbulk"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="ok"/>
+    <functioncall functionName="oldvalue"/>
+    <functioncall functionName="parseScanCursorOrReply"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="r"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewriteClientCommandArgument"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="scanGenericCommand"/>
+    <functioncall functionName="sdigits10"/>
+    <functioncall functionName="sdsdup"/>
+    <functioncall functionName="sdsfree"/>
+    <functioncall functionName="sdsfromlonglong"/>
+    <functioncall functionName="sdslen"/>
+    <functioncall functionName="sdsnewlen"/>
+    <functioncall functionName="serverLogHexDump"/>
+    <functioncall functionName="signalModifiedKey"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="start"/>
+    <functioncall functionName="string2ld"/>
+    <functioncall functionName="string2ll"/>
+    <functioncall functionName="subject"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell"/>
+    <functioncall functionName="update"/>
+    <functioncall functionName="update_cksum"/>
+    <functioncall functionName="used"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="val"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vlen"/>
+    <functioncall functionName="vll"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="vptr"/>
+    <functioncall functionName="vstr"/>
+    <functioncall functionName="what"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="write"/>
+    <functioncall functionName="wrongtypeerr"/>
+    <functioncall functionName="zfree"/>
+    <functioncall functionName="ziplistBlobLen"/>
+    <functioncall functionName="ziplistDelete"/>
+    <functioncall functionName="ziplistFind"/>
+    <functioncall functionName="ziplistGet"/>
+    <functioncall functionName="ziplistIndex"/>
+    <functioncall functionName="ziplistInsert"/>
+    <functioncall functionName="ziplistLen"/>
+    <functioncall functionName="ziplistNext"/>
+    <functioncall functionName="ziplistPush"/>
+    <functioncall functionName="zl"/>
+    <functioncall functionName="zmalloc"/>
+  </FileInfo>
+</analyzerinfo>

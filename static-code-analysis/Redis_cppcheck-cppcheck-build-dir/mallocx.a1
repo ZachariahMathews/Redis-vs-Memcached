@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3717074874">
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;z&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;z&apos; is reassigned a value before the old one has been used." cwe="563">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\mallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\mallocx.c" line="31"/>
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\mallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\mallocx.c" line="27"/>
+            <symbol>z</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;total&apos; can be reduced." verbose="The scope of the variable &apos;total&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\mallocx.c" file="C:\Users\bharm\Downloads\redis-unstable\deps\jemalloc\test\integration\mallocx.c" line="164"/>
+            <symbol>total</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="get_nsizes_impl" lineNumber="4"/>
+    <functiondecl functionName="get_nlarge" lineNumber="16"/>
+    <functiondecl functionName="get_size_impl" lineNumber="21"/>
+    <functiondecl functionName="get_large_size" lineNumber="39"/>
+    <functiondecl functionName="purge" lineNumber="49"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="54"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="74"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="116"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="153"/>
+    <functiondecl functionName="main" lineNumber="222"/>
+    <functiondecl functionName="get_nsizes_impl" lineNumber="4"/>
+    <functiondecl functionName="get_nlarge" lineNumber="16"/>
+    <functiondecl functionName="get_size_impl" lineNumber="21"/>
+    <functiondecl functionName="get_large_size" lineNumber="39"/>
+    <functiondecl functionName="purge" lineNumber="49"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="54"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="74"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="116"/>
+    <functiondecl functionName="TEST_BEGIN" lineNumber="153"/>
+    <functiondecl functionName="main" lineNumber="222"/>
+    <functioncall functionName="MALLOCX_ALIGN"/>
+    <functioncall functionName="MALLOCX_ZERO"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PTRDIFF_MAX"/>
+    <functioncall functionName="SIZE_T_MAX"/>
+    <functioncall functionName="TEST_BEGIN"/>
+    <functioncall functionName="ZU"/>
+    <functioncall functionName="alignment"/>
+    <functioncall functionName="assert_d_eq"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_ptr_null"/>
+    <functioncall functionName="assert_true"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="assert_zu_ge"/>
+    <functioncall functionName="assert_zu_ne"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="dallocx"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="get_large_size"/>
+    <functioncall functionName="get_nlarge"/>
+    <functioncall functionName="get_nsizes_impl"/>
+    <functioncall functionName="get_size_impl"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ind"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="largemax"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallctl"/>
+    <functioncall functionName="mallctlbymib"/>
+    <functioncall functionName="mallctlnametomib"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="mib"/>
+    <functioncall functionName="miblen"/>
+    <functioncall functionName="nallocx"/>
+    <functioncall functionName="nsz"/>
+    <functioncall functionName="oom"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="percpu_arena"/>
+    <functioncall functionName="ptrs"/>
+    <functioncall functionName="purge"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="rsz"/>
+    <functioncall functionName="sallocx"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_alignment_and_size"/>
+    <functioncall functionName="test_basic"/>
+    <functioncall functionName="test_oom"/>
+    <functioncall functionName="test_overflow"/>
+    <functioncall functionName="test_skip"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

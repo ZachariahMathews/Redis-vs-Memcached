@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1887910793">
+        <error id="preprocessorErrorDirective" severity="error" msg="No header in #include" verbose="No header in #include">
+            <location file="C:\Users\bharm\Downloads\redis-unstable\deps\lua\src\lua.h" line="94"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="removeentry" lineNumber="62"/>
+    <functiondecl functionName="reallymarkobject" lineNumber="69"/>
+    <functiondecl functionName="marktmu" lineNumber="115"/>
+    <functiondecl functionName="luaC_separateudata" lineNumber="128"/>
+    <functiondecl functionName="traversetable" lineNumber="158"/>
+    <functiondecl functionName="traverseproto" lineNumber="203"/>
+    <functiondecl functionName="traverseclosure" lineNumber="224"/>
+    <functiondecl functionName="checkstacksizes" lineNumber="241"/>
+    <functiondecl functionName="traversestack" lineNumber="256"/>
+    <functiondecl functionName="propagatemark" lineNumber="277"/>
+    <functiondecl functionName="propagateall" lineNumber="323"/>
+    <functiondecl functionName="iscleared" lineNumber="337"/>
+    <functiondecl functionName="cleartable" lineNumber="351"/>
+    <functiondecl functionName="freeobj" lineNumber="378"/>
+    <functiondecl functionName="sweeplist" lineNumber="407"/>
+    <functiondecl functionName="checkSizes" lineNumber="431"/>
+    <functiondecl functionName="GCTM" lineNumber="445"/>
+    <functiondecl functionName="luaC_callGCTM" lineNumber="477"/>
+    <functiondecl functionName="luaC_freeall" lineNumber="483"/>
+    <functiondecl functionName="markmt" lineNumber="493"/>
+    <functiondecl functionName="markroot" lineNumber="501"/>
+    <functiondecl functionName="remarkupvals" lineNumber="515"/>
+    <functiondecl functionName="atomic" lineNumber="525"/>
+    <functiondecl functionName="singlestep" lineNumber="556"/>
+    <functiondecl functionName="luaC_step" lineNumber="610"/>
+    <functiondecl functionName="luaC_fullgc" lineNumber="635"/>
+    <functiondecl functionName="luaC_barrierf" lineNumber="661"/>
+    <functiondecl functionName="luaC_barrierback" lineNumber="674"/>
+    <functiondecl functionName="luaC_link" lineNumber="685"/>
+    <functiondecl functionName="luaC_linkupval" lineNumber="694"/>
+    <functiondecl functionName="removeentry" lineNumber="62"/>
+    <functiondecl functionName="reallymarkobject" lineNumber="69"/>
+    <functiondecl functionName="marktmu" lineNumber="115"/>
+    <functiondecl functionName="luaC_separateudata" lineNumber="128"/>
+    <functiondecl functionName="traversetable" lineNumber="158"/>
+    <functiondecl functionName="traverseproto" lineNumber="203"/>
+    <functiondecl functionName="traverseclosure" lineNumber="224"/>
+    <functiondecl functionName="checkstacksizes" lineNumber="241"/>
+    <functiondecl functionName="traversestack" lineNumber="256"/>
+    <functiondecl functionName="propagatemark" lineNumber="277"/>
+    <functiondecl functionName="propagateall" lineNumber="323"/>
+    <functiondecl functionName="iscleared" lineNumber="337"/>
+    <functiondecl functionName="cleartable" lineNumber="351"/>
+    <functiondecl functionName="freeobj" lineNumber="378"/>
+    <functiondecl functionName="sweeplist" lineNumber="407"/>
+    <functiondecl functionName="checkSizes" lineNumber="431"/>
+    <functiondecl functionName="GCTM" lineNumber="445"/>
+    <functiondecl functionName="luaC_callGCTM" lineNumber="477"/>
+    <functiondecl functionName="luaC_freeall" lineNumber="483"/>
+    <functiondecl functionName="markmt" lineNumber="493"/>
+    <functiondecl functionName="markroot" lineNumber="501"/>
+    <functiondecl functionName="remarkupvals" lineNumber="515"/>
+    <functiondecl functionName="atomic" lineNumber="525"/>
+    <functiondecl functionName="singlestep" lineNumber="556"/>
+    <functiondecl functionName="luaC_step" lineNumber="610"/>
+    <functiondecl functionName="luaC_fullgc" lineNumber="635"/>
+    <functiondecl functionName="luaC_barrierf" lineNumber="661"/>
+    <functiondecl functionName="luaC_barrierback" lineNumber="674"/>
+    <functiondecl functionName="luaC_link" lineNumber="685"/>
+    <functiondecl functionName="luaC_linkupval" lineNumber="694"/>
+    <functiondecl functionName="removeentry" lineNumber="62"/>
+    <functiondecl functionName="reallymarkobject" lineNumber="69"/>
+    <functiondecl functionName="marktmu" lineNumber="115"/>
+    <functiondecl functionName="luaC_separateudata" lineNumber="128"/>
+    <functiondecl functionName="traversetable" lineNumber="158"/>
+    <functiondecl functionName="traverseproto" lineNumber="203"/>
+    <functiondecl functionName="traverseclosure" lineNumber="224"/>
+    <functiondecl functionName="checkstacksizes" lineNumber="241"/>
+    <functiondecl functionName="traversestack" lineNumber="256"/>
+    <functiondecl functionName="propagatemark" lineNumber="277"/>
+    <functiondecl functionName="propagateall" lineNumber="323"/>
+    <functiondecl functionName="iscleared" lineNumber="337"/>
+    <functiondecl functionName="cleartable" lineNumber="351"/>
+    <functiondecl functionName="freeobj" lineNumber="378"/>
+    <functiondecl functionName="sweeplist" lineNumber="407"/>
+    <functiondecl functionName="checkSizes" lineNumber="431"/>
+    <functiondecl functionName="GCTM" lineNumber="445"/>
+    <functiondecl functionName="luaC_callGCTM" lineNumber="477"/>
+    <functiondecl functionName="luaC_freeall" lineNumber="483"/>
+    <functiondecl functionName="markmt" lineNumber="493"/>
+    <functiondecl functionName="markroot" lineNumber="501"/>
+    <functiondecl functionName="remarkupvals" lineNumber="515"/>
+    <functiondecl functionName="atomic" lineNumber="525"/>
+    <functiondecl functionName="singlestep" lineNumber="556"/>
+    <functiondecl functionName="luaC_step" lineNumber="610"/>
+    <functiondecl functionName="luaC_fullgc" lineNumber="635"/>
+    <functiondecl functionName="luaC_barrierf" lineNumber="661"/>
+    <functiondecl functionName="luaC_barrierback" lineNumber="674"/>
+    <functiondecl functionName="luaC_link" lineNumber="685"/>
+    <functiondecl functionName="luaC_linkupval" lineNumber="694"/>
+    <functiondecl functionName="removeentry" lineNumber="62"/>
+    <functiondecl functionName="reallymarkobject" lineNumber="69"/>
+    <functiondecl functionName="marktmu" lineNumber="115"/>
+    <functiondecl functionName="luaC_separateudata" lineNumber="128"/>
+    <functiondecl functionName="traversetable" lineNumber="158"/>
+    <functiondecl functionName="traverseproto" lineNumber="203"/>
+    <functiondecl functionName="traverseclosure" lineNumber="224"/>
+    <functiondecl functionName="checkstacksizes" lineNumber="241"/>
+    <functiondecl functionName="traversestack" lineNumber="256"/>
+    <functiondecl functionName="propagatemark" lineNumber="277"/>
+    <functiondecl functionName="propagateall" lineNumber="323"/>
+    <functiondecl functionName="iscleared" lineNumber="337"/>
+    <functiondecl functionName="cleartable" lineNumber="351"/>
+    <functiondecl functionName="freeobj" lineNumber="378"/>
+    <functiondecl functionName="sweeplist" lineNumber="407"/>
+    <functiondecl functionName="checkSizes" lineNumber="431"/>
+    <functiondecl functionName="GCTM" lineNumber="445"/>
+    <functiondecl functionName="luaC_callGCTM" lineNumber="477"/>
+    <functiondecl functionName="luaC_freeall" lineNumber="483"/>
+    <functiondecl functionName="markmt" lineNumber="493"/>
+    <functiondecl functionName="markroot" lineNumber="501"/>
+    <functiondecl functionName="remarkupvals" lineNumber="515"/>
+    <functiondecl functionName="atomic" lineNumber="525"/>
+    <functiondecl functionName="singlestep" lineNumber="556"/>
+    <functiondecl functionName="luaC_step" lineNumber="610"/>
+    <functiondecl functionName="luaC_fullgc" lineNumber="635"/>
+    <functiondecl functionName="luaC_barrierf" lineNumber="661"/>
+    <functiondecl functionName="luaC_barrierback" lineNumber="674"/>
+    <functiondecl functionName="luaC_link" lineNumber="685"/>
+    <functiondecl functionName="luaC_linkupval" lineNumber="694"/>
+    <functiondecl functionName="removeentry" lineNumber="62"/>
+    <functiondecl functionName="reallymarkobject" lineNumber="69"/>
+    <functiondecl functionName="marktmu" lineNumber="115"/>
+    <functiondecl functionName="luaC_separateudata" lineNumber="128"/>
+    <functiondecl functionName="traversetable" lineNumber="158"/>
+    <functiondecl functionName="traverseproto" lineNumber="203"/>
+    <functiondecl functionName="traverseclosure" lineNumber="224"/>
+    <functiondecl functionName="checkstacksizes" lineNumber="241"/>
+    <functiondecl functionName="traversestack" lineNumber="256"/>
+    <functiondecl functionName="propagatemark" lineNumber="277"/>
+    <functiondecl functionName="propagateall" lineNumber="323"/>
+    <functiondecl functionName="iscleared" lineNumber="337"/>
+    <functiondecl functionName="cleartable" lineNumber="351"/>
+    <functiondecl functionName="freeobj" lineNumber="378"/>
+    <functiondecl functionName="sweeplist" lineNumber="407"/>
+    <functiondecl functionName="checkSizes" lineNumber="431"/>
+    <functiondecl functionName="GCTM" lineNumber="445"/>
+    <functiondecl functionName="luaC_callGCTM" lineNumber="477"/>
+    <functiondecl functionName="luaC_freeall" lineNumber="483"/>
+    <functiondecl functionName="markmt" lineNumber="493"/>
+    <functiondecl functionName="markroot" lineNumber="501"/>
+    <functiondecl functionName="remarkupvals" lineNumber="515"/>
+    <functiondecl functionName="atomic" lineNumber="525"/>
+    <functiondecl functionName="singlestep" lineNumber="556"/>
+    <functiondecl functionName="luaC_step" lineNumber="610"/>
+    <functiondecl functionName="luaC_fullgc" lineNumber="635"/>
+    <functiondecl functionName="luaC_barrierf" lineNumber="661"/>
+    <functiondecl functionName="luaC_barrierback" lineNumber="674"/>
+    <functiondecl functionName="luaC_link" lineNumber="685"/>
+    <functiondecl functionName="luaC_linkupval" lineNumber="694"/>
+    <functioncall functionName="GCTM"/>
+    <functioncall functionName="GCthreshold"/>
+    <functioncall functionName="L"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="TM_ADD"/>
+    <functioncall functionName="TM_CALL"/>
+    <functioncall functionName="TM_CONCAT"/>
+    <functioncall functionName="TM_DIV"/>
+    <functioncall functionName="TM_EQ"/>
+    <functioncall functionName="TM_GC"/>
+    <functioncall functionName="TM_INDEX"/>
+    <functioncall functionName="TM_LE"/>
+    <functioncall functionName="TM_LEN"/>
+    <functioncall functionName="TM_LT"/>
+    <functioncall functionName="TM_MOD"/>
+    <functioncall functionName="TM_MODE"/>
+    <functioncall functionName="TM_MUL"/>
+    <functioncall functionName="TM_N"/>
+    <functioncall functionName="TM_NEWINDEX"/>
+    <functioncall functionName="TM_POW"/>
+    <functioncall functionName="TM_SUB"/>
+    <functioncall functionName="TM_UNM"/>
+    <functioncall functionName="allowhook"/>
+    <functioncall functionName="atomic"/>
+    <functioncall functionName="base_ci"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buff"/>
+    <functioncall functionName="buffer"/>
+    <functioncall functionName="buffsize"/>
+    <functioncall functionName="case"/>
+    <functioncall functionName="cast"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="checkSizes"/>
+    <functioncall functionName="checkstacksizes"/>
+    <functioncall functionName="ci"/>
+    <functioncall functionName="cl"/>
+    <functioncall functionName="cleartable"/>
+    <functioncall functionName="curr"/>
+    <functioncall functionName="deadmask"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="env"/>
+    <functioncall functionName="estimate"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="freeobj"/>
+    <functioncall functionName="g"/>
+    <functioncall functionName="gc"/>
+    <functioncall functionName="gclist"/>
+    <functioncall functionName="gcpause"/>
+    <functioncall functionName="gcstate"/>
+    <functioncall functionName="gcstepmul"/>
+    <functioncall functionName="gray"/>
+    <functioncall functionName="grayagain"/>
+    <functioncall functionName="h"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="i_val"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="isC"/>
+    <functioncall functionName="iscleared"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="l_G"/>
+    <functioncall functionName="l_gt"/>
+    <functioncall functionName="l_registry"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="lim"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lsizenode"/>
+    <functioncall functionName="luaC_barrierf"/>
+    <functioncall functionName="luaC_separateudata"/>
+    <functioncall functionName="luaD_call"/>
+    <functioncall functionName="luaD_reallocCI"/>
+    <functioncall functionName="luaD_reallocstack"/>
+    <functioncall functionName="luaE_freethread"/>
+    <functioncall functionName="luaF_freeclosure"/>
+    <functioncall functionName="luaF_freeproto"/>
+    <functioncall functionName="luaF_freeupval"/>
+    <functioncall functionName="luaH_free"/>
+    <functioncall functionName="luaM_realloc_"/>
+    <functioncall functionName="luaM_toobig"/>
+    <functioncall functionName="luaS_resize"/>
+    <functioncall functionName="luaT_gettm"/>
+    <functioncall functionName="lua_State"/>
+    <functioncall functionName="lua_atpanic"/>
+    <functioncall functionName="lua_call"/>
+    <functioncall functionName="lua_checkstack"/>
+    <functioncall functionName="lua_close"/>
+    <functioncall functionName="lua_concat"/>
+    <functioncall functionName="lua_cpcall"/>
+    <functioncall functionName="lua_createtable"/>
+    <functioncall functionName="lua_dump"/>
+    <functioncall functionName="lua_equal"/>
+    <functioncall functionName="lua_error"/>
+    <functioncall functionName="lua_gc"/>
+    <functioncall functionName="lua_getallocf"/>
+    <functioncall functionName="lua_getfenv"/>
+    <functioncall functionName="lua_getfield"/>
+    <functioncall functionName="lua_getmetatable"/>
+    <functioncall functionName="lua_gettable"/>
+    <functioncall functionName="lua_gettop"/>
+    <functioncall functionName="lua_insert"/>
+    <functioncall functionName="lua_iscfunction"/>
+    <functioncall functionName="lua_isnumber"/>
+    <functioncall functionName="lua_isstring"/>
+    <functioncall functionName="lua_isuserdata"/>
+    <functioncall functionName="lua_lessthan"/>
+    <functioncall functionName="lua_load"/>
+    <functioncall functionName="lua_next"/>
+    <functioncall functionName="lua_objlen"/>
+    <functioncall functionName="lua_pcall"/>
+    <functioncall functionName="lua_pushboolean"/>
+    <functioncall functionName="lua_pushcclosure"/>
+    <functioncall functionName="lua_pushinteger"/>
+    <functioncall functionName="lua_pushlightuserdata"/>
+    <functioncall functionName="lua_pushlstring"/>
+    <functioncall functionName="lua_pushnil"/>
+    <functioncall functionName="lua_pushnumber"/>
+    <functioncall functionName="lua_pushstring"/>
+    <functioncall functionName="lua_pushthread"/>
+    <functioncall functionName="lua_pushvalue"/>
+    <functioncall functionName="lua_rawequal"/>
+    <functioncall functionName="lua_rawget"/>
+    <functioncall functionName="lua_rawgeti"/>
+    <functioncall functionName="lua_rawset"/>
+    <functioncall functionName="lua_rawseti"/>
+    <functioncall functionName="lua_remove"/>
+    <functioncall functionName="lua_replace"/>
+    <functioncall functionName="lua_resume"/>
+    <functioncall functionName="lua_setfenv"/>
+    <functioncall functionName="lua_setfield"/>
+    <functioncall functionName="lua_setmetatable"/>
+    <functioncall functionName="lua_settable"/>
+    <functioncall functionName="lua_settop"/>
+    <functioncall functionName="lua_status"/>
+    <functioncall functionName="lua_toboolean"/>
+    <functioncall functionName="lua_tocfunction"/>
+    <functioncall functionName="lua_tointeger"/>
+    <functioncall functionName="lua_tonumber"/>
+    <functioncall functionName="lua_type"/>
+    <functioncall functionName="lua_xmove"/>
+    <functioncall functionName="lua_yield"/>
+    <functioncall functionName="mainthread"/>
+    <functioncall functionName="marked"/>
+    <functioncall functionName="markmt"/>
+    <functioncall functionName="markroot"/>
+    <functioncall functionName="marktmu"/>
+    <functioncall functionName="metatable"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="mt"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="newsize"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nk"/>
+    <functioncall functionName="nupvalues"/>
+    <functioncall functionName="o"/>
+    <functioncall functionName="oldah"/>
+    <functioncall functionName="oldt"/>
+    <functioncall functionName="openupval"/>
+    <functioncall functionName="p"/>
+    <functioncall functionName="propagateall"/>
+    <functioncall functionName="propagatemark"/>
+    <functioncall functionName="reallymarkobject"/>
+    <functioncall functionName="remarkupvals"/>
+    <functioncall functionName="removeentry"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rootgc"/>
+    <functioncall functionName="s_used"/>
+    <functioncall functionName="singlestep"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="size_ci"/>
+    <functioncall functionName="sizearray"/>
+    <functioncall functionName="sizek"/>
+    <functioncall functionName="sizelocvars"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sizep"/>
+    <functioncall functionName="sizeupvalues"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="stack"/>
+    <functioncall functionName="stacksize"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="sweepgc"/>
+    <functioncall functionName="sweeplist"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="th"/>
+    <functioncall functionName="tm"/>
+    <functioncall functionName="tmudata"/>
+    <functioncall functionName="top"/>
+    <functioncall functionName="totalbytes"/>
+    <functioncall functionName="traverseclosure"/>
+    <functioncall functionName="traverseproto"/>
+    <functioncall functionName="traversestack"/>
+    <functioncall functionName="traversetable"/>
+    <functioncall functionName="ts"/>
+    <functioncall functionName="tsv"/>
+    <functioncall functionName="tt"/>
+    <functioncall functionName="tvk"/>
+    <functioncall functionName="u"/>
+    <functioncall functionName="udata"/>
+    <functioncall functionName="udsize"/>
+    <functioncall functionName="uv"/>
+    <functioncall functionName="uvhead"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="varname"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="weak"/>
+    <functioncall functionName="weakkey"/>
+    <functioncall functionName="weakvalue"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

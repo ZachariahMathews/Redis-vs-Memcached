@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1454358236">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="TEST_BEGIN" lineNumber="3"/>
+    <functiondecl functionName="main" lineNumber="29"/>
+    <functioncall functionName="LG_PAGE"/>
+    <functioncall functionName="MALLOCX_LG_ALIGN"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="arena_slab_regind"/>
+    <functioncall functionName="assert_ptr_not_null"/>
+    <functioncall functionName="assert_zu_eq"/>
+    <functioncall functionName="binind"/>
+    <functioncall functionName="extent_addr_get"/>
+    <functioncall functionName="extent_init"/>
+    <functioncall functionName="extent_state_active"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="mallocx"/>
+    <functioncall functionName="nregs"/>
+    <functioncall functionName="reg"/>
+    <functioncall functionName="reg_size"/>
+    <functioncall functionName="regind"/>
+    <functioncall functionName="slab"/>
+    <functioncall functionName="slab_size"/>
+    <functioncall functionName="test"/>
+    <functioncall functionName="test_arena_slab_regind"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,628 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="873542819">
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686">
+            <location file0="C:\Users\bharm\Downloads\memcached-master\thread.c" file="C:\Users\bharm\Downloads\memcached-master\thread.c" line="770"/>
+        </error>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+    <ArraySize array="my_sasl_hostname" size="1025"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <ArraySize array="lru_locks" size="256"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functiondecl functionName="item_lock" lineNumber="98"/>
+    <functiondecl functionName="item_trylock" lineNumber="102"/>
+    <functiondecl functionName="item_trylock_unlock" lineNumber="110"/>
+    <functiondecl functionName="item_unlock" lineNumber="114"/>
+    <functiondecl functionName="wait_for_thread_registration" lineNumber="118"/>
+    <functiondecl functionName="register_thread_initialized" lineNumber="124"/>
+    <functiondecl functionName="pause_threads" lineNumber="135"/>
+    <functiondecl functionName="cq_init" lineNumber="190"/>
+    <functiondecl functionName="cq_pop" lineNumber="201"/>
+    <functiondecl functionName="cq_push" lineNumber="219"/>
+    <functiondecl functionName="cqi_new" lineNumber="234"/>
+    <functiondecl functionName="cqi_free" lineNumber="276"/>
+    <functiondecl functionName="create_worker" lineNumber="287"/>
+    <functiondecl functionName="accept_new_conns" lineNumber="303"/>
+    <functiondecl functionName="setup_thread" lineNumber="313"/>
+    <functiondecl functionName="worker_libevent" lineNumber="369"/>
+    <functiondecl functionName="thread_libevent_process" lineNumber="398"/>
+    <functiondecl functionName="dispatch_conn_new" lineNumber="469"/>
+    <functiondecl functionName="redispatch_conn" lineNumber="506"/>
+    <functiondecl functionName="sidethread_conn_close" lineNumber="530"/>
+    <functiondecl functionName="item_alloc" lineNumber="548"/>
+    <functiondecl functionName="item_get" lineNumber="559"/>
+    <functiondecl functionName="item_touch" lineNumber="569"/>
+    <functiondecl functionName="item_link" lineNumber="582"/>
+    <functiondecl functionName="item_remove" lineNumber="597"/>
+    <functiondecl functionName="item_replace" lineNumber="611"/>
+    <functiondecl functionName="item_unlink" lineNumber="618"/>
+    <functiondecl functionName="add_delta" lineNumber="629"/>
+    <functiondecl functionName="store_item" lineNumber="646"/>
+    <functiondecl functionName="STATS_LOCK" lineNumber="659"/>
+    <functiondecl functionName="STATS_UNLOCK" lineNumber="663"/>
+    <functiondecl functionName="threadlocal_stats_reset" lineNumber="667"/>
+    <functiondecl functionName="threadlocal_stats_aggregate" lineNumber="687"/>
+    <functiondecl functionName="slab_stats_aggregate" lineNumber="721"/>
+    <functiondecl functionName="memcached_thread_init" lineNumber="738"/>
+    <functioncall functionName="CRAWLER_BADCLASS"/>
+    <functioncall functionName="CRAWLER_ERROR"/>
+    <functioncall functionName="CRAWLER_EXPIRED"/>
+    <functioncall functionName="CRAWLER_METADUMP"/>
+    <functioncall functionName="CRAWLER_NOTSTARTED"/>
+    <functioncall functionName="CRAWLER_RUNNING"/>
+    <functioncall functionName="DELTA_ITEM_CAS_MISMATCH"/>
+    <functioncall functionName="DELTA_ITEM_NOT_FOUND"/>
+    <functioncall functionName="EOM"/>
+    <functioncall functionName="EV_PERSIST"/>
+    <functioncall functionName="EXISTS"/>
+    <functioncall functionName="EXIT_FAILURE"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_BUCKETS"/>
+    <functioncall functionName="EXTSTORE_INIT_NEED_MORE_WBUF"/>
+    <functioncall functionName="EXTSTORE_INIT_OOM"/>
+    <functioncall functionName="EXTSTORE_INIT_OPEN_FAIL"/>
+    <functioncall functionName="EXTSTORE_INIT_PAGE_WBUF_ALIGNMENT"/>
+    <functioncall functionName="EXTSTORE_INIT_THREAD_FAIL"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_FAILED"/>
+    <functioncall functionName="LOGGER_ADD_WATCHER_OK"/>
+    <functioncall functionName="LOGGER_COMPACT_ABORT"/>
+    <functioncall functionName="LOGGER_COMPACT_END"/>
+    <functioncall functionName="LOGGER_COMPACT_FRAGINFO"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_END"/>
+    <functioncall functionName="LOGGER_COMPACT_READ_START"/>
+    <functioncall functionName="LOGGER_COMPACT_START"/>
+    <functioncall functionName="LOGGER_CRAWLER_STATUS"/>
+    <functioncall functionName="LOGGER_EVICTION"/>
+    <functioncall functionName="LOGGER_EVICTION_ENTRY"/>
+    <functioncall functionName="LOGGER_EXTSTORE_WRITE"/>
+    <functioncall functionName="LOGGER_EXT_WRITE_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_GET"/>
+    <functioncall functionName="LOGGER_ITEM_GET_ENTRY"/>
+    <functioncall functionName="LOGGER_ITEM_STORE"/>
+    <functioncall functionName="LOGGER_ITEM_STORE_ENTRY"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FAILED"/>
+    <functioncall functionName="LOGGER_PARSE_ENTRY_FULLBUF"/>
+    <functioncall functionName="LOGGER_RET_ERR"/>
+    <functioncall functionName="LOGGER_RET_NOSPACE"/>
+    <functioncall functionName="LOGGER_SLAB_MOVE"/>
+    <functioncall functionName="MEMCACHED_CONN_DISPATCH"/>
+    <functioncall functionName="MURMUR3_HASH"/>
+    <functioncall functionName="NON_NUMERIC"/>
+    <functioncall functionName="NOT_FOUND"/>
+    <functioncall functionName="NO_MEMORY"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="OBJ_IO_WRITE"/>
+    <functioncall functionName="OK"/>
+    <functioncall functionName="PAUSE_ALL_THREADS"/>
+    <functioncall functionName="PTHREAD_MUTEX_INITIALIZER"/>
+    <functioncall functionName="REASSIGN_BADCLASS"/>
+    <functioncall functionName="REASSIGN_NOSPARE"/>
+    <functioncall functionName="REASSIGN_RUNNING"/>
+    <functioncall functionName="REASSIGN_SRC_DST_SAME"/>
+    <functioncall functionName="RESUME_ALL_THREADS"/>
+    <functioncall functionName="RESUME_WORKER_THREADS"/>
+    <functioncall functionName="STATS_LOCK"/>
+    <functioncall functionName="STATS_UNLOCK"/>
+    <functioncall functionName="STORED"/>
+    <functioncall functionName="TOO_LARGE"/>
+    <functioncall functionName="abort"/>
+    <functioncall functionName="arg"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="attr"/>
+    <functioncall functionName="auth_cmds"/>
+    <functioncall functionName="auth_errors"/>
+    <functioncall functionName="badcrc_from_extstore"/>
+    <functioncall functionName="base"/>
+    <functioncall functionName="bin_no_state"/>
+    <functioncall functionName="bin_read_flush_exptime"/>
+    <functioncall functionName="bin_read_set_value"/>
+    <functioncall functionName="bin_reading_cas_header"/>
+    <functioncall functionName="bin_reading_del_header"/>
+    <functioncall functionName="bin_reading_get_key"/>
+    <functioncall functionName="bin_reading_incr_header"/>
+    <functioncall functionName="bin_reading_sasl_auth"/>
+    <functioncall functionName="bin_reading_sasl_auth_data"/>
+    <functioncall functionName="bin_reading_set_header"/>
+    <functioncall functionName="bin_reading_stat"/>
+    <functioncall functionName="bin_reading_touch_key"/>
+    <functioncall functionName="binary_prot"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buf"/>
+    <functioncall functionName="bytes_read"/>
+    <functioncall functionName="bytes_written"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="cache_create"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="cas"/>
+    <functioncall functionName="cas_badval"/>
+    <functioncall functionName="cas_hits"/>
+    <functioncall functionName="cas_misses"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="comm"/>
+    <functioncall functionName="conn_close_idle"/>
+    <functioncall functionName="conn_closed"/>
+    <functioncall functionName="conn_closing"/>
+    <functioncall functionName="conn_listening"/>
+    <functioncall functionName="conn_lock"/>
+    <functioncall functionName="conn_max_state"/>
+    <functioncall functionName="conn_mwrite"/>
+    <functioncall functionName="conn_new"/>
+    <functioncall functionName="conn_new_cmd"/>
+    <functioncall functionName="conn_nread"/>
+    <functioncall functionName="conn_parse_cmd"/>
+    <functioncall functionName="conn_read"/>
+    <functioncall functionName="conn_swallow"/>
+    <functioncall functionName="conn_waiting"/>
+    <functioncall functionName="conn_watch"/>
+    <functioncall functionName="conn_worker_readd"/>
+    <functioncall functionName="conn_write"/>
+    <functioncall functionName="conn_yields"/>
+    <functioncall functionName="cq_init"/>
+    <functioncall functionName="cq_pop"/>
+    <functioncall functionName="cq_push"/>
+    <functioncall functionName="cqi_free"/>
+    <functioncall functionName="cqi_freelist"/>
+    <functioncall functionName="cqi_freelist_lock"/>
+    <functioncall functionName="cqi_new"/>
+    <functioncall functionName="create_worker"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="decr_hits"/>
+    <functioncall functionName="decr_misses"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delete_hits"/>
+    <functioncall functionName="delete_misses"/>
+    <functioncall functionName="delta"/>
+    <functioncall functionName="do_accept"/>
+    <functioncall functionName="do_accept_new_conns"/>
+    <functioncall functionName="do_add_delta"/>
+    <functioncall functionName="do_item_alloc"/>
+    <functioncall functionName="do_item_get"/>
+    <functioncall functionName="do_item_link"/>
+    <functioncall functionName="do_item_remove"/>
+    <functioncall functionName="do_item_replace"/>
+    <functioncall functionName="do_item_touch"/>
+    <functioncall functionName="do_item_unlink"/>
+    <functioncall functionName="do_store_item"/>
+    <functioncall functionName="do_update"/>
+    <functioncall functionName="drop_privileges"/>
+    <functioncall functionName="drop_worker_privileges"/>
+    <functioncall functionName="event_add"/>
+    <functioncall functionName="event_base_free"/>
+    <functioncall functionName="event_base_loop"/>
+    <functioncall functionName="event_base_set"/>
+    <functioncall functionName="event_flags"/>
+    <functioncall functionName="event_init"/>
+    <functioncall functionName="event_set"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="exptime"/>
+    <functioncall functionName="fd"/>
+    <functioncall functionName="fds"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="flush_cmds"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fprintf"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="get_aborted_extstore"/>
+    <functioncall functionName="get_cmds"/>
+    <functioncall functionName="get_expired"/>
+    <functioncall functionName="get_extstore"/>
+    <functioncall functionName="get_flushed"/>
+    <functioncall functionName="get_hits"/>
+    <functioncall functionName="get_misses"/>
+    <functioncall functionName="get_oom_extstore"/>
+    <functioncall functionName="hash"/>
+    <functioncall functionName="hashpower"/>
+    <functioncall functionName="head"/>
+    <functioncall functionName="hv"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="idle_kicks"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="ii"/>
+    <functioncall functionName="incr"/>
+    <functioncall functionName="incr_hits"/>
+    <functioncall functionName="incr_misses"/>
+    <functioncall functionName="init_cond"/>
+    <functioncall functionName="init_lock"/>
+    <functioncall functionName="init_state"/>
+    <functioncall functionName="item"/>
+    <functioncall functionName="item_lock"/>
+    <functioncall functionName="item_lock_count"/>
+    <functioncall functionName="item_lock_hashpower"/>
+    <functioncall functionName="item_locks"/>
+    <functioncall functionName="item_lru_bump_buf_create"/>
+    <functioncall functionName="item_unlock"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="local_transport"/>
+    <functioncall functionName="lock"/>
+    <functioncall functionName="logger_create"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="lru_crawler_pause"/>
+    <functioncall functionName="lru_crawler_resume"/>
+    <functioncall functionName="lru_hits"/>
+    <functioncall functionName="lru_maintainer_pause"/>
+    <functioncall functionName="lru_maintainer_resume"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="me"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="miss_from_extstore"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="mutex"/>
+    <functioncall functionName="nbytes"/>
+    <functioncall functionName="negotiating_prot"/>
+    <functioncall functionName="new_conn_queue"/>
+    <functioncall functionName="new_it"/>
+    <functioncall functionName="next"/>
+    <functioncall functionName="nkey"/>
+    <functioncall functionName="notify_event"/>
+    <functioncall functionName="notify_receive_fd"/>
+    <functioncall functionName="notify_send_fd"/>
+    <functioncall functionName="nthreads"/>
+    <functioncall functionName="num_threads"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="old_it"/>
+    <functioncall functionName="out"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pipe"/>
+    <functioncall functionName="power"/>
+    <functioncall functionName="pthread_attr_init"/>
+    <functioncall functionName="pthread_cond_init"/>
+    <functioncall functionName="pthread_cond_signal"/>
+    <functioncall functionName="pthread_cond_wait"/>
+    <functioncall functionName="pthread_create"/>
+    <functioncall functionName="pthread_mutex_init"/>
+    <functioncall functionName="pthread_mutex_lock"/>
+    <functioncall functionName="pthread_mutex_t"/>
+    <functioncall functionName="pthread_mutex_trylock"/>
+    <functioncall functionName="pthread_mutex_unlock"/>
+    <functioncall functionName="queue_new_conn"/>
+    <functioncall functionName="queue_redispatch"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="read_buffer_size"/>
+    <functioncall functionName="recache_from_extstore"/>
+    <functioncall functionName="register_thread_initialized"/>
+    <functioncall functionName="remain"/>
+    <functioncall functionName="ret"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="set_cmds"/>
+    <functioncall functionName="setup_thread"/>
+    <functioncall functionName="sfd"/>
+    <functioncall functionName="sid"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="slab_stats"/>
+    <functioncall functionName="slabs_rebalancer_pause"/>
+    <functioncall functionName="slabs_rebalancer_resume"/>
+    <functioncall functionName="stats"/>
+    <functioncall functionName="stats_lock"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="storage_compact_pause"/>
+    <functioncall functionName="storage_compact_resume"/>
+    <functioncall functionName="storage_write_pause"/>
+    <functioncall functionName="storage_write_resume"/>
+    <functioncall functionName="strerror"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tail"/>
+    <functioncall functionName="tcp_transport"/>
+    <functioncall functionName="thread"/>
+    <functioncall functionName="thread_id"/>
+    <functioncall functionName="thread_libevent_process"/>
+    <functioncall functionName="threads"/>
+    <functioncall functionName="tid"/>
+    <functioncall functionName="timeout_fd"/>
+    <functioncall functionName="touch_cmds"/>
+    <functioncall functionName="touch_hits"/>
+    <functioncall functionName="touch_misses"/>
+    <functioncall functionName="transport"/>
+    <functioncall functionName="type"/>
+    <functioncall functionName="udp_transport"/>
+    <functioncall functionName="uint64_t"/>
+    <functioncall functionName="umem_cache_create"/>
+    <functioncall functionName="verbose"/>
+    <functioncall functionName="wait_for_thread_registration"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="worker_hang_lock"/>
+    <functioncall functionName="worker_libevent"/>
+    <functioncall functionName="write"/>
+  </FileInfo>
+</analyzerinfo>
